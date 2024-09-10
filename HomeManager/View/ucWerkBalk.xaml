@@ -1,0 +1,42 @@
+﻿<UserControl x:Class="HomeManager.View.ucWerkBalk"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:HomeManager.View"
+             mc:Ignorable="d" 
+             Background="{StaticResource myTitleBar}"
+             d:DesignHeight="30" d:DesignWidth="200">
+    <StackPanel Orientation="Horizontal"
+                HorizontalAlignment="Right">
+        <Button
+            Command="{Binding cmdNew}"
+            CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}"
+            Style="{StaticResource AddImage}"
+            Height="15"
+            Width="15"
+            ToolTip="New" />
+        <Button
+            Command="{Binding cmdSave}"
+            CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}"
+            Style="{StaticResource SaveImage}"
+            ToolTip="Save" />
+        <Button
+            Command="{Binding cmdDelete}"
+            CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}"
+            Style="{StaticResource DeleteImage}"
+            ToolTip="Delete" />
+        <Button
+            Command="{Binding cmdCancel}"
+            CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}"
+            Style="{StaticResource CancelImage}"
+            ToolTip="Cancel" /> 
+
+
+        <Button
+            Command="{Binding cmdClose}"
+            CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}"
+            Style="{StaticResource CloseImage}"
+            ToolTip="Exit" />
+    </StackPanel>
+</UserControl>

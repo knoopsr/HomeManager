@@ -1,0 +1,78 @@
+﻿<UserControl
+    x:Class="HomeManager.View.Personen.ucPersonItem"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:HomeManager.View.Personen"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    d:DesignHeight="100"
+    d:DesignWidth="150"
+    MinHeight="100"
+    MinWidth="150"
+    mc:Ignorable="d">
+    <UserControl.Resources>
+        <DropShadowEffect
+            x:Key="shadowEffect"
+            BlurRadius="10"
+            Opacity="0.5"
+            ShadowDepth="5"
+            Color="Black" />
+    </UserControl.Resources>
+
+    <Border
+        Background="LightGray"
+        BorderBrush="Blue"
+        BorderThickness="1"
+        CornerRadius="4">
+        <Grid>
+            <Border
+                Width="70"
+                Height="94"
+                Margin="3,0,0,0"
+                HorizontalAlignment="Left"
+                BorderBrush="Yellow"
+                BorderThickness="1"
+                CornerRadius="3"
+                Effect="{DynamicResource shadowEffect}">
+                <Border.Background>
+                    <ImageBrush ImageSource="C:\Users\qarkn1s\Downloads\person1.jpg" Stretch="UniformToFill" />
+                </Border.Background>
+            </Border>
+
+            <StackPanel
+                Width="70"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Bottom"
+                Orientation="Vertical">
+                <TextBlock
+                    FontSize="12"
+                    FontWeight="Bold"
+                    Foreground="Black"
+                    Text="Peter" />
+                <TextBlock
+                    FontSize="10"
+                    Foreground="Black"
+                    Text="Ceulemans" />
+                <TextBlock
+                    FontSize="8"
+                    Foreground="Black"
+                    Text="03.11.2000" />
+            </StackPanel>
+
+            <StackPanel
+                Margin="3"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Top"
+                Orientation="Horizontal">
+                <Button Style="{StaticResource AddPersonImage}" ToolTip="Edit" />
+                <Button Style="{StaticResource EditPersonImage}" ToolTip="Edit" />
+                <Button Style="{StaticResource DeletePersonImage}" ToolTip="Delete" />
+
+            </StackPanel>
+
+
+
+
+        </Grid>
+    </Border>
+</UserControl>
