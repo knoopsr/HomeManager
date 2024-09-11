@@ -28,4 +28,14 @@
     </Resource>
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Messages\" />
+    <Folder Include="Extensions\" />
+    <Folder Include="Converter\" />
+    <Folder Include="Behaviors\" />
+    <Folder Include="Services\" />
+    <Folder Include="Utilities\" />
+    <Folder Include="ViewModel\" />
+  </ItemGroup>
+
 </Project>
