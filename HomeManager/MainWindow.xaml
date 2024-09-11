@@ -51,7 +51,7 @@
             <ColumnDefinition Width="auto" />
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
-      
+
         <ToggleButton
             x:Name="btnMenu"
             Grid.Column="0"
@@ -90,18 +90,22 @@
 
             <Grid>
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="30" />
                     <RowDefinition Height="*" />
                     <RowDefinition Height="20" />
                 </Grid.RowDefinitions>
                 <Path
-                        Width="30"
-                        Height="30"
-                        Margin="0,5,0,0"
-                        HorizontalAlignment="Center"      
-                        Data="{StaticResource myPathHouse}"
-                        Fill="White" />
-                <StackPanel Width="auto" Orientation="Vertical" Grid.Row="1" Margin="0,5,0,0">
+                    Width="30"
+                    Height="30"
+                    Margin="0,5,0,0"
+                    HorizontalAlignment="Center"
+                    Data="{StaticResource myPathHouse}"
+                    Fill="White" />
+                <StackPanel
+                    Grid.Row="1"
+                    Width="auto"
+                    Margin="0,5,0,0"
+                    Orientation="Vertical">
 
 
                     <ToggleButton
@@ -110,7 +114,10 @@
                         Style="{StaticResource myMenuPerson}"
                         Unchecked="btnMenuPerson_Unchecked" />
                     <StackPanel x:Name="stckPerson" Visibility="Collapsed">
-                        <Button Content="Persoon" Click="Button_Click" Style="{StaticResource myMenuPersonPersoon}" />
+                        <Button
+                            Click="Button_Click"
+                            Content="Persoon"
+                            Style="{StaticResource myMenuPersonPersoon}" />
                         <Button Content="EmailType" Style="{StaticResource myMenuTandwiel}" />
                         <Button Content="TelefoonType" Style="{StaticResource myMenuTandwiel}" />
                         <Button Content="Land" Style="{StaticResource myMenuTandwiel}" />
@@ -120,24 +127,36 @@
                     </StackPanel>
                     <ToggleButton Style="{StaticResource myMenuDagboek}" />
 
-                    <ToggleButton x:Name="btnBudget" Checked="btnBudget_Checked" Unchecked="btnBudget_Unchecked" Style="{StaticResource myMenuBudget}" />
+                    <ToggleButton
+                        x:Name="btnBudget"
+                        Checked="btnBudget_Checked"
+                        Style="{StaticResource myMenuBudget}"
+                        Unchecked="btnBudget_Unchecked" />
                     <StackPanel x:Name="stckBudget" Visibility="Collapsed">
                         <Button Content="Domiciliëring" Style="{StaticResource myMenuTandwiel}" />
                         <Button Content="Begunstigden" Style="{StaticResource myMenuTandwiel}" />
                         <Button Content="Frequentie" Style="{StaticResource myMenuTandwiel}" />
                         <Button Content="Budget Categorie" Style="{StaticResource myMenuTandwiel}" />
                     </StackPanel>
-                    
-                    
-                    <ToggleButton x:Name="btnTodo" Checked="btnTodo_Checked" Unchecked="btnTodo_Unchecked" Style="{StaticResource myMenuTodo}" />
+
+
+                    <ToggleButton
+                        x:Name="btnTodo"
+                        Checked="btnTodo_Checked"
+                        Style="{StaticResource myMenuTodo}"
+                        Unchecked="btnTodo_Unchecked" />
                     <StackPanel x:Name="stckTodo" Visibility="Collapsed">
                         <Button Content="Todo Collectie" Style="{StaticResource myMenuTandwiel}" />
                         <Button Content="Todo Categoriën" Style="{StaticResource myMenuTandwiel}" />
                         <Button Content="Todo Kleuren" Style="{StaticResource myMenuTandwiel}" />
                     </StackPanel>
-                    
-                    
-                    <ToggleButton x:Name="btnSecurity" Checked="btnSecurity_Checked" Unchecked="btnSecurity_Unchecked" Style="{StaticResource myMenuSecurity}" />
+
+
+                    <ToggleButton
+                        x:Name="btnSecurity"
+                        Checked="btnSecurity_Checked"
+                        Style="{StaticResource myMenuSecurity}"
+                        Unchecked="btnSecurity_Unchecked" />
                     <StackPanel x:Name="stckSecurity" Visibility="Collapsed">
                         <Button Content="Account beheren" Style="{StaticResource myMenuTandwiel}" />
                         <Button Content="Wachtwoorden" Style="{StaticResource myMenuTandwiel}" />
@@ -146,9 +165,13 @@
                     </StackPanel>
 
 
-                    
 
-                    <ToggleButton x:Name="btnStickyNotes" Checked="btnStickyNotes_Checked" Unchecked="btnStickyNotes_Unchecked" Style="{StaticResource myMenuStickyNotes}" />
+
+                    <ToggleButton
+                        x:Name="btnStickyNotes"
+                        Checked="btnStickyNotes_Checked"
+                        Style="{StaticResource myMenuStickyNotes}"
+                        Unchecked="btnStickyNotes_Unchecked" />
                     <StackPanel x:Name="stckStickynotes" Visibility="Collapsed">
                         <Button Content="Sticky notes colors" Style="{StaticResource myMenuStickyNote}" />
                     </StackPanel>
