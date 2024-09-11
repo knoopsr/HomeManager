@@ -13,6 +13,10 @@
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
 
+# Connection db
+Connection.settings
+Connection.Designer.cs
+
 # Mono auto generated files
 mono_crash.*
 
