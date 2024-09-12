@@ -24,7 +24,7 @@
             VerticalAlignment="Center">
 
             <Ellipse.Fill>
-                <ImageBrush ImageSource="C:\Users\qarkn1s\Downloads\person1.jpg" Stretch="UniformToFill" />
+                <ImageBrush ImageSource="/Images/person1.jpg" Stretch="UniformToFill" />
             </Ellipse.Fill>
         </Ellipse>
         <Border

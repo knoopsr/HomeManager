@@ -13,6 +13,13 @@
 
     <!--#region  PathGeometry-->
 
+
+    <Geometry x:Key="myCollapsedIconPath">M 0,0 L 10,10 L 0,20 Z</Geometry>
+
+    <Geometry x:Key="myExpandedIconPath">M 0,10 L 10,20 L 20,10 Z</Geometry>
+
+
+
     <PathGeometry x:Key="myPathMenu" Figures="M1.230957,19.693036L30.768982,19.693036C31.506958,19.693036,32,20.185041,32,20.923019L32,22.154038C32,22.893054,31.506958,23.384999,30.768982,23.384999L1.230957,23.384999C0.49194336,23.384999,0,22.893054,0,22.154038L0,20.923019C0,20.185041,0.49194336,19.693036,1.230957,19.693036z M1.230957,9.8470059L30.768982,9.8470059C31.506958,9.8470059,32,10.339011,32,11.076989L32,12.30801C32,13.045987,31.506958,13.53903,30.768982,13.53903L1.230957,13.53903C0.49194336,13.53903,0,13.047025,0,12.30801L0,11.076989C0,10.339011,0.49194336,9.8470059,1.230957,9.8470059z M1.230957,0L30.768982,0C31.506958,-6.3337211E-08,32,0.49298194,32,1.2309594L32,2.4619804C32,3.1999579,31.506958,3.6930011,30.768982,3.6930013L1.230957,3.6930013C0.49194336,3.6930011,0,3.1999579,0,2.4619804L0,1.2309594C0,0.49298194,0.49194336,-6.3337211E-08,1.230957,0z" />
     <PathGeometry x:Key="myPathHouse" Figures="M0,12.400006L8.5,12.400006 8.5,26.599999 0,26.599999z M21.600006,0L32,12.3 32,26.599999 23.5,26.599999 23.5,17.999995 19.100006,17.999995 19.100006,26.599999 10.699982,26.599999 10.699982,12.3z M18.100006,0L9.3999939,9.9000072 0,9.9000072 7.6999817,0.1000061z" />
     <PathGeometry x:Key="myPathPower" Figures="M13.447021,7.8979492L18.553009,7.8979492 18.553009,24.10199 13.447021,24.10199z M16,3.5749512C9.1380005,3.5749512 3.5750122,9.1380005 3.5750122,16 3.5750122,22.862 9.1380005,28.424988 16,28.424988 22.863007,28.424988 28.426025,22.862 28.426025,16 28.426025,9.1380005 22.863007,3.5749512 16,3.5749512z M16,0C24.835999,0 32,7.1640015 32,16 32,24.835999 24.835999,32 16,32 7.1640015,32 0,24.835999 0,16 0,7.1640015 7.1640015,0 16,0z" />
@@ -321,6 +328,8 @@
 
     <!--#region HamburgerMenu Versie 2-->
 
+
+    <!--  Knop HomeManger  -->
     <Style x:Key="myHamburgerMenu" TargetType="ToggleButton">
         <Setter Property="Background" Value="{StaticResource myTitleBar}" />
         <Setter Property="Margin" Value="10,0,0,0" />
@@ -362,18 +371,8 @@
 
 
 
-
-
-    <Geometry x:Key="myCollapsedIconPath">M 0,0 L 10,10 L 0,20 Z</Geometry>
-    <!--  Pijl naar rechts (bijv.)  -->
-    <Geometry x:Key="myExpandedIconPath">M 0,10 L 10,20 L 20,10 Z</Geometry>
-    <!--  Pijl naar beneden (bijv.)  -->
-
-
-
-
-
     <Style x:Key="myHamburgerPersonen" TargetType="Expander">
+        <Setter Property="Margin" Value="0,5,0,5" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="Expander">
@@ -387,378 +386,69 @@
                                 <RowDefinition Height="*" />
                             </Grid.RowDefinitions>
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="20"/>
-                                <ColumnDefinition Width="auto"/>
+                                <ColumnDefinition Width="20" />
+                                <ColumnDefinition Width="auto" />
                             </Grid.ColumnDefinitions>
                             <ToggleButton
                                 x:Name="ExpanderToggleButton"
-                                Grid.Row="0"     
-                                Grid.Column="0"
+                                Grid.Row="0"
                                 Grid.ColumnSpan="2"
-                                HorizontalAlignment="Left"
                                 Background="Transparent"
-                                BorderBrush="Transparent"
+                                BorderThickness="0"
                                 IsChecked="{Binding IsExpanded, RelativeSource={RelativeSource TemplatedParent}}">
-                                <StackPanel Orientation="Horizontal">
-                                    <StackPanel HorizontalAlignment="Left" Orientation="Horizontal">
-                                        <Path
-                                            x:Name="ExpanderIcon"
-                                            Width="8"
-                                            Height="8"
-                                            HorizontalAlignment="Center"
-                                            VerticalAlignment="Center"
-                                            Data="{StaticResource myCollapsedIconPath}"
-                                            Fill="{StaticResource myWerkBalk}"
-                                            Stretch="Uniform" />
-
-                                        <Path
-                                            Grid.Column="1"
-                                            Width="24"
-                                            Height="24"
-                                            Margin="5,0,5,0"
-                                            HorizontalAlignment="Center"
-                                            VerticalAlignment="Center"
-                                            Data="{StaticResource myPathPeople}"
-                                            Fill="{StaticResource myMenuIcon}"
-                                            IsHitTestVisible="False"
-                                            Stretch="Uniform" />
-                                        <TextBlock
-                                            VerticalAlignment="Center"
-                                            Foreground="{StaticResource myWerkBalk}"
-                                            Text="Personen" />
-                                    </StackPanel>
-                                </StackPanel>
+                                <ToggleButton.Template>
+                                    <ControlTemplate TargetType="ToggleButton">
+                                        <StackPanel Orientation="Horizontal">
+                                            <Border Name="ExpanderBorder" Background="Transparent">
+                                                <StackPanel HorizontalAlignment="Left" Orientation="Horizontal">
+                                                    <Path
+                                                        x:Name="ExpanderIcon"
+                                                        Width="8"
+                                                        Height="8"
+                                                        HorizontalAlignment="Center"
+                                                        VerticalAlignment="Center"
+                                                        Data="{StaticResource myCollapsedIconPath}"
+                                                        Fill="{StaticResource myWerkBalk}"
+                                                        Stretch="Uniform" />
+                                                    <Path
+                                                        Width="24"
+                                                        Height="24"
+                                                        Margin="5,0,5,0"
+                                                        HorizontalAlignment="Center"
+                                                        VerticalAlignment="Center"
+                                                        Data="{StaticResource myPathPeople}"
+                                                        Fill="{StaticResource myMenuIcon}"
+                                                        IsHitTestVisible="False"
+                                                        Stretch="Uniform" />
+                                                    <TextBlock
+                                                        VerticalAlignment="Center"
+                                                        Foreground="{StaticResource myWerkBalk}"
+                                                        Text="Personen" />
+                                                </StackPanel>
+                                            </Border>
+                                        </StackPanel>
+                                        <ControlTemplate.Triggers>
+                                            <Trigger Property="IsChecked" Value="True">
+                                                <Setter TargetName="ExpanderIcon" Property="Data" Value="{StaticResource myExpandedIconPath}" />
+                                                <Setter TargetName="ExpanderIcon" Property="Fill" Value="{StaticResource myMenuIcon}" />
+                                            </Trigger>
+                                            <Trigger Property="IsMouseOver" Value="True">
+                                                <Setter TargetName="ExpanderBorder" Property="Background" Value="LightBlue" />
+                                            </Trigger>
+                                        </ControlTemplate.Triggers>
+                                    </ControlTemplate>
+                                </ToggleButton.Template>
                             </ToggleButton>
-
                             <ContentPresenter
                                 x:Name="ExpanderContent"
                                 Grid.Row="1"
-                                Grid.Column="1"
-                                Visibility="Collapsed" />
-                        </Grid>
-                    </Border>               
-                    <ControlTemplate.Triggers>
-                        <Trigger Property="IsExpanded" Value="True">
-                            <Setter TargetName="ExpanderContent" Property="Visibility" Value="Visible" />
-                            <Setter TargetName="ExpanderIcon" Property="Data" Value="{StaticResource myExpandedIconPath}" />
-                            <Setter TargetName="ExpanderIcon" Property="Fill" Value="{StaticResource myMenuIcon}" />
-                            <Setter TargetName="ExpanderToggleButton" Property="Background" Value="Transparent" />
-                            <Setter Property="Background" Value="Transparent" />              
-                        </Trigger>
-                    </ControlTemplate.Triggers>
-                </ControlTemplate>
-            </Setter.Value>
-        </Setter>
-    </Style>
-
-
-
-
-    <Style x:Key="myHamburgerBudget" TargetType="Expander">
-        <Setter Property="Template">
-            <Setter.Value>
-                <ControlTemplate TargetType="Expander">
-                    <Border
-                        Background="Transparent"
-                        BorderBrush="{TemplateBinding BorderBrush}"
-                        BorderThickness="{TemplateBinding BorderThickness}">
-                        <Grid>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="*" />
-                            </Grid.RowDefinitions>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="20"/>
-                                <ColumnDefinition Width="auto"/>
-                            </Grid.ColumnDefinitions>
-                            <ToggleButton
-                                x:Name="ExpanderToggleButton"
-                                Grid.Row="0"     
-                                Grid.Column="0"
                                 Grid.ColumnSpan="2"
-                                HorizontalAlignment="Left"
-                                Background="Transparent"
-                                BorderBrush="Transparent"
-                                IsChecked="{Binding IsExpanded, RelativeSource={RelativeSource TemplatedParent}}">
-                                <StackPanel Orientation="Horizontal">
-                                    <StackPanel HorizontalAlignment="Left" Orientation="Horizontal">
-                                        <Path
-                                            x:Name="ExpanderIcon"
-                                            Width="8"
-                                            Height="8"
-                                            HorizontalAlignment="Center"
-                                            VerticalAlignment="Center"
-                                            Data="{StaticResource myCollapsedIconPath}"
-                                            Fill="{StaticResource myWerkBalk}"
-                                            Stretch="Uniform" />
-
-                                        <Path
-                                            Grid.Column="1"
-                                            Width="24"
-                                            Height="24"
-                                            Margin="5,0,5,0"
-                                            HorizontalAlignment="Center"
-                                            VerticalAlignment="Center"
-                                            Data="{StaticResource myPathEuro}"
-                                            Fill="{StaticResource myMenuIcon}"
-                                            IsHitTestVisible="False"
-                                            Stretch="Uniform" />
-                                        <TextBlock
-                                            VerticalAlignment="Center"
-                                            Foreground="{StaticResource myWerkBalk}"
-                                            Text="Budget" />
-                                    </StackPanel>
-                                </StackPanel>
-                            </ToggleButton>
-
-                            <ContentPresenter
-                                x:Name="ExpanderContent"
-                                Grid.Row="1"
-                                Grid.Column="1"
                                 Visibility="Collapsed" />
                         </Grid>
                     </Border>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsExpanded" Value="True">
                             <Setter TargetName="ExpanderContent" Property="Visibility" Value="Visible" />
-                            <Setter TargetName="ExpanderIcon" Property="Data" Value="{StaticResource myExpandedIconPath}" />
-                            <Setter TargetName="ExpanderIcon" Property="Fill" Value="{StaticResource myMenuIcon}" />
-                            <Setter TargetName="ExpanderToggleButton" Property="Background" Value="Transparent" />
-                            <Setter Property="Background" Value="Transparent" />
-                        </Trigger>
-                    </ControlTemplate.Triggers>
-                </ControlTemplate>
-            </Setter.Value>
-        </Setter>
-    </Style>
-
-    <Style x:Key="myHamburgerTodo" TargetType="Expander">
-        <Setter Property="Template">
-            <Setter.Value>
-                <ControlTemplate TargetType="Expander">
-                    <Border
-                        Background="Transparent"
-                        BorderBrush="{TemplateBinding BorderBrush}"
-                        BorderThickness="{TemplateBinding BorderThickness}">
-                        <Grid>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="*" />
-                            </Grid.RowDefinitions>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="20"/>
-                                <ColumnDefinition Width="auto"/>
-                            </Grid.ColumnDefinitions>
-                            <ToggleButton
-                                x:Name="ExpanderToggleButton"
-                                Grid.Row="0"     
-                                Grid.Column="0"
-                                Grid.ColumnSpan="2"
-                                HorizontalAlignment="Left"
-                                Background="Transparent"
-                                BorderBrush="Transparent"
-                                IsChecked="{Binding IsExpanded, RelativeSource={RelativeSource TemplatedParent}}">
-                                <StackPanel Orientation="Horizontal">
-                                    <StackPanel HorizontalAlignment="Left" Orientation="Horizontal">
-                                        <Path
-                                            x:Name="ExpanderIcon"
-                                            Width="8"
-                                            Height="8"
-                                            HorizontalAlignment="Center"
-                                            VerticalAlignment="Center"
-                                            Data="{StaticResource myCollapsedIconPath}"
-                                            Fill="{StaticResource myWerkBalk}"
-                                            Stretch="Uniform" />
-
-                                        <Path
-                                            Grid.Column="1"
-                                            Width="24"
-                                            Height="24"
-                                            Margin="5,0,5,0"
-                                            HorizontalAlignment="Center"
-                                            VerticalAlignment="Center"
-                                            Data="{StaticResource myPathToDo}"
-                                            Fill="{StaticResource myMenuIcon}"
-                                            IsHitTestVisible="False"
-                                            Stretch="Uniform" />
-                                        <TextBlock
-                                            VerticalAlignment="Center"
-                                            Foreground="{StaticResource myWerkBalk}"
-                                            Text="Todo" />
-                                    </StackPanel>
-                                </StackPanel>
-                            </ToggleButton>
-
-                            <ContentPresenter
-                                x:Name="ExpanderContent"
-                                Grid.Row="1"
-                                Grid.Column="1"
-                                Visibility="Collapsed" />
-                        </Grid>
-                    </Border>
-                    <ControlTemplate.Triggers>
-                        <Trigger Property="IsExpanded" Value="True">
-                            <Setter TargetName="ExpanderContent" Property="Visibility" Value="Visible" />
-                            <Setter TargetName="ExpanderIcon" Property="Data" Value="{StaticResource myExpandedIconPath}" />
-                            <Setter TargetName="ExpanderIcon" Property="Fill" Value="{StaticResource myMenuIcon}" />
-                            <Setter TargetName="ExpanderToggleButton" Property="Background" Value="Transparent" />
-                            <Setter Property="Background" Value="Transparent" />
-                        </Trigger>
-                    </ControlTemplate.Triggers>
-                </ControlTemplate>
-            </Setter.Value>
-        </Setter>
-    </Style>
-
-    <Style x:Key="myHamburgerSecurity" TargetType="Expander">
-        <Setter Property="Template">
-            <Setter.Value>
-                <ControlTemplate TargetType="Expander">
-                    <Border
-                        Background="Transparent"
-                        BorderBrush="{TemplateBinding BorderBrush}"
-                        BorderThickness="{TemplateBinding BorderThickness}">
-                        <Grid>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="*" />
-                            </Grid.RowDefinitions>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="20"/>
-                                <ColumnDefinition Width="auto"/>
-                            </Grid.ColumnDefinitions>
-                            <ToggleButton
-                                x:Name="ExpanderToggleButton"
-                                Grid.Row="0"     
-                                Grid.Column="0"
-                                Grid.ColumnSpan="2"
-                                HorizontalAlignment="Left"
-                                Background="Transparent"
-                                BorderBrush="Transparent"
-                                IsChecked="{Binding IsExpanded, RelativeSource={RelativeSource TemplatedParent}}">
-                                <StackPanel Orientation="Horizontal">
-                                    <StackPanel HorizontalAlignment="Left" Orientation="Horizontal">
-                                        <Path
-                                            x:Name="ExpanderIcon"
-                                            Width="8"
-                                            Height="8"
-                                            HorizontalAlignment="Center"
-                                            VerticalAlignment="Center"
-                                            Data="{StaticResource myCollapsedIconPath}"
-                                            Fill="{StaticResource myWerkBalk}"
-                                            Stretch="Uniform" />
-
-                                        <Path
-                                            Grid.Column="1"
-                                            Width="24"
-                                            Height="24"
-                                            Margin="5,0,5,0"
-                                            HorizontalAlignment="Center"
-                                            VerticalAlignment="Center"
-                                            Data="{StaticResource myPathKey}"
-                                            Fill="{StaticResource myMenuIcon}"
-                                            IsHitTestVisible="False"
-                                            Stretch="Uniform" />
-                                        <TextBlock
-                                            VerticalAlignment="Center"
-                                            Foreground="{StaticResource myWerkBalk}"
-                                            Text="Security" />
-                                    </StackPanel>
-                                </StackPanel>
-                            </ToggleButton>
-
-                            <ContentPresenter
-                                x:Name="ExpanderContent"
-                                Grid.Row="1"
-                                Grid.Column="1"
-                                Visibility="Collapsed" />
-                        </Grid>
-                    </Border>
-                    <ControlTemplate.Triggers>
-                        <Trigger Property="IsExpanded" Value="True">
-                            <Setter TargetName="ExpanderContent" Property="Visibility" Value="Visible" />
-                            <Setter TargetName="ExpanderIcon" Property="Data" Value="{StaticResource myExpandedIconPath}" />
-                            <Setter TargetName="ExpanderIcon" Property="Fill" Value="{StaticResource myMenuIcon}" />
-                            <Setter TargetName="ExpanderToggleButton" Property="Background" Value="Transparent" />
-                            <Setter Property="Background" Value="Transparent" />
-                        </Trigger>
-                    </ControlTemplate.Triggers>
-                </ControlTemplate>
-            </Setter.Value>
-        </Setter>
-    </Style> 
-    
-    <Style x:Key="myHamburgerStickyNotes" TargetType="Expander">
-        <Setter Property="Template">
-            <Setter.Value>
-                <ControlTemplate TargetType="Expander">
-                    <Border
-                       Background="Transparent"
-                       BorderBrush="{TemplateBinding BorderBrush}"
-                       BorderThickness="{TemplateBinding BorderThickness}">
-                        <Grid>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="*" />
-                            </Grid.RowDefinitions>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="20"/>
-                                <ColumnDefinition Width="auto"/>
-                            </Grid.ColumnDefinitions>
-                            <ToggleButton
-                               x:Name="ExpanderToggleButton"
-                               Grid.Row="0"                         
-                               Grid.Column="0"
-                               Grid.ColumnSpan="2"
-                               HorizontalAlignment="Left"
-                               Background="Transparent"
-                               BorderBrush="Transparent"
-                               IsChecked="{Binding IsExpanded, RelativeSource={RelativeSource TemplatedParent}}">
-                                <StackPanel Orientation="Horizontal">
-                                    <StackPanel HorizontalAlignment="Left" Orientation="Horizontal">
-                                        <Path
-                                           x:Name="ExpanderIcon"
-                                           Width="8"
-                                           Height="8"
-                                           HorizontalAlignment="Center"
-                                           VerticalAlignment="Center"
-                                           Data="{StaticResource myCollapsedIconPath}"
-                                           Fill="{StaticResource myWerkBalk}"
-                                           Stretch="Uniform" />
-
-                                        <Path
-                                           Grid.Column="1"
-                                           Width="24"
-                                           Height="24"
-                                           Margin="5,0,5,0"
-                                           HorizontalAlignment="Center"
-                                           VerticalAlignment="Center"
-                                           Data="{StaticResource myPathNote}"
-                                           Fill="{StaticResource myMenuIcon}"
-                                           IsHitTestVisible="False"
-                                           Stretch="Uniform" />
-                                        <TextBlock
-                                           VerticalAlignment="Center"
-                                           Foreground="{StaticResource myWerkBalk}"
-                                           Text="Sticky notes" />
-                                    </StackPanel>
-                                </StackPanel>
-                            </ToggleButton>
-
-                            <ContentPresenter
-                               x:Name="ExpanderContent"
-                               Grid.Row="1"
-                               Grid.Column="1"
-                               Visibility="Collapsed" />
-                        </Grid>
-                    </Border>
-                    <ControlTemplate.Triggers>
-                        <Trigger Property="IsExpanded" Value="True">
-                            <Setter TargetName="ExpanderContent" Property="Visibility" Value="Visible" />
-                            <Setter TargetName="ExpanderIcon" Property="Data" Value="{StaticResource myExpandedIconPath}" />
-                            <Setter TargetName="ExpanderIcon" Property="Fill" Value="{StaticResource myMenuIcon}" />
-                            <Setter TargetName="ExpanderToggleButton" Property="Background" Value="Transparent" />
-                            <Setter Property="Background" Value="Transparent" />
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
@@ -767,8 +457,8 @@
     </Style>
 
     <Style x:Key="myExpanderDagboek" TargetType="Button">
-        <Setter Property="Margin" Value="-86,3,0,3"/>
-        <Setter Property="Width" Value="75"/>
+        <Setter Property="Margin" Value="-86,5,0,5" />
+        <Setter Property="Width" Value="75" />
         <Setter Property="Foreground" Value="{StaticResource myWerkBalk}" />
         <Setter Property="Template">
             <Setter.Value>
@@ -780,19 +470,19 @@
                                 <ColumnDefinition Width="*" />
                             </Grid.ColumnDefinitions>
                             <Path
-                              Width="24"
-                              Height="24"
-                              HorizontalAlignment="Left"
-                              VerticalAlignment="Center"
-                              Data="{StaticResource myPathBook}"
-                              Fill="{StaticResource myMenuIcon}"
-                              IsHitTestVisible="False"
-                              Stretch="Uniform" />
+                                Width="24"
+                                Height="24"
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Center"
+                                Data="{StaticResource myPathBook}"
+                                Fill="{StaticResource myMenuIcon}"
+                                IsHitTestVisible="False"
+                                Stretch="Uniform" />
                             <ContentPresenter
-                              Grid.Column="1"
-                              Margin="6,0,0,0"
-                              HorizontalAlignment="Left"
-                              VerticalAlignment="Center" />
+                                Grid.Column="1"
+                                Margin="6,0,0,0"
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Center" />
                         </Grid>
                     </Border>
                     <ControlTemplate.Triggers>
@@ -807,8 +497,348 @@
         </Setter>
     </Style>
 
+    <Style x:Key="myHamburgerBudget" TargetType="Expander">
+        <Setter Property="Margin" Value="0,5,0,5" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Expander">
+                    <Border
+                        Background="Transparent"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="{TemplateBinding BorderThickness}">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="*" />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="20" />
+                                <ColumnDefinition Width="auto" />
+                            </Grid.ColumnDefinitions>
+                            <ToggleButton
+                                x:Name="ExpanderToggleButton"
+                                Grid.Row="0"
+                                Grid.ColumnSpan="2"
+                                Background="Transparent"
+                                BorderThickness="0"
+                                IsChecked="{Binding IsExpanded, RelativeSource={RelativeSource TemplatedParent}}">
+                                <ToggleButton.Template>
+                                    <ControlTemplate TargetType="ToggleButton">
+                                        <StackPanel Orientation="Horizontal">
+                                            <Border Name="ExpanderBorder" Background="Transparent">
+                                                <StackPanel HorizontalAlignment="Left" Orientation="Horizontal">
+                                                    <Path
+                                                        x:Name="ExpanderIcon"
+                                                        Width="8"
+                                                        Height="8"
+                                                        HorizontalAlignment="Center"
+                                                        VerticalAlignment="Center"
+                                                        Data="{StaticResource myCollapsedIconPath}"
+                                                        Fill="{StaticResource myWerkBalk}"
+                                                        Stretch="Uniform" />
+                                                    <Path
+                                                        Width="24"
+                                                        Height="24"
+                                                        Margin="5,0,5,0"
+                                                        HorizontalAlignment="Center"
+                                                        VerticalAlignment="Center"
+                                                        Data="{StaticResource myPathEuro}"
+                                                        Fill="{StaticResource myMenuIcon}"
+                                                        IsHitTestVisible="False"
+                                                        Stretch="Uniform" />
+                                                    <TextBlock
+                                                        VerticalAlignment="Center"
+                                                        Foreground="{StaticResource myWerkBalk}"
+                                                        Text="Budget" />
+                                                </StackPanel>
+                                            </Border>
+                                        </StackPanel>
+                                        <ControlTemplate.Triggers>
+                                            <Trigger Property="IsChecked" Value="True">
+                                                <Setter TargetName="ExpanderIcon" Property="Data" Value="{StaticResource myExpandedIconPath}" />
+                                                <Setter TargetName="ExpanderIcon" Property="Fill" Value="{StaticResource myMenuIcon}" />
+                                            </Trigger>
+                                            <Trigger Property="IsMouseOver" Value="True">
+                                                <Setter TargetName="ExpanderBorder" Property="Background" Value="LightBlue" />
+                                            </Trigger>
+                                        </ControlTemplate.Triggers>
+                                    </ControlTemplate>
+                                </ToggleButton.Template>
+                            </ToggleButton>
+                            <ContentPresenter
+                                x:Name="ExpanderContent"
+                                Grid.Row="1"
+                                Grid.ColumnSpan="2"
+                                Visibility="Collapsed" />
+                        </Grid>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsExpanded" Value="True">
+                            <Setter TargetName="ExpanderContent" Property="Visibility" Value="Visible" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="myHamburgerTodo" TargetType="Expander">
+        <Setter Property="Margin" Value="0,5,0,5" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Expander">
+                    <Border
+                        Background="Transparent"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="{TemplateBinding BorderThickness}">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="*" />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="20" />
+                                <ColumnDefinition Width="auto" />
+                            </Grid.ColumnDefinitions>
+                            <ToggleButton
+                                x:Name="ExpanderToggleButton"
+                                Grid.Row="0"
+                                Grid.ColumnSpan="2"
+                                Background="Transparent"
+                                BorderThickness="0"
+                                IsChecked="{Binding IsExpanded, RelativeSource={RelativeSource TemplatedParent}}">
+                                <ToggleButton.Template>
+                                    <ControlTemplate TargetType="ToggleButton">
+                                        <StackPanel Orientation="Horizontal">
+                                            <Border Name="ExpanderBorder" Background="Transparent">
+                                                <StackPanel HorizontalAlignment="Left" Orientation="Horizontal">
+                                                    <Path
+                                                        x:Name="ExpanderIcon"
+                                                        Width="8"
+                                                        Height="8"
+                                                        HorizontalAlignment="Center"
+                                                        VerticalAlignment="Center"
+                                                        Data="{StaticResource myCollapsedIconPath}"
+                                                        Fill="{StaticResource myWerkBalk}"
+                                                        Stretch="Uniform" />
+                                                    <Path
+                                                        Width="24"
+                                                        Height="24"
+                                                        Margin="5,0,5,0"
+                                                        HorizontalAlignment="Center"
+                                                        VerticalAlignment="Center"
+                                                        Data="{StaticResource myPathToDo}"
+                                                        Fill="{StaticResource myMenuIcon}"
+                                                        IsHitTestVisible="False"
+                                                        Stretch="Uniform" />
+                                                    <TextBlock
+                                                        VerticalAlignment="Center"
+                                                        Foreground="{StaticResource myWerkBalk}"
+                                                        Text="Todo" />
+                                                </StackPanel>
+                                            </Border>
+                                        </StackPanel>
+                                        <ControlTemplate.Triggers>
+                                            <Trigger Property="IsChecked" Value="True">
+                                                <Setter TargetName="ExpanderIcon" Property="Data" Value="{StaticResource myExpandedIconPath}" />
+                                                <Setter TargetName="ExpanderIcon" Property="Fill" Value="{StaticResource myMenuIcon}" />
+                                            </Trigger>
+                                            <Trigger Property="IsMouseOver" Value="True">
+                                                <Setter TargetName="ExpanderBorder" Property="Background" Value="LightBlue" />
+                                            </Trigger>
+                                        </ControlTemplate.Triggers>
+                                    </ControlTemplate>
+                                </ToggleButton.Template>
+                            </ToggleButton>
+                            <ContentPresenter
+                                x:Name="ExpanderContent"
+                                Grid.Row="1"
+                                Grid.ColumnSpan="2"
+                                Visibility="Collapsed" />
+                        </Grid>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsExpanded" Value="True">
+                            <Setter TargetName="ExpanderContent" Property="Visibility" Value="Visible" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="myHamburgerSecurity" TargetType="Expander">
+        <Setter Property="Margin" Value="0,5,0,5" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Expander">
+                    <Border
+                        Background="Transparent"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="{TemplateBinding BorderThickness}">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="*" />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="20" />
+                                <ColumnDefinition Width="auto" />
+                            </Grid.ColumnDefinitions>
+                            <ToggleButton
+                                x:Name="ExpanderToggleButton"
+                                Grid.Row="0"
+                                Grid.ColumnSpan="2"
+                                Background="Transparent"
+                                BorderThickness="0"
+                                IsChecked="{Binding IsExpanded, RelativeSource={RelativeSource TemplatedParent}}">
+                                <ToggleButton.Template>
+                                    <ControlTemplate TargetType="ToggleButton">
+                                        <StackPanel Orientation="Horizontal">
+                                            <Border Name="ExpanderBorder" Background="Transparent">
+                                                <StackPanel HorizontalAlignment="Left" Orientation="Horizontal">
+                                                    <Path
+                                                        x:Name="ExpanderIcon"
+                                                        Width="8"
+                                                        Height="8"
+                                                        HorizontalAlignment="Center"
+                                                        VerticalAlignment="Center"
+                                                        Data="{StaticResource myCollapsedIconPath}"
+                                                        Fill="{StaticResource myWerkBalk}"
+                                                        Stretch="Uniform" />
+                                                    <Path
+                                                        Width="24"
+                                                        Height="24"
+                                                        Margin="5,0,5,0"
+                                                        HorizontalAlignment="Center"
+                                                        VerticalAlignment="Center"
+                                                        Data="{StaticResource myPathKey}"
+                                                        Fill="{StaticResource myMenuIcon}"
+                                                        IsHitTestVisible="False"
+                                                        Stretch="Uniform" />
+                                                    <TextBlock
+                                                        VerticalAlignment="Center"
+                                                        Foreground="{StaticResource myWerkBalk}"
+                                                        Text="Security" />
+                                                </StackPanel>
+                                            </Border>
+                                        </StackPanel>
+                                        <ControlTemplate.Triggers>
+                                            <Trigger Property="IsChecked" Value="True">
+                                                <Setter TargetName="ExpanderIcon" Property="Data" Value="{StaticResource myExpandedIconPath}" />
+                                                <Setter TargetName="ExpanderIcon" Property="Fill" Value="{StaticResource myMenuIcon}" />
+                                            </Trigger>
+                                            <Trigger Property="IsMouseOver" Value="True">
+                                                <Setter TargetName="ExpanderBorder" Property="Background" Value="LightBlue" />
+                                            </Trigger>
+                                        </ControlTemplate.Triggers>
+                                    </ControlTemplate>
+                                </ToggleButton.Template>
+                            </ToggleButton>
+                            <ContentPresenter
+                                x:Name="ExpanderContent"
+                                Grid.Row="1"
+                                Grid.ColumnSpan="2"
+                                Visibility="Collapsed" />
+                        </Grid>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsExpanded" Value="True">
+                            <Setter TargetName="ExpanderContent" Property="Visibility" Value="Visible" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="myHamburgerStickyNotes" TargetType="Expander">
+        <Setter Property="Margin" Value="0,5,0,5" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Expander">
+                    <Border
+                        Background="Transparent"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="{TemplateBinding BorderThickness}">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="*" />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="20" />
+                                <ColumnDefinition Width="auto" />
+                            </Grid.ColumnDefinitions>
+                            <ToggleButton
+                                x:Name="ExpanderToggleButton"
+                                Grid.Row="0"
+                                Grid.ColumnSpan="2"
+                                Background="Transparent"
+                                BorderThickness="0"
+                                IsChecked="{Binding IsExpanded, RelativeSource={RelativeSource TemplatedParent}}">
+                                <ToggleButton.Template>
+                                    <ControlTemplate TargetType="ToggleButton">
+                                        <StackPanel Orientation="Horizontal">
+                                            <Border Name="ExpanderBorder" Background="Transparent">
+                                                <StackPanel HorizontalAlignment="Left" Orientation="Horizontal">
+                                                    <Path
+                                                        x:Name="ExpanderIcon"
+                                                        Width="8"
+                                                        Height="8"
+                                                        HorizontalAlignment="Center"
+                                                        VerticalAlignment="Center"
+                                                        Data="{StaticResource myCollapsedIconPath}"
+                                                        Fill="{StaticResource myWerkBalk}"
+                                                        Stretch="Uniform" />
+                                                    <Path
+                                                        Width="24"
+                                                        Height="24"
+                                                        Margin="5,0,5,0"
+                                                        HorizontalAlignment="Center"
+                                                        VerticalAlignment="Center"
+                                                        Data="{StaticResource myPathNote}"
+                                                        Fill="{StaticResource myMenuIcon}"
+                                                        IsHitTestVisible="False"
+                                                        Stretch="Uniform" />
+                                                    <TextBlock
+                                                        VerticalAlignment="Center"
+                                                        Foreground="{StaticResource myWerkBalk}"
+                                                        Text="Sticky notes" />
+                                                </StackPanel>
+                                            </Border>
+                                        </StackPanel>
+                                        <ControlTemplate.Triggers>
+                                            <Trigger Property="IsChecked" Value="True">
+                                                <Setter TargetName="ExpanderIcon" Property="Data" Value="{StaticResource myExpandedIconPath}" />
+                                                <Setter TargetName="ExpanderIcon" Property="Fill" Value="{StaticResource myMenuIcon}" />
+                                            </Trigger>
+                                            <Trigger Property="IsMouseOver" Value="True">
+                                                <Setter TargetName="ExpanderBorder" Property="Background" Value="LightBlue" />
+                                            </Trigger>
+                                        </ControlTemplate.Triggers>
+                                    </ControlTemplate>
+                                </ToggleButton.Template>
+                            </ToggleButton>
+                            <ContentPresenter
+                                x:Name="ExpanderContent"
+                                Grid.Row="1"
+                                Grid.ColumnSpan="2"
+                                Visibility="Collapsed" />
+                        </Grid>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsExpanded" Value="True">
+                            <Setter TargetName="ExpanderContent" Property="Visibility" Value="Visible" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
     <Style x:Key="myExpanderPerson" TargetType="Button">
-        <Setter Property="Margin" Value="10,3,0,3"/>
+        <Setter Property="Margin" Value="35,5,0,5" />
         <Setter Property="Foreground" Value="{StaticResource myWerkBalk}" />
         <Setter Property="Template">
             <Setter.Value>
@@ -820,19 +850,19 @@
                                 <ColumnDefinition Width="*" />
                             </Grid.ColumnDefinitions>
                             <Path
-                              Width="18"
-                              Height="18"
-                              HorizontalAlignment="Left"
-                              VerticalAlignment="Center"
-                              Data="{StaticResource myPathPerson}"
-                              Fill="{StaticResource myMenuIcon}"
-                              IsHitTestVisible="False"
-                              Stretch="Uniform" />
+                                Width="18"
+                                Height="18"
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Center"
+                                Data="{StaticResource myPathPerson}"
+                                Fill="{StaticResource myMenuIcon}"
+                                IsHitTestVisible="False"
+                                Stretch="Uniform" />
                             <ContentPresenter
-                              Grid.Column="1"
-                              Margin="2,0,0,0"
-                              HorizontalAlignment="Left"
-                              VerticalAlignment="Center" />
+                                Grid.Column="1"
+                                Margin="2,0,0,0"
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Center" />
                         </Grid>
                     </Border>
                     <ControlTemplate.Triggers>
@@ -848,7 +878,7 @@
     </Style>
 
     <Style x:Key="myExpanderStickyNoteColors" TargetType="Button">
-        <Setter Property="Margin" Value="10,3,0,3"/>
+        <Setter Property="Margin" Value="35,5,0,5" />
         <Setter Property="Foreground" Value="{StaticResource myWerkBalk}" />
         <Setter Property="Template">
             <Setter.Value>
@@ -860,19 +890,19 @@
                                 <ColumnDefinition Width="*" />
                             </Grid.ColumnDefinitions>
                             <Path
-                              Width="18"
-                              Height="18"
-                              HorizontalAlignment="Left"
-                              VerticalAlignment="Center"
-                              Data="{StaticResource myPathPerson}"
-                              Fill="{StaticResource myMenuIcon}"
-                              IsHitTestVisible="False"
-                              Stretch="Uniform" />
+                                Width="18"
+                                Height="18"
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Center"
+                                Data="{StaticResource myPathStickyNote}"
+                                Fill="{StaticResource myMenuIcon}"
+                                IsHitTestVisible="False"
+                                Stretch="Uniform" />
                             <ContentPresenter
-                              Grid.Column="1"
-                              Margin="2,0,0,0"
-                              HorizontalAlignment="Left"
-                              VerticalAlignment="Center" />
+                                Grid.Column="1"
+                                Margin="2,0,0,0"
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Center" />
                         </Grid>
                     </Border>
                     <ControlTemplate.Triggers>
@@ -888,7 +918,7 @@
     </Style>
 
     <Style x:Key="myMenuTandwiel" TargetType="Button">
-        <Setter Property="Margin" Value="10,3,0,3"/>
+        <Setter Property="Margin" Value="35,5,0,5" />
         <Setter Property="Foreground" Value="{StaticResource myWerkBalk}" />
         <Setter Property="Template">
             <Setter.Value>
@@ -926,9 +956,6 @@
             </Setter.Value>
         </Setter>
     </Style>
-
-
-
 
 
     <!--#endregion-->
