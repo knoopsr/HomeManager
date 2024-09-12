@@ -20,7 +20,7 @@
             <DoubleAnimation
                 Storyboard.TargetName="HamburgerMenu"
                 Storyboard.TargetProperty="Width"
-                From="50"
+                From="0"
                 To="200"
                 Duration="0:0:0.3" />
         </Storyboard>
@@ -31,7 +31,7 @@
                 Storyboard.TargetName="HamburgerMenu"
                 Storyboard.TargetProperty="Width"
                 From="200"
-                To="50"
+                To="0"
                 Duration="0:0:0.3" />
         </Storyboard>
     </Window.Resources>
@@ -52,14 +52,7 @@
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
 
-        <ToggleButton
-            x:Name="btnMenu"
-            Grid.Column="0"
-            Grid.ColumnSpan="2"
-            HorizontalAlignment="Left"
-            Checked="ToggleButton_Checked"
-            Style="{StaticResource myHamburgerMenu}"
-            Unchecked="ToggleButton_Unchecked" />
+
 
 
 
@@ -78,17 +71,21 @@
             Source="/Images/background.jpg"
             Stretch="Fill" />
 
+        <!--#region  HamburgerMenu-->
+
+
+
 
 
         <Border
             x:Name="HamburgerMenu"
             Grid.Row="1"
             Grid.Column="0"
-            Width="50"
+            Width="200"
             HorizontalAlignment="Left"
             Background="#99024f87">
 
-            <Grid>
+            <Grid Width="200">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="30" />
                     <RowDefinition Height="*" />
@@ -101,7 +98,69 @@
                     HorizontalAlignment="Center"
                     Data="{StaticResource myPathHouse}"
                     Fill="White" />
-                <StackPanel
+
+                <StackPanel Grid.Row="1" Orientation="Vertical" HorizontalAlignment="Left" Width="200">
+                    <Expander Style="{StaticResource myHamburgerPersonen}">
+                        <StackPanel x:Name="stckPerson">
+                            <Button
+                                Click="Button_Click"
+                                Content="Persoon"
+                                Style="{StaticResource myExpanderPerson}" />
+                            <Button Content="EmailType" Style="{StaticResource myMenuTandwiel}" />
+                            <Button Content="TelefoonType" Style="{StaticResource myMenuTandwiel}" />
+                            <Button Content="Land" Style="{StaticResource myMenuTandwiel}" />
+                            <Button Content="Provincie" Style="{StaticResource myMenuTandwiel}" />
+                            <Button Content="Gemeente" Style="{StaticResource myMenuTandwiel}" />
+                            <Button Content="Functies" Style="{StaticResource myMenuTandwiel}" />
+                        </StackPanel>
+                    </Expander>
+
+
+                    <Button  Style="{StaticResource myExpanderDagboek}" Content="Dagboek"/>
+                    
+                    <Expander Style="{StaticResource myHamburgerBudget}">
+                        <StackPanel x:Name="stckBudget">
+                            <Button Content="Domiciliëring" Style="{StaticResource myMenuTandwiel}" />
+                            <Button Content="Begunstigden" Style="{StaticResource myMenuTandwiel}" />
+                            <Button Content="Frequentie" Style="{StaticResource myMenuTandwiel}" />
+                            <Button Content="Budget Categorie" Style="{StaticResource myMenuTandwiel}" />
+                        </StackPanel>
+                    </Expander>
+
+                    <Expander Style="{StaticResource myHamburgerTodo}">
+
+                        <StackPanel x:Name="stckTodo">
+                            <Button Content="Todo Collectie" Style="{StaticResource myMenuTandwiel}" />
+                            <Button Content="Todo Categoriën" Style="{StaticResource myMenuTandwiel}" />
+                            <Button Content="Todo Kleuren" Style="{StaticResource myMenuTandwiel}" />
+                        </StackPanel>
+
+                    </Expander>
+                    <Expander Style="{StaticResource myHamburgerSecurity}">
+                        <StackPanel x:Name="stckSecurity">
+                            <Button Content="Account beheren" Style="{StaticResource myMenuTandwiel}" />
+                            <Button Content="Wachtwoorden" Style="{StaticResource myMenuTandwiel}" />
+                            <Button Content="Wachtwoordengroep" Style="{StaticResource myMenuTandwiel}" />
+                            <Button Content="Rollen" Style="{StaticResource myMenuTandwiel}" />
+                        </StackPanel>
+                    </Expander>
+
+                    <Expander Style="{StaticResource myHamburgerStickyNotes}">
+                        <StackPanel x:Name="stckStickynotes">
+                            <Button Content="Sticky notes colors" Style="{StaticResource myExpanderStickyNoteColors}" />
+                        </StackPanel>
+                    </Expander>
+
+
+
+
+                </StackPanel>
+
+
+
+
+
+                <!--<StackPanel
                     Grid.Row="1"
                     Width="auto"
                     Margin="0,5,0,0"
@@ -176,7 +235,10 @@
                         <Button Content="Sticky notes colors" Style="{StaticResource myMenuStickyNote}" />
                     </StackPanel>
 
-                </StackPanel>
+
+
+
+                </StackPanel>-->
                 <Path
                     Grid.Row="2"
                     Width="10"
@@ -188,6 +250,22 @@
                     Stretch="Fill" />
             </Grid>
         </Border>
+
+
+        <ToggleButton
+            x:Name="btnMenu"
+            Grid.Column="0"
+            Grid.ColumnSpan="2"
+            HorizontalAlignment="Left"
+            Checked="ToggleButton_Checked"
+            IsChecked="True"
+            Style="{StaticResource myHamburgerMenu}"
+            Unchecked="ToggleButton_Unchecked" />
+
+
+
+
+        <!--#endregion-->
 
     </Grid>
 </Window>

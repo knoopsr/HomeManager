@@ -35,56 +35,56 @@ namespace HomeManager
             hideMenu.Begin();
         }
 
-        private void btnMenuPerson_Checked(object sender, RoutedEventArgs e)
-        {
-            stckPerson.Visibility = Visibility.Visible;
-        }
+        //private void btnMenuPerson_Checked(object sender, RoutedEventArgs e)
+        //{
+        //    stckPerson.Visibility = Visibility.Visible;
+        //}
 
-        private void btnMenuPerson_Unchecked(object sender, RoutedEventArgs e)
-        {
+        //private void btnMenuPerson_Unchecked(object sender, RoutedEventArgs e)
+        //{
 
-            stckPerson.Visibility = Visibility.Collapsed;
-        }
+        //    stckPerson.Visibility = Visibility.Collapsed;
+        //}
 
-        private void btnBudget_Checked(object sender, RoutedEventArgs e)
-        {
-            stckBudget.Visibility = Visibility.Visible;
-        }
+        //private void btnBudget_Checked(object sender, RoutedEventArgs e)
+        //{
+        //    stckBudget.Visibility = Visibility.Visible;
+        //}
 
-        private void btnBudget_Unchecked(object sender, RoutedEventArgs e)
-        {
-            stckBudget.Visibility = Visibility.Collapsed;
-        }
+        //private void btnBudget_Unchecked(object sender, RoutedEventArgs e)
+        //{
+        //    stckBudget.Visibility = Visibility.Collapsed;
+        //}
 
-        private void btnTodo_Checked(object sender, RoutedEventArgs e)
-        {
-            stckTodo.Visibility = Visibility.Visible;
-        }
+        //private void btnTodo_Checked(object sender, RoutedEventArgs e)
+        //{
+        //    stckTodo.Visibility = Visibility.Visible;
+        //}
 
-        private void btnTodo_Unchecked(object sender, RoutedEventArgs e)
-        {
-            stckTodo.Visibility = Visibility.Collapsed;
-        }
+        //private void btnTodo_Unchecked(object sender, RoutedEventArgs e)
+        //{
+        //    stckTodo.Visibility = Visibility.Collapsed;
+        //}
 
-        private void btnSecurity_Checked(object sender, RoutedEventArgs e)
-        {
-                stckSecurity.Visibility = Visibility.Visible;
-        }
+        //private void btnSecurity_Checked(object sender, RoutedEventArgs e)
+        //{
+        //        stckSecurity.Visibility = Visibility.Visible;
+        //}
 
-        private void btnSecurity_Unchecked(object sender, RoutedEventArgs e)
-        {
-            stckSecurity.Visibility = Visibility.Collapsed;
-        }
+        //private void btnSecurity_Unchecked(object sender, RoutedEventArgs e)
+        //{
+        //    stckSecurity.Visibility = Visibility.Collapsed;
+        //}
 
-        private void btnStickyNotes_Checked(object sender, RoutedEventArgs e)
-        {
-            stckStickynotes.Visibility = Visibility.Visible;
-        }
+        //private void btnStickyNotes_Checked(object sender, RoutedEventArgs e)
+        //{
+        //    stckStickynotes.Visibility = Visibility.Visible;
+        //}
 
-        private void btnStickyNotes_Unchecked(object sender, RoutedEventArgs e)
-        {
-            stckStickynotes.Visibility = Visibility.Collapsed;
-        }
+        //private void btnStickyNotes_Unchecked(object sender, RoutedEventArgs e)
+        //{
+        //    stckStickynotes.Visibility = Visibility.Collapsed;
+        //}
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
