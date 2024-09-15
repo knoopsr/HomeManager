@@ -36,7 +36,7 @@
         </Storyboard>
     </Window.Resources>
 
-    
+
     <Grid x:Name="grdMain">
         <Grid.RowDefinitions>
             <RowDefinition Height="60" />
@@ -67,10 +67,6 @@
 
 
         <!--#region  HamburgerMenu-->
-
-
-
-
 
         <Border
             x:Name="HamburgerMenu"
@@ -155,8 +151,6 @@
 
                 </StackPanel>
 
-
-
                 <Path
                     Grid.Row="2"
                     Width="10"
@@ -169,7 +163,6 @@
             </Grid>
         </Border>
 
-
         <ToggleButton
             x:Name="btnMenu"
             Grid.Column="0"
@@ -179,9 +172,6 @@
             IsChecked="True"
             Style="{StaticResource myHamburgerMenu}"
             Unchecked="ToggleButton_Unchecked" />
-
-
-
 
         <!--#endregion-->
 
