@@ -6,4 +6,14 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Folder Include="Homepage\" />
+    <Folder Include="Budget\" />
+    <Folder Include="Dagboek\" />
+    <Folder Include="Personen\" />
+    <Folder Include="Todo\" />
+    <Folder Include="Security\" />
+    <Folder Include="StickyNotes\" />
+  </ItemGroup>
+
 </Project>
