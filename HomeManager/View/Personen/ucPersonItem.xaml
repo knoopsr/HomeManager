@@ -34,9 +34,9 @@
                 BorderThickness="1"
                 CornerRadius="3"
                 Effect="{DynamicResource shadowEffect}">
-                <Border.Background>
-                    <ImageBrush ImageSource="C:\Users\qarkn1s\Downloads\person1.jpg" Stretch="UniformToFill" />
-                </Border.Background>
+                <!--<Border.Background>
+                    --><!--<ImageBrush ImageSource="\Images\person1.jpg" Stretch="UniformToFill" />--><!--
+                </Border.Background>-->
             </Border>
 
             <StackPanel
