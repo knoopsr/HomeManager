@@ -42,6 +42,7 @@
     <Folder Include="View\Dagboek\" />
     <Folder Include="View\Budget\" />
     <Folder Include="View\Homepage\" />
+    <Folder Include="View\Security\" />
     <Folder Include="View\StickyNotes\" />
     <Folder Include="View\Security\" />
     <Folder Include="View\Todo\" />
