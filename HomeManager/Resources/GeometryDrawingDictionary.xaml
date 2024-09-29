@@ -1,12 +1,11 @@
-﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
 
 
 
 
 
-    <!--HamburgerMenu Icons-->
+    <!--  HamburgerMenu Icons  -->
     <PathGeometry x:Key="myCollapsedIconPath" Figures="M 0,0 L 10,10 L 0,20 Z" />
     <Geometry x:Key="myExpandedIconPath">M 0,10 L 10,20 L 20,10 Z</Geometry>
 
