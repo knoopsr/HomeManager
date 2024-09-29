@@ -1,0 +1,17 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+
+  
+    <!--#region SolidColorBrushes -->
+
+    <SolidColorBrush x:Key="myMenuIconBrush" Color="#00223e"/>
+
+    <SolidColorBrush x:Key="myTitleBar" Color="#024f87" />
+    <SolidColorBrush x:Key="myMenuIcon" Color="#00223e" />
+    <SolidColorBrush x:Key="myWerkBalk" Color="White" />
+    <SolidColorBrush x:Key="myWerkBalkDisable" Color="Gray" />
+    <SolidColorBrush x:Key="myBackground" Color="LightGray" />
+
+    <!--#endregion-->
+</ResourceDictionary>

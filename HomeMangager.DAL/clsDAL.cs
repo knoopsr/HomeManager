@@ -19,7 +19,7 @@ namespace HomeMangager.DAL
             set { _OKNOK = value; }
         }
 
-        private static string _MyConnenctionString = Properties.Connection.Default.ConnectionDB.ToString();
+        private static string _MyConnenctionString = Properties.Resources.Connection.ToString();
 
         public static string MyConnenctionString
         {

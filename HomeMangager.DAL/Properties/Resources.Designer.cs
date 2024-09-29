@@ -59,5 +59,14 @@ namespace HomeMangager.DAL.Properties {
                 resourceCulture = value;
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Data Source=192.168.0.110;Initial Catalog=HomeManager;Persist Security Info=True;User ID=sa;Password=jq2pBx8hETp6ZFrBe&amp;amp;@%;TrustServerCertificate=True.
+        /// </summary>
+        internal static string Connection {
+            get {
+                return ResourceManager.GetString("Connection", resourceCulture);
+            }
+        }
     }
 }

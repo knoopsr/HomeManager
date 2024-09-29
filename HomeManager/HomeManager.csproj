@@ -14,7 +14,12 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\HomeMangager.Common\HomeMangager.Common.csproj" />
+    <Page Remove="Resources\BrushesDictionary.xaml" />
+    <Page Remove="Resources\GeometryDrawingDictionary.xaml" />
+    <Page Remove="Resources\StylesDictionary.xaml" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\HomeMangager.DAL\HomeMangager.DAL.csproj" />
     <ProjectReference Include="..\HomeMangager.Model\HomeMangager.Model.csproj" />
   </ItemGroup>
@@ -25,6 +30,18 @@
     </Resource>
     <Resource Include="Images\person1.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\BrushesDictionary.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Resource>
+    <Resource Include="Resources\GeometryDrawingDictionary.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Resource>
+    <Resource Include="Resources\StylesDictionary.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Resource>
   </ItemGroup>
 
@@ -39,7 +56,6 @@
     <Folder Include="ViewModel\Security\" />
     <Folder Include="ViewModel\Todo\" />
     <Folder Include="ViewModel\Personen\" />
-    <Folder Include="View\Dagboek\" />
     <Folder Include="View\Budget\" />
     <Folder Include="View\Homepage\" />
     <Folder Include="View\StickyNotes\" />
