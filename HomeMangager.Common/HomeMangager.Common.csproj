@@ -6,4 +6,25 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <None Remove="Resources\BrushesDictionary.xaml" />
+    <None Remove="Resources\GeometryDrawingDictionary.xaml" />
+    <None Remove="Resources\StylesDictionary.xaml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Resources\BrushesDictionary.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Resource>
+    <Resource Include="Resources\GeometryDrawingDictionary.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Resource>
+    <Resource Include="Resources\StylesDictionary.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Resource>
+  </ItemGroup>
+
 </Project>
