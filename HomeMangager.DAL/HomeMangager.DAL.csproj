@@ -36,13 +36,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="Properties\Connection.settings">
-      <Generator>SettingsSingleFileGenerator</Generator>
-      <LastGenOutput>Connection.Designer.cs</LastGenOutput>
-    </None>
-  </ItemGroup>
-
-  <ItemGroup>
     <Folder Include="Dagboek\" />
     <Folder Include="Budget\" />
     <Folder Include="Homepage\" />
@@ -50,6 +43,13 @@
     <Folder Include="Security\" />
     <Folder Include="Todo\" />
     <Folder Include="Personen\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Properties\Connection.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Connection.Designer.cs</LastGenOutput>
+    </None>
   </ItemGroup>
 
 </Project>
