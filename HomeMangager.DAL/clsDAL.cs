@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HomeMangager.DAL
+namespace HomeManager.DAL
 {
     public class clsDAL
     {
