@@ -98,7 +98,8 @@
                     <Expander Style="{StaticResource myHamburgerPersonen}">
                         <StackPanel x:Name="stckPerson">
                             <Button
-                                Click="Button_Click"
+                                x:Name="Persoon"
+                                Click="Persoon_Click"
                                 Content="Persoon"
                                 Style="{StaticResource myExpanderPerson}" />
                             <Button

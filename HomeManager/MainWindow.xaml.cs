@@ -86,9 +86,8 @@ namespace HomeManager
         //    stckStickynotes.Visibility = Visibility.Collapsed;
         //}
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void Persoon_Click(object sender, RoutedEventArgs e)
         {
- 
             ucPersonen _ucPersonen = new ucPersonen();
 
             Grid.SetRow(_ucPersonen, 1);
@@ -156,5 +155,7 @@ namespace HomeManager
 
             grdMain.Children.Add(_ucFuncties);
         }
+
+
     }
 }
