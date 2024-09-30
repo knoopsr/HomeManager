@@ -86,9 +86,8 @@ namespace HomeManager
         //    stckStickynotes.Visibility = Visibility.Collapsed;
         //}
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void Persoon_Click(object sender, RoutedEventArgs e)
         {
- 
             ucPersonen _ucPersonen = new ucPersonen();
 
             Grid.SetRow(_ucPersonen, 1);
@@ -96,5 +95,67 @@ namespace HomeManager
 
             grdMain.Children.Add(_ucPersonen);
         }
+
+        private void EmailType_Click(object sender, RoutedEventArgs e)
+        {
+            ucEmailType _ucEmailType = new ucEmailType();
+
+            Grid.SetRow(_ucEmailType, 1);
+            Grid.SetColumn(_ucEmailType, 1);
+
+            grdMain.Children.Add(_ucEmailType);
+        }
+
+        private void TelefoonType_Click(object sender, RoutedEventArgs e)
+        {
+            ucTelefoonType _ucTelefoonType = new ucTelefoonType();
+
+            Grid.SetRow(_ucTelefoonType, 1);
+            Grid.SetColumn(_ucTelefoonType, 1);
+
+            grdMain.Children.Add(_ucTelefoonType);
+        }
+
+        private void Land_Click(object sender, RoutedEventArgs e)
+        {
+            ucLanden _ucLanden = new ucLanden();
+
+            Grid.SetRow(_ucLanden, 1);
+            Grid.SetColumn(_ucLanden, 1);
+
+            grdMain.Children.Add(_ucLanden);
+        }
+
+        private void Provincie_Click(object sender, RoutedEventArgs e)
+        {
+            ucProvicies _ucProvicies = new ucProvicies();
+
+            Grid.SetRow(_ucProvicies, 1);
+            Grid.SetColumn(_ucProvicies, 1);
+
+            grdMain.Children.Add(_ucProvicies);
+        }
+
+        private void Gemeente_Click(object sender, RoutedEventArgs e)
+        {
+            ucGemeente _ucGemeente = new ucGemeente();
+
+            Grid.SetRow(_ucGemeente, 1);
+            Grid.SetColumn(_ucGemeente, 1);
+
+            grdMain.Children.Add(_ucGemeente);
+        }
+
+        private void Functies_Click(object sender, RoutedEventArgs e)
+        {
+            ucFuncties _ucFuncties = new ucFuncties();
+
+            Grid.SetRow(_ucFuncties, 1);
+            Grid.SetColumn(_ucFuncties, 1);
+
+            grdMain.Children.Add(_ucFuncties);
+        }
+
+
     }
 }
