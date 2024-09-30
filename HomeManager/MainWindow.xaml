@@ -101,12 +101,37 @@
                                 Click="Button_Click"
                                 Content="Persoon"
                                 Style="{StaticResource myExpanderPerson}" />
-                            <Button Content="EmailType" Style="{StaticResource myMenuTandwiel}" />
-                            <Button Content="TelefoonType" Style="{StaticResource myMenuTandwiel}" />
-                            <Button Content="Land" Style="{StaticResource myMenuTandwiel}" />
-                            <Button Content="Provincie" Style="{StaticResource myMenuTandwiel}" />
-                            <Button Content="Gemeente" Style="{StaticResource myMenuTandwiel}" />
-                            <Button Content="Functies" Style="{StaticResource myMenuTandwiel}" />
+                            <Button
+                                x:Name="EmailType"
+                                Click="EmailType_Click"
+                                Content="EmailType"
+                                Style="{StaticResource myMenuTandwiel}" />
+
+                            <Button
+                                x:Name="TelefoonType"
+                                Click="TelefoonType_Click"
+                                Content="TelefoonType"
+                                Style="{StaticResource myMenuTandwiel}" />
+                            <Button
+                                x:Name="Land"
+                                Click="Land_Click"
+                                Content="Land"
+                                Style="{StaticResource myMenuTandwiel}" />
+                            <Button
+                                x:Name="Provincie"
+                                Click="Provincie_Click"
+                                Content="Provincie"
+                                Style="{StaticResource myMenuTandwiel}" />
+                            <Button
+                                x:Name="Gemeente"
+                                Click="Gemeente_Click"
+                                Content="Gemeente"
+                                Style="{StaticResource myMenuTandwiel}" />
+                            <Button
+                                x:Name="Functies"
+                                Click="Functies_Click"
+                                Content="Functies"
+                                Style="{StaticResource myMenuTandwiel}" />
                         </StackPanel>
                     </Expander>
 
