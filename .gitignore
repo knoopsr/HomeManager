@@ -16,6 +16,7 @@
 # Connection db
 Connection.settings
 Connection.Designer.cs
+App.config
 
 # Mono auto generated files
 mono_crash.*
