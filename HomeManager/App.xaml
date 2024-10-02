@@ -5,6 +5,20 @@
     xmlns:local="clr-namespace:HomeManager"
     StartupUri="MainWindow.xaml">
     <Application.Resources>
-        <ResourceDictionary Source="\Styles\Resource_Dict.xaml" />
+
+        <!--in de resource kan maar 1 dictionary staan dus we mergen al de resources.
+            Aangezien ze in de app file staan zijn de key's van de resources over heel het project aanspreekbaar-->
+
+
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="\Resources\BrushesDictionary.xaml" />
+                <ResourceDictionary Source="\Resources\GeometryDrawingDictionary.xaml" />
+                <ResourceDictionary Source="\Resources\StyleHamburgerMenu.xaml"/>
+                <ResourceDictionary Source="\Resources\StylesDictionary.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+
+
     </Application.Resources>
 </Application>

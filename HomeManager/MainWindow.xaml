@@ -7,8 +7,10 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:uc="clr-namespace:HomeManager.View"
     Title="MainWindow"
-    Width="800"
-    Height="450"
+    Width="1000"
+    Height="900"
+    MinWidth="1000"
+    MinHeight="900"
     Background="{StaticResource myTitleBar}"
     mc:Ignorable="d">
 
@@ -97,8 +99,7 @@
                     Orientation="Vertical">
                     <Expander Style="{StaticResource myHamburgerPersonen}">
                         <StackPanel x:Name="stckPerson">
-                            <Button
-                                Click="Button_Click"
+                            <Button                       
                                 Content="Persoon"
                                 Style="{StaticResource myExpanderPerson}" />
                             <Button Content="EmailType" Style="{StaticResource myMenuTandwiel}" />
