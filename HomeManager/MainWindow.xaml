@@ -9,8 +9,6 @@
     Title="MainWindow"
     Width="1000"
     Height="900"
-    MinWidth="1000"
-    MinHeight="900"
     Background="{StaticResource myTitleBar}"
     mc:Ignorable="d">
 
@@ -99,9 +97,7 @@
                     Orientation="Vertical">
                     <Expander Style="{StaticResource myHamburgerPersonen}">
                         <StackPanel x:Name="stckPerson">
-                            <Button                       
-                                Content="Persoon"
-                                Style="{StaticResource myExpanderPerson}" />
+                            <Button Content="Persoon" Style="{StaticResource myExpanderPerson}" />
                             <Button Content="EmailType" Style="{StaticResource myMenuTandwiel}" />
                             <Button Content="TelefoonType" Style="{StaticResource myMenuTandwiel}" />
                             <Button Content="Land" Style="{StaticResource myMenuTandwiel}" />
