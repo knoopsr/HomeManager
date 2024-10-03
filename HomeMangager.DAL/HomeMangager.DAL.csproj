@@ -26,6 +26,11 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Update="Properties\Connection.Designer.cs">
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Connection.settings</DependentUpon>
+    </Compile>
   </ItemGroup>
 
   <ItemGroup>
@@ -36,6 +41,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Update="Properties\Connection.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Connection.Designer.cs</LastGenOutput>
+    </None>
     <None Update="Properties\Connection.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Connection.Designer.cs</LastGenOutput>
