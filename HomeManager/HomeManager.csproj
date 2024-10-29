@@ -38,13 +38,16 @@
     <Folder Include="ViewModel\StickyNotes\" />
     <Folder Include="ViewModel\Security\" />
     <Folder Include="ViewModel\Todo\" />
-    <Folder Include="ViewModel\Personen\" />
     <Folder Include="View\Dagboek\" />
     <Folder Include="View\Budget\" />
     <Folder Include="View\Homepage\" />
     <Folder Include="View\StickyNotes\" />
     <Folder Include="View\Security\" />
     <Folder Include="View\Todo\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.135" />
   </ItemGroup>
 
 </Project>

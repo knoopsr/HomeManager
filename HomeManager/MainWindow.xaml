@@ -1,7 +1,9 @@
 ﻿<Window
     x:Class="HomeManager.MainWindow"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"    
+    xmlns:V="clr-namespace:HomeManager.View"
+    xmlns:VM="clr-namespace:HomeManager.ViewModel"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:HomeManager"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -11,10 +13,14 @@
     Height="900"
     Background="{StaticResource myTitleBar}"
     mc:Ignorable="d">
-
-
+    <Window.DataContext>
+        <VM:clsHomeVM />
+    </Window.DataContext>
 
     <Window.Resources>
+        <DataTemplate DataType="{x:Type VM:clsPersoonVM}">
+            <V:ucPersoon />
+        </DataTemplate>
 
         <Storyboard x:Key="ShowMenu">
             <DoubleAnimation
@@ -97,7 +103,7 @@
                     Orientation="Vertical">
                     <Expander Style="{StaticResource myHamburgerPersonen}">
                         <StackPanel x:Name="stckPerson">
-                            <Button Content="Persoon" Style="{StaticResource myExpanderPerson}" />
+                            <Button Content="Persoon" Command="{Binding NavCommand}" CommandParameter="clsPersoonVM" Style="{StaticResource myExpanderPerson}" />
                             <Button Content="EmailType" Style="{StaticResource myMenuTandwiel}" />
                             <Button Content="TelefoonType" Style="{StaticResource myMenuTandwiel}" />
                             <Button Content="Land" Style="{StaticResource myMenuTandwiel}" />
@@ -171,6 +177,11 @@
             Unchecked="ToggleButton_Unchecked" />
 
         <!--#endregion-->
+        
+        <ContentControl
+            Grid.Row="1"
+            Grid.Column="1"
+            Content="{Binding CurrentViewModel}" />
 
     </Grid>
 </Window>
