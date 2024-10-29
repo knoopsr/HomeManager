@@ -88,12 +88,18 @@ namespace HomeManager
 
         private void Persoon_Click(object sender, RoutedEventArgs e)
         {
-            ucPersonen _ucPersonen = new ucPersonen();
+            //ucPersonen _ucPersonen = new ucPersonen();
 
-            Grid.SetRow(_ucPersonen, 1);
-            Grid.SetColumn(_ucPersonen, 1);
+            //Grid.SetRow(_ucPersonen, 1);
+            //Grid.SetColumn(_ucPersonen, 1);
 
-            grdMain.Children.Add(_ucPersonen);
+            //grdMain.Children.Add(_ucPersonen);
+
+            ucPersoon _ucPersoon = new ucPersoon();
+            Grid.SetRow(_ucPersoon, 1);
+            Grid.SetColumn(_ucPersoon, 1);
+            grdMain.Children.Add(_ucPersoon);
+
         }
 
         private void EmailType_Click(object sender, RoutedEventArgs e)

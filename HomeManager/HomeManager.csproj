@@ -38,13 +38,27 @@
     <Folder Include="ViewModel\StickyNotes\" />
     <Folder Include="ViewModel\Security\" />
     <Folder Include="ViewModel\Todo\" />
-    <Folder Include="ViewModel\Personen\" />
     <Folder Include="View\Dagboek\" />
     <Folder Include="View\Budget\" />
     <Folder Include="View\Homepage\" />
     <Folder Include="View\StickyNotes\" />
     <Folder Include="View\Security\" />
     <Folder Include="View\Todo\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Properties\Settings.Designer.cs">
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
   </ItemGroup>
 
 </Project>
