@@ -59,5 +59,59 @@ namespace HomeManager.DAL.Properties {
                 resourceCulture = value;
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to D_Rollen.
+        /// </summary>
+        internal static string D_Rollen {
+            get {
+                return ResourceManager.GetString("D_Rollen", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to I_Rollen.
+        /// </summary>
+        internal static string I_Rollen {
+            get {
+                return ResourceManager.GetString("I_Rollen", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to S_Rechten.
+        /// </summary>
+        internal static string S_Rechten {
+            get {
+                return ResourceManager.GetString("S_Rechten", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to S_RechtenCatogorie.
+        /// </summary>
+        internal static string S_RechtenCatogorie {
+            get {
+                return ResourceManager.GetString("S_RechtenCatogorie", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to S_Rollen.
+        /// </summary>
+        internal static string S_Rollen {
+            get {
+                return ResourceManager.GetString("S_Rollen", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to U_Rollen.
+        /// </summary>
+        internal static string U_Rollen {
+            get {
+                return ResourceManager.GetString("U_Rollen", resourceCulture);
+            }
+        }
     }
 }

@@ -12,6 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\HomeMangager.Common\HomeManager.Common.csproj" />
     <ProjectReference Include="..\HomeMangager.Model\HomeManager.Model.csproj" />
   </ItemGroup>
 
@@ -47,7 +48,6 @@
     <Folder Include="Budget\" />
     <Folder Include="Homepage\" />
     <Folder Include="StickyNotes\" />
-    <Folder Include="Security\" />
     <Folder Include="Todo\" />
     <Folder Include="Personen\" />
   </ItemGroup>
