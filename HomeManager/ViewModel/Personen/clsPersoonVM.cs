@@ -28,6 +28,7 @@ namespace HomeManager.ViewModel
         public ICommand cmdClose { get; set; }
         public ICommand cmdSave { get; set; }
         public ICommand cmdUploadPicture { get; set; }
+        public ICommand cmdShowPicture { get; set; }
 
 
         private ObservableCollection<clsPersoonM> _MijnCollectie;
@@ -132,9 +133,46 @@ namespace HomeManager.ViewModel
             cmdCancel = new clsCustomCommand(Execute_CancelCommand, CanExecute_CancelCommand);
             cmdClose = new clsCustomCommand(Execute_CloseCommand, CanExecute_CloseCommand);
             cmdUploadPicture = new clsCustomCommand(Execute_UploadPictureCommand, CanExecute_UploadPictureCommand);
+            cmdShowPicture = new clsCustomCommand(Execute_ShowPictureCommand, CanExecute_ShowPictureCommand);
 
             LoadData();
             MijnSelectedItem = MijnService.GetFirst();
+        }
+
+        private bool CanExecute_ShowPictureCommand(object obj)
+        {
+            return true;
+        }
+        private void Execute_ShowPictureCommand(object obj)
+        {
+            try
+            {
+                string path = Environment.GetFolderPath(Environment.SpecialFolder.Recent);
+                //OMDAT MIJN CV NAAM UIT EEN PATH BESTAAT MOET IK DE NAAM ERUIT FILTEREN
+                var StringArray = MijnSelectedItem.Voornaam.ToString().Split("\\");
+                File.WriteAllBytes(path + @"\" + StringArray[StringArray.Length - 1], MijnSelectedItem.Foto);
+
+                //HIER GA IK EEN PATH MAKEN IN DE RECENT FOLDER INCLUSIEF MIJN BESTANDSNAAM
+                string FileName = path + @"\" + StringArray[StringArray.Length - 1];
+
+                //OPMERKING: IN .NET CORE IS HET PROCESS. START ANDERS GEWORDEN IN DEZE CODE
+                var process = new Process();
+                process.StartInfo.UseShellExecute = true;
+                process.StartInfo.FileName = FileName;
+                process.Start();
+            }
+            catch (Exception ex)
+            {
+                if (ex.Message.ToString().Contains("omdat het wordt gebruikt door een ander proces."))
+                {
+                    MessageBox.Show("U kan dit document niet openen omdat dit al open staat.");
+                    return;
+                }
+                else
+                {
+                    MessageBox.Show("Oeps.");
+                }
+            }
         }
 
         private bool CanExecute_UploadPictureCommand(object? obj)
