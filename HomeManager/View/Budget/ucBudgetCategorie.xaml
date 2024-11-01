@@ -1,9 +1,9 @@
 ﻿<UserControl
-    x:Class="HomeManager.View.Budget.ucBudgetCategorie"
+    x:Class="HomeManager.View.ucBudgetCategorie"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:local="clr-namespace:HomeManager.View.Budget"
+    xmlns:local="clr-namespace:HomeManager.View"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:uc="clr-namespace:HomeManager.View"
     d:DesignHeight="450"
