@@ -12,10 +12,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\HomeMangager.Model\HomeManager.Model.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Compile Update="Properties\Connection.Designer.cs">
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <AutoGen>True</AutoGen>
@@ -26,13 +22,6 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-  </ItemGroup>
-
-  <ItemGroup>
-    <EmbeddedResource Update="Properties\Resources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
   </ItemGroup>
 
   <ItemGroup>
@@ -49,7 +38,18 @@
     <Folder Include="StickyNotes\" />
     <Folder Include="Security\" />
     <Folder Include="Todo\" />
-    <Folder Include="Personen\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\HomeMangager.Common\HomeManager.Common.csproj" />
+    <ProjectReference Include="..\HomeMangager.Model\HomeManager.Model.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
 
 </Project>

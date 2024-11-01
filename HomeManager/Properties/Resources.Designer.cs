@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace HomeManager.DAL.Properties {
+namespace HomeManager.Properties {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace HomeManager.DAL.Properties {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("HomeManager.DAL.Properties.Resources", typeof(Resources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("HomeManager.Properties.Resources", typeof(Resources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -57,42 +57,6 @@ namespace HomeManager.DAL.Properties {
             }
             set {
                 resourceCulture = value;
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to D_Persoon.
-        /// </summary>
-        internal static string D_Persoon {
-            get {
-                return ResourceManager.GetString("D_Persoon", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to I_Persoon.
-        /// </summary>
-        internal static string I_Persoon {
-            get {
-                return ResourceManager.GetString("I_Persoon", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to S_Persoon.
-        /// </summary>
-        internal static string S_Persoon {
-            get {
-                return ResourceManager.GetString("S_Persoon", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to U_Persoon.
-        /// </summary>
-        internal static string U_Persoon {
-            get {
-                return ResourceManager.GetString("U_Persoon", resourceCulture);
             }
         }
     }
