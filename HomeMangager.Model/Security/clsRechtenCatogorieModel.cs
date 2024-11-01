@@ -48,6 +48,8 @@ namespace HomeManager.Model.Security
             get { return _rechten; }
             set
             {
+           
+
                 _rechten = value;
                 OnPropertyChanged();
             }
@@ -63,6 +65,7 @@ namespace HomeManager.Model.Security
             {
 
 
+
                 _isChecked = value;
                 OnPropertyChanged();
 
@@ -74,6 +77,7 @@ namespace HomeManager.Model.Security
                         item.IsChecked = _isChecked.Value;
                     }
                 }
+
             }
         }
 

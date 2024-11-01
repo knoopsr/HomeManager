@@ -135,4 +135,28 @@
   <data name="D_Rollen" xml:space="preserve">
     <value>D_Rollen</value>
   </data>
+  <data name="S_WachtWoordenGroep" xml:space="preserve">
+    <value>S_WachtWoordenGroep</value>
+  </data>
+  <data name="I_WachtWoordenGroep" xml:space="preserve">
+    <value>I_WachtWoordenGroep</value>
+  </data>
+  <data name="U_WachtWoordenGroep" xml:space="preserve">
+    <value>U_WachtWoordenGroep</value>
+  </data>
+  <data name="D_WachtWoordenGroep" xml:space="preserve">
+    <value>D_WachtWoordenGroep</value>
+  </data>
+  <data name="S_Wachtwoord" xml:space="preserve">
+    <value>S_Wachtwoord</value>
+  </data>
+  <data name="I_Wachtwoord" xml:space="preserve">
+    <value>I_Wachtwoord</value>
+  </data>
+  <data name="D_Wachtwoord" xml:space="preserve">
+    <value>D_Wachtwoord</value>
+  </data>
+  <data name="U_Wachtwoord" xml:space="preserve">
+    <value>U_Wachtwoord</value>
+  </data>
 </root>

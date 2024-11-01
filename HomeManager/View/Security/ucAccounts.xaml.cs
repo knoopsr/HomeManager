@@ -13,7 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace HomeManager.View.Security
+namespace HomeManager.View
 {
     /// <summary>
     /// Interaction logic for ucAccounts.xaml

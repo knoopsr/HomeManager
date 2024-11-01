@@ -16,6 +16,33 @@ namespace HomeManager.ViewModel
                 return new clsRechtenViewModel();
             }
         }
+
+        public clsCredentialGroupViewModel CredentialGroupViewModel
+        {
+            get
+            {
+                return new clsCredentialGroupViewModel();
+            }
+        }
+
+        public clsAccountsViewModel AccountsViewModel
+        {
+            get
+            {
+                return new clsAccountsViewModel();
+            }
+        }
+
+        public clsCredentialManagementViewModel CredentialManagementViewModel
+        {
+            get
+            {
+                return new clsCredentialManagementViewModel();
+            }
+        }
+
+
+
         #endregion
     }
 }

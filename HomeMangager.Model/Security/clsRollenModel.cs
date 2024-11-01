@@ -1,16 +1,51 @@
 ﻿using HomeManager.Common;
-using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace HomeManager.Model.Security
 {
     public class clsRollenModel : clsCommonModelPropertiesBase, IDataErrorInfo
     {
-        public string this[string columnName] => throw new NotImplementedException();
+        public string this[string columnName]
+        {
+            get
+            {
+                string error = string.Empty;
+                switch (columnName)
+                {
+                    case nameof(RolName):
+                        if (string.IsNullOrWhiteSpace(RolName))
+                        {
+                            error = "RolName is verplicht veld.";
+                            if (ErrorList.Contains(nameof(RolName)) == false)
+                            {
+                                ErrorList.Add(nameof(RolName));
+                            }
+                        }
+                        else if (RolName.Length > 50)
+                        {
+                            error = "RolName mag niet langer zijn dan 50 karakters.";
+                            if (ErrorList.Contains(nameof(RolName)) == false)
+                            {
+                                ErrorList.Add(nameof(RolName));
+                            }
+                        }
+                        else
+                        {
+                            if (ErrorList.Contains(nameof(RolName)))
+                            {
+                                ErrorList.Remove(nameof(RolName));
+                            }
+                        }
+                        return error;
+
+                    default:
+                        error = null;
+                        return error;
+                }
+
+            }
+
+        }
 
         private int _rolID;
         public int RolID
@@ -19,9 +54,9 @@ namespace HomeManager.Model.Security
             set
             {
 
-                    _rolID = value;
-                    OnPropertyChanged();
-                
+                _rolID = value;
+                OnPropertyChanged();
+
             }
         }
 
@@ -38,7 +73,7 @@ namespace HomeManager.Model.Security
                         IsDirty = true;
                     }
                 }
-                    _rolName = value;
+                _rolName = value;
                 OnPropertyChanged();
             }
         }
@@ -61,5 +96,22 @@ namespace HomeManager.Model.Security
             }
         }
 
+        public override string ToString()
+        {
+            return RolName;
+        }
+
+        private bool _isTextBoxEnabled;
+        public bool IsTextBoxEnabled
+        {
+            get { return _isTextBoxEnabled; }
+            set
+            {
+                _isTextBoxEnabled = value;
+                OnPropertyChanged();
             }
+        }
+
+
+    }
 }

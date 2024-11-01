@@ -23,6 +23,15 @@
         <DataTemplate DataType="{x:Type VM:clsRechtenViewModel}">
             <V:ucRoles />
         </DataTemplate>
+        <DataTemplate DataType="{x:Type VM:clsCredentialGroupViewModel}">
+            <V:ucCredentialGroup />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type VM:clsCredentialManagementViewModel}">
+            <V:ucCredentialManagement />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type VM:clsAccountsViewModel}">
+            <V:ucAccounts />
+        </DataTemplate>
 
 
         <Storyboard x:Key="ShowMenu">
@@ -139,9 +148,21 @@
                     </Expander>
                     <Expander Style="{StaticResource myHamburgerSecurity}">
                         <StackPanel x:Name="stckSecurity">
-                            <Button Content="Account beheren" Style="{StaticResource myMenuTandwiel}" />
-                            <Button Content="Wachtwoorden" Style="{StaticResource myMenuTandwiel}" />
-                            <Button Content="Wachtwoordengroep" Style="{StaticResource myMenuTandwiel}" />
+                            <Button
+                                Command="{Binding NavCommand}"
+                                CommandParameter="clsAccountsViewModel"
+                                Content="Account beheren"
+                                Style="{StaticResource myMenuTandwiel}" />
+                            <Button
+                                Command="{Binding NavCommand}"
+                                CommandParameter="clsCredentialManagementViewModel"
+                                Content="Wachtwoorden"
+                                Style="{StaticResource myMenuTandwiel}" />
+                            <Button
+                                Command="{Binding NavCommand}"
+                                CommandParameter="clsCredentialGroupViewModel"
+                                Content="Wachtwoordengroep"
+                                Style="{StaticResource myMenuTandwiel}" />
                             <Button
                                 Command="{Binding NavCommand}"
                                 CommandParameter="clsRechtenViewModel"
