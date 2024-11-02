@@ -1,7 +1,7 @@
 ﻿<Window
     x:Class="HomeManager.MainWindow"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"    
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:V="clr-namespace:HomeManager.View"
     xmlns:VM="clr-namespace:HomeManager.ViewModel"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -17,10 +17,25 @@
         <VM:clsHomeVM />
     </Window.DataContext>
 
+
     <Window.Resources>
         <DataTemplate DataType="{x:Type VM:clsPersoonVM}">
             <V:ucPersoon />
         </DataTemplate>
+
+        <DataTemplate DataType="{x:Type VM:clsRechtenViewModel}">
+            <V:ucRoles />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type VM:clsCredentialGroupViewModel}">
+            <V:ucCredentialGroup />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type VM:clsCredentialManagementViewModel}">
+            <V:ucCredentialManagement />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type VM:clsAccountViewModel}">
+            <V:ucAccount />
+        </DataTemplate>
+
 
         <Storyboard x:Key="ShowMenu">
             <DoubleAnimation
@@ -136,10 +151,26 @@
                     </Expander>
                     <Expander Style="{StaticResource myHamburgerSecurity}">
                         <StackPanel x:Name="stckSecurity">
-                            <Button Content="Account beheren" Style="{StaticResource myMenuTandwiel}" />
-                            <Button Content="Wachtwoorden" Style="{StaticResource myMenuTandwiel}" />
-                            <Button Content="Wachtwoordengroep" Style="{StaticResource myMenuTandwiel}" />
-                            <Button Content="Rollen" Style="{StaticResource myMenuTandwiel}" />
+                            <Button
+                                Command="{Binding NavCommand}"
+                                CommandParameter="clsAccountViewModel"
+                                Content="Account beheren"
+                                Style="{StaticResource myMenuTandwiel}" />
+                            <Button
+                                Command="{Binding NavCommand}"
+                                CommandParameter="clsCredentialManagementViewModel"
+                                Content="Wachtwoorden"
+                                Style="{StaticResource myMenuTandwiel}" />
+                            <Button
+                                Command="{Binding NavCommand}"
+                                CommandParameter="clsCredentialGroupViewModel"
+                                Content="Wachtwoordengroep"
+                                Style="{StaticResource myMenuTandwiel}" />
+                            <Button
+                                Command="{Binding NavCommand}"
+                                CommandParameter="clsRechtenViewModel"
+                                Content="Rollen"
+                                Style="{StaticResource myMenuTandwiel}" />
                         </StackPanel>
                     </Expander>
 
@@ -178,6 +209,12 @@
 
         <!--#endregion-->
         
+        <ContentControl
+            Grid.Row="1"
+            Grid.Column="1"
+            Content="{Binding CurrentViewModel}" />
+
+
         <ContentControl
             Grid.Row="1"
             Grid.Column="1"

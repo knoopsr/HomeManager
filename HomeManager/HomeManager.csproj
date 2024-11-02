@@ -30,21 +30,16 @@
     <Folder Include="ViewModel\Budget\" />
     <Folder Include="ViewModel\Homepage\" />
     <Folder Include="ViewModel\StickyNotes\" />
-    <Folder Include="ViewModel\Security\" />
     <Folder Include="ViewModel\Todo\" />
     <Folder Include="View\Dagboek\" />
     <Folder Include="View\Budget\" />
     <Folder Include="View\Homepage\" />
     <Folder Include="View\StickyNotes\" />
-    <Folder Include="View\Security\" />
     <Folder Include="View\Todo\" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.135" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\HomeMangager.Common\HomeManager.Common.csproj" />
     <ProjectReference Include="..\HomeMangager.DAL\HomeManager.DAL.csproj" />
     <ProjectReference Include="..\HomeMangager.Model\HomeManager.Model.csproj" />
@@ -64,5 +59,6 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
+
 
 </Project>
