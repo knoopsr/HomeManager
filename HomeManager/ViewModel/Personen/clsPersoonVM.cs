@@ -19,46 +19,39 @@ namespace HomeManager.ViewModel
     public class clsPersoonVM : clsCommonModelPropertiesBase
     {
         clsPersoonDataService MijnService;
-        
         private bool NewStatus = false;
 
         public ICommand cmdDelete { get; set; }
         public ICommand cmdNew { get; set; }
+        public ICommand cmdSave { get; set; }
         public ICommand cmdCancel { get; set; }
         public ICommand cmdClose { get; set; }
-        public ICommand cmdSave { get; set; }
+
         public ICommand cmdUploadPicture { get; set; }
-        public ICommand cmdShowPicture { get; set; }
 
-
-        private ObservableCollection<clsPersoonM> _MijnCollectie;
+        private ObservableCollection<clsPersoonM> _mijnCollectie;
         public ObservableCollection<clsPersoonM> MijnCollectie
         {
-            get
-            {
-                return _MijnCollectie;
-            }
+            get { return _mijnCollectie; }
             set
             {
-                _MijnCollectie = value;
+                _mijnCollectie = value;
                 OnPropertyChanged();
             }
         }
 
-        private clsPersoonM _MijnSelectedItem;
+
+        private clsPersoonM _mijnSelectedItem;
         public clsPersoonM MijnSelectedItem
         {
-            get
-            {
-                return _MijnSelectedItem;
-            }
+            get { return _mijnSelectedItem; }
             set
             {
                 if (value != null)
                 {
-                    if (_MijnSelectedItem != null && _MijnSelectedItem.IsDirty)
+                    if (_mijnSelectedItem != null && _mijnSelectedItem.IsDirty)
                     {
-                        if (MessageBox.Show("Wil je " + _MijnSelectedItem + "Opslaan?", "Opslaan",
+                        if (MessageBox.Show("Wilt je " + _mijnSelectedItem + " opslaan?", "Opslaan",
                             MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
                         {
                             OpslaanCommando();
@@ -66,17 +59,24 @@ namespace HomeManager.ViewModel
                         }
                     }
                 }
-                _MijnSelectedItem = value;
+                _mijnSelectedItem = value;
                 OnPropertyChanged();
             }
         }
+
+
+        private void LoadData()
+        {
+            MijnCollectie = MijnService.GetAll();
+        }
+
         private void OpslaanCommando()
         {
-            if (MijnSelectedItem != null)
+            if (_mijnSelectedItem != null)
             {
                 if (NewStatus)
                 {
-                    if (MijnService.Insert(MijnSelectedItem))
+                    if (MijnService.Insert(_mijnSelectedItem))
                     {
                         MijnSelectedItem.IsDirty = false;
                         MijnSelectedItem.MijnSelectedIndex = 0;
@@ -86,12 +86,12 @@ namespace HomeManager.ViewModel
                     }
                     else
                     {
-                        MessageBox.Show(MijnSelectedItem.ErrorBoodschap, "Error?");
+                        MessageBox.Show(_mijnSelectedItem.ErrorBoodschap, "Error?");
                     }
                 }
                 else
                 {
-                    if (MijnService.Update(MijnSelectedItem))
+                    if (MijnService.Update(_mijnSelectedItem))
                     {
                         MijnSelectedItem.IsDirty = false;
                         MijnSelectedItem.MijnSelectedIndex = 0;
@@ -100,87 +100,29 @@ namespace HomeManager.ViewModel
                     }
                     else
                     {
-                        MessageBox.Show(MijnSelectedItem.ErrorBoodschap, "Error?");
+                        MessageBox.Show(_mijnSelectedItem.ErrorBoodschap, "Error?");
                     }
                 }
             }
         }
 
-        private bool _IsFocused = false;
-        public bool IsFocused
-        {
-            get
-            {
-                return _IsFocused;
-            }
-            set
-            {
-                _IsFocused = value;
-                OnPropertyChanged();
-            }
-        }
-        private void LoadData()
-        {
-            MijnCollectie = MijnService.GetAll();
-        }
-
         public clsPersoonVM()
         {
             MijnService = new clsPersoonDataService();
-            cmdSave = new clsCustomCommand(Execute_SaveCommand, CanExecute_SaveCommand);
-            cmdDelete = new clsCustomCommand(Execute_DeleteCommand, CanExecute_DeleteCommand);
-            cmdNew = new clsCustomCommand(Execute_NewCommand, CanExecute_NewCommand);
-            cmdCancel = new clsCustomCommand(Execute_CancelCommand, CanExecute_CancelCommand);
-            cmdClose = new clsCustomCommand(Execute_CloseCommand, CanExecute_CloseCommand);
-            cmdUploadPicture = new clsCustomCommand(Execute_UploadPictureCommand, CanExecute_UploadPictureCommand);
-            cmdShowPicture = new clsCustomCommand(Execute_ShowPictureCommand, CanExecute_ShowPictureCommand);
+
+            cmdSave = new clsCustomCommand(Execute_Save_Command, CanExecute_Save_Command);
+            cmdDelete = new clsCustomCommand(Execute_Delete_Command, CanExecute_Delete_Command);
+            cmdNew = new clsCustomCommand(Execute_New_Command, CanExecute_New_Command);
+            cmdCancel = new clsCustomCommand(Execute_Cancel_Command, CanExecute_Cancel_Command);
+            cmdClose = new clsCustomCommand(Execute_Close_Command, CanExecute_Close_Command);
+            cmdUploadPicture = new clsCustomCommand(Execute_UploadPicture_Command, CanExecute_UploadPicture_Command);
 
             LoadData();
+
             MijnSelectedItem = MijnService.GetFirst();
         }
 
-        private bool CanExecute_ShowPictureCommand(object obj)
-        {
-            return true;
-        }
-        private void Execute_ShowPictureCommand(object obj)
-        {
-            try
-            {
-                string path = Environment.GetFolderPath(Environment.SpecialFolder.Recent);
-                //OMDAT MIJN CV NAAM UIT EEN PATH BESTAAT MOET IK DE NAAM ERUIT FILTEREN
-                var StringArray = MijnSelectedItem.Voornaam.ToString().Split("\\");
-                File.WriteAllBytes(path + @"\" + StringArray[StringArray.Length - 1], MijnSelectedItem.Foto);
-
-                //HIER GA IK EEN PATH MAKEN IN DE RECENT FOLDER INCLUSIEF MIJN BESTANDSNAAM
-                string FileName = path + @"\" + StringArray[StringArray.Length - 1];
-
-                //OPMERKING: IN .NET CORE IS HET PROCESS. START ANDERS GEWORDEN IN DEZE CODE
-                var process = new Process();
-                process.StartInfo.UseShellExecute = true;
-                process.StartInfo.FileName = FileName;
-                process.Start();
-            }
-            catch (Exception ex)
-            {
-                if (ex.Message.ToString().Contains("omdat het wordt gebruikt door een ander proces."))
-                {
-                    MessageBox.Show("U kan dit document niet openen omdat dit al open staat.");
-                    return;
-                }
-                else
-                {
-                    MessageBox.Show("Oeps.");
-                }
-            }
-        }
-
-        private bool CanExecute_UploadPictureCommand(object? obj)
-        {
-            return true;
-        }
-
-        private void Execute_UploadPictureCommand(object? obj)
+        private void Execute_UploadPicture_Command(object? obj)
         {
             Microsoft.Win32.OpenFileDialog _OpenFileDialog = new Microsoft.Win32.OpenFileDialog();
             string myFileName = string.Empty;
@@ -196,6 +138,7 @@ namespace HomeManager.ViewModel
             if (File.Exists(_OpenFileDialog.FileName))
             {
                 MijnSelectedItem.Foto = DocumentContent(_OpenFileDialog.FileName);
+                MijnSelectedItem.IsDirty = true;
             }
         }
 
@@ -224,99 +167,22 @@ namespace HomeManager.ViewModel
             return image;
         }
 
-        private bool CanExecute_CloseCommand(object obj)
+        private bool CanExecute_UploadPicture_Command(object? obj)
         {
             return true;
         }
-        private void Execute_CloseCommand(object obj)
+
+        private void Execute_Save_Command(object? obj)
         {
-            MainWindow HomeWindow = obj as MainWindow;
-            if (HomeWindow != null)
-            {
-                if (MijnSelectedItem != null && MijnSelectedItem.Error == null && MijnSelectedItem.IsDirty == true)
-                {
-                    if (MessageBox.Show(MijnSelectedItem.ToString().ToUpper() + "is nog niet opgeslagen, wil je opslaan ?", "Opslaan of sluiten?",
-                        MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
-                    {
-                        OpslaanCommando();
-                        clsHomeVM vm2 = (clsHomeVM)HomeWindow.DataContext;
-                        vm2.CurrentViewModel = null;
-                    }
-                }
-                clsHomeVM vm = (clsHomeVM)HomeWindow.DataContext;
-                vm.CurrentViewModel = null;
-            }
+            OpslaanCommando();
         }
 
-
-        private bool CanExecute_CancelCommand(object obj)
+        private bool CanExecute_Save_Command(object? obj)
         {
-            return NewStatus;
-        }
-
-        private bool _IsFocusedAfterNew = false;
-        public bool IsFocusedAfterNew
-        {
-            get
+            if (MijnSelectedItem != null &&
+                MijnSelectedItem.Error == null &&
+                MijnSelectedItem.IsDirty == true)
             {
-                return _IsFocusedAfterNew;
-            }
-            set
-            {
-                _IsFocusedAfterNew = value;
-                OnPropertyChanged();
-            }
-        }
-
-
-
-        private void Execute_CancelCommand(object obj)
-        {
-            MijnSelectedItem = MijnService.GetFirst();
-            if (MijnSelectedItem != null)
-            {
-                MijnSelectedItem.MijnSelectedIndex = 0;
-                MijnSelectedItem.MyVisibility = (int)Visibility.Visible;
-            }
-            NewStatus = false;
-            IsFocusedAfterNew = false;
-            IsFocused = true;
-        }
-
-
-        private bool CanExecute_NewCommand(object obj)
-        {
-            return !NewStatus;
-        }
-
-        private void Execute_NewCommand(object obj)
-        {
-            clsPersoonM ItemToInsert = new clsPersoonM()
-            {
-                PersoonID = 0,
-                Naam = string.Empty,
-                Voornaam = string.Empty,
-                Foto = null,
-                Geboortedatum = DateOnly.FromDateTime(DateTime.Now),
-                IsApplicationUser = false
-            };
-            MijnSelectedItem = ItemToInsert;
-            MijnSelectedItem = ItemToInsert;
-
-            MijnSelectedItem.MyVisibility = (int)Visibility.Hidden;
-            NewStatus = true;
-            IsFocusedAfterNew = true;
-        }
-
-
-        private bool CanExecute_DeleteCommand(object obj)
-        {
-            if (MijnSelectedItem != null)
-            {
-                if (NewStatus)
-                {
-                    return false;
-                }
                 return true;
             }
             else
@@ -324,10 +190,13 @@ namespace HomeManager.ViewModel
                 return false;
             }
         }
-        private void Execute_DeleteCommand(object obj)
+
+        private void Execute_Delete_Command(object? obj)
         {
-            if (MessageBox.Show("wil je " + MijnSelectedItem + "verwijderen?", "Vewijderen?", MessageBoxButton.YesNo,
-                MessageBoxImage.Question) == MessageBoxResult.Yes)
+            if (MessageBox.Show(
+                "Wil je " + MijnSelectedItem + " verwijderen?",
+                "Verwijderen?",
+                MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
             {
                 if (MijnSelectedItem != null)
                 {
@@ -344,12 +213,14 @@ namespace HomeManager.ViewModel
             }
         }
 
-        private bool CanExecute_SaveCommand(object obj)
+        private bool CanExecute_Delete_Command(object? obj)
         {
-            if (MijnSelectedItem != null
-                && MijnSelectedItem.Error == null
-                && MijnSelectedItem.IsDirty == true)
+            if (MijnSelectedItem != null)
             {
+                if (NewStatus)
+                {
+                    return false;
+                }
                 return true;
             }
             else
@@ -357,9 +228,78 @@ namespace HomeManager.ViewModel
                 return false;
             }
         }
-        private void Execute_SaveCommand(object obj)
+
+        private void Execute_New_Command(object? obj)
         {
-            OpslaanCommando();
+            clsPersoonM _itemToInsert = new clsPersoonM()
+            {
+                PersoonID = 0,
+                Naam = string.Empty,
+                Voornaam = string.Empty,
+                Foto = null,
+                Geboortedatum = DateOnly.FromDateTime(DateTime.Now),
+                IsApplicationUser = null
+
+            };
+            MijnSelectedItem = _itemToInsert;
+            MijnSelectedItem.MyVisibility = (int)Visibility.Hidden;
+            NewStatus = true;
+            IsFocusedAfterNew = true;
+        }
+
+        private bool CanExecute_New_Command(object? obj)
+        {
+            return !NewStatus;
+        }
+
+        private void Execute_Cancel_Command(object? obj)
+        {
+            MijnSelectedItem = MijnService.GetFirst();
+            if (MijnSelectedItem != null)
+            {
+                MijnSelectedItem.MijnSelectedIndex = 0;
+                MijnSelectedItem.MyVisibility = (int)Visibility.Visible;
+            }
+            NewStatus = false;
+            IsFocusedAfterNew = false;
+            IsFocused = true;
+        }
+
+        private bool CanExecute_Cancel_Command(object? obj)
+        {
+            return NewStatus;
+        }
+
+        private void Execute_Close_Command(object? obj)
+        {
+            MainWindow HomeWindow = obj as MainWindow;
+            if (HomeWindow != null)
+            {
+                if (MijnSelectedItem != null && MijnSelectedItem.IsDirty == true && MijnSelectedItem.Error == null)
+                {
+                    if (MessageBox.Show(
+                        MijnSelectedItem.ToString().ToUpper() + " is nog niet opgeslagen, wil je opslaan?",
+                        "Opslaan of sluiten?",
+                        MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+                    {
+                        OpslaanCommando();
+                        clsHomeVM vm2 = (clsHomeVM)HomeWindow.DataContext;
+                        vm2.CurrentViewModel = null;
+                    }
+                }
+                clsHomeVM vm = (clsHomeVM)HomeWindow.DataContext;
+                vm.CurrentViewModel = null;
+            }
+        }
+
+        private bool CanExecute_Close_Command(object? obj)
+        {
+            return true;
+        }
+
+        private bool CanExecute_SelectionChangedCommand(object obj)
+        {
+            return true;
         }
     }
 }

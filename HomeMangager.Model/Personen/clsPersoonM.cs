@@ -1,27 +1,25 @@
-﻿using System.ComponentModel;
-using HomeManager.Common;
+﻿using HomeManager.Common;
+using System.ComponentModel;
 
 namespace HomeManager.Model.Personen
 {
     public class clsPersoonM : clsCommonModelPropertiesBase, IDataErrorInfo
     {
-		private int _persoonID;
-
-		public int PersoonID
-		{
-			get
-			{ 
-				return _persoonID;
-			}
-			set 
-			{
-                _persoonID = value; 
-				OnPropertyChanged();
-			}
-		}
+        private int _persoonID;
+        public int PersoonID
+        {
+            get
+            {
+                return _persoonID;
+            }
+            set
+            {
+                _persoonID = value;
+                OnPropertyChanged();
+            }
+        }
 
         private string _Naam;
-
         public string Naam
         {
             get
@@ -64,23 +62,17 @@ namespace HomeManager.Model.Personen
             }
         }
 
-        private byte[]? _foto;
+        private byte[] _foto;
 
-        public byte[]? Foto
+        public byte[] Foto
         {
             get
             {
                 return _foto;
             }
             set
-            {
-                if (_foto != value)
-                {
-                    if (_foto != null)
-                    {
-                        IsDirty = true;
-                    }
-                }
+            {                  
+                
                 _foto = value;
                 OnPropertyChanged();
             }
@@ -96,21 +88,22 @@ namespace HomeManager.Model.Personen
             }
             set
             {
-                if (_geboorteDatum != value)
+                if (_geboorteDatum != DateOnly.MinValue)
                 {
-                    if (_geboorteDatum != null)
+                    if (_geboorteDatum != value)
                     {
                         IsDirty = true;
                     }
                 }
+
                 _geboorteDatum = value;
                 OnPropertyChanged();
             }
         }
 
-        private bool _isApplicationUser;
+        private bool? _isApplicationUser;
 
-        public bool IsApplicationUser
+        public bool? IsApplicationUser
         {
             get
             {
@@ -118,15 +111,18 @@ namespace HomeManager.Model.Personen
             }
             set
             {
-                if (_isApplicationUser != value)
+         
+                if(_isApplicationUser != null)
                 {
-                    if (_isApplicationUser != null)
+                    if(_isApplicationUser != value)
                     {
                         IsDirty = true;
                     }
                 }
+
                 _isApplicationUser = value;
-                OnPropertyChanged();
+                OnPropertyChanged();       
+
             }
         }
 
@@ -168,7 +164,7 @@ namespace HomeManager.Model.Personen
                         }
                         return error;
 
-                        case nameof(Voornaam):
+                    case nameof(Voornaam):
                         if (string.IsNullOrWhiteSpace(Voornaam))
                         {
                             error = "Voornaam is een verplicht veld.";
@@ -190,6 +186,24 @@ namespace HomeManager.Model.Personen
                             if (ErrorList.Contains("Voornaam"))
                             {
                                 ErrorList.Remove("Voornaam");
+                            }
+                        }
+                        return error;
+
+                    case nameof(IsApplicationUser):
+                        if (IsApplicationUser == null)
+                        {
+                            error = "IsApplicationUser is een verplicht veld.";
+                            if (ErrorList.Contains(nameof(IsApplicationUser)) == false)
+                            {
+                                ErrorList.Add(nameof(IsApplicationUser));
+                            }
+                        }
+                        else
+                        {
+                            if (ErrorList.Contains(nameof(IsApplicationUser)))
+                            {
+                                ErrorList.Remove(nameof(IsApplicationUser));
                             }
                         }
                         return error;
