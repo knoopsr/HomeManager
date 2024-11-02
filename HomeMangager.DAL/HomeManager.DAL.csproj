@@ -30,13 +30,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Update="Properties\Resources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-  </ItemGroup>
-
-  <ItemGroup>
     <None Update="Properties\Connection.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Connection.Designer.cs</LastGenOutput>
@@ -49,7 +42,18 @@
     <Folder Include="Homepage\" />
     <Folder Include="StickyNotes\" />
     <Folder Include="Todo\" />
-    <Folder Include="Personen\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\HomeMangager.Common\HomeManager.Common.csproj" />
+    <ProjectReference Include="..\HomeMangager.Model\HomeManager.Model.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
 
 </Project>

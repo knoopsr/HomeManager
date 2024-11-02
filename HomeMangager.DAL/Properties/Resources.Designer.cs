@@ -61,6 +61,7 @@ namespace HomeManager.DAL.Properties {
         }
         
         /// <summary>
+
         ///   Looks up a localized string similar to D_Account.
         /// </summary>
         internal static string D_Account {
@@ -77,6 +78,7 @@ namespace HomeManager.DAL.Properties {
                 return ResourceManager.GetString("D_Persoon", resourceCulture);
             }
         }
+
 
         internal static string D_Rollen
         {
@@ -206,6 +208,7 @@ namespace HomeManager.DAL.Properties {
                 return ResourceManager.GetString("I_Account", resourceCulture);
             }
         }
+
         
         /// <summary>
         ///   Looks up a localized string similar to I_Persoon.
@@ -217,6 +220,7 @@ namespace HomeManager.DAL.Properties {
         }
         
         /// <summary>
+
         ///   Looks up a localized string similar to S_Account.
         /// </summary>
         internal static string S_Account {
