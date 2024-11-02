@@ -8,5 +8,12 @@ namespace HomeManager.ViewModel
 {
     public class clsVMLocator
     {
+        public clsCategorieViewModel CategorieViewModel
+        {
+            get
+            {
+                return new clsCategorieViewModel(); ;
+            }
+        }
     }
 }

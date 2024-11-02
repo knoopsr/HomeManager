@@ -6,6 +6,8 @@
     xmlns:VM="clr-namespace:HomeManager.ViewModel"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:HomeManager"
+    xmlns:V="clr-namespace.HomeManager.View"
+    xmlns:VM="clr-namespace.HomeManger.ViewModel"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:uc="clr-namespace:HomeManager.View"
     Title="MainWindow"

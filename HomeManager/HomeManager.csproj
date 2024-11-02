@@ -32,7 +32,6 @@
     <Folder Include="Messages\" />
     <Folder Include="Services\" />
     <Folder Include="Utilities\" />
-    <Folder Include="ViewModel\Budget\" />
     <Folder Include="ViewModel\Dagboek\" />
     <Folder Include="ViewModel\Homepage\" />
     <Folder Include="ViewModel\StickyNotes\" />
