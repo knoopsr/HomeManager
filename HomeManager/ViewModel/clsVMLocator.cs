@@ -25,11 +25,11 @@ namespace HomeManager.ViewModel
             }
         }
 
-        public clsAccountsViewModel AccountsViewModel
+        public clsAccountViewModel AccountViewModel
         {
             get
             {
-                return new clsAccountsViewModel();
+                return new clsAccountViewModel();
             }
         }
 

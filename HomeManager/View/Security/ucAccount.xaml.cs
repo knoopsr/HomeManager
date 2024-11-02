@@ -18,9 +18,9 @@ namespace HomeManager.View
     /// <summary>
     /// Interaction logic for ucAccounts.xaml
     /// </summary>
-    public partial class ucAccounts : UserControl
+    public partial class ucAccount : UserControl
     {
-        public ucAccounts()
+        public ucAccount()
         {
             InitializeComponent();
         }

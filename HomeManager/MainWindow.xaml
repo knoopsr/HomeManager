@@ -29,8 +29,8 @@
         <DataTemplate DataType="{x:Type VM:clsCredentialManagementViewModel}">
             <V:ucCredentialManagement />
         </DataTemplate>
-        <DataTemplate DataType="{x:Type VM:clsAccountsViewModel}">
-            <V:ucAccounts />
+        <DataTemplate DataType="{x:Type VM:clsAccountViewModel}">
+            <V:ucAccount />
         </DataTemplate>
 
 
@@ -150,7 +150,7 @@
                         <StackPanel x:Name="stckSecurity">
                             <Button
                                 Command="{Binding NavCommand}"
-                                CommandParameter="clsAccountsViewModel"
+                                CommandParameter="clsAccountViewModel"
                                 Content="Account beheren"
                                 Style="{StaticResource myMenuTandwiel}" />
                             <Button
