@@ -8,14 +8,17 @@ using System.Windows.Input;
 using System.Windows;
 using HomeManager.Common;
 using HomeManager.DataService.Security;
+using HomeManager.DataService.Personen;
 using HomeManager.Helpers;
 using HomeManager.Model.Security;
+using HomeManager.Model.Personen;
 
 namespace HomeManager.ViewModel
 {
     public class clsAccountViewModel : clsCommonModelPropertiesBase
     {
         clsAccountDataService MijnService;
+        clsPersoonDataService MijnPersoonService;
         private bool NewStatus = false;
 
         public ICommand cmdDelete { get; set; }
@@ -31,6 +34,17 @@ namespace HomeManager.ViewModel
             set
             {
                 _mijnCollectie = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private ObservableCollection<clsPersoonM> _mijnPersoonCollectie;
+        public ObservableCollection<clsPersoonM> MijnPersoonCollectie
+        {
+            get { return _mijnPersoonCollectie; }
+            set
+            {
+                _mijnPersoonCollectie = value;
                 OnPropertyChanged();
             }
         }
@@ -104,6 +118,7 @@ namespace HomeManager.ViewModel
         public clsAccountViewModel()
         {
             MijnService = new clsAccountDataService();
+            MijnPersoonService = new clsPersoonDataService();
 
             cmdSave = new clsCustomCommand(Execute_Save_Command, CanExecute_Save_Command);
             cmdDelete = new clsCustomCommand(Execute_Delete_Command, CanExecute_Delete_Command);
@@ -114,6 +129,8 @@ namespace HomeManager.ViewModel
             LoadData();
 
             MijnSelectedItem = MijnService.GetFirst();
+            MijnPersoonCollectie = MijnPersoonService.GetAllApplicationUser();
+
         }
 
         private void Execute_Save_Command(object? obj)

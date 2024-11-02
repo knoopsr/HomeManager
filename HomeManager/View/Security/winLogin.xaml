@@ -5,7 +5,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:HomeManager.View.Security"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    Title="winLogin"
+    Title="Login"
     Width="700"
     Height="300"
     Background="{StaticResource myBackground}"

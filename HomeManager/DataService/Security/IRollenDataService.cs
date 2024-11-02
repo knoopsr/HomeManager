@@ -10,5 +10,6 @@ namespace HomeManager.DataService.Security
 {
     public interface IRollenDataService : IDataService<clsRollenModel>
     {
+       
     }
 }

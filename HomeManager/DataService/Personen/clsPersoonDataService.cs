@@ -17,6 +17,8 @@ namespace HomeManager.DataService.Personen
             return Repo.Delete(entity);
         }
 
+
+
         public clsPersoonM Find()
         {
             return Repo.Find();
@@ -25,6 +27,11 @@ namespace HomeManager.DataService.Personen
         public ObservableCollection<clsPersoonM> GetAll()
         {
             return Repo.GetAll();
+        }
+
+        public ObservableCollection<clsPersoonM> GetAllApplicationUser()
+        {
+            return Repo.GetAllApplicationUser();
         }
 
         public clsPersoonM GetById(int id)

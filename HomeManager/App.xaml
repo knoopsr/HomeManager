@@ -6,6 +6,7 @@
     xmlns:VM="clr-namespace:HomeManager.ViewModel"
     xmlns:local="clr-namespace:HomeManager"
     StartupUri="MainWindow.xaml">
+
     <Application.Resources>
 
         <!--
@@ -19,8 +20,8 @@
             <VM:clsVMLocator x:Key="VML" />
             <Helpers:clsIntVisibilityConverter x:Key="VisibilityConvertor" />
             <Helpers:clsFocusExtension x:Key="FocusExtension" />
-            
-            
+
+
 
 
             <ResourceDictionary.MergedDictionaries>
