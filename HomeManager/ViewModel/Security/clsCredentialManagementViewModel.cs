@@ -1,24 +1,22 @@
-﻿using HomeManager.Common;
-using HomeManager.Helpers;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using System.Windows;
-using HomeManager.DataService.Personen;
-using HomeManager.Model.Personen;
-using System.IO;
-using System.Windows.Media.Imaging;
-
+using HomeManager.Common;
+using HomeManager.Helpers;
+using HomeManager.DataService.Security;
+using HomeManager.Model.Security;
 namespace HomeManager.ViewModel
 {
-    public class clsPersoonVM : clsCommonModelPropertiesBase
+    public class clsCredentialManagementViewModel : clsCommonModelPropertiesBase
     {
-        clsPersoonDataService MijnService;
+        clsCredentialManagementDataService MijnService;
+        clsWachtwoordGroepDataService MijnWachtwoordenGroepService; 
+
         private bool NewStatus = false;
 
         public ICommand cmdDelete { get; set; }
@@ -26,11 +24,10 @@ namespace HomeManager.ViewModel
         public ICommand cmdSave { get; set; }
         public ICommand cmdCancel { get; set; }
         public ICommand cmdClose { get; set; }
+        public ICommand cmdFilter { get; set; }
 
-        public ICommand cmdUploadPicture { get; set; }
-
-        private ObservableCollection<clsPersoonM> _mijnCollectie;
-        public ObservableCollection<clsPersoonM> MijnCollectie
+        private ObservableCollection<clsCredentialManagementModel> _mijnCollectie;
+        public ObservableCollection<clsCredentialManagementModel> MijnCollectie
         {
             get { return _mijnCollectie; }
             set
@@ -40,9 +37,19 @@ namespace HomeManager.ViewModel
             }
         }
 
+        private ObservableCollection<clsWachtWoordGroepModel> _mijnWachtwoordGroepCollectie;
+        public ObservableCollection<clsWachtWoordGroepModel> MijnWachtwoordGroepCollectie
+        {
+            get { return _mijnWachtwoordGroepCollectie; }
+            set
+            {
+                _mijnWachtwoordGroepCollectie = value;
+                OnPropertyChanged();
+            }
+        }
 
-        private clsPersoonM _mijnSelectedItem;
-        public clsPersoonM MijnSelectedItem
+        private clsCredentialManagementModel _mijnSelectedItem;
+        public clsCredentialManagementModel MijnSelectedItem
         {
             get { return _mijnSelectedItem; }
             set
@@ -63,11 +70,12 @@ namespace HomeManager.ViewModel
                 OnPropertyChanged();
             }
         }
-
-
+       
+        
         private void LoadData()
         {
-            MijnCollectie = MijnService.GetAll();
+            MijnCollectie = MijnService.GetAll();            
+            MijnWachtwoordGroepCollectie = MijnWachtwoordenGroepService.GetAll();
         }
 
         private void OpslaanCommando()
@@ -106,68 +114,68 @@ namespace HomeManager.ViewModel
             }
         }
 
-        public clsPersoonVM()
+        public clsCredentialManagementViewModel()
         {
-            MijnService = new clsPersoonDataService();
+            MijnService = new clsCredentialManagementDataService();
+            MijnWachtwoordenGroepService = new clsWachtwoordGroepDataService();
 
             cmdSave = new clsCustomCommand(Execute_Save_Command, CanExecute_Save_Command);
             cmdDelete = new clsCustomCommand(Execute_Delete_Command, CanExecute_Delete_Command);
             cmdNew = new clsCustomCommand(Execute_New_Command, CanExecute_New_Command);
             cmdCancel = new clsCustomCommand(Execute_Cancel_Command, CanExecute_Cancel_Command);
             cmdClose = new clsCustomCommand(Execute_Close_Command, CanExecute_Close_Command);
-            cmdUploadPicture = new clsCustomCommand(Execute_UploadPicture_Command, CanExecute_UploadPicture_Command);
+            cmdFilter = new clsCustomCommand(Execute_Filter_Command, CanExecute_Filter_Command);
 
             LoadData();
 
             MijnSelectedItem = MijnService.GetFirst();
+
+            GefilterdeCollectie = new ObservableCollection<clsCredentialManagementModel>(MijnCollectie);
+
         }
-
-        private void Execute_UploadPicture_Command(object? obj)
+        private string _filterTekst;
+        public string FilterTekst
         {
-            Microsoft.Win32.OpenFileDialog _OpenFileDialog = new Microsoft.Win32.OpenFileDialog();
-            string myFileName = string.Empty;
-
-            _OpenFileDialog.Filter = "JPG Files (*.jpg)|*.jpg|PNG Files (*.png)|*.png|JPEG Files (*.JPEG)|*.jpg |GIF  Files (*.gif)|*.gif";
-
-            Nullable<bool> result = _OpenFileDialog.ShowDialog();
-            if (result == true)
+            get { return _filterTekst; }
+            set
             {
-                myFileName = _OpenFileDialog.FileName;
-            }
-
-            if (File.Exists(_OpenFileDialog.FileName))
-            {
-                MijnSelectedItem.Foto = DocumentContent(_OpenFileDialog.FileName);
-                MijnSelectedItem.IsDirty = true;
+                _filterTekst = value;
+                OnPropertyChanged(nameof(FilterTekst));
             }
         }
-
-        //FROM PATH TO BYTE
-        public byte[] DocumentContent(string FullPath)
+        private ObservableCollection<clsCredentialManagementModel> _gefilterdeCollectie;
+        public ObservableCollection<clsCredentialManagementModel> GefilterdeCollectie
         {
-            if (!File.Exists(FullPath))
+            get { return _gefilterdeCollectie; }
+            set
             {
-                return null;
+                _gefilterdeCollectie = value;
+                OnPropertyChanged(nameof(GefilterdeCollectie));
             }
-            // HIER GA IK ALLE BYTES VAN HET BESTAND IN IN HET GEHEUGEN STEKEN
-            byte[] FileContent = File.ReadAllBytes(FullPath);
-            return FileContent;
         }
 
-        //BYTES OMZETTEN NAAR EEN FIGUUR
-        public BitmapImage ImageFromBuffer_GoodQality(Byte[] bytes)
+        private void Execute_Filter_Command(object? obj)
         {
-            MemoryStream stream = new MemoryStream(bytes);
-            stream.Seek(0, SeekOrigin.Begin);
-            BitmapImage image = new BitmapImage();
-            image.BeginInit();
-            image.StreamSource = stream;
+            if (string.IsNullOrWhiteSpace(FilterTekst))
+            {
+                // Als er geen filtertekst is, toon alles
+                GefilterdeCollectie = new ObservableCollection<clsCredentialManagementModel>(MijnCollectie);
+            }
+            else
+            {
+                // Filter de collectie op basis van FilterTekst
+                var gefilterdeItems = MijnCollectie
+                    .Where(item =>
+                        (item.WachtwoordGroepNaam?.IndexOf(FilterTekst, StringComparison.OrdinalIgnoreCase) >= 0) ||
+                        (item.WachtwoordNaam?.IndexOf(FilterTekst, StringComparison.OrdinalIgnoreCase) >= 0))
+                    .ToList();
 
-            image.EndInit();
-            return image;
+                // Update de gefilterde collectie
+                GefilterdeCollectie = new ObservableCollection<clsCredentialManagementModel>(gefilterdeItems);
+            }
         }
 
-        private bool CanExecute_UploadPicture_Command(object? obj)
+        private bool CanExecute_Filter_Command(object? obj)
         {
             return true;
         }
@@ -231,15 +239,14 @@ namespace HomeManager.ViewModel
 
         private void Execute_New_Command(object? obj)
         {
-            clsPersoonM _itemToInsert = new clsPersoonM()
+            clsCredentialManagementModel _itemToInsert = new clsCredentialManagementModel()
             {
-                PersoonID = 0,
-                Naam = string.Empty,
-                Voornaam = string.Empty,
-                Foto = null,
-                Geboortedatum = DateOnly.FromDateTime(DateTime.Now),
-                IsApplicationUser = null
-
+                WachtwoordID = 0,
+                WachtwoordGroepID = 0,
+                WachtwoordNaam = string.Empty,
+                WachtwoordOmschrijving = string.Empty,
+                Login = string.Empty,
+                Wachtwoord = string.Empty
             };
             MijnSelectedItem = _itemToInsert;
             MijnSelectedItem.MyVisibility = (int)Visibility.Hidden;
@@ -301,6 +308,6 @@ namespace HomeManager.ViewModel
         {
             return true;
         }
+
     }
 }
-

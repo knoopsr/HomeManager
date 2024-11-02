@@ -62,7 +62,7 @@ namespace HomeManager.DAL.Personen
                 clsDAL.ExecuteDataTable(Properties.Resources.I_Persoon,
                 clsDAL.Parameter("Naam", entity.Naam),
                 clsDAL.Parameter("Voornaam", entity.Voornaam),
-                clsDAL.Parameter("Foto", entity.Foto),
+             clsDAL.Parameter("Foto", entity.Foto != null ? (object)entity.Foto : DBNull.Value, SqlDbType.VarBinary),
                 clsDAL.Parameter("Geboortedatum", entity.Geboortedatum),
                 clsDAL.Parameter("IsApplicationUser", entity.IsApplicationUser),
                 clsDAL.Parameter("@ReturnValue", 0)
@@ -81,7 +81,7 @@ namespace HomeManager.DAL.Personen
                 clsDAL.Parameter("PersoonID", entity.PersoonID),
                 clsDAL.Parameter("Naam", entity.Naam),
                 clsDAL.Parameter("Voornaam", entity.Voornaam),
-                clsDAL.Parameter("Foto", entity.Foto),
+                   clsDAL.Parameter("Foto", entity.Foto != null ? (object)entity.Foto : DBNull.Value, SqlDbType.VarBinary),
                 clsDAL.Parameter("Geboortedatum", entity.Geboortedatum),
                 clsDAL.Parameter("IsApplicationUser", entity.IsApplicationUser),
                 clsDAL.Parameter("ControlField", entity.ControlField),
@@ -111,7 +111,7 @@ namespace HomeManager.DAL.Personen
                     PersoonID = (int)MijnDataReader[0],
                     Naam = MijnDataReader[1].ToString(),
                     Voornaam = MijnDataReader[2].ToString(),
-                    Foto = MijnDataReader[3] != DBNull.Value ? (byte[])MijnDataReader[3] : null,
+                    Foto = MijnDataReader[3] != DBNull.Value ? (byte[])MijnDataReader[3] : null, // Controle op DBNull voordat je het cast
                     Geboortedatum = DateOnly.FromDateTime((DateTime)MijnDataReader[4]),
                     IsApplicationUser = (bool)MijnDataReader[5],
                     ControlField = MijnDataReader[6]

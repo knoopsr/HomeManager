@@ -19,6 +19,8 @@
             <VM:clsVMLocator x:Key="VML" />
             <Helpers:clsIntVisibilityConverter x:Key="VisibilityConvertor" />
             <Helpers:clsFocusExtension x:Key="FocusExtension" />
+            
+            
 
 
             <ResourceDictionary.MergedDictionaries>

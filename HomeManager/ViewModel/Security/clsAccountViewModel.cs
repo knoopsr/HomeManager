@@ -1,24 +1,21 @@
-﻿using HomeManager.Common;
-using HomeManager.Helpers;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using System.Windows;
-using HomeManager.DataService.Personen;
-using HomeManager.Model.Personen;
-using System.IO;
-using System.Windows.Media.Imaging;
+using HomeManager.Common;
+using HomeManager.DataService.Security;
+using HomeManager.Helpers;
+using HomeManager.Model.Security;
 
 namespace HomeManager.ViewModel
 {
-    public class clsPersoonVM : clsCommonModelPropertiesBase
+    public class clsAccountViewModel : clsCommonModelPropertiesBase
     {
-        clsPersoonDataService MijnService;
+        clsAccountDataService MijnService;
         private bool NewStatus = false;
 
         public ICommand cmdDelete { get; set; }
@@ -27,10 +24,8 @@ namespace HomeManager.ViewModel
         public ICommand cmdCancel { get; set; }
         public ICommand cmdClose { get; set; }
 
-        public ICommand cmdUploadPicture { get; set; }
-
-        private ObservableCollection<clsPersoonM> _mijnCollectie;
-        public ObservableCollection<clsPersoonM> MijnCollectie
+        private ObservableCollection<clsAccountModel> _mijnCollectie;
+        public ObservableCollection<clsAccountModel> MijnCollectie
         {
             get { return _mijnCollectie; }
             set
@@ -41,8 +36,8 @@ namespace HomeManager.ViewModel
         }
 
 
-        private clsPersoonM _mijnSelectedItem;
-        public clsPersoonM MijnSelectedItem
+        private clsAccountModel _mijnSelectedItem;
+        public clsAccountModel MijnSelectedItem
         {
             get { return _mijnSelectedItem; }
             set
@@ -106,70 +101,19 @@ namespace HomeManager.ViewModel
             }
         }
 
-        public clsPersoonVM()
+        public clsAccountViewModel()
         {
-            MijnService = new clsPersoonDataService();
+            MijnService = new clsAccountDataService();
 
             cmdSave = new clsCustomCommand(Execute_Save_Command, CanExecute_Save_Command);
             cmdDelete = new clsCustomCommand(Execute_Delete_Command, CanExecute_Delete_Command);
             cmdNew = new clsCustomCommand(Execute_New_Command, CanExecute_New_Command);
             cmdCancel = new clsCustomCommand(Execute_Cancel_Command, CanExecute_Cancel_Command);
             cmdClose = new clsCustomCommand(Execute_Close_Command, CanExecute_Close_Command);
-            cmdUploadPicture = new clsCustomCommand(Execute_UploadPicture_Command, CanExecute_UploadPicture_Command);
 
             LoadData();
 
             MijnSelectedItem = MijnService.GetFirst();
-        }
-
-        private void Execute_UploadPicture_Command(object? obj)
-        {
-            Microsoft.Win32.OpenFileDialog _OpenFileDialog = new Microsoft.Win32.OpenFileDialog();
-            string myFileName = string.Empty;
-
-            _OpenFileDialog.Filter = "JPG Files (*.jpg)|*.jpg|PNG Files (*.png)|*.png|JPEG Files (*.JPEG)|*.jpg |GIF  Files (*.gif)|*.gif";
-
-            Nullable<bool> result = _OpenFileDialog.ShowDialog();
-            if (result == true)
-            {
-                myFileName = _OpenFileDialog.FileName;
-            }
-
-            if (File.Exists(_OpenFileDialog.FileName))
-            {
-                MijnSelectedItem.Foto = DocumentContent(_OpenFileDialog.FileName);
-                MijnSelectedItem.IsDirty = true;
-            }
-        }
-
-        //FROM PATH TO BYTE
-        public byte[] DocumentContent(string FullPath)
-        {
-            if (!File.Exists(FullPath))
-            {
-                return null;
-            }
-            // HIER GA IK ALLE BYTES VAN HET BESTAND IN IN HET GEHEUGEN STEKEN
-            byte[] FileContent = File.ReadAllBytes(FullPath);
-            return FileContent;
-        }
-
-        //BYTES OMZETTEN NAAR EEN FIGUUR
-        public BitmapImage ImageFromBuffer_GoodQality(Byte[] bytes)
-        {
-            MemoryStream stream = new MemoryStream(bytes);
-            stream.Seek(0, SeekOrigin.Begin);
-            BitmapImage image = new BitmapImage();
-            image.BeginInit();
-            image.StreamSource = stream;
-
-            image.EndInit();
-            return image;
-        }
-
-        private bool CanExecute_UploadPicture_Command(object? obj)
-        {
-            return true;
         }
 
         private void Execute_Save_Command(object? obj)
@@ -231,14 +175,16 @@ namespace HomeManager.ViewModel
 
         private void Execute_New_Command(object? obj)
         {
-            clsPersoonM _itemToInsert = new clsPersoonM()
+            clsAccountModel _itemToInsert = new clsAccountModel()
             {
+                AccountID = 0,
+                RolID = 0,
+                Wachtwoord = string.Empty,
+                Login = string.Empty,
                 PersoonID = 0,
-                Naam = string.Empty,
-                Voornaam = string.Empty,
-                Foto = null,
-                Geboortedatum = DateOnly.FromDateTime(DateTime.Now),
-                IsApplicationUser = null
+                IsNew = true,
+                IsLock = false,
+                CountFailLogins = 0,
 
             };
             MijnSelectedItem = _itemToInsert;
@@ -303,4 +249,3 @@ namespace HomeManager.ViewModel
         }
     }
 }
-
