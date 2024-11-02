@@ -152,6 +152,35 @@ namespace HomeManager.Model.Security
             }
         }
 
+
+        private int _wachtwoordGroep;
+        public int WachtwoordGroep
+        {
+            get { return _wachtwoordGroep; }
+            set
+            {
+       
+                _wachtwoordGroep = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private string _wachtwoordGroepNaam;
+        public string WachtwoordGroepNaam
+        {
+            get { return _wachtwoordGroepNaam; }
+            set
+            {
+                _wachtwoordGroepNaam = value;
+                OnPropertyChanged();
+            }
+        }
+
+
+
+
+
+
         private string _wachtwoordNaam;
         public string WachtwoordNaam
         {

@@ -44,8 +44,7 @@ namespace HomeManager.DAL.Security
                 clsDAL.ExecuteDataTable(Properties.Resources.D_Rollen,
                 clsDAL.Parameter("RolID", entity.RolID),
                 clsDAL.Parameter("ControlField", entity.ControlField),
-                clsDAL.Parameter("@Returnvalue", 0)
-                );
+                clsDAL.Parameter("@Returnvalue", 0));
             if (!Ok)
             {
                 entity.ErrorBoodschap = Boodschap;

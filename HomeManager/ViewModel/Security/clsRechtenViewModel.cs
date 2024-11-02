@@ -121,16 +121,10 @@ namespace HomeManager.ViewModel
             }
         }
 
-
-
-
-
         private void LoadData()
         {
             SetCheckedChildren("");
             MijnRollenCollectie = MijnRollenService.GetAll();
-
-
         }
         private void OpslaanCommando()
         {
@@ -169,8 +163,6 @@ namespace HomeManager.ViewModel
         }
 
 
-
-
         public ObservableCollection<clsRechtenCatogorieModel> RechtenCategorieën { get; set; }
 
         public clsRechtenViewModel()
@@ -186,12 +178,10 @@ namespace HomeManager.ViewModel
             cmdCancel = new clsCustomCommand(Execute_cmdCancel_Command, CanExecute_cmdCancel_Command);
             cmdClose = new clsCustomCommand(Execute_cmdClose_Command, CanExecute_cmdClose_Command);
 
-
             LoadRoles();
             LoadData();
 
             MijnSelectedItem = MijnRollenService.GetFirst();
-
 
         }
 
@@ -248,7 +238,6 @@ namespace HomeManager.ViewModel
             MijnRechtenCollectie = MijnRechtenService.GetAll();
             MijnRechtenCatogorieCollectie = MijnRechtenCatogorieService.GetAll();
         }
-
 
         private void Execute_cmdNew_Command(object? obj)
         {
@@ -366,8 +355,6 @@ namespace HomeManager.ViewModel
         }
 
 
-
-
         public string GetAangevinkteChildrenIds()
         {
             // Selecteer alle aangevinkte rechten binnen elke categorie en voeg hun Id's samen
@@ -390,8 +377,6 @@ namespace HomeManager.ViewModel
                     recht.IsChecked = false;
                 }
             }
-
-
 
             // Converteer de string naar een lijst van integers, waarbij lege strings worden genegeerd
             var idsToCheck = idsString.Split('|')

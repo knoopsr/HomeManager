@@ -242,6 +242,5 @@ namespace HomeManager.ViewModel
             return true;
         }
 
-
     }
 }

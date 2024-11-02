@@ -20,7 +20,7 @@ namespace HomeManager.Model.Security
                     case nameof(WachtwoordGroep):
                         if (string.IsNullOrWhiteSpace(WachtwoordGroep))
                         {
-                            error = "Naam is verplicht veld.";
+                            error = "WachtwoordGroep is verplicht veld.";
                             if (ErrorList.Contains(nameof(WachtwoordGroep)) == false)
                             {
                                 ErrorList.Add(nameof(WachtwoordGroep));
@@ -28,7 +28,7 @@ namespace HomeManager.Model.Security
                         }
                         else if (WachtwoordGroep.Length > 50)
                         {
-                            error = "Naam mag niet langer zijn dan 50 karakters.";
+                            error = "WachtwoordGroep mag niet langer zijn dan 50 karakters.";
                             if (ErrorList.Contains(nameof(WachtwoordGroep)) == false)
                             {
                                 ErrorList.Add(nameof(WachtwoordGroep));
@@ -47,9 +47,7 @@ namespace HomeManager.Model.Security
                         error = null;
                         return error;
                 }
-
             }
-
         }
 
 

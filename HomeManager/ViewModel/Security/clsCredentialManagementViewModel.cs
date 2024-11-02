@@ -24,6 +24,7 @@ namespace HomeManager.ViewModel
         public ICommand cmdSave { get; set; }
         public ICommand cmdCancel { get; set; }
         public ICommand cmdClose { get; set; }
+        public ICommand cmdFilter { get; set; }
 
         private ObservableCollection<clsCredentialManagementModel> _mijnCollectie;
         public ObservableCollection<clsCredentialManagementModel> MijnCollectie
@@ -47,7 +48,6 @@ namespace HomeManager.ViewModel
             }
         }
 
-
         private clsCredentialManagementModel _mijnSelectedItem;
         public clsCredentialManagementModel MijnSelectedItem
         {
@@ -70,11 +70,11 @@ namespace HomeManager.ViewModel
                 OnPropertyChanged();
             }
         }
-
-
+       
+        
         private void LoadData()
         {
-            MijnCollectie = MijnService.GetAll();
+            MijnCollectie = MijnService.GetAll();            
             MijnWachtwoordGroepCollectie = MijnWachtwoordenGroepService.GetAll();
         }
 
@@ -124,11 +124,60 @@ namespace HomeManager.ViewModel
             cmdNew = new clsCustomCommand(Execute_New_Command, CanExecute_New_Command);
             cmdCancel = new clsCustomCommand(Execute_Cancel_Command, CanExecute_Cancel_Command);
             cmdClose = new clsCustomCommand(Execute_Close_Command, CanExecute_Close_Command);
+            cmdFilter = new clsCustomCommand(Execute_Filter_Command, CanExecute_Filter_Command);
 
             LoadData();
 
             MijnSelectedItem = MijnService.GetFirst();
 
+            GefilterdeCollectie = new ObservableCollection<clsCredentialManagementModel>(MijnCollectie);
+
+        }
+        private string _filterTekst;
+        public string FilterTekst
+        {
+            get { return _filterTekst; }
+            set
+            {
+                _filterTekst = value;
+                OnPropertyChanged(nameof(FilterTekst));
+            }
+        }
+        private ObservableCollection<clsCredentialManagementModel> _gefilterdeCollectie;
+        public ObservableCollection<clsCredentialManagementModel> GefilterdeCollectie
+        {
+            get { return _gefilterdeCollectie; }
+            set
+            {
+                _gefilterdeCollectie = value;
+                OnPropertyChanged(nameof(GefilterdeCollectie));
+            }
+        }
+
+        private void Execute_Filter_Command(object? obj)
+        {
+            if (string.IsNullOrWhiteSpace(FilterTekst))
+            {
+                // Als er geen filtertekst is, toon alles
+                GefilterdeCollectie = new ObservableCollection<clsCredentialManagementModel>(MijnCollectie);
+            }
+            else
+            {
+                // Filter de collectie op basis van FilterTekst
+                var gefilterdeItems = MijnCollectie
+                    .Where(item =>
+                        (item.WachtwoordGroepNaam?.IndexOf(FilterTekst, StringComparison.OrdinalIgnoreCase) >= 0) ||
+                        (item.WachtwoordNaam?.IndexOf(FilterTekst, StringComparison.OrdinalIgnoreCase) >= 0))
+                    .ToList();
+
+                // Update de gefilterde collectie
+                GefilterdeCollectie = new ObservableCollection<clsCredentialManagementModel>(gefilterdeItems);
+            }
+        }
+
+        private bool CanExecute_Filter_Command(object? obj)
+        {
+            return true;
         }
 
         private void Execute_Save_Command(object? obj)

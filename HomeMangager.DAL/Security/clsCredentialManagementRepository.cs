@@ -30,8 +30,9 @@ namespace HomeManager.DAL.Security
                 {
                     WachtwoordID = (int)MijnDataReader["WachtwoordID"],
                     WachtwoordGroepID = (int)MijnDataReader["WachtwoordGroepID"],
+                    WachtwoordGroepNaam = (string)MijnDataReader["WachtwoordGroepNaam"],
                     WachtwoordNaam = (string)MijnDataReader["WachtwoordNaam"],
-                    WachtwoordOmschrijving = (string)MijnDataReader["WachwoordOmschrijving"],
+                    WachtwoordOmschrijving = (string)MijnDataReader["WachtwoordOmschrijving"],
                     Login = (string)MijnDataReader["Login"],
                     Wachtwoord = (string)MijnDataReader["Wachtwoord"],
                     ControlField = MijnDataReader["ControlField"]
@@ -92,7 +93,7 @@ namespace HomeManager.DAL.Security
                 clsDAL.ExecuteDataTable(Properties.Resources.I_Wachtwoord,
                 clsDAL.Parameter("WachtwoordGroepID", entity.WachtwoordGroepID),
                 clsDAL.Parameter("WachtwoordNaam", entity.WachtwoordNaam),
-                clsDAL.Parameter("WachwoordOmschrijving", entity.WachtwoordOmschrijving),
+                clsDAL.Parameter("WachtwoordOmschrijving", entity.WachtwoordOmschrijving),
                 clsDAL.Parameter("Login", entity.Login),
                 clsDAL.Parameter("Wachtwoord", entity.Wachtwoord),
                 clsDAL.Parameter("@Returnvalue", 0)
@@ -111,8 +112,8 @@ namespace HomeManager.DAL.Security
                 clsDAL.Parameter("WachtwoordID", entity.WachtwoordID),
                 clsDAL.Parameter("WachtwoordGroepID", entity.WachtwoordGroepID),
                 clsDAL.Parameter("WachtwoordNaam", entity.WachtwoordNaam),
-                clsDAL.Parameter("WachwoordOmschrijving", entity.WachtwoordOmschrijving),
-                clsDAL.Parameter("LoginNaam", entity.Login),
+                clsDAL.Parameter("WachtwoordOmschrijving", entity.WachtwoordOmschrijving),
+                clsDAL.Parameter("Login", entity.Login),
                 clsDAL.Parameter("Wachtwoord", entity.Wachtwoord),
                 clsDAL.Parameter("ControlField", entity.ControlField),
                 clsDAL.Parameter("@Returnvalue", 0)
