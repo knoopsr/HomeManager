@@ -111,7 +111,7 @@ namespace HomeManager.DAL.Personen
                     PersoonID = (int)MijnDataReader[0],
                     Naam = MijnDataReader[1].ToString(),
                     Voornaam = MijnDataReader[2].ToString(),
-                    Foto = (byte[])MijnDataReader[3],
+                    Foto = MijnDataReader[3] != DBNull.Value ? (byte[])MijnDataReader[3] : null,
                     Geboortedatum = DateOnly.FromDateTime((DateTime)MijnDataReader[4]),
                     IsApplicationUser = (bool)MijnDataReader[5],
                     ControlField = MijnDataReader[6]
