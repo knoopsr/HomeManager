@@ -8,7 +8,6 @@ namespace HomeManager.ViewModel
 {
     public class clsVMLocator
     {
-
         public clsPersoonVM PersoonViewModel
         {
             get
@@ -18,6 +17,7 @@ namespace HomeManager.ViewModel
         }
 
         #region Security
+          
         public clsRechtenViewModel RechtenViewModel
         {
             get
@@ -50,5 +50,13 @@ namespace HomeManager.ViewModel
             }
         }
         #endregion
+
+        public clsCategorieViewModel CategorieViewModel
+        {
+            get
+            {
+                return new clsCategorieViewModel(); ;
+            }
+
     }
 }

@@ -62,15 +62,24 @@ namespace HomeManager.DAL.Properties {
         
         /// <summary>
 
+
         ///   Looks up a localized string similar to D_Account.
         /// </summary>
         internal static string D_Account {
             get {
                 return ResourceManager.GetString("D_Account", resourceCulture);
+
+        ///   Looks up a localized string similar to D_BudgetCategorie.
+        /// </summary>
+        internal static string D_BudgetCategorie {
+            get {
+                return ResourceManager.GetString("D_BudgetCategorie", resourceCulture);
+
             }
         }
         
         /// <summary>
+
         ///   Looks up a localized string similar to D_Persoon.
         /// </summary>
         internal static string D_Persoon {
@@ -235,24 +244,47 @@ namespace HomeManager.DAL.Properties {
         internal static string S_Persoon {
             get {
                 return ResourceManager.GetString("S_Persoon", resourceCulture);
+
+        ///   Looks up a localized string similar to I_BudgetCategorie.
+        /// </summary>
+        internal static string I_BudgetCategorie {
+            get {
+                return ResourceManager.GetString("I_BudgetCategorie", resourceCulture);
+
             }
         }
         
         /// <summary>
+
         ///   Looks up a localized string similar to U_Account.
         /// </summary>
         internal static string U_Account {
             get {
                 return ResourceManager.GetString("U_Account", resourceCulture);
+
+        ///   Looks up a localized string similar to S_BudgetCategorie.
+        /// </summary>
+        internal static string S_BudgetCategorie {
+            get {
+                return ResourceManager.GetString("S_BudgetCategorie", resourceCulture);
+
             }
         }
         
         /// <summary>
+
         ///   Looks up a localized string similar to U_Persoon.
         /// </summary>
         internal static string U_Persoon {
             get {
                 return ResourceManager.GetString("U_Persoon", resourceCulture);
+
+        ///   Looks up a localized string similar to U_BudgetCategorie.
+        /// </summary>
+        internal static string U_BudgetCategorie {
+            get {
+                return ResourceManager.GetString("U_BudgetCategorie", resourceCulture);
+
             }
         }
     }
