@@ -99,6 +99,7 @@
                     <Button
                         Margin="3"
                            Command="{Binding cmdLogin}"
+                         CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=Window}}"
                         Padding="5,0,5,0"
                         Content="Inloggen" />
                     <Button
