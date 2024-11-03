@@ -17,6 +17,7 @@ namespace HomeManager.ViewModel
 {
     public class clsCategorieViewModel : clsCommonModelPropertiesBase
     {
+        
         clsCategorieDataService MijnService;
         private bool NewStatus = false;
         public ICommand cmdDelete { get; set; }
