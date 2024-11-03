@@ -12,6 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\HomeMangager.Common\HomeManager.Common.csproj" />
     <ProjectReference Include="..\HomeMangager.Model\HomeManager.Model.csproj" />
   </ItemGroup>
 

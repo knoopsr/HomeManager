@@ -35,7 +35,6 @@ namespace HomeManager.ViewModel
             }
             set
             {
-
                 _MijnCollectie = value;
                 OnPropertyChanged();
             }
@@ -110,21 +109,6 @@ namespace HomeManager.ViewModel
         }
 
 
-
-
-        private bool _IsFocused = false;
-        public bool IsFocused
-        {
-            get
-            {
-                return _IsFocused;
-            }
-            set
-            {
-                _IsFocused = value;
-                OnPropertyChanged();
-            }
-        }
         private void LoadData()
         {
             MijnCollectie = MijnService.GetAll();
@@ -147,10 +131,6 @@ namespace HomeManager.ViewModel
 
 
 
-        private bool CanExecute_SelectionChangedCommand(object obj)
-        {
-            return true;
-        }
         private bool CanExecute_CloseCommand(object obj)
         {
             return true;
@@ -178,55 +158,12 @@ namespace HomeManager.ViewModel
         }
 
 
-        private bool CanExecute_HelpCommand(object obj)
-        {
-            return true;
-        }
-        private void Execute_HelpCommand(object obj)
-        {
-            ProcessStartInfo psi = new ProcessStartInfo
-            {
-                FileName = "http://www.google.be",
-                UseShellExecute = true
-            };
-            Process.Start(psi);
-        }
-        private bool CanExecute_PrintCommand(object obj)
-        {
-            return false;
-        }
-        private void Execute_PrintCommand(object obj)
-        {
-            throw new NotImplementedException();
-        }
-        private bool CanExecute_FindCommand(object obj)
-        {
-            return false;
-        }
-        private void Execute_FindCommand(object obj)
-        {
-            throw new NotImplementedException();
-        }
+
 
         private bool CanExecute_CancelCommand(object obj)
         {
             return NewStatus;
         }
-        private bool _IsFocusedAfterNew = false;
-        public bool IsFocusedAfterNew
-        {
-            get
-            {
-                return _IsFocusedAfterNew;
-            }
-            set
-            {
-                _IsFocusedAfterNew = value;
-                OnPropertyChanged();
-            }
-        }
-
-
 
         private void Execute_CancelCommand(object obj)
         {
@@ -254,7 +191,7 @@ namespace HomeManager.ViewModel
             };
 
             MijnSelectedItem = ItemToInsert;
-            MijnSelectedItem = ItemToInsert;
+
 
             MijnSelectedItem.MyVisibility = (int)Visibility.Hidden;
             NewStatus = true;
@@ -314,9 +251,6 @@ namespace HomeManager.ViewModel
         private void Execute_SaveCommand(object obj)
         {
             OpslaanCommando();
-
-
-
 
         }
     }

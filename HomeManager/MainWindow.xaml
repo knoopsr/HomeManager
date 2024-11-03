@@ -125,7 +125,7 @@
                             <Button Content="Frequentie" Style="{StaticResource myMenuTandwiel}" />
                             <Button
                                 Command="{Binding NavCommand}"
-                                CommandParameter="clsCategoryViewModel"
+                                CommandParameter="clsCategorieViewModel"
                                 Content="Budget Categorie"
                                 Style="{StaticResource myMenuTandwiel}" />
                         </StackPanel>
