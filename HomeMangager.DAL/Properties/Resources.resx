@@ -182,6 +182,17 @@
   </data>
   <data name="U_Rollen" xml:space="preserve">
     <value>U_Rollen</value>
+  <data name="D_BudgetCategorie" xml:space="preserve">
+    <value>D_BudgetCategorie</value>
+  </data>
+  <data name="I_BudgetCategorie" xml:space="preserve">
+    <value>I_BudgetCategorie</value>
+  </data>
+  <data name="S_BudgetCategorie" xml:space="preserve">
+    <value>S_BudgetCategorie</value>
+  </data>
+  <data name="U_BudgetCategorie" xml:space="preserve">
+    <value>U_BudgetCategorie</value>
   </data>
   <data name="D_Functies" xml:space="preserve">
     <value>D_Functies</value>

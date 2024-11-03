@@ -27,12 +27,10 @@
     <Folder Include="Services\" />
     <Folder Include="Utilities\" />
     <Folder Include="ViewModel\Dagboek\" />
-    <Folder Include="ViewModel\Budget\" />
     <Folder Include="ViewModel\Homepage\" />
     <Folder Include="ViewModel\StickyNotes\" />
     <Folder Include="ViewModel\Todo\" />
     <Folder Include="View\Dagboek\" />
-    <Folder Include="View\Budget\" />
     <Folder Include="View\Homepage\" />
     <Folder Include="View\StickyNotes\" />
     <Folder Include="View\Todo\" />
@@ -40,6 +38,7 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.135" />
+
     <ProjectReference Include="..\HomeMangager.Common\HomeManager.Common.csproj" />
     <ProjectReference Include="..\HomeMangager.DAL\HomeManager.DAL.csproj" />
     <ProjectReference Include="..\HomeMangager.Model\HomeManager.Model.csproj" />
