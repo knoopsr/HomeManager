@@ -61,38 +61,230 @@ namespace HomeManager.DAL.Properties {
         }
         
         /// <summary>
+
+
+        ///   Looks up a localized string similar to D_Account.
+        /// </summary>
+        internal static string D_Account {
+            get {
+                return ResourceManager.GetString("D_Account", resourceCulture);
+
         ///   Looks up a localized string similar to D_BudgetCategorie.
         /// </summary>
         internal static string D_BudgetCategorie {
             get {
                 return ResourceManager.GetString("D_BudgetCategorie", resourceCulture);
+
             }
         }
         
         /// <summary>
+
+        ///   Looks up a localized string similar to D_Persoon.
+        /// </summary>
+        internal static string D_Persoon {
+            get {
+                return ResourceManager.GetString("D_Persoon", resourceCulture);
+            }
+        }
+
+
+        internal static string D_Rollen
+        {
+            get
+            {
+                return ResourceManager.GetString("D_Rollen", resourceCulture);
+            }
+        }
+
+        internal static string D_WachtWoordenGroep
+        {
+            get
+            {
+                return ResourceManager.GetString("D_WachtWoordenGroep", resourceCulture);
+            }
+        }
+
+
+
+
+
+        internal static string S_Rollen
+        {
+            get
+            {
+                return ResourceManager.GetString("S_Rollen", resourceCulture);
+            }
+        }
+
+        internal static string S_WachtWoordenGroep
+        {
+            get
+            {
+                return ResourceManager.GetString("S_WachtWoordenGroep", resourceCulture);
+            }
+        }
+
+        internal static string U_WachtWoordenGroep
+        {
+            get
+            {
+                return ResourceManager.GetString("U_WachtWoordenGroep", resourceCulture);
+            }
+        }
+
+        internal static string S_Rechten
+        {
+            get
+            {
+                return ResourceManager.GetString("S_Rechten", resourceCulture);
+            }
+        }
+
+        internal static string I_Rollen
+        {
+            get
+            {
+                return ResourceManager.GetString("I_Rollen", resourceCulture);
+            }
+        }
+
+
+        internal static string I_WachtWoordenGroep
+        {
+            get
+            {
+                return ResourceManager.GetString("I_WachtWoordenGroep", resourceCulture);
+            }
+        }
+
+        internal static string I_Wachtwoord
+        {
+            get
+            {
+                return ResourceManager.GetString("I_Wachtwoord", resourceCulture);
+            }
+
+        }
+        internal static string S_Wachtwoord
+        {
+            get
+            {
+                return ResourceManager.GetString("S_Wachtwoord", resourceCulture);
+            }
+
+        }
+        internal static string D_Wachtwoord
+        {
+            get
+            {
+                return ResourceManager.GetString("D_Wachtwoord", resourceCulture);
+            }
+
+        }
+        internal static string U_Wachtwoord
+        {
+            get
+            {
+                return ResourceManager.GetString("U_Wachtwoord", resourceCulture);
+            }
+
+        }
+
+        internal static string S_RechtenCatogorie
+        {
+            get
+            {
+                return ResourceManager.GetString("S_RechtenCatogorie", resourceCulture);
+            }
+
+        }
+
+
+        internal static string U_Rollen
+        {
+            get
+            {
+                return ResourceManager.GetString("U_Rollen", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to I_Account.
+        /// </summary>
+        internal static string I_Account {
+            get {
+                return ResourceManager.GetString("I_Account", resourceCulture);
+            }
+        }
+
+        
+        /// <summary>
+        ///   Looks up a localized string similar to I_Persoon.
+        /// </summary>
+        internal static string I_Persoon {
+            get {
+                return ResourceManager.GetString("I_Persoon", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+
+        ///   Looks up a localized string similar to S_Account.
+        /// </summary>
+        internal static string S_Account {
+            get {
+                return ResourceManager.GetString("S_Account", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to S_Persoon.
+        /// </summary>
+        internal static string S_Persoon {
+            get {
+                return ResourceManager.GetString("S_Persoon", resourceCulture);
+
         ///   Looks up a localized string similar to I_BudgetCategorie.
         /// </summary>
         internal static string I_BudgetCategorie {
             get {
                 return ResourceManager.GetString("I_BudgetCategorie", resourceCulture);
+
             }
         }
         
         /// <summary>
+
+        ///   Looks up a localized string similar to U_Account.
+        /// </summary>
+        internal static string U_Account {
+            get {
+                return ResourceManager.GetString("U_Account", resourceCulture);
+
         ///   Looks up a localized string similar to S_BudgetCategorie.
         /// </summary>
         internal static string S_BudgetCategorie {
             get {
                 return ResourceManager.GetString("S_BudgetCategorie", resourceCulture);
+
             }
         }
         
         /// <summary>
+
+        ///   Looks up a localized string similar to U_Persoon.
+        /// </summary>
+        internal static string U_Persoon {
+            get {
+                return ResourceManager.GetString("U_Persoon", resourceCulture);
+
         ///   Looks up a localized string similar to U_BudgetCategorie.
         /// </summary>
         internal static string U_BudgetCategorie {
             get {
                 return ResourceManager.GetString("U_BudgetCategorie", resourceCulture);
+
             }
         }
     }
