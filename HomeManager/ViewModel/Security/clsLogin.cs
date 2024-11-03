@@ -23,7 +23,7 @@ namespace HomeManager.ViewModel
         public ICommand cmdAnnuleer { get; set; }
         public ICommand cmdClose { get; set; }
 
-        private string _login;
+        private string _login ;
         public string Login
         {
             get { return _login; }
@@ -103,8 +103,9 @@ namespace HomeManager.ViewModel
                 }
                 else if (_loginModel.IsNew)
                 {
-                    _dialogService.ShowNewPassWordView();
                     clsMessenger.Default.Send<clsLoginModel>(_loginModel);
+                    _dialogService.ShowNewPassWordView();
+    
                 }
                 else
                 {
@@ -115,8 +116,7 @@ namespace HomeManager.ViewModel
 
         private void OpenMainWindow(object? obj)
         {
-            MessageBox.Show("Welcome " + _loginModel.Naam + " " + _loginModel.VoorNaam);
-
+            
             MainWindow mainWindow = new MainWindow();
             mainWindow.Show();
 

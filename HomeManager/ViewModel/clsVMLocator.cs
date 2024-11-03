@@ -18,6 +18,15 @@ namespace HomeManager.ViewModel
         }
 
         #region Security
+        public clsTitlePersonViewModel TitlePersonViewModel
+        {
+            get
+            {
+                return new clsTitlePersonViewModel();
+            }
+        }
+
+
         public clsRechtenViewModel RechtenViewModel
         {
             get
@@ -49,6 +58,7 @@ namespace HomeManager.ViewModel
                 return new clsCredentialManagementViewModel();
             }
         }
+        
         public clsLogin LoginViewModel
         {
             get

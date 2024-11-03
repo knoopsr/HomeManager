@@ -26,7 +26,6 @@
     <Folder Include="Utilities\" />
     <Folder Include="ViewModel\Dagboek\" />
     <Folder Include="ViewModel\Budget\" />
-    <Folder Include="ViewModel\Homepage\" />
     <Folder Include="ViewModel\StickyNotes\" />
     <Folder Include="ViewModel\Todo\" />
     <Folder Include="View\Dagboek\" />

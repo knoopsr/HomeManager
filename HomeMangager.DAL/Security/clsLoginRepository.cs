@@ -48,6 +48,7 @@ namespace HomeManager.DAL.Security
                         AccountID = (int)MijnDataReader["AccountID"],
                         PersoonID = (int)MijnDataReader["PersoonID"],
                         Naam = MijnDataReader["Naam"].ToString(),
+                        Foto = MijnDataReader["Foto"] != DBNull.Value ? (byte[])MijnDataReader["Foto"] : null,
                         VoorNaam = MijnDataReader["VoorNaam"].ToString(),
                         RolID = (int)MijnDataReader["RolID"],
                         RolName = MijnDataReader["RolName"].ToString(),

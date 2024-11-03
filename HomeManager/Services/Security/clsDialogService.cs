@@ -17,7 +17,6 @@ namespace HomeManager.Services.Security
         {
 
                 _NewPassWordView = new winNewPassWord();
-                _NewPassWordView.WindowStartupLocation = WindowStartupLocation.CenterScreen;
                 _NewPassWordView.Show();
 
         }

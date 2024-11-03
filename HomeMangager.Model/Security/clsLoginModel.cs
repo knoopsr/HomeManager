@@ -41,6 +41,7 @@ namespace HomeManager.Model.Security
                 OnPropertyChanged();
             }
         }
+
         private string _voorNaam;
         public string VoorNaam
         {
@@ -110,6 +111,17 @@ namespace HomeManager.Model.Security
             set
             {
                 _rechtenCodes = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private byte[]? _foto;
+        public byte[]? Foto
+        {
+            get { return _foto; }
+            set
+            {
+                _foto = value;
                 OnPropertyChanged();
             }
         }
