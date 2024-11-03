@@ -25,7 +25,7 @@ namespace HomeManager.ViewModel
         }
 
         #region Security
-          
+
         public clsRechtenViewModel RechtenViewModel
         {
             get
@@ -66,5 +66,6 @@ namespace HomeManager.ViewModel
                 return new clsCategorieViewModel(); ;
             }
 
+        }
     }
 }
