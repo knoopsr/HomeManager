@@ -11,7 +11,7 @@
     Background="{StaticResource myBackground}"
     WindowStartupLocation="CenterScreen"
     mc:Ignorable="d">
-    <Grid>
+    <Grid DataContext="{Binding Source={StaticResource VML}, Path=LoginViewModel}">
         <Grid.RowDefinitions>
             <RowDefinition Height="60" />
             <RowDefinition Height="*" />
@@ -71,7 +71,8 @@
                     Grid.Row="1"
                     Grid.Column="2"
                     Width="150"
-                    Height="18" />
+                    Height="18"
+                    Text="{Binding Login, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 
 
                 <Label
@@ -85,7 +86,8 @@
                     Grid.Row="2"
                     Grid.Column="2"
                     Width="150"
-                    Height="18" />
+                    Height="18"
+                    Text="{Binding Wachtwoord, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 
                 <StackPanel
                     Grid.Row="3"
@@ -96,14 +98,17 @@
                     Orientation="Horizontal">
                     <Button
                         Margin="3"
+                           Command="{Binding cmdLogin}"
                         Padding="5,0,5,0"
                         Content="Inloggen" />
                     <Button
                         Margin="3"
+                        Command="{Binding cmdAnnuleer}"
                         Padding="5,0,5,0"
                         Content="Annuleren" />
                     <Button
                         Margin="3"
+                        Command="{Binding cmdClose}"
                         Padding="5,0,5,0"
                         Content="Sluiten" />
                 </StackPanel>

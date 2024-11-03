@@ -49,6 +49,21 @@ namespace HomeManager.ViewModel
                 return new clsCredentialManagementViewModel();
             }
         }
+        public clsLogin LoginViewModel
+        {
+            get
+            {
+                return new clsLogin();
+            }
+        }
+        public clsNewPassViewModel NewPassViewModel
+        {
+            get
+            {
+                return new clsNewPassViewModel();
+            }
+        }
+
         #endregion
     }
 }
