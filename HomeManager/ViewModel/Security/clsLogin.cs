@@ -103,9 +103,10 @@ namespace HomeManager.ViewModel
                 }
                 else if (_loginModel.IsNew)
                 {
-                    clsMessenger.Default.Send<clsLoginModel>(_loginModel);
+           
                     _dialogService.ShowNewPassWordView();
-    
+                    clsMessenger.Default.Send<clsLoginModel>(_loginModel);
+
                 }
                 else
                 {
