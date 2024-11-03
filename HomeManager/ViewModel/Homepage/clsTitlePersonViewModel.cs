@@ -22,24 +22,21 @@ namespace HomeManager.ViewModel
                 if (_loginModel != value)
                 {
                     _loginModel = value;
-                    OnPropertyChanged(nameof(LoginModel));
-                    // Ook individuele eigenschappen kunnen notificaties verzenden
-                    OnPropertyChanged(nameof(Naam));
-                    OnPropertyChanged(nameof(Voornaam));
+OnPropertyChanged();
                 }
             }
         }
-        public string Naam => _loginModel?.Naam ?? string.Empty;
-        public string Voornaam => _loginModel?.VoorNaam ?? string.Empty;
+
+       
 
         public clsTitlePersonViewModel()
         {
             clsMessenger.Default.Register<clsLoginModel>(this, OnUpdateTitlePersonReceived);
         }
 
-        private void OnUpdateTitlePersonReceived(clsLoginModel loginModel)
+        private void OnUpdateTitlePersonReceived(clsLoginModel model)
         {
-            _loginModel = loginModel;
+            LoginModel = model;
         }
 
     }

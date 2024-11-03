@@ -24,7 +24,7 @@
             VerticalAlignment="Center">
 
             <Ellipse.Fill>
-                <ImageBrush ImageSource="/Images/person1.jpg" Stretch="UniformToFill" />
+                <ImageBrush ImageSource="{Binding LoginModel.Foto, TargetNullValue={x:Null}}" Stretch="UniformToFill" />
             </Ellipse.Fill>
         </Ellipse>
         <Border
@@ -44,15 +44,15 @@
             <TextBlock
                 FontSize="12"
                 Foreground="White"
-                Text="{Binding Naam, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                 Text="{Binding LoginModel.VoorNaam, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
             <TextBlock
                 FontSize="10"
                 Foreground="White"
-                Text="Ceulemans" />
+               Text="{Binding LoginModel.Naam, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
             <TextBlock
                 FontSize="8"
                 Foreground="White"
-                Text="Admin" />
+                Text="{Binding LoginModel.RolName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
         </StackPanel>
 
 
