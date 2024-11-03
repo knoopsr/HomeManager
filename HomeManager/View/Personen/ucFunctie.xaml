@@ -71,9 +71,8 @@
             Grid.Column="1"
             Width="250"
             ItemsSource="{Binding MijnCollectie}"
-            SelectedItem="{Binding MijnSelectedItem, Mode=TwoWay, 
-            UpdateSourceTrigger=PropertyChanged}">
-        </ListBox>
+            SelectedItem="{Binding MijnSelectedItem, 
+            Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 
         <TextBlock
             x:Name="Functie"
@@ -102,6 +101,7 @@
             Grid.Row="3"
             Grid.Column="3"
             Height="100"
+            TextWrapping="Wrap"
             Margin="5"
             Text="{Binding MijnSelectedItem.Omschrijving, Mode=TwoWay, 
             UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, 

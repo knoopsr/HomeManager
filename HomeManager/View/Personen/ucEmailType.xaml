@@ -73,8 +73,7 @@
             Grid.Column="1"
             Width="250"
             ItemsSource="{Binding MijnCollectie}"
-            SelectedItem="{Binding MijnSelectedItem, 
-            Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+            SelectedItem="{Binding MijnSelectedItem, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 
         <TextBlock
             x:Name="EmailType"
@@ -101,7 +100,8 @@
             Grid.Column="3"
             Height="100"
             Margin="5"
-            Text="{Binding MijnSelectedItem.Omschrijving, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnValidationError=true, ValidatesOnExceptions=True}" />
+            Text="{Binding MijnSelectedItem.Omschrijving, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnValidationError=true, ValidatesOnExceptions=True}"
+            TextWrapping="Wrap" />
 
     </Grid>
 </UserControl>

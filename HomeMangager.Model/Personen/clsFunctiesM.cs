@@ -69,7 +69,7 @@ namespace HomeManager.Model.Personen
         }
         public override string ToString()
         {
-            return Functie + " (" + Omschrijving + ")";
+            return Functie;
         }
 
 
