@@ -57,6 +57,6 @@ namespace HomeManager.ViewModel
             {
                 return new clsCategorieViewModel(); ;
             }
-
+        }
     }
 }
