@@ -180,9 +180,9 @@
   <data name="S_RechtenCatogorie" xml:space="preserve">
     <value>S_RechtenCatogorie</value>
   </data>
-	<data name="U_Rollen" xml:space="preserve">
+  <data name="U_Rollen" xml:space="preserve">
     <value>U_Rollen</value>
-	  </data>
+  </data>
   <data name="D_BudgetCategorie" xml:space="preserve">
     <value>D_BudgetCategorie</value>
   </data>
@@ -206,5 +206,17 @@
   </data>
   <data name="U_Functies" xml:space="preserve">
     <value>U_Functies</value>
+  </data>
+  <data name="I_EmailType" xml:space="preserve">
+    <value>I_EmailType</value>
+  </data>
+  <data name="D_EmailType" xml:space="preserve">
+    <value>D_EmailType</value>
+  </data>
+  <data name="S_EmailType" xml:space="preserve">
+    <value>S_EmailType</value>
+  </data>
+  <data name="U_EmailType" xml:space="preserve">
+    <value>U_EmailType</value>
   </data>
 </root>

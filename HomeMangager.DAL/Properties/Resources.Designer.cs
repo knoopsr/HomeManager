@@ -79,6 +79,15 @@ namespace HomeManager.DAL.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to D_EmailType.
+        /// </summary>
+        internal static string D_EmailType {
+            get {
+                return ResourceManager.GetString("D_EmailType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to D_Functies.
         /// </summary>
         internal static string D_Functies {
@@ -142,6 +151,15 @@ namespace HomeManager.DAL.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to I_EmailType.
+        /// </summary>
+        internal static string I_EmailType {
+            get {
+                return ResourceManager.GetString("I_EmailType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to I_Functies.
         /// </summary>
         internal static string I_Functies {
@@ -201,6 +219,15 @@ namespace HomeManager.DAL.Properties {
         internal static string S_BudgetCategorie {
             get {
                 return ResourceManager.GetString("S_BudgetCategorie", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to S_EmailType.
+        /// </summary>
+        internal static string S_EmailType {
+            get {
+                return ResourceManager.GetString("S_EmailType", resourceCulture);
             }
         }
         
@@ -282,6 +309,15 @@ namespace HomeManager.DAL.Properties {
         internal static string U_BudgetCategorie {
             get {
                 return ResourceManager.GetString("U_BudgetCategorie", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to U_EmailType.
+        /// </summary>
+        internal static string U_EmailType {
+            get {
+                return ResourceManager.GetString("U_EmailType", resourceCulture);
             }
         }
         

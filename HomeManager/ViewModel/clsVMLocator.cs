@@ -24,6 +24,14 @@ namespace HomeManager.ViewModel
             }
         }
 
+        public clsEmailTypeVM EmailTypeViewModel
+        {
+            get
+            {
+                return new clsEmailTypeVM();
+            }
+        }
+
         #region Security
 
         public clsRechtenViewModel RechtenViewModel

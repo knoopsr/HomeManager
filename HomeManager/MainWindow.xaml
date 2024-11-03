@@ -25,8 +25,10 @@
         <DataTemplate DataType="{x:Type VM:clsFunctieVM}">
             <V:ucFunctie />
         </DataTemplate>
-
-            <DataTemplate DataType="{x:Type VM:clsRechtenViewModel}">
+        <DataTemplate DataType="{x:Type VM:clsEmailTypeVM}">
+            <V:ucEmailType />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type VM:clsRechtenViewModel}">
             <V:ucRoles />
         </DataTemplate>
         <DataTemplate DataType="{x:Type VM:clsCredentialGroupViewModel}">
@@ -130,7 +132,11 @@
                                 CommandParameter="clsPersoonVM"
                                 Content="Persoon"
                                 Style="{StaticResource myExpanderPerson}" />
-                            <Button Content="EmailType" Style="{StaticResource myMenuTandwiel}" />
+                            <Button
+                                Command="{Binding NavCommand}"
+                                CommandParameter="clsEmailTypeVM"
+                                Content="EmailType"
+                                Style="{StaticResource myMenuTandwiel}" />
                             <Button Content="TelefoonType" Style="{StaticResource myMenuTandwiel}" />
                             <Button Content="Land" Style="{StaticResource myMenuTandwiel}" />
                             <Button Content="Provincie" Style="{StaticResource myMenuTandwiel}" />
