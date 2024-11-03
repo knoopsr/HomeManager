@@ -1,4 +1,5 @@
-﻿using System;
+﻿using HomeManager.ViewModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,6 +15,13 @@ namespace HomeManager.ViewModel
             get
             {
                 return new clsPersoonVM();
+            }
+        }
+        public clsFunctieVM FunctieViewModel
+        {
+            get
+            {
+                return new clsFunctieVM();
             }
         }
 

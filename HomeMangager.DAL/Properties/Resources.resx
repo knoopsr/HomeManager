@@ -183,4 +183,16 @@
   <data name="U_Rollen" xml:space="preserve">
     <value>U_Rollen</value>
   </data>
+  <data name="D_Functies" xml:space="preserve">
+    <value>D_Functies</value>
+  </data>
+  <data name="I_Functies" xml:space="preserve">
+    <value>I_Functies</value>
+  </data>
+  <data name="S_Functies" xml:space="preserve">
+    <value>S_Functies</value>
+  </data>
+  <data name="U_Functies" xml:space="preserve">
+    <value>U_Functies</value>
+  </data>
 </root>

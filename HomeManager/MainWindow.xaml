@@ -22,8 +22,11 @@
         <DataTemplate DataType="{x:Type VM:clsPersoonVM}">
             <V:ucPersoon />
         </DataTemplate>
+        <DataTemplate DataType="{x:Type VM:clsFunctieVM}">
+            <V:ucFunctie />
+        </DataTemplate>
 
-        <DataTemplate DataType="{x:Type VM:clsRechtenViewModel}">
+            <DataTemplate DataType="{x:Type VM:clsRechtenViewModel}">
             <V:ucRoles />
         </DataTemplate>
         <DataTemplate DataType="{x:Type VM:clsCredentialGroupViewModel}">
@@ -118,13 +121,21 @@
                     Orientation="Vertical">
                     <Expander Style="{StaticResource myHamburgerPersonen}">
                         <StackPanel x:Name="stckPerson">
-                            <Button Content="Persoon" Command="{Binding NavCommand}" CommandParameter="clsPersoonVM" Style="{StaticResource myExpanderPerson}" />
+                            <Button
+                                Command="{Binding NavCommand}"
+                                CommandParameter="clsPersoonVM"
+                                Content="Persoon"
+                                Style="{StaticResource myExpanderPerson}" />
                             <Button Content="EmailType" Style="{StaticResource myMenuTandwiel}" />
                             <Button Content="TelefoonType" Style="{StaticResource myMenuTandwiel}" />
                             <Button Content="Land" Style="{StaticResource myMenuTandwiel}" />
                             <Button Content="Provincie" Style="{StaticResource myMenuTandwiel}" />
                             <Button Content="Gemeente" Style="{StaticResource myMenuTandwiel}" />
-                            <Button Content="Functies" Style="{StaticResource myMenuTandwiel}" />
+                            <Button
+                                Command="{Binding NavCommand}"
+                                CommandParameter="clsFunctieVM"
+                                Content="Functies"
+                                Style="{StaticResource myExpanderPerson}" />
                         </StackPanel>
                     </Expander>
 
@@ -208,7 +219,7 @@
             Unchecked="ToggleButton_Unchecked" />
 
         <!--#endregion-->
-        
+
         <ContentControl
             Grid.Row="1"
             Grid.Column="1"
