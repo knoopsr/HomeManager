@@ -219,4 +219,16 @@
   <data name="U_EmailType" xml:space="preserve">
     <value>U_EmailType</value>
   </data>
+  <data name="D_TelefoonType" xml:space="preserve">
+    <value>D_TelefoonType</value>
+  </data>
+  <data name="I_TelefoonType" xml:space="preserve">
+    <value>I_TelefoonType</value>
+  </data>
+  <data name="S_TelefoonType" xml:space="preserve">
+    <value>S_TelefoonType</value>
+  </data>
+  <data name="U_TelefoonType" xml:space="preserve">
+    <value>U_TelefoonType</value>
+  </data>
 </root>

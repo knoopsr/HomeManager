@@ -32,6 +32,14 @@ namespace HomeManager.ViewModel
             }
         }
 
+        public clsTelefoonTypeVM TelefoonTypeViewModel
+        {
+            get
+            {
+                return new clsTelefoonTypeVM();
+            }
+        }
+
         #region Security
 
         public clsRechtenViewModel RechtenViewModel

@@ -28,6 +28,9 @@
         <DataTemplate DataType="{x:Type VM:clsEmailTypeVM}">
             <V:ucEmailType />
         </DataTemplate>
+        <DataTemplate DataType="{x:Type VM:clsTelefoonTypeVM}">
+            <V:ucTelefoonType />
+        </DataTemplate>
         <DataTemplate DataType="{x:Type VM:clsRechtenViewModel}">
             <V:ucRoles />
         </DataTemplate>

@@ -115,6 +115,15 @@ namespace HomeManager.DAL.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to D_TelefoonType.
+        /// </summary>
+        internal static string D_TelefoonType {
+            get {
+                return ResourceManager.GetString("D_TelefoonType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to D_Wachtwoord.
         /// </summary>
         internal static string D_Wachtwoord {
@@ -183,6 +192,15 @@ namespace HomeManager.DAL.Properties {
         internal static string I_Rollen {
             get {
                 return ResourceManager.GetString("I_Rollen", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to I_TelefoonType.
+        /// </summary>
+        internal static string I_TelefoonType {
+            get {
+                return ResourceManager.GetString("I_TelefoonType", resourceCulture);
             }
         }
         
@@ -277,6 +295,15 @@ namespace HomeManager.DAL.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to S_TelefoonType.
+        /// </summary>
+        internal static string S_TelefoonType {
+            get {
+                return ResourceManager.GetString("S_TelefoonType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to S_Wachtwoord.
         /// </summary>
         internal static string S_Wachtwoord {
@@ -345,6 +372,15 @@ namespace HomeManager.DAL.Properties {
         internal static string U_Rollen {
             get {
                 return ResourceManager.GetString("U_Rollen", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to U_TelefoonType.
+        /// </summary>
+        internal static string U_TelefoonType {
+            get {
+                return ResourceManager.GetString("U_TelefoonType", resourceCulture);
             }
         }
         
