@@ -140,7 +140,11 @@
                                 CommandParameter="clsEmailTypeVM"
                                 Content="EmailType"
                                 Style="{StaticResource myMenuTandwiel}" />
-                            <Button Content="TelefoonType" Style="{StaticResource myMenuTandwiel}" />
+                            <Button
+                                Command="{Binding NavCommand}"
+                                CommandParameter="clsTelefoonTypeVM"
+                                Content="TelefoonType"
+                                Style="{StaticResource myMenuTandwiel}" />
                             <Button Content="Land" Style="{StaticResource myMenuTandwiel}" />
                             <Button Content="Provincie" Style="{StaticResource myMenuTandwiel}" />
                             <Button Content="Gemeente" Style="{StaticResource myMenuTandwiel}" />
