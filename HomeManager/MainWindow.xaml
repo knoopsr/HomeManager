@@ -31,6 +31,9 @@
         <DataTemplate DataType="{x:Type VM:clsTelefoonTypeVM}">
             <V:ucTelefoonType />
         </DataTemplate>
+        <DataTemplate DataType="{x:Type VM:clsLandVM}">
+            <V:ucLand />
+        </DataTemplate>
         <DataTemplate DataType="{x:Type VM:clsRechtenViewModel}">
             <V:ucRoles />
         </DataTemplate>
@@ -145,7 +148,11 @@
                                 CommandParameter="clsTelefoonTypeVM"
                                 Content="TelefoonType"
                                 Style="{StaticResource myMenuTandwiel}" />
-                            <Button Content="Land" Style="{StaticResource myMenuTandwiel}" />
+                            <Button
+                                Command="{Binding NavCommand}"
+                                CommandParameter="clsLandVM"
+                                Content="Land"
+                                Style="{StaticResource myMenuTandwiel}" />
                             <Button Content="Provincie" Style="{StaticResource myMenuTandwiel}" />
                             <Button Content="Gemeente" Style="{StaticResource myMenuTandwiel}" />
                             <Button

@@ -231,4 +231,16 @@
   <data name="U_TelefoonType" xml:space="preserve">
     <value>U_TelefoonType</value>
   </data>
+  <data name="D_Land" xml:space="preserve">
+    <value>D_Land</value>
+  </data>
+  <data name="I_Land" xml:space="preserve">
+    <value>I_Land</value>
+  </data>
+  <data name="S_Land" xml:space="preserve">
+    <value>S_Land</value>
+  </data>
+  <data name="U_Land" xml:space="preserve">
+    <value>U_Land</value>
+  </data>
 </root>

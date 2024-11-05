@@ -1,4 +1,5 @@
-﻿using HomeManager.ViewModel;
+﻿using HomeManager.Model.Personen;
+using HomeManager.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -37,6 +38,14 @@ namespace HomeManager.ViewModel
             get
             {
                 return new clsTelefoonTypeVM();
+            }
+        }
+
+        public clsLandVM LandViewModel
+        {
+            get
+            {
+                return new clsLandVM();
             }
         }
 

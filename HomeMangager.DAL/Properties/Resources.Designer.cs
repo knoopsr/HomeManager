@@ -97,6 +97,15 @@ namespace HomeManager.DAL.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to D_Land.
+        /// </summary>
+        internal static string D_Land {
+            get {
+                return ResourceManager.GetString("D_Land", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to D_Persoon.
         /// </summary>
         internal static string D_Persoon {
@@ -178,6 +187,15 @@ namespace HomeManager.DAL.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to I_Land.
+        /// </summary>
+        internal static string I_Land {
+            get {
+                return ResourceManager.GetString("I_Land", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to I_Persoon.
         /// </summary>
         internal static string I_Persoon {
@@ -255,6 +273,15 @@ namespace HomeManager.DAL.Properties {
         internal static string S_Functies {
             get {
                 return ResourceManager.GetString("S_Functies", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to S_Land.
+        /// </summary>
+        internal static string S_Land {
+            get {
+                return ResourceManager.GetString("S_Land", resourceCulture);
             }
         }
         
@@ -354,6 +381,15 @@ namespace HomeManager.DAL.Properties {
         internal static string U_Functies {
             get {
                 return ResourceManager.GetString("U_Functies", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to U_Land.
+        /// </summary>
+        internal static string U_Land {
+            get {
+                return ResourceManager.GetString("U_Land", resourceCulture);
             }
         }
         

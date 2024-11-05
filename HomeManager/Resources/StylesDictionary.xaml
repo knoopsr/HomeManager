@@ -301,4 +301,31 @@
         </Setter>
     </Style>
 
+    <Style x:Key="UploadVlagButton" TargetType="ContentControl">
+        <Setter Property="Cursor" Value="Hand" />
+        <Setter Property="Height" Value="31" />
+        <Setter Property="Width" Value="31" />
+        <Setter Property="Margin" Value="20,0,0,0" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ContentControl">
+                    <Border
+                        Width="30"
+                        Height="30"
+                        Background="{StaticResource myBackground}"
+                        BorderBrush="{StaticResource myTitleBar}"
+                        BorderThickness="1"
+                        CornerRadius="15">
+                        <Path
+                            Width="15"
+                            Height="15"
+                            Data="{StaticResource myUploadButton}"
+                            Fill="{StaticResource myTitleBar}"
+                            Stretch="Fill" />
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
 </ResourceDictionary>
