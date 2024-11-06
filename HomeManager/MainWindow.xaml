@@ -34,6 +34,10 @@
         <DataTemplate DataType="{x:Type VM:clsLandVM}">
             <V:ucLand />
         </DataTemplate>
+        <DataTemplate DataType="{x:Type VM:clsProvincieVM}">
+            <V:ucProvincie />
+        </DataTemplate>
+
         <DataTemplate DataType="{x:Type VM:clsRechtenViewModel}">
             <V:ucRoles />
         </DataTemplate>
@@ -153,7 +157,11 @@
                                 CommandParameter="clsLandVM"
                                 Content="Land"
                                 Style="{StaticResource myMenuTandwiel}" />
-                            <Button Content="Provincie" Style="{StaticResource myMenuTandwiel}" />
+                            <Button 
+                                Command="{Binding NavCommand}"
+                                CommandParameter="clsProvincieVM"
+                                Content="Provincie" 
+                                Style="{StaticResource myMenuTandwiel}" />
                             <Button Content="Gemeente" Style="{StaticResource myMenuTandwiel}" />
                             <Button
                                 Command="{Binding NavCommand}"

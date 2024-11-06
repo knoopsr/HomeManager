@@ -1,5 +1,6 @@
 ﻿using HomeManager.Model.Personen;
 using HomeManager.ViewModel;
+using HomeManager.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -46,6 +47,14 @@ namespace HomeManager.ViewModel
             get
             {
                 return new clsLandVM();
+            }
+        }
+
+        public clsProvincieVM ProvincieViewModel
+        {
+            get
+            {
+                return new clsProvincieVM();
             }
         }
 

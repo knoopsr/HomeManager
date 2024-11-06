@@ -115,6 +115,15 @@ namespace HomeManager.DAL.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to D_Provincie.
+        /// </summary>
+        internal static string D_Provincie {
+            get {
+                return ResourceManager.GetString("D_Provincie", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to D_Rollen.
         /// </summary>
         internal static string D_Rollen {
@@ -205,6 +214,15 @@ namespace HomeManager.DAL.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to I_Provincie.
+        /// </summary>
+        internal static string I_Provincie {
+            get {
+                return ResourceManager.GetString("I_Provincie", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to I_Rollen.
         /// </summary>
         internal static string I_Rollen {
@@ -291,6 +309,15 @@ namespace HomeManager.DAL.Properties {
         internal static string S_Persoon {
             get {
                 return ResourceManager.GetString("S_Persoon", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to S_Provincie.
+        /// </summary>
+        internal static string S_Provincie {
+            get {
+                return ResourceManager.GetString("S_Provincie", resourceCulture);
             }
         }
         
@@ -399,6 +426,15 @@ namespace HomeManager.DAL.Properties {
         internal static string U_Persoon {
             get {
                 return ResourceManager.GetString("U_Persoon", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to U_Provincie.
+        /// </summary>
+        internal static string U_Provincie {
+            get {
+                return ResourceManager.GetString("U_Provincie", resourceCulture);
             }
         }
         

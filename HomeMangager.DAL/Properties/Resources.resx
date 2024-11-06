@@ -243,4 +243,16 @@
   <data name="U_Land" xml:space="preserve">
     <value>U_Land</value>
   </data>
+  <data name="D_Provincie" xml:space="preserve">
+    <value>D_Provincie</value>
+  </data>
+  <data name="I_Provincie" xml:space="preserve">
+    <value>I_Provincie</value>
+  </data>
+  <data name="S_Provincie" xml:space="preserve">
+    <value>S_Provincie</value>
+  </data>
+  <data name="U_Provincie" xml:space="preserve">
+    <value>U_Provincie</value>
+  </data>
 </root>
