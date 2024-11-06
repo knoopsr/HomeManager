@@ -50,7 +50,7 @@
                     <Path
                         Width="20"
                         Height="20"
-                        Data="{StaticResource mySettingButton}"
+                        Data="{StaticResource myPathSetting}"
                         Fill="White"
                         Stretch="Fill" />
                     <TextBlock

@@ -115,7 +115,7 @@ namespace HomeManager.Model.Personen
                                 ErrorList.Add("Omschrijving");
                             }
                         }
-                        else if (_omschrijving.Length > 50)
+                        else if (_omschrijving.Length > 500)
                         {
                             error = "Your text is to long!!!";
                             if (ErrorList.Contains("Omschrijving") == false)

@@ -189,7 +189,7 @@ namespace HomeManager.ViewModel
                 {
                     if (MijnService.Delete(MijnSelectedItem))
                     {
-                        //MijnSelectedItem.MijnSelectedIndex = 0;
+                        MijnSelectedItem.MijnSelectedIndex = 0;
                         NewStatus = false;
                         LoadData();
                     }
@@ -262,40 +262,40 @@ namespace HomeManager.ViewModel
 
         private void Execute_SaveCommand(object obj)
         {
-            OpslaanCommando();
+            //OpslaanCommando();
 
-            //if (MijnSelectedItem != null)
-            //{
-            //    if (NewStatus)
-            //    {
-            //        if (MijnService.Insert(MijnSelectedItem))
-            //        {
-            //            MijnSelectedItem.IsDirty = false;
-            //            MijnSelectedItem.MijnSelectedIndex = 0;
-            //            MijnSelectedItem.MyVisibility = (int)Visibility.Visible;
-            //            NewStatus = false;
-            //            LoadData();
-            //        }
-            //        else
-            //        {
-            //            MessageBox.Show(MijnSelectedItem.ErrorBoodschap, "Error?");
-            //        }
-            //    }
-            //    else
-            //    {
-            //        if (MijnService.Update(MijnSelectedItem))
-            //        {
-            //            MijnSelectedItem.IsDirty = false;
-            //            MijnSelectedItem.MijnSelectedIndex = 0;
-            //            NewStatus = false;
-            //            LoadData();
-            //        }
-            //        else
-            //        {
-            //            MessageBox.Show(MijnSelectedItem.ErrorBoodschap, "Error?");
-            //        }
-            //    }
-            //}
+            if (MijnSelectedItem != null)
+            {
+                if (NewStatus)
+                {
+                    if (MijnService.Insert(MijnSelectedItem))
+                    {
+                        MijnSelectedItem.IsDirty = false;
+                        MijnSelectedItem.MijnSelectedIndex = 0;
+                        MijnSelectedItem.MyVisibility = (int)Visibility.Visible;
+                        NewStatus = false;
+                        LoadData();
+                    }
+                    else
+                    {
+                        MessageBox.Show(MijnSelectedItem.ErrorBoodschap, "Error?");
+                    }
+                }
+                else
+                {
+                    if (MijnService.Update(MijnSelectedItem))
+                    {
+                        MijnSelectedItem.IsDirty = false;
+                        MijnSelectedItem.MijnSelectedIndex = 0;
+                        NewStatus = false;
+                        LoadData();
+                    }
+                    else
+                    {
+                        MessageBox.Show(MijnSelectedItem.ErrorBoodschap, "Error?");
+                    }
+                }
+            }
         }
     }
 }

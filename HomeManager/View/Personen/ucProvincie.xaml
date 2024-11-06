@@ -52,7 +52,7 @@
                     <Path
                         Width="20"
                         Height="20"
-                        Data="{StaticResource myPathPeople}"
+                        Data="{StaticResource myPathSetting}"
                         Fill="White"
                         Stretch="Fill" />
                     <TextBlock
@@ -101,11 +101,9 @@
             Grid.Column="3"
             Margin="5"
             DataContext="{Binding Source={StaticResource VML}, Path=LandViewModel}"
-            ItemsSource="{Binding MijnCollectie}"
             DisplayMemberPath="LandDisplayName"
-            SelectedValue="{Binding RelativeSource={RelativeSource FindAncestor, 
-            AncestorType={x:Type Grid}}, Path=DataContext.MijnSelectedItem.LandID, 
-            Mode=TwoWay}"
+            ItemsSource="{Binding MijnCollectie}"
+            SelectedValue="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Grid}}, Path=DataContext.MijnSelectedItem.LandID, Mode=TwoWay}"
             SelectedValuePath="LandID" />
     </Grid>
 </UserControl>
