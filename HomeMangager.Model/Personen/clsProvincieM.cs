@@ -82,7 +82,7 @@ namespace HomeManager.Model.Personen
 
         public override string ToString()
         {
-            return $"{Provincie} ({LandID})";
+            return Provincie +" (" + LandCode + ")";
         }
 
 

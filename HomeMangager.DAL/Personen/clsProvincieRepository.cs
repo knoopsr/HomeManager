@@ -56,7 +56,8 @@ namespace HomeManager.DAL.Personen
                     ProvincieID = (int)MijnDataReader[0],
                     Provincie = MijnDataReader[1].ToString(),
                     LandID = (int)MijnDataReader[2],
-                    ControlField = MijnDataReader[3]
+                    LandCode = (string)MijnDataReader[3],
+                    ControlField = MijnDataReader[4]
                 };
                 MijnCollectie.Add(e);
             }
