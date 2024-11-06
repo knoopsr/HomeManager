@@ -16,7 +16,8 @@ namespace HomeManager.ViewModel
     {
         clsloginDataService MijnService;
         clsLoginModel _loginModel;
-        clsDialogService _dialogService;
+        private clsDialogService _dialogService;
+        private object _objHome;
 
 
         public ICommand cmdLogin { get; set; }
@@ -63,6 +64,10 @@ namespace HomeManager.ViewModel
             {
                 _dialogService.CloseNewPassWordView();
                 OpenMainWindow(obj);
+                if (_objHome is Window winLogin)
+                {
+                    winLogin.Close();
+                }
             }
         }
         private bool CanExecute_close_Command(object? obj)
@@ -103,10 +108,9 @@ namespace HomeManager.ViewModel
                 }
                 else if (_loginModel.IsNew)
                 {
-           
-                    _dialogService.ShowNewPassWordView();
+                    _objHome = obj;
                     clsMessenger.Default.Send<clsLoginModel>(_loginModel);
-
+                    _dialogService.ShowNewPassWordView();
                 }
                 else
                 {

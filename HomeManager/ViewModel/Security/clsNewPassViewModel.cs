@@ -17,7 +17,7 @@ namespace HomeManager.ViewModel
         public ICommand cmdAnnuleer { get; set; }
         public ICommand cmdClose { get; set; }
 
-
+  
         private string _newPass;
         public string NewPass
         {
@@ -56,7 +56,10 @@ namespace HomeManager.ViewModel
 
         private void Execute_Close_Command(object? obj)
         {
-            throw new NotImplementedException();
+            if (obj is Window winNewPassWord)
+            {
+                winNewPassWord.Close();
+            }
         }
 
         private bool CanExecute_Annuleer_Command(object? obj)
@@ -66,7 +69,8 @@ namespace HomeManager.ViewModel
 
         private void Execute_Annuleer_Command(object? obj)
         {
-            throw new NotImplementedException();
+          ConfirmPass = string.Empty;
+            NewPass = string.Empty;
         }
 
         private bool CanExecute_Opslaan_Command(object? obj)

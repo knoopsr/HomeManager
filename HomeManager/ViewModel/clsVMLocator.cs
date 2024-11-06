@@ -9,6 +9,7 @@ namespace HomeManager.ViewModel
     public class clsVMLocator
     {
 
+
         public clsPersoonVM PersoonViewModel
         {
             get
@@ -66,11 +67,13 @@ namespace HomeManager.ViewModel
                 return new clsLogin();
             }
         }
+
+        private static clsNewPassViewModel _newPassViewModel = new clsNewPassViewModel();
         public clsNewPassViewModel NewPassViewModel
         {
             get
             {
-                return new clsNewPassViewModel();
+                return _newPassViewModel;
             }
         }
 

@@ -17,7 +17,7 @@ namespace HomeManager.Services.Security
         {
 
                 _NewPassWordView = new winNewPassWord();
-                _NewPassWordView.Show();
+                _NewPassWordView.ShowDialog();
 
         }
 
