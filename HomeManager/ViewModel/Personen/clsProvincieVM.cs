@@ -16,9 +16,6 @@ namespace HomeManager.ViewModel
     public class clsProvincieVM : clsCommonModelPropertiesBase
     {
         clsProvincieDataService MijnService;
-        clsLandDataService MijnLandService;
-
-
         private bool NewStatus = false;
 
         public ICommand cmdDelete { get; set; }
@@ -42,20 +39,6 @@ namespace HomeManager.ViewModel
             }
         }
 
-        private ObservableCollection<clsLandM> mijnLandCollectie;
-        public ObservableCollection<clsLandM> MijnLandCollectie
-        {
-            get
-            {
-                return mijnLandCollectie;
-            }
-            set
-            {
-                mijnLandCollectie = value;
-                OnPropertyChanged();
-            }
-        }
-
 
         private clsProvincieM mijnSelectedItem;
         public clsProvincieM MijnSelectedItem
@@ -70,10 +53,9 @@ namespace HomeManager.ViewModel
                 {
                     if (mijnSelectedItem != null && mijnSelectedItem.IsDirty)
                     {
-                        if (MessageBox.Show("Wil je " + mijnSelectedItem + " Opslaan?", "Opslaan", MessageBoxButton.YesNo,
-                            MessageBoxImage.Question) == MessageBoxResult.Yes)
+                        if (MessageBox.Show("Wil je " + mijnSelectedItem + "Opslaan?", "Opslaan",
+                            MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
                         {
-                            Execute_SaveCommand(null);
                             mijnSelectedItem.IsDirty = false;
                             mijnSelectedItem.MijnSelectedIndex = 0;
                             OpslaanCommando();
@@ -99,7 +81,6 @@ namespace HomeManager.ViewModel
                         MijnSelectedItem.MyVisibility = (int)Visibility.Visible;
                         NewStatus = false;
                         LoadData();
-                        LoadLand();
                     }
                     else
                     {
@@ -114,7 +95,6 @@ namespace HomeManager.ViewModel
                         MijnSelectedItem.MijnSelectedIndex = 0;
                         NewStatus = false;
                         LoadData();
-                        LoadLand();
                     }
                     else
                     {
@@ -124,37 +104,20 @@ namespace HomeManager.ViewModel
             }
         }
 
-        private clsLandM mijnSelectedLand;
-        public clsLandM MijnSelectedLand
+        private bool _IsFocused = false;
+        public bool IsFocused
         {
             get
             {
-                return mijnSelectedLand;
+                return _IsFocused;
             }
             set
             {
-                if (value != null)
-                {
-                    if (mijnSelectedLand != null && mijnSelectedLand.IsDirty)
-                    {
-                        if (MessageBox.Show("Wil je " + mijnSelectedLand + " Opslaan?", "Opslaan", MessageBoxButton.YesNo,
-                            MessageBoxImage.Question) == MessageBoxResult.Yes)
-                        {
-                            Execute_SaveCommand(null);
-                            mijnSelectedLand.IsDirty = false;
-                            mijnSelectedLand.MijnSelectedIndex = 0;
-                            OpslaanCommando();
-                            LoadLand();
-                        }
-                    }
-                }
-                mijnSelectedLand = value;
+                _IsFocused = value;
                 OnPropertyChanged();
             }
         }
 
-        /// <summary>
-        /// Hier ga ik de focus op een control kunnen zetten nadat ik op New geklikt heb /// </summary>
         private bool _IsFocusedAfterNew = false;
         public bool IsFocusedAfterNew
         {
@@ -169,28 +132,9 @@ namespace HomeManager.ViewModel
             }
         }
 
-
-        /// <summary>
-        /// Hier ga ik de focus op een default control kunnen zetten
-        /// </summary>
-        private bool _IsFocused = false;
-        public bool IsFocused
-        {
-            get
-            {
-                return _IsFocused;
-            }
-            set
-            {
-                IsFocused = value;
-                OnPropertyChanged();
-            }
-        }
-
         public clsProvincieVM()
         {
             MijnService = new clsProvincieDataService();
-            MijnLandService = new clsLandDataService();
             cmdNew = new clsCustomCommand(Execute_NewCommand, CanExecute_NewCommand);
             cmdDelete = new clsCustomCommand(Execute_DeleteCommand, CanExecute_DeleteCommand);
             cmdSave = new clsCustomCommand(Execute_SaveCommand, CanExecute_SaveCommand);
@@ -198,8 +142,8 @@ namespace HomeManager.ViewModel
             cmdCancel = new clsCustomCommand(Execute_CancelCommand, CanExecute_CancelCommand);
 
             LoadData();
-            LoadLand();
             MijnSelectedItem = MijnService.GetFirst();
+            MijnSelectedItem.MijnSelectedIndex = 0;
         }
 
         private bool CanExecute_NewCommand(object? obj)
@@ -211,18 +155,19 @@ namespace HomeManager.ViewModel
         {
             clsProvincieM ItemToInsert = new clsProvincieM()
             {
+                ProvincieID = 0,
                 Provincie = string.Empty,
                 LandID = 0,
             };
             MijnSelectedItem = ItemToInsert;
-            MijnSelectedItem = ItemToInsert;
+            //MijnSelectedItem = ItemToInsert;
 
             MijnSelectedItem.MyVisibility = (int)Visibility.Hidden;
             NewStatus = true;
             IsFocusedAfterNew = true;
         }
 
-        private bool CanExecute_DeleteCommand(object? obj)
+        private bool CanExecute_DeleteCommand(object obj)
         {
             if (MijnSelectedItem != null)
             {
@@ -237,18 +182,14 @@ namespace HomeManager.ViewModel
                 return false;
             }
         }
-
-        private void Execute_DeleteCommand(object? obj)
+        private void Execute_DeleteCommand(object obj)
         {
-            if (MessageBox.Show(
-                "Wil je " + MijnSelectedItem + " verwijderen?",
-                "Verwijderen?",
-                MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
-            {
-                if (MijnSelectedItem != null)
+            if (MessageBox.Show("Wil je " + MijnSelectedItem + " verwijderen?", "Vewijderen?", MessageBoxButton.YesNo,
+                MessageBoxImage.Question) == MessageBoxResult.Yes) if (MijnSelectedItem != null)
                 {
                     if (MijnService.Delete(MijnSelectedItem))
                     {
+                        //MijnSelectedItem.MijnSelectedIndex = 0;
                         NewStatus = false;
                         LoadData();
                     }
@@ -257,7 +198,6 @@ namespace HomeManager.ViewModel
                         MessageBox.Show("Error?", MijnSelectedItem.ErrorBoodschap);
                     }
                 }
-            }
         }
 
 
@@ -276,6 +216,7 @@ namespace HomeManager.ViewModel
                     if (MessageBox.Show(MijnSelectedItem.ToString().ToUpper() + "is nog niet opgeslagen, wil je opslaan ?", "Opslaan of sluiten?",
                         MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
                     {
+                        OpslaanCommando();
                         clsHomeVM vm2 = (clsHomeVM)HomeWindow.DataContext;
                         vm2.CurrentViewModel = null;
                     }
@@ -306,14 +247,10 @@ namespace HomeManager.ViewModel
         {
             MijnCollectie = MijnService.GetAll();
         }
-        private void LoadLand()
-        {
-            MijnLandCollectie = MijnLandService.GetAll();
-        }
 
         private bool CanExecute_SaveCommand(object obj)
         {
-            if (MijnSelectedItem != null && MijnSelectedItem.IsDirty == true)
+            if (MijnSelectedItem != null && MijnSelectedItem.Error == null && MijnSelectedItem.IsDirty == true)
             {
                 return true;
             }
@@ -326,6 +263,39 @@ namespace HomeManager.ViewModel
         private void Execute_SaveCommand(object obj)
         {
             OpslaanCommando();
+
+            //if (MijnSelectedItem != null)
+            //{
+            //    if (NewStatus)
+            //    {
+            //        if (MijnService.Insert(MijnSelectedItem))
+            //        {
+            //            MijnSelectedItem.IsDirty = false;
+            //            MijnSelectedItem.MijnSelectedIndex = 0;
+            //            MijnSelectedItem.MyVisibility = (int)Visibility.Visible;
+            //            NewStatus = false;
+            //            LoadData();
+            //        }
+            //        else
+            //        {
+            //            MessageBox.Show(MijnSelectedItem.ErrorBoodschap, "Error?");
+            //        }
+            //    }
+            //    else
+            //    {
+            //        if (MijnService.Update(MijnSelectedItem))
+            //        {
+            //            MijnSelectedItem.IsDirty = false;
+            //            MijnSelectedItem.MijnSelectedIndex = 0;
+            //            NewStatus = false;
+            //            LoadData();
+            //        }
+            //        else
+            //        {
+            //            MessageBox.Show(MijnSelectedItem.ErrorBoodschap, "Error?");
+            //        }
+            //    }
+            //}
         }
     }
 }

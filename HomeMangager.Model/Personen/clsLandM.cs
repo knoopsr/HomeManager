@@ -86,6 +86,14 @@ namespace HomeManager.Model.Personen
         {
             return Land + ", " + LandCode;
         }
+
+        public string LandDisplayName
+        {
+            get
+            {
+                return $"{Land} ({LandCode})";
+            }
+        }
         public string this[string columnName]
         {
             get

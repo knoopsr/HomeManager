@@ -96,11 +96,16 @@
             Text="Land"
             TextAlignment="Right" />
         <ComboBox
-            x:Name="cbokeuze"
+            x:Name="cboLand"
             Grid.Row="3"
             Grid.Column="3"
-            Width="400"
-            ItemsSource="{Binding MijnLandCollectie}"
-            SelectedItem="{Binding MijnSelectedLand, UpdateSourceTrigger=PropertyChanged}" />
+            Margin="5"
+            DataContext="{Binding Source={StaticResource VML}, Path=LandViewModel}"
+            ItemsSource="{Binding MijnCollectie}"
+            DisplayMemberPath="LandDisplayName"
+            SelectedValue="{Binding RelativeSource={RelativeSource FindAncestor, 
+            AncestorType={x:Type Grid}}, Path=DataContext.MijnSelectedItem.LandID, 
+            Mode=TwoWay}"
+            SelectedValuePath="LandID" />
     </Grid>
 </UserControl>

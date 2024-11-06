@@ -24,20 +24,6 @@ namespace HomeManager.Model.Personen
             }
         }
 
-        private int _landID;
-        public int LandID
-        {
-            get
-            {
-                return _landID;
-            }
-            set
-            {
-                _landID = value;
-                OnPropertyChanged();
-            }
-        }
-
         private string _provincie;
         public string Provincie
         {
@@ -55,6 +41,20 @@ namespace HomeManager.Model.Personen
                     }
                 }
                 _provincie = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private int _landID;
+        public int LandID
+        {
+            get
+            {
+                return _landID;
+            }
+            set
+            {
+                _landID = value;
                 OnPropertyChanged();
             }
         }
@@ -80,11 +80,12 @@ namespace HomeManager.Model.Personen
             }
         }
 
-
         public override string ToString()
         {
-            return Provincie + ", " + LandCode;
+            return $"{Provincie} ({LandID})";
         }
+
+
 
         public string this[string columnName]
         {
@@ -102,19 +103,19 @@ namespace HomeManager.Model.Personen
                                 ErrorList.Add("Provincie");
                             }
                         }
-                        else if (Provincie.Length > 50)
+                        else if (Provincie.Length > 100)
                         {
                             error = "Your text is to long!!!";
-                            if (ErrorList.Contains("Naam") == false)
+                            if (ErrorList.Contains("Provincie") == false)
                             {
-                                ErrorList.Add("Naam");
+                                ErrorList.Add("Provincie");
                             }
                         }
                         else
                         {
-                            if (ErrorList.Contains("Naam"))
+                            if (ErrorList.Contains("Provincie"))
                             {
-                                ErrorList.Remove("Naam");
+                                ErrorList.Remove("Provincie");
                             }
                         }
                         return error;

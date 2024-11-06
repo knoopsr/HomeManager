@@ -54,10 +54,9 @@ namespace HomeManager.DAL.Personen
                 clsProvincieM e = new clsProvincieM()
                 {
                     ProvincieID = (int)MijnDataReader[0],
-                    LandID = (int)MijnDataReader[1],
-                    Provincie = MijnDataReader[2].ToString(),
-                    LandCode = MijnDataReader[3].ToString(),
-                    ControlField = MijnDataReader[4]
+                    Provincie = MijnDataReader[1].ToString(),
+                    LandID = (int)MijnDataReader[2],
+                    ControlField = MijnDataReader[3]
                 };
                 MijnCollectie.Add(e);
             }
@@ -70,7 +69,7 @@ namespace HomeManager.DAL.Personen
             {
                 GenerateCollection();
             }
-            return MijnCollectie.Where(land => land.LandID == id).FirstOrDefault();
+            return MijnCollectie.Where(provincie => provincie.ProvincieID == id).FirstOrDefault();
         }
 
         public clsProvincieM GetFirst()
@@ -86,9 +85,8 @@ namespace HomeManager.DAL.Personen
         {
             (DataTable DT, bool OK, string Boodschap) =
                 clsDAL.ExecuteDataTable(Properties.Resources.I_Provincie,
-                clsDAL.Parameter("ProvincieID", entity.ProvincieID),
-                clsDAL.Parameter("LandID", entity.LandID),
                 clsDAL.Parameter("Provincie", entity.Provincie),
+                clsDAL.Parameter("LandID", entity.LandID),
                 clsDAL.Parameter("@ReturnValue", 0));
             if (!OK)
             {
@@ -102,8 +100,8 @@ namespace HomeManager.DAL.Personen
             (DataTable DT, bool OK, string Boodschap) =
                 clsDAL.ExecuteDataTable(Properties.Resources.U_Provincie,
                     clsDAL.Parameter("ProvincieID", entity.ProvincieID),
-                    clsDAL.Parameter("LandID", entity.LandID),
                     clsDAL.Parameter("Provincie", entity.Provincie),
+                    clsDAL.Parameter("LandID", entity.LandID),
                     clsDAL.Parameter("ControlField", entity.ControlField),
                     clsDAL.Parameter("@ReturnValue", 0));
 
