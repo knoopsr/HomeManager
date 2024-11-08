@@ -104,7 +104,7 @@ namespace HomeManager.Model.Personen
                                 ErrorList.Add("Gemeente");
                             }
                         }
-                        else if (Gemeente.Length > 50)
+                        else if (Gemeente.Length > 100)
                         {
                             error = "Your text is to long!!!";
                             if (ErrorList.Contains("Gemeente") == false)
@@ -140,9 +140,9 @@ namespace HomeManager.Model.Personen
                         }
                         else
                         {
-                            if (ErrorList.Contains("PostalCode"))
+                            if (ErrorList.Contains("PostCode"))
                             {
-                                ErrorList.Remove("PostalCode");
+                                ErrorList.Remove("PostCode");
                             }
                         }
                         return error;
@@ -155,4 +155,5 @@ namespace HomeManager.Model.Personen
 
     }
 }
+
 
