@@ -85,6 +85,14 @@ namespace HomeManager.Model.Personen
             return Provincie +" (" + LandCode + ")";
         }
 
+        public string ProvincieDisplayName
+        {
+            get
+            {
+                return $"{Provincie} ({LandCode})";
+            }
+        }
+
 
 
         public string this[string columnName]

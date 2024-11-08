@@ -255,4 +255,16 @@
   <data name="U_Provincie" xml:space="preserve">
     <value>U_Provincie</value>
   </data>
+  <data name="D_Gemeente" xml:space="preserve">
+    <value>D_Gemeente</value>
+  </data>
+  <data name="I_Gemeente" xml:space="preserve">
+    <value>I_Gemeente</value>
+  </data>
+  <data name="S_Gemeente" xml:space="preserve">
+    <value>S_Gemeente</value>
+  </data>
+  <data name="U_Gemeente" xml:space="preserve">
+    <value>U_Gemeente</value>
+  </data>
 </root>

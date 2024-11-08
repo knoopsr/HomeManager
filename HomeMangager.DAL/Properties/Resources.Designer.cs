@@ -97,6 +97,15 @@ namespace HomeManager.DAL.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to D_Gemeente.
+        /// </summary>
+        internal static string D_Gemeente {
+            get {
+                return ResourceManager.GetString("D_Gemeente", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to D_Land.
         /// </summary>
         internal static string D_Land {
@@ -196,6 +205,15 @@ namespace HomeManager.DAL.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to I_Gemeente.
+        /// </summary>
+        internal static string I_Gemeente {
+            get {
+                return ResourceManager.GetString("I_Gemeente", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to I_Land.
         /// </summary>
         internal static string I_Land {
@@ -291,6 +309,15 @@ namespace HomeManager.DAL.Properties {
         internal static string S_Functies {
             get {
                 return ResourceManager.GetString("S_Functies", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to S_Gemeente.
+        /// </summary>
+        internal static string S_Gemeente {
+            get {
+                return ResourceManager.GetString("S_Gemeente", resourceCulture);
             }
         }
         
@@ -408,6 +435,15 @@ namespace HomeManager.DAL.Properties {
         internal static string U_Functies {
             get {
                 return ResourceManager.GetString("U_Functies", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to U_Gemeente.
+        /// </summary>
+        internal static string U_Gemeente {
+            get {
+                return ResourceManager.GetString("U_Gemeente", resourceCulture);
             }
         }
         
