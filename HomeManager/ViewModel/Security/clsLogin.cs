@@ -9,6 +9,7 @@ using System.Configuration;
 using System.Windows;
 using System.Windows.Input;
 using System.Xml;
+using HomeManager.Mail;
 
 namespace HomeManager.ViewModel
 {
@@ -116,6 +117,16 @@ namespace HomeManager.ViewModel
                 {
                     OpenMainWindow(obj);
                 }
+
+
+                clsMailModel _itemToInsert = new clsMailModel()
+                {
+                    MailToEmail = "test@test.com",
+                    MailToName = _loginModel.VoorNaam,
+                    Subject = "Login",
+                    Body = "Login: " + _loginModel.Naam + " is ingelogd",
+                };
+                clsMail.SendEmail(_itemToInsert);
             }
         }
 

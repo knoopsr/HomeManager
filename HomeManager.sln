@@ -11,6 +11,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HomeManager.Common", "HomeM
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HomeManager.Model", "HomeMangager.Model\HomeManager.Model.csproj", "{B93C12EE-A22E-4D74-86F5-02DC91742E38}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HomeManager.Mail", "HomeManager.Mail\HomeManager.Mail.csproj", "{11570BDE-D04F-4EDD-AB21-D6CF632BA475}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{B93C12EE-A22E-4D74-86F5-02DC91742E38}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B93C12EE-A22E-4D74-86F5-02DC91742E38}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B93C12EE-A22E-4D74-86F5-02DC91742E38}.Release|Any CPU.Build.0 = Release|Any CPU
+		{11570BDE-D04F-4EDD-AB21-D6CF632BA475}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{11570BDE-D04F-4EDD-AB21-D6CF632BA475}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{11570BDE-D04F-4EDD-AB21-D6CF632BA475}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{11570BDE-D04F-4EDD-AB21-D6CF632BA475}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
