@@ -101,8 +101,8 @@ namespace HomeManager.DAL.Personen
                 clsDAL.ExecuteDataTable(Properties.Resources.U_Gemeente,
                     clsDAL.Parameter("GemeenteID", entity.GemeenteID),
                     clsDAL.Parameter("Gemeente", entity.Gemeente),
-                    clsDAL.Parameter("ProvincieID", entity.ProvincieID),
                     clsDAL.Parameter("PostCode", entity.PostCode),
+                    clsDAL.Parameter("ProvincieID", entity.ProvincieID),
                     clsDAL.Parameter("ControlField", entity.ControlField),
                     clsDAL.Parameter("@ReturnValue", 0));
 

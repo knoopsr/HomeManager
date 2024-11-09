@@ -130,7 +130,7 @@ namespace HomeManager.Model.Personen
                                 ErrorList.Add("PostCode");
                             }
                         }
-                        else if (PostCode.Length > 12)
+                        else if (PostCode.Length > 15)
                         {
                             error = "Your text is to long!!!";
                             if (ErrorList.Contains("PostCode") == false)
