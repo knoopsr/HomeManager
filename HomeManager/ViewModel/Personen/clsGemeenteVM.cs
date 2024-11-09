@@ -143,7 +143,7 @@ namespace HomeManager.ViewModel
 
             LoadData();
             MijnSelectedItem = MijnService.GetFirst();
-            //MijnSelectedItem.MijnSelectedIndex = 0;
+            MijnSelectedItem.MijnSelectedIndex = 0;
         }
 
         private bool CanExecute_NewCommand(object? obj)
@@ -264,39 +264,6 @@ namespace HomeManager.ViewModel
         private void Execute_SaveCommand(object obj)
         {
             OpslaanCommando();
-
-            //if (MijnSelectedItem != null)
-            //{
-            //    if (NewStatus)
-            //    {
-            //        if (MijnService.Insert(MijnSelectedItem))
-            //        {
-            //            MijnSelectedItem.IsDirty = false;
-            //            MijnSelectedItem.MijnSelectedIndex = 0;
-            //            MijnSelectedItem.MyVisibility = (int)Visibility.Visible;
-            //            NewStatus = false;
-            //            LoadData();
-            //        }
-            //        else
-            //        {
-            //            MessageBox.Show(MijnSelectedItem.ErrorBoodschap, "Error?");
-            //        }
-            //    }
-            //    else
-            //    {
-            //        if (MijnService.Update(MijnSelectedItem))
-            //        {
-            //            MijnSelectedItem.IsDirty = false;
-            //            MijnSelectedItem.MijnSelectedIndex = 0;
-            //            NewStatus = false;
-            //            LoadData();
-            //        }
-            //        else
-            //        {
-            //            MessageBox.Show(MijnSelectedItem.ErrorBoodschap, "Error?");
-            //        }
-            //    }
-            //}
         }
     }
 }

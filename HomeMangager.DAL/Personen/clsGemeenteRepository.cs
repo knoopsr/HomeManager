@@ -84,9 +84,9 @@ namespace HomeManager.DAL.Personen
         {
             (DataTable DT, bool OK, string Boodschap) =
                 clsDAL.ExecuteDataTable(Properties.Resources.I_Gemeente,
-                clsDAL.Parameter("ProvincieID", entity.ProvincieID),
                 clsDAL.Parameter("Gemeente", entity.Gemeente),
                 clsDAL.Parameter("PostCode", entity.PostCode),
+                clsDAL.Parameter("ProvincieID", entity.ProvincieID),
                 clsDAL.Parameter("@ReturnValue", 0));
             if (!OK)
             {

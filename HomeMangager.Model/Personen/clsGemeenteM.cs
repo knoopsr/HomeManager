@@ -73,11 +73,11 @@ namespace HomeManager.Model.Personen
         {
             get
             {
-                return _gemeenteID;
+                return _provincieID;
             }
             set
             {
-                _gemeenteID = value;
+                _provincieID = value;
                 OnPropertyChanged();
             }
         }
@@ -121,31 +121,31 @@ namespace HomeManager.Model.Personen
                         }
                         return error;
 
-                    case nameof(PostCode):
-                        if (string.IsNullOrWhiteSpace(PostCode))
-                        {
-                            error = "PostCode is een verplicht veld.";
-                            if (ErrorList.Contains("PostCode") == false)
-                            {
-                                ErrorList.Add("PostCode");
-                            }
-                        }
-                        else if (PostCode.Length > 15)
-                        {
-                            error = "Your text is to long!!!";
-                            if (ErrorList.Contains("PostCode") == false)
-                            {
-                                ErrorList.Add("PostCode");
-                            }
-                        }
-                        else
-                        {
-                            if (ErrorList.Contains("PostCode"))
-                            {
-                                ErrorList.Remove("PostCode");
-                            }
-                        }
-                        return error;
+                    //case nameof(PostCode):
+                    //    if (string.IsNullOrWhiteSpace(PostCode))
+                    //    {
+                    //        error = "PostCode is een verplicht veld.";
+                    //        if (ErrorList.Contains("PostCode") == false)
+                    //        {
+                    //            ErrorList.Add("PostCode");
+                    //        }
+                    //    }
+                    //    else if (PostCode.Length > 12)
+                    //    {
+                    //        error = "Your text is to long!!!";
+                    //        if (ErrorList.Contains("PostCode") == false)
+                    //        {
+                    //            ErrorList.Add("PostCode");
+                    //        }
+                    //    }
+                    //    else
+                    //    {
+                    //        if (ErrorList.Contains("PostCode"))
+                    //        {
+                    //            ErrorList.Remove("PostCode");
+                    //        }
+                    //    }
+                    //    return error;
                     default:
                         error = null;
                         return error;
