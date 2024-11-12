@@ -12,36 +12,16 @@
     Background="{StaticResource myBackground}"
     mc:Ignorable="d">
     <Grid DataContext="{Binding Source={StaticResource VML}, Path=EmailTypeViewModel}">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="250" />
-            <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="*" />
-        </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="auto" />
-            <RowDefinition Height="*" />
-            <RowDefinition Height="auto" />
-            <RowDefinition Height="auto" />
-            <RowDefinition Height="auto" />
-            <RowDefinition Height="auto" />
-            <RowDefinition Height="auto" />
-            <RowDefinition Height="auto" />
-            <RowDefinition Height="auto" />
-            <RowDefinition Height="auto" />
-            <RowDefinition Height="auto" />
-            <RowDefinition Height="auto" />
-            <RowDefinition Height="*" />
+            <RowDefinition Height="50" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
         <Border
             Grid.Row="0"
-            Grid.ColumnSpan="5"
             Background="{StaticResource myTitleBar}"
             BorderBrush="LightBlue"
-            BorderThickness="1">
+            BorderThickness="2">
             <Grid>
                 <StackPanel
                     Margin="10,0,0,0"
@@ -65,43 +45,73 @@
                 <uc:ucWerkBalk HorizontalAlignment="Right" VerticalAlignment="Top" />
             </Grid>
         </Border>
+        <Border
+            Grid.Row="1"
+            Grid.Column="0"
+            Margin="3"
+            BorderBrush="Black"
+            BorderThickness="1"
+            CornerRadius="5">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="auto" />
+                    <ColumnDefinition Width="auto" />
+                    <ColumnDefinition Width="200" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="35" />
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="50" />
+                </Grid.RowDefinitions>
 
-        <ListBox
-            Name="UserListView"
-            Grid.Row="2"
-            Grid.RowSpan="11"
-            Grid.Column="1"
-            Width="250"
-            ItemsSource="{Binding MijnCollectie}"
-            SelectedItem="{Binding MijnSelectedItem, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                <ListBox
+                    Name="UserListView"
+                    Grid.Row="2"
+                    Grid.RowSpan="7"
+                    Grid.Column="1"
+                    Width="250"
+                    ItemsSource="{Binding MijnCollectie}"
+                    SelectedItem="{Binding MijnSelectedItem, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 
-        <TextBlock
-            x:Name="EmailType"
-            Grid.Row="2"
-            Grid.Column="2"
-            Text="EmailType"
-            TextAlignment="Right" />
-        <TextBox
-            x:Name="txtEmailType"
-            Grid.Row="2"
-            Grid.Column="3"
-            Margin="5"
-            Text="{Binding MijnSelectedItem.EmailType, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnValidationError=true, ValidatesOnExceptions=True}" />
+                <TextBlock
+                    x:Name="EmailType"
+                    Grid.Row="2"
+                    Grid.Column="2"
+                    Margin="5"
+                    Text="EmailType"
+                    TextAlignment="Right" />
+                <TextBox
+                    x:Name="txtEmailType"
+                    Grid.Row="2"
+                    Grid.Column="3"
+                    Margin="5"
+                    Text="{Binding MijnSelectedItem.EmailType, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnValidationError=true, ValidatesOnExceptions=True}" />
 
-        <TextBlock
-            x:Name="Omschrijving"
-            Grid.Row="3"
-            Grid.Column="2"
-            Text="Omschrijving"
-            TextAlignment="Right" />
-        <TextBox
-            x:Name="txtOmschrijving"
-            Grid.Row="3"
-            Grid.Column="3"
-            Height="100"
-            Margin="5"
-            Text="{Binding MijnSelectedItem.Omschrijving, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnValidationError=true, ValidatesOnExceptions=True}"
-            TextWrapping="Wrap" />
-
+                <TextBlock
+                    x:Name="Omschrijving"
+                    Grid.Row="3"
+                    Grid.Column="2"
+                    Margin="5"
+                    Text="Omschrijving"
+                    TextAlignment="Right" />
+                <TextBox
+                    x:Name="txtOmschrijving"
+                    Grid.Row="3"
+                    Grid.Column="3"
+                    Height="100"
+                    Margin="5"
+                    Text="{Binding MijnSelectedItem.Omschrijving, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnValidationError=true, ValidatesOnExceptions=True}"
+                    TextWrapping="Wrap" />
+            </Grid>
+        </Border>
     </Grid>
 </UserControl>

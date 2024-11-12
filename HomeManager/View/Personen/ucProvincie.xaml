@@ -13,27 +13,8 @@
     Background="{StaticResource myBackground}"
     mc:Ignorable="d">
     <Grid DataContext="{Binding Source={StaticResource VML}, Path=ProvincieViewModel}">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="250" />
-            <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="*" />
-        </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="auto" />
-            <RowDefinition Height="*" />
-            <RowDefinition Height="auto" />
-            <RowDefinition Height="auto" />
-            <RowDefinition Height="auto" />
-            <RowDefinition Height="auto" />
-            <RowDefinition Height="auto" />
-            <RowDefinition Height="auto" />
-            <RowDefinition Height="auto" />
-            <RowDefinition Height="auto" />
-            <RowDefinition Height="auto" />
-            <RowDefinition Height="auto" />
-            <RowDefinition Height="*" />
+            <RowDefinition Height="50" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
@@ -42,7 +23,7 @@
             Grid.ColumnSpan="5"
             Background="{StaticResource myTitleBar}"
             BorderBrush="LightBlue"
-            BorderThickness="1">
+            BorderThickness="2">
             <Grid>
                 <StackPanel
                     Margin="10,0,0,0"
@@ -60,50 +41,83 @@
                         VerticalAlignment="Center"
                         FontSize="20"
                         Foreground="White"
-                        Text="Provincie" />
+                        Text="Provincies" />
 
                 </StackPanel>
                 <uc:ucWerkBalk HorizontalAlignment="Right" VerticalAlignment="Top" />
             </Grid>
         </Border>
 
-        <ListBox
-            Name="UserListView"
-            Grid.Row="2"
-            Grid.RowSpan="11"
-            Grid.Column="1"
-            Width="250"
-            ItemsSource="{Binding MijnCollectie}"
-            SelectedItem="{Binding MijnSelectedItem, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+        <Border
+            Grid.Row="1"
+            Grid.Column="0"
+            Margin="3"
+            BorderBrush="Black"
+            BorderThickness="1"
+            CornerRadius="5">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="auto" />
+                    <ColumnDefinition Width="auto" />
+                    <ColumnDefinition Width="150" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="35" />
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="50" />
+                </Grid.RowDefinitions>
 
-        <TextBlock
-            x:Name="Provincie"
-            Grid.Row="2"
-            Grid.Column="2"
-            Text="Provincie"
-            TextAlignment="Right" />
-        <TextBox
-            x:Name="txtProvincie"
-            Grid.Row="2"
-            Grid.Column="3"
-            Margin="5"
-            Text="{Binding MijnSelectedItem.Provincie, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnValidationError=true, ValidatesOnExceptions=True}" />
+                <ListBox
+                    Name="UserListView"
+                    Grid.Row="2"
+                    Grid.RowSpan="7"
+                    Grid.Column="1"
+                    Width="250"
+                    ItemsSource="{Binding MijnCollectie}"
+                    SelectedItem="{Binding MijnSelectedItem, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 
-        <TextBlock
-            x:Name="Land"
-            Grid.Row="3"
-            Grid.Column="2"
-            Text="Land"
-            TextAlignment="Right" />
-        <ComboBox
-            x:Name="cboLand"
-            Grid.Row="3"
-            Grid.Column="3"
-            Margin="5"
-            DataContext="{Binding Source={StaticResource VML}, Path=LandViewModel}"
-            DisplayMemberPath="LandDisplayName"
-            ItemsSource="{Binding MijnCollectie}"
-            SelectedValue="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Grid}}, Path=DataContext.MijnSelectedItem.LandID, Mode=TwoWay}"
-            SelectedValuePath="LandID" />
+                <TextBlock
+                    x:Name="Provincie"
+                    Grid.Row="2"
+                    Grid.Column="2"
+                    Margin="5"
+                    Text="Provincie"
+                    TextAlignment="Right" />
+                <TextBox
+                    x:Name="txtProvincie"
+                    Grid.Row="2"
+                    Grid.Column="3"
+                    Margin="5"
+                    Text="{Binding MijnSelectedItem.Provincie, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnValidationError=true, ValidatesOnExceptions=True}"
+                    TextWrapping="Wrap" />
+
+                <TextBlock
+                    x:Name="Land"
+                    Grid.Row="3"
+                    Grid.Column="2"
+                    Margin="5"
+                    Text="Land"
+                    TextAlignment="Right" />
+                <ComboBox
+                    x:Name="cboLand"
+                    Grid.Row="3"
+                    Grid.Column="3"
+                    Margin="5"
+                    DataContext="{Binding Source={StaticResource VML}, Path=LandViewModel}"
+                    DisplayMemberPath="LandDisplayName"
+                    ItemsSource="{Binding MijnCollectie}"
+                    SelectedValue="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Grid}}, Path=DataContext.MijnSelectedItem.LandID, Mode=TwoWay}"
+                    SelectedValuePath="LandID" />
+            </Grid>
+        </Border>
     </Grid>
 </UserControl>
