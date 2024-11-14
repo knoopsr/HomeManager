@@ -47,7 +47,7 @@
 
         </Border>
 
-        <Grid Grid.Row="1">
+        <Grid Grid.Row="1" DataContext="{Binding Source={StaticResource VML}, Path=PersoonViewModel}">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="200" />
@@ -74,95 +74,58 @@
                             Margin="5,0,0,0"
                             Style="{StaticResource FilterImage}" />
                     </StackPanel>
-
                     <ScrollViewer Grid.Row="1">
-
-                        <UniformGrid
-                            HorizontalAlignment="Left"
-                            VerticalAlignment="Top"
-                            Columns="4">
-                            <local:ucPersonItem
-                                Height="100"
-                                MaxWidth="150"
-                                MaxHeight="100" />
-                            <local:ucPersonItem
-                                Height="100"
-                                MaxWidth="150"
-                                MaxHeight="100" />
-                            <local:ucPersonItem
-                                Height="100"
-                                MaxWidth="150"
-                                MaxHeight="100" />
-                            <local:ucPersonItem
-                                Height="100"
-                                MaxWidth="150"
-                                MaxHeight="100" />
-                            <local:ucPersonItem
-                                Height="100"
-                                MaxWidth="150"
-                                MaxHeight="100" />
-                            <local:ucPersonItem
-                                Height="100"
-                                MaxWidth="150"
-                                MaxHeight="100" />
-                            <local:ucPersonItem
-                                Height="100"
-                                MaxWidth="150"
-                                MaxHeight="100" />
-                            <local:ucPersonItem
-                                Height="100"
-                                MaxWidth="150"
-                                MaxHeight="100" />
-                            <local:ucPersonItem
-                                Height="100"
-                                MaxWidth="150"
-                                MaxHeight="100" />
-                            <local:ucPersonItem
-                                Height="100"
-                                MaxWidth="150"
-                                MaxHeight="100" />
-                            <local:ucPersonItem
-                                Height="100"
-                                MaxWidth="150"
-                                MaxHeight="100" />
-                            <local:ucPersonItem
-                                Height="100"
-                                MaxWidth="150"
-                                MaxHeight="100" />
-                            <local:ucPersonItem
-                                Height="100"
-                                MaxWidth="150"
-                                MaxHeight="100" />
-                            <local:ucPersonItem
-                                Height="100"
-                                MaxWidth="150"
-                                MaxHeight="100" />
-                            <local:ucPersonItem
-                                Height="100"
-                                MaxWidth="150"
-                                MaxHeight="100" />
-                            <local:ucPersonItem
-                                Height="100"
-                                MaxWidth="150"
-                                MaxHeight="100" />
-                            <local:ucPersonItem
-                                Height="100"
-                                MaxWidth="150"
-                                MaxHeight="100" />
-                            <local:ucPersonItem
-                                Height="100"
-                                MaxWidth="150"
-                                MaxHeight="100" />
-
-
-                        </UniformGrid>
-
+                        <ListView
+                            Name="UserListView"
+                            Width="600"
+                            ItemsSource="{Binding MijnCollectie}"
+                            SelectedItem="{Binding MijnSelectedItem, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                            <ListView.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <WrapPanel Orientation="Horizontal" />
+                                </ItemsPanelTemplate>
+                            </ListView.ItemsPanel>
+                            <ListView.ItemTemplate>
+                                <DataTemplate>
+                                    <Border
+                                        Width="125"
+                                        Margin="5"
+                                        Padding="2"
+                                        Background="LightGray"
+                                        BorderBrush="Gray"
+                                        BorderThickness="1"
+                                        CornerRadius="8">
+                                        <StackPanel Orientation="Horizontal">
+                                            <Border
+                                                Width="30"
+                                                Height="30"
+                                                HorizontalAlignment="Left"
+                                                BorderBrush="Gray"
+                                                BorderThickness="1"
+                                                CornerRadius="30">
+                                                <Border.Background>
+                                                    <ImageBrush ImageSource="{Binding Foto, TargetNullValue='https://p92.com/binaries/content/gallery/p92website/technologies/c-sharp-overview.png'}" Stretch="UniformToFill" />
+                                                </Border.Background>
+                                            </Border>
+                                            <StackPanel Margin="10,0,0,0" Orientation="Vertical">
+                                                <TextBlock
+                                                    Margin="0,5,0,8"
+                                                    FontWeight="Bold"
+                                                    Text="{Binding Naam}" />
+                                                <TextBlock 
+                                                    Margin="0,8,0,0" 
+                                                    Text="{Binding Voornaam}" />
+                                                <TextBlock 
+                                                    Margin="0,8,0,0" 
+                                                    Text="{Binding Geboortedatum}" />
+                                            </StackPanel>
+                                        </StackPanel>
+                                    </Border>
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+                        </ListView>
                     </ScrollViewer>
-
-
                 </Grid>
-
-
             </Border>
 
 

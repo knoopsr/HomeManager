@@ -24,7 +24,7 @@
         BorderBrush="Blue"
         BorderThickness="1"
         CornerRadius="4">
-        <Grid>
+        <Grid DataContext="{Binding Source={StaticResource VML}, Path=PersoonViewModel}">
             <Border
                 Width="70"
                 Height="94"
@@ -34,6 +34,10 @@
                 BorderThickness="1"
                 CornerRadius="3"
                 Effect="{DynamicResource shadowEffect}">
+                <Border.Background>
+                    <ImageBrush ImageSource="{Binding MijnSelectedItem.Foto, TargetNullValue={x:Null}}" Stretch="UniformToFill" />
+                </Border.Background>
+
                 <!--<Border.Background>
                 -->
                 <!--<ImageBrush ImageSource="\Images\person1.jpg" Stretch="UniformToFill" />-->
@@ -50,15 +54,15 @@
                     FontSize="12"
                     FontWeight="Bold"
                     Foreground="Black"
-                    Text="Peter" />
+                    Text="{Binding MijnSelectedItem.Naam, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnValidationError=true, ValidatesOnExceptions=True}" />
                 <TextBlock
                     FontSize="10"
                     Foreground="Black"
-                    Text="Ceulemans" />
+                    Text="{Binding MijnSelectedItem.Voornaam, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnValidationError=true, ValidatesOnExceptions=True}" />
                 <TextBlock
                     FontSize="8"
                     Foreground="Black"
-                    Text="03.11.2000" />
+                    Text="{Binding MijnSelectedDate.GeboorteDatum}" />
             </StackPanel>
 
             <StackPanel
