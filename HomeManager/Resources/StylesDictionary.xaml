@@ -151,6 +151,41 @@
         </Style.Triggers>
     </Style>
 
+    <Style x:Key="AddImagePersoon" TargetType="ContentControl">
+        <Setter Property="Margin" Value="5" />
+        <Setter Property="Cursor" Value="Hand" />
+        <Style.Triggers>
+            <Trigger Property="IsEnabled" Value="True">
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="ContentControl">
+                            <Border Background="{StaticResource myBackground}">
+                                <Path
+                                    Data="{StaticResource myAddButton}"
+                                    Fill="DarkGray"
+                                    RenderTransformOrigin="0.5,0.5"
+                                    Stretch="Uniform" />
+                            </Border>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Trigger>
+            <Trigger Property="IsEnabled" Value="False">
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="ContentControl">
+                            <Path
+                                Data="{StaticResource myAddButton}"
+                                Fill="{StaticResource myWerkBalkDisable}"
+                                RenderTransformOrigin="0.5,0.5"
+                                Stretch="Uniform" />
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
     <Style x:Key="DeleteImage" TargetType="ContentControl">
         <Setter Property="Margin" Value="5" />
         <Setter Property="Cursor" Value="Hand" />

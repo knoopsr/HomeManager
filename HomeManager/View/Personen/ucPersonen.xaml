@@ -41,7 +41,10 @@
                         Text="Persoon" />
 
                 </StackPanel>
-                <uc:ucWerkBalk HorizontalAlignment="Right" VerticalAlignment="top" />
+                <uc:ucWerkBalk
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="top"
+                    Loaded="ucWerkBalk_Loaded" />
 
             </Grid>
 
@@ -74,57 +77,67 @@
                             Margin="5,0,0,0"
                             Style="{StaticResource FilterImage}" />
                     </StackPanel>
-                    <ScrollViewer Grid.Row="1">
-                        <ListView
-                            Name="UserListView"
-                            Width="600"
-                            ItemsSource="{Binding MijnCollectie}"
-                            SelectedItem="{Binding MijnSelectedItem, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
-                            <ListView.ItemsPanel>
-                                <ItemsPanelTemplate>
-                                    <WrapPanel Orientation="Horizontal" />
-                                </ItemsPanelTemplate>
-                            </ListView.ItemsPanel>
-                            <ListView.ItemTemplate>
-                                <DataTemplate>
-                                    <Border
-                                        Width="125"
-                                        Margin="5"
-                                        Padding="2"
-                                        Background="LightGray"
-                                        BorderBrush="Gray"
-                                        BorderThickness="1"
-                                        CornerRadius="8">
-                                        <StackPanel Orientation="Horizontal">
-                                            <Border
-                                                Width="30"
-                                                Height="30"
-                                                HorizontalAlignment="Left"
-                                                BorderBrush="Gray"
-                                                BorderThickness="1"
-                                                CornerRadius="30">
-                                                <Border.Background>
-                                                    <ImageBrush ImageSource="{Binding Foto, TargetNullValue='https://p92.com/binaries/content/gallery/p92website/technologies/c-sharp-overview.png'}" Stretch="UniformToFill" />
-                                                </Border.Background>
-                                            </Border>
-                                            <StackPanel Margin="10,0,0,0" Orientation="Vertical">
-                                                <TextBlock
-                                                    Margin="0,5,0,8"
-                                                    FontWeight="Bold"
-                                                    Text="{Binding Naam}" />
-                                                <TextBlock 
-                                                    Margin="0,8,0,0" 
-                                                    Text="{Binding Voornaam}" />
-                                                <TextBlock 
-                                                    Margin="0,8,0,0" 
-                                                    Text="{Binding Geboortedatum}" />
-                                            </StackPanel>
+                    <ListView
+                        Name="UserListView"
+                        Grid.Row="2"
+                        Grid.RowSpan="7"
+                        Grid.Column="1"
+                        Width="600"
+                        Height="375"
+                        Margin="2,-10,2,0"
+                        ItemsSource="{Binding MijnCollectie}"
+                        ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                        ScrollViewer.VerticalScrollBarVisibility="Auto"
+                        SelectedItem="{Binding MijnSelectedItem, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                        <ListView.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <WrapPanel Orientation="Horizontal" />
+                            </ItemsPanelTemplate>
+                        </ListView.ItemsPanel>
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <Border
+                                    Width="95"
+                                    Margin="5"
+                                    Padding="2"
+                                    Background="LightGray"
+                                    BorderBrush="Gray"
+                                    BorderThickness="1"
+                                    CornerRadius="8">
+                                    <StackPanel Orientation="Horizontal">
+                                        <Border
+                                            Width="30"
+                                            Height="64"
+                                            BorderBrush="Gray"
+                                            BorderThickness="1">
+                                            <Border.Background>
+                                                <ImageBrush ImageSource="{Binding Foto, TargetNullValue='https://p92.com/binaries/content/gallery/p92website/technologies/c-sharp-overview.png'}" Stretch="UniformToFill" />
+                                            </Border.Background>
+                                        </Border>
+                                        <StackPanel Margin="5,30,0,5" Orientation="Vertical">
+                                            <TextBlock
+                                                FontSize="9"
+                                                FontWeight="Bold"
+                                                Text="{Binding Naam}" />
+                                            <TextBlock FontSize="8" Text="{Binding Voornaam}" />
+                                            <TextBlock FontSize="8" Text="{Binding Geboortedatum}" />
                                         </StackPanel>
-                                    </Border>
-                                </DataTemplate>
-                            </ListView.ItemTemplate>
-                        </ListView>
-                    </ScrollViewer>
+                                        <StackPanel>
+                                            <Button
+                                                Width="15"
+                                                Height="15"
+                                                Margin="0,0,0,0"
+                                                Command="{Binding cmdNew}"
+                                                CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}"
+                                                Style="{StaticResource AddImagePersoon}"
+                                                ToolTip="New" />
+                                        </StackPanel>
+                                    </StackPanel>
+                                </Border>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+
                 </Grid>
             </Border>
 
