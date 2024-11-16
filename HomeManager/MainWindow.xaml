@@ -35,12 +35,18 @@
         <DataTemplate DataType="{x:Type VM:clsAccountViewModel}">
             <V:ucAccount />
         </DataTemplate>
-
-
         <DataTemplate DataType="{x:Type VM:clsCategorieViewModel}">
             <V:ucCategorie />
         </DataTemplate>
-
+        <DataTemplate DataType="{x:Type VM:clsFrequentieViewModel}">
+            <V:ucFrequentie />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type VM:clsBegunstigdenViewModel}">
+            <V:ucBegunstigden />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type VM:clsDomicilieringViewModel}">
+            <V:ucDomiciliering />
+        </DataTemplate>
         <Storyboard x:Key="ShowMenu">
             <DoubleAnimation
                 Storyboard.TargetName="HamburgerMenu"
@@ -122,7 +128,11 @@
                     Orientation="Vertical">
                     <Expander Style="{StaticResource myHamburgerPersonen}">
                         <StackPanel x:Name="stckPerson">
-                            <Button Content="Persoon" Command="{Binding NavCommand}" CommandParameter="clsPersoonVM" Style="{StaticResource myExpanderPerson}" />
+                            <Button
+                                Command="{Binding NavCommand}"
+                                CommandParameter="clsPersoonVM"
+                                Content="Persoon"
+                                Style="{StaticResource myExpanderPerson}" />
                             <Button Content="EmailType" Style="{StaticResource myMenuTandwiel}" />
                             <Button Content="TelefoonType" Style="{StaticResource myMenuTandwiel}" />
                             <Button Content="Land" Style="{StaticResource myMenuTandwiel}" />
@@ -137,9 +147,20 @@
 
                     <Expander Style="{StaticResource myHamburgerBudget}">
                         <StackPanel x:Name="stckBudget">
-                            <Button Content="Domiciliëring" Style="{StaticResource myMenuTandwiel}" />
-                            <Button Content="Begunstigden" Style="{StaticResource myMenuTandwiel}" />
-                            <Button Content="Frequentie" Style="{StaticResource myMenuTandwiel}" />
+                            <Button Content="Transacties" Style="{StaticResource myMenuTandwiel}" />
+                            <Button Content="Domiciliëring" Style="{StaticResource myMenuTandwiel}" 
+                                    Command="{Binding NavCommand}"
+                                    CommandParameter="clsDomicilieringViewModel"/>
+                            <Button
+                                Command="{Binding NavCommand}"
+                                CommandParameter="clsBegunstigdenViewModel"
+                                Content="Begunstigden"
+                                Style="{StaticResource myMenuTandwiel}" />
+                            <Button
+                                Command="{Binding NavCommand}"
+                                CommandParameter="clsFrequentieViewModel"
+                                Content="Frequentie"
+                                Style="{StaticResource myMenuTandwiel}" />
                             <Button
                                 Command="{Binding NavCommand}"
                                 CommandParameter="clsCategorieViewModel"
@@ -216,7 +237,7 @@
             Unchecked="ToggleButton_Unchecked" />
 
         <!--#endregion-->
-        
+
         <ContentControl
             Grid.Row="1"
             Grid.Column="1"

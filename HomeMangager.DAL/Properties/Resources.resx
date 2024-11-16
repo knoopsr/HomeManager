@@ -182,7 +182,7 @@
   </data>
   <data name="U_Rollen" xml:space="preserve">
     <value>U_Rollen</value>
-	  </data>
+  </data>
   <data name="D_BudgetCategorie" xml:space="preserve">
     <value>D_BudgetCategorie</value>
   </data>
@@ -194,5 +194,41 @@
   </data>
   <data name="U_BudgetCategorie" xml:space="preserve">
     <value>U_BudgetCategorie</value>
+  </data>
+  <data name="D_Frequentie" xml:space="preserve">
+    <value>D_Frequentie</value>
+  </data>
+  <data name="I_Frequentie" xml:space="preserve">
+    <value>I_Frequentie</value>
+  </data>
+  <data name="S_Frequentie" xml:space="preserve">
+    <value>S_Frequentie</value>
+  </data>
+  <data name="U_Frequentie" xml:space="preserve">
+    <value>U_Frequentie</value>
+  </data>
+  <data name="D_Begunstigden" xml:space="preserve">
+    <value>D_Begunstigden</value>
+  </data>
+  <data name="I_Begunstigden" xml:space="preserve">
+    <value>I_Begunstigden</value>
+  </data>
+  <data name="S_Begunstigden" xml:space="preserve">
+    <value>S_Begunstigden</value>
+  </data>
+  <data name="U_Begunstigden" xml:space="preserve">
+    <value>U_Begunstigden</value>
+  </data>
+  <data name="D_Domiciliering" xml:space="preserve">
+    <value>D_Domiciliering</value>
+  </data>
+  <data name="I_Domiciliering" xml:space="preserve">
+    <value>I_Domiciliering</value>
+  </data>
+  <data name="S_Domiciliering" xml:space="preserve">
+    <value>S_Domiciliering</value>
+  </data>
+  <data name="U_Domiciliering" xml:space="preserve">
+    <value>U_Domiciliering</value>
   </data>
 </root>

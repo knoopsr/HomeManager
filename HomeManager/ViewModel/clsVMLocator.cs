@@ -58,5 +58,30 @@ namespace HomeManager.ViewModel
                 return new clsCategorieViewModel(); ;
             }
         }
+
+        public clsFrequentieViewModel FrequentieViewModel
+        {
+            get
+            {
+                return new clsFrequentieViewModel(); ;
+            }
+        }
+
+        public clsBegunstigdenViewModel BegunstigdenViewModel
+        {
+            get
+            {
+                return new clsBegunstigdenViewModel();
+            }
+        }
+
+        private static clsDomicilieringViewModel _domicilieringViewModel = new clsDomicilieringViewModel();
+        public clsDomicilieringViewModel DomicilieringViewModel
+        {
+            get
+            {
+                return _domicilieringViewModel;
+            }
+        }
     }
 }
