@@ -26,7 +26,7 @@
                     <Path
                         Width="20"
                         Height="20"
-                        Data="{StaticResource myPathPeople}"
+                        Data="{StaticResource myPathSetting}"
                         Fill="White"
                         Stretch="Fill" />
                     <TextBlock
@@ -35,13 +35,33 @@
                         FontSize="20"
                         Foreground="White"
                         Text="Todo Collecties" />
-
                 </StackPanel>
                 <uc:ucWerkBalk HorizontalAlignment="Right" VerticalAlignment="top" />
-
             </Grid>
-
         </Border>
-        
+
+        <!-- Inhoud -->
+        <Grid Grid.Row="1" Margin="50">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="2*" /> <!-- Voor de lijst -->
+                <ColumnDefinition Width="1*" /> <!-- Voor het invoerveld -->
+            </Grid.ColumnDefinitions>
+
+            <!-- Linker lijst (ListBox) -->
+            <Border Grid.Column="0" >
+                <ListBox Margin="5" Name="TodoListBox">
+                </ListBox>
+            </Border>
+
+            <!-- Rechter invoerveld (TextBox) -->
+            <StackPanel Grid.Column="1" Margin="15,0,0,0" Orientation="Vertical">
+                <TextBlock Text="Collectie" />
+                <TextBox
+                    Name="CollectionNameTextBox"
+                    Height="30"
+                    Text=""
+                    Padding="5" />
+            </StackPanel>
+        </Grid>
     </Grid>
 </UserControl>
