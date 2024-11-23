@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using HomeManager.Model.Security;
+﻿using HomeManager.Common;
 using HomeManager.Helpers;
-using HomeManager.Common;
+using HomeManager.Model.Security;
+
 
 namespace HomeManager.ViewModel
 {
@@ -22,12 +18,12 @@ namespace HomeManager.ViewModel
                 if (_loginModel != value)
                 {
                     _loginModel = value;
-OnPropertyChanged();
+                    OnPropertyChanged();
                 }
             }
         }
 
-       
+
 
         public clsTitlePersonViewModel()
         {
@@ -36,7 +32,10 @@ OnPropertyChanged();
 
         private void OnUpdateTitlePersonReceived(clsLoginModel model)
         {
-            LoginModel = model;
+            LoginModel = clsLoginModel.Instance;
+
+
+
         }
 
     }

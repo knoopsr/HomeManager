@@ -12,6 +12,7 @@ using HomeManager.DataService.Personen;
 using HomeManager.Helpers;
 using HomeManager.Model.Security;
 using HomeManager.Model.Personen;
+using System.Security.Cryptography;
 
 namespace HomeManager.ViewModel
 {
@@ -80,7 +81,7 @@ namespace HomeManager.ViewModel
         }
 
         private void OpslaanCommando()
-        {
+        {     
             if (_mijnSelectedItem != null)
             {
                 if (NewStatus)
@@ -130,12 +131,12 @@ namespace HomeManager.ViewModel
 
             MijnSelectedItem = MijnService.GetFirst();
             MijnPersoonCollectie = MijnPersoonService.GetAllApplicationUser();
-
         }
 
         private void Execute_Save_Command(object? obj)
         {
             OpslaanCommando();
+            MijnPersoonCollectie = MijnPersoonService.GetAllApplicationUser();
         }
 
         private bool CanExecute_Save_Command(object? obj)
@@ -189,14 +190,44 @@ namespace HomeManager.ViewModel
                 return false;
             }
         }
+        private string GenereerWachtwoord(int lengte)
+        {
+            const string geldigTekens = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890!@#$%^&*";
+            char[] wachtwoord = new char[lengte];
+            using (var rng = RandomNumberGenerator.Create())
+            {
+                byte[] randomBytes = new byte[lengte];
+                rng.GetBytes(randomBytes);
+                for (int i = 0; i < lengte; i++)
+                {
+                    wachtwoord[i] = geldigTekens[randomBytes[i] % geldigTekens.Length];
+                }
+            }
+            return new string(wachtwoord);
+        }
 
         private void Execute_New_Command(object? obj)
         {
+
+            // Stel dat PersoonId de identifier is voor personen in beide collecties.
+            var gefilterdePersoonCollectie = MijnPersoonCollectie
+                .Where(persoon => !MijnCollectie.Any(mijn => mijn.PersoonID == persoon.PersoonID))
+                .ToList();
+            MijnPersoonCollectie.Clear();
+
+            foreach (var persoon in gefilterdePersoonCollectie)
+            {
+                MijnPersoonCollectie.Add(persoon);
+            }
+
+
+
+
             clsAccountModel _itemToInsert = new clsAccountModel()
             {
                 AccountID = 0,
                 RolID = 0,
-                Wachtwoord = string.Empty,
+                Wachtwoord = GenereerWachtwoord(10),
                 Login = string.Empty,
                 PersoonID = 0,
                 IsNew = true,
@@ -217,6 +248,7 @@ namespace HomeManager.ViewModel
 
         private void Execute_Cancel_Command(object? obj)
         {
+            MijnPersoonCollectie = MijnPersoonService.GetAllApplicationUser();
             MijnSelectedItem = MijnService.GetFirst();
             if (MijnSelectedItem != null)
             {

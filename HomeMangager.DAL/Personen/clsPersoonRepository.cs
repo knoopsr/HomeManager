@@ -122,11 +122,8 @@ namespace HomeManager.DAL.Personen
         }
 
         public ObservableCollection<clsPersoonM> GetAllApplicationUser()
-        {
-            // Vul de collectie met data (zorg ervoor dat GenerateCollection() dit doet)
+        { 
             GenerateCollection();
-
-            // Filter de collectie en geef de resultaten als een nieuwe ObservableCollection terug
             return new ObservableCollection<clsPersoonM>(
                 MijnCollectie.Where(persoon => persoon.IsApplicationUser == true)
             );

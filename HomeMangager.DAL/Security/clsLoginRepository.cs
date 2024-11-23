@@ -33,7 +33,8 @@ namespace HomeManager.DAL.Security
 
         public clsLoginModel GetByLogin(string login, string wachtwoord)
         {
-            clsLoginModel _login = null;
+            var _login = clsLoginModel.Instance;
+
 
             using (SqlDataReader MijnDataReader = clsDAL.GetData(Properties.Resources.S_Login,
                 clsDAL.Parameter("@Login", login),
@@ -43,22 +44,21 @@ namespace HomeManager.DAL.Security
                 if (MijnDataReader.Read())
                 {
                     // Instantieer een nieuw object van clsLoginModel
-                    _login = new clsLoginModel
-                    {
-                        AccountID = (int)MijnDataReader["AccountID"],
-                        PersoonID = (int)MijnDataReader["PersoonID"],
-                        Naam = MijnDataReader["Naam"].ToString(),
-                        Foto = MijnDataReader["Foto"] != DBNull.Value ? (byte[])MijnDataReader["Foto"] : null,
-                        VoorNaam = MijnDataReader["VoorNaam"].ToString(),
-                        RolID = (int)MijnDataReader["RolID"],
-                        RolName = MijnDataReader["RolName"].ToString(),
-                        CountFailLogins = (int)MijnDataReader["CountFailLogins"],
-                        IsNew = (bool)MijnDataReader["IsNew"],
-                        IsLock = (bool)MijnDataReader["IsLock"],
-                        RechtenCodes = MijnDataReader["RechtenCodes"].ToString(),
-                        ControlField = MijnDataReader["ControlField"]
-                    };
+
+                    _login.AccountID = (int)MijnDataReader["AccountID"];
+                    _login.PersoonID = (int)MijnDataReader["PersoonID"];
+                    _login.Naam = MijnDataReader["Naam"].ToString();
+                    _login.Foto = MijnDataReader["Foto"] != DBNull.Value ? (byte[])MijnDataReader["Foto"] : null;
+                    _login.VoorNaam = MijnDataReader["VoorNaam"].ToString();
+                    _login.RolID = (int)MijnDataReader["RolID"];
+                    _login.RolName = MijnDataReader["RolName"].ToString();
+                    _login.CountFailLogins = (int)MijnDataReader["CountFailLogins"];
+                    _login.IsNew = (bool)MijnDataReader["IsNew"];
+                    _login.IsLock = (bool)MijnDataReader["IsLock"];
+                    _login.RechtenCodes = MijnDataReader["RechtenCodes"].ToString();
+                    _login.ControlField = MijnDataReader["ControlField"];
                 }
+
             }
 
             return _login;

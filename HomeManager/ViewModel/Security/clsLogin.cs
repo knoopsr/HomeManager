@@ -57,6 +57,7 @@ namespace HomeManager.ViewModel
             cmdAnnuleer = new clsCustomCommand(Execute_annuleer_Command, CanExecute_annuleer_Command);
             cmdClose = new clsCustomCommand(Execute_close_Command, CanExecute_close_Command);
             clsMessenger.Default.Register<clsUpdatePassWordMessages>(this, OnUpdatePassWord);
+
         }
         private void OnUpdatePassWord(clsUpdatePassWordMessages obj)
         {

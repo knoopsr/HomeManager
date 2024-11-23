@@ -5,10 +5,36 @@ using System.Text;
 using System.Threading.Tasks;
 using HomeManager.Common;
 
+
 namespace HomeManager.Model.Security
 {
     public class clsLoginModel : clsCommonModelPropertiesBase
     {
+
+
+
+        // Singleton instantie
+        private static clsLoginModel? _instance;
+
+        // Private constructor om te voorkomen dat er andere instanties worden aangemaakt
+        private clsLoginModel() { }
+
+
+        // Publieke eigenschap om de enkele instantie op te halen
+        public static clsLoginModel Instance
+        {
+            get
+            {
+                if (_instance == null)
+                {
+                    _instance = new clsLoginModel();
+                }
+                return _instance;
+            }
+        }
+
+
+
         private int _accountID;
         public int AccountID
         {

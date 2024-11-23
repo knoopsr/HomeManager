@@ -5,6 +5,12 @@ namespace HomeManager.Model.Security
 {
     public class clsAccountModel : clsCommonModelPropertiesBase, IDataErrorInfo
     {
+
+        public override string ToString()
+        {
+            return Login;
+        }
+
         public string this[string columnName]
         {
             get
