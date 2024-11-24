@@ -108,7 +108,7 @@
                     </Expander>
 
 
-                    <Button Content="Dagboek" Style="{StaticResource myExpanderDagboek}" />
+                    <Button Content="Dagboek" Style="{StaticResource myExpanderDagboek}" Click="Button_Click" />
 
                     <Expander Style="{StaticResource myHamburgerBudget}">
                         <StackPanel x:Name="stckBudget">

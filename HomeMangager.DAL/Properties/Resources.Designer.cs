@@ -59,5 +59,41 @@ namespace HomeManager.DAL.Properties {
                 resourceCulture = value;
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to D_Dagboek.
+        /// </summary>
+        internal static string D_Dagboek {
+            get {
+                return ResourceManager.GetString("D_Dagboek", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to I_Dagboek.
+        /// </summary>
+        internal static string I_Dagboek {
+            get {
+                return ResourceManager.GetString("I_Dagboek", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to S_Dagboek.
+        /// </summary>
+        internal static string S_Dagboek {
+            get {
+                return ResourceManager.GetString("S_Dagboek", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to U_Dagboek.
+        /// </summary>
+        internal static string U_Dagboek {
+            get {
+                return ResourceManager.GetString("U_Dagboek", resourceCulture);
+            }
+        }
     }
 }
