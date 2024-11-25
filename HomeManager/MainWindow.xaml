@@ -22,6 +22,12 @@
         <DataTemplate DataType="{x:Type VM:clsCollectiesVM}">
             <V:ucCollecties />
         </DataTemplate>
+        <DataTemplate DataType="{x:Type VM:clsCategorieënVM}">
+            <V:ucCategorieën />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type VM:clsKleurenVM}">
+            <V:ucKleuren />
+        </DataTemplate>
 
         <Storyboard x:Key="ShowMenu">
             <DoubleAnimation
@@ -134,8 +140,16 @@
                                 Command="{Binding NavCommand}"
                                 CommandParameter="clsCollectiesVM"
                                 Style="{StaticResource myMenuTandwiel}" />
-                            <Button Content="Todo Categoriën" Style="{StaticResource myMenuTandwiel}" />
-                            <Button Content="Todo Kleuren" Style="{StaticResource myMenuTandwiel}" />
+                            <Button 
+                                Content="Todo Categoriën"
+                                Command="{Binding NavCommand}"
+                                CommandParameter="clsCategorieënVM"
+                                Style="{StaticResource myMenuTandwiel}" />
+                            <Button 
+                                Content="Todo Kleuren"
+                                Command="{Binding NavCommand}"
+                                CommandParameter="clsKleurenVM"
+                                Style="{StaticResource myMenuTandwiel}" />
                         </StackPanel>
 
                     </Expander>

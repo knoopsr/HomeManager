@@ -11,5 +11,7 @@ namespace HomeManager.ViewModel
     public class clsVMLocator
     {
         public clsCollectiesVM CollectiesViewModel => new clsCollectiesVM();
+        public clsCategorieënVM CategorieënViewModel => new clsCategorieënVM();
+        public clsKleurenVM KleurenViewModel => new clsKleurenVM();
     }
 }
