@@ -58,6 +58,9 @@ namespace HomeManager.ViewModel
             cmdClose = new clsCustomCommand(Execute_close_Command, CanExecute_close_Command);
             clsMessenger.Default.Register<clsUpdatePassWordMessages>(this, OnUpdatePassWord);
 
+            Wachtwoord = string.Empty;
+
+
         }
         private void OnUpdatePassWord(clsUpdatePassWordMessages obj)
         {
@@ -124,6 +127,7 @@ namespace HomeManager.ViewModel
         {
             
             MainWindow mainWindow = new MainWindow();
+            mainWindow.WindowStartupLocation = WindowStartupLocation.CenterScreen;
             mainWindow.Show();
 
             clsMessenger.Default.Send<clsLoginModel>(_loginModel);

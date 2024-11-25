@@ -45,7 +45,8 @@ namespace HomeManager.ViewModel
                     var instance = Activator.CreateInstance(t) as clsBindableBase;
                     CurrentViewModel = instance;
                 }
-            } else
+            } 
+            else
             {
                 MessageBox.Show("U heeft geen toegang tot deze pagina");
             }

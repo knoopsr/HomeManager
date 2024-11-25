@@ -59,12 +59,13 @@ namespace HomeManager.ViewModel
                 return new clsCredentialManagementViewModel();
             }
         }
-        
+
+        private static clsLogin _loginViewModel = new clsLogin();
         public clsLogin LoginViewModel
         {
             get
             {
-                return new clsLogin();
+                return _loginViewModel;
             }
         }
 
