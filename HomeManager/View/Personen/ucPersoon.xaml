@@ -48,7 +48,7 @@
                         Text="Persoon" />
 
                 </StackPanel>
-                <uc:ucWerkBalk HorizontalAlignment="Right" VerticalAlignment="Top" />
+                <uc:ucWerkBalk HorizontalAlignment="Right" VerticalAlignment="Top" Loaded="ucWerkBalk_Loaded" />
             </Grid>
         </Border>
 

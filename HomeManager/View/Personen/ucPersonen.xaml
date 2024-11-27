@@ -110,6 +110,13 @@
                                             Height="64"
                                             BorderBrush="Gray"
                                             BorderThickness="1">
+                                            <Border.Effect>
+                                                <DropShadowEffect
+                                                    BlurRadius="10"
+                                                    Opacity="0.5"
+                                                    ShadowDepth="5"
+                                                    Color="Black" />
+                                            </Border.Effect>
                                             <Border.Background>
                                                 <ImageBrush ImageSource="{Binding Foto, TargetNullValue='https://p92.com/binaries/content/gallery/p92website/technologies/c-sharp-overview.png'}" Stretch="UniformToFill" />
                                             </Border.Background>
@@ -122,15 +129,31 @@
                                             <TextBlock FontSize="8" Text="{Binding Voornaam}" />
                                             <TextBlock FontSize="8" Text="{Binding Geboortedatum}" />
                                         </StackPanel>
-                                        <StackPanel>
+                                        <StackPanel Margin="-15,-50,0,0" Orientation="Horizontal">
                                             <Button
-                                                Width="15"
-                                                Height="15"
+                                                Width="10"
+                                                Height="10"
                                                 Margin="0,0,0,0"
                                                 Command="{Binding cmdNew}"
                                                 CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}"
                                                 Style="{StaticResource AddImagePersoon}"
                                                 ToolTip="New" />
+                                            <Button
+                                                Width="10"
+                                                Height="10"
+                                                Margin="0,0,0,0"
+                                                Command="{Binding cmdEdit}"
+                                                CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}"
+                                                Style="{StaticResource EditPersoon}"
+                                                ToolTip="Aanpassen" />
+                                            <Button
+                                                Width="10"
+                                                Height="10"
+                                                Margin="0,0,0,0"
+                                                Command="{Binding cmdDelete}"
+                                                CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}"
+                                                Style="{StaticResource DeletePersoon}"
+                                                ToolTip="Aanpassen" />
                                         </StackPanel>
                                     </StackPanel>
                                 </Border>
