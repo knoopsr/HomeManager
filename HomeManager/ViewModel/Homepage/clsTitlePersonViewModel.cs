@@ -1,9 +1,9 @@
 ﻿using HomeManager.Common;
 using HomeManager.Helpers;
 using HomeManager.Model.Security;
+using HomeManager.View.Security;
 using System.Windows;
 using System.Windows.Input;
-using HomeManager.View.Security;
 
 namespace HomeManager.ViewModel
 {
@@ -11,6 +11,7 @@ namespace HomeManager.ViewModel
     {
         private clsLoginModel _loginModel;
         public ICommand cmdAfmelden { get; set; }
+        public ICommand cmdBackup { get; set; }
 
         // Public property die toegankelijk is voor binding
         public clsLoginModel LoginModel
@@ -33,11 +34,23 @@ namespace HomeManager.ViewModel
             clsMessenger.Default.Register<clsLoginModel>(this, OnUpdateTitlePersonReceived);
 
             cmdAfmelden = new clsCustomCommand(ExecuteAfmelden, CanExecuteAfmelden);
+            cmdBackup = new clsCustomCommand(ExecuteBackup, CanExecuteBackup);
+        }
+
+        private bool CanExecuteBackup(object? obj)
+        {
+            clsPermissionChecker _permissionChecker = new clsPermissionChecker();      
+            return _permissionChecker.HasPermission("710"); 
+        }
+
+        private void ExecuteBackup(object? obj)
+        {
+            throw new NotImplementedException();
         }
 
         private bool CanExecuteAfmelden(object? obj)
         {
-           return true;
+            return true;
         }
 
         private void ExecuteAfmelden(object? obj)
@@ -48,11 +61,11 @@ namespace HomeManager.ViewModel
         {
 
             winLogin _winLogin = new winLogin();
-         _winLogin.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+            _winLogin.WindowStartupLocation = WindowStartupLocation.CenterScreen;
             _winLogin.txtWachtwoord.Text = string.Empty;
             _winLogin.Show();
 
-          
+
 
 
             foreach (Window window in Application.Current.Windows)

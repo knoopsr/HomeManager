@@ -36,7 +36,7 @@
                         Header="Afmelden" />
                     <MenuItem Header="Mijn Info" />
                     <MenuItem Header="Ontgrendel een computer" />
-                    <MenuItem Header="Back-up maken" />
+                    <MenuItem Header="Back-up maken" Command="{Binding cmdBackup}"/>
                     <MenuItem Header="Logs raadplegen" />
                     <MenuItem Header="Exceptions raadplegen" />
                     <MenuItem Header="Exception emails beheren" />
