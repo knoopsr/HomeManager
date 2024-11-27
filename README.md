@@ -5,14 +5,15 @@
 
 ## Indentation
 - Allman Indentation
-![Indentation](Allman.png)
+
+![Indentation](/readme/1.png)
 
 ## Naming Convention
 ### WPF Controls
 - [Control in Hungarian notation] -> [generalized word] -> [specific word]
-![Notation](Notation.png)
 
-![ControlsList](ControlsList.png)
+![Notation](/readme/2.png)
+![ControlsList](/readme/3.png)
 
 ### MVVM Concepts
 | Kind | Rule |
@@ -34,6 +35,8 @@
 | Local variable | camelCase |
 | Parameter | camelCase |
 
+![Csharp](/readme/4.png)
+
 ## SQL
 ### Stored Procedure Convention
 - [schema].[I/U/D/...][_PascalCase]
@@ -48,15 +51,16 @@
 2. XML-documentatie > single line of multi-line comments
 3. Maak gebruik van de [class diagram](https://stackoverflow.com/questions/17191218/generate-a-class-diagram-from-visual-studio) file
 
-![XML](Xml.png)
+![XML](/readme/5.png)
 
 Als ik nu een instantie wil maken van deze class in een andere file dan zie ik deze comment.
 
-![XmlExample](XmlExample.png)
+![XmlExample](/readme/6.png)
 
 De xml documentatie bevat nog een aantal handige [tags](https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/xmldoc/recommended-tags) zoals `<code>` of `<para>`of `<see>`.
 
-![XmlExample2](XmlExample2.png)
+![XmlExample2](/readme/7.png)
+![XmlExample3](/readme/8.png)
 
 ### XML Diagram files
 > [!IMPORTANT] 
@@ -66,4 +70,4 @@ De xml documentatie bevat nog een aantal handige [tags](https://learn.microsoft.
 2. Sleep de namespace of class erin waarvan je een diagram wilt.
 3. Nu kan je dit nog opmaken.
 
-![ClassDiagram](ClassDiagram.png)
+![ClassDiagram](/readme/9.png)
