@@ -59,6 +59,7 @@ namespace HomeManager.DAL.Budget
                     DomicilieringID = (int)MijnDataReader["DomicilieringID"],
                     FrequentieID = (int)MijnDataReader["FrequentieID"],
                     BegunstigdeID = (int)MijnDataReader["BegunstigdenID"],
+                    Begunstigde = MijnDataReader["Begunstigde"].ToString(),
                     BudgetCategorieID = (int)MijnDataReader["BudgetCategorieID"],
                     Onderwerp = MijnDataReader["Onderwerp"].ToString(),
                     IsUitgaven = (bool)MijnDataReader["IsUitgaven"],

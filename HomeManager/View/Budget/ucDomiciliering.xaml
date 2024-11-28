@@ -112,10 +112,10 @@
                                     <Style TargetType="Border">
                                         <Setter Property="BorderBrush" Value="Gray" />
                                         <Style.Triggers>
-                                            <DataTrigger Binding="{Binding IsUitgaven}" Value="1">
+                                            <DataTrigger Binding="{Binding IsUitgaven}" Value="true">
                                                 <Setter Property="BorderBrush" Value="Red" />
                                             </DataTrigger>
-                                            <DataTrigger Binding="{Binding IsUitgaven}" Value="0">
+                                            <DataTrigger Binding="{Binding IsUitgaven}" Value="false">
                                                 <Setter Property="BorderBrush" Value="Green" />
                                             </DataTrigger>
                                         </Style.Triggers>
@@ -123,17 +123,7 @@
                                 </Border.Style>
                                 <StackPanel Orientation="Vertical">
                                     <StackPanel Margin="5" Orientation="Horizontal">
-                                        <!--
-                                            <TextBlock
-                                            Margin="1"
-                                        -->
-                                        <!--  DataContext="{Binding Source={StaticResource VML}, Path=BegunstigdenViewModel}"  -->
-                                        <!--
-                                            FontWeight="Bold"
-                                            Text="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Grid}}, Path=DataContext.MijnSelectedItem.Begunstigde, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                                        -->
-                                        <TextBlock Margin="1" Text="{Binding ElementName=cboBegunstigde, Path=Text}" />
-
+                                        <TextBlock Margin="1" Text="{Binding Begunstigde}" />
                                         <TextBlock Margin="1" Text="{Binding Bedrag}" />
                                     </StackPanel>
                                     <StackPanel Margin="3" Orientation="Horizontal">

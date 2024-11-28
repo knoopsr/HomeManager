@@ -48,7 +48,7 @@ namespace HomeManager.Model.Budget
         {
             get
             {
-                return _bedrag;
+                return _bedrag.HasValue ? Math.Round(_bedrag.Value, 2) : (decimal?)null;
             }
             set
             {
@@ -137,6 +137,28 @@ namespace HomeManager.Model.Budget
                 OnPropertyChanged();
 
             }
+        }
+
+        private string _begunstigde;
+        public string Begunstigde
+        {
+            get
+            {
+                return _begunstigde;
+            }
+            set
+            {
+                if (_begunstigde != value)
+                {
+                    if (_begunstigde != null)
+                    {
+                        IsDirty = true;
+                    }
+                    _begunstigde = value;
+                    OnPropertyChanged();
+                }
+            }
+
         }
 
         private int _budgetCategorieID;
