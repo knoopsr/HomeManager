@@ -40,7 +40,7 @@
                         VerticalAlignment="Center"
                         FontSize="20"
                         Foreground="White"
-                        Text="Budget Frequentie" />
+                        Text="Frequentie" />
 
                 </StackPanel>
                 <uc:ucWerkBalk HorizontalAlignment="Right" VerticalAlignment="Top" />
@@ -48,12 +48,12 @@
             </Grid>
         </Border>
         <Border
-     Grid.Row="1"
-     Grid.Column="0"
-     Margin="3"
-     BorderBrush="Black"
-     BorderThickness="1"
-     CornerRadius="5">
+            Grid.Row="1"
+            Grid.Column="0"
+            Margin="3"
+            BorderBrush="Black"
+            BorderThickness="1"
+            CornerRadius="5">
             <Grid Grid.Row="1">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
@@ -75,33 +75,33 @@
                 </Grid.RowDefinitions>
 
                 <ListBox
-                Name="Frequentie"
-                Grid.Row="1"
-                Grid.RowSpan="5"
-                Grid.Column="1"
-                Width="150"
-                Margin="5"
-                Foreground="#024f87"
-                ItemsSource="{Binding MijnCollectie}"
-                SelectedIndex="{Binding MijnSelectedItem.MijnSelectedIndex, Mode=Twoway}"
-                SelectedItem="{Binding MijnSelectedItem, UpdateSourceTrigger=PropertyChanged}" />
+                    Name="Frequentie"
+                    Grid.Row="1"
+                    Grid.RowSpan="5"
+                    Grid.Column="1"
+                    Width="150"
+                    Margin="5"
+                    Foreground="#024f87"
+                    ItemsSource="{Binding MijnCollectie}"
+                    SelectedIndex="{Binding MijnSelectedItem.MijnSelectedIndex, Mode=Twoway}"
+                    SelectedItem="{Binding MijnSelectedItem, UpdateSourceTrigger=PropertyChanged}" />
 
                 <Label
-                Grid.Row="1"
-                Grid.Column="3"
-                HorizontalAlignment="Right"
-                HorizontalContentAlignment="Right"
-                Foreground="#024f87"
-                Content="Budget Frequentie" />
+                    Grid.Row="1"
+                    Grid.Column="3"
+                    HorizontalAlignment="Right"
+                    HorizontalContentAlignment="Right"
+                    Content="Frequentie"
+                    Foreground="#024f87" />
                 <TextBox
-                x:Name="txtFrequentie"
-                Grid.Row="1"
-                Grid.Column="4"
-                Width="200"
-                Margin="5"
-                Foreground="#024f87"
-                Background="White"
-                Text="{Binding MijnSelectedItem.Frequentie, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" />
+                    x:Name="txtFrequentie"
+                    Grid.Row="1"
+                    Grid.Column="4"
+                    Width="200"
+                    Margin="5"
+                    Background="White"
+                    Foreground="#024f87"
+                    Text="{Binding MijnSelectedItem.Frequentie, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" />
 
 
             </Grid>

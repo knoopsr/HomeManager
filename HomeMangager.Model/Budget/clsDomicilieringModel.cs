@@ -11,6 +11,8 @@ namespace HomeManager.Model.Budget
 {
     public class clsDomicilieringModel : clsCommonModelPropertiesBase, IDataErrorInfo
     {
+
+        
         private int _domicilieringID;
 
         public int DomicilieringID 
@@ -23,6 +25,88 @@ namespace HomeManager.Model.Budget
             {  _domicilieringID = value; 
                 OnPropertyChanged(); 
             } 
+        }
+
+        private bool? _isUitgaven;
+
+        public bool? IsUitgaven
+        {
+            get
+            {
+                return _isUitgaven;
+            }
+            set
+            {
+                _isUitgaven = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private decimal? _bedrag;
+
+        public decimal? Bedrag
+        {
+            get
+            {
+                return _bedrag;
+            }
+            set
+            {
+                if(_bedrag != value)
+                {
+                    if(_bedrag != null)
+                    {
+                        IsDirty = true;
+                    }
+                }
+                _bedrag = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private DateOnly _vanDatum;
+
+        public DateOnly VanDatum
+        {
+            get
+            {
+                return _vanDatum;
+            }
+            set
+            {
+                _vanDatum = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private DateOnly _totDatum;
+
+        public DateOnly TotDatum
+        {
+            get
+            {
+                return _totDatum;
+            }
+            set
+            {
+                _totDatum = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private string _onderwerp;
+
+        public string Onderwerp
+        {
+            get
+            {
+                return _onderwerp;
+            }
+            set
+            {
+                _onderwerp = value;
+                OnPropertyChanged();
+            }
         }
 
         private int _frequentieID;
@@ -70,81 +154,6 @@ namespace HomeManager.Model.Budget
             }
         }
 
-        private string _onderwerp;
-
-        public string Onderwerp
-        {
-            get 
-            {
-                return _onderwerp;
-            }
-            set
-            {
-                _onderwerp = value;
-                OnPropertyChanged();
-            }
-        }
-
-        private bool? _isUitgaven;
-
-        public bool? IsUitgaven
-        {
-            get
-            {
-                return _isUitgaven;
-            }
-            set
-            {
-                _isUitgaven = value;
-                OnPropertyChanged();
-            }
-        }
-        
-        private double _bedrag;
-
-        public double Bedrag
-        {
-            get
-            {
-                return _bedrag;
-            }
-            set
-            {
-                _bedrag = value;
-                OnPropertyChanged();
-            }
-        }
-
-        private DateOnly _vanDatum;
-
-        public DateOnly VanDatum
-        {
-            get 
-            {
-                return _vanDatum;
-            }
-            set
-            {
-                _vanDatum = value;
-                OnPropertyChanged();
-            }
-        }
-
-        private DateOnly _totDatum;
-
-        public DateOnly TotDatum
-        {
-            get
-            {
-                return _totDatum;
-            }
-            set
-            {
-                _totDatum = value;
-                OnPropertyChanged();
-            }
-        }
-
         public string this[string columnName]
         {
             get
@@ -156,7 +165,7 @@ namespace HomeManager.Model.Budget
                 {
 
                     case nameof(FrequentieID):
-                        if (_frequentieID <= 0)
+                        if (_frequentieID <= 1)
                         {
                             error = "Frequentie is een verplicht veld.";
                             if (ErrorList.Contains("Frequentie") == false)

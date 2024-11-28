@@ -164,7 +164,7 @@
                             <Button
                                 Command="{Binding NavCommand}"
                                 CommandParameter="clsCategorieViewModel"
-                                Content="Budget Categorie"
+                                Content="Categorie"
                                 Style="{StaticResource myMenuTandwiel}" />
                         </StackPanel>
                     </Expander>

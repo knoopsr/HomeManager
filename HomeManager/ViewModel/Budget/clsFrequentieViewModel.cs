@@ -60,7 +60,7 @@ namespace HomeManager.ViewModel
                 {
                     if (_MijnSelectedItem != null && _MijnSelectedItem.IsDirty)
                     {
-                        if (MessageBox.Show("wil je " + _MijnSelectedItem + "Opslaan ? ", "Opslaan", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+                        if (MessageBox.Show("wil je " + _MijnSelectedItem + " Opslaan? ", "Opslaan", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
                         {
                             OpslaanCommando();
                             LoadData();
@@ -119,6 +119,8 @@ namespace HomeManager.ViewModel
         private void LoadData()
         {
             MijnCollectie = MijnService.GetAll();
+
+
         }
 
 
@@ -133,6 +135,8 @@ namespace HomeManager.ViewModel
             cmdClose = new clsCustomCommand(Execute_CloseCommand, CanExecute_CloseCommand);
 
             clsMessenger.Default.Register<clsFrequentieModel>(this, OnFrequentieReceived);
+
+            
             
             LoadData();
             MijnSelectedItem = MijnService.GetFirst();
@@ -161,9 +165,7 @@ namespace HomeManager.ViewModel
                         OpslaanCommando();
                         clsHomeVM vm2 = (clsHomeVM)HomeWindow.DataContext;
                         vm2.CurrentViewModel = null;
-                        
-                       
-
+         
                     }
                 }
                 clsHomeVM vm = (clsHomeVM)HomeWindow.DataContext;
@@ -279,8 +281,12 @@ namespace HomeManager.ViewModel
 
         private void OnFrequentieReceived(clsFrequentieModel obj)
         {
+            
             _MijnSelectedItem = obj;
+            
         }
+
+       
 
        
     }

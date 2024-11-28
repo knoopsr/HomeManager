@@ -57,12 +57,15 @@ namespace HomeManager.Model.Budget
             }
             set
             {
-                if(_opmerking != value)
+                if (_opmerking != value)
                 {
-                    IsDirty = true;
+                    if (_opmerking != null)
+                    {
+                        IsDirty = true;
+                    }
+                    _opmerking = value;
+                    OnPropertyChanged();
                 }
-                _opmerking = value; 
-                OnPropertyChanged();
             }
         }
 

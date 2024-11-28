@@ -12,6 +12,14 @@
     d:DesignWidth="800"
     Background="{StaticResource myBackground}"
     mc:Ignorable="d">
+
+    <UserControl.Resources>
+        <Converters:DateOnlyToDateTimeConverter x:Key="DateOnlyToDateTimeConverter" />
+        <Converters:clsDateFormatConverter x:Key="DateFormatConverter" />
+    </UserControl.Resources>
+
+
+
     <Grid DataContext="{Binding Source={StaticResource VML}, Path=DomicilieringViewModel}">
         <Grid.RowDefinitions>
             <RowDefinition Height="50" />
@@ -86,25 +94,78 @@
                     Grid.Row="1"
                     Grid.RowSpan="11"
                     Grid.Column="1"
-                    Width="150"
+                    Width="230"
                     Margin="5"
                     Foreground="#024f87"
                     ItemsSource="{Binding MijnCollectie}"
-                    SelectedIndex="{Binding MijnSelectedItem.MijnSelectedIndex, Mode=Twoway}"
-                    SelectedItem="{Binding MijnSelectedItem, UpdateSourceTrigger=PropertyChanged}" />
+                    SelectedItem="{Binding MijnSelectedItem, UpdateSourceTrigger=PropertyChanged}">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <Border
+                                Width="205"
+                                Margin="5"
+                                Padding="2"
+                                Background="LightGray"
+                                BorderThickness="1"
+                                CornerRadius="8">
+                                <Border.Style>
+                                    <Style TargetType="Border">
+                                        <Setter Property="BorderBrush" Value="Gray" />
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding IsUitgaven}" Value="1">
+                                                <Setter Property="BorderBrush" Value="Red" />
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding IsUitgaven}" Value="0">
+                                                <Setter Property="BorderBrush" Value="Green" />
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Border.Style>
+                                <StackPanel Orientation="Vertical">
+                                    <StackPanel Margin="5" Orientation="Horizontal">
+                                        <!--
+                                            <TextBlock
+                                            Margin="1"
+                                        -->
+                                        <!--  DataContext="{Binding Source={StaticResource VML}, Path=BegunstigdenViewModel}"  -->
+                                        <!--
+                                            FontWeight="Bold"
+                                            Text="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Grid}}, Path=DataContext.MijnSelectedItem.Begunstigde, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                        -->
+                                        <TextBlock Margin="1" Text="{Binding ElementName=cboBegunstigde, Path=Text}" />
+
+                                        <TextBlock Margin="1" Text="{Binding Bedrag}" />
+                                    </StackPanel>
+                                    <StackPanel Margin="3" Orientation="Horizontal">
+                                        <TextBlock Margin="1" Text="Van" />
+                                        <TextBlock Margin="1" Text="{Binding VanDatum, Converter={StaticResource DateFormatConverter}}" />
+                                        <TextBlock Margin="1" Text="tot" />
+                                        <TextBlock Margin="1" Text="{Binding TotDatum, Converter={StaticResource DateFormatConverter}}" />
+                                    </StackPanel>
+                                </StackPanel>
+                            </Border>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+
+
+
+
+                </ListBox>
+
+
 
                 <Label
                     Grid.Row="1"
                     Grid.Column="3"
                     HorizontalContentAlignment="Right"
-                    Content="Is uitgave"
+                    Content="Uitgave"
                     Foreground="#024f87" />
                 <CheckBox
                     x:Name="IsUitgave"
                     Grid.Row="1"
                     Grid.Column="4"
                     Margin="5"
-                    IsChecked="{Binding MijnSelectedItem.IsApplicationUser, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnValidationError=true, ValidatesOnExceptions=True}" />
+                    IsChecked="{Binding MijnSelectedItem.IsUitgaven, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnValidationError=true, ValidatesOnExceptions=True}" />
                 <Label
                     Grid.Row="2"
                     Grid.Column="3"
@@ -118,7 +179,7 @@
                     Margin="5"
                     Background="White"
                     Foreground="#024f87"
-                    Text="{Binding MijnSelectedItem.Bedrag, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" />
+                    Text="{Binding MijnSelectedItem.Bedrag, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, TargetNullValue=' '}" />
                 <Label
                     Grid.Row="3"
                     Grid.Column="3"
@@ -133,6 +194,7 @@
                     Width="200"
                     Margin="5"
                     Foreground="#024f87"
+                    SelectedDate="{Binding MijnSelectedItem.VanDatum, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource DateOnlyToDateTimeConverter}}"
                     SelectedDateFormat="Short" />
                 <Label
                     Grid.Row="4"
@@ -148,6 +210,7 @@
                     Width="200"
                     Margin="5"
                     Foreground="#024f87"
+                    SelectedDate="{Binding MijnSelectedItem.TotDatum, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource DateOnlyToDateTimeConverter}}"
                     SelectedDateFormat="Short" />
 
                 <Label
@@ -165,7 +228,7 @@
                     VerticalAlignment="Center"
                     Background="White"
                     Foreground="#024f87"
-                    Text="{Binding MijnSelectedItem.Opmerking, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" />
+                    Text="{Binding MijnSelectedItem.Onderwerp, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" />
 
 
                 <Label
@@ -188,12 +251,13 @@
                         DataContext="{Binding Source={StaticResource VML}, Path=FrequentieViewModel}"
                         Foreground="#024f87"
                         ItemsSource="{Binding MijnCollectie}"
-                        SelectedValue="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Grid}}, Path=DataContext.MijnSelectedItem.FrequentieID, Mode=TwoWay}" />
+                        SelectedValue="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Grid}}, Path=DataContext.MijnSelectedItem.FrequentieID, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                        SelectedValuePath="FrequentieID" />
                     <Button
                         Width="30"
                         Height="29"
-                        Style="{StaticResource OpenUCButton}" 
-                        Command="{Binding cmdEdit}"/>
+                        Command="{Binding cmdEditFrequentie}"
+                        Style="{StaticResource OpenUCButton}" />
                 </StackPanel>
                 <Label
                     Grid.Row="7"
@@ -214,10 +278,12 @@
                         DataContext="{Binding Source={StaticResource VML}, Path=BegunstigdenViewModel}"
                         Foreground="#024f87"
                         ItemsSource="{Binding MijnCollectie}"
-                        SelectedValue="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Grid}}, Path=DataContext.MijnSelectedItem.BegunstgideID, Mode=TwoWay}" />
+                        SelectedValue="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Grid}}, Path=DataContext.MijnSelectedItem.BegunstigdeID, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                        SelectedValuePath="BegunstigdeID" />
                     <Button
                         Width="30"
                         Height="29"
+                        Command="{Binding cmdEditBegunstigden}"
                         Style="{StaticResource OpenUCButton}" />
                 </StackPanel>
 
@@ -225,7 +291,7 @@
                     Grid.Row="8"
                     Grid.Column="3"
                     HorizontalContentAlignment="Right"
-                    Content="Budget Categorie"
+                    Content="Categorie"
                     Foreground="#024f87" />
 
                 <StackPanel
@@ -241,10 +307,13 @@
                         DataContext="{Binding Source={StaticResource VML}, Path=CategorieViewModel}"
                         Foreground="#024f87"
                         ItemsSource="{Binding MijnCollectie}"
-                        SelectedValue="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Grid}}, Path=DataContext.MijnSelectedItem.CategorieID, Mode=TwoWay}" />
+                        SelectedValue="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Grid}}, Path=DataContext.MijnSelectedItem.CategorieID, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                        SelectedValuePath="CategorieID" />
+
                     <Button
                         Width="30"
                         Height="29"
+                        Command="{Binding cmdEditCategorie}"
                         Style="{StaticResource OpenUCButton}" />
                 </StackPanel>
 

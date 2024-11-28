@@ -32,8 +32,13 @@ namespace HomeManager.ViewModel
         public ICommand cmdCancel { get; set; }
         public ICommand cmdClose { get; set; }
         public ICommand cmdSave { get; set; }
-        public ICommand cmdEdit { get; set; }
+        public ICommand cmdEditFrequentie { get; set; }
+        public ICommand cmdEditBegunstigden { get; set; }
+        public ICommand cmdEditCategorie { get; set; }
 
+
+        public int IsUitgaven { get; set; }
+        
         private ObservableCollection<clsDomicilieringModel> _MijnCollectie;
         public ObservableCollection<clsDomicilieringModel> MijnCollectie
         {
@@ -61,7 +66,7 @@ namespace HomeManager.ViewModel
                 {
                     if (_MijnSelectedItem != null && _MijnSelectedItem.IsDirty)
                     {
-                        if (MessageBox.Show("wil je " + _MijnSelectedItem + "Opslaan ? ", "Opslaan", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+                        if (MessageBox.Show("wil je " + _MijnSelectedItem + " Opslaan? ", "Opslaan", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
                         {
                             OpslaanCommando();
                             LoadData();
@@ -133,7 +138,9 @@ namespace HomeManager.ViewModel
             cmdNew = new clsCustomCommand(Execute_NewCommand, CanExecute_NewCommand);
             cmdCancel = new clsCustomCommand(Execute_CancelCommand, CanExecute_CancelCommand);
             cmdClose = new clsCustomCommand(Execute_CloseCommand, CanExecute_CloseCommand);
-            cmdEdit = new clsCustomCommand(EditFrequentie, CanExecute_EditFrequentie);
+            cmdEditFrequentie = new clsCustomCommand(EditFrequentie, CanExecute_EditFrequentie);
+            cmdEditBegunstigden = new clsCustomCommand(EditBegunstigde, CanExecute_EditBegunstigde);
+            cmdEditCategorie = new clsCustomCommand(EditCategorie, CanExecute_EditCategorie);
 
             clsMessenger.Default.Register<clsUpdateListMessages>(this, OnUpdateListMessageReceived);
 
@@ -198,6 +205,7 @@ namespace HomeManager.ViewModel
         {
             clsDomicilieringModel ItemToInsert = new clsDomicilieringModel()
             {
+                IsUitgaven = null,
                 DomicilieringID = 0,
                 Bedrag = 0,
                 VanDatum = DateOnly.FromDateTime(DateTime.Now),
@@ -272,6 +280,13 @@ namespace HomeManager.ViewModel
             OpslaanCommando();
 
         }
+        #region Popup Windows
+        private void OnUpdateListMessageReceived(clsUpdateListMessages obj)
+        {
+            //refresh
+            LoadData();
+            _DialogService.CloseDialog();
+        }
 
         private bool CanExecute_EditFrequentie(object obj)
         {
@@ -285,11 +300,28 @@ namespace HomeManager.ViewModel
 
         }
 
-        private void OnUpdateListMessageReceived(clsUpdateListMessages obj)
+        private bool CanExecute_EditBegunstigde(object obj)
         {
-            //refresh
-            LoadData();
-            _DialogService.CloseDialog();
+            return true;
         }
+
+        private void EditBegunstigde(object obj)
+        {
+            _DialogService.ShowDialog(new ucBegunstigden(), "Begunstigde");
+        }
+
+
+        private bool CanExecute_EditCategorie (object obj)
+        {
+            return true;
+        }
+
+        private void EditCategorie (object obj)
+        {
+            _DialogService.ShowDialog(new ucCategorie(), "Categorie");
+        }
+
+        #endregion
+
     }
 }

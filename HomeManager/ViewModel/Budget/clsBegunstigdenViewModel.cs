@@ -11,13 +11,14 @@ using HomeManager.Common;
 using HomeManager.Helpers;
 using HomeManager.Model.Budget;
 using HomeManager.DataService.Budget;
+using HomeManager.Messages;
 
 
 namespace HomeManager.ViewModel
 {
     public class clsBegunstigdenViewModel : clsCommonModelPropertiesBase
     {
-        
+
         clsBegunstigdenDataService MijnService;
         private bool NewStatus = false;
         public ICommand cmdDelete { get; set; }
@@ -53,7 +54,7 @@ namespace HomeManager.ViewModel
                 {
                     if (_MijnSelectedItem != null && _MijnSelectedItem.IsDirty)
                     {
-                        if (MessageBox.Show("wil je " + _MijnSelectedItem + "Opslaan ? ", "Opslaan", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+                        if (MessageBox.Show("wil je " + _MijnSelectedItem + " Opslaan? ", "Opslaan", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
                         {
                             OpslaanCommando();
                             LoadData();
@@ -125,6 +126,8 @@ namespace HomeManager.ViewModel
             cmdCancel = new clsCustomCommand(Execute_CancelCommand, CanExecute_CancelCommand);
             cmdClose = new clsCustomCommand(Execute_CloseCommand, CanExecute_CloseCommand);
 
+            clsMessenger.Default.Register<clsBegunstigdenModel>(this, OnBegunstigdenReceived);
+
             LoadData();
             MijnSelectedItem = MijnService.GetFirst();
         }
@@ -155,6 +158,9 @@ namespace HomeManager.ViewModel
                 clsHomeVM vm = (clsHomeVM)HomeWindow.DataContext;
                 vm.CurrentViewModel = null;
             }
+
+            clsMessenger.Default.Send<clsUpdateListMessages>(new clsUpdateListMessages());
+
         }
 
 
@@ -253,6 +259,11 @@ namespace HomeManager.ViewModel
         {
             OpslaanCommando();
 
+        }
+
+        private void OnBegunstigdenReceived(clsBegunstigdenModel obj)
+        {
+            _MijnSelectedItem = obj;
         }
     }
 }

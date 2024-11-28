@@ -62,9 +62,9 @@ namespace HomeManager.DAL.Budget
                     BudgetCategorieID = (int)MijnDataReader["BudgetCategorieID"],
                     Onderwerp = MijnDataReader["Onderwerp"].ToString(),
                     IsUitgaven = (bool)MijnDataReader["IsUitgaven"],
-                    Bedrag = (double)MijnDataReader["Bedrag"],
-                    VanDatum = (DateOnly)MijnDataReader["VanDatum"],
-                    TotDatum = (DateOnly)MijnDataReader["TotDatum"],
+                    Bedrag = MijnDataReader["Bedrag"] as decimal? ?? 0,
+                    VanDatum = DateOnly.FromDateTime((DateTime)MijnDataReader["VanDatum"]),
+                    TotDatum = DateOnly.FromDateTime((DateTime)MijnDataReader["TotDatum"]),
                     ControlField = MijnDataReader["ControlField"]
 
                 };
