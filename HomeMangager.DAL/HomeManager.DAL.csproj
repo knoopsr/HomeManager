@@ -34,21 +34,12 @@
     </Compile>
   </ItemGroup>
 
-  <ItemGroup>
-//master
-    <None Update="Properties\Connection.settings">
-      <Generator>SettingsSingleFileGenerator</Generator>
-//todo
-    <EmbeddedResource Update="Properties\Resources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Update="Properties\Connection.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-//eind todo
-      <LastGenOutput>Connection.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-  </ItemGroup>
+	<ItemGroup>
+		<None Update="Properties\Connection.settings">
+			<Generator>SettingsSingleFileGenerator</Generator>
+			<LastGenOutput>Connection.Designer.cs</LastGenOutput>
+		</None>
+	</ItemGroup>
 
   <ItemGroup>
     <Folder Include="Dagboek\" />
