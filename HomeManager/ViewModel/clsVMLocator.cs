@@ -3,11 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using HomeManager.Model.Todo;
+using HomeManager.ViewModel;
 
 namespace HomeManager.ViewModel
 {
     public class clsVMLocator
     {
+
         public clsPersoonVM PersoonViewModel
         {
             get
@@ -17,7 +20,16 @@ namespace HomeManager.ViewModel
         }
 
         #region Security
-          
+
+        public clsTitlePersonViewModel TitlePersonViewModel
+        {
+            get
+            {
+                return new clsTitlePersonViewModel();
+            }
+        }
+
+
         public clsRechtenViewModel RechtenViewModel
         {
             get
@@ -49,7 +61,33 @@ namespace HomeManager.ViewModel
                 return new clsCredentialManagementViewModel();
             }
         }
+
+        private static clsLogin _loginViewModel = new clsLogin();
+        public clsLogin LoginViewModel
+        {
+            get
+            {
+                return _loginViewModel;
+            }
+        }
+
+        private static clsNewPassViewModel _newPassViewModel = new clsNewPassViewModel();
+        public clsNewPassViewModel NewPassViewModel
+        {
+            get
+            {
+                return _newPassViewModel;
+            }
+        }
+
         #endregion
+
+        #region TODO
+        public clsCollectiesVM CollectiesViewModel => new clsCollectiesVM();
+        public clsCategorieënVM CategorieënViewModel => new clsCategorieënVM();
+        public clsKleurenVM KleurenViewModel => new clsKleurenVM();
+        #endregion
+
 
         public clsCategorieViewModel CategorieViewModel
         {
@@ -83,5 +121,6 @@ namespace HomeManager.ViewModel
                 return _domicilieringViewModel;
             }
         }
+
     }
 }

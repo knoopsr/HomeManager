@@ -3,6 +3,7 @@ using HomeManager.DataService.Security;
 using HomeManager.Helpers;
 using HomeManager.Model.Security;
 using System.Collections.ObjectModel;
+using System.Net;
 using System.Windows;
 using System.Windows.Input;
 
@@ -256,7 +257,16 @@ namespace HomeManager.ViewModel
 
         private bool CanExecute_cmdNew_Command(object? obj)
         {
-            return !NewStatus;
+            clsPermissionChecker _permissionChecker = new clsPermissionChecker();
+            bool _hasPermission = _permissionChecker.HasPermission("201");
+
+            if (_hasPermission)
+            {
+                return !NewStatus;
+            } else
+            {
+                return false;
+            }  
         }
 
         private void Execute_cmdDelete_Command(object? obj)
@@ -310,16 +320,25 @@ namespace HomeManager.ViewModel
 
         private bool CanExecute_cmdSave_Command(object? obj)
         {
-            if (MijnSelectedItem != null &&
-                MijnSelectedItem.Error == null &&
-                MijnSelectedItem.IsDirty == true)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
+  
+
+                if (MijnSelectedItem != null &&
+                    MijnSelectedItem.Error == null &&
+                    MijnSelectedItem.IsDirty == true)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+     
+
+            
+
+
+
+
         }
 
         private bool CanExecute_cmdIsChecked_Command(object? obj)

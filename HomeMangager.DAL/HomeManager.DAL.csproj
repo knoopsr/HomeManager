@@ -17,29 +17,46 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Update="Properties\Connection.Designer.cs">
-      <DesignTimeSharedInput>True</DesignTimeSharedInput>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Connection.settings</DependentUpon>
-    </Compile>
     <Compile Update="Properties\Resources.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Update="Properties\Connection.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Connection.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Properties\Connection.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Connection.resx</DependentUpon>
+    </Compile>
   </ItemGroup>
 
   <ItemGroup>
+//master
     <None Update="Properties\Connection.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
+//todo
+    <EmbeddedResource Update="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Properties\Connection.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+//eind todo
       <LastGenOutput>Connection.Designer.cs</LastGenOutput>
-    </None>
+    </EmbeddedResource>
   </ItemGroup>
 
   <ItemGroup>
     <Folder Include="Dagboek\" />
     <Folder Include="Homepage\" />
     <Folder Include="StickyNotes\" />
+    <Folder Include="Security\" />
+    <Folder Include="Personen\" />
+
     <Folder Include="Todo\" />
   </ItemGroup>
 

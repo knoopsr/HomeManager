@@ -7,7 +7,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:HomeManager"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:uc="clr-namespace:HomeManager.View"
+
     Title="MainWindow"
     Width="1000"
     Height="900"
@@ -35,6 +35,17 @@
         <DataTemplate DataType="{x:Type VM:clsAccountViewModel}">
             <V:ucAccount />
         </DataTemplate>
+
+        <DataTemplate DataType="{x:Type VM:clsCollectiesVM}">
+            <V:ucCollecties />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type VM:clsCategorieënVM}">
+            <V:ucCategorieën />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type VM:clsKleurenVM}">
+            <V:ucKleuren />
+        </DataTemplate>
+      
         <DataTemplate DataType="{x:Type VM:clsCategorieViewModel}">
             <V:ucCategorie />
         </DataTemplate>
@@ -47,6 +58,7 @@
         <DataTemplate DataType="{x:Type VM:clsDomicilieringViewModel}">
             <V:ucDomiciliering />
         </DataTemplate>
+
         <Storyboard x:Key="ShowMenu">
             <DoubleAnimation
                 Storyboard.TargetName="HamburgerMenu"
@@ -80,9 +92,10 @@
         </Grid.ColumnDefinitions>
 
 
-        <uc:ucTitlePerson
+        <V:ucTitlePerson
             Grid.ColumnSpan="2"
             Margin="0,0,10,0"
+            Width="120"
             HorizontalAlignment="Right"
             VerticalAlignment="Center" />
 
@@ -172,9 +185,21 @@
                     <Expander Style="{StaticResource myHamburgerTodo}">
 
                         <StackPanel x:Name="stckTodo">
-                            <Button Content="Todo Collectie" Style="{StaticResource myMenuTandwiel}" />
-                            <Button Content="Todo Categoriën" Style="{StaticResource myMenuTandwiel}" />
-                            <Button Content="Todo Kleuren" Style="{StaticResource myMenuTandwiel}" />
+                            <Button 
+                                Content="Todo Collectie"
+                                Command="{Binding NavCommand}"
+                                CommandParameter="clsCollectiesVM"
+                                Style="{StaticResource myMenuTandwiel}" />
+                            <Button 
+                                Content="Todo Categoriën"
+                                Command="{Binding NavCommand}"
+                                CommandParameter="clsCategorieënVM"
+                                Style="{StaticResource myMenuTandwiel}" />
+                            <Button 
+                                Content="Todo Kleuren"
+                                Command="{Binding NavCommand}"
+                                CommandParameter="clsKleurenVM"
+                                Style="{StaticResource myMenuTandwiel}" />
                         </StackPanel>
 
                     </Expander>
@@ -237,23 +262,9 @@
             Unchecked="ToggleButton_Unchecked" />
 
         <!--#endregion-->
-
         <ContentControl
             Grid.Row="1"
             Grid.Column="1"
             Content="{Binding CurrentViewModel}" />
-
-
-        <ContentControl
-            Grid.Row="1"
-            Grid.Column="1"
-            Content="{Binding CurrentViewModel}" />
-
-        <ContentControl
-            Grid.Row="1"
-            Grid.Column="1"
-            Content="{Binding CurrentViewModel}" />
-
-
     </Grid>
 </Window>

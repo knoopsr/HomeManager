@@ -30,7 +30,7 @@ namespace HomeManager.Model.Security
         private string _rechtenName;
         public string RechtenName
         {
-            get { return _rechtenName; }
+            get { return _rechtenName + " ("+ RechtenCode +")"; }
             set
             {
                 _rechtenName = value;
@@ -66,9 +66,6 @@ namespace HomeManager.Model.Security
             get { return _isChecked; }
             set
             {
-
-
-
                 _isChecked = value;
                 OnPropertyChanged();
             }

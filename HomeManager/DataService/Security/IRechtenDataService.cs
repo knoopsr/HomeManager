@@ -10,5 +10,6 @@ namespace HomeManager.DataService.Security
 {
     public interface IRechtenDataService : IDataService<clsRechtenModel>
     {
+        clsRechtenModel GetByCatogorieID(int id);
     }
 }

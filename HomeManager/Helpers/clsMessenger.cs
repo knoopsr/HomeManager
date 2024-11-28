@@ -1,4 +1,5 @@
-﻿using System;
+﻿using HomeManager.ViewModel;
+using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
@@ -79,6 +80,11 @@ namespace HomeManager.Helpers
             {
                 action(message);
             }
+        }
+
+        internal void Register<T>(clsLogin clsLogin, string v, object newPassWord)
+        {
+            throw new NotImplementedException();
         }
 
         protected class MessengerKey

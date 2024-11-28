@@ -38,8 +38,6 @@ namespace HomeManager.DataService.Security
             return _repo.GetByCatogorieID(id);
         }
 
-
-
         public clsRechtenModel GetFirst()
         {
             return _repo.GetFirst();
