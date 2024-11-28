@@ -1,0 +1,148 @@
+﻿<UserControl
+    x:Class="HomeManager.View.ucRoles"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:Helpers="clr-namespace:HomeManager.Helpers"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+    xmlns:local="clr-namespace:HomeManager.View"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:uc="clr-namespace:HomeManager.View"
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    Background="{StaticResource myBackground}"
+    mc:Ignorable="d">
+
+
+    <Grid DataContext="{Binding Source={StaticResource VML}, Path=RechtenViewModel}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Border
+            Grid.Row="0"
+            Background="{StaticResource myTitleBar}"
+            BorderBrush="LightBlue"
+            BorderThickness="1">
+            <Grid>
+                <StackPanel
+                    Margin="10,0,0,0"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Center"
+                    Orientation="Horizontal">
+                    <Path
+                        Width="20"
+                        Height="20"
+                        Data="{StaticResource myPathSetting}"
+                        Fill="White"
+                        Stretch="Fill" />
+                    <TextBlock
+                        Margin="10,0,0,0"
+                        VerticalAlignment="Center"
+                        FontSize="20"
+                        Foreground="White"
+                        Text="Rollen" />
+                </StackPanel>
+                <uc:ucWerkBalk HorizontalAlignment="Right" VerticalAlignment="top" />
+            </Grid>
+        </Border>
+
+        <Border
+            Grid.Row="1"
+            Grid.Column="0"
+            Margin="3"
+            BorderBrush="Black"
+            BorderThickness="1"
+            CornerRadius="5">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="100" />
+                    <ColumnDefinition Width="60" />
+                    <ColumnDefinition Width="200" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="25" />
+                    <RowDefinition Height="25" />
+                    <RowDefinition Height="30" />
+                    <RowDefinition Height="30" />
+                    <RowDefinition Height="150" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+
+                <ListBox
+                    Grid.Row="1"
+                    Grid.RowSpan="5"
+                    Grid.Column="1"
+                    DisplayMemberPath="RolName"
+                    ItemsSource="{Binding MijnRollenCollectie}"
+                    SelectedItem="{Binding MijnSelectedItem, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+
+                <Label
+                    Grid.Row="1"
+                    Grid.Column="2"
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Top"
+                    Content="Rol"
+                    FontSize="12" />
+                <TextBox
+                    Grid.Row="1"
+                    Grid.Column="3"
+                    Height="20"
+                    VerticalAlignment="center"
+                    Helpers:clsFocusExtension.IsFocused="{Binding IsFocusedAfterNew, Mode=TwoWay}"
+                    IsEnabled="{Binding MijnSelectedItem.IsTextBoxEnabled}"
+                    Text="{Binding MijnSelectedItem.RolName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" />
+
+     
+
+                <Label
+                    Grid.Row="2"
+                    Grid.Column="2"
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Top"
+                    Content="Rechten"
+                    FontSize="12" />
+
+                <ScrollViewer
+                    Grid.Row="2"
+                    Grid.RowSpan="4"
+                    Grid.Column="3">
+                    <TreeView ItemsSource="{Binding MijnRechtenCatogorieCollectie}">
+                        <TreeView.ItemTemplate>
+                            <HierarchicalDataTemplate ItemsSource="{Binding Rechten}">
+                                <StackPanel Orientation="Horizontal">
+                                    <CheckBox IsChecked="{Binding IsChecked}">
+                                        <i:Interaction.Triggers>
+                                            <i:EventTrigger EventName="Click">
+                                                <i:InvokeCommandAction Command="{Binding DataContext.cmdIsChecked, RelativeSource={RelativeSource AncestorType=TreeView}}" CommandParameter="{Binding}" />
+                                            </i:EventTrigger>
+                                        </i:Interaction.Triggers>
+                                    </CheckBox>
+                                    <TextBlock Text="{Binding CatogorieNaam}" />
+                                </StackPanel>
+                                <HierarchicalDataTemplate.ItemTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Orientation="Horizontal">
+                                            <CheckBox IsChecked="{Binding IsChecked}">
+                                                <i:Interaction.Triggers>
+                                                    <i:EventTrigger EventName="Click">
+                                                        <i:InvokeCommandAction Command="{Binding DataContext.cmdIsChecked, RelativeSource={RelativeSource AncestorType=TreeView}}" CommandParameter="{Binding}" />
+                                                    </i:EventTrigger>
+                                                </i:Interaction.Triggers>
+                                            </CheckBox>
+                                            <TextBlock Text="{Binding RechtenName}" />
+                                        </StackPanel>
+
+                                    </DataTemplate>
+                                </HierarchicalDataTemplate.ItemTemplate>
+                            </HierarchicalDataTemplate>
+                        </TreeView.ItemTemplate>
+                    </TreeView>
+                </ScrollViewer>
+            </Grid>
+        </Border>
+    </Grid>
+</UserControl>
