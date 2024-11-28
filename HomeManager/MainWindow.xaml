@@ -35,6 +35,7 @@
         <DataTemplate DataType="{x:Type VM:clsAccountViewModel}">
             <V:ucAccount />
         </DataTemplate>
+
         <DataTemplate DataType="{x:Type VM:clsCollectiesVM}">
             <V:ucCollecties />
         </DataTemplate>
@@ -43,6 +44,19 @@
         </DataTemplate>
         <DataTemplate DataType="{x:Type VM:clsKleurenVM}">
             <V:ucKleuren />
+        </DataTemplate>
+      
+        <DataTemplate DataType="{x:Type VM:clsCategorieViewModel}">
+            <V:ucCategorie />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type VM:clsFrequentieViewModel}">
+            <V:ucFrequentie />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type VM:clsBegunstigdenViewModel}">
+            <V:ucBegunstigden />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type VM:clsDomicilieringViewModel}">
+            <V:ucDomiciliering />
         </DataTemplate>
 
         <Storyboard x:Key="ShowMenu">
@@ -146,10 +160,25 @@
 
                     <Expander Style="{StaticResource myHamburgerBudget}">
                         <StackPanel x:Name="stckBudget">
-                            <Button Content="Domiciliëring" Style="{StaticResource myMenuTandwiel}" />
-                            <Button Content="Begunstigden" Style="{StaticResource myMenuTandwiel}" />
-                            <Button Content="Frequentie" Style="{StaticResource myMenuTandwiel}" />
-                            <Button Content="Budget Categorie" Style="{StaticResource myMenuTandwiel}" />
+                            <Button Content="Transacties" Style="{StaticResource myMenuTandwiel}" />
+                            <Button Content="Domiciliëring" Style="{StaticResource myMenuTandwiel}" 
+                                    Command="{Binding NavCommand}"
+                                    CommandParameter="clsDomicilieringViewModel"/>
+                            <Button
+                                Command="{Binding NavCommand}"
+                                CommandParameter="clsBegunstigdenViewModel"
+                                Content="Begunstigden"
+                                Style="{StaticResource myMenuTandwiel}" />
+                            <Button
+                                Command="{Binding NavCommand}"
+                                CommandParameter="clsFrequentieViewModel"
+                                Content="Frequentie"
+                                Style="{StaticResource myMenuTandwiel}" />
+                            <Button
+                                Command="{Binding NavCommand}"
+                                CommandParameter="clsCategorieViewModel"
+                                Content="Categorie"
+                                Style="{StaticResource myMenuTandwiel}" />
                         </StackPanel>
                     </Expander>
 

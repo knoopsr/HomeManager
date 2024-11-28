@@ -10,7 +10,7 @@ namespace HomeManager.ViewModel
 {
     public class clsVMLocator
     {
-      
+
         public clsPersoonVM PersoonViewModel
         {
             get
@@ -20,6 +20,7 @@ namespace HomeManager.ViewModel
         }
 
         #region Security
+
         public clsTitlePersonViewModel TitlePersonViewModel
         {
             get
@@ -80,11 +81,46 @@ namespace HomeManager.ViewModel
         }
 
         #endregion
+
         #region TODO
         public clsCollectiesVM CollectiesViewModel => new clsCollectiesVM();
         public clsCategorieënVM CategorieënViewModel => new clsCategorieënVM();
         public clsKleurenVM KleurenViewModel => new clsKleurenVM();
         #endregion
+
+
+        public clsCategorieViewModel CategorieViewModel
+        {
+            get
+            {
+                return new clsCategorieViewModel(); ;
+            }
+        }
+
+        public clsFrequentieViewModel FrequentieViewModel
+        {
+            get
+            {
+                return new clsFrequentieViewModel(); ;
+            }
+        }
+
+        public clsBegunstigdenViewModel BegunstigdenViewModel
+        {
+            get
+            {
+                return new clsBegunstigdenViewModel();
+            }
+        }
+
+        private static clsDomicilieringViewModel _domicilieringViewModel = new clsDomicilieringViewModel();
+        public clsDomicilieringViewModel DomicilieringViewModel
+        {
+            get
+            {
+                return _domicilieringViewModel;
+            }
+        }
 
     }
 }
