@@ -61,6 +61,15 @@ namespace HomeManager.DAL.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to BackupHomeManagerDB.
+        /// </summary>
+        internal static string BackupHomeManagerDB {
+            get {
+                return ResourceManager.GetString("BackupHomeManagerDB", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to D_Account.
         /// </summary>
         internal static string D_Account {

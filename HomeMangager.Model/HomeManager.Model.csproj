@@ -7,7 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Homepage\" />
     <Folder Include="Budget\" />
     <Folder Include="Dagboek\" />
     <Folder Include="Todo\" />

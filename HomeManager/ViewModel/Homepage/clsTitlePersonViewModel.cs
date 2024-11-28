@@ -1,7 +1,10 @@
 ﻿using HomeManager.Common;
+using HomeManager.DataService.Homepage;
 using HomeManager.Helpers;
+using HomeManager.Model.Homepage;
 using HomeManager.Model.Security;
 using HomeManager.View.Security;
+using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Input;
 
@@ -9,7 +12,13 @@ namespace HomeManager.ViewModel
 {
     public class clsTitlePersonViewModel : clsCommonModelPropertiesBase
     {
+
+        clsBackupDataService MijnBackupService;
+
         private clsLoginModel _loginModel;
+
+        private bool CanBackup = true;
+
         public ICommand cmdAfmelden { get; set; }
         public ICommand cmdBackup { get; set; }
 
@@ -27,10 +36,23 @@ namespace HomeManager.ViewModel
             }
         }
 
+        private ObservableCollection<clsBackupModel> _mijnBackupCollectie;
+        public ObservableCollection<clsBackupModel> MijnBackupCollectie
+        {
+            get { return _mijnBackupCollectie; }
+            set
+            {
+                _mijnBackupCollectie = value;
+                OnPropertyChanged();
+            }
+        }
+
+
 
 
         public clsTitlePersonViewModel()
         {
+            MijnBackupService = new clsBackupDataService();
             clsMessenger.Default.Register<clsLoginModel>(this, OnUpdateTitlePersonReceived);
 
             cmdAfmelden = new clsCustomCommand(ExecuteAfmelden, CanExecuteAfmelden);
@@ -38,16 +60,39 @@ namespace HomeManager.ViewModel
         }
 
         private bool CanExecuteBackup(object? obj)
-        {
-            clsPermissionChecker _permissionChecker = new clsPermissionChecker();      
-            return _permissionChecker.HasPermission("710"); 
+        { 
+            if (CanBackup)
+            {
+                clsPermissionChecker _permissionChecker = new clsPermissionChecker();
+                return _permissionChecker.HasPermission("710");
+            }
+            else
+            {
+                return false;
+            }
         }
 
-        private void ExecuteBackup(object? obj)
+        private async void ExecuteBackup(object? obj)
         {
-            throw new NotImplementedException();
-        }
+            try
+            {
+                CanBackup= false;
+                // Wacht asynchroon op het resultaat van de GetAll() methode
+                MijnBackupCollectie = await MijnBackupService.CreateBackup();
 
+                // Toon een bericht als de backup succesvol is gemaakt
+                MessageBox.Show("Backup is gemaakt: " + MijnBackupCollectie[0].Path);
+            }
+            catch (Exception ex)
+            {
+                // Foutafhandeling voor als de backup mislukt
+                MessageBox.Show("Er is een fout opgetreden tijdens het maken van de backup: " + ex.Message);
+            }
+            finally
+            {
+                CanBackup = true;
+            }
+        }
         private bool CanExecuteAfmelden(object? obj)
         {
             return true;

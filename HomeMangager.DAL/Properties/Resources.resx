@@ -189,4 +189,7 @@
   <data name="U_Login" xml:space="preserve">
     <value>U_Login</value>
   </data>
+  <data name="BackupHomeManagerDB" xml:space="preserve">
+    <value>BackupHomeManagerDB</value>
+  </data>
 </root>
