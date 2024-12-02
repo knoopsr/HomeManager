@@ -35,17 +35,15 @@
   </ItemGroup>
 
   <ItemGroup>
-//master
     <None Update="Properties\Connection.settings">
-      <Generator>SettingsSingleFileGenerator</Generator>
-//todo
+    <Generator>SettingsSingleFileGenerator</Generator>
+  </None>
     <EmbeddedResource Update="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Update="Properties\Connection.resx">
       <Generator>ResXFileCodeGenerator</Generator>
-//eind todo
       <LastGenOutput>Connection.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
