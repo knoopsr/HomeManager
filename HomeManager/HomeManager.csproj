@@ -37,6 +37,7 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.135" />
+    <ProjectReference Include="..\HomeManager.Mail\HomeManager.Mail.csproj" />
     <ProjectReference Include="..\HomeMangager.Common\HomeManager.Common.csproj" />
     <ProjectReference Include="..\HomeMangager.DAL\HomeManager.DAL.csproj" />
     <ProjectReference Include="..\HomeMangager.Model\HomeManager.Model.csproj" />

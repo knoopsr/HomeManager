@@ -1,6 +1,7 @@
 ﻿using HomeManager.Common;
 using HomeManager.DataService.Homepage;
 using HomeManager.Helpers;
+using HomeManager.Mail;
 using HomeManager.Model.Homepage;
 using HomeManager.Model.Security;
 using HomeManager.View.Security;
@@ -80,8 +81,28 @@ namespace HomeManager.ViewModel
                 // Wacht asynchroon op het resultaat van de GetAll() methode
                 MijnBackupCollectie = await MijnBackupService.CreateBackup();
 
-                // Toon een bericht als de backup succesvol is gemaakt
-                MessageBox.Show("Backup is gemaakt: " + MijnBackupCollectie[0].Path);
+
+                string link ="https://homemanager.knoopsr.be/backups/" + MijnBackupCollectie[0].Path;      
+
+
+                clsMailModel mailModel = new clsMailModel
+                {
+                    MailToName = clsLoginModel.Instance.VoorNaam,
+                    MailToEmail = "johndoe@example.com",
+                    Subject = "Backup Gemaakt",
+                    Body = "Backup is gemaakt:\n" + Environment.NewLine + "<a href='"+link+"'>Download Backup</a>"
+                };
+
+                bool emailVerzonden = await clsMail.SendEmail(mailModel);
+
+                if (emailVerzonden)
+                {
+                    MessageBox.Show("E-mail succesvol verzonden naar " + mailModel.MailToEmail);
+                } else
+                {
+                    MessageBox.Show("Er is een fout opgetreden tijdens het verzenden van de e-mail.");
+                }
+
             }
             catch (Exception ex)
             {
