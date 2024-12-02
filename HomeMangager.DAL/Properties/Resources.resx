@@ -117,6 +117,78 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="D_Persoon" xml:space="preserve">
+    <value>D_Persoon</value>
+  </data>
+  <data name="S_Persoon" xml:space="preserve">
+    <value>S_Persoon</value>
+  </data>
+  <data name="I_Persoon" xml:space="preserve">
+    <value>I_Persoon</value>
+  </data>
+  <data name="U_Persoon" xml:space="preserve">
+    <value>U_Persoon</value>
+  </data>
+  <data name="S_Account" xml:space="preserve">
+    <value>S_Account</value>
+  </data>
+  <data name="I_Account" xml:space="preserve">
+    <value>I_Account</value>
+  </data>
+  <data name="U_Account" xml:space="preserve">
+    <value>U_Account</value>
+  </data>
+  <data name="D_Account" xml:space="preserve">
+    <value>D_Account</value>
+  </data>
+  <data name="D_Rollen" xml:space="preserve">
+    <value>D_Rollen</value>
+  </data>
+  <data name="D_WachtWoordenGroep" xml:space="preserve">
+    <value>D_WachtWoordenGroep</value>
+  </data>
+  <data name="S_Rollen" xml:space="preserve">
+    <value>S_Rollen</value>
+  </data>
+  <data name="S_WachtWoordenGroep" xml:space="preserve">
+    <value>S_WachtWoordenGroep</value>
+  </data>
+  <data name="U_WachtWoordenGroep" xml:space="preserve">
+    <value>U_WachtWoordenGroep</value>
+  </data>
+  <data name="S_Rechten" xml:space="preserve">
+    <value>S_Rechten</value>
+  </data>
+  <data name="I_Rollen" xml:space="preserve">
+    <value>I_Rollen</value>
+  </data>
+  <data name="I_WachtWoordenGroep" xml:space="preserve">
+    <value>I_WachtWoordenGroep</value>
+  </data>
+  <data name="I_Wachtwoord" xml:space="preserve">
+    <value>I_Wachtwoord</value>
+  </data>
+  <data name="S_Wachtwoord" xml:space="preserve">
+    <value>S_Wachtwoord</value>
+  </data>
+  <data name="D_Wachtwoord" xml:space="preserve">
+    <value>D_Wachtwoord</value>
+  </data>
+  <data name="U_Wachtwoord" xml:space="preserve">
+    <value>U_Wachtwoord</value>
+  </data>
+  <data name="S_RechtenCatogorie" xml:space="preserve">
+    <value>S_RechtenCatogorie</value>
+  </data>
+  <data name="U_Rollen" xml:space="preserve">
+    <value>U_Rollen</value>
+  </data>
+  <data name="S_Login" xml:space="preserve">
+    <value>S_Login</value>
+  </data>
+  <data name="U_Login" xml:space="preserve">
+    <value>U_Login</value>
+  </data>
   <data name="D_Dagboek" xml:space="preserve">
     <value>D_Dagboek</value>
   </data>

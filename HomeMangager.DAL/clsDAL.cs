@@ -219,6 +219,14 @@ namespace HomeManager.DAL
             myParameter.IsNullable = true;
             return myParameter;
         }
+
+        public static SqlParameter Parameter(string naam, object waarde, SqlDbType sqlDbType)
+        {
+            SqlParameter parameter = new SqlParameter(naam, sqlDbType);
+            parameter.Value = waarde ?? DBNull.Value;
+            return parameter;
+        }
     }
 }
+
 
