@@ -35,7 +35,9 @@
                 CornerRadius="3"
                 Effect="{DynamicResource shadowEffect}">
                 <!--<Border.Background>
-                    --><!--<ImageBrush ImageSource="\Images\person1.jpg" Stretch="UniformToFill" />--><!--
+                -->
+                <!--<ImageBrush ImageSource="\Images\person1.jpg" Stretch="UniformToFill" />-->
+                <!--
                 </Border.Background>-->
             </Border>
 

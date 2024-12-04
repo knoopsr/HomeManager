@@ -16,7 +16,11 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
-        <Border Grid.Row="0" Background="{StaticResource myTitleBar}" BorderBrush="LightBlue" BorderThickness="1">
+        <Border
+            Grid.Row="0"
+            Background="{StaticResource myTitleBar}"
+            BorderBrush="LightBlue"
+            BorderThickness="1">
             <Grid>
                 <StackPanel
                     Margin="10,0,0,0"
@@ -77,24 +81,78 @@
                             HorizontalAlignment="Left"
                             VerticalAlignment="Top"
                             Columns="4">
-                            <local:ucPersonItem Height="100" MaxWidth="150" MaxHeight="100"/>
-                            <local:ucPersonItem Height="100" MaxWidth="150" MaxHeight="100"/>
-                            <local:ucPersonItem Height="100" MaxWidth="150" MaxHeight="100"/>
-                            <local:ucPersonItem Height="100" MaxWidth="150" MaxHeight="100"/>
-                            <local:ucPersonItem Height="100" MaxWidth="150" MaxHeight="100"/>
-                            <local:ucPersonItem Height="100" MaxWidth="150" MaxHeight="100"/>
-                            <local:ucPersonItem Height="100" MaxWidth="150" MaxHeight="100"/>
-                            <local:ucPersonItem Height="100" MaxWidth="150" MaxHeight="100"/>
-                            <local:ucPersonItem Height="100" MaxWidth="150" MaxHeight="100"/>
-                            <local:ucPersonItem Height="100" MaxWidth="150" MaxHeight="100"/>
-                            <local:ucPersonItem Height="100" MaxWidth="150" MaxHeight="100"/>
-                            <local:ucPersonItem Height="100" MaxWidth="150" MaxHeight="100"/>
-                            <local:ucPersonItem Height="100" MaxWidth="150" MaxHeight="100"/>
-                            <local:ucPersonItem Height="100" MaxWidth="150" MaxHeight="100"/>
-                            <local:ucPersonItem Height="100" MaxWidth="150" MaxHeight="100"/>
-                            <local:ucPersonItem Height="100" MaxWidth="150" MaxHeight="100"/>
-                            <local:ucPersonItem Height="100" MaxWidth="150" MaxHeight="100"/>
-                            <local:ucPersonItem Height="100" MaxWidth="150" MaxHeight="100"/>
+                            <local:ucPersonItem
+                                Height="100"
+                                MaxWidth="150"
+                                MaxHeight="100" />
+                            <local:ucPersonItem
+                                Height="100"
+                                MaxWidth="150"
+                                MaxHeight="100" />
+                            <local:ucPersonItem
+                                Height="100"
+                                MaxWidth="150"
+                                MaxHeight="100" />
+                            <local:ucPersonItem
+                                Height="100"
+                                MaxWidth="150"
+                                MaxHeight="100" />
+                            <local:ucPersonItem
+                                Height="100"
+                                MaxWidth="150"
+                                MaxHeight="100" />
+                            <local:ucPersonItem
+                                Height="100"
+                                MaxWidth="150"
+                                MaxHeight="100" />
+                            <local:ucPersonItem
+                                Height="100"
+                                MaxWidth="150"
+                                MaxHeight="100" />
+                            <local:ucPersonItem
+                                Height="100"
+                                MaxWidth="150"
+                                MaxHeight="100" />
+                            <local:ucPersonItem
+                                Height="100"
+                                MaxWidth="150"
+                                MaxHeight="100" />
+                            <local:ucPersonItem
+                                Height="100"
+                                MaxWidth="150"
+                                MaxHeight="100" />
+                            <local:ucPersonItem
+                                Height="100"
+                                MaxWidth="150"
+                                MaxHeight="100" />
+                            <local:ucPersonItem
+                                Height="100"
+                                MaxWidth="150"
+                                MaxHeight="100" />
+                            <local:ucPersonItem
+                                Height="100"
+                                MaxWidth="150"
+                                MaxHeight="100" />
+                            <local:ucPersonItem
+                                Height="100"
+                                MaxWidth="150"
+                                MaxHeight="100" />
+                            <local:ucPersonItem
+                                Height="100"
+                                MaxWidth="150"
+                                MaxHeight="100" />
+                            <local:ucPersonItem
+                                Height="100"
+                                MaxWidth="150"
+                                MaxHeight="100" />
+                            <local:ucPersonItem
+                                Height="100"
+                                MaxWidth="150"
+                                MaxHeight="100" />
+                            <local:ucPersonItem
+                                Height="100"
+                                MaxWidth="150"
+                                MaxHeight="100" />
 
 
                         </UniformGrid>

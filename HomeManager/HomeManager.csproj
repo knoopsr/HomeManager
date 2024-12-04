@@ -34,7 +34,6 @@
     <Folder Include="View\Budget\" />
     <Folder Include="View\Homepage\" />
     <Folder Include="View\StickyNotes\" />
-    <Folder Include="View\Todo\" />
     <Folder Include="View\Security\" />
   </ItemGroup>
 
