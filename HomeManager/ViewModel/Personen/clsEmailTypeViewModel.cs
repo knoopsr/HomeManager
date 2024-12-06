@@ -1,24 +1,21 @@
-﻿using HomeManager.Common;
+﻿using HomeManager.DataService.Personen;
 using HomeManager.Helpers;
+using HomeManager.Model.Personen;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using System.Windows;
-using HomeManager.DataService.Personen;
-using HomeManager.Model.Personen;
-using System.IO;
-using System.Windows.Media.Imaging;
+using HomeManager.Common;
 
 namespace HomeManager.ViewModel
 {
-    public class clsFunctieVM : clsCommonModelPropertiesBase
+    public class clsEmailTypeViewModel : clsCommonModelPropertiesBase
     {
-        clsFunctieDataService MijnService;
+        clsEmailTypeDataService MijnService;
         private bool NewStatus = false;
 
         public ICommand cmdDelete { get; set; }
@@ -28,8 +25,8 @@ namespace HomeManager.ViewModel
         public ICommand cmdSave { get; set; }
 
 
-        private ObservableCollection<clsFunctiesM> _MijnCollectie;
-        public ObservableCollection<clsFunctiesM> MijnCollectie
+        private ObservableCollection<clsEmailTypeModel> _MijnCollectie;
+        public ObservableCollection<clsEmailTypeModel> MijnCollectie
         {
             get
             {
@@ -42,8 +39,8 @@ namespace HomeManager.ViewModel
             }
         }
 
-        private clsFunctiesM _MijnSelectedItem;
-        public clsFunctiesM MijnSelectedItem
+        private clsEmailTypeModel _MijnSelectedItem;
+        public clsEmailTypeModel MijnSelectedItem
         {
             get
             {
@@ -121,9 +118,9 @@ namespace HomeManager.ViewModel
             MijnCollectie = MijnService.GetAll();
         }
 
-        public clsFunctieVM()
+        public clsEmailTypeViewModel()
         {
-            MijnService = new clsFunctieDataService();
+            MijnService = new clsEmailTypeDataService();
 
             cmdSave = new clsCustomCommand(Execute_SaveCommand, CanExecute_SaveCommand);
             cmdDelete = new clsCustomCommand(Execute_DeleteCommand, CanExecute_DeleteCommand);
@@ -201,10 +198,10 @@ namespace HomeManager.ViewModel
 
         private void Execute_NewCommand(object obj)
         {
-            clsFunctiesM ItemToInsert = new clsFunctiesM()
+            clsEmailTypeModel ItemToInsert = new clsEmailTypeModel()
             {
-                FunctieID = 0,
-                Functie = string.Empty,
+                EmailTypeID = 0,
+                EmailType = string.Empty,
                 Omschrijving = string.Empty
             };
             MijnSelectedItem = ItemToInsert;

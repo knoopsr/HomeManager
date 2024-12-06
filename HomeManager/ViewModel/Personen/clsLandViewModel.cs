@@ -15,7 +15,7 @@ using System.Windows;
 
 namespace HomeManager.ViewModel
 {
-    public class clsLandVM : clsCommonModelPropertiesBase
+    public class clsLandViewModel : clsCommonModelPropertiesBase
     {
         clsLandDataService MijnService;
         private bool NewStatus = false;
@@ -28,8 +28,8 @@ namespace HomeManager.ViewModel
 
         public ICommand cmdUploadPicture { get; set; }
 
-        private ObservableCollection<clsLandM> _mijnCollectie;
-        public ObservableCollection<clsLandM> MijnCollectie
+        private ObservableCollection<clsLandModel> _mijnCollectie;
+        public ObservableCollection<clsLandModel> MijnCollectie
         {
             get { return _mijnCollectie; }
             set
@@ -40,8 +40,8 @@ namespace HomeManager.ViewModel
         }
 
 
-        private clsLandM _mijnSelectedItem;
-        public clsLandM MijnSelectedItem
+        private clsLandModel _mijnSelectedItem;
+        public clsLandModel MijnSelectedItem
         {
             get { return _mijnSelectedItem; }
             set
@@ -105,7 +105,7 @@ namespace HomeManager.ViewModel
             }
         }
 
-        public clsLandVM()
+        public clsLandViewModel()
         {
             MijnService = new clsLandDataService();
 
@@ -230,7 +230,7 @@ namespace HomeManager.ViewModel
 
         private void Execute_New_Command(object? obj)
         {
-            clsLandM _itemToInsert = new clsLandM()
+            clsLandModel _itemToInsert = new clsLandModel()
             {
                 LandID = 0,
                 Land = string.Empty,

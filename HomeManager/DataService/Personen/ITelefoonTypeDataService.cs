@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace HomeManager.DataService.Personen
 {
-    public interface ITelefoonTypeDataService : IDataService<clsTelefoonTypeM>
+    public interface ITelefoonTypeDataService : IDataService<clsTelefoonTypeModel>
     {
     }
 }

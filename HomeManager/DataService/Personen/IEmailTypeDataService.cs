@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace HomeManager.DataService.Personen
 {
-    public interface IEmailTypeDataService : IDataService<clsEmailTypeM>
+    public interface IEmailTypeDataService : IDataService<clsEmailTypeModel>
     {
     }
 }

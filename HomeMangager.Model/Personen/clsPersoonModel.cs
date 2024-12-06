@@ -3,7 +3,7 @@ using System.ComponentModel;
 
 namespace HomeManager.Model.Personen
 {
-    public class clsPersoonM : clsCommonModelPropertiesBase, IDataErrorInfo
+    public class clsPersoonModel : clsCommonModelPropertiesBase, IDataErrorInfo
     {
         private int _persoonID;
         public int PersoonID

@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace HomeManager.DataService.Personen
 {
-    public interface ILandDataService : IDataService<clsLandM>
+    public interface ILandDataService : IDataService<clsLandModel>
     {
     }
 }

@@ -13,7 +13,7 @@ using HomeManager.Model.Personen;
 
 namespace HomeManager.ViewModel
 {
-    public class clsProvincieVM : clsCommonModelPropertiesBase
+    public class clsProvincieViewModel : clsCommonModelPropertiesBase
     {
         clsProvincieDataService MijnService;
         private bool NewStatus = false;
@@ -24,9 +24,9 @@ namespace HomeManager.ViewModel
         public ICommand cmdClose { get; set; }
         public ICommand cmdSave { get; set; }
 
-        private ObservableCollection<clsProvincieM> mijnCollectie;
+        private ObservableCollection<clsProvincieModel> mijnCollectie;
 
-        public ObservableCollection<clsProvincieM> MijnCollectie
+        public ObservableCollection<clsProvincieModel> MijnCollectie
         {
             get
             {
@@ -40,8 +40,8 @@ namespace HomeManager.ViewModel
         }
 
 
-        private clsProvincieM mijnSelectedItem;
-        public clsProvincieM MijnSelectedItem
+        private clsProvincieModel mijnSelectedItem;
+        public clsProvincieModel MijnSelectedItem
         {
             get
             {
@@ -132,7 +132,7 @@ namespace HomeManager.ViewModel
             }
         }
 
-        public clsProvincieVM()
+        public clsProvincieViewModel()
         {
             MijnService = new clsProvincieDataService();
             cmdNew = new clsCustomCommand(Execute_NewCommand, CanExecute_NewCommand);
@@ -153,7 +153,7 @@ namespace HomeManager.ViewModel
 
         private void Execute_NewCommand(object? obj)
         {
-            clsProvincieM ItemToInsert = new clsProvincieM()
+            clsProvincieModel ItemToInsert = new clsProvincieModel()
             {
                 ProvincieID = 0,
                 Provincie = string.Empty,

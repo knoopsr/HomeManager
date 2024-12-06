@@ -13,37 +13,37 @@ namespace HomeManager.DataService.Personen
     {
         IEmailTypeRepository Repo = new clsEmailTypeRepository();
 
-        public bool Delete(clsEmailTypeM entity)
+        public bool Delete(clsEmailTypeModel entity)
         {
             return Repo.Delete(entity);
         }
 
-        public clsEmailTypeM Find()
+        public clsEmailTypeModel Find()
         {
             return Repo.Find();
         }
 
-        public ObservableCollection<clsEmailTypeM> GetAll()
+        public ObservableCollection<clsEmailTypeModel> GetAll()
         {
             return Repo.GetAll();
         }
 
-        public clsEmailTypeM GetById(int id)
+        public clsEmailTypeModel GetById(int id)
         {
             return Repo.GetById(id);
         }
 
-        public clsEmailTypeM GetFirst()
+        public clsEmailTypeModel GetFirst()
         {
             return Repo.GetFirst();
         }
 
-        public bool Insert(clsEmailTypeM entity)
+        public bool Insert(clsEmailTypeModel entity)
         {
             return Repo.Insert(entity);
         }
 
-        public bool Update(clsEmailTypeM entity)
+        public bool Update(clsEmailTypeModel entity)
         {
             return Repo.Update(entity);
         }

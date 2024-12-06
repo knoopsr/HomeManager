@@ -13,11 +13,11 @@ namespace HomeManager.DAL.Personen
 {
     public class clsFunctiesRepository : IFunctiesRepository
     {
-        private ObservableCollection<clsFunctiesM> MijnCollectie;
+        private ObservableCollection<clsFunctiesModel> MijnCollectie;
         int nr = 0;
         public clsFunctiesRepository()
         { }
-        public bool Delete(clsFunctiesM entity)
+        public bool Delete(clsFunctiesModel entity)
         {
             (DataTable DT, bool OK, string Boodschap) =
                 clsDAL.ExecuteDataTable(Properties.Resources.D_Functies,
@@ -31,12 +31,12 @@ namespace HomeManager.DAL.Personen
             return OK;
         }
 
-        public clsFunctiesM Find()
+        public clsFunctiesModel Find()
         {
             throw new NotImplementedException();
         }
 
-        public ObservableCollection<clsFunctiesM> GetAll()
+        public ObservableCollection<clsFunctiesModel> GetAll()
         {
             GenerateCollection();
             return MijnCollectie;
@@ -45,11 +45,11 @@ namespace HomeManager.DAL.Personen
         private void GenerateCollection()
         {
             SqlDataReader MijnDataReader = clsDAL.GetData(Properties.Resources.S_Functies);
-            MijnCollectie = new ObservableCollection<clsFunctiesM>();
+            MijnCollectie = new ObservableCollection<clsFunctiesModel>();
 
             while (MijnDataReader.Read())
             {
-                clsFunctiesM m = new clsFunctiesM()
+                clsFunctiesModel m = new clsFunctiesModel()
                 {
                     FunctieID = (int)MijnDataReader["FunctieID"],
                     Functie = MijnDataReader["Functie"].ToString(),
@@ -61,7 +61,7 @@ namespace HomeManager.DAL.Personen
             MijnDataReader.Close();
         }
 
-        public clsFunctiesM GetById(int id)
+        public clsFunctiesModel GetById(int id)
         {
             if (MijnCollectie == null)
             {
@@ -70,7 +70,7 @@ namespace HomeManager.DAL.Personen
             return MijnCollectie.Where(functie => functie.FunctieID == id).FirstOrDefault();
         }
 
-        public clsFunctiesM GetFirst()
+        public clsFunctiesModel GetFirst()
         {
             if (MijnCollectie == null)
             {
@@ -79,7 +79,7 @@ namespace HomeManager.DAL.Personen
             return MijnCollectie.FirstOrDefault();
         }
 
-        public bool Insert(clsFunctiesM entity)
+        public bool Insert(clsFunctiesModel entity)
         {
             (DataTable DT, bool OK, string Boodschap) =
                 clsDAL.ExecuteDataTable(Properties.Resources.I_Functies,
@@ -94,7 +94,7 @@ namespace HomeManager.DAL.Personen
             return OK;
         }
 
-        public bool Update(clsFunctiesM entity)
+        public bool Update(clsFunctiesModel entity)
         {
             (DataTable DT, bool OK, string Boodschap) =
                 clsDAL.ExecuteDataTable(Properties.Resources.U_Functies,

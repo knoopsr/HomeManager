@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace HomeManager.DAL.Personen
 {
-    public interface ILandRepository : IRepository<clsLandM>
+    public interface ILandRepository : IRepository<clsLandModel>
     {
     }
 }

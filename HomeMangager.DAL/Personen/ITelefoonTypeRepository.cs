@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace HomeManager.DAL.Personen
 {
-    public interface ITelefoonTypeRepository : IRepository<clsTelefoonTypeM>
+    public interface ITelefoonTypeRepository : IRepository<clsTelefoonTypeModel>
     {
     }
 }

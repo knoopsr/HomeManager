@@ -12,37 +12,37 @@ namespace HomeManager.DataService.Personen
     public class clsTelefoonTypeDataService : ITelefoonTypeDataService
     {
         ITelefoonTypeRepository Repo = new clsTelefoonTypeRepository();
-        public bool Delete(clsTelefoonTypeM entity)
+        public bool Delete(clsTelefoonTypeModel entity)
         {
             return Repo.Delete(entity);
         }
 
-        public clsTelefoonTypeM Find()
+        public clsTelefoonTypeModel Find()
         {
             return Repo.Find();
         }
 
-        public ObservableCollection<clsTelefoonTypeM> GetAll()
+        public ObservableCollection<clsTelefoonTypeModel> GetAll()
         {
             return Repo.GetAll();
         }
 
-        public clsTelefoonTypeM GetById(int id)
+        public clsTelefoonTypeModel GetById(int id)
         {
             return Repo.GetById(id);
         }
 
-        public clsTelefoonTypeM GetFirst()
+        public clsTelefoonTypeModel GetFirst()
         {
             return Repo.GetFirst();
         }
 
-        public bool Insert(clsTelefoonTypeM entity)
+        public bool Insert(clsTelefoonTypeModel entity)
         {
             return Repo.Insert(entity);
         }
 
-        public bool Update(clsTelefoonTypeM entity)
+        public bool Update(clsTelefoonTypeModel entity)
         {
             return Repo.Update(entity);
         }

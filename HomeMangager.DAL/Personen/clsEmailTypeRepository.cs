@@ -12,11 +12,11 @@ namespace HomeManager.DAL.Personen
 {
     public class clsEmailTypeRepository : IEmailTypeRepository
     {
-        private ObservableCollection<clsEmailTypeM> MijnCollectie;
+        private ObservableCollection<clsEmailTypeModel> MijnCollectie;
         int nr = 0;
         public clsEmailTypeRepository()
         { }
-        public bool Delete(clsEmailTypeM entity)
+        public bool Delete(clsEmailTypeModel entity)
         {
             (DataTable DT, bool OK, string Boodschap) =
                 clsDAL.ExecuteDataTable(Properties.Resources.D_EmailType,
@@ -30,12 +30,12 @@ namespace HomeManager.DAL.Personen
             return OK;
         }
 
-        public clsEmailTypeM Find()
+        public clsEmailTypeModel Find()
         {
             throw new NotImplementedException();
         }
 
-        public ObservableCollection<clsEmailTypeM> GetAll()
+        public ObservableCollection<clsEmailTypeModel> GetAll()
         {
             GenerateCollection();
             return MijnCollectie;
@@ -44,11 +44,11 @@ namespace HomeManager.DAL.Personen
         private void GenerateCollection()
         {
             SqlDataReader MijnDataReader = clsDAL.GetData(Properties.Resources.S_EmailType);
-            MijnCollectie = new ObservableCollection<clsEmailTypeM>();
+            MijnCollectie = new ObservableCollection<clsEmailTypeModel>();
 
             while (MijnDataReader.Read())
             {
-                clsEmailTypeM m = new clsEmailTypeM()
+                clsEmailTypeModel m = new clsEmailTypeModel()
                 {
                     EmailTypeID = (int)MijnDataReader["EmailTypeID"],
                     EmailType = MijnDataReader["EmailType"].ToString(),
@@ -60,7 +60,7 @@ namespace HomeManager.DAL.Personen
             MijnDataReader.Close();
         }
 
-        public clsEmailTypeM GetById(int id)
+        public clsEmailTypeModel GetById(int id)
         {
             if (MijnCollectie == null)
             {
@@ -69,7 +69,7 @@ namespace HomeManager.DAL.Personen
             return MijnCollectie.Where(emailtype => emailtype.EmailTypeID == id).FirstOrDefault();
         }
 
-        public clsEmailTypeM GetFirst()
+        public clsEmailTypeModel GetFirst()
         {
             if (MijnCollectie == null)
             {
@@ -78,7 +78,7 @@ namespace HomeManager.DAL.Personen
             return MijnCollectie.FirstOrDefault();
         }
 
-        public bool Insert(clsEmailTypeM entity)
+        public bool Insert(clsEmailTypeModel entity)
         {
             (DataTable DT, bool OK, string Boodschap) =
                 clsDAL.ExecuteDataTable(Properties.Resources.I_EmailType,
@@ -93,7 +93,7 @@ namespace HomeManager.DAL.Personen
             return OK;
         }
 
-        public bool Update(clsEmailTypeM entity)
+        public bool Update(clsEmailTypeModel entity)
         {
             (DataTable DT, bool OK, string Boodschap) =
                 clsDAL.ExecuteDataTable(Properties.Resources.U_EmailType,

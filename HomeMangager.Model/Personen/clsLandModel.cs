@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace HomeManager.Model.Personen
 {
-    public class clsLandM : clsCommonModelPropertiesBase, IDataErrorInfo
+    public class clsLandModel : clsCommonModelPropertiesBase, IDataErrorInfo
     {
         private int _landID;
         public int LandID

@@ -13,37 +13,37 @@ namespace HomeManager.DataService.Personen
     {
         IProvincieRepository Repo = new clsProvincieRepository();
         
-        public bool Delete(clsProvincieM entity)
+        public bool Delete(clsProvincieModel entity)
         {
             return Repo.Delete(entity);
         }
 
-        public clsProvincieM Find()
+        public clsProvincieModel Find()
         {
             return Repo.Find();
         }
 
-        public ObservableCollection<clsProvincieM> GetAll()
+        public ObservableCollection<clsProvincieModel> GetAll()
         {
             return Repo.GetAll();
         }
 
-        public clsProvincieM GetById(int id)
+        public clsProvincieModel GetById(int id)
         {
             return Repo.GetById(id);
         }
 
-        public clsProvincieM GetFirst()
+        public clsProvincieModel GetFirst()
         {
             return Repo.GetFirst();
         }
 
-        public bool Insert(clsProvincieM entity)
+        public bool Insert(clsProvincieModel entity)
         {
             return Repo.Insert(entity);
         }
 
-        public bool Update(clsProvincieM entity)
+        public bool Update(clsProvincieModel entity)
         {
             return Repo.Insert(entity);
         }

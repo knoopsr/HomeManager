@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace HomeManager.Model.Personen
 {
-    public class clsEmailTypeM : clsCommonModelPropertiesBase, IDataErrorInfo
+    public class clsEmailTypeModel : clsCommonModelPropertiesBase, IDataErrorInfo
     {
         private int _emailTypeID;
         public int EmailTypeID

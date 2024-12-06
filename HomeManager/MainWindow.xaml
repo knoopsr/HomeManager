@@ -19,25 +19,25 @@
 
 
     <Window.Resources>
-        <DataTemplate DataType="{x:Type VM:clsPersoonVM}">
+        <DataTemplate DataType="{x:Type VM:clsPersoonViewModel}">
             <V:ucPersoon />
         </DataTemplate>
-        <DataTemplate DataType="{x:Type VM:clsFunctieVM}">
+        <DataTemplate DataType="{x:Type VM:clsFunctieViewModel}">
             <V:ucFunctie />
         </DataTemplate>
-        <DataTemplate DataType="{x:Type VM:clsEmailTypeVM}">
+        <DataTemplate DataType="{x:Type VM:clsEmailTypeViewModel}">
             <V:ucEmailType />
         </DataTemplate>
-        <DataTemplate DataType="{x:Type VM:clsTelefoonTypeVM}">
+        <DataTemplate DataType="{x:Type VM:clsTelefoonTypeViewModel}">
             <V:ucTelefoonType />
         </DataTemplate>
-        <DataTemplate DataType="{x:Type VM:clsLandVM}">
+        <DataTemplate DataType="{x:Type VM:clsLandViewModel}">
             <V:ucLand />
         </DataTemplate>
-        <DataTemplate DataType="{x:Type VM:clsProvincieVM}">
+        <DataTemplate DataType="{x:Type VM:clsProvincieViewModel}">
             <V:ucProvincie />
         </DataTemplate>
-        <DataTemplate DataType="{x:Type VM:clsGemeenteVM}">
+        <DataTemplate DataType="{x:Type VM:clsGemeenteViewModel}">
             <V:ucGemeente />
         </DataTemplate>
 
@@ -142,32 +142,32 @@
                         <StackPanel x:Name="stckPerson">
                             <Button
                                 Command="{Binding NavCommand}"
-                                CommandParameter="clsPersoonVM"
+                                CommandParameter="clsPersoonViewModel"
                                 Content="Persoon"
                                 Style="{StaticResource myExpanderPerson}" />
                             <Button
                                 Command="{Binding NavCommand}"
-                                CommandParameter="clsEmailTypeVM"
+                                CommandParameter="clsEmailTypeViewModel"
                                 Content="EmailType"
                                 Style="{StaticResource myMenuTandwiel}" />
                             <Button
                                 Command="{Binding NavCommand}"
-                                CommandParameter="clsTelefoonTypeVM"
+                                CommandParameter="clsTelefoonTypeViewModel"
                                 Content="TelefoonType"
                                 Style="{StaticResource myMenuTandwiel}" />
                             <Button
                                 Command="{Binding NavCommand}"
-                                CommandParameter="clsLandVM"
+                                CommandParameter="clsLandViewModel"
                                 Content="Land"
                                 Style="{StaticResource myMenuTandwiel}" />
                             <Button
                                 Command="{Binding NavCommand}"
-                                CommandParameter="clsProvincieVM"
+                                CommandParameter="clsProvincieViewModel"
                                 Content="Provincie"
                                 Style="{StaticResource myMenuTandwiel}" />
                             <Button
                                 Command="{Binding NavCommand}"
-                                CommandParameter="clsGemeenteVM"
+                                CommandParameter="clsGemeenteViewModel"
                                 Content="Gemeente"
                                 Style="{StaticResource myMenuTandwiel}" />
                             <Button

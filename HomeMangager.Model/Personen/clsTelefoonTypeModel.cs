@@ -9,7 +9,7 @@ using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace HomeManager.Model.Personen
 {
-    public class clsTelefoonTypeM : clsCommonModelPropertiesBase, IDataErrorInfo
+    public class clsTelefoonTypeModel : clsCommonModelPropertiesBase, IDataErrorInfo
     {
         private int _telefoonTypeID;
         public int TelefoonTypeID

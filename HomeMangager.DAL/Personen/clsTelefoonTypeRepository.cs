@@ -12,11 +12,11 @@ namespace HomeManager.DAL.Personen
 {
     public class clsTelefoonTypeRepository : ITelefoonTypeRepository
     {
-        private ObservableCollection<clsTelefoonTypeM> MijnCollectie;
+        private ObservableCollection<clsTelefoonTypeModel> MijnCollectie;
         int nr = 0;
         public clsTelefoonTypeRepository()
         { }
-        public bool Delete(clsTelefoonTypeM entity)
+        public bool Delete(clsTelefoonTypeModel entity)
         {
             (DataTable DT, bool OK, string Boodschap) =
                 clsDAL.ExecuteDataTable(Properties.Resources.D_TelefoonType,
@@ -30,12 +30,12 @@ namespace HomeManager.DAL.Personen
             return OK;
         }
 
-        public clsTelefoonTypeM Find()
+        public clsTelefoonTypeModel Find()
         {
             throw new NotImplementedException();
         }
 
-        public ObservableCollection<clsTelefoonTypeM> GetAll()
+        public ObservableCollection<clsTelefoonTypeModel> GetAll()
         {
             GenerateCollection();
             return MijnCollectie;
@@ -44,11 +44,11 @@ namespace HomeManager.DAL.Personen
         private void GenerateCollection()
         {
             SqlDataReader MijnDataReader = clsDAL.GetData(Properties.Resources.S_TelefoonType);
-            MijnCollectie = new ObservableCollection<clsTelefoonTypeM>();
+            MijnCollectie = new ObservableCollection<clsTelefoonTypeModel>();
 
             while (MijnDataReader.Read())
             {
-                clsTelefoonTypeM m = new clsTelefoonTypeM()
+                clsTelefoonTypeModel m = new clsTelefoonTypeModel()
                 {
                     TelefoonTypeID = (int)MijnDataReader["TelefoonTypeID"],
                     TelefoonType = MijnDataReader["TelefoonType"].ToString(),
@@ -59,7 +59,7 @@ namespace HomeManager.DAL.Personen
             MijnDataReader.Close();
         }
 
-        public clsTelefoonTypeM GetById(int id)
+        public clsTelefoonTypeModel GetById(int id)
         {
             if (MijnCollectie == null)
             {
@@ -68,7 +68,7 @@ namespace HomeManager.DAL.Personen
             return MijnCollectie.Where(telefoon => telefoon.TelefoonTypeID == id).FirstOrDefault();
         }
 
-        public clsTelefoonTypeM GetFirst()
+        public clsTelefoonTypeModel GetFirst()
         {
             if (MijnCollectie == null)
             {
@@ -77,7 +77,7 @@ namespace HomeManager.DAL.Personen
             return MijnCollectie.FirstOrDefault();
         }
 
-        public bool Insert(clsTelefoonTypeM entity)
+        public bool Insert(clsTelefoonTypeModel entity)
         {
             (DataTable DT, bool OK, string Boodschap) =
                 clsDAL.ExecuteDataTable(Properties.Resources.I_TelefoonType,
@@ -91,7 +91,7 @@ namespace HomeManager.DAL.Personen
             return OK;
         }
 
-        public bool Update(clsTelefoonTypeM entity)
+        public bool Update(clsTelefoonTypeModel entity)
         {
             (DataTable DT, bool OK, string Boodschap) =
                 clsDAL.ExecuteDataTable(Properties.Resources.U_TelefoonType,

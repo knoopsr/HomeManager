@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace HomeManager.DataService.Personen
 {
-    public interface IProvincieDataService : IDataService<clsProvincieM>
+    public interface IProvincieDataService : IDataService<clsProvincieModel>
     {
     }
 }

@@ -16,7 +16,7 @@ using System.Windows.Media.Imaging;
 
 namespace HomeManager.ViewModel
 {
-    public class clsPersoonVM : clsCommonModelPropertiesBase
+    public class clsPersoonViewModel : clsCommonModelPropertiesBase
     {
         clsPersoonDataService MijnService;
         private bool NewStatus = false;
@@ -29,8 +29,8 @@ namespace HomeManager.ViewModel
 
         public ICommand cmdUploadPicture { get; set; }
 
-        private ObservableCollection<clsPersoonM> _mijnCollectie;
-        public ObservableCollection<clsPersoonM> MijnCollectie
+        private ObservableCollection<clsPersoonModel> _mijnCollectie;
+        public ObservableCollection<clsPersoonModel> MijnCollectie
         {
             get { return _mijnCollectie; }
             set
@@ -41,8 +41,8 @@ namespace HomeManager.ViewModel
         }
 
 
-        private clsPersoonM _mijnSelectedItem;
-        public clsPersoonM MijnSelectedItem
+        private clsPersoonModel _mijnSelectedItem;
+        public clsPersoonModel MijnSelectedItem
         {
             get { return _mijnSelectedItem; }
             set
@@ -106,7 +106,7 @@ namespace HomeManager.ViewModel
             }
         }
 
-        public clsPersoonVM()
+        public clsPersoonViewModel()
         {
             MijnService = new clsPersoonDataService();
 
@@ -231,7 +231,7 @@ namespace HomeManager.ViewModel
 
         private void Execute_New_Command(object? obj)
         {
-            clsPersoonM _itemToInsert = new clsPersoonM()
+            clsPersoonModel _itemToInsert = new clsPersoonModel()
             {
                 PersoonID = 0,
                 Naam = string.Empty,

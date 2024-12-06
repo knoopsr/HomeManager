@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace HomeManager.DAL.Personen
 {
-    public interface IProvincieRepository : IRepository<clsProvincieM>
+    public interface IProvincieRepository : IRepository<clsProvincieModel>
     {
     }
 }

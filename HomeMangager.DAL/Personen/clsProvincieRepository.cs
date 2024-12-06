@@ -13,13 +13,13 @@ namespace HomeManager.DAL.Personen
     public class clsProvincieRepository : IProvincieRepository
     {
 
-        private ObservableCollection<clsProvincieM> MijnCollectie;
+        private ObservableCollection<clsProvincieModel> MijnCollectie;
         int nr = 0;
         public clsProvincieRepository()
         {
         }
 
-        public bool Delete(clsProvincieM entity)
+        public bool Delete(clsProvincieModel entity)
         {
             (DataTable DT, bool OK, string Boodschap) =
                 clsDAL.ExecuteDataTable(Properties.Resources.D_Provincie,
@@ -33,12 +33,12 @@ namespace HomeManager.DAL.Personen
             return OK;
         }
 
-        public clsProvincieM Find()
+        public clsProvincieModel Find()
         {
             throw new NotImplementedException();
         }
 
-        public ObservableCollection<clsProvincieM> GetAll()
+        public ObservableCollection<clsProvincieModel> GetAll()
         {
             GenerateCollection();
             return MijnCollectie;
@@ -47,11 +47,11 @@ namespace HomeManager.DAL.Personen
         private void GenerateCollection()
         {
             SqlDataReader MijnDataReader = clsDAL.GetData(Properties.Resources.S_Provincie);
-            MijnCollectie = new ObservableCollection<clsProvincieM>();
+            MijnCollectie = new ObservableCollection<clsProvincieModel>();
 
             while (MijnDataReader.Read())
             {
-                clsProvincieM e = new clsProvincieM()
+                clsProvincieModel e = new clsProvincieModel()
                 {
                     ProvincieID = (int)MijnDataReader[0],
                     Provincie = MijnDataReader[1].ToString(),
@@ -64,7 +64,7 @@ namespace HomeManager.DAL.Personen
             MijnDataReader.Close();
         }
 
-        public clsProvincieM GetById(int id)
+        public clsProvincieModel GetById(int id)
         {
             if (MijnCollectie == null)
             {
@@ -73,7 +73,7 @@ namespace HomeManager.DAL.Personen
             return MijnCollectie.Where(provincie => provincie.ProvincieID == id).FirstOrDefault();
         }
 
-        public clsProvincieM GetFirst()
+        public clsProvincieModel GetFirst()
         {
             if (MijnCollectie == null)
             {
@@ -82,7 +82,7 @@ namespace HomeManager.DAL.Personen
             return MijnCollectie.FirstOrDefault();
         }
 
-        public bool Insert(clsProvincieM entity)
+        public bool Insert(clsProvincieModel entity)
         {
             (DataTable DT, bool OK, string Boodschap) =
                 clsDAL.ExecuteDataTable(Properties.Resources.I_Provincie,
@@ -96,7 +96,7 @@ namespace HomeManager.DAL.Personen
             return OK;
         }
 
-        public bool Update(clsProvincieM entity)
+        public bool Update(clsProvincieModel entity)
         {
             (DataTable DT, bool OK, string Boodschap) =
                 clsDAL.ExecuteDataTable(Properties.Resources.U_Provincie,

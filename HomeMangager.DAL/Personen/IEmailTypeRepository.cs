@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace HomeManager.DAL.Personen
 {
-    public interface IEmailTypeRepository : IRepository<clsEmailTypeM>
+    public interface IEmailTypeRepository : IRepository<clsEmailTypeModel>
     {
     }
 }

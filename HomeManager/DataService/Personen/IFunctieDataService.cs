@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace HomeManager.DataService.Personen
 {
-    public interface IFunctieDataService : IDataService<clsFunctiesM>
+    public interface IFunctieDataService : IDataService<clsFunctiesModel>
     {
     }
 }

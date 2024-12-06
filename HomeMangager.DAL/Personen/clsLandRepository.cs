@@ -12,12 +12,12 @@ namespace HomeManager.DAL.Personen
 {
     public class clsLandRepository : ILandRepository
     {
-        private ObservableCollection<clsLandM> MijnCollectie;
+        private ObservableCollection<clsLandModel> MijnCollectie;
         int nr = 0;
         public clsLandRepository()
         {
         }
-        public bool Delete(clsLandM entity)
+        public bool Delete(clsLandModel entity)
         {
             (DataTable DT, bool OK, string Boodschap) =
                 clsDAL.ExecuteDataTable(Properties.Resources.D_Land,
@@ -31,12 +31,12 @@ namespace HomeManager.DAL.Personen
             return OK;
         }
 
-        public clsLandM Find()
+        public clsLandModel Find()
         {
             throw new NotImplementedException();
         }
 
-        public ObservableCollection<clsLandM> GetAll()
+        public ObservableCollection<clsLandModel> GetAll()
         {
             GenerateCollection();
             return MijnCollectie;
@@ -45,11 +45,11 @@ namespace HomeManager.DAL.Personen
         private void GenerateCollection()
         {
             SqlDataReader MijnDataReader = clsDAL.GetData(Properties.Resources.S_Land);
-            MijnCollectie = new ObservableCollection<clsLandM>();
+            MijnCollectie = new ObservableCollection<clsLandModel>();
 
             while (MijnDataReader.Read())
             {
-                clsLandM e = new clsLandM()
+                clsLandModel e = new clsLandModel()
                 {
                     LandID = (int)MijnDataReader[0],
                     Land = MijnDataReader[1].ToString(),
@@ -62,7 +62,7 @@ namespace HomeManager.DAL.Personen
             MijnDataReader.Close();
         }
 
-        public clsLandM GetById(int id)
+        public clsLandModel GetById(int id)
         {
             if (MijnCollectie == null)
             {
@@ -71,7 +71,7 @@ namespace HomeManager.DAL.Personen
             return MijnCollectie.Where(land => land.LandID == id).FirstOrDefault();
         }
 
-        public clsLandM GetFirst()
+        public clsLandModel GetFirst()
         {
             if (MijnCollectie == null)
             {
@@ -80,7 +80,7 @@ namespace HomeManager.DAL.Personen
             return MijnCollectie.FirstOrDefault();
         }
 
-        public bool Insert(clsLandM entity)
+        public bool Insert(clsLandModel entity)
         {
             (DataTable DT, bool OK, string Boodschap) =
                 clsDAL.ExecuteDataTable(Properties.Resources.I_Land,
@@ -96,7 +96,7 @@ namespace HomeManager.DAL.Personen
             return OK;
         }
 
-        public bool Update(clsLandM entity)
+        public bool Update(clsLandModel entity)
         {
             (DataTable DT, bool OK, string Boodschap) =
                 clsDAL.ExecuteDataTable(Properties.Resources.U_Land,

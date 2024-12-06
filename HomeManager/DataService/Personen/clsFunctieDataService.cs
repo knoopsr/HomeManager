@@ -12,37 +12,37 @@ namespace HomeManager.DataService.Personen
     public class clsFunctieDataService : IFunctieDataService
     {
         IFunctiesRepository Repo = new clsFunctiesRepository();
-        public bool Delete(clsFunctiesM entity)
+        public bool Delete(clsFunctiesModel entity)
         {
             return Repo.Delete(entity);
         }
 
-        public clsFunctiesM Find()
+        public clsFunctiesModel Find()
         {
             return Repo.Find();
         }
 
-        public ObservableCollection<clsFunctiesM> GetAll()
+        public ObservableCollection<clsFunctiesModel> GetAll()
         {
             return Repo.GetAll();
         }
 
-        public clsFunctiesM GetById(int id)
+        public clsFunctiesModel GetById(int id)
         {
             return Repo.GetById(id);
         }
 
-        public clsFunctiesM GetFirst()
+        public clsFunctiesModel GetFirst()
         {
             return Repo.GetFirst();
         }
 
-        public bool Insert(clsFunctiesM entity)
+        public bool Insert(clsFunctiesModel entity)
         {
             return Repo.Insert(entity);
         }
 
-        public bool Update(clsFunctiesM entity)
+        public bool Update(clsFunctiesModel entity)
         {
             return Repo.Update(entity);
         }

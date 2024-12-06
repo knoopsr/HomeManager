@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace HomeManager.DAL.Personen
 {
-    public interface IFunctiesRepository : IRepository<clsFunctiesM>
+    public interface IFunctiesRepository : IRepository<clsFunctiesModel>
     {
     }
 }

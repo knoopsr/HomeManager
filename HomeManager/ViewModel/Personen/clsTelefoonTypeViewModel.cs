@@ -13,7 +13,7 @@ using System.Windows;
 
 namespace HomeManager.ViewModel
 {
-    public class clsTelefoonTypeVM : clsCommonModelPropertiesBase
+    public class clsTelefoonTypeViewModel : clsCommonModelPropertiesBase
     {
         clsTelefoonTypeDataService MijnService;
         private bool NewStatus = false;
@@ -25,8 +25,8 @@ namespace HomeManager.ViewModel
         public ICommand cmdSave { get; set; }
 
 
-        private ObservableCollection<clsTelefoonTypeM> _MijnCollectie;
-        public ObservableCollection<clsTelefoonTypeM> MijnCollectie
+        private ObservableCollection<clsTelefoonTypeModel> _MijnCollectie;
+        public ObservableCollection<clsTelefoonTypeModel> MijnCollectie
         {
             get
             {
@@ -39,8 +39,8 @@ namespace HomeManager.ViewModel
             }
         }
 
-        private clsTelefoonTypeM _MijnSelectedItem;
-        public clsTelefoonTypeM MijnSelectedItem
+        private clsTelefoonTypeModel _MijnSelectedItem;
+        public clsTelefoonTypeModel MijnSelectedItem
         {
             get
             {
@@ -118,7 +118,7 @@ namespace HomeManager.ViewModel
             MijnCollectie = MijnService.GetAll();
         }
 
-        public clsTelefoonTypeVM()
+        public clsTelefoonTypeViewModel()
         {
             MijnService = new clsTelefoonTypeDataService();
 
@@ -198,7 +198,7 @@ namespace HomeManager.ViewModel
 
         private void Execute_NewCommand(object obj)
         {
-            clsTelefoonTypeM ItemToInsert = new clsTelefoonTypeM()
+            clsTelefoonTypeModel ItemToInsert = new clsTelefoonTypeModel()
             {
                 TelefoonTypeID = 0,
                 TelefoonType = string.Empty

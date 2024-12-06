@@ -12,37 +12,37 @@ namespace HomeManager.DataService.Personen
     public class clsLandDataService : ILandDataService
     {
         ILandRepository Repo = new clsLandRepository();
-        public bool Delete(clsLandM entity)
+        public bool Delete(clsLandModel entity)
         {
             return Repo.Delete(entity);
         }
 
-        public clsLandM Find()
+        public clsLandModel Find()
         {
             return Repo.Find();
         }
 
-        public ObservableCollection<clsLandM> GetAll()
+        public ObservableCollection<clsLandModel> GetAll()
         {
             return Repo.GetAll();
         }
 
-        public clsLandM GetById(int id)
+        public clsLandModel GetById(int id)
         {
             return Repo.GetById(id);
         }
 
-        public clsLandM GetFirst()
+        public clsLandModel GetFirst()
         {
             return Repo.GetFirst();
         }
 
-        public bool Insert(clsLandM entity)
+        public bool Insert(clsLandModel entity)
         {
             return Repo.Insert(entity);
         }
 
-        public bool Update(clsLandM entity)
+        public bool Update(clsLandModel entity)
         {
             return Repo.Update(entity);
         }

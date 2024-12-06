@@ -10,58 +10,58 @@ namespace HomeManager.ViewModel
 {
     public class clsVMLocator
     {
-        public clsPersoonVM PersoonViewModel
+        public clsPersoonViewModel PersoonViewModel
         {
             get
             {
-                return new clsPersoonVM();
+                return new clsPersoonViewModel();
             }
         }
-        public clsFunctieVM FunctieViewModel
+        public clsFunctieViewModel FunctieViewModel
         {
             get
             {
-                return new clsFunctieVM();
-            }
-        }
-
-        public clsEmailTypeVM EmailTypeViewModel
-        {
-            get
-            {
-                return new clsEmailTypeVM();
+                return new clsFunctieViewModel();
             }
         }
 
-        public clsTelefoonTypeVM TelefoonTypeViewModel
+        public clsEmailTypeViewModel EmailTypeViewModel
         {
             get
             {
-                return new clsTelefoonTypeVM();
+                return new clsEmailTypeViewModel();
             }
         }
 
-        public clsLandVM LandViewModel
+        public clsTelefoonTypeViewModel TelefoonTypeViewModel
         {
             get
             {
-                return new clsLandVM();
+                return new clsTelefoonTypeViewModel();
             }
         }
 
-        public clsProvincieVM ProvincieViewModel
+        public clsLandViewModel LandViewModel
         {
             get
             {
-                return new clsProvincieVM();
+                return new clsLandViewModel();
             }
         }
 
-        public clsGemeenteVM GemeenteViewModel
+        public clsProvincieViewModel ProvincieViewModel
         {
             get
             {
-                return new clsGemeenteVM();
+                return new clsProvincieViewModel();
+            }
+        }
+
+        public clsGemeenteViewModel GemeenteViewModel
+        {
+            get
+            {
+                return new clsGemeenteViewModel();
             }
         }
 

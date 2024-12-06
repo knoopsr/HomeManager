@@ -12,37 +12,37 @@ namespace HomeManager.DataService.Personen
     public class clsGemeenteDataService : IGemeenteDataService
     {
         IGemeenteRepository Repo = new clsGemeenteRepository();
-        public bool Delete(clsGemeenteM entity)
+        public bool Delete(clsGemeenteModel entity)
         {
             return Repo.Delete(entity);
         }
 
-        public clsGemeenteM Find()
+        public clsGemeenteModel Find()
         {
             return Repo.Find();
         }
 
-        public ObservableCollection<clsGemeenteM> GetAll()
+        public ObservableCollection<clsGemeenteModel> GetAll()
         {
             return Repo.GetAll();
         }
 
-        public clsGemeenteM GetById(int id)
+        public clsGemeenteModel GetById(int id)
         {
             return Repo.GetById(id);
         }
 
-        public clsGemeenteM GetFirst()
+        public clsGemeenteModel GetFirst()
         {
             return Repo.GetFirst();
         }
 
-        public bool Insert(clsGemeenteM entity)
+        public bool Insert(clsGemeenteModel entity)
         {
             return Repo.Insert(entity);
         }
 
-        public bool Update(clsGemeenteM entity)
+        public bool Update(clsGemeenteModel entity)
         {
             return Repo.Update(entity);
         }
