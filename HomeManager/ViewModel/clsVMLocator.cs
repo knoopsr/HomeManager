@@ -64,7 +64,6 @@ namespace HomeManager.ViewModel
                 return new clsGemeenteViewModel();
             }
         }
-
         public clsEmailAdressenViewModel EmailAdressenViewModel
         {
             get
@@ -74,6 +73,13 @@ namespace HomeManager.ViewModel
         }
 
         #region Security
+        public clsTitlePersonViewModel TitlePersonViewModel
+        {
+            get
+            {
+                return new clsTitlePersonViewModel();
+            }
+        }
 
         public clsRechtenViewModel RechtenViewModel
         {
@@ -106,6 +112,25 @@ namespace HomeManager.ViewModel
                 return new clsCredentialManagementViewModel();
             }
         }
+
+        private static clsLogin _loginViewModel = new clsLogin();
+        public clsLogin LoginViewModel
+        {
+            get
+            {
+                return _loginViewModel;
+            }
+        }
+
+        private static clsNewPassViewModel _newPassViewModel = new clsNewPassViewModel();
+        public clsNewPassViewModel NewPassViewModel
+        {
+            get
+            {
+                return _newPassViewModel;
+            }
+        }
+
         #endregion
 
         public clsCategorieViewModel CategorieViewModel

@@ -8,8 +8,9 @@ using System.Threading.Tasks;
 
 namespace HomeManager.DataService.Security
 {
-    public interface IRechtenDataService : IDataService<clsRechtenModel>
+    public interface IloginDataService : IDataService<clsLoginModel>
     {
-        clsRechtenModel GetByCatogorieID(int id);
+        clsLoginModel GetByLogin(string login, string wachtwoord);
+        bool UpdatePassWord(clsLoginModel entity, string Pass);
     }
 }

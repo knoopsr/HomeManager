@@ -7,7 +7,6 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:HomeManager"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:uc="clr-namespace:HomeManager.View"
     Title="MainWindow"
     Width="1000"
     Height="900"
@@ -95,9 +94,10 @@
         </Grid.ColumnDefinitions>
 
 
-        <uc:ucTitlePerson
+        <V:ucTitlePerson
             Grid.ColumnSpan="2"
             Margin="0,0,10,0"
+            Width="120"
             HorizontalAlignment="Right"
             VerticalAlignment="Center" />
 
@@ -275,18 +275,5 @@
             Grid.Row="1"
             Grid.Column="1"
             Content="{Binding CurrentViewModel}" />
-
-
-        <ContentControl
-            Grid.Row="1"
-            Grid.Column="1"
-            Content="{Binding CurrentViewModel}" />
-
-        <ContentControl
-            Grid.Row="1"
-            Grid.Column="1"
-            Content="{Binding CurrentViewModel}" />
-
-
     </Grid>
 </Window>

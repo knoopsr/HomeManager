@@ -121,6 +121,13 @@ namespace HomeManager.DAL.Personen
             MijnDataReader.Close();
         }
 
+        public ObservableCollection<clsPersoonM> GetAllApplicationUser()
+        { 
+            GenerateCollection();
+            return new ObservableCollection<clsPersoonM>(
+                MijnCollectie.Where(persoon => persoon.IsApplicationUser == true)
+            );
+        }
     }
 }
 

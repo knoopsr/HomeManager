@@ -89,8 +89,7 @@
                     Grid.Column="3"
                     Height="20"
                     VerticalAlignment="Center"
-                    DataContext="{Binding Source={StaticResource VML}, Path=PersoonViewModel}"
-                    ItemsSource="{Binding MijnCollectie}"
+                     ItemsSource="{Binding MijnPersoonCollectie}"
                     SelectedValue="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Grid}}, Path=DataContext.MijnSelectedItem.PersoonID, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                     SelectedValuePath="PersoonID" />
 

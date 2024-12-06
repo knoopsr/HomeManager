@@ -28,6 +28,8 @@ namespace HomeManager.DataService.Security
             return _repo.GetAll();
         }
 
+  
+
         public clsRollenModel GetById(int id)
         {
             return _repo.GetById(id);
