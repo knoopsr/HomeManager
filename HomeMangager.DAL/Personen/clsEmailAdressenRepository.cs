@@ -55,7 +55,8 @@ namespace HomeManager.DAL.Personen
                     EmailAdresID = (int)MijnDataReader["EmailAdresID"],
                     Emailadres = MijnDataReader["Emailadres"].ToString(),
                     PersoonID = (int)MijnDataReader["PersoonID"],
-                    EmailTypeID = (int)MijnDataReader["EmailTypeID"]
+                    EmailTypeID = (int)MijnDataReader["EmailTypeID"],
+                    ControlField = MijnDataReader["ControlField"]
                 };
                 MijnCollectie.Add(m);
             }

@@ -28,6 +28,11 @@ namespace HomeManager.DataService.Personen
             return Repo.GetAll();
         }
 
+        public ObservableCollection<clsPersoonModel> GetAllApplicationUser()
+        {
+            return Repo.GetAllApplicationUser();
+        }
+
         public clsPersoonModel GetById(int id)
         {
             return Repo.GetById(id);

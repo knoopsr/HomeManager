@@ -13,6 +13,6 @@ namespace HomeManager.DAL.Personen
 {
     public interface IPersoonRepository : IRepository<clsPersoonModel>
     {
-        ObservableCollection<clsPersoonM> GetAllApplicationUser();
+        ObservableCollection<clsPersoonModel> GetAllApplicationUser();
     }
 }

@@ -1,4 +1,5 @@
 ﻿using HomeManager.Model.Security;
+using HomeManager.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -50,7 +51,14 @@ namespace HomeManager.Helpers
 
         private readonly Dictionary<string, string> _destinationToPermissionMap = new Dictionary<string, string>
         {
-            {"clsPersoonVM", "100" },
+            {"clsPersoonViewModel", "100" },
+            {"clsProvincieViewModel", "100" },
+            {"clsLandViewModel" , "100" },
+            {"clsGemeenteViewModel" , "100" },
+            {"clsFunctieViewModel","100" },
+            {"clsEmailTypeViewModel","100" },
+            {"clsEmailAdressenViewModel","100" },
+   
 
 
 
