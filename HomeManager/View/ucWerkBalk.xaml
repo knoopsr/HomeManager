@@ -25,7 +25,7 @@
         <Button
             Command="{Binding cmdDelete}"
             CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}"
-            Style="{StaticResource DeleteImage}"
+            Style="{StaticResource DeletePersoon}"
             ToolTip="Delete" />
         <Button
             Command="{Binding cmdCancel}"

@@ -40,6 +40,9 @@
         <DataTemplate DataType="{x:Type VM:clsGemeenteViewModel}">
             <V:ucGemeente />
         </DataTemplate>
+        <DataTemplate DataType="{x:Type VM:clsEmailAdressenViewModel}">
+            <V:ucEmailAdressen />
+        </DataTemplate>
 
         <DataTemplate DataType="{x:Type VM:clsRechtenViewModel}">
             <V:ucRoles />
@@ -172,8 +175,13 @@
                                 Style="{StaticResource myMenuTandwiel}" />
                             <Button
                                 Command="{Binding NavCommand}"
-                                CommandParameter="clsFunctieVM"
+                                CommandParameter="clsFunctieViewModel"
                                 Content="Functies"
+                                Style="{StaticResource myExpanderPerson}" />
+                            <Button
+                                Command="{Binding NavCommand}"
+                                CommandParameter="clsEmailAdressenViewModel"
+                                Content="EmailAdressen"
                                 Style="{StaticResource myExpanderPerson}" />
                         </StackPanel>
                     </Expander>

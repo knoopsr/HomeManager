@@ -267,4 +267,16 @@
   <data name="U_Gemeente" xml:space="preserve">
     <value>U_Gemeente</value>
   </data>
+  <data name="D_EmailAdressen" xml:space="preserve">
+    <value>D_EmailAdressen</value>
+  </data>
+  <data name="I_EmailAdressen" xml:space="preserve">
+    <value>I_EmailAdressen</value>
+  </data>
+  <data name="S_EmailAdressen" xml:space="preserve">
+    <value>S_EmailAdressen</value>
+  </data>
+  <data name="U_EmailAdressen" xml:space="preserve">
+    <value>U_EmailAdressen</value>
+  </data>
 </root>

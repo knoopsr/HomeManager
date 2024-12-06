@@ -65,6 +65,14 @@ namespace HomeManager.ViewModel
             }
         }
 
+        public clsEmailAdressenViewModel EmailAdressenViewModel
+        {
+            get
+            {
+                return new clsEmailAdressenViewModel();
+            }
+        }
+
         #region Security
 
         public clsRechtenViewModel RechtenViewModel

@@ -74,6 +74,14 @@ namespace HomeManager.Model.Personen
             return EmailType;
         }
 
+        public string EmailTypeDisplayName
+        {
+            get
+            {
+                return EmailType;
+            }
+        }
+
         public string this[string columnName]
         {
             get

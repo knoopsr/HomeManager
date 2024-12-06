@@ -79,6 +79,15 @@ namespace HomeManager.DAL.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to D_EmailAdressen.
+        /// </summary>
+        internal static string D_EmailAdressen {
+            get {
+                return ResourceManager.GetString("D_EmailAdressen", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to D_EmailType.
         /// </summary>
         internal static string D_EmailType {
@@ -187,6 +196,15 @@ namespace HomeManager.DAL.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to I_EmailAdressen.
+        /// </summary>
+        internal static string I_EmailAdressen {
+            get {
+                return ResourceManager.GetString("I_EmailAdressen", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to I_EmailType.
         /// </summary>
         internal static string I_EmailType {
@@ -291,6 +309,15 @@ namespace HomeManager.DAL.Properties {
         internal static string S_BudgetCategorie {
             get {
                 return ResourceManager.GetString("S_BudgetCategorie", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to S_EmailAdressen.
+        /// </summary>
+        internal static string S_EmailAdressen {
+            get {
+                return ResourceManager.GetString("S_EmailAdressen", resourceCulture);
             }
         }
         
@@ -417,6 +444,15 @@ namespace HomeManager.DAL.Properties {
         internal static string U_BudgetCategorie {
             get {
                 return ResourceManager.GetString("U_BudgetCategorie", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to U_EmailAdressen.
+        /// </summary>
+        internal static string U_EmailAdressen {
+            get {
+                return ResourceManager.GetString("U_EmailAdressen", resourceCulture);
             }
         }
         
