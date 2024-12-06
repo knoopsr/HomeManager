@@ -82,7 +82,7 @@ namespace HomeManager.ViewModel
                 MijnBackupCollectie = await MijnBackupService.CreateBackup();
 
 
-                string link ="https://homemanager.knoopsr.be/backups/" + MijnBackupCollectie[0].Path;      
+                string link ="https://homemanager.knoopsr.be/" + MijnBackupCollectie[0].Path;      
 
 
                 clsMailModel mailModel = new clsMailModel
