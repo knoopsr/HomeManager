@@ -1,4 +1,6 @@
-﻿using System;
+﻿using HomeManager.Model.Personen;
+using HomeManager.ViewModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,13 +10,65 @@ namespace HomeManager.ViewModel
 {
     public class clsVMLocator
     {
-
-
-        public clsPersoonVM PersoonViewModel
+        public clsPersoonViewModel PersoonViewModel
         {
             get
             {
-                return new clsPersoonVM();
+                return new clsPersoonViewModel();
+            }
+        }
+        public clsFunctieViewModel FunctieViewModel
+        {
+            get
+            {
+                return new clsFunctieViewModel();
+            }
+        }
+
+        public clsEmailTypeViewModel EmailTypeViewModel
+        {
+            get
+            {
+                return new clsEmailTypeViewModel();
+            }
+        }
+
+        public clsTelefoonTypeViewModel TelefoonTypeViewModel
+        {
+            get
+            {
+                return new clsTelefoonTypeViewModel();
+            }
+        }
+
+        public clsLandViewModel LandViewModel
+        {
+            get
+            {
+                return new clsLandViewModel();
+            }
+        }
+
+        public clsProvincieViewModel ProvincieViewModel
+        {
+            get
+            {
+                return new clsProvincieViewModel();
+            }
+        }
+
+        public clsGemeenteViewModel GemeenteViewModel
+        {
+            get
+            {
+                return new clsGemeenteViewModel();
+            }
+        }
+        public clsEmailAdressenViewModel EmailAdressenViewModel
+        {
+            get
+            {
+                return new clsEmailAdressenViewModel();
             }
         }
 
@@ -26,7 +80,6 @@ namespace HomeManager.ViewModel
                 return new clsTitlePersonViewModel();
             }
         }
-
 
         public clsRechtenViewModel RechtenViewModel
         {
@@ -79,5 +132,14 @@ namespace HomeManager.ViewModel
         }
 
         #endregion
+
+        public clsCategorieViewModel CategorieViewModel
+        {
+            get
+            {
+                return new clsCategorieViewModel(); ;
+            }
+
+        }
     }
 }

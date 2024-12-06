@@ -24,5 +24,10 @@ namespace HomeManager.View
         {
             InitializeComponent();
         }
+
+        private void ucWerkBalk_Loaded(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

@@ -17,27 +17,8 @@
     </UserControl.Resources>
 
     <Grid DataContext="{Binding Source={StaticResource VML}, Path=PersoonViewModel}">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="250" />
-            <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="*" />
-        </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="auto" />
-            <RowDefinition Height="*" />
-            <RowDefinition Height="auto" />
-            <RowDefinition Height="auto" />
-            <RowDefinition Height="auto" />
-            <RowDefinition Height="auto" />
-            <RowDefinition Height="auto" />
-            <RowDefinition Height="auto" />
-            <RowDefinition Height="auto" />
-            <RowDefinition Height="auto" />
-            <RowDefinition Height="auto" />
-            <RowDefinition Height="auto" />
-            <RowDefinition Height="*" />
+            <RowDefinition Height="50" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
@@ -46,7 +27,7 @@
             Grid.ColumnSpan="5"
             Background="{StaticResource myTitleBar}"
             BorderBrush="LightBlue"
-            BorderThickness="1">
+            BorderThickness="2">
             <Grid>
                 <StackPanel
                     Margin="10,0,0,0"
@@ -67,142 +48,174 @@
                         Text="Persoon" />
 
                 </StackPanel>
-                <uc:ucWerkBalk HorizontalAlignment="Right" VerticalAlignment="Top" />
+                <uc:ucWerkBalk HorizontalAlignment="Right" VerticalAlignment="Top" Loaded="ucWerkBalk_Loaded" />
             </Grid>
         </Border>
 
-        <ListBox
-            Name="UserListView"
-            Grid.Row="2"
-            Grid.RowSpan="11"
-            Grid.Column="1"
-            Width="250"
-            ItemsSource="{Binding MijnCollectie}"
-            SelectedItem="{Binding MijnSelectedItem, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
-            <ListBox.ItemTemplate>
-                <DataTemplate>
-                    <Border
-                        Width="205"
-                        Margin="5"
-                        Padding="2"
-                        Background="LightGray"
-                        BorderBrush="Gray"
-                        BorderThickness="1"
-                        CornerRadius="8">
-                        <StackPanel Orientation="Horizontal">
-
+        <Border
+            Grid.Row="1"
+            Grid.Column="0"
+            Margin="3"
+            BorderBrush="Black"
+            BorderThickness="1"
+            CornerRadius="5">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="auto" />
+                    <ColumnDefinition Width="auto" />
+                    <ColumnDefinition Width="140" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="35" />
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="50" />
+                </Grid.RowDefinitions>
+                <ListBox
+                    Name="UserListView"
+                    Grid.Row="2"
+                    Grid.RowSpan="7"
+                    Grid.Column="1"
+                    Width="250"
+                    ItemsSource="{Binding MijnCollectie}"
+                    SelectedItem="{Binding MijnSelectedItem, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
                             <Border
-                                Width="60"
-                                Height="60"
-                     
-                                HorizontalAlignment="Left"
+                                Width="205"
+                                Margin="5"
+                                Padding="2"
+                                Background="LightGray"
                                 BorderBrush="Gray"
                                 BorderThickness="1"
-                                CornerRadius="30">
-                                <Border.Background>
-                                    <ImageBrush ImageSource="{Binding Foto, TargetNullValue={x:Null}}" Stretch="UniformToFill" />
-                                </Border.Background>
+                                CornerRadius="8">
+                                <StackPanel Orientation="Horizontal">
 
+                                    <Border
+                                        Width="60"
+                                        Height="60"
+                                        HorizontalAlignment="Left"
+                                        BorderBrush="Gray"
+                                        BorderThickness="1"
+                                        CornerRadius="30">
+                                        <Border.Background>
+                                            <ImageBrush ImageSource="{Binding Foto, TargetNullValue='https://p92.com/binaries/content/gallery/p92website/technologies/c-sharp-overview.png'}" Stretch="UniformToFill" />
+                                        </Border.Background>
+
+                                    </Border>
+
+
+                                    <StackPanel Margin="10,0,0,0" Orientation="Vertical">
+                                        <TextBlock
+                                            Margin="0,5,0,8"
+                                            FontWeight="Bold"
+                                            Text="{Binding Naam}" />
+                                        <TextBlock Margin="0,8,0,0" Text="{Binding Voornaam}" />
+                                    </StackPanel>
+                                </StackPanel>
                             </Border>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
 
 
-                            <StackPanel Margin="10,0,0,0" Orientation="Vertical">
-                                <TextBlock FontWeight="Bold" Text="{Binding Naam}" 
-                                           Margin="0,5,0,8"/>
-                                <TextBlock Text="{Binding Voornaam}"  Margin="0,8,0,0"/>
-                            </StackPanel>
-                        </StackPanel>
+                <TextBlock
+                    x:Name="Naam"
+                    Grid.Row="2"
+                    Grid.Column="2"
+                    Margin="5"
+                    Text="Naam"
+                    TextAlignment="Right" />
+                <TextBox
+                    x:Name="txtNaam"
+                    Grid.Row="2"
+                    Grid.Column="3"
+                    Margin="5"
+                    Text="{Binding MijnSelectedItem.Naam, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnValidationError=true, ValidatesOnExceptions=True}" />
+
+                <TextBlock
+                    x:Name="Voornaam"
+                    Grid.Row="3"
+                    Grid.Column="2"
+                    Margin="5"
+                    Text="Voornaam"
+                    TextAlignment="Right" />
+                <TextBox
+                    x:Name="txtVoorNaam"
+                    Grid.Row="3"
+                    Grid.Column="3"
+                    Margin="5"
+                    Text="{Binding MijnSelectedItem.Voornaam, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnValidationError=true, ValidatesOnExceptions=True}" />
+
+                <TextBlock
+                    x:Name="Foto"
+                    Grid.Row="4"
+                    Grid.Column="2"
+                    Margin="0,19,0,10"
+                    Text="Foto"
+                    TextAlignment="Right" />
+
+                <StackPanel
+                    Grid.Row="4"
+                    Grid.Column="3"
+                    Orientation="Horizontal">
+                    <Border
+                        Width="75"
+                        Height="75"
+                        Margin="3,0,0,0"
+                        HorizontalAlignment="Left"
+                        BorderBrush="Gray"
+                        BorderThickness="1"
+                        CornerRadius="35">
+                        <Border.Background>
+                            <ImageBrush ImageSource="{Binding MijnSelectedItem.Foto, TargetNullValue={x:Null}}" Stretch="UniformToFill" />
+                        </Border.Background>
                     </Border>
-                </DataTemplate>
-            </ListBox.ItemTemplate>
-        </ListBox>
+                    <Button Command="{Binding cmdUploadPicture}" Style="{StaticResource UploadPersoonButton}" />
+                </StackPanel>
 
 
-        <TextBlock
-            x:Name="Naam"
-            Grid.Row="2"
-            Grid.Column="2"
-            Text="Naam"
-            TextAlignment="Right" />
-        <TextBox
-            x:Name="txtNaam"
-            Grid.Row="2"
-            Grid.Column="3"
-            Margin="5"
-            Text="{Binding MijnSelectedItem.Naam, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnValidationError=true, ValidatesOnExceptions=True}" />
-
-        <TextBlock
-            x:Name="Voornaam"
-            Grid.Row="3"
-            Grid.Column="2"
-            Text="Voornaam"
-            TextAlignment="Right" />
-        <TextBox
-            x:Name="txtVoorNaam"
-            Grid.Row="3"
-            Grid.Column="3"
-            Margin="5"
-            Text="{Binding MijnSelectedItem.Voornaam, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnValidationError=true, ValidatesOnExceptions=True}" />
-
-        <TextBlock
-            x:Name="Foto"
-            Grid.Row="4"
-            Grid.Column="2"
-            Margin="0,19,0,10"
-            Text="Foto"
-            TextAlignment="Right" />
-
-        <StackPanel
-            Grid.Row="4"
-            Grid.Column="3"
-            Orientation="Horizontal">
-            <Border
-                Width="75"
-                Height="75"
-                Margin="3,0,0,0"
-                HorizontalAlignment="Left"
-                BorderBrush="Gray"
-                BorderThickness="1"
-                CornerRadius="35">
-                <Border.Background>
-                    <ImageBrush ImageSource="{Binding MijnSelectedItem.Foto, TargetNullValue={x:Null}}" Stretch="UniformToFill" />
-                </Border.Background>
-            </Border>
-            <Button Command="{Binding cmdUploadPicture}" Style="{StaticResource UploadPersoonButton}" />
-        </StackPanel>
+                <TextBlock
+                    x:Name="txtGeboorteDatum"
+                    Grid.Row="5"
+                    Grid.Column="2"
+                    Margin="8"
+                    Text="Geboortedatum"
+                    TextAlignment="Right" />
 
 
-        <TextBlock
-            x:Name="txtGeboorteDatum"
-            Grid.Row="5"
-            Grid.Column="2"
-            Margin="5"
-            Text="Geboortedatum"
-            TextAlignment="Right" />
-
-
-        <DatePicker
-            Name="dpGeboorteDatum"
-            Grid.Row="5"
-            Grid.Column="3"
-            Margin="5"
-            SelectedDate="{Binding MijnSelectedItem.Geboortedatum, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource DateOnlyToDateTimeConverter}}"
-            SelectedDateFormat="Short" />
+                <DatePicker
+                    Name="dpGeboorteDatum"
+                    Grid.Row="5"
+                    Grid.Column="3"
+                    Margin="5"
+                    SelectedDate="{Binding MijnSelectedItem.Geboortedatum, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource DateOnlyToDateTimeConverter}}"
+                    SelectedDateFormat="Short" />
 
 
 
-        <TextBlock
-            x:Name="txtBenJeGebruiker"
-            Grid.Row="6"
-            Grid.Column="2"
-            Margin="5"
-            Text="Ben jij een gebruiker"
-            TextAlignment="Right" />
-        <CheckBox
-            x:Name="isGebruiker"
-            Grid.Row="6"
-            Grid.Column="3"
-            Margin="5"
-            IsChecked="{Binding MijnSelectedItem.IsApplicationUser, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnValidationError=true, ValidatesOnExceptions=True}" />
+                <TextBlock
+                    x:Name="txtBenJeGebruiker"
+                    Grid.Row="6"
+                    Grid.Column="2"
+                    Margin="4"
+                    Text="Ben jij een gebruiker"
+                    TextAlignment="Right" />
+                <CheckBox
+                    x:Name="isGebruiker"
+                    Grid.Row="6"
+                    Grid.Column="3"
+                    Margin="5"
+                    IsChecked="{Binding MijnSelectedItem.IsApplicationUser, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnValidationError=true, ValidatesOnExceptions=True}" />
+            </Grid>
+        </Border>
     </Grid>
 </UserControl>

@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace HomeManager.DAL.Personen
 {
-    public interface IPersoonRepository : IRepository<clsPersoonM>
+    public interface IPersoonRepository : IRepository<clsPersoonModel>
     {
         ObservableCollection<clsPersoonM> GetAllApplicationUser();
     }

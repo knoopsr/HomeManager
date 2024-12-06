@@ -1,24 +1,23 @@
-﻿using HomeManager.Common;
+﻿using System;
+using HomeManager.Common;
 using HomeManager.Helpers;
-using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Diagnostics;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Input;
-using System.Windows;
 using HomeManager.DataService.Personen;
 using HomeManager.Model.Personen;
+using System.Text;
+using System.Threading.Tasks;
+using System.Collections.ObjectModel;
 using System.IO;
+using System.Windows.Input;
 using System.Windows.Media.Imaging;
+using System.Windows;
 
 namespace HomeManager.ViewModel
 {
-    public class clsPersoonVM : clsCommonModelPropertiesBase
+    public class clsLandViewModel : clsCommonModelPropertiesBase
     {
-        clsPersoonDataService MijnService;
+        clsLandDataService MijnService;
         private bool NewStatus = false;
 
         public ICommand cmdDelete { get; set; }
@@ -29,8 +28,8 @@ namespace HomeManager.ViewModel
 
         public ICommand cmdUploadPicture { get; set; }
 
-        private ObservableCollection<clsPersoonM> _mijnCollectie;
-        public ObservableCollection<clsPersoonM> MijnCollectie
+        private ObservableCollection<clsLandModel> _mijnCollectie;
+        public ObservableCollection<clsLandModel> MijnCollectie
         {
             get { return _mijnCollectie; }
             set
@@ -41,8 +40,8 @@ namespace HomeManager.ViewModel
         }
 
 
-        private clsPersoonM _mijnSelectedItem;
-        public clsPersoonM MijnSelectedItem
+        private clsLandModel _mijnSelectedItem;
+        public clsLandModel MijnSelectedItem
         {
             get { return _mijnSelectedItem; }
             set
@@ -106,9 +105,9 @@ namespace HomeManager.ViewModel
             }
         }
 
-        public clsPersoonVM()
+        public clsLandViewModel()
         {
-            MijnService = new clsPersoonDataService();
+            MijnService = new clsLandDataService();
 
             cmdSave = new clsCustomCommand(Execute_Save_Command, CanExecute_Save_Command);
             cmdDelete = new clsCustomCommand(Execute_Delete_Command, CanExecute_Delete_Command);
@@ -137,7 +136,7 @@ namespace HomeManager.ViewModel
 
             if (File.Exists(_OpenFileDialog.FileName))
             {
-                MijnSelectedItem.Foto = DocumentContent(_OpenFileDialog.FileName);
+                MijnSelectedItem.Vlag = DocumentContent(_OpenFileDialog.FileName);
                 MijnSelectedItem.IsDirty = true;
             }
         }
@@ -231,15 +230,12 @@ namespace HomeManager.ViewModel
 
         private void Execute_New_Command(object? obj)
         {
-            clsPersoonM _itemToInsert = new clsPersoonM()
+            clsLandModel _itemToInsert = new clsLandModel()
             {
-                PersoonID = 0,
-                Naam = string.Empty,
-                Voornaam = string.Empty,
-                Foto = null,
-                Geboortedatum = DateOnly.FromDateTime(DateTime.Now),
-                IsApplicationUser = null
-
+                LandID = 0,
+                Land = string.Empty,
+                LandCode = string.Empty,
+                Vlag = null
             };
             MijnSelectedItem = _itemToInsert;
             MijnSelectedItem.MyVisibility = (int)Visibility.Hidden;
@@ -303,4 +299,5 @@ namespace HomeManager.ViewModel
         }
     }
 }
+
 

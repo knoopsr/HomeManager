@@ -12,13 +12,13 @@ namespace HomeManager.DAL.Personen
 {
     public class clsPersoonRepository : IPersoonRepository
     {
-        private ObservableCollection<clsPersoonM> MijnCollectie;
+        private ObservableCollection<clsPersoonModel> MijnCollectie;
         int nr = 0;
         public clsPersoonRepository()
         {
         }
 
-        public bool Delete(clsPersoonM entity)
+        public bool Delete(clsPersoonModel entity)
         {
             (DataTable DT, bool OK, string Boodschap) =
                 clsDAL.ExecuteDataTable(Properties.Resources.D_Persoon,
@@ -32,13 +32,13 @@ namespace HomeManager.DAL.Personen
             return OK;
         }
 
-        public ObservableCollection<clsPersoonM> GetAll()
+        public ObservableCollection<clsPersoonModel> GetAll()
         {
             GenerateCollection();
             return MijnCollectie;
         }
 
-        public clsPersoonM GetById(int id)
+        public clsPersoonModel GetById(int id)
         {
             if (MijnCollectie == null)
             {
@@ -47,7 +47,7 @@ namespace HomeManager.DAL.Personen
             return MijnCollectie.Where(persoon => persoon.PersoonID == id).FirstOrDefault();
         }
 
-        public clsPersoonM GetFirst()
+        public clsPersoonModel GetFirst()
         {
             if (MijnCollectie == null)
             {
@@ -56,7 +56,7 @@ namespace HomeManager.DAL.Personen
             return MijnCollectie.FirstOrDefault();
         }
 
-        public bool Insert(clsPersoonM entity)
+        public bool Insert(clsPersoonModel entity)
         {
             (DataTable DT, bool OK, string Boodschap) =
                 clsDAL.ExecuteDataTable(Properties.Resources.I_Persoon,
@@ -74,7 +74,7 @@ namespace HomeManager.DAL.Personen
             return OK;
         }
 
-        public bool Update(clsPersoonM entity)
+        public bool Update(clsPersoonModel entity)
         {
             (DataTable DT, bool OK, string Boodschap) =
                 clsDAL.ExecuteDataTable(Properties.Resources.U_Persoon,
@@ -94,7 +94,7 @@ namespace HomeManager.DAL.Personen
         }
 
 
-        public clsPersoonM Find()
+        public clsPersoonModel Find()
         {
             throw new NotImplementedException();
         }
@@ -102,11 +102,11 @@ namespace HomeManager.DAL.Personen
         private void GenerateCollection()
         {
             SqlDataReader MijnDataReader = clsDAL.GetData(Properties.Resources.S_Persoon);
-            MijnCollectie = new ObservableCollection<clsPersoonM>();
+            MijnCollectie = new ObservableCollection<clsPersoonModel>();
 
             while (MijnDataReader.Read())
             {
-                clsPersoonM e = new clsPersoonM()
+                clsPersoonModel e = new clsPersoonModel()
                 {
                     PersoonID = (int)MijnDataReader[0],
                     Naam = MijnDataReader[1].ToString(),
