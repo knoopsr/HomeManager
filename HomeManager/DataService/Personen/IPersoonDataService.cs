@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace HomeManager.DataService.Personen
 {
-    public interface IPersoonDataService : IDataService<clsPersoonM>
+    public interface IPersoonDataService : IDataService<clsPersoonModel>
     {
         ObservableCollection<clsPersoonM> GetAllApplicationUser();
 

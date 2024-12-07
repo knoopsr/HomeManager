@@ -18,8 +18,29 @@
 
 
     <Window.Resources>
-        <DataTemplate DataType="{x:Type VM:clsPersoonVM}">
+        <DataTemplate DataType="{x:Type VM:clsPersoonViewModel}">
             <V:ucPersoon />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type VM:clsFunctieViewModel}">
+            <V:ucFunctie />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type VM:clsEmailTypeViewModel}">
+            <V:ucEmailType />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type VM:clsTelefoonTypeViewModel}">
+            <V:ucTelefoonType />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type VM:clsLandViewModel}">
+            <V:ucLand />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type VM:clsProvincieViewModel}">
+            <V:ucProvincie />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type VM:clsGemeenteViewModel}">
+            <V:ucGemeente />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type VM:clsEmailAdressenViewModel}">
+            <V:ucEmailAdressen />
         </DataTemplate>
 
         <DataTemplate DataType="{x:Type VM:clsRechtenViewModel}">
@@ -35,6 +56,10 @@
             <V:ucAccount />
         </DataTemplate>
 
+
+        <DataTemplate DataType="{x:Type VM:clsCategorieViewModel}">
+            <V:ucCategorie />
+        </DataTemplate>
 
         <Storyboard x:Key="ShowMenu">
             <DoubleAnimation
@@ -120,15 +145,44 @@
                         <StackPanel x:Name="stckPerson">
                             <Button
                                 Command="{Binding NavCommand}"
-                                CommandParameter="clsPersoonVM"
+                                CommandParameter="clsPersoonViewModel"
                                 Content="Persoon"
                                 Style="{StaticResource myExpanderPerson}" />
-                            <Button Content="EmailType" Style="{StaticResource myMenuTandwiel}" />
-                            <Button Content="TelefoonType" Style="{StaticResource myMenuTandwiel}" />
-                            <Button Content="Land" Style="{StaticResource myMenuTandwiel}" />
-                            <Button Content="Provincie" Style="{StaticResource myMenuTandwiel}" />
-                            <Button Content="Gemeente" Style="{StaticResource myMenuTandwiel}" />
-                            <Button Content="Functies" Style="{StaticResource myMenuTandwiel}" />
+                            <Button
+                                Command="{Binding NavCommand}"
+                                CommandParameter="clsEmailTypeViewModel"
+                                Content="EmailType"
+                                Style="{StaticResource myMenuTandwiel}" />
+                            <Button
+                                Command="{Binding NavCommand}"
+                                CommandParameter="clsTelefoonTypeViewModel"
+                                Content="TelefoonType"
+                                Style="{StaticResource myMenuTandwiel}" />
+                            <Button
+                                Command="{Binding NavCommand}"
+                                CommandParameter="clsLandViewModel"
+                                Content="Land"
+                                Style="{StaticResource myMenuTandwiel}" />
+                            <Button
+                                Command="{Binding NavCommand}"
+                                CommandParameter="clsProvincieViewModel"
+                                Content="Provincie"
+                                Style="{StaticResource myMenuTandwiel}" />
+                            <Button
+                                Command="{Binding NavCommand}"
+                                CommandParameter="clsGemeenteViewModel"
+                                Content="Gemeente"
+                                Style="{StaticResource myMenuTandwiel}" />
+                            <Button
+                                Command="{Binding NavCommand}"
+                                CommandParameter="clsFunctieViewModel"
+                                Content="Functies"
+                                Style="{StaticResource myExpanderPerson}" />
+                            <Button
+                                Command="{Binding NavCommand}"
+                                CommandParameter="clsEmailAdressenViewModel"
+                                Content="EmailAdressen"
+                                Style="{StaticResource myExpanderPerson}" />
                         </StackPanel>
                     </Expander>
 
@@ -140,7 +194,11 @@
                             <Button Content="Domiciliëring" Style="{StaticResource myMenuTandwiel}" />
                             <Button Content="Begunstigden" Style="{StaticResource myMenuTandwiel}" />
                             <Button Content="Frequentie" Style="{StaticResource myMenuTandwiel}" />
-                            <Button Content="Budget Categorie" Style="{StaticResource myMenuTandwiel}" />
+                            <Button
+                                Command="{Binding NavCommand}"
+                                CommandParameter="clsCategorieViewModel"
+                                Content="Budget Categorie"
+                                Style="{StaticResource myMenuTandwiel}" />
                         </StackPanel>
                     </Expander>
 
@@ -217,12 +275,5 @@
             Grid.Row="1"
             Grid.Column="1"
             Content="{Binding CurrentViewModel}" />
-
-
-        <ContentControl
-            Grid.Row="1"
-            Grid.Column="1"
-            Content="{Binding CurrentViewModel}" />
-
     </Grid>
 </Window>

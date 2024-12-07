@@ -192,4 +192,100 @@
   <data name="BackupHomeManagerDB" xml:space="preserve">
     <value>BackupHomeManagerDB</value>
   </data>
+  <data name="D_BudgetCategorie" xml:space="preserve">
+    <value>D_BudgetCategorie</value>
+  </data>
+  <data name="I_BudgetCategorie" xml:space="preserve">
+    <value>I_BudgetCategorie</value>
+  </data>
+  <data name="S_BudgetCategorie" xml:space="preserve">
+    <value>S_BudgetCategorie</value>
+  </data>
+  <data name="U_BudgetCategorie" xml:space="preserve">
+    <value>U_BudgetCategorie</value>
+  </data>
+  <data name="D_Functies" xml:space="preserve">
+    <value>D_Functies</value>
+  </data>
+  <data name="I_Functies" xml:space="preserve">
+    <value>I_Functies</value>
+  </data>
+  <data name="S_Functies" xml:space="preserve">
+    <value>S_Functies</value>
+  </data>
+  <data name="U_Functies" xml:space="preserve">
+    <value>U_Functies</value>
+  </data>
+  <data name="I_EmailType" xml:space="preserve">
+    <value>I_EmailType</value>
+  </data>
+  <data name="D_EmailType" xml:space="preserve">
+    <value>D_EmailType</value>
+  </data>
+  <data name="S_EmailType" xml:space="preserve">
+    <value>S_EmailType</value>
+  </data>
+  <data name="U_EmailType" xml:space="preserve">
+    <value>U_EmailType</value>
+  </data>
+  <data name="D_TelefoonType" xml:space="preserve">
+    <value>D_TelefoonType</value>
+  </data>
+  <data name="I_TelefoonType" xml:space="preserve">
+    <value>I_TelefoonType</value>
+  </data>
+  <data name="S_TelefoonType" xml:space="preserve">
+    <value>S_TelefoonType</value>
+  </data>
+  <data name="U_TelefoonType" xml:space="preserve">
+    <value>U_TelefoonType</value>
+  </data>
+  <data name="D_Land" xml:space="preserve">
+    <value>D_Land</value>
+  </data>
+  <data name="I_Land" xml:space="preserve">
+    <value>I_Land</value>
+  </data>
+  <data name="S_Land" xml:space="preserve">
+    <value>S_Land</value>
+  </data>
+  <data name="U_Land" xml:space="preserve">
+    <value>U_Land</value>
+  </data>
+  <data name="D_Provincie" xml:space="preserve">
+    <value>D_Provincie</value>
+  </data>
+  <data name="I_Provincie" xml:space="preserve">
+    <value>I_Provincie</value>
+  </data>
+  <data name="S_Provincie" xml:space="preserve">
+    <value>S_Provincie</value>
+  </data>
+  <data name="U_Provincie" xml:space="preserve">
+    <value>U_Provincie</value>
+  </data>
+  <data name="D_Gemeente" xml:space="preserve">
+    <value>D_Gemeente</value>
+  </data>
+  <data name="I_Gemeente" xml:space="preserve">
+    <value>I_Gemeente</value>
+  </data>
+  <data name="S_Gemeente" xml:space="preserve">
+    <value>S_Gemeente</value>
+  </data>
+  <data name="U_Gemeente" xml:space="preserve">
+    <value>U_Gemeente</value>
+  </data>
+  <data name="D_EmailAdressen" xml:space="preserve">
+    <value>D_EmailAdressen</value>
+  </data>
+  <data name="I_EmailAdressen" xml:space="preserve">
+    <value>I_EmailAdressen</value>
+  </data>
+  <data name="S_EmailAdressen" xml:space="preserve">
+    <value>S_EmailAdressen</value>
+  </data>
+  <data name="U_EmailAdressen" xml:space="preserve">
+    <value>U_EmailAdressen</value>
+  </data>
 </root>
