@@ -35,34 +35,43 @@ namespace HomeManager.DAL.Security
         {
             var _login = clsLoginModel.Instance;
 
-
-            using (SqlDataReader MijnDataReader = clsDAL.GetData(Properties.Resources.S_Login,
-                clsDAL.Parameter("@Login", login),
-                clsDAL.Parameter("@Wachtwoord", wachtwoord)))
+            try
             {
-                // Controleer of er resultaten zijn en maak een instantie van clsLoginModel
-                if (MijnDataReader.Read())
+                using (SqlDataReader MijnDataReader = clsDAL.GetData(Properties.Resources.S_Login,
+                    clsDAL.Parameter("@Login", login),
+                    clsDAL.Parameter("@Wachtwoord", wachtwoord)))
                 {
-                    // Instantieer een nieuw object van clsLoginModel
-
-                    _login.AccountID = (int)MijnDataReader["AccountID"];
-                    _login.PersoonID = (int)MijnDataReader["PersoonID"];
-                    _login.Naam = MijnDataReader["Naam"].ToString();
-                    _login.Foto = MijnDataReader["Foto"] != DBNull.Value ? (byte[])MijnDataReader["Foto"] : null;
-                    _login.VoorNaam = MijnDataReader["VoorNaam"].ToString();
-                    _login.RolID = (int)MijnDataReader["RolID"];
-                    _login.RolName = MijnDataReader["RolName"].ToString();
-                    _login.CountFailLogins = (int)MijnDataReader["CountFailLogins"];
-                    _login.IsNew = (bool)MijnDataReader["IsNew"];
-                    _login.IsLock = (bool)MijnDataReader["IsLock"];
-                    _login.RechtenCodes = MijnDataReader["RechtenCodes"].ToString();
-                    _login.ControlField = MijnDataReader["ControlField"];
+                    if (MijnDataReader.Read())
+                    {
+                        _login.AccountID = (int)MijnDataReader["AccountID"];
+                        _login.PersoonID = (int)MijnDataReader["PersoonID"];
+                        _login.Naam = MijnDataReader["Naam"].ToString();
+                        _login.Foto = MijnDataReader["Foto"] != DBNull.Value ? (byte[])MijnDataReader["Foto"] : null;
+                        _login.VoorNaam = MijnDataReader["VoorNaam"].ToString();
+                        _login.RolID = (int)MijnDataReader["RolID"];
+                        _login.RolName = MijnDataReader["RolName"].ToString();
+                        _login.CountFailLogins = (int)MijnDataReader["CountFailLogins"];
+                        _login.IsNew = (bool)MijnDataReader["IsNew"];
+                        _login.IsLock = (bool)MijnDataReader["IsLock"];
+                        _login.RechtenCodes = MijnDataReader["RechtenCodes"].ToString();
+                        _login.ControlField = MijnDataReader["ControlField"];
+                    }
                 }
-
+            }
+            catch (SqlException ex)
+            {
+                // Sla de foutmelding rechtstreeks op in de ErrorBoodschap
+                _login.ErrorBoodschap = ex.Message;
+            }
+            catch (Exception ex)
+            {
+                // Algemene foutmelding
+                _login.ErrorBoodschap = "Er is een onbekende fout opgetreden: " + ex.Message;
             }
 
             return _login;
         }
+
 
 
         public clsLoginModel GetFirst()
