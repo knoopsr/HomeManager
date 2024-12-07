@@ -39,8 +39,8 @@ namespace HomeManager.ViewModel
             }
         }
 
-        private ObservableCollection<clsPersoonM> _mijnPersoonCollectie;
-        public ObservableCollection<clsPersoonM> MijnPersoonCollectie
+        private ObservableCollection<clsPersoonModel> _mijnPersoonCollectie;
+        public ObservableCollection<clsPersoonModel> MijnPersoonCollectie
         {
             get { return _mijnPersoonCollectie; }
             set
