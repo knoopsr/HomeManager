@@ -58,6 +58,7 @@ namespace HomeManager.Helpers
             {"clsFunctieViewModel","100" },
             {"clsEmailTypeViewModel","100" },
             {"clsEmailAdressenViewModel","100" },
+            {"clsPersonenViewModel","100" },
    
 
 

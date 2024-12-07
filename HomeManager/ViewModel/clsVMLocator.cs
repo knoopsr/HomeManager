@@ -10,11 +10,13 @@ namespace HomeManager.ViewModel
 {
     public class clsVMLocator
     {
+        private clsPersoonViewModel _persoonViewModel = new clsPersoonViewModel();
+
         public clsPersoonViewModel PersoonViewModel
         {
             get
             {
-                return new clsPersoonViewModel();
+                return _persoonViewModel;
             }
         }
         public clsFunctieViewModel FunctieViewModel
@@ -69,6 +71,14 @@ namespace HomeManager.ViewModel
             get
             {
                 return new clsEmailAdressenViewModel();
+            }
+        }
+
+        public clsPersonenViewModel PersonenViewModel
+        {
+            get
+            {
+                return new clsPersonenViewModel();
             }
         }
 

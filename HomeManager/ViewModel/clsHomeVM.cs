@@ -1,5 +1,6 @@
 ﻿using HomeManager.Common;
 using HomeManager.Helpers;
+using HomeManager.Messages;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -29,6 +30,12 @@ namespace HomeManager.ViewModel
         public clsHomeVM()
         {
             NavCommand = new clsRelayCommand<string>(OnNav);
+            clsMessenger.Default.Register<clsNewPersoonMessage>(this, OnNewPersonenReceive);
+        }
+
+        private void OnNewPersonenReceive(clsNewPersoonMessage message)
+        {
+            OnNav("clsPersoonViewModel");
         }
 
         private void OnNav(string destination)
