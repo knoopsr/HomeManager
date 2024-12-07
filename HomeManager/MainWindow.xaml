@@ -45,6 +45,12 @@
             <V:ucKleuren />
         </DataTemplate>
 
+        <DataTemplate DataType="{x:Type VM:clsDagboekViewModel}">
+            <V:ucDagboek />
+        </DataTemplate>
+        
+        
+
         <Storyboard x:Key="ShowMenu">
             <DoubleAnimation
                 Storyboard.TargetName="HamburgerMenu"
@@ -142,7 +148,10 @@
                     </Expander>
 
 
-                    <Button Content="Dagboek" Style="{StaticResource myExpanderDagboek}" Click="Button_Click" />
+                    <Button Content="Dagboek" 
+                            Style="{StaticResource myExpanderDagboek}"
+                            Command="{Binding NavCommand}"
+                            CommandParameter="clsDagboekViewModel"/>
 
                     <Expander Style="{StaticResource myHamburgerBudget}">
                         <StackPanel x:Name="stckBudget">

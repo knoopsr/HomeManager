@@ -13,27 +13,21 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace HomeManager.View.Dagboek
+namespace HomeManager.View
 {
     /// <summary>
     /// Interaction logic for ucDagboek.xaml
     /// </summary>
     public partial class ucDagboek : UserControl
     {
-        public List<string> contentList = new List<string>();
-
         public ucDagboek()
         {
             InitializeComponent();
+        }
 
-            for (int i = 0; i < 5; i++)
-            {
-                contentList.Add(DateTime.Now.ToLongDateString());
-
-                Thread.Sleep(750);
-            }
-
-            lstMyItems.ItemsSource = contentList;
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show("clicked");
         }
     }
 }

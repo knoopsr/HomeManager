@@ -1,4 +1,5 @@
-﻿using HomeManager.DAL.Dagboek;
+﻿
+using HomeManager.DAL.Dagboek;
 using HomeManager.Model.Dagboek;
 using System;
 using System.Collections.Generic;
@@ -7,49 +8,49 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HomeManager.Services
+namespace HomeManager.DataService.Dagboek
 {
     public class clsDagboekDataService : IDagboekDataService
     {
-        private IDagboekRepo Repo = new clsDagboekRepo();
+        private IDagboekRepository myRepo = new clsDagboekRepository();
 
         public bool Delete(clsDagboekModel entity)
         {
-            return Repo.Delete(entity);
+            return myRepo.Delete(entity);
         }
 
         public ObservableCollection<clsDagboekModel> GetAllByPersoonID(int persoonID)
         {
-            return Repo.GetAllByPersoonID(persoonID);
+            return myRepo.GetAllByPersoonID( persoonID );
         }
 
         public bool Insert(clsDagboekModel entity)
         {
-            return Repo.Insert(entity);
+            return myRepo.Insert(entity);
         }
 
         public bool Update(clsDagboekModel entity)
         {
-            return Repo.Update(entity);
+            return myRepo.Update(entity);
         }
 
-        #region NotImplemented
-        public clsDagboekModel GetById(int id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public clsDagboekModel GetFirst()
-        {
-            throw new NotImplementedException();
-        }
-
+        #region notImplemented
         public clsDagboekModel Find()
         {
             throw new NotImplementedException();
         }
 
         public ObservableCollection<clsDagboekModel> GetAll()
+        {
+            throw new NotImplementedException();
+        }
+
+        public clsDagboekModel GetById(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public clsDagboekModel GetFirst()
         {
             throw new NotImplementedException();
         }

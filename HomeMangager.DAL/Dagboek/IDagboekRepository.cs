@@ -1,15 +1,15 @@
-﻿using HomeManager.Common;
-using HomeManager.Model.Dagboek;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using HomeManager.Common;
+using HomeManager.Model.Dagboek;
 
-namespace HomeManager.Services
+namespace HomeManager.DAL.Dagboek
 {
-    public interface IDagboekDataService : IDataService<clsDagboekModel>
+    public interface IDagboekRepository : IRepository<clsDagboekModel>
     {
         ObservableCollection<clsDagboekModel> GetAllByPersoonID(int persoonID);
     }

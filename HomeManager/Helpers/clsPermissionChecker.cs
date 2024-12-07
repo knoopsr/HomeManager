@@ -57,7 +57,9 @@ namespace HomeManager.Helpers
             { "clsRechtenViewModel", "200" },
             { "clsCredentialManagementViewModel", "200" },
             { "clsCredentialGroupViewModel", "200" },
-            { "clsAccountViewModel", "200" }
+            { "clsAccountViewModel", "200" },
+
+            {"clsDagboekViewModel", "300" }
         };
 
 

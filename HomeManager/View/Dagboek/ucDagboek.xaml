@@ -1,15 +1,21 @@
 ﻿<UserControl
-    x:Class="HomeManager.View.Dagboek.ucDagboek"
+    x:Class="HomeManager.View.ucDagboek"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:V="clr-namespace:HomeManager.View"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:HomeManager.View"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:myRibbon="clr-namespace:System.Windows.Controls.Ribbon;assembly=System.Windows.Controls.Ribbon"
     d:DesignHeight="450"
     d:DesignWidth="800"
     mc:Ignorable="d">
-    <DockPanel>
-        <Border DockPanel.Dock="Top" BorderThickness="2" BorderBrush="White">
+
+    <DockPanel DataContext="{Binding Source={StaticResource VML}, Path=DagboekViewModel}">
+        <Border
+            BorderBrush="White"
+            BorderThickness="2"
+            DockPanel.Dock="Top">
             <StackPanel Background="{StaticResource myTitleBar}" Orientation="Horizontal">
                 <Path
                     Margin="5"
@@ -27,11 +33,14 @@
             BorderBrush="{StaticResource myTitleBar}"
             BorderThickness="2"
             CornerRadius="5">
-            <DockPanel DataContext="" LastChildFill="True">
+            <DockPanel LastChildFill="True">
                 <Ribbon DockPanel.Dock="Top">
-
+                    <Ribbon.Title>
+                        <Button Click="Button_Click">Click</Button>
+                    </Ribbon.Title>
+                    
                     <RibbonTab IsEnabled="True">
-                        <RibbonTab.Header>
+                        <RibbonTab.Header >
                             <TextBlock>
                                 <Run FontWeight="Bold" Text="Text Format" />
                             </TextBlock>
@@ -146,7 +155,7 @@
                                 <RibbonToggleButton
                                     x:Name="btnFontColor"
                                     Content="{StaticResource FontColor}"
-                                    Style="{StaticResource myColoredToggleButton}" />
+                                    Style="{StaticResource myToggleButton}" />
 
 
                             </StackPanel>
@@ -205,6 +214,28 @@
                         <RibbonGroup Header="hoofding">
                             <RibbonToggleButton Content="{StaticResource ListIcon_Squares}" Style="{StaticResource myToggleButton}" />
                             <RibbonToggleButton Content="{StaticResource ListIcon_Numbers}" Style="{StaticResource myToggleButton}" />
+
+                        </RibbonGroup>
+
+                        <RibbonGroup>
+                            <Button
+                                Width="15"
+                                Height="15"
+                                Command="{Binding cmdNew}"
+                                Style="{StaticResource AddImage}"
+                                ToolTip="New" />
+                            <Button
+                                Width="15"
+                                Height="15"
+                                Command="{Binding cmdSave}"
+                                Style="{StaticResource SaveImage}"
+                                ToolTip="Save" />
+                            <Button
+                                Width="15"
+                                Height="15"
+                                Command="{Binding cmdDelete}"
+                                Style="{StaticResource DeleteImage}"
+                                ToolTip="Delete" />
                         </RibbonGroup>
                     </RibbonTab>
 
@@ -213,12 +244,14 @@
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="auto" />
                         <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="auto" />
                     </Grid.ColumnDefinitions>
 
                     <ListBox
                         x:Name="lstMyItems"
                         Margin="2"
-                        Background="LightGray" />
+                        Background="LightGray"
+                        ItemsSource="{Binding myTestString}" />
                     <RichTextBox
                         x:Name="rtbMyContent"
                         Grid.Column="1"
@@ -232,6 +265,12 @@
                             </FlowDocument>
                         </RichTextBox.Document>
                     </RichTextBox>
+                    <Button
+                        Grid.Column="2"
+                        Width="20"
+                        Height="150"
+                        Command="{Binding cmdTest}"
+                        Content="test" />
 
                 </Grid>
 

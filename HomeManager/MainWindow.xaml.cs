@@ -9,7 +9,7 @@ using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using HomeManager.View.Dagboek;
+using HomeManager.View;
 using HomeManager.View.Personen;
 
 namespace HomeManager

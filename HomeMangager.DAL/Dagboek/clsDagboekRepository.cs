@@ -3,14 +3,13 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Data;
-using System.Diagnostics.Eventing.Reader;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace HomeManager.DAL.Dagboek
 {
-    public class clsDagboekRepo : IDagboekRepo
+    public class clsDagboekRepository : IDagboekRepository
     {
         private ObservableCollection<clsDagboekModel> mijnCollectie;
 
@@ -23,9 +22,9 @@ namespace HomeManager.DAL.Dagboek
                                                                                 clsDAL.Parameter("@PersoonID", persoonID)
                                                                                 );
 
-            if ( ok )
+            if (ok)
             {
-               foreach (DataRow row in DT.Rows)
+                foreach (DataRow row in DT.Rows)
                 {
                     clsDagboekModel obj = new clsDagboekModel()
                     {
@@ -46,9 +45,9 @@ namespace HomeManager.DAL.Dagboek
             throw new NotImplementedException();
         }
 
-       
 
-      
+
+
 
         //omwile van performance en privacy halen we alleen de content van de user binnen 
         public ObservableCollection<clsDagboekModel> GetAllByPersoonID(int PersoonID)
@@ -57,9 +56,9 @@ namespace HomeManager.DAL.Dagboek
             return mijnCollectie;
         }
 
-        
 
-       
+
+
 
         public bool Insert(clsDagboekModel entity)
         {
@@ -100,5 +99,8 @@ namespace HomeManager.DAL.Dagboek
             throw new NotImplementedException();
         }
         #endregion
+
     }
+
 }
+
