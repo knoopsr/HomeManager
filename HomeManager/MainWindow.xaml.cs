@@ -9,6 +9,7 @@ using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using HomeManager.View;
 using HomeManager.View.Personen;
 
 namespace HomeManager
@@ -34,6 +35,5 @@ namespace HomeManager
             Storyboard hideMenu = (Storyboard)FindResource("HideMenu");
             hideMenu.Begin();
         }
-        
     }
 }

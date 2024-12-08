@@ -189,4 +189,16 @@
   <data name="U_Login" xml:space="preserve">
     <value>U_Login</value>
   </data>
+  <data name="D_Dagboek" xml:space="preserve">
+    <value>D_Dagboek</value>
+  </data>
+  <data name="I_Dagboek" xml:space="preserve">
+    <value>I_Dagboek</value>
+  </data>
+  <data name="S_Dagboek" xml:space="preserve">
+    <value>S_Dagboek</value>
+  </data>
+  <data name="U_Dagboek" xml:space="preserve">
+    <value>U_Dagboek</value>
+  </data>
 </root>
