@@ -4,6 +4,7 @@ using HomeManager.Helpers;
 using HomeManager.Mail;
 using HomeManager.Model.Homepage;
 using HomeManager.Model.Security;
+using HomeManager.Services;
 using HomeManager.View.Security;
 using System.Collections.ObjectModel;
 using System.Windows;
@@ -19,9 +20,11 @@ namespace HomeManager.ViewModel
         private clsLoginModel _loginModel;
 
         private bool CanBackup = true;
+        private clsDialogService _DialogService;
 
         public ICommand cmdAfmelden { get; set; }
         public ICommand cmdBackup { get; set; }
+        public ICommand cmdUnLockUser { get; set; }
 
         // Public property die toegankelijk is voor binding
         public clsLoginModel LoginModel
@@ -53,11 +56,24 @@ namespace HomeManager.ViewModel
 
         public clsTitlePersonViewModel()
         {
+            _DialogService = new clsDialogService();
             MijnBackupService = new clsBackupDataService();
             clsMessenger.Default.Register<clsLoginModel>(this, OnUpdateTitlePersonReceived);
 
             cmdAfmelden = new clsCustomCommand(ExecuteAfmelden, CanExecuteAfmelden);
             cmdBackup = new clsCustomCommand(ExecuteBackup, CanExecuteBackup);
+            cmdUnLockUser = new clsCustomCommand(ExecuteUnLockUser, CanExecuteUnLockUser);
+        }
+
+        private bool CanExecuteUnLockUser(object? obj)
+        {
+            clsPermissionChecker _permissionChecker = new clsPermissionChecker();
+            return _permissionChecker.HasPermission("711");
+        }
+
+        private void ExecuteUnLockUser(object? obj)
+        {
+            _DialogService.ShowDialog(new ucUnlockUser(),"Ontgrendel Gebruiker");
         }
 
         private bool CanExecuteBackup(object? obj)
