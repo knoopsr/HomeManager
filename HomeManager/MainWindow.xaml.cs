@@ -35,13 +35,5 @@ namespace HomeManager
             Storyboard hideMenu = (Storyboard)FindResource("HideMenu");
             hideMenu.Begin();
         }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            ucDagboek view = new ucDagboek();
-            Grid.SetRow(view, 1);
-            Grid.SetColumn(view, 1);
-            grdMain.Children.Add(view);
-        }
     }
 }
