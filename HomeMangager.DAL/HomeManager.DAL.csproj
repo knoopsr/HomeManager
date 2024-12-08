@@ -17,34 +17,22 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="Properties\Connection.Designer.cs">
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Connection.settings</DependentUpon>
+    </Compile>
     <Compile Update="Properties\Resources.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Update="Properties\Connection.Designer.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Connection.resx</DependentUpon>
-    </Compile>
-    <Compile Update="Properties\Connection.Designer.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Connection.resx</DependentUpon>
-    </Compile>
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="Properties\Connection.settings">
-    <Generator>SettingsSingleFileGenerator</Generator>
-  </None>
     <EmbeddedResource Update="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Update="Properties\Connection.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Connection.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
 
@@ -68,6 +56,13 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Properties\Connection.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Connection.Designer.cs</LastGenOutput>
+    </None>
   </ItemGroup>
 
 </Project>
