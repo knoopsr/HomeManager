@@ -32,11 +32,16 @@ namespace HomeManager.Model.Dagboek
 			}
 		}
 
+
 		public DateTime DateCreated { get; set; }
 
 		public override string ToString()
 		{
 			return DateCreated.ToLongDateString();
+		}
+
+		private void ConvertToRTF()
+		{
 		}
 
 	}

@@ -6,7 +6,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:HomeManager.View"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:myRibbon="clr-namespace:System.Windows.Controls.Ribbon;assembly=System.Windows.Controls.Ribbon"
+    xmlns:helpers="clr-namespace:HomeManager.Helpers"
     d:DesignHeight="450"
     d:DesignWidth="800"
     mc:Ignorable="d">
@@ -35,16 +35,45 @@
             CornerRadius="5">
             <DockPanel LastChildFill="True">
                 <Ribbon DockPanel.Dock="Top">
-                    <Ribbon.Title>
-                        <Button Click="Button_Click">Click</Button>
-                    </Ribbon.Title>
-                    
                     <RibbonTab IsEnabled="True">
-                        <RibbonTab.Header >
+                        <RibbonTab.Header>
                             <TextBlock>
                                 <Run FontWeight="Bold" Text="Text Format" />
                             </TextBlock>
                         </RibbonTab.Header>
+
+                        <RibbonGroup Header="Options">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*" />
+                                    <RowDefinition Height="auto" />
+                                </Grid.RowDefinitions>
+
+                                <Button Command="{Binding cmdNew}" Style="{StaticResource AddImage}" />
+
+                                <Label Grid.Row="1">New File</Label>
+
+                                <Button
+                                    Grid.Column="1"
+                                    Command="{Binding cmdSave}"
+                                    Style="{StaticResource SaveImage}" />
+
+                                <Label Grid.Row="1" Grid.Column="1">Save File</Label>
+
+                                <Button
+                                    Grid.Column="2"
+                                    Command="{Binding cmdDelete}"
+                                    Style="{StaticResource DeleteImage}"/>
+
+                                <Label Grid.Row="1" Grid.Column="2">Delete File</Label>
+
+                            </Grid>
+                        </RibbonGroup>
 
                         <!--  groep 1  -->
                         <RibbonGroup Header="Home">
@@ -95,7 +124,7 @@
                         </RibbonGroup>
 
                         <!--  groep2  -->
-                        <RibbonGroup Header="Edit tekst">
+                        <RibbonGroup Header="Edit tekst" >
                             <Grid>
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="auto" />
@@ -217,26 +246,7 @@
 
                         </RibbonGroup>
 
-                        <RibbonGroup>
-                            <Button
-                                Width="15"
-                                Height="15"
-                                Command="{Binding cmdNew}"
-                                Style="{StaticResource AddImage}"
-                                ToolTip="New" />
-                            <Button
-                                Width="15"
-                                Height="15"
-                                Command="{Binding cmdSave}"
-                                Style="{StaticResource SaveImage}"
-                                ToolTip="Save" />
-                            <Button
-                                Width="15"
-                                Height="15"
-                                Command="{Binding cmdDelete}"
-                                Style="{StaticResource DeleteImage}"
-                                ToolTip="Delete" />
-                        </RibbonGroup>
+                        <RibbonGroup />
                     </RibbonTab>
 
                 </Ribbon>
@@ -248,22 +258,16 @@
                     </Grid.ColumnDefinitions>
 
                     <ListBox
-                        x:Name="lstMyItems"
                         Margin="2"
                         Background="LightGray"
-                        ItemsSource="{Binding myTestString}" />
+                        ItemsSource="{Binding MijnCollectie}"
+                        SelectedItem="{Binding MySelectedItem, Mode=TwoWay}"/>
                     <RichTextBox
-                        x:Name="rtbMyContent"
+                        x:Name="MyRTB"
                         Grid.Column="1"
-                        Margin="2">
+                        Margin="2"
+                        helpers:clsRichTextBoxHelper.BoundDocument="{Binding MySelectedItem.DagboekContentString, Mode=TwoWay}">
 
-                        <RichTextBox.Document>
-                            <FlowDocument>
-                                <Paragraph>
-                                    <Run Text="Test Text" />
-                                </Paragraph>
-                            </FlowDocument>
-                        </RichTextBox.Document>
                     </RichTextBox>
                     <Button
                         Grid.Column="2"

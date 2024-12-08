@@ -26,6 +26,7 @@ namespace HomeManager.ViewModel
             get
             {
                 return _dagboekViewModel;
+                //return new clsDagboekViewModel();
             }
         }
 

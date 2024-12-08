@@ -42,7 +42,14 @@ namespace HomeManager.DAL.Dagboek
         #region implementation
         public bool Delete(clsDagboekModel entity)
         {
-            throw new NotImplementedException();
+            (DataTable? DT, bool ok, string boodschap) = clsDAL.ExecuteDataTable(Properties.Resources.D_Dagboek,
+                                                                                 clsDAL.Parameter("@DagboekID", entity.DagboekId),
+                                                                                 clsDAL.Parameter("@ControlField", entity.ControlField),
+                                                                                 clsDAL.Parameter("@User", Environment.UserName),
+                                                                                 clsDAL.Parameter("ReturnValue", 0)
+                                                                                 );
+            entity.ErrorBoodschap = boodschap;
+            return ok;
         }
 
 
@@ -68,12 +75,21 @@ namespace HomeManager.DAL.Dagboek
                                                                                  clsDAL.Parameter("@User", Environment.UserName),
                                                                                  clsDAL.Parameter("ReturnValue", 0)
                                                                                  );
+            entity.ErrorBoodschap = boodschap;
             return ok;
         }
 
         public bool Update(clsDagboekModel entity)
         {
-            throw new NotImplementedException();
+            (DataTable? DT, bool ok, string boodschap) = clsDAL.ExecuteDataTable(Properties.Resources.I_Dagboek,
+                                                                                 clsDAL.Parameter("@DagboekID", entity.DagboekId),
+                                                                                 clsDAL.Parameter("@DagboekNotitie", entity.DagboekContentString),
+                                                                                 clsDAL.Parameter("@User", Environment.UserName),
+                                                                                 clsDAL.Parameter("@ControlField", entity.ControlField),
+                                                                                 clsDAL.Parameter("ReturnValue", 0)
+                                                                                 );
+            entity.ErrorBoodschap = boodschap;
+            return ok;
         }
         #endregion
 

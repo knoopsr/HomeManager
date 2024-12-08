@@ -24,18 +24,6 @@ namespace HomeManager.ViewModel
         private bool isNew = false;
         private bool isEmptyCollection = false;
 
-        //test
-        private ObservableCollection<string> _myTestString;
-        public ObservableCollection<string> myTestString
-        { get { return _myTestString; }
-
-            set
-            {
-                _myTestString = value;
-                OnPropertyChanged();
-            }
-        }
-
         private ObservableCollection<clsDagboekModel> _mijnCollectie;
 
         public ObservableCollection<clsDagboekModel> MijnCollectie
@@ -44,6 +32,7 @@ namespace HomeManager.ViewModel
             set
             {
                 _mijnCollectie = value;
+                OnPropertyChanged();
             }
         }
 
@@ -72,6 +61,11 @@ namespace HomeManager.ViewModel
         {
             MijnCollectie = new ObservableCollection<clsDagboekModel>();
             MijnCollectie = MyService.GetAllByPersoonID(PersoonID);
+            if (MijnCollectie.Count == 0)
+            {
+                isEmptyCollection = true;
+                //MessageBox.Show("collection is empty = " + isEmptyCollection.ToString());
+            }
 
         }
 
@@ -88,9 +82,28 @@ namespace HomeManager.ViewModel
             MyService = new clsDagboekDataService();
             GenerateCollection();
 
-            myTestString = new ObservableCollection<string> { };
-            myTestString.Add("test");
-            myTestString.Add("test2");
+            //validatie
+            if (isEmptyCollection)
+            {
+                //dit maakt een item aan om geen lege collecties te hebben
+                var _obj = new clsDagboekModel()
+                {
+                    PersoonID = this.PersoonID,
+                    DateCreated = DateTime.Now,
+                    DagboekContentString = "Er zijn nog geen files opgeslagen"
+                };
+                MijnCollectie.Add(_obj);
+                MySelectedItem = _obj;
+
+                isNew = true;
+                isEmptyCollection = false;
+            }
+            else
+            {
+                MySelectedItem = MijnCollectie.FirstOrDefault();
+               
+                
+            }
 
 
         }
@@ -102,7 +115,8 @@ namespace HomeManager.ViewModel
 
         private void Execute_Test(object? obj)
         {
-            MessageBox.Show("test");
+            MessageBox.Show(MySelectedItem.DagboekContentString + "\n" +
+                            "IsDirty = " + MySelectedItem.IsDirty);
         }
 
 
@@ -146,12 +160,11 @@ namespace HomeManager.ViewModel
 
         private bool CanExecute_Save_Command(object? obj)
         {
-            //if(isNew)
-            //{
-            //    return true;
-            //}
-            //return false;
-            return true;
+            if (isNew || MySelectedItem.IsDirty)
+            {
+                return true;
+            }
+            return false;
         }
         #endregion
 
@@ -168,22 +181,85 @@ namespace HomeManager.ViewModel
 
         private void Execute_New_Command(object? obj)
         {
-            MessageBox.Show("new");
+            safetySave();
+
+            var _obj = new clsDagboekModel()
+            {
+                PersoonID = this.PersoonID,
+                DateCreated = DateTime.Now,
+                DagboekContentString = string.Empty
+            };
+            MijnCollectie.Add(_obj);
+            MySelectedItem = _obj;
+
+            isNew = true;
         }
 
         private void Execute_Delete_Command(object? obj)
         {
-            MessageBox.Show("delete");
+            if (MessageBox.Show("wil je deze entry verwijderen?", "ok", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+            {
+                MyService.Delete(MySelectedItem);
+                MijnCollectie.Remove(MySelectedItem);
+                if (MijnCollectie.Count == 0)
+                {
+                    var _obj = new clsDagboekModel()
+                    {
+                        PersoonID = this.PersoonID,
+                        DateCreated = DateTime.Now,
+                        DagboekContentString = "Er zijn nog geen files opgeslagen"
+                    };
+                    MijnCollectie.Add(_obj);
+                    MySelectedItem = _obj;
+
+                    isNew = true;
+                    isEmptyCollection = false;
+                }
+                MySelectedItem = MijnCollectie.FirstOrDefault();
+            }
         }
 
         private void Execute_Save_Command(object? obj)
         {
-            MessageBox.Show("save");
+            if (isNew)
+            {
+                MyService.Insert(MySelectedItem);
+                isNew = false;
+            }
+            else
+            {
+                MyService.Update(MySelectedItem);
+            }
+            
+            MySelectedItem.IsDirty = false;
         }
         #endregion
-
         #endregion
 
+        private void safetySave()
+        {
+            if (MySelectedItem.IsDirty = true)
+            {
+                if (MessageBox.Show("wil je opslaan? laatste veranderingen worden anders niet opgeslagen", "ok", MessageBoxButton.YesNo) == MessageBoxResult.Yes )
+                {
+                    if (isNew)
+                    {
+                        MyService.Insert(MySelectedItem);
+                    }
+                    else
+                    {
+                        MyService.Update(MySelectedItem);
+                    }
+                }
+                else
+                {
+                    if (isEmptyCollection)
+                    {
+                        MijnCollectie.Remove(MySelectedItem);
+                    }
+                }
+            }
+        }
     }
 }
 
