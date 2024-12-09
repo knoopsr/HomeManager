@@ -16,11 +16,11 @@ using System.Windows.Shapes;
 namespace HomeManager.View
 {
     /// <summary>
-    /// Interaction logic for ucTodo.xaml
+    /// Interaction logic for ucTodoDetails.xaml
     /// </summary>
-    public partial class ucTodo : UserControl
+    public partial class ucTodoDetails : UserControl
     {
-        public ucTodo()
+        public ucTodoDetails()
         {
             InitializeComponent();
         }
