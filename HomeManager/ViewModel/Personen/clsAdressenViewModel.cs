@@ -143,7 +143,7 @@ namespace HomeManager.ViewModel
 
             LoadData();
             MijnSelectedItem = MijnService.GetFirst();
-            MijnSelectedItem.MijnSelectedIndex = 0;
+            //MijnSelectedItem.MijnSelectedIndex = 0;
         }
 
         private bool CanExecute_NewCommand(object? obj)

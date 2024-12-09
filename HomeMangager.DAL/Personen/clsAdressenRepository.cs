@@ -86,6 +86,7 @@ namespace HomeManager.DAL.Personen
                 clsDAL.ExecuteDataTable(Properties.Resources.I_Adressen,
                 clsDAL.Parameter("Straat", entity.Straat),
                 clsDAL.Parameter("Nummer", entity.Nummer),
+                clsDAL.Parameter("FunctieID", entity.FunctieID),
                 clsDAL.Parameter("Gemeente", entity.GemeenteID),
                 clsDAL.Parameter("FunctieID", entity.FunctieID),
                 clsDAL.Parameter("@ReturnValue", 0));

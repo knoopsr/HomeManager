@@ -122,7 +122,7 @@
                     Grid.Row="4"
                     Grid.Column="3"
                     Margin="5"
-                    DataContext="{Binding Source={StaticResource VML}, Path=ProvincieViewModel}"
+                    DataContext="{Binding Source={StaticResource VML}, Path=GemeenteViewModel}"
                     DisplayMemberPath="GemeenteDisplayName"
                     ItemsSource="{Binding MijnCollectie}"
                     SelectedValue="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Grid}}, Path=DataContext.MijnSelectedItem.GemeenteID, Mode=TwoWay}"
