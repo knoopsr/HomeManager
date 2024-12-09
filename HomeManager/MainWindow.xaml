@@ -42,6 +42,9 @@
         <DataTemplate DataType="{x:Type VM:clsEmailAdressenViewModel}">
             <V:ucEmailAdressen />
         </DataTemplate>
+        <DataTemplate DataType="{x:Type VM:clsAdressenViewModel}">
+            <V:ucAdressen />
+        </DataTemplate>
 
         <DataTemplate DataType="{x:Type VM:clsRechtenViewModel}">
             <V:ucRoles />
@@ -190,6 +193,11 @@
                                 Command="{Binding NavCommand}"
                                 CommandParameter="clsEmailAdressenViewModel"
                                 Content="EmailAdressen"
+                                Style="{StaticResource myExpanderPerson}" />
+                            <Button
+                                Command="{Binding NavCommand}"
+                                CommandParameter="clsAdressenViewModel"
+                                Content="Adressen"
                                 Style="{StaticResource myExpanderPerson}" />
                         </StackPanel>
                     </Expander>

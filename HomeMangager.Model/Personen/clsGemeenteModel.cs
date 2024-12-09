@@ -87,6 +87,14 @@ namespace HomeManager.Model.Personen
             return Gemeente + " (" + PostCode + ")";
         }
 
+        public string GemeenteDisplayName
+        {
+            get
+            {
+                return Gemeente;
+            }
+        }
+
 
         public string this[string columnName]
         {

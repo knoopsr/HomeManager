@@ -288,4 +288,16 @@
   <data name="U_EmailAdressen" xml:space="preserve">
     <value>U_EmailAdressen</value>
   </data>
+  <data name="D_Adressen" xml:space="preserve">
+    <value>D_Adressen</value>
+  </data>
+  <data name="I_Adressen" xml:space="preserve">
+    <value>I_Adressen</value>
+  </data>
+  <data name="S_Adressen" xml:space="preserve">
+    <value>S_Adressen</value>
+  </data>
+  <data name="U_Adressen" xml:space="preserve">
+    <value>U_Adressen</value>
+  </data>
 </root>

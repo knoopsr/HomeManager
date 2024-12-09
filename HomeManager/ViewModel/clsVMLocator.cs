@@ -82,6 +82,14 @@ namespace HomeManager.ViewModel
             }
         }
 
+        public clsAdressenViewModel AdressenViewModel
+        {
+            get
+            {
+                return new clsAdressenViewModel();
+            }
+        }
+
         #region Security
         public clsTitlePersonViewModel TitlePersonViewModel
         {
