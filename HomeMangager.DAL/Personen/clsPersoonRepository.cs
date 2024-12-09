@@ -62,7 +62,7 @@ namespace HomeManager.DAL.Personen
                 clsDAL.ExecuteDataTable(Properties.Resources.I_Persoon,
                 clsDAL.Parameter("Naam", entity.Naam),
                 clsDAL.Parameter("Voornaam", entity.Voornaam),
-             clsDAL.Parameter("Foto", entity.Foto != null ? (object)entity.Foto : DBNull.Value, SqlDbType.VarBinary),
+                clsDAL.Parameter("Foto", entity.Foto != null ? (object)entity.Foto : DBNull.Value, SqlDbType.VarBinary),
                 clsDAL.Parameter("Geboortedatum", entity.Geboortedatum),
                 clsDAL.Parameter("IsApplicationUser", entity.IsApplicationUser),
                 clsDAL.Parameter("@ReturnValue", 0)

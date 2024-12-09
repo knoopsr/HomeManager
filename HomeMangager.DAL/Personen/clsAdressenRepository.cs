@@ -14,13 +14,14 @@ namespace HomeManager.DAL.Personen
     {
         private ObservableCollection<clsAdressenModel> MijnCollectie;
         int nr = 0;
+
         public clsAdressenRepository()
         {
         }
         public bool Delete(clsAdressenModel entity)
         {
             (DataTable DT, bool OK, string Boodschap) =
-                clsDAL.ExecuteDataTable(Properties.Resources.U_Adressen,
+            clsDAL.ExecuteDataTable(Properties.Resources.D_Adressen,
                 clsDAL.Parameter("AdresID", entity.AdresID),
                 clsDAL.Parameter("ControlField", entity.ControlField),
                 clsDAL.Parameter("@ReturnValue", 0));
@@ -49,15 +50,17 @@ namespace HomeManager.DAL.Personen
 
             while (MijnDataReader.Read())
             {
-                clsAdressenModel e = new clsAdressenModel()
+                clsAdressenModel m = new clsAdressenModel()
                 {
-                    Straat = MijnDataReader[0].ToString(),
-                    Nummer = MijnDataReader[1].ToString(),
-                    GemeenteID = (int)MijnDataReader[2],
-                    FunctieID = (int)MijnDataReader[3],
-                    ControlField = MijnDataReader[4]
+                    AdresID = (int)MijnDataReader["AdresID"],
+                    PersoonID = (int)MijnDataReader["PersoonID"],
+                    GemeenteID = (int)MijnDataReader["GemeenteID"],
+                    FunctieID = (int)MijnDataReader["FunctieID"],
+                    Straat = MijnDataReader["Straat"].ToString(),
+                    Nummer = MijnDataReader["Nummer"].ToString(),
+                    ControlField = MijnDataReader["ControlField"]
                 };
-                MijnCollectie.Add(e);
+                MijnCollectie.Add(m);
             }
             MijnDataReader.Close();
         }
@@ -68,7 +71,7 @@ namespace HomeManager.DAL.Personen
             {
                 GenerateCollection();
             }
-            return MijnCollectie.Where(adres => adres.AdresID == id).FirstOrDefault();
+            return MijnCollectie.Where(addressen => addressen.AdresID == id).FirstOrDefault();
         }
 
         public clsAdressenModel GetFirst()
@@ -84,12 +87,13 @@ namespace HomeManager.DAL.Personen
         {
             (DataTable DT, bool OK, string Boodschap) =
                 clsDAL.ExecuteDataTable(Properties.Resources.I_Adressen,
-                clsDAL.Parameter("Straat", entity.Straat),
-                clsDAL.Parameter("Nummer", entity.Nummer),
-                clsDAL.Parameter("FunctieID", entity.FunctieID),
-                clsDAL.Parameter("Gemeente", entity.GemeenteID),
-                clsDAL.Parameter("FunctieID", entity.FunctieID),
-                clsDAL.Parameter("@ReturnValue", 0));
+                    clsDAL.Parameter("PersoonID", entity.PersoonID),
+                    clsDAL.Parameter("GemeenteID", entity.GemeenteID),
+                    clsDAL.Parameter("FunctieID", entity.FunctieID),
+                    clsDAL.Parameter("Straat", entity.Straat),
+                    clsDAL.Parameter("Nummer", entity.Nummer),
+                    clsDAL.Parameter("@ReturnValue", 0)
+                );
             if (!OK)
             {
                 entity.ErrorBoodschap = Boodschap;
@@ -107,9 +111,8 @@ namespace HomeManager.DAL.Personen
                     clsDAL.Parameter("FunctieID", entity.FunctieID),
                     clsDAL.Parameter("Straat", entity.Straat),
                     clsDAL.Parameter("Nummer", entity.Nummer),
-                    clsDAL.Parameter("ControlField", entity.ControlField),
-                    clsDAL.Parameter("@ReturnValue", 0));
-
+                    clsDAL.Parameter("@ReturnValue", 0)
+                );
             if (!OK)
             {
                 entity.ErrorBoodschap = Boodschap;

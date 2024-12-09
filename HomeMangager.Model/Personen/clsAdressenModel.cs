@@ -109,6 +109,10 @@ namespace HomeManager.Model.Personen
                 OnPropertyChanged();
             }
         }
+        public override string ToString()
+        {
+            return Straat + " (" + Nummer + ")";
+        }
 
         public string this[string columnName]
         {
@@ -117,8 +121,8 @@ namespace HomeManager.Model.Personen
                 string error = string.Empty;
                 switch (columnName)
                 {
-                    case "Straat":
-                        if (string.IsNullOrWhiteSpace(_straat))
+                    case nameof(Straat):
+                        if (string.IsNullOrWhiteSpace(Straat))
                         {
                             error = "Straat is een verplicht veld.";
                             if (ErrorList.Contains("Straat") == false)
@@ -126,7 +130,7 @@ namespace HomeManager.Model.Personen
                                 ErrorList.Add("Straat");
                             }
                         }
-                        else if (_straat.Length > 50)
+                        else if (Straat.Length > 50)
                         {
                             error = "Your text is to long!!!";
                             if (ErrorList.Contains("Straat") == false)
@@ -137,32 +141,6 @@ namespace HomeManager.Model.Personen
                         else
                         {
                             if (ErrorList.Contains("Straat"))
-                            {
-                                ErrorList.Remove("Straat");
-                            }
-                        }
-                        return error;
-
-                    case "Nummer":
-                        if (string.IsNullOrWhiteSpace(_nummer))
-                        {
-                            error = "Nummer is een verplicht veld.";
-                            if (ErrorList.Contains("Nummer") == false)
-                            {
-                                ErrorList.Add("Nummer");
-                            }
-                        }
-                        else if (_nummer.Length > 5)
-                        {
-                            error = "Your text is to long!!!";
-                            if (ErrorList.Contains("Nummer") == false)
-                            {
-                                ErrorList.Add("Straat");
-                            }
-                        }
-                        else
-                        {
-                            if (ErrorList.Contains("Nummer"))
                             {
                                 ErrorList.Remove("Straat");
                             }
