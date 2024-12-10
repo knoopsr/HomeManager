@@ -169,6 +169,15 @@ namespace HomeManager.DAL.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to D_TelefoonNummers.
+        /// </summary>
+        internal static string D_TelefoonNummers {
+            get {
+                return ResourceManager.GetString("D_TelefoonNummers", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to D_TelefoonType.
         /// </summary>
         internal static string D_TelefoonType {
@@ -291,6 +300,15 @@ namespace HomeManager.DAL.Properties {
         internal static string I_Rollen {
             get {
                 return ResourceManager.GetString("I_Rollen", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to I_TelefoonNummers.
+        /// </summary>
+        internal static string I_TelefoonNummers {
+            get {
+                return ResourceManager.GetString("I_TelefoonNummers", resourceCulture);
             }
         }
         
@@ -448,6 +466,15 @@ namespace HomeManager.DAL.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to S_TelefoonNummers.
+        /// </summary>
+        internal static string S_TelefoonNummers {
+            get {
+                return ResourceManager.GetString("S_TelefoonNummers", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to S_TelefoonType.
         /// </summary>
         internal static string S_TelefoonType {
@@ -579,6 +606,15 @@ namespace HomeManager.DAL.Properties {
         internal static string U_Rollen {
             get {
                 return ResourceManager.GetString("U_Rollen", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to U_TelefoonNummers.
+        /// </summary>
+        internal static string U_TelefoonNummers {
+            get {
+                return ResourceManager.GetString("U_TelefoonNummers", resourceCulture);
             }
         }
         

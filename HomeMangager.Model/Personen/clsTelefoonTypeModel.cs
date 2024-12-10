@@ -52,6 +52,14 @@ namespace HomeManager.Model.Personen
             return TelefoonType;
         }
 
+        public string TelefoonTypeDisplayName
+        {
+            get
+            {
+                return TelefoonType;
+            }
+        }
+
 
         public string this[string columnName]
         {

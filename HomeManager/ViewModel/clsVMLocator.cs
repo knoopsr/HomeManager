@@ -89,6 +89,13 @@ namespace HomeManager.ViewModel
                 return new clsAdressenViewModel();
             }
         }
+        public clsTelefoonNummersViewModel TelefoonNummersViewModel
+        {
+            get
+            {
+                return new clsTelefoonNummersViewModel();
+            }
+        }
 
         #region Security
         public clsTitlePersonViewModel TitlePersonViewModel

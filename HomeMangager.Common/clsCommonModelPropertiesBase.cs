@@ -21,13 +21,13 @@ namespace HomeManager.Common
             }
         }
 
-        private int _mijnSlectedIndex;
+        private int _mijnSelectedIndex;
         public int MijnSelectedIndex
         {
-            get { return _mijnSlectedIndex; }
+            get { return _mijnSelectedIndex; }
             set
             {
-                _mijnSlectedIndex = value;
+                _mijnSelectedIndex = value;
                 OnPropertyChanged();
             }
         }

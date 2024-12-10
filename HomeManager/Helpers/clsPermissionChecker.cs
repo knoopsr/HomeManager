@@ -60,6 +60,8 @@ namespace HomeManager.Helpers
             {"clsEmailAdressenViewModel","100" },
             {"clsPersonenViewModel","100" },
             {"clsAdressenViewModel","100" },
+            {"clsTelefoonNummersViewModel","100" },
+            {"clsTelefoonTypeViewModel","100" },
    
 
 
