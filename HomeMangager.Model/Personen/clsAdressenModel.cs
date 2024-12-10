@@ -122,7 +122,7 @@ namespace HomeManager.Model.Personen
                 switch (columnName)
                 {
                     case nameof(Straat):
-                        if (string.IsNullOrWhiteSpace(Straat))
+                        if (string.IsNullOrWhiteSpace(_straat))
                         {
                             error = "Straat is een verplicht veld.";
                             if (ErrorList.Contains("Straat") == false)
@@ -130,7 +130,7 @@ namespace HomeManager.Model.Personen
                                 ErrorList.Add("Straat");
                             }
                         }
-                        else if (Straat.Length > 50)
+                        else if (_straat.Length > 50)
                         {
                             error = "Your text is to long!!!";
                             if (ErrorList.Contains("Straat") == false)
@@ -143,6 +143,31 @@ namespace HomeManager.Model.Personen
                             if (ErrorList.Contains("Straat"))
                             {
                                 ErrorList.Remove("Straat");
+                            }
+                        }
+                        return error;
+                    case nameof(Nummer):
+                        if (string.IsNullOrWhiteSpace(_nummer))
+                        {
+                            error = "Nummer is een verplicht veld.";
+                            if (ErrorList.Contains("Nummer") == false)
+                            {
+                                ErrorList.Add("Nummer");
+                            }
+                        }
+                        else if (_nummer.Length > 5)
+                        {
+                            error = "Your text is to long!!!";
+                            if (ErrorList.Contains("Nummer") == false)
+                            {
+                                ErrorList.Add("Nummer");
+                            }
+                        }
+                        else
+                        {
+                            if (ErrorList.Contains("Nummer"))
+                            {
+                                ErrorList.Remove("Nummer");
                             }
                         }
                         return error;
