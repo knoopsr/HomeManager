@@ -105,6 +105,7 @@ namespace HomeManager.DAL.Personen
                     clsDAL.Parameter("Emailadres", entity.Emailadres),
                     clsDAL.Parameter("PersoonID", entity.PersoonID),
                     clsDAL.Parameter("EmailTypeID", entity.EmailTypeID),
+                    clsDAL.Parameter("ControlField", entity.ControlField),
                     clsDAL.Parameter("@ReturnValue", 0)
                 );
             if (!OK)

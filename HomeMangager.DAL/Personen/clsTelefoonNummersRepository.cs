@@ -103,6 +103,7 @@ namespace HomeManager.DAL.Personen
                     clsDAL.Parameter("PersoonID", entity.PersoonID),
                     clsDAL.Parameter("TelefoonTypeID", entity.TelefoonTypeID),
                     clsDAL.Parameter("TelefoonNummer", entity.TelefoonNummer),
+                    clsDAL.Parameter("ControlField", entity.ControlField),
                     clsDAL.Parameter("@ReturnValue", 0)
                 );
             if (!OK)

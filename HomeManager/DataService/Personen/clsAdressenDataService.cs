@@ -44,7 +44,7 @@ namespace HomeManager.DataService.Personen
 
         public bool Update(clsAdressenModel entity)
         {
-            return !Repo.Update(entity);
+            return Repo.Update(entity);
         }
     }
 }
