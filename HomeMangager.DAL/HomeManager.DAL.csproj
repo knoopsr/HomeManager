@@ -40,7 +40,6 @@
 		<Folder Include="Dagboek\" />
 		<Folder Include="Budget\" />
 		<Folder Include="StickyNotes\" />
-		<Folder Include="Todo\" />
 	</ItemGroup>
 
 	<ItemGroup>

@@ -27,7 +27,6 @@
     <Folder Include="ViewModel\Dagboek\" />
     <Folder Include="ViewModel\Budget\" />
     <Folder Include="ViewModel\StickyNotes\" />
-    <Folder Include="ViewModel\Todo\" />
     <Folder Include="ViewModel\Security\" />
     <Folder Include="ViewModel\Personen\" />
     <Folder Include="View\Dagboek\" />
