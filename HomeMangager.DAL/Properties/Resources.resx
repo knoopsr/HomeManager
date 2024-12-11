@@ -288,4 +288,7 @@
   <data name="U_EmailAdressen" xml:space="preserve">
     <value>U_EmailAdressen</value>
   </data>
+  <data name="S_LockedUsers" xml:space="preserve">
+    <value>S_LockedUsers</value>
+  </data>
 </root>

@@ -65,7 +65,24 @@
                     Grid.Row="1"
                     Grid.Column="1"
                     Width="280"
-                    Height="350" />
+                    ItemsSource="{Binding MijnCollectie}"
+                
+                    Height="350">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <Border Background="{StaticResource myTitleBar}" CornerRadius="3" Width="265">
+                                
+                        
+
+
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="{Binding Persoon.Naam}" Foreground="{StaticResource myWerkBalk}" />
+                               
+                            </StackPanel>
+                            </Border>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
 
 
             </Grid>
