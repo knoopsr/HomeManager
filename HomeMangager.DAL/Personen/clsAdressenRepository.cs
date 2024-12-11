@@ -111,6 +111,7 @@ namespace HomeManager.DAL.Personen
                     clsDAL.Parameter("FunctieID", entity.FunctieID),
                     clsDAL.Parameter("Straat", entity.Straat),
                     clsDAL.Parameter("Nummer", entity.Nummer),
+                    clsDAL.Parameter("ControlField", entity.ControlField),
                     clsDAL.Parameter("@ReturnValue", 0)
                 );
             if (!OK)
