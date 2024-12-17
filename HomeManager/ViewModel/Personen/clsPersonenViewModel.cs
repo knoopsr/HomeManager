@@ -162,7 +162,8 @@ namespace HomeManager.ViewModel
 
     private void Execute_New_Command(object? obj)
     {
-            clsMessenger.Default.Send<clsNewPersoonMessage>(new clsNewPersoonMessage());
+        clsMessenger.Default.Send<clsNewPersoonMessage>(new clsNewPersoonMessage());
+            MessageBox.Show("Test");
     }
 
     private bool CanExecute_New_Command(object? obj)

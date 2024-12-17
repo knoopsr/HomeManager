@@ -104,8 +104,14 @@
                                     BorderBrush="Gray"
                                     BorderThickness="1"
                                     CornerRadius="8">
-                                    <StackPanel Orientation="Horizontal">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*" />
+                                            <ColumnDefinition Width="*" />
+                                            <ColumnDefinition Width="*" />
+                                        </Grid.ColumnDefinitions>
                                         <Border
+                                            Grid.Column="0"
                                             Width="30"
                                             Height="64"
                                             BorderBrush="Gray"
@@ -121,7 +127,7 @@
                                                 <ImageBrush ImageSource="{Binding Foto, TargetNullValue='https://p92.com/binaries/content/gallery/p92website/technologies/c-sharp-overview.png'}" Stretch="UniformToFill" />
                                             </Border.Background>
                                         </Border>
-                                        <StackPanel Margin="5,30,0,5" Orientation="Vertical">
+                                        <StackPanel Grid.Column="1"  HorizontalAlignment="Left" VerticalAlignment="Bottom" Orientation="Vertical">
                                             <TextBlock
                                                 FontSize="9"
                                                 FontWeight="Bold"
@@ -129,13 +135,14 @@
                                             <TextBlock FontSize="8" Text="{Binding Voornaam}" />
                                             <TextBlock FontSize="8" Text="{Binding Geboortedatum}" />
                                         </StackPanel>
-                                        <StackPanel Margin="-15,-50,0,0" Orientation="Horizontal">
+                                        <StackPanel Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Top" Orientation="Horizontal">
                                             <Button
                                                 Width="10"
                                                 Height="10"
                                                 Margin="0,0,0,0"
                                                 Command="{Binding cmdNew}"
                                                 CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}"
+                                                DataContext="{Binding Source={StaticResource VML}, Path=PersonenViewModel}"
                                                 Style="{StaticResource AddImagePersoon}"
                                                 ToolTip="New" />
                                             <Button
@@ -153,14 +160,13 @@
                                                 Command="{Binding cmdDelete}"
                                                 CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}"
                                                 Style="{StaticResource DeletePersonImage}"
-                                                ToolTip="Aanpassen" />
+                                                ToolTip="Delete" />
                                         </StackPanel>
-                                    </StackPanel>
+                                    </Grid>
                                 </Border>
                             </DataTemplate>
                         </ListView.ItemTemplate>
                     </ListView>
-
                 </Grid>
             </Border>
 
@@ -204,7 +210,7 @@
                                 Style="{StaticResource AddImage}" />
                         </Grid>
                     </Border>
-                    <ListBox Grid.Row="1" Margin="1" />
+                    <ListView Grid.Row="1" Margin="1" />
                     <Border
                         Grid.Row="2"
                         Margin="1"
