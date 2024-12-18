@@ -65,24 +65,118 @@
                     Grid.Row="1"
                     Grid.Column="1"
                     Width="280"
+                    Height="350"
+                    Background="Transparent"
+                    BorderThickness="0"
                     ItemsSource="{Binding MijnCollectie}"
-                
-                    Height="350">
+                    SelectionMode="Multiple">
+                    <ListBox.ItemContainerStyle>
+                        <Style TargetType="ListBoxItem">
+                            <!--  Standaardachtergrond en rand verwijderen  -->
+                            <Setter Property="Background" Value="Transparent" />
+                            <Setter Property="BorderBrush" Value="Transparent" />
+                            <Setter Property="BorderThickness" Value="0" />
+                            <Setter Property="Margin" Value="0" />
+                            <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+
+                            <!--  Geen visuele feedback voor selectie  -->
+                            <Style.Triggers>
+                                <Trigger Property="IsSelected" Value="True">
+                                    <Setter Property="Background" Value="{x:Null}" />
+                                    <Setter Property="BorderBrush" Value="{x:Null}" />
+                                </Trigger>
+                                <Trigger Property="IsSelected" Value="False">
+                                    <Setter Property="Background" Value="{x:Null}" />
+                                    <Setter Property="BorderBrush" Value="{x:Null}" />
+                                </Trigger>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="Background" Value="{x:Null}" />
+                                    <Setter Property="BorderBrush" Value="{x:Null}" />
+                                </Trigger>
+                                <Trigger Property="IsMouseOver" Value="False">
+                                    <Setter Property="Background" Value="{x:Null}" />
+                                    <Setter Property="BorderBrush" Value="{x:Null}" />
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </ListBox.ItemContainerStyle>
                     <ListBox.ItemTemplate>
                         <DataTemplate>
-                            <Border Background="{StaticResource myTitleBar}" CornerRadius="3" Width="265">
-                                
-                        
+                            <Border
+                                Width="258"
+                                Height="50"
+                                BorderBrush="Black"
+                                BorderThickness="1"
+                                CornerRadius="25">
+                                <Border.Style>
+                                    <Style TargetType="Border">
+                                        <Setter Property="Background" Value="LightBlue" />
+                                        <Setter Property="BorderBrush" Value="Black" />
+                                        <Style.Triggers>
+                                            <!--  Geselecteerd item  -->
+                                            <DataTrigger Binding="{Binding RelativeSource={RelativeSource AncestorType=ListBoxItem}, Path=IsSelected}" Value="True">
+                                                <Setter Property="Background" Value="LightGreen" />
+                                                <Setter Property="BorderBrush" Value="DarkGreen" />
+                                                <Setter Property="BorderThickness" Value="2" />
+                                            </DataTrigger>
+                                            <!--  Muisovergang  -->
+                                            <DataTrigger Binding="{Binding RelativeSource={RelativeSource AncestorType=ListBoxItem}, Path=IsMouseOver}" Value="True">
+                                                <Setter Property="Background" Value="LightYellow" />
+                                                <Setter Property="BorderBrush" Value="Orange" />
+                                                <Setter Property="BorderThickness" Value="2" />
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Border.Style>
 
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="*" />
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="50" />
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="30" />
+                                    </Grid.ColumnDefinitions>
+                                    <Border
+                                        Width="44"
+                                        Height="44"
+                                        BorderBrush="Gray"
+                                        BorderThickness="1"
+                                        CornerRadius="22">
+                                        <Border.Effect>
+                                            <DropShadowEffect
+                                                BlurRadius="10"
+                                                Opacity="0.5"
+                                                ShadowDepth="5"
+                                                Color="Black" />
+                                        </Border.Effect>
+                                        <Border.Background>
+                                            <ImageBrush ImageSource="{Binding Persoon.Foto, TargetNullValue='https://p92.com/binaries/content/gallery/p92website/technologies/c-sharp-overview.png'}" Stretch="UniformToFill" />
+                                        </Border.Background>
+                                    </Border>
 
-                            <StackPanel Orientation="Horizontal">
-                                <TextBlock Text="{Binding Persoon.Naam}" Foreground="{StaticResource myWerkBalk}" />
-                               
-                            </StackPanel>
+                                    <StackPanel
+                                        Grid.Column="1"
+                                        Margin="10,0,0,0"
+                                        VerticalAlignment="Center"
+                                        Orientation="Vertical">
+                                        <TextBlock
+                                            FontSize="15"
+                                            FontWeight="Bold"
+                                            Foreground="Black"
+                                            Text="{Binding Persoon.Voornaam, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                        <TextBlock
+                                            FontSize="15"
+                                            Foreground="Black"
+                                            Text="{Binding Persoon.Naam, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                    </StackPanel>
+                                </Grid>
                             </Border>
                         </DataTemplate>
                     </ListBox.ItemTemplate>
                 </ListBox>
+
 
 
             </Grid>
