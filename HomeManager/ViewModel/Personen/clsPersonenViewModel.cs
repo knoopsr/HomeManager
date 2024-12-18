@@ -13,12 +13,16 @@ using System.Windows.Media.Imaging;
 using System.Windows;
 using HomeManager.Common;
 using HomeManager.Messages;
+using HomeManager.Services;
+using HomeManager.View;
 
 namespace HomeManager.ViewModel
 {
     public class clsPersonenViewModel : clsCommonModelPropertiesBase
     {
         clsPersoonDataService MijnService;
+
+        private clsDialogService _DialogService;
 
         private bool NewStatus = false;
 
@@ -27,6 +31,11 @@ namespace HomeManager.ViewModel
         public ICommand cmdSave { get; set; }
         public ICommand cmdCancel { get; set; }
         public ICommand cmdClose { get; set; }
+
+        public ICommand cmdEditEmailAdressen { get; set; }
+        public ICommand cmdEditAdressen { get; set; }
+
+        public ICommand cmdEditTelefoonNummers { get; set; }
 
 
     private ObservableCollection<clsPersoonModel> _mijnCollectie;
@@ -109,6 +118,7 @@ namespace HomeManager.ViewModel
     public clsPersonenViewModel()
     {
         MijnService = new clsPersoonDataService();
+        _DialogService = new clsDialogService();
 
         cmdSave = new clsCustomCommand(Execute_Save_Command, CanExecute_Save_Command);
         cmdDelete = new clsCustomCommand(Execute_Delete_Command, CanExecute_Delete_Command);
@@ -116,14 +126,56 @@ namespace HomeManager.ViewModel
         cmdCancel = new clsCustomCommand(Execute_Cancel_Command, CanExecute_Cancel_Command);
         cmdClose = new clsCustomCommand(Execute_Close_Command, CanExecute_Close_Command);
 
+            //Messages
+        cmdEditEmailAdressen = new clsCustomCommand(Edit_EmailAdressen, CanExecute_Edit_EmailAdressen);
+        cmdEditAdressen = new clsCustomCommand(Edit_Adressen, CanExecute_Edit_Adressen);
+        cmdEditTelefoonNummers = new clsCustomCommand(Edit_TelefoonNummers, CanExecute_Edit_TelefoonNummers);
+
+        clsMessenger.Default.Register<clsUpdateListMessages>(this, OnUpdateListMessageReceived);
+
         LoadData();
 
         MijnSelectedItem = MijnService.GetFirst();
     }
 
+        private bool CanExecute_Edit_TelefoonNummers(object? obj)
+        {
+            return true;
+        }
 
+        private void Edit_TelefoonNummers(object? obj)
+        {
+            _DialogService.ShowDialog(new ucTelefoonNummers(), "Telefoonnummers");
+        }
 
-    private void Execute_Save_Command(object? obj)
+        private bool CanExecute_Edit_Adressen(object? obj)
+        {
+            return true;
+        }
+
+        private void Edit_Adressen(object? obj)
+        {
+            _DialogService.ShowDialog(new ucAdressen(), "Adressen");
+        }
+
+        private void OnUpdateListMessageReceived(clsUpdateListMessages obj)
+        {
+            //refresh
+            LoadData();
+            _DialogService.CloseDialog();
+        }
+
+        private bool CanExecute_Edit_EmailAdressen(object? obj)
+        {
+            return true;
+        }
+
+        private void Edit_EmailAdressen(object? obj)
+        {
+            _DialogService.ShowDialog(new ucEmailAdressen(), "EmailAdressen");
+        }
+
+        private void Execute_Save_Command(object? obj)
     {
         OpslaanCommando();
     }
@@ -163,7 +215,6 @@ namespace HomeManager.ViewModel
     private void Execute_New_Command(object? obj)
     {
         clsMessenger.Default.Send<clsNewPersoonMessage>(new clsNewPersoonMessage());
-            MessageBox.Show("Test");
     }
 
     private bool CanExecute_New_Command(object? obj)

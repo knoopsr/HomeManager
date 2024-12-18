@@ -10,6 +10,7 @@ using System.Windows;
 using HomeManager.Common;
 using HomeManager.DataService.Personen;
 using HomeManager.Model.Personen;
+using HomeManager.Messages;
 
 namespace HomeManager.ViewModel
 {
@@ -64,6 +65,35 @@ namespace HomeManager.ViewModel
                     }
                 }
                 mijnSelectedItem = value;
+                OnPropertyChanged();
+            }
+        }
+
+
+        private clsPersonenViewModel _mijnSelectedPersoonItem;
+        public clsPersonenViewModel MijnSelectedPersoonItem
+        {
+            get
+            {
+                return _mijnSelectedPersoonItem;
+            }
+            set
+            {
+                if (value != null)
+                {
+                    if (_mijnSelectedPersoonItem != null && _mijnSelectedPersoonItem.IsDirty)
+                    {
+                        if (MessageBox.Show("Wil je " + _mijnSelectedPersoonItem + "Opslaan?", "Opslaan",
+                            MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+                        {
+                            _mijnSelectedPersoonItem.IsDirty = false;
+                            _mijnSelectedPersoonItem.MijnSelectedIndex = 0;
+                            OpslaanCommando();
+                            LoadData();
+                        }
+                    }
+                }
+                _mijnSelectedPersoonItem = value;
                 OnPropertyChanged();
             }
         }
@@ -140,10 +170,16 @@ namespace HomeManager.ViewModel
             cmdSave = new clsCustomCommand(Execute_SaveCommand, CanExecute_SaveCommand);
             cmdClose = new clsCustomCommand(Execute_CloseCommand, CanExecute_CloseCommand);
             cmdCancel = new clsCustomCommand(Execute_CancelCommand, CanExecute_CancelCommand);
+            clsMessenger.Default.Register<clsEmailAdressenModel>(this, OnFrequentieReceived);
 
             LoadData();
             MijnSelectedItem = MijnService.GetFirst();
             //MijnSelectedItem.MijnSelectedIndex = 0;
+        }
+
+        private void OnFrequentieReceived(clsEmailAdressenModel obj)
+        {
+            mijnSelectedItem = obj;
         }
 
         private bool CanExecute_NewCommand(object? obj)
@@ -225,6 +261,8 @@ namespace HomeManager.ViewModel
                 clsHomeVM vm = (clsHomeVM)HomeWindow.DataContext;
                 vm.CurrentViewModel = null;
             }
+
+            clsMessenger.Default.Send<clsUpdateListMessages>(new clsUpdateListMessages());
         }
 
         private bool CanExecute_CancelCommand(object obj)

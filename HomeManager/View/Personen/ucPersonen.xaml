@@ -127,7 +127,11 @@
                                                 <ImageBrush ImageSource="{Binding Foto, TargetNullValue='https://p92.com/binaries/content/gallery/p92website/technologies/c-sharp-overview.png'}" Stretch="UniformToFill" />
                                             </Border.Background>
                                         </Border>
-                                        <StackPanel Grid.Column="1"  HorizontalAlignment="Left" VerticalAlignment="Bottom" Orientation="Vertical">
+                                        <StackPanel
+                                            Grid.Column="1"
+                                            HorizontalAlignment="Left"
+                                            VerticalAlignment="Bottom"
+                                            Orientation="Vertical">
                                             <TextBlock
                                                 FontSize="9"
                                                 FontWeight="Bold"
@@ -135,7 +139,11 @@
                                             <TextBlock FontSize="8" Text="{Binding Voornaam}" />
                                             <TextBlock FontSize="8" Text="{Binding Geboortedatum}" />
                                         </StackPanel>
-                                        <StackPanel Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Top" Orientation="Horizontal">
+                                        <StackPanel
+                                            Grid.Column="2"
+                                            HorizontalAlignment="Center"
+                                            VerticalAlignment="Top"
+                                            Orientation="Horizontal">
                                             <Button
                                                 Width="10"
                                                 Height="10"
@@ -192,6 +200,7 @@
                         <RowDefinition Height="*" />
                     </Grid.RowDefinitions>
 
+                    <!--EmailAdressen-->
                     <Border
                         Margin="1"
                         Background="{StaticResource myTitleBar}"
@@ -207,10 +216,20 @@
                                 Margin="0,0,5,0"
                                 HorizontalAlignment="Right"
                                 VerticalAlignment="Center"
+                                Command="{Binding cmdEditEmailAdressen}"
+                                DataContext="{Binding Source={StaticResource VML}, Path=PersonenViewModel}"
                                 Style="{StaticResource AddImage}" />
                         </Grid>
                     </Border>
-                    <ListView Grid.Row="1" Margin="1" />
+                    <ListBox
+                    Name="EmailAdressenListView"
+                    Grid.Row="1"
+                    Grid.Column="1"
+                    Width="250"
+                    ItemsSource="{Binding MijnCollectie}"
+                    SelectedItem="{Binding MijnSelectedItem, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                    
+                    <!--Adressen-->
                     <Border
                         Grid.Row="2"
                         Margin="1"
@@ -227,10 +246,23 @@
                                 Margin="0,0,5,0"
                                 HorizontalAlignment="Right"
                                 VerticalAlignment="Center"
+                                Command="{Binding cmdEditAdressen}"
+                                DataContext="{Binding Source={StaticResource VML}, Path=PersonenViewModel}"
                                 Style="{StaticResource AddImage}" />
                         </Grid>
                     </Border>
-                    <ListBox Grid.Row="3" Margin="1" />
+                    <ListBox                     
+                        Name="AdressenListView"
+                        Grid.Row="3"
+                        Grid.Column="1"
+                        Width="250"
+                        DataContext="{Binding Source={StaticResource VML}, Path=AdressenViewModel}"
+                        ItemsSource="{Binding MijnCollectie}"
+                        SelectedItem="{Binding MijnSelectedItem, Mode=TwoWay, 
+                        UpdateSourceTrigger=PropertyChanged}" />
+                    
+                    
+                    <!--Telefoonnummers-->
                     <Border
                         Grid.Row="4"
                         Margin="1"
@@ -247,10 +279,22 @@
                                 Margin="0,0,5,0"
                                 HorizontalAlignment="Right"
                                 VerticalAlignment="Center"
+                                Command="{Binding cmdEditTelefoonNummers}"
+                                DataContext="{Binding Source={StaticResource VML}, Path=PersonenViewModel}"
                                 Style="{StaticResource AddImage}" />
                         </Grid>
                     </Border>
-                    <ListBox Grid.Row="5" Margin="1" />
+                    <ListBox                         
+                        Name="TelefoonNummersListView"
+                        Grid.Row="5"
+                        Grid.Column="1"
+                        Width="250"
+                        DataContext="{Binding Source={StaticResource VML}, Path=TelefoonNummersViewModel}"
+                        ItemsSource="{Binding MijnCollectie}"
+                        SelectedItem="{Binding MijnSelectedItem, Mode=TwoWay, 
+                        UpdateSourceTrigger=PropertyChanged}" />
+                    
+                    <!--Notities-->
                     <Border
                         Grid.Row="6"
                         Margin="1"
