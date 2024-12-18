@@ -114,5 +114,34 @@ namespace HomeManager.DAL.Personen
             }
             return OK;
         }
+
+
+        //chatgpt
+        public ObservableCollection<clsEmailAdressenModel> GetEmailAdressenForPersoon(int persoonId)
+        {
+            ObservableCollection<clsEmailAdressenModel> emailAdressen = new ObservableCollection<clsEmailAdressenModel>();
+
+            // Gebruik een query om de e-mailadressen voor de opgegeven persoon op te halen
+            using (SqlDataReader reader = clsDAL.GetData("SELECT * FROM EmailAdressen WHERE PersoonID = @PersoonID",
+                clsDAL.Parameter("@PersoonID", persoonId)))
+            {
+                while (reader.Read())
+                {
+                    clsEmailAdressenModel email = new clsEmailAdressenModel
+                    {
+                        EmailAdresID = (int)reader["EmailAdresID"],
+                        Emailadres = reader["Emailadres"].ToString(),
+                        PersoonID = (int)reader["PersoonID"],
+                        EmailTypeID = (int)reader["EmailTypeID"],
+                        ControlField = reader["ControlField"].ToString()
+                    };
+                    emailAdressen.Add(email);
+                }
+            }
+
+            return emailAdressen;
+        }
+
+
     }
 }

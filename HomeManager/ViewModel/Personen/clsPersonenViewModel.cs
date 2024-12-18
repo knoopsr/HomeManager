@@ -126,15 +126,15 @@ namespace HomeManager.ViewModel
         cmdCancel = new clsCustomCommand(Execute_Cancel_Command, CanExecute_Cancel_Command);
         cmdClose = new clsCustomCommand(Execute_Close_Command, CanExecute_Close_Command);
 
-            //Messages
+        //Messages
         cmdEditEmailAdressen = new clsCustomCommand(Edit_EmailAdressen, CanExecute_Edit_EmailAdressen);
         cmdEditAdressen = new clsCustomCommand(Edit_Adressen, CanExecute_Edit_Adressen);
         cmdEditTelefoonNummers = new clsCustomCommand(Edit_TelefoonNummers, CanExecute_Edit_TelefoonNummers);
-
+        //messenger
         clsMessenger.Default.Register<clsUpdateListMessages>(this, OnUpdateListMessageReceived);
 
-        LoadData();
 
+        LoadData();
         MijnSelectedItem = MijnService.GetFirst();
     }
 
@@ -176,14 +176,14 @@ namespace HomeManager.ViewModel
         }
 
         private void Execute_Save_Command(object? obj)
-    {
-        OpslaanCommando();
-    }
+        {
+            OpslaanCommando();
+        }
 
-    private bool CanExecute_Save_Command(object? obj)
-    {      
+        private bool CanExecute_Save_Command(object? obj)
+        {      
             return false;
-    }
+        }
 
     private void Execute_Delete_Command(object? obj)
     {
@@ -266,6 +266,7 @@ namespace HomeManager.ViewModel
     {
         return true;
     }
+
 }
 }
 

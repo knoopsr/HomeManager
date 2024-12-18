@@ -39,8 +39,8 @@ namespace HomeManager.ViewModel
             }
         }
 
-        private ObservableCollection<clsPersoonModel> _mijnPersoonCollectie;
-        public ObservableCollection<clsPersoonModel> MijnPersoonCollectie
+        private ObservableCollection<clsPersoonM> _mijnPersoonCollectie;
+        public ObservableCollection<clsPersoonM> MijnPersoonCollectie
         {
             get { return _mijnPersoonCollectie; }
             set
@@ -81,7 +81,7 @@ namespace HomeManager.ViewModel
         }
 
         private void OpslaanCommando()
-        {     
+        {
             if (_mijnSelectedItem != null)
             {
                 if (NewStatus)
