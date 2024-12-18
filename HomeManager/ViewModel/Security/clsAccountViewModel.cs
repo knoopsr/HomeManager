@@ -39,8 +39,8 @@ namespace HomeManager.ViewModel
             }
         }
 
-        private ObservableCollection<clsPersoonM> _mijnPersoonCollectie;
-        public ObservableCollection<clsPersoonM> MijnPersoonCollectie
+        private ObservableCollection<clsPersoonModel> _mijnPersoonCollectie;
+        public ObservableCollection<clsPersoonModel> MijnPersoonCollectie
         {
             get { return _mijnPersoonCollectie; }
             set
@@ -130,13 +130,13 @@ namespace HomeManager.ViewModel
             LoadData();
 
             MijnSelectedItem = MijnService.GetFirst();
-            MijnPersoonCollectie = MijnPersoonService.GetAllApplicationUser();
+            //MijnPersoonCollectie = MijnPersoonService.GetAllApplicationUser();
         }
 
         private void Execute_Save_Command(object? obj)
         {
             OpslaanCommando();
-            MijnPersoonCollectie = MijnPersoonService.GetAllApplicationUser();
+            //MijnPersoonCollectie = MijnPersoonService.GetAllApplicationUser();
         }
 
         private bool CanExecute_Save_Command(object? obj)
@@ -248,7 +248,7 @@ namespace HomeManager.ViewModel
 
         private void Execute_Cancel_Command(object? obj)
         {
-            MijnPersoonCollectie = MijnPersoonService.GetAllApplicationUser();
+            //MijnPersoonCollectie = MijnPersoonService.GetAllApplicationUser();
             MijnSelectedItem = MijnService.GetFirst();
             if (MijnSelectedItem != null)
             {

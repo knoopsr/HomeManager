@@ -57,9 +57,6 @@ namespace HomeManager.ViewModel
             {
                 MessageBox.Show("U heeft geen toegang tot deze pagina");
             }
-
-
-
         }
     }
 

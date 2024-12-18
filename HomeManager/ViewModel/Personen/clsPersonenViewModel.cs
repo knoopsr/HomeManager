@@ -15,6 +15,9 @@ using HomeManager.Common;
 using HomeManager.Messages;
 using HomeManager.Services;
 using HomeManager.View;
+using System.ComponentModel;
+using System.Windows.Data;
+using System.Diagnostics;
 
 namespace HomeManager.ViewModel
 {
@@ -36,18 +39,20 @@ namespace HomeManager.ViewModel
         public ICommand cmdEditAdressen { get; set; }
 
         public ICommand cmdEditTelefoonNummers { get; set; }
+        public ICommand cmdEditPersoon {  get; set; }
 
 
-    private ObservableCollection<clsPersoonModel> _mijnCollectie;
-    public ObservableCollection<clsPersoonModel> MijnCollectie
-    {
-        get { return _mijnCollectie; }
-        set
+
+        private ObservableCollection<clsPersoonModel> _mijnCollectie;
+        public ObservableCollection<clsPersoonModel> MijnCollectie
         {
-            _mijnCollectie = value;
-            OnPropertyChanged();
+            get { return _mijnCollectie; }
+            set
+            {
+                _mijnCollectie = value;
+                OnPropertyChanged();
+            }
         }
-    }
 
 
     private clsPersoonModel _mijnSelectedItem;
@@ -78,6 +83,8 @@ namespace HomeManager.ViewModel
     {
         MijnCollectie = MijnService.GetAll();
     }
+
+       
 
     private void OpslaanCommando()
     {
@@ -130,60 +137,72 @@ namespace HomeManager.ViewModel
         cmdEditEmailAdressen = new clsCustomCommand(Edit_EmailAdressen, CanExecute_Edit_EmailAdressen);
         cmdEditAdressen = new clsCustomCommand(Edit_Adressen, CanExecute_Edit_Adressen);
         cmdEditTelefoonNummers = new clsCustomCommand(Edit_TelefoonNummers, CanExecute_Edit_TelefoonNummers);
+        cmdEditPersoon = new clsCustomCommand(Edit_Persoon, CanExecute_Edit_Persoon);
+
         //messenger
         clsMessenger.Default.Register<clsUpdateListMessages>(this, OnUpdateListMessageReceived);
 
 
         LoadData();
         MijnSelectedItem = MijnService.GetFirst();
-    }
+        }
+
+        private bool CanExecute_Edit_Persoon(object? obj)
+        {
+            return true;
+        }
+
+        private void Edit_Persoon(object? obj)
+        {
+            _DialogService.ShowDialog(new ucPersoon(), "Persoon");
+        }
 
         private bool CanExecute_Edit_TelefoonNummers(object? obj)
-        {
-            return true;
-        }
+    {
+        return true;
+    }
 
-        private void Edit_TelefoonNummers(object? obj)
-        {
-            _DialogService.ShowDialog(new ucTelefoonNummers(), "Telefoonnummers");
-        }
+    private void Edit_TelefoonNummers(object? obj)
+    {
+        _DialogService.ShowDialog(new ucTelefoonNummers(), "Telefoonnummers");
+    }
 
-        private bool CanExecute_Edit_Adressen(object? obj)
-        {
-            return true;
-        }
+    private bool CanExecute_Edit_Adressen(object? obj)
+    {
+        return true;
+    }
 
-        private void Edit_Adressen(object? obj)
-        {
-            _DialogService.ShowDialog(new ucAdressen(), "Adressen");
-        }
+    private void Edit_Adressen(object? obj)
+    {
+        _DialogService.ShowDialog(new ucAdressen(), "Adressen");
+    }
 
-        private void OnUpdateListMessageReceived(clsUpdateListMessages obj)
-        {
-            //refresh
-            LoadData();
-            _DialogService.CloseDialog();
-        }
+    private void OnUpdateListMessageReceived(clsUpdateListMessages obj)
+    {
+        //refresh
+        LoadData();
+        _DialogService.CloseDialog();
+    }
 
-        private bool CanExecute_Edit_EmailAdressen(object? obj)
-        {
-            return true;
-        }
+    private bool CanExecute_Edit_EmailAdressen(object? obj)
+    {
+        return true;
+    }
 
-        private void Edit_EmailAdressen(object? obj)
-        {
-            _DialogService.ShowDialog(new ucEmailAdressen(), "EmailAdressen");
-        }
+    private void Edit_EmailAdressen(object? obj)
+    {
+        _DialogService.ShowDialog(new ucEmailAdressen(), "EmailAdressen");
+    }
 
-        private void Execute_Save_Command(object? obj)
-        {
-            OpslaanCommando();
-        }
+    private void Execute_Save_Command(object? obj)
+    {
+        OpslaanCommando();
+    }
 
-        private bool CanExecute_Save_Command(object? obj)
-        {      
-            return false;
-        }
+    private bool CanExecute_Save_Command(object? obj)
+    {      
+        return false;
+    }
 
     private void Execute_Delete_Command(object? obj)
     {
@@ -266,8 +285,7 @@ namespace HomeManager.ViewModel
     {
         return true;
     }
-
-}
+    }
 }
 
 

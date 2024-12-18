@@ -11,7 +11,6 @@ namespace HomeManager.DataService.Personen
 {
     public interface IPersoonDataService : IDataService<clsPersoonModel>
     {
-        ObservableCollection<clsPersoonModel> GetAllApplicationUser();
 
     }
 }

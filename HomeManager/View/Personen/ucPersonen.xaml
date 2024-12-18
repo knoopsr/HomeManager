@@ -69,8 +69,12 @@
                     <StackPanel
                         Margin="2"
                         HorizontalAlignment="Left"
+                        DataContext="{Binding Source={StaticResource VML}, Path=PersonenViewModel}"
                         Orientation="Horizontal">
-                        <TextBox Width="200" />
+                        <TextBox
+                            x:Name="txtSearchbar"
+                            Width="200"
+                            Height="20" />
                         <Button
                             Width="15"
                             Height="15"
@@ -84,7 +88,8 @@
                         Grid.Column="1"
                         Width="600"
                         Height="375"
-                        Margin="2,-10,2,0"
+                        Margin="2,10,2,0"
+                        DataContext="{Binding Source={StaticResource VML}, Path=PersonenViewModel}"
                         ItemsSource="{Binding MijnCollectie}"
                         ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                         ScrollViewer.VerticalScrollBarVisibility="Auto"
@@ -157,8 +162,9 @@
                                                 Width="10"
                                                 Height="10"
                                                 Margin="0,0,0,0"
-                                                Command="{Binding cmdEdit}"
+                                                Command="{Binding cmdEditPersoon}"
                                                 CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}"
+                                                DataContext="{Binding Source={StaticResource VML}, Path=PersonenViewModel}"
                                                 Style="{StaticResource EditPersoon}"
                                                 ToolTip="Aanpassen" />
                                             <Button
@@ -200,7 +206,7 @@
                         <RowDefinition Height="*" />
                     </Grid.RowDefinitions>
 
-                    <!--EmailAdressen-->
+                    <!--  EmailAdressen  -->
                     <Border
                         Margin="1"
                         Background="{StaticResource myTitleBar}"
@@ -222,14 +228,15 @@
                         </Grid>
                     </Border>
                     <ListBox
-                    Name="EmailAdressenListView"
-                    Grid.Row="1"
-                    Grid.Column="1"
-                    Width="250"
-                    ItemsSource="{Binding MijnCollectie}"
-                    SelectedItem="{Binding MijnSelectedItem, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                    
-                    <!--Adressen-->
+                        Name="EmailAdressenListView"
+                        Grid.Row="1"
+                        Grid.Column="1"
+                        Width="250"
+                        DataContext="{Binding Source={StaticResource VML}, Path=EmailAdressenViewModel}"
+                        ItemsSource="{Binding MijnCollectie}"
+                        SelectedItem="{Binding MijnSelectedItem.PersoonID, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+
+                    <!--  Adressen  -->
                     <Border
                         Grid.Row="2"
                         Margin="1"
@@ -251,18 +258,17 @@
                                 Style="{StaticResource AddImage}" />
                         </Grid>
                     </Border>
-                    <ListBox                     
+                    <ListBox
                         Name="AdressenListView"
                         Grid.Row="3"
                         Grid.Column="1"
                         Width="250"
                         DataContext="{Binding Source={StaticResource VML}, Path=AdressenViewModel}"
                         ItemsSource="{Binding MijnCollectie}"
-                        SelectedItem="{Binding MijnSelectedItem, Mode=TwoWay, 
-                        UpdateSourceTrigger=PropertyChanged}" />
-                    
-                    
-                    <!--Telefoonnummers-->
+                        SelectedItem="{Binding MijnSelectedItem, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+
+
+                    <!--  Telefoonnummers  -->
                     <Border
                         Grid.Row="4"
                         Margin="1"
@@ -284,17 +290,16 @@
                                 Style="{StaticResource AddImage}" />
                         </Grid>
                     </Border>
-                    <ListBox                         
+                    <ListBox
                         Name="TelefoonNummersListView"
                         Grid.Row="5"
                         Grid.Column="1"
                         Width="250"
                         DataContext="{Binding Source={StaticResource VML}, Path=TelefoonNummersViewModel}"
                         ItemsSource="{Binding MijnCollectie}"
-                        SelectedItem="{Binding MijnSelectedItem, Mode=TwoWay, 
-                        UpdateSourceTrigger=PropertyChanged}" />
-                    
-                    <!--Notities-->
+                        SelectedItem="{Binding MijnSelectedItem, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+
+                    <!--  Notities  -->
                     <Border
                         Grid.Row="6"
                         Margin="1"
@@ -315,19 +320,10 @@
                                 VerticalAlignment="Center"
                                 Style="{StaticResource AddImage}" />
                         </Grid>
-
                     </Border>
                     <ListBox Grid.Row="7" Margin="1" />
-
                 </Grid>
-
-
-
             </Border>
-
-
         </Grid>
-
-
     </Grid>
 </UserControl>

@@ -192,7 +192,7 @@
                                 CommandParameter="clsFunctieViewModel"
                                 Content="Functies"
                                 Style="{StaticResource myExpanderPerson}" />
-                            <Button
+                            <!--<Button
                                 Command="{Binding NavCommand}"
                                 CommandParameter="clsEmailAdressenViewModel"
                                 Content="EmailAdressen"
@@ -206,7 +206,7 @@
                                 Command="{Binding NavCommand}"
                                 CommandParameter="clsTelefoonNummersViewModel"
                                 Content="Telefoonnummers"
-                                Style="{StaticResource myExpanderPerson}" />
+                                Style="{StaticResource myExpanderPerson}" />-->
                         </StackPanel>
                     </Expander>
 
