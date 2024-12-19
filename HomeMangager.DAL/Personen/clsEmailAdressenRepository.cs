@@ -72,6 +72,15 @@ namespace HomeManager.DAL.Personen
             return MijnCollectie.Where(emailadress => emailadress.EmailAdresID == id).FirstOrDefault();
         }
 
+        public ObservableCollection<clsEmailAdressenModel> GetByPersoonID(int id)
+        {
+            if (MijnCollectie == null)
+            {
+                GenerateCollection();
+            }
+            return new ObservableCollection<clsEmailAdressenModel>(MijnCollectie.Where(emailadress => emailadress.PersoonID == id));
+        }
+
         public clsEmailAdressenModel GetFirst()
         {
             if (MijnCollectie == null)

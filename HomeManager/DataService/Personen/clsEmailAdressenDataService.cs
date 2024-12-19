@@ -32,6 +32,11 @@ namespace HomeManager.DataService.Personen
             return Repo.GetById(id);
         }
 
+        public ObservableCollection<clsEmailAdressenModel> GetByPersoonID(int id)
+        {
+            return Repo.GetByPersoonID(id);
+        }
+
         public clsEmailAdressenModel GetFirst()
         {
             return Repo.GetFirst();

@@ -170,16 +170,21 @@ namespace HomeManager.ViewModel
             cmdSave = new clsCustomCommand(Execute_SaveCommand, CanExecute_SaveCommand);
             cmdClose = new clsCustomCommand(Execute_CloseCommand, CanExecute_CloseCommand);
             cmdCancel = new clsCustomCommand(Execute_CancelCommand, CanExecute_CancelCommand);
-            clsMessenger.Default.Register<clsEmailAdressenModel>(this, OnFrequentieReceived);
+            clsMessenger.Default.Register<clsEmailAdressenModel>(this, OnEmailAdressenReceived);
 
             LoadData();
             MijnSelectedItem = MijnService.GetFirst();
             //MijnSelectedItem.MijnSelectedIndex = 0;
         }
 
-        private void OnFrequentieReceived(clsEmailAdressenModel obj)
+        private void OnEmailAdressenReceived(clsEmailAdressenModel obj)
         {
             mijnSelectedItem = obj;
+
+            if (obj.EmailAdresID == 0)
+            {
+                NewStatus = true;
+            }
         }
 
         private bool CanExecute_NewCommand(object? obj)

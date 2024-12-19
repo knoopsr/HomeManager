@@ -24,6 +24,7 @@ namespace HomeManager.ViewModel
     public class clsPersonenViewModel : clsCommonModelPropertiesBase
     {
         clsPersoonDataService MijnService;
+        clsEmailAdressenDataService MijnServiceEmailAdressen;
 
         private clsDialogService _DialogService;
 
@@ -54,29 +55,41 @@ namespace HomeManager.ViewModel
             }
         }
 
-
-    private clsPersoonModel _mijnSelectedItem;
-    public clsPersoonModel MijnSelectedItem
-    {
-        get { return _mijnSelectedItem; }
-        set
+        private ObservableCollection<clsEmailAdressenModel> _emailAdressenCollectie;
+        public ObservableCollection<clsEmailAdressenModel> EmailAdressenCollectie
         {
-            if (value != null)
+            get { return _emailAdressenCollectie; }
+            set
             {
-                if (_mijnSelectedItem != null && _mijnSelectedItem.IsDirty)
-                {
-                    if (MessageBox.Show("Wilt je " + _mijnSelectedItem + " opslaan?", "Opslaan",
-                        MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
-                    {
-                        OpslaanCommando();
-                        LoadData();
-                    }
-                }
+                _emailAdressenCollectie = value;
+                OnPropertyChanged();
             }
-            _mijnSelectedItem = value;
-            OnPropertyChanged();
         }
-    }
+
+
+        private clsPersoonModel _mijnSelectedItem;
+        public clsPersoonModel MijnSelectedItem
+        {
+            get { return _mijnSelectedItem; }
+            set
+            {
+                if (value != null)
+                {
+                    if (_mijnSelectedItem != null && _mijnSelectedItem.IsDirty)
+                    {
+                        if (MessageBox.Show("Wilt je " + _mijnSelectedItem + " opslaan?", "Opslaan",
+                            MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+                        {
+                            OpslaanCommando();
+                            LoadData();
+                        }
+                    }
+                    EmailAdressenCollectie = MijnServiceEmailAdressen.GetByPersoonID(value.PersoonID);
+                }
+                _mijnSelectedItem = value;
+                OnPropertyChanged();
+            }
+        }
 
 
     private void LoadData()
@@ -125,6 +138,7 @@ namespace HomeManager.ViewModel
     public clsPersonenViewModel()
     {
         MijnService = new clsPersoonDataService();
+        MijnServiceEmailAdressen = new clsEmailAdressenDataService();
         _DialogService = new clsDialogService();
 
         cmdSave = new clsCustomCommand(Execute_Save_Command, CanExecute_Save_Command);
@@ -191,7 +205,23 @@ namespace HomeManager.ViewModel
 
     private void Edit_EmailAdressen(object? obj)
     {
-        _DialogService.ShowDialog(new ucEmailAdressen(), "EmailAdressen");
+        
+        //_DialogService.ShowDialog(new ucEmailAdressen(), "EmailAdressen");
+
+            int persoonID = MijnSelectedItem.PersoonID;
+
+            if (MijnSelectedItem != null)
+            {
+                clsEmailAdressenModel model = new clsEmailAdressenModel()
+                {
+                    PersoonID = MijnSelectedItem.PersoonID,
+                    EmailAdresID = 0,
+                    Emailadres = string.Empty,
+                    EmailTypeID = 0
+                };
+                clsMessenger.Default.Send<clsEmailAdressenModel>(model);
+                _DialogService.ShowDialog(new ucEmailAdressen(), "EmailAdressen");
+            }
     }
 
     private void Execute_Save_Command(object? obj)

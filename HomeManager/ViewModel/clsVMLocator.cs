@@ -66,11 +66,13 @@ namespace HomeManager.ViewModel
                 return new clsGemeenteViewModel();
             }
         }
+        private static clsEmailAdressenViewModel _EmailAdressen = new clsEmailAdressenViewModel();
         public clsEmailAdressenViewModel EmailAdressenViewModel
         {
             get
             {
-                return new clsEmailAdressenViewModel();
+                return _EmailAdressen;
+                //return new clsEmailAdressenViewModel();
             }
         }
 
