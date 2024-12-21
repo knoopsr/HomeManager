@@ -142,6 +142,15 @@ namespace HomeManager.DAL.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to D_Notities.
+        /// </summary>
+        internal static string D_Notities {
+            get {
+                return ResourceManager.GetString("D_Notities", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to D_Persoon.
         /// </summary>
         internal static string D_Persoon {
@@ -273,6 +282,15 @@ namespace HomeManager.DAL.Properties {
         internal static string I_Land {
             get {
                 return ResourceManager.GetString("I_Land", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to I_Notities.
+        /// </summary>
+        internal static string I_Notities {
+            get {
+                return ResourceManager.GetString("I_Notities", resourceCulture);
             }
         }
         
@@ -417,6 +435,15 @@ namespace HomeManager.DAL.Properties {
         internal static string S_Login {
             get {
                 return ResourceManager.GetString("S_Login", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to S_Notities.
+        /// </summary>
+        internal static string S_Notities {
+            get {
+                return ResourceManager.GetString("S_Notities", resourceCulture);
             }
         }
         
@@ -579,6 +606,15 @@ namespace HomeManager.DAL.Properties {
         internal static string U_Login {
             get {
                 return ResourceManager.GetString("U_Login", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to U_Notities.
+        /// </summary>
+        internal static string U_Notities {
+            get {
+                return ResourceManager.GetString("U_Notities", resourceCulture);
             }
         }
         

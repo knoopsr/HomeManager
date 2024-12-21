@@ -112,5 +112,14 @@ namespace HomeManager.DAL.Personen
             }
             return OK;
         }
+
+        public ObservableCollection<clsTelefoonNummersModel> GetByPersoonID(int id)
+        {
+            if (MijnCollectie == null)
+            {
+                GenerateCollection();
+            }
+            return new ObservableCollection<clsTelefoonNummersModel>(MijnCollectie.Where(telefoonnummers => telefoonnummers.PersoonID == id));
+        }
     }
 }

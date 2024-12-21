@@ -10,13 +10,13 @@ using System.Windows;
 using HomeManager.Common;
 using HomeManager.DataService.Personen;
 using HomeManager.Model.Personen;
-using System.Diagnostics;
+using HomeManager.Messages;
 
 namespace HomeManager.ViewModel
 {
-    public class clsAdressenViewModel : clsCommonModelPropertiesBase
+    public class clsNotitiesViewModel : clsCommonModelPropertiesBase
     {
-        clsAdressenDataService MijnService;
+        clsNotitiesDataService MijnService;
         private bool NewStatus = false;
 
         public ICommand cmdDelete { get; set; }
@@ -25,9 +25,9 @@ namespace HomeManager.ViewModel
         public ICommand cmdClose { get; set; }
         public ICommand cmdSave { get; set; }
 
-        private ObservableCollection<clsAdressenModel> mijnCollectie;
+        private ObservableCollection<clsNotitiesModel> mijnCollectie;
 
-        public ObservableCollection<clsAdressenModel> MijnCollectie
+        public ObservableCollection<clsNotitiesModel> MijnCollectie
         {
             get
             {
@@ -41,8 +41,8 @@ namespace HomeManager.ViewModel
         }
 
 
-        private clsAdressenModel mijnSelectedItem;
-        public clsAdressenModel MijnSelectedItem
+        private clsNotitiesModel mijnSelectedItem;
+        public clsNotitiesModel MijnSelectedItem
         {
             get
             {
@@ -68,6 +68,7 @@ namespace HomeManager.ViewModel
                 OnPropertyChanged();
             }
         }
+
 
         private clsPersonenViewModel _mijnSelectedPersoonItem;
         public clsPersonenViewModel MijnSelectedPersoonItem
@@ -161,39 +162,30 @@ namespace HomeManager.ViewModel
             }
         }
 
-        public clsAdressenViewModel()
+        public clsNotitiesViewModel()
         {
-            MijnService = new clsAdressenDataService();
+            MijnService = new clsNotitiesDataService();
             cmdNew = new clsCustomCommand(Execute_NewCommand, CanExecute_NewCommand);
             cmdDelete = new clsCustomCommand(Execute_DeleteCommand, CanExecute_DeleteCommand);
             cmdSave = new clsCustomCommand(Execute_SaveCommand, CanExecute_SaveCommand);
             cmdClose = new clsCustomCommand(Execute_CloseCommand, CanExecute_CloseCommand);
             cmdCancel = new clsCustomCommand(Execute_CancelCommand, CanExecute_CancelCommand);
-            clsMessenger.Default.Register<clsAdressenModel>(this, OnAdressenReceived);
+            clsMessenger.Default.Register<clsNotitiesModel>(this, OnNotitiesReceived);
 
             LoadData();
             MijnSelectedItem = MijnService.GetFirst();
             //MijnSelectedItem.MijnSelectedIndex = 0;
         }
 
-        private void OnAdressenReceived(clsAdressenModel obj)
+        private void OnNotitiesReceived(clsNotitiesModel model)
         {
-            //mijnSelectedItem = obj;
+            mijnSelectedItem = model;
 
-            //if (obj.AdresID == 0)
-            //{
-            //    NewStatus = true;
-            //}
-
-            mijnSelectedItem = obj;
-
-            if (mijnSelectedItem != null && mijnSelectedItem.AdresID == 0)
+            if (model.NotitieID == null)
             {
                 NewStatus = true;
-                mijnSelectedItem.MyVisibility = (int)Visibility.Hidden;
             }
         }
-        
 
         private bool CanExecute_NewCommand(object? obj)
         {
@@ -202,14 +194,12 @@ namespace HomeManager.ViewModel
 
         private void Execute_NewCommand(object? obj)
         {
-            clsAdressenModel ItemToInsert = new clsAdressenModel()
+            clsNotitiesModel ItemToInsert = new clsNotitiesModel()
             {
-                AdresID = 0,
-                GemeenteID = 0,
+                NotitieID = 0,
                 PersoonID = 0,
-                FunctieID = 0,
-                Straat = string.Empty,
-                Nummer = string.Empty,
+                Onderwerp = string.Empty,
+                Notitie = string.Empty,
             };
             MijnSelectedItem = ItemToInsert;
             //MijnSelectedItem = ItemToInsert;
@@ -276,6 +266,8 @@ namespace HomeManager.ViewModel
                 clsHomeVM vm = (clsHomeVM)HomeWindow.DataContext;
                 vm.CurrentViewModel = null;
             }
+
+            clsMessenger.Default.Send<clsUpdateListMessages>(new clsUpdateListMessages());
         }
 
         private bool CanExecute_CancelCommand(object obj)
@@ -351,3 +343,5 @@ namespace HomeManager.ViewModel
         }
     }
 }
+
+

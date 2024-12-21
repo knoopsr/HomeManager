@@ -38,6 +38,7 @@ namespace HomeManager.Model.Personen
             }
         }
 
+
         private int _gemeenteID;
         public int GemeenteID
         {
@@ -125,55 +126,50 @@ namespace HomeManager.Model.Personen
                         if (string.IsNullOrWhiteSpace(_straat))
                         {
                             error = "Straat is een verplicht veld.";
-                            if (ErrorList.Contains("Straat") == false)
+                            if (!ErrorList.Contains(nameof(Straat)))
                             {
-                                ErrorList.Add("Straat");
+                                ErrorList.Add(nameof(Straat));
                             }
                         }
                         else if (_straat.Length > 50)
                         {
-                            error = "Your text is to long!!!";
-                            if (ErrorList.Contains("Straat") == false)
+                            error = "Straat mag niet langer zijn dan 50 tekens.";
+                            if (!ErrorList.Contains(nameof(Straat)))
                             {
-                                ErrorList.Add("Straat");
+                                ErrorList.Add(nameof(Straat));
                             }
                         }
                         else
                         {
-                            if (ErrorList.Contains("Straat"))
-                            {
-                                ErrorList.Remove("Straat");
-                            }
+                            ErrorList.Remove(nameof(Straat));
                         }
                         return error;
+
                     case nameof(Nummer):
                         if (string.IsNullOrWhiteSpace(_nummer))
                         {
                             error = "Nummer is een verplicht veld.";
-                            if (ErrorList.Contains("Nummer") == false)
+                            if (!ErrorList.Contains(nameof(Nummer)))
                             {
-                                ErrorList.Add("Nummer");
+                                ErrorList.Add(nameof(Nummer));
                             }
                         }
                         else if (_nummer.Length > 5)
                         {
-                            error = "Your text is to long!!!";
-                            if (ErrorList.Contains("Nummer") == false)
+                            error = "Nummer mag niet langer zijn dan 5 tekens.";
+                            if (!ErrorList.Contains(nameof(Nummer)))
                             {
-                                ErrorList.Add("Nummer");
+                                ErrorList.Add(nameof(Nummer));
                             }
                         }
                         else
                         {
-                            if (ErrorList.Contains("Nummer"))
-                            {
-                                ErrorList.Remove("Nummer");
-                            }
+                            ErrorList.Remove(nameof(Nummer));
                         }
                         return error;
+
                     default:
-                        error = null;
-                        return error;
+                        return null;
                 }
             }
         }

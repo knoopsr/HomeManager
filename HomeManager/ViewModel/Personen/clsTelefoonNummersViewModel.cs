@@ -68,6 +68,34 @@ namespace HomeManager.ViewModel
             }
         }
 
+        private clsPersonenViewModel _mijnSelectedPersoonItem;
+        public clsPersonenViewModel MijnSelectedPersoonItem
+        {
+            get
+            {
+                return _mijnSelectedPersoonItem;
+            }
+            set
+            {
+                if (value != null)
+                {
+                    if (_mijnSelectedPersoonItem != null && _mijnSelectedPersoonItem.IsDirty)
+                    {
+                        if (MessageBox.Show("Wil je " + _mijnSelectedPersoonItem + "Opslaan?", "Opslaan",
+                            MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+                        {
+                            _mijnSelectedPersoonItem.IsDirty = false;
+                            _mijnSelectedPersoonItem.MijnSelectedIndex = 0;
+                            OpslaanCommando();
+                            LoadData();
+                        }
+                    }
+                }
+                _mijnSelectedPersoonItem = value;
+                OnPropertyChanged();
+            }
+        }
+
         private void OpslaanCommando()
         {
             if (MijnSelectedItem != null)
@@ -140,10 +168,21 @@ namespace HomeManager.ViewModel
             cmdSave = new clsCustomCommand(Execute_SaveCommand, CanExecute_SaveCommand);
             cmdClose = new clsCustomCommand(Execute_CloseCommand, CanExecute_CloseCommand);
             cmdCancel = new clsCustomCommand(Execute_CancelCommand, CanExecute_CancelCommand);
+            clsMessenger.Default.Register<clsTelefoonNummersModel>(this, OnTelefoonNummersReceived);
 
             LoadData();
             MijnSelectedItem = MijnService.GetFirst();
             //MijnSelectedItem.MijnSelectedIndex = 0;
+        }
+
+        private void OnTelefoonNummersReceived(clsTelefoonNummersModel obj)
+        {
+            mijnSelectedItem = obj;
+
+            if (obj.TelefoonNummerID == 0)
+            {
+                NewStatus = true;
+            }
         }
 
         private bool CanExecute_NewCommand(object? obj)
@@ -263,40 +302,40 @@ namespace HomeManager.ViewModel
 
         private void Execute_SaveCommand(object obj)
         {
-            //OpslaanCommando();
+            OpslaanCommando();
 
-            if (MijnSelectedItem != null)
-            {
-                if (NewStatus)
-                {
-                    if (MijnService.Insert(MijnSelectedItem))
-                    {
-                        MijnSelectedItem.IsDirty = false;
-                        MijnSelectedItem.MijnSelectedIndex = 0;
-                        MijnSelectedItem.MyVisibility = (int)Visibility.Visible;
-                        NewStatus = false;
-                        LoadData();
-                    }
-                    else
-                    {
-                        MessageBox.Show(MijnSelectedItem.ErrorBoodschap, "Error?");
-                    }
-                }
-                else
-                {
-                    if (MijnService.Update(MijnSelectedItem))
-                    {
-                        MijnSelectedItem.IsDirty = false;
-                        MijnSelectedItem.MijnSelectedIndex = 0;
-                        NewStatus = false;
-                        LoadData();
-                    }
-                    else
-                    {
-                        MessageBox.Show(MijnSelectedItem.ErrorBoodschap, "Error?");
-                    }
-                }
-            }
+            //if (MijnSelectedItem != null)
+            //{
+            //    if (NewStatus)
+            //    {
+            //        if (MijnService.Insert(MijnSelectedItem))
+            //        {
+            //            MijnSelectedItem.IsDirty = false;
+            //            MijnSelectedItem.MijnSelectedIndex = 0;
+            //            MijnSelectedItem.MyVisibility = (int)Visibility.Visible;
+            //            NewStatus = false;
+            //            LoadData();
+            //        }
+            //        else
+            //        {
+            //            MessageBox.Show(MijnSelectedItem.ErrorBoodschap, "Error?");
+            //        }
+            //    }
+            //    else
+            //    {
+            //        if (MijnService.Update(MijnSelectedItem))
+            //        {
+            //            MijnSelectedItem.IsDirty = false;
+            //            MijnSelectedItem.MijnSelectedIndex = 0;
+            //            NewStatus = false;
+            //            LoadData();
+            //        }
+            //        else
+            //        {
+            //            MessageBox.Show(MijnSelectedItem.ErrorBoodschap, "Error?");
+            //        }
+            //    }
+            //}
         }
     }
 }

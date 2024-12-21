@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace HomeManager.Model.Personen
@@ -89,15 +90,24 @@ namespace HomeManager.Model.Personen
                         if (string.IsNullOrWhiteSpace(_telefoonNummer))
                         {
                             error = "Telefoonnummer is een verplicht veld.";
-                            if (ErrorList.Contains("TelefoonNummer") == false)
+                            if (!ErrorList.Contains("TelefoonNummer"))
                             {
                                 ErrorList.Add("TelefoonNummer");
                             }
                         }
                         else if (_telefoonNummer.Length > 50)
                         {
-                            error = "Your telefoonnummer is to long!!!";
-                            if (ErrorList.Contains("TelefoonNummer") == false)
+                            error = "Telefoonnummer is te lang.";
+                            if (!ErrorList.Contains("TelefoonNummer"))
+                            {
+                                ErrorList.Add("TelefoonNummer");
+                            }
+                        }
+                        else if (!Regex.IsMatch(_telefoonNummer, @"^\+?[0-9\s\-()]{7,15}$"))
+                        {
+                            // Rege: begint met 0 of '+', gevolgd door 7-15 cijfers of andere toegestane tekens
+                            error = "Telefoonnummer is niet geldig.";
+                            if (!ErrorList.Contains("TelefoonNummer"))
                             {
                                 ErrorList.Add("TelefoonNummer");
                             }

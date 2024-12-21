@@ -312,4 +312,16 @@
   <data name="U_TelefoonNummers" xml:space="preserve">
     <value>U_TelefoonNummers</value>
   </data>
+  <data name="D_Notities" xml:space="preserve">
+    <value>D_Notities</value>
+  </data>
+  <data name="I_Notities" xml:space="preserve">
+    <value>I_Notities</value>
+  </data>
+  <data name="S_Notities" xml:space="preserve">
+    <value>S_Notities</value>
+  </data>
+  <data name="U_Notities" xml:space="preserve">
+    <value>U_Notities</value>
+  </data>
 </root>

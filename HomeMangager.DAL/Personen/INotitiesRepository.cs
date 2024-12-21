@@ -9,8 +9,8 @@ using System.Threading.Tasks;
 
 namespace HomeManager.DAL.Personen
 {
-    public interface ITelefoonNummersRepository : IRepository<clsTelefoonNummersModel>
+    public interface INotitiesRepository : IRepository<clsNotitiesModel>
     {
-        ObservableCollection<clsTelefoonNummersModel> GetByPersoonID(int id);
+        ObservableCollection<clsNotitiesModel> GetByPersoonID(int id);
     }
 }

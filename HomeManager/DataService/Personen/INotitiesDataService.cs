@@ -7,10 +7,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HomeManager.DAL.Personen
+namespace HomeManager.DataService.Personen
 {
-    public interface ITelefoonNummersRepository : IRepository<clsTelefoonNummersModel>
+    public interface INotitiesDataService : IDataService<clsNotitiesModel>
     {
-        ObservableCollection<clsTelefoonNummersModel> GetByPersoonID(int id);
+        ObservableCollection<clsNotitiesModel> GetByPersoonID(int id);
     }
 }

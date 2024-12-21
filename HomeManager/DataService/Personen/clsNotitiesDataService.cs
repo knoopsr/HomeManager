@@ -9,45 +9,46 @@ using System.Threading.Tasks;
 
 namespace HomeManager.DataService.Personen
 {
-    public class clsTelefoonNummersDataService : ITelefoonNummersDataService
+    public class clsNotitiesDataService : INotitiesDataService
     {
-        ITelefoonNummersRepository Repo = new clsTelefoonNummersRepository();
-        public bool Delete(clsTelefoonNummersModel entity)
+        INotitiesRepository Repo = new clsNotitiesRepository();
+
+        public bool Delete(clsNotitiesModel entity)
         {
             return Repo.Delete(entity);
         }
 
-        public clsTelefoonNummersModel Find()
+        public clsNotitiesModel Find()
         {
             return Repo.Find();
         }
 
-        public ObservableCollection<clsTelefoonNummersModel> GetAll()
+        public ObservableCollection<clsNotitiesModel> GetAll()
         {
             return Repo.GetAll();
         }
 
-        public clsTelefoonNummersModel GetById(int id)
+        public clsNotitiesModel GetById(int id)
         {
             return Repo.GetById(id);
         }
 
-        public ObservableCollection<clsTelefoonNummersModel> GetByPersoonID(int id)
+        public ObservableCollection<clsNotitiesModel> GetByPersoonID(int id)
         {
             return Repo.GetByPersoonID(id);
         }
 
-        public clsTelefoonNummersModel GetFirst()
+        public clsNotitiesModel GetFirst()
         {
             return Repo.GetFirst();
         }
 
-        public bool Insert(clsTelefoonNummersModel entity)
+        public bool Insert(clsNotitiesModel entity)
         {
             return Repo.Insert(entity);
         }
 
-        public bool Update(clsTelefoonNummersModel entity)
+        public bool Update(clsNotitiesModel entity)
         {
             return Repo.Update(entity);
         }

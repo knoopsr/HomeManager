@@ -84,20 +84,38 @@ namespace HomeManager.ViewModel
             }
         }
 
+        private static clsAdressenViewModel _Adressen = new clsAdressenViewModel();
+
         public clsAdressenViewModel AdressenViewModel
         {
             get
             {
-                return new clsAdressenViewModel();
+                return _Adressen;
+                //return new clsAdressenViewModel();
             }
         }
+
+
+        private static clsTelefoonNummersViewModel _TelefoonNummers = new clsTelefoonNummersViewModel();
         public clsTelefoonNummersViewModel TelefoonNummersViewModel
         {
             get
             {
-                return new clsTelefoonNummersViewModel();
+                return _TelefoonNummers;
+                //return new clsTelefoonNummersViewModel();
             }
         }
+
+        private static clsNotitiesViewModel _Notities = new clsNotitiesViewModel();
+        public clsNotitiesViewModel NotitiesViewModel
+        {
+            get
+            {
+                return _Notities;
+                //return new clsNotitiesViewModel();
+            }
+        }
+
 
         #region Security
         public clsTitlePersonViewModel TitlePersonViewModel

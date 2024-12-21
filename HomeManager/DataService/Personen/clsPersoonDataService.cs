@@ -47,6 +47,5 @@ namespace HomeManager.DataService.Personen
         {
             return Repo.Update(entity);
         }
-
     }
 }

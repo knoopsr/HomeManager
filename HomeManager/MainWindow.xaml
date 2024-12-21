@@ -48,6 +48,9 @@
         <DataTemplate DataType="{x:Type VM:clsTelefoonNummersViewModel}">
             <V:ucTelefoonNummers />
         </DataTemplate>
+        <DataTemplate DataType="{x:Type VM:clsNotitiesViewModel}">
+            <V:ucNotities />
+        </DataTemplate>
 
         <DataTemplate DataType="{x:Type VM:clsRechtenViewModel}">
             <V:ucRoles />
@@ -207,6 +210,11 @@
                                 CommandParameter="clsTelefoonNummersViewModel"
                                 Content="Telefoonnummers"
                                 Style="{StaticResource myExpanderPerson}" />-->
+                            <Button
+                                Command="{Binding NavCommand}"
+                                CommandParameter="clsNotitiesViewModel"
+                                Content="Notities"
+                                Style="{StaticResource myExpanderPerson}" />
                         </StackPanel>
                     </Expander>
 

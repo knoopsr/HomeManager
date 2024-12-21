@@ -120,5 +120,14 @@ namespace HomeManager.DAL.Personen
             }
             return OK;
         }
+
+        public ObservableCollection<clsAdressenModel> GetByPersoonID(int id)
+        {
+            if (MijnCollectie == null)
+            {
+                GenerateCollection();
+            }
+            return new ObservableCollection<clsAdressenModel>(MijnCollectie.Where(adressen => adressen.PersoonID == id));
+        }
     }
 }

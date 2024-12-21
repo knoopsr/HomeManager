@@ -218,9 +218,11 @@
                         CornerRadius="3">
                         <Grid>
                             <TextBlock
+                                Width="189"
                                 Margin="5,0,0,0"
+                                HorizontalAlignment="Left"
                                 Foreground="White"
-                                Text="Email adressen" HorizontalAlignment="Left" Width="189" />
+                                Text="Email adressen" />
                             <Button
                                 Width="10"
                                 Height="10"
@@ -235,7 +237,7 @@
                         Name="EmailAdressenListView"
                         Grid.Row="1"
                         Grid.Column="1"
-                        Width="250"
+                        Width="200"
                         ItemsSource="{Binding EmailAdressenCollectie}"
                         SelectedItem="{Binding MijnSelectedItem.PersoonID, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 
@@ -264,9 +266,9 @@
                         Name="AdressenListView"
                         Grid.Row="3"
                         Grid.Column="1"
-                        Width="250"
-                        ItemsSource="{Binding MijnCollectie}"
-                        SelectedItem="{Binding MijnSelectedItem, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                        Width="200"
+                        ItemsSource="{Binding AdressenCollectie}"
+                        SelectedItem="{Binding MijnSelectedItem.PersoonID, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 
 
                     <!--  Telefoonnummers  -->
@@ -294,9 +296,9 @@
                         Name="TelefoonNummersListView"
                         Grid.Row="5"
                         Grid.Column="1"
-                        Width="250"
-                        ItemsSource="{Binding MijnCollectie}"
-                        SelectedItem="{Binding MijnSelectedItem, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                        Width="200"
+                        ItemsSource="{Binding TelefoonNummersCollectie}"
+                        SelectedItem="{Binding MijnSelectedItem.PersoonID, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 
                     <!--  Notities  -->
                     <Border
@@ -307,8 +309,6 @@
                         <Grid>
                             <TextBlock
                                 Margin="5,0,0,0"
-                                HorizontalAlignment="Left"
-                                VerticalAlignment="Center"
                                 Foreground="White"
                                 Text="Notities" />
                             <Button
@@ -317,12 +317,28 @@
                                 Margin="0,0,5,0"
                                 HorizontalAlignment="Right"
                                 VerticalAlignment="Center"
-                                Command="{Binding cmdEditEmailAdressen}"
-                                CommandParameter="{Binding MijnSelectedItem.PersoonID}"
+                                Command="{Binding cmdEditNotities}"
                                 Style="{StaticResource AddImage}" />
                         </Grid>
                     </Border>
-                    <ListBox Grid.Row="7" Margin="1" />
+                    <ListView
+                        Name="NotitiesListView"
+                        Grid.Row="7"
+                        Grid.Column="1"
+                        Width="200"
+                        ItemsSource="{Binding NotitiesCollectie}"
+                        ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                        ScrollViewer.VerticalScrollBarVisibility="Disabled"
+                        SelectedItem="{Binding MijnSelectedItem.PersoonID, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock
+                                    Margin="5"
+                                    Text="{Binding}"
+                                    TextWrapping="Wrap" />
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
                 </Grid>
             </Border>
         </Grid>
