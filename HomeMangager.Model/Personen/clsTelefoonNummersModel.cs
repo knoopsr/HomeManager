@@ -105,7 +105,7 @@ namespace HomeManager.Model.Personen
                         }
                         else if (!Regex.IsMatch(_telefoonNummer, @"^\+?[0-9\s\-()]{7,15}$"))
                         {
-                            // Rege: begint met 0 of '+', gevolgd door 7-15 cijfers of andere toegestane tekens
+                            // Regel = begint met 0 of '+', gevolgd door 7-15 cijfers of andere toegestane tekens
                             error = "Telefoonnummer is niet geldig.";
                             if (!ErrorList.Contains("TelefoonNummer"))
                             {

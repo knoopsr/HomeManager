@@ -177,11 +177,19 @@ namespace HomeManager.ViewModel
 
         private void OnTelefoonNummersReceived(clsTelefoonNummersModel obj)
         {
+            //mijnSelectedItem = obj;
+
+            //if (obj.TelefoonNummerID == 0)
+            //{
+            //    NewStatus = true;
+            //}
+
             mijnSelectedItem = obj;
 
-            if (obj.TelefoonNummerID == 0)
+            if (mijnSelectedItem != null && mijnSelectedItem.TelefoonNummerID == 0)
             {
                 NewStatus = true;
+                mijnSelectedItem.MyVisibility = (int)Visibility.Hidden;
             }
         }
 

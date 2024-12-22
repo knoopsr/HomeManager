@@ -26,8 +26,8 @@ namespace HomeManager.ViewModel
         clsPersoonDataService MijnService;
         clsEmailAdressenDataService MijnServiceEmailAdressen;
         clsAdressenDataService MijnServiceAdressen;
-        clsTelefoonNummersDataService MijnServiceTelefoonNummers;
         clsNotitiesDataService MijnNotitiesService;
+        clsTelefoonNummersDataService MijnServiceTelefoonNummers;
 
         private clsDialogService _DialogService;
 
@@ -38,13 +38,11 @@ namespace HomeManager.ViewModel
         public ICommand cmdSave { get; set; }
         public ICommand cmdCancel { get; set; }
         public ICommand cmdClose { get; set; }
-
         public ICommand cmdEditEmailAdressen { get; set; }
         public ICommand cmdEditAdressen { get; set; }
-
-        public ICommand cmdEditTelefoonNummers { get; set; }
         public ICommand cmdEditPersoon {  get; set; }
         public ICommand cmdEditNotities {  get; set; }
+        public ICommand cmdEditTelefoonNummers { get; set; }
 
 
 
@@ -101,19 +99,21 @@ namespace HomeManager.ViewModel
             }
         }
 
-        private ObservableCollection<clsTelefoonNummersModel> _telefoonNummersCollectie;
+        private ObservableCollection<clsTelefoonNummersModel> _telefoonnummersCollectie;
         public ObservableCollection<clsTelefoonNummersModel> TelefoonNummersCollectie
         {
             get
             {
-                return _telefoonNummersCollectie;
+                return _telefoonnummersCollectie;
             }
             set
             {
-                _telefoonNummersCollectie = value;
+                _telefoonnummersCollectie = value;
                 OnPropertyChanged();
             }
         }
+
+
 
 
 
@@ -138,7 +138,7 @@ namespace HomeManager.ViewModel
                     NotitiesCollectie = MijnNotitiesService.GetByPersoonID(value.PersoonID);
                     EmailAdressenCollectie = MijnServiceEmailAdressen.GetByPersoonID(value.PersoonID);
                     AdressenCollectie = MijnServiceAdressen.GetByPersoonID(value.PersoonID);
-                    //TelefoonNummersCollectie = MijnServiceTelefoonNummers.GetByPersoonID(value.PersoonID);
+                    TelefoonNummersCollectie = MijnServiceTelefoonNummers.GetByPersoonID(value.PersoonID);
                 }
 
                 _mijnSelectedItem = value;
@@ -196,6 +196,7 @@ namespace HomeManager.ViewModel
         MijnServiceEmailAdressen = new clsEmailAdressenDataService();
         MijnServiceAdressen = new clsAdressenDataService();
         MijnNotitiesService = new clsNotitiesDataService();
+        MijnServiceTelefoonNummers = new clsTelefoonNummersDataService();
 
         _DialogService = new clsDialogService();
 
@@ -208,9 +209,9 @@ namespace HomeManager.ViewModel
         //Messages
         cmdEditEmailAdressen = new clsCustomCommand(Edit_EmailAdressen, CanExecute_Edit_EmailAdressen);
         cmdEditAdressen = new clsCustomCommand(Edit_Adressen, CanExecute_Edit_Adressen);
-        cmdEditTelefoonNummers = new clsCustomCommand(Edit_TelefoonNummers, CanExecute_Edit_TelefoonNummers);
         cmdEditPersoon = new clsCustomCommand(Edit_Persoon, CanExecute_Edit_Persoon);
         cmdEditNotities = new clsCustomCommand(Edit_Notities, CanExecute_Edit_Notities);
+        cmdEditTelefoonNummers = new clsCustomCommand(Edit_TelefoonNummers, CanExecute_Edit_TelefoonNummers);
 
         //messenger
         clsMessenger.Default.Register<clsUpdateListMessages>(this, OnUpdateListMessageReceived);
@@ -218,6 +219,28 @@ namespace HomeManager.ViewModel
 
         LoadData();
         MijnSelectedItem = MijnService.GetFirst();
+        }
+
+        private bool CanExecute_Edit_TelefoonNummers(object? obj)
+        {
+            return true;
+        }
+
+        private void Edit_TelefoonNummers(object? obj)
+        {
+            int persoonID = MijnSelectedItem.PersoonID;
+
+            if (MijnSelectedItem != null)
+            {
+                clsTelefoonNummersModel nummers = new clsTelefoonNummersModel()
+                {
+                    PersoonID = MijnSelectedItem.PersoonID,
+                    TelefoonTypeID = 0,
+                    TelefoonNummer = string.Empty
+                };
+                clsMessenger.Default.Send<clsTelefoonNummersModel>(nummers);
+                _DialogService.ShowDialog(new ucTelefoonNummers(), "TelefoonNummers");
+            }
         }
 
         private bool CanExecute_Edit_Notities(object? obj)
@@ -252,30 +275,6 @@ namespace HomeManager.ViewModel
             _DialogService.ShowDialog(new ucPersoon(), "Persoon");
         }
 
-        private bool CanExecute_Edit_TelefoonNummers(object? obj)
-    {
-        return true;
-    }
-
-    private void Edit_TelefoonNummers(object? obj)
-    {
-        //_DialogService.ShowDialog(new ucTelefoonNummers(), "Telefoonnummers");
-
-        int persoonID = MijnSelectedItem.PersoonID;
-
-        if (MijnSelectedItem != null)
-        {
-            clsTelefoonNummersModel nummers = new clsTelefoonNummersModel()
-            {
-                PersoonID = MijnSelectedItem.PersoonID,
-                TelefoonNummer = string.Empty,
-                TelefoonNummerID = 0,
-                TelefoonTypeID = 0
-            };
-            clsMessenger.Default.Send<clsTelefoonNummersModel>(nummers);
-            _DialogService.ShowDialog(new ucTelefoonNummers(), "Telefoonnummers");
-        }
-        }
 
     private bool CanExecute_Edit_Adressen(object? obj)
     {
