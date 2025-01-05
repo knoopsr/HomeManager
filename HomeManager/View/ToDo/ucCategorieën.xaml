@@ -70,9 +70,14 @@
                 </Grid.RowDefinitions>
 
                 <ListBox
+                    Name="ToDoCategorieënListView"
                     Grid.Row="1"
                     Grid.RowSpan="5"
-                    Grid.Column="1" />
+                    Grid.Column="1"
+                    ItemsSource="{Binding MijnCollectie}"
+                    SelectedIndex="{Binding MijnSelectedItem.MijnSelectedIndex, Mode=TwoWay}"
+                    SelectedItem="{Binding MijnSelectedItem, UpdateSourceTrigger=PropertyChanged}"               
+                />
 
 
                 <Label
@@ -83,10 +88,13 @@
                     Content="Categorie"
                     FontSize="12" />
                 <TextBox
+                    Name="ToDoCategorieënTextBox"
                     Grid.Row="1"
                     Grid.Column="3"
                     Height="20"
-                    VerticalAlignment="Center" />
+                    VerticalAlignment="Center"
+                    Text="{Binding MijnSelectedItem.ToDoCategorie, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"                    
+                />
             </Grid>
         </Border>
     </Grid>

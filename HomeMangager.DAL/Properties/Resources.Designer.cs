@@ -88,6 +88,15 @@ namespace HomeManager.DAL.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to D_ToDoCategorieën.
+        /// </summary>
+        internal static string D_ToDoCategorieën {
+            get {
+                return ResourceManager.GetString("D_ToDoCategorieën", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to D_Wachtwoord.
         /// </summary>
         internal static string D_Wachtwoord {
@@ -129,6 +138,15 @@ namespace HomeManager.DAL.Properties {
         internal static string I_Rollen {
             get {
                 return ResourceManager.GetString("I_Rollen", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to I_ToDoCategorieën.
+        /// </summary>
+        internal static string I_ToDoCategorieën {
+            get {
+                return ResourceManager.GetString("I_ToDoCategorieën", resourceCulture);
             }
         }
         
@@ -205,6 +223,15 @@ namespace HomeManager.DAL.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to S_ToDoCategorieën.
+        /// </summary>
+        internal static string S_ToDoCategorieën {
+            get {
+                return ResourceManager.GetString("S_ToDoCategorieën", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to S_Wachtwoord.
         /// </summary>
         internal static string S_Wachtwoord {
@@ -255,6 +282,15 @@ namespace HomeManager.DAL.Properties {
         internal static string U_Rollen {
             get {
                 return ResourceManager.GetString("U_Rollen", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to U_ToDoCategorieën.
+        /// </summary>
+        internal static string U_ToDoCategorieën {
+            get {
+                return ResourceManager.GetString("U_ToDoCategorieën", resourceCulture);
             }
         }
         
