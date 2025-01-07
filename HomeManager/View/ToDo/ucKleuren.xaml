@@ -86,7 +86,10 @@
                     Grid.Row="1"
                     Grid.Column="3"
                     Height="20"
-                    VerticalAlignment="Center" />
+                    VerticalAlignment="Center"
+                    DisplayMemberPath="Name"
+                    ItemsSource="{Binding Colors}"
+                    SelectedItem="{Binding SelectedColor}" />
 
                 <Label
                     Grid.Row="2"
