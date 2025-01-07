@@ -97,6 +97,15 @@ namespace HomeManager.DAL.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to D_TodoCollecties.
+        /// </summary>
+        internal static string D_ToDoCollecties {
+            get {
+                return ResourceManager.GetString("D_ToDoCollecties", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to D_Wachtwoord.
         /// </summary>
         internal static string D_Wachtwoord {
@@ -147,6 +156,15 @@ namespace HomeManager.DAL.Properties {
         internal static string I_ToDoCategorieën {
             get {
                 return ResourceManager.GetString("I_ToDoCategorieën", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to I_ToDoCollecties.
+        /// </summary>
+        internal static string I_ToDoCollecties {
+            get {
+                return ResourceManager.GetString("I_ToDoCollecties", resourceCulture);
             }
         }
         
@@ -232,6 +250,15 @@ namespace HomeManager.DAL.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to S_ToDoCollecties.
+        /// </summary>
+        internal static string S_ToDoCollecties {
+            get {
+                return ResourceManager.GetString("S_ToDoCollecties", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to S_Wachtwoord.
         /// </summary>
         internal static string S_Wachtwoord {
@@ -291,6 +318,15 @@ namespace HomeManager.DAL.Properties {
         internal static string U_ToDoCategorieën {
             get {
                 return ResourceManager.GetString("U_ToDoCategorieën", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to U_ToDoCollecties.
+        /// </summary>
+        internal static string U_ToDoCollecties {
+            get {
+                return ResourceManager.GetString("U_ToDoCollecties", resourceCulture);
             }
         }
         

@@ -150,7 +150,7 @@ public class clsCategorieënVM : clsCommonModelPropertiesBase
             vm.CurrentViewModel = null;
         }
 
-        //clsMessenger.Default.Send<clsUpdateListMessages>(new clsUpdateListMessages());
+        // clsMessenger.Default.Send<clsUpdateListMessages>(new clsUpdateListMessages());
     }
 
     private bool CanExecute_CancelCommand(object obj)
