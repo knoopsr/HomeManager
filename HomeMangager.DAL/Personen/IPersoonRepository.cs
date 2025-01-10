@@ -13,5 +13,6 @@ namespace HomeManager.DAL.Personen
 {
     public interface IPersoonRepository : IRepository<clsPersoonModel>
     {
+        ObservableCollection<clsPersoonModel> GetByPersoonID(int id);
     }
 }

@@ -10,7 +10,7 @@ namespace HomeManager.ViewModel
 {
     public class clsVMLocator
     {
-        private clsPersoonViewModel _persoonViewModel = new clsPersoonViewModel();
+        private static clsPersoonViewModel _persoonViewModel = new clsPersoonViewModel();
 
         public clsPersoonViewModel PersoonViewModel
         {

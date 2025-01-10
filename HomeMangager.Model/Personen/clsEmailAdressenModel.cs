@@ -89,7 +89,7 @@ namespace HomeManager.Model.Personen
                         if (string.IsNullOrWhiteSpace(_emailadres))
                         {
                             error = "Emailadres is een verplicht veld.";
-                            if (ErrorList.Contains("Emailadres") == false)
+                            if (!ErrorList.Contains("Emailadres"))
                             {
                                 ErrorList.Add("Emailadres");
                             }
@@ -97,7 +97,17 @@ namespace HomeManager.Model.Personen
                         else if (_emailadres.Length > 100)
                         {
                             error = "Your text is to long!!!";
-                            if (ErrorList.Contains("Emailadres") == false)
+                            if (!ErrorList.Contains("Emailadres"))
+                            {
+                                ErrorList.Add("Emailadres");
+                            }
+                        }
+                        else if (!System.Text.RegularExpressions.Regex.IsMatch(
+                            _emailadres,
+                            @"^[^@\s]+@[^@\s]+\.[^@\s]+$"))
+                        {
+                            error = "Emailadres moet een geldig formaat hebben (bijvoorbeeld: voorbeeld@domein.com).";
+                            if (!ErrorList.Contains("Emailadres"))
                             {
                                 ErrorList.Add("Emailadres");
                             }

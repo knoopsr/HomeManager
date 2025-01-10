@@ -81,7 +81,13 @@
                     Width="250"
                     ItemsSource="{Binding MijnCollectie}"
                     SelectedItem="{Binding MijnSelectedItem, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />-->
-
+                <TextBlock
+                    x:Name="tbNaam"
+                    Grid.Row="0"
+                    Grid.Column="3"
+                    Text="{Binding MijnSelectedItem.PersoonID, Mode=OneWay}" />
+                
+                
                 <TextBlock
                     x:Name="EmailAdres"
                     Grid.Row="2"

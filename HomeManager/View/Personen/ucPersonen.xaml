@@ -66,7 +66,6 @@
                         <RowDefinition Height="20" />
                         <RowDefinition Height="*" />
                     </Grid.RowDefinitions>
-
                     <StackPanel
                         Margin="2"
                         HorizontalAlignment="Left"
@@ -83,12 +82,8 @@
                     </StackPanel>
                     <ListView
                         Name="UserListView"
-                        Grid.Row="2"
                         Grid.RowSpan="7"
-                        Grid.Column="1"
-                        Width="600"
-                        Height="375"
-                        Margin="2,10,2,0"
+                        Margin="2,20,2,5"
                         ItemsSource="{Binding MijnCollectie}"
                         ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                         ScrollViewer.VerticalScrollBarVisibility="Auto"
@@ -101,7 +96,7 @@
                         <ListView.ItemTemplate>
                             <DataTemplate>
                                 <Border
-                                    Width="95"
+                                    Width="90"
                                     Margin="5"
                                     Padding="2"
                                     Background="LightGray"
@@ -172,7 +167,7 @@
                                                 Height="10"
                                                 Margin="0,0,0,0"
                                                 Command="{Binding cmdEditPersoon}"
-                                                CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}"
+                                                CommandParameter="{Binding PersoonID}"
                                                 Style="{StaticResource EditPersoon}"
                                                 ToolTip="Aanpassen" />
                                             <Button
@@ -233,13 +228,80 @@
                                 Style="{StaticResource AddImage}" />
                         </Grid>
                     </Border>
+
+                    <!--<ListBox
+                        Name="EmailAdressenListView"
+                        Grid.Row="1"
+                        Grid.Column="1"
+                        Width="200"
+                        ItemsSource="{Binding EmailAdressenCollectie}"
+                        SelectedItem="{Binding MijnSelectedItem.PersoonID, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />-->
                     <ListBox
                         Name="EmailAdressenListView"
                         Grid.Row="1"
                         Grid.Column="1"
                         Width="200"
                         ItemsSource="{Binding EmailAdressenCollectie}"
-                        SelectedItem="{Binding MijnSelectedItem.PersoonID, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                        SelectedItem="{Binding MijnSelectedItem.PersoonID, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <Grid HorizontalAlignment="Stretch">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                        <!--  Tekst  -->
+                                        <ColumnDefinition Width="Auto" />
+                                        <!--  Send-knop  -->
+                                        <ColumnDefinition Width="Auto" />
+                                        <!--  Edit-knop  -->
+                                        <ColumnDefinition Width="Auto" />
+                                        <!--  Delete-knop  -->
+                                    </Grid.ColumnDefinitions>
+
+                                    <!--  E-mailadres  -->
+                                    <TextBlock
+                                        Grid.Column="0"
+                                        Margin="5,0,5,0"
+                                        VerticalAlignment="Center"
+                                        Text="{Binding}"
+                                        TextWrapping="Wrap" />
+
+                                    <!--  Edit-knop  -->
+                                    <Button
+                                        Grid.Column="1"
+                                        Width="15"
+                                        Height="15"
+                                        Margin="5,0,0,0"
+                                        HorizontalAlignment="Right"
+                                        VerticalAlignment="Center"
+                                        Command="{Binding DataContext.cmdEditEmailAdressen, RelativeSource={RelativeSource AncestorType=ListBox}}"
+                                        Content="Edit"
+                                        Style="{StaticResource EditEmail}" />
+
+                                    <!--  Delete-knop  -->
+                                    <Button
+                                        Grid.Column="2"
+                                        Width="15"
+                                        Height="15"
+                                        Margin="5,0,0,0"
+                                        HorizontalAlignment="Right"
+                                        VerticalAlignment="Center"
+                                        Command="{Binding DataContext.cmdDeleteEmailAdressen, RelativeSource={RelativeSource AncestorType=ListBox}}"
+                                        Style="{StaticResource DeleteEmail}" />
+                                    <!--  Send-knop  -->
+                                    <Button
+                                        Grid.Column="3"
+                                        Width="15"
+                                        Height="15"
+                                        Margin="5,0,0,0"
+                                        HorizontalAlignment="Right"
+                                        VerticalAlignment="Center"
+                                        Style="{StaticResource SendEmail}" />
+                                </Grid>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+
+
 
                     <!--  Adressen  -->
                     <Border
@@ -330,14 +392,11 @@
                         ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                         ScrollViewer.VerticalScrollBarVisibility="Disabled"
                         SelectedItem="{Binding MijnSelectedItem.PersoonID, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
-                        <ListView.ItemTemplate>
-                            <DataTemplate>
-                                <TextBlock
-                                    Margin="5"
-                                    Text="{Binding}"
-                                    TextWrapping="Wrap" />
-                            </DataTemplate>
-                        </ListView.ItemTemplate>
+                        <ListView.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <UniformGrid Columns="5" />
+                            </ItemsPanelTemplate>
+                        </ListView.ItemsPanel>
                     </ListView>
                 </Grid>
             </Border>

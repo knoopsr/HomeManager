@@ -65,6 +65,34 @@ namespace HomeManager.ViewModel
             }
         }
 
+        private clsPersonenViewModel _mijnSelectedPersoonItem;
+        public clsPersonenViewModel MijnSelectedPersoonItem
+        {
+            get
+            {
+                return _mijnSelectedPersoonItem;
+            }
+            set
+            {
+                if (value != null)
+                {
+                    if (_mijnSelectedPersoonItem != null && _mijnSelectedPersoonItem.IsDirty)
+                    {
+                        if (MessageBox.Show("Wil je " + _mijnSelectedPersoonItem + "Opslaan?", "Opslaan",
+                            MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+                        {
+                            _mijnSelectedPersoonItem.IsDirty = false;
+                            _mijnSelectedPersoonItem.MijnSelectedIndex = 0;
+                            OpslaanCommando();
+                            LoadData();
+                        }
+                    }
+                }
+                _mijnSelectedPersoonItem = value;
+                OnPropertyChanged();
+            }
+        }
+
 
         private void LoadData()
         {
@@ -118,10 +146,21 @@ namespace HomeManager.ViewModel
             cmdClose = new clsCustomCommand(Execute_Close_Command, CanExecute_Close_Command);
             cmdUploadPicture = new clsCustomCommand(Execute_UploadPicture_Command, CanExecute_UploadPicture_Command);
             clsMessenger.Default.Register<clsNewPersoonMessage>(this, OnNewPersonenReceive);
+            clsMessenger.Default.Register<clsPersoonModel>(this, OnPersoonReceived);
 
             LoadData();
 
             MijnSelectedItem = MijnService.GetFirst();
+        }
+
+        private void OnPersoonReceived(clsPersoonModel obj)
+        {
+            _mijnSelectedItem = obj;
+
+            if (obj.PersoonID == 0)
+            {
+                NewStatus = true;
+            }
         }
 
         private void OnNewPersonenReceive(clsNewPersoonMessage message)
@@ -302,6 +341,7 @@ namespace HomeManager.ViewModel
                 clsHomeVM vm = (clsHomeVM)HomeWindow.DataContext;
                 vm.CurrentViewModel = null;
             }
+            clsMessenger.Default.Send<clsUpdateListMessages>(new clsUpdateListMessages());
         }
 
         private bool CanExecute_Close_Command(object? obj)

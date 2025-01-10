@@ -116,6 +116,130 @@
         </Style.Triggers>
     </Style>
 
+
+    <Style x:Key="DeleteEmail" TargetType="ContentControl">
+        <Setter Property="Margin" Value="5" />
+        <Setter Property="Cursor" Value="Hand" />
+        <Style.Triggers>
+            <Trigger Property="IsEnabled" Value="True">
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="ContentControl">
+                            <Border Background="Transparent">
+                                <Path
+                                    Width="10"
+                                    Height="10"
+                                    Margin="0,0,0,0"
+                                    Data="{StaticResource myDeleteEmail}"
+                                    Fill="Gray"
+                                    RenderTransformOrigin="0.5,0.5"
+                                    Stretch="Uniform" />
+                            </Border>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Trigger>
+            <Trigger Property="IsEnabled" Value="False">
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="ContentControl">
+                            <Path
+                                Width="7"
+                                Height="7"
+                                Data="{StaticResource myDeleteEmail}"
+                                Fill="{StaticResource myWerkBalkDisable}"
+                                RenderTransformOrigin="0.5,0.5"
+                                Stretch="Uniform" />
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style x:Key="EditEmail" TargetType="ContentControl">
+        <Setter Property="Margin" Value="5" />
+        <Setter Property="Cursor" Value="Hand" />
+        <Style.Triggers>
+            <Trigger Property="IsEnabled" Value="True">
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="ContentControl">
+                            <Border Background="Transparent">
+                                <Path
+                                    Width="10"
+                                    Height="10"
+                                    Data="{StaticResource myEditButton}"
+                                    Fill="DarkGray"
+                                    RenderTransformOrigin="0.5,0.5"
+                                    Stretch="Uniform" />
+                            </Border>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Trigger>
+            <Trigger Property="IsEnabled" Value="False">
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="ContentControl">
+                            <Border Background="Transparent">
+                                <Path
+                                    Width="7"
+                                    Height="7"
+                                    Data="{StaticResource myEditButton}"
+                                    Fill="{StaticResource myWerkBalkDisable}"
+                                    RenderTransformOrigin="0.5,0.5"
+                                    Stretch="Uniform" />
+                            </Border>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style x:Key="SendEmail" TargetType="ContentControl">
+        <Setter Property="Margin" Value="5" />
+        <Setter Property="Cursor" Value="Hand" />
+        <Style.Triggers>
+            <Trigger Property="IsEnabled" Value="True">
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="ContentControl">
+                            <Border Background="Transparent">
+                                <Path
+                                    Width="10"
+                                    Height="10"
+                                    Data="{StaticResource mySendEmail}"
+                                    Fill="DarkGray"
+                                    RenderTransformOrigin="0.5,0.5"
+                                    Stretch="Uniform" />
+                            </Border>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Trigger>
+            <Trigger Property="IsEnabled" Value="False">
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="ContentControl">
+                            <Border Background="Transparent">
+                                <Path
+                                    Width="7"
+                                    Height="7"
+                                    Data="{StaticResource mySendEmail}"
+                                    Fill="{StaticResource myWerkBalkDisable}"
+                                    RenderTransformOrigin="0.5,0.5"
+                                    Stretch="Uniform" />
+                            </Border>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+
     <Style x:Key="DeletePersoon" TargetType="ContentControl">
         <Setter Property="Margin" Value="5" />
         <Setter Property="Cursor" Value="Hand" />
@@ -193,6 +317,8 @@
 
 
 
+
+
     <Style x:Key="AddImagePersoon" TargetType="ContentControl">
         <Setter Property="Margin" Value="5" />
         <Setter Property="Cursor" Value="Hand" />
@@ -262,6 +388,9 @@
             </Trigger>
         </Style.Triggers>
     </Style>
+
+
+
 
 
 

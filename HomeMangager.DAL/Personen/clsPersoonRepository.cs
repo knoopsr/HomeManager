@@ -120,6 +120,15 @@ namespace HomeManager.DAL.Personen
             }
             MijnDataReader.Close();
         }
+
+        public ObservableCollection<clsPersoonModel> GetByPersoonID(int id)
+        {
+            if (MijnCollectie == null)
+            {
+                GenerateCollection();
+            }
+            return new ObservableCollection<clsPersoonModel>(MijnCollectie.Where(persoon => persoon.PersoonID == id));
+        }
     }
 }
 

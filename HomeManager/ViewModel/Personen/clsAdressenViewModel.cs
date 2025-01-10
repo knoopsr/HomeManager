@@ -176,6 +176,7 @@ namespace HomeManager.ViewModel
             //MijnSelectedItem.MijnSelectedIndex = 0;
         }
 
+
         private void OnAdressenReceived(clsAdressenModel obj)
         {
             //mijnSelectedItem = obj;
