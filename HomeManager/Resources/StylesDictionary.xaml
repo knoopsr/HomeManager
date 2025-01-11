@@ -318,4 +318,38 @@
         </Setter>
     </Style>
 
+    <Style x:Key="Showfile" TargetType="ContentControl">
+        <Setter Property="Cursor" Value="Hand" />
+        <Setter Property="Margin" Value="0,0,0,0" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ContentControl">
+                    <Path
+                        Width="15"
+                        Height="15"
+                        Data="{StaticResource myShowfile}"
+                        Fill="{StaticResource myTitleBar}"
+                        Stretch="Fill" />
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="Deletefile" TargetType="ContentControl">
+        <Setter Property="Cursor" Value="Hand" />
+        <Setter Property="Margin" Value="0,0,0,0" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ContentControl">
+                    <Path
+                        Width="15"
+                        Height="15"
+                        Data="{StaticResource myDeleteButton}"
+                        Fill="{StaticResource myTitleBar}"
+                        Stretch="Fill" />
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
 </ResourceDictionary>

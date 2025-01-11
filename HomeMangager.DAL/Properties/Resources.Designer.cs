@@ -88,6 +88,15 @@ namespace HomeManager.DAL.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to D_BudgetTransaction.
+        /// </summary>
+        internal static string D_BudgetTransaction {
+            get {
+                return ResourceManager.GetString("D_BudgetTransaction", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to D_Domiciliering.
         /// </summary>
         internal static string D_Domiciliering {
@@ -129,7 +138,6 @@ namespace HomeManager.DAL.Properties {
         internal static string D_Wachtwoord {
             get {
                 return ResourceManager.GetString("D_Wachtwoord", resourceCulture);
-
             }
         }
         
@@ -151,12 +159,57 @@ namespace HomeManager.DAL.Properties {
             }
         }
         
-        /// <summary>        
+        /// <summary>
         ///   Looks up a localized string similar to I_Begunstigden.
         /// </summary>
         internal static string I_Begunstigden {
             get {
                 return ResourceManager.GetString("I_Begunstigden", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to I_BudgetBijlage.
+        /// </summary>
+        internal static string I_BudgetBijlage {
+            get {
+                return ResourceManager.GetString("I_BudgetBijlage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to I_BudgetCategorie.
+        /// </summary>
+        internal static string I_BudgetCategorie {
+            get {
+                return ResourceManager.GetString("I_BudgetCategorie", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to I_BudgetTransaction.
+        /// </summary>
+        internal static string I_BudgetTransaction {
+            get {
+                return ResourceManager.GetString("I_BudgetTransaction", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to I_Domiciliering.
+        /// </summary>
+        internal static string I_Domiciliering {
+            get {
+                return ResourceManager.GetString("I_Domiciliering", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to I_Frequentie.
+        /// </summary>
+        internal static string I_Frequentie {
+            get {
+                return ResourceManager.GetString("I_Frequentie", resourceCulture);
             }
         }
         
@@ -168,14 +221,6 @@ namespace HomeManager.DAL.Properties {
                 return ResourceManager.GetString("I_Persoon", resourceCulture);
             }
         }
-        /// <summary>        
-        ///   Looks up a localized string similar to I_BudgetCategorie.
-        /// </summary>
-        internal static string I_BudgetCategorie {
-            get {
-                return ResourceManager.GetString("I_BudgetCategorie", resourceCulture);
-            }
-        }
         
         /// <summary>
         ///   Looks up a localized string similar to I_Rollen.
@@ -183,14 +228,6 @@ namespace HomeManager.DAL.Properties {
         internal static string I_Rollen {
             get {
                 return ResourceManager.GetString("I_Rollen", resourceCulture);
-            }
-        }
-        /// <summary>        
-        ///   Looks up a localized string similar to I_Domiciliering.
-        /// </summary>
-        internal static string I_Domiciliering {
-            get {
-                return ResourceManager.GetString("I_Domiciliering", resourceCulture);
             }
         }
         
@@ -202,15 +239,6 @@ namespace HomeManager.DAL.Properties {
                 return ResourceManager.GetString("I_Wachtwoord", resourceCulture);
             }
         }
-        /// <summary>
-        ///   Looks up a localized string similar to I_Frequentie.
-        /// </summary>
-        internal static string I_Frequentie {
-            get {
-                return ResourceManager.GetString("I_Frequentie", resourceCulture);
-            }
-        }
-        
         
         /// <summary>
         ///   Looks up a localized string similar to I_WachtWoordenGroep.
@@ -227,6 +255,78 @@ namespace HomeManager.DAL.Properties {
         internal static string S_Account {
             get {
                 return ResourceManager.GetString("S_Account", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to S_Begunstigden.
+        /// </summary>
+        internal static string S_Begunstigden {
+            get {
+                return ResourceManager.GetString("S_Begunstigden", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to S_BudgetBijlage.
+        /// </summary>
+        internal static string S_BudgetBijlage {
+            get {
+                return ResourceManager.GetString("S_BudgetBijlage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to S_BudgetCategorie.
+        /// </summary>
+        internal static string S_BudgetCategorie {
+            get {
+                return ResourceManager.GetString("S_BudgetCategorie", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to S_BudgetOverzichtInkomsten.
+        /// </summary>
+        internal static string S_BudgetOverzichtInkomsten {
+            get {
+                return ResourceManager.GetString("S_BudgetOverzichtInkomsten", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to S_BudgetOverzichtUitgaven.
+        /// </summary>
+        internal static string S_BudgetOverzichtUitgaven {
+            get {
+                return ResourceManager.GetString("S_BudgetOverzichtUitgaven", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to S_BudgetTransaction.
+        /// </summary>
+        internal static string S_BudgetTransaction {
+            get {
+                return ResourceManager.GetString("S_BudgetTransaction", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to S_Domiciliering.
+        /// </summary>
+        internal static string S_Domiciliering {
+            get {
+                return ResourceManager.GetString("S_Domiciliering", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to S_Frequentie.
+        /// </summary>
+        internal static string S_Frequentie {
+            get {
+                return ResourceManager.GetString("S_Frequentie", resourceCulture);
             }
         }
         
@@ -256,14 +356,6 @@ namespace HomeManager.DAL.Properties {
                 return ResourceManager.GetString("S_Rechten", resourceCulture);
             }
         }
-        /// <summary>
-        ///   Looks up a localized string similar to S_Begunstigden.
-        /// </summary>
-        internal static string S_Begunstigden {
-            get {
-                return ResourceManager.GetString("S_Begunstigden", resourceCulture);
-            }
-        }
         
         /// <summary>
         ///   Looks up a localized string similar to S_RechtenCatogorie.
@@ -271,14 +363,6 @@ namespace HomeManager.DAL.Properties {
         internal static string S_RechtenCatogorie {
             get {
                 return ResourceManager.GetString("S_RechtenCatogorie", resourceCulture);
-            }
-        }
-        /// <summary>
-        ///   Looks up a localized string similar to S_BudgetCategorie.
-        /// </summary>
-        internal static string S_BudgetCategorie {
-            get {
-                return ResourceManager.GetString("S_BudgetCategorie", resourceCulture);
             }
         }
         
@@ -290,14 +374,6 @@ namespace HomeManager.DAL.Properties {
                 return ResourceManager.GetString("S_Rollen", resourceCulture);
             }
         }
-        /// <summary>            
-        ///   Looks up a localized string similar to S_Domiciliering.
-        /// </summary>
-        internal static string S_Domiciliering {
-            get {
-                return ResourceManager.GetString("S_Domiciliering", resourceCulture);
-            }
-        }
         
         /// <summary>
         ///   Looks up a localized string similar to S_Wachtwoord.
@@ -305,14 +381,6 @@ namespace HomeManager.DAL.Properties {
         internal static string S_Wachtwoord {
             get {
                 return ResourceManager.GetString("S_Wachtwoord", resourceCulture);
-            }
-        }
-        /// <summary>
-        ///   Looks up a localized string similar to S_Frequentie.
-        /// </summary>
-        internal static string S_Frequentie {
-            get {
-                return ResourceManager.GetString("S_Frequentie", resourceCulture);
             }
         }
         
@@ -323,8 +391,7 @@ namespace HomeManager.DAL.Properties {
             get {
                 return ResourceManager.GetString("S_WachtWoordenGroep", resourceCulture);
             }
-        }     
-        
+        }
         
         /// <summary>
         ///   Looks up a localized string similar to U_Account.
@@ -336,14 +403,6 @@ namespace HomeManager.DAL.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to U_Login.
-        /// </summary>
-        internal static string U_Login {
-            get {
-                return ResourceManager.GetString("U_Login", resourceCulture);
-            }
-        }
-        /// <summary>
         ///   Looks up a localized string similar to U_Begunstigden.
         /// </summary>
         internal static string U_Begunstigden {
@@ -353,11 +412,29 @@ namespace HomeManager.DAL.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to U_BudgetBijlage.
+        /// </summary>
+        internal static string U_BudgetBijlage {
+            get {
+                return ResourceManager.GetString("U_BudgetBijlage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to U_BudgetCategorie.
         /// </summary>
         internal static string U_BudgetCategorie {
             get {
                 return ResourceManager.GetString("U_BudgetCategorie", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to U_BudgetTransaction.
+        /// </summary>
+        internal static string U_BudgetTransaction {
+            get {
+                return ResourceManager.GetString("U_BudgetTransaction", resourceCulture);
             }
         }
         
@@ -376,6 +453,15 @@ namespace HomeManager.DAL.Properties {
         internal static string U_Frequentie {
             get {
                 return ResourceManager.GetString("U_Frequentie", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to U_Login.
+        /// </summary>
+        internal static string U_Login {
+            get {
+                return ResourceManager.GetString("U_Login", resourceCulture);
             }
         }
         

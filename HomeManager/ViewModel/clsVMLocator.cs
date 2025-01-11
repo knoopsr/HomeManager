@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using HomeManager.Model.Budget;
 using HomeManager.Model.Todo;
 using HomeManager.ViewModel;
+
 
 namespace HomeManager.ViewModel
 {
@@ -113,12 +115,32 @@ namespace HomeManager.ViewModel
             }
         }
 
-        private static clsDomicilieringViewModel _domicilieringViewModel = new clsDomicilieringViewModel();
         public clsDomicilieringViewModel DomicilieringViewModel
         {
             get
             {
-                return _domicilieringViewModel;
+                return new clsDomicilieringViewModel();
+            }
+        }
+        public clsTransactieViewModel TransactieViewModel
+        {
+            get
+            {
+                return new clsTransactieViewModel();
+            }
+        }
+        public clsOverzichtViewModel OverzichtViewModel
+        {
+            get
+            {
+                return new clsOverzichtViewModel();
+            }
+        }
+        public clsBijlageViewModel BijlageViewModel
+        {
+            get
+            {
+                return new clsBijlageViewModel();
             }
         }
 

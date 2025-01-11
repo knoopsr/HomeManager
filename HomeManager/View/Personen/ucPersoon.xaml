@@ -94,7 +94,6 @@
                             <Border
                                 Width="60"
                                 Height="60"
-                     
                                 HorizontalAlignment="Left"
                                 BorderBrush="Gray"
                                 BorderThickness="1"
@@ -107,9 +106,11 @@
 
 
                             <StackPanel Margin="10,0,0,0" Orientation="Vertical">
-                                <TextBlock FontWeight="Bold" Text="{Binding Naam}" 
-                                           Margin="0,5,0,8"/>
-                                <TextBlock Text="{Binding Voornaam}"  Margin="0,8,0,0"/>
+                                <TextBlock
+                                    Margin="0,5,0,8"
+                                    FontWeight="Bold"
+                                    Text="{Binding Naam}" />
+                                <TextBlock Margin="0,8,0,0" Text="{Binding Voornaam}" />
                             </StackPanel>
                         </StackPanel>
                     </Border>

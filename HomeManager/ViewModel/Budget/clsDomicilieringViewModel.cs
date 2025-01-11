@@ -15,13 +15,15 @@ using System.Data.SqlTypes;
 using HomeManager.Messages;
 using HomeManager.Services;
 using HomeManager.View;
+using HomeManager.Model.Security;
+
 
 
 namespace HomeManager.ViewModel
 {
     public class clsDomicilieringViewModel : clsCommonModelPropertiesBase
     {
-        
+
         clsDomicilieringDataService MijnService;
 
         private clsDialogService _DialogService;
@@ -35,10 +37,11 @@ namespace HomeManager.ViewModel
         public ICommand cmdEditFrequentie { get; set; }
         public ICommand cmdEditBegunstigden { get; set; }
         public ICommand cmdEditCategorie { get; set; }
+        public ICommand cmdFilter { get; set; }
 
 
         public int IsUitgaven { get; set; }
-        
+
         private ObservableCollection<clsDomicilieringModel> _MijnCollectie;
         public ObservableCollection<clsDomicilieringModel> MijnCollectie
         {
@@ -66,7 +69,7 @@ namespace HomeManager.ViewModel
                 {
                     if (_MijnSelectedItem != null && _MijnSelectedItem.IsDirty)
                     {
-                        if (MessageBox.Show("wil je " + _MijnSelectedItem + " Opslaan? ", "Opslaan", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+                        if (MessageBox.Show("wil je deze domiciliering opslaan? ", "Opslaan", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
                         {
                             OpslaanCommando();
                             LoadData();
@@ -128,6 +131,9 @@ namespace HomeManager.ViewModel
         }
 
 
+
+
+
         public clsDomicilieringViewModel()
         {
             MijnService = new clsDomicilieringDataService();
@@ -141,6 +147,7 @@ namespace HomeManager.ViewModel
             cmdEditFrequentie = new clsCustomCommand(EditFrequentie, CanExecute_EditFrequentie);
             cmdEditBegunstigden = new clsCustomCommand(EditBegunstigde, CanExecute_EditBegunstigde);
             cmdEditCategorie = new clsCustomCommand(EditCategorie, CanExecute_EditCategorie);
+            cmdFilter = new clsCustomCommand(Execute_FilterCommand, CanExecute_FilterCommand);
 
             clsMessenger.Default.Register<clsUpdateListMessages>(this, OnUpdateListMessageReceived);
 
@@ -162,8 +169,7 @@ namespace HomeManager.ViewModel
 
                 if (MijnSelectedItem != null && MijnSelectedItem.Error == null && MijnSelectedItem.IsDirty == true)
                 {
-                    if (MessageBox.Show(MijnSelectedItem.ToString().ToUpper() +
-                        " is nog niet opgeslagen, wil je opslaan?", "Opslaan of sluiten?",
+                    if (MessageBox.Show("Deze domiciliering is nog niet opgeslagen, wil je opslaan?", "Opslaan of sluiten?",
                         MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
                     {
                         OpslaanCommando();
@@ -174,9 +180,8 @@ namespace HomeManager.ViewModel
                 clsHomeVM vm = (clsHomeVM)HomeWindow.DataContext;
                 vm.CurrentViewModel = null;
             }
+
         }
-
-
 
 
         private bool CanExecute_CancelCommand(object obj)
@@ -205,9 +210,9 @@ namespace HomeManager.ViewModel
         {
             clsDomicilieringModel ItemToInsert = new clsDomicilieringModel()
             {
-                IsUitgaven = null,
+                IsUitgaven = false,
                 DomicilieringID = 0,
-                Bedrag = 0,
+                Bedrag = null,
                 VanDatum = DateOnly.FromDateTime(DateTime.Now),
                 TotDatum = DateOnly.FromDateTime(DateTime.Now),
                 Onderwerp = String.Empty,
@@ -243,7 +248,7 @@ namespace HomeManager.ViewModel
 
         private void Execute_DeleteCommand(object obj)
         {
-            if (MessageBox.Show("wil je " + MijnSelectedItem + " verwijderen?", "Vewijderen?", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+            if (MessageBox.Show("wil je deze domiciliering verwijderen?", "Vewijderen?", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
             {
 
             }
@@ -295,7 +300,7 @@ namespace HomeManager.ViewModel
 
         private void EditFrequentie(object obj)
         {
-            
+
             _DialogService.ShowDialog(new ucFrequentie(), "Frequentie");
 
         }
@@ -311,17 +316,78 @@ namespace HomeManager.ViewModel
         }
 
 
-        private bool CanExecute_EditCategorie (object obj)
+        private bool CanExecute_EditCategorie(object obj)
         {
             return true;
         }
 
-        private void EditCategorie (object obj)
+        private void EditCategorie(object obj)
         {
             _DialogService.ShowDialog(new ucCategorie(), "Categorie");
         }
 
         #endregion
 
+
+        #region Filter_Domciliering
+
+        private string _filterTekst;
+
+        public string FilterTekst
+        {
+            get
+            {
+                return _filterTekst;
+            }
+            set
+            {
+                _filterTekst = value;
+                OnPropertyChanged(nameof(FilterTekst));
+            }
+        }
+
+        private ObservableCollection<clsDomicilieringModel> _gefilterdeCollectie;
+
+        public ObservableCollection<clsDomicilieringModel> GefilterdeCollectie
+        {
+            get
+            {
+                return _gefilterdeCollectie;
+            }
+            set
+            {
+                _gefilterdeCollectie = value;
+                OnPropertyChanged(nameof(_gefilterdeCollectie));
+            }
+        }
+
+        private bool CanExecute_FilterCommand(object obj)
+        {
+            return true;
+        }
+
+        private void Execute_FilterCommand (object obj)
+        {
+            //if (string.IsNullOrWhiteSpace(FilterTekst))
+            //{
+            //    // Als er geen filtertekst is, toon alles
+            //    GefilterdeCollectie = new ObservableCollection<clsDomicilieringModel>(MijnCollectie);
+            //}
+            //else
+            //{
+            //    // Filter de collectie op basis van FilterTekst
+            //    var gefilterdeItems = MijnCollectie
+            //        .Where(item =>
+                        
+            //            (item.Begunstigde.IndexOf(FilterTekst, StringComparison.OrdinalIgnoreCase) >= 0))
+            //        .ToList();
+
+            //    // Update de gefilterde collectie
+            //    GefilterdeCollectie = new ObservableCollection<clsDomicilieringModel>(gefilterdeItems);
+            //}
+        }
+
+        #endregion
     }
 }
+//To Do : Filter installeren voor zoeken op Frequentie, Begunstigde, Categorie

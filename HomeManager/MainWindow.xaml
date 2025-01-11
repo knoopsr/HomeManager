@@ -7,7 +7,6 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:HomeManager"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-
     Title="MainWindow"
     Width="1000"
     Height="900"
@@ -35,7 +34,6 @@
         <DataTemplate DataType="{x:Type VM:clsAccountViewModel}">
             <V:ucAccount />
         </DataTemplate>
-
         <DataTemplate DataType="{x:Type VM:clsCollectiesVM}">
             <V:ucCollecties />
         </DataTemplate>
@@ -45,7 +43,6 @@
         <DataTemplate DataType="{x:Type VM:clsKleurenVM}">
             <V:ucKleuren />
         </DataTemplate>
-      
         <DataTemplate DataType="{x:Type VM:clsCategorieViewModel}">
             <V:ucCategorie />
         </DataTemplate>
@@ -58,6 +55,14 @@
         <DataTemplate DataType="{x:Type VM:clsDomicilieringViewModel}">
             <V:ucDomiciliering />
         </DataTemplate>
+        <DataTemplate DataType="{x:Type VM:clsTransactieViewModel}">
+            <V:ucTransactie />
+        </DataTemplate> 
+        <DataTemplate DataType="{x:Type VM:clsOverzichtViewModel}">
+            <V:ucOverzicht />
+        </DataTemplate>
+       
+
 
         <Storyboard x:Key="ShowMenu">
             <DoubleAnimation
@@ -94,8 +99,8 @@
 
         <V:ucTitlePerson
             Grid.ColumnSpan="2"
-            Margin="0,0,10,0"
             Width="120"
+            Margin="0,0,10,0"
             HorizontalAlignment="Right"
             VerticalAlignment="Center" />
 
@@ -160,10 +165,21 @@
 
                     <Expander Style="{StaticResource myHamburgerBudget}">
                         <StackPanel x:Name="stckBudget">
-                            <Button Content="Transacties" Style="{StaticResource myMenuTandwiel}" />
-                            <Button Content="Domiciliëring" Style="{StaticResource myMenuTandwiel}" 
-                                    Command="{Binding NavCommand}"
-                                    CommandParameter="clsDomicilieringViewModel"/>
+                            <Button
+                                Command="{Binding NavCommand}"
+                                CommandParameter="clsOverzichtViewModel"
+                                Content="Overzicht"
+                                Style="{StaticResource myMenuTandwiel}" /> 
+                            <Button
+                                Command="{Binding NavCommand}"
+                                CommandParameter="clsTransactieViewModel"
+                                Content="Transacties"
+                                Style="{StaticResource myMenuTandwiel}" />
+                            <Button
+                                Command="{Binding NavCommand}"
+                                CommandParameter="clsDomicilieringViewModel"
+                                Content="Domiciliëring"
+                                Style="{StaticResource myMenuTandwiel}" />
                             <Button
                                 Command="{Binding NavCommand}"
                                 CommandParameter="clsBegunstigdenViewModel"
@@ -185,20 +201,20 @@
                     <Expander Style="{StaticResource myHamburgerTodo}">
 
                         <StackPanel x:Name="stckTodo">
-                            <Button 
-                                Content="Todo Collectie"
+                            <Button
                                 Command="{Binding NavCommand}"
                                 CommandParameter="clsCollectiesVM"
+                                Content="Todo Collectie"
                                 Style="{StaticResource myMenuTandwiel}" />
-                            <Button 
-                                Content="Todo Categoriën"
+                            <Button
                                 Command="{Binding NavCommand}"
                                 CommandParameter="clsCategorieënVM"
+                                Content="Todo Categoriën"
                                 Style="{StaticResource myMenuTandwiel}" />
-                            <Button 
-                                Content="Todo Kleuren"
+                            <Button
                                 Command="{Binding NavCommand}"
                                 CommandParameter="clsKleurenVM"
+                                Content="Todo Kleuren"
                                 Style="{StaticResource myMenuTandwiel}" />
                         </StackPanel>
 

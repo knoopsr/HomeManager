@@ -61,6 +61,7 @@ namespace HomeManager.DAL.Budget
                     BegunstigdeID = (int)MijnDataReader["BegunstigdenID"],
                     Begunstigde = MijnDataReader["Begunstigde"].ToString(),
                     BudgetCategorieID = (int)MijnDataReader["BudgetCategorieID"],
+                    BudgetCategorie = MijnDataReader["BudgetCategorie"].ToString(),
                     Onderwerp = MijnDataReader["Onderwerp"].ToString(),
                     IsUitgaven = (bool)MijnDataReader["IsUitgaven"],
                     Bedrag = MijnDataReader["Bedrag"] as decimal? ?? 0,
@@ -97,14 +98,14 @@ namespace HomeManager.DAL.Budget
         {
             (DataTable DT, bool OK, string Boodschap) =
                 clsDAL.ExecuteDataTable(Properties.Resources.I_Domiciliering,
-                clsDAL.Parameter("FrequentieID", entity.FrequentieID),
-                clsDAL.Parameter("BegunstigdenID", entity.BegunstigdeID),
-                clsDAL.Parameter("BudgetCategorieID", entity.BudgetCategorieID),
-                clsDAL.Parameter("Onderwerp", entity.Onderwerp),
                 clsDAL.Parameter("IsUitgaven", entity.IsUitgaven),
                 clsDAL.Parameter("Bedrag", entity.Bedrag),
                 clsDAL.Parameter("VanDatum", entity.VanDatum),
                 clsDAL.Parameter("TotDatum", entity.TotDatum),
+                clsDAL.Parameter("Onderwerp", entity.Onderwerp),
+                clsDAL.Parameter("FrequentieID", entity.FrequentieID),
+                clsDAL.Parameter("BegunstigdenID", entity.BegunstigdeID),
+                clsDAL.Parameter("BudgetCategorieID", entity.BudgetCategorieID),
                 clsDAL.Parameter("@ReturnValue", 0)) ;
 
             if (!OK)

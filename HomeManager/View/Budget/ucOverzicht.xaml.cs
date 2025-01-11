@@ -18,9 +18,9 @@ namespace HomeManager.View
     /// <summary>
     /// Interaction logic for ucBudgetCategorie.xaml
     /// </summary>
-    public partial class ucDomiciliering : UserControl
+    public partial class ucOverzicht : UserControl
     {
-        public ucDomiciliering()
+        public ucOverzicht()
         {
             InitializeComponent();
         }

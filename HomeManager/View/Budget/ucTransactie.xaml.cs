@@ -13,18 +13,20 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
+
 namespace HomeManager.View
 {
     /// <summary>
     /// Interaction logic for ucBudgetCategorie.xaml
     /// </summary>
-    public partial class ucDomiciliering : UserControl
+    public partial class ucTransactie : UserControl
     {
-        public ucDomiciliering()
+        public ucTransactie()
         {
             InitializeComponent();
         }
 
-       
+        
+
     }
 }

@@ -183,7 +183,6 @@
   <data name="U_Rollen" xml:space="preserve">
     <value>U_Rollen</value>
   </data>
-
   <data name="S_Login" xml:space="preserve">
     <value>S_Login</value>
   </data>
@@ -237,5 +236,32 @@
   </data>
   <data name="U_Domiciliering" xml:space="preserve">
     <value>U_Domiciliering</value>
+  </data>
+  <data name="D_BudgetTransaction" xml:space="preserve">
+    <value>D_BudgetTransaction</value>
+  </data>
+  <data name="I_BudgetTransaction" xml:space="preserve">
+    <value>I_BudgetTransaction</value>
+  </data>
+  <data name="S_BudgetTransaction" xml:space="preserve">
+    <value>S_BudgetTransaction</value>
+  </data>
+  <data name="U_BudgetTransaction" xml:space="preserve">
+    <value>U_BudgetTransaction</value>
+  </data>
+  <data name="I_BudgetBijlage" xml:space="preserve">
+    <value>I_BudgetBijlage</value>
+  </data>
+  <data name="S_BudgetBijlage" xml:space="preserve">
+    <value>S_BudgetBijlage</value>
+  </data>
+  <data name="U_BudgetBijlage" xml:space="preserve">
+    <value>U_BudgetBijlage</value>
+  </data>
+  <data name="S_BudgetOverzichtInkomsten" xml:space="preserve">
+    <value>S_BudgetOverzichtInkomsten</value>
+  </data>
+  <data name="S_BudgetOverzichtUitgaven" xml:space="preserve">
+    <value>S_BudgetOverzichtUitgaven</value>
   </data>
 </root>

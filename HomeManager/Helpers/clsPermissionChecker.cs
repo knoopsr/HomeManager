@@ -62,7 +62,9 @@ namespace HomeManager.Helpers
             { "clsDomicilieringViewModel", "420" },
             { "clsCategorieViewModel", "450" },
             { "clsBegunstigdenViewModel", "430" },
-            { "clsTransactiesViewModel", "410" },
+            { "clsTransactieViewModel", "410" },
+            { "clsOverzichtViewModel", "410" },
+           
 
 
         };

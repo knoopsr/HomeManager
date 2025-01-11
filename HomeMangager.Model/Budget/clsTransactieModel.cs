@@ -1,31 +1,28 @@
-﻿using System;
+﻿using HomeManager.Common;
+using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.ComponentModel;
-using HomeManager.Common;
-using System.Data.SqlTypes;
 
 namespace HomeManager.Model.Budget
 {
-    public class clsDomicilieringModel : clsCommonModelPropertiesBase, IDataErrorInfo
+    public class clsTransactieModel : clsCommonModelPropertiesBase, IDataErrorInfo
     {
+        private int _budgetTransactionID;
 
-        
-        private int _domicilieringID;
-
-        public int DomicilieringID 
-        { 
-            get 
-            {  
-                return _domicilieringID; 
-            } 
-            set 
-            {  
-                _domicilieringID = value; 
-                OnPropertyChanged(); 
-            } 
+        public int BudgetTransactionID
+        {
+            get
+            {
+                return _budgetTransactionID;
+            }
+            set
+            {
+                _budgetTransactionID = value;
+                OnPropertyChanged();
+            }
         }
 
         private bool? _isUitgaven;
@@ -58,13 +55,13 @@ namespace HomeManager.Model.Budget
             get
             {
                 return _bedrag.HasValue ? Math.Round(_bedrag.Value, 2) : (decimal?)null;
-                
+
             }
             set
             {
-                if(_bedrag != value)
+                if (_bedrag != value)
                 {
-                    if(_bedrag != null)
+                    if (_bedrag != null)
                     {
                         IsDirty = true;
                     }
@@ -74,47 +71,25 @@ namespace HomeManager.Model.Budget
             }
         }
 
-        private DateOnly _vanDatum;
+        private DateOnly _datum;
 
-        public DateOnly VanDatum
+        public DateOnly Datum
         {
             get
             {
-                return _vanDatum;
+                return _datum;
             }
             set
             {
-                
-                if (_vanDatum != DateOnly.MinValue)
+
+                if (_datum != DateOnly.MinValue)
                 {
-                    if (_vanDatum != value)
+                    if (_datum != value)
                     {
                         IsDirty = true;
                     }
                 }
-                _vanDatum = value;
-                OnPropertyChanged();
-            }
-        }
-
-        private DateOnly _totDatum;
-
-        public DateOnly TotDatum
-        {
-            get
-            {
-                return _totDatum;
-            }
-            set
-            {
-                if (_totDatum != DateOnly.MinValue)
-                {
-                    if (_totDatum != value)
-                    {
-                        IsDirty = true;
-                    }
-                }
-                _totDatum = value;
+                _datum = value;
                 OnPropertyChanged();
             }
         }
@@ -137,28 +112,6 @@ namespace HomeManager.Model.Budget
                     }
                 }
                 _onderwerp = value;
-                OnPropertyChanged();
-            }
-        }
-
-        private int _frequentieID;
-        public int FrequentieID
-        {
-            get
-            {
-                return _frequentieID;
-            }
-            set
-            {
-                if (_frequentieID != value)
-                {
-                    if (_frequentieID != 0)
-                    {
-                        IsDirty = true;
-                    }
-
-                }
-                _frequentieID = value;
                 OnPropertyChanged();
             }
         }
@@ -236,16 +189,16 @@ namespace HomeManager.Model.Budget
         public string BudgetCategorie
         {
 
-            get 
+            get
             {
                 return _budgetCategorie;
             }
 
             set
             {
-                if ( _budgetCategorie != value)
+                if (_budgetCategorie != value)
                 {
-                    if(_budgetCategorie != null)
+                    if (_budgetCategorie != null)
                     {
                         IsDirty = true;
                     }
@@ -254,23 +207,65 @@ namespace HomeManager.Model.Budget
                 _budgetCategorie = value;
                 OnPropertyChanged();
             }
-
-           
         }
 
-        
+        private string _bijlageNaam;
+
+        public string BijlageNaam
+        {
+
+            get
+            {
+                return _bijlageNaam;
+            }
+
+            set
+            {
+                if (_bijlageNaam != value)
+                {
+                    if (_bijlageNaam != null)
+                    {
+                        IsDirty = true;
+                    }
+                }
+
+                _bijlageNaam = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private byte[] _bijlage;
+
+        public byte[] Bijlage
+        {
+            get
+            {
+                return _bijlage;
+            }
+            set
+            {
+                if (_bijlage != value)
+                {
+                    if (_bijlage != null)
+                    {
+                        IsDirty = true;
+                    }
+                }
+                _bijlage = value;
+                OnPropertyChanged();
+            }
+
+        }
 
         public string this[string columnName]
         {
             get
-
-
             {
                 string error = string.Empty;
                 switch (columnName)
                 {
                     case "Bedrag":
-                    if (!_bedrag.HasValue || _bedrag <= 0)
+                        if (!_bedrag.HasValue || _bedrag <= 0)
                         {
                             error = "Bedrag kan niet leeg of 0 zijn";
                             if (ErrorList.Contains("Bedrag") == false)
@@ -287,46 +282,30 @@ namespace HomeManager.Model.Budget
                         }
                         return error;
 
-                    case "VanDatum":
-                    if (_vanDatum == DateOnly.MinValue)
+                    case "Datum":
+                        if (_datum == DateOnly.MinValue)
                         {
                             error = "Van Datum is verplicht om in te vullen";
-                            if (ErrorList.Contains("VanDatum") == false)
+                            if (ErrorList.Contains("Datum") == false)
                             {
-                                ErrorList.Add("VanDatum");
+                                ErrorList.Add("Datum");
                             }
                         }
                         else
                         {
-                            if (ErrorList.Contains("VanDatum"))
+                            if (ErrorList.Contains("Datum"))
                             {
-                                ErrorList.Remove("VanDatum");
+                                ErrorList.Remove("Datum");
                             }
                         }
-                    return error;
+                        return error;
+
                     
-                    case "TotDatum":
-                    if (_totDatum == DateOnly.MinValue)
-                        {
-                            error = "Tot Datum is verplicht om in te vullen";
-                            if (ErrorList.Contains("TotDatum") == false)
-                            {
-                                ErrorList.Add("TotDatum");
-                            }
-                        }
-                        else
-                        {
-                            if (ErrorList.Contains("TotDatum"))
-                            {
-                                ErrorList.Remove("TotDatum");
-                            }
-                        }
-                    return error;
 
                     case "Onderwerp":
                         if (_onderwerp.Length > 100)
                         {
-                         
+
                             error = "Your text is to long!!!";
                             if (ErrorList.Contains("Onderwerp") == false)
                             {
@@ -342,24 +321,7 @@ namespace HomeManager.Model.Budget
                         }
                         return error;
 
-                    case "FrequentieID":
-                        if (_frequentieID <= 0)
-                        {
-                            error = "Frequentie is een verplicht veld.";
-                            if (ErrorList.Contains("Frequentie") == false)
-
-                            {
-                                ErrorList.Add("Frequentie");
-                            }
-                        }
-                        else
-                        {
-                            if (ErrorList.Contains("Frequentie"))
-                            {
-                                ErrorList.Remove("Frequentie");
-                            }
-                        }
-                        return error;
+                    
 
                     case "BegunstigdeID":
                         if (_begunstigdeID <= 0)
@@ -407,7 +369,6 @@ namespace HomeManager.Model.Budget
             }
         }
 
-
-
     }
-}
+
+ }
