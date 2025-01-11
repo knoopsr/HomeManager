@@ -213,4 +213,16 @@
   <data name="U_ToDoCollecties" xml:space="preserve">
     <value>U_ToDoCollecties</value>
   </data>
+  <data name="D_ToDoKLeuren" xml:space="preserve">
+    <value>D_ToDoKLeuren</value>
+  </data>
+  <data name="I_ToDoKLeuren" xml:space="preserve">
+    <value>I_ToDoKLeuren</value>
+  </data>
+  <data name="S_ToDoKLeuren" xml:space="preserve">
+    <value>S_ToDoKLeuren</value>
+  </data>
+  <data name="U_ToDoKLeuren" xml:space="preserve">
+    <value>U_ToDoKLeuren</value>
+  </data>
 </root>

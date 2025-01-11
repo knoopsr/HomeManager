@@ -70,9 +70,13 @@
                 </Grid.RowDefinitions>
 
                 <ListBox
+                    Name="ToDoKleurenListView"
                     Grid.Row="1"
                     Grid.RowSpan="5"
-                    Grid.Column="1" />
+                    Grid.Column="1"
+                    ItemsSource="{Binding MijnCollectie}"
+                    SelectedIndex="{Binding MijnSelectedItem.MijnSelectedIndex, Mode=TwoWay}"
+                    SelectedItem="{Binding MijnSelectedItem, UpdateSourceTrigger=PropertyChanged}" />
 
 
                 <Label
@@ -83,6 +87,7 @@
                     Content="Kies een kleur"
                     FontSize="12" />
                 <ComboBox
+                    Name="ToDoKleurenComboBox"
                     Grid.Row="1"
                     Grid.Column="3"
                     Height="20"
@@ -99,17 +104,13 @@
                     Content="kleur"
                     FontSize="12" />
                 <TextBox
+                    Name="ToDoKleurenTextBox"
                     Grid.Row="2"
                     Grid.Column="3"
                     Height="20"
-                    VerticalAlignment="Center" />
-
-
-
+                    VerticalAlignment="Center"
+                    Text="{Binding MijnSelectedItem.ToDoColor, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"/>
             </Grid>
-
-
-
         </Border>
     </Grid>
 </UserControl>
