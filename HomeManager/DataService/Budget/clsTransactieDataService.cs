@@ -48,6 +48,11 @@ namespace HomeManager.DataService.Budget
             return Repo.Insert(entity);
         }
 
+        public clsTransactieModel Insert2(clsTransactieModel entity)
+        {
+            return Repo.Insert2(entity);
+        }
+
         public bool Update(clsTransactieModel entity)
         {
             return Repo.Update(entity);

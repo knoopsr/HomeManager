@@ -1,35 +1,29 @@
 ﻿using HomeManager.Common;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace HomeManager.Model.Budget
 {
     public class clsBijlageModel : clsCommonModelPropertiesBase /*IDataErrorInfo*/
     {
         private bool _isNew;
-
         public bool IsNew
         {
             get
             {
                 return _isNew;
             }
-
             set
             {
-                _isNew = value; 
+                _isNew = value;
                 OnPropertyChanged();
             }
         }
 
-        
+        public override string ToString()
+        {
+            return BijlageNaam;
+        }
 
         private int _budgetBijlageID;
-
         public int BudgetBijlageID
         {
             get
@@ -42,9 +36,8 @@ namespace HomeManager.Model.Budget
                 OnPropertyChanged();
             }
         }
-        
-        private int _budgetTransactionID;
 
+        private int _budgetTransactionID;
         public int BudgetTransactionID
         {
             get
@@ -58,28 +51,21 @@ namespace HomeManager.Model.Budget
             }
         }
 
-        
-
         private string _bijlageNaam;
-
         public string BijlageNaam
         {
-
             get
             {
                 return _bijlageNaam;
             }
-
             set
             {
-                
                 _bijlageNaam = value;
                 OnPropertyChanged();
             }
         }
 
         private byte[] _bijlage;
-
         public byte[] Bijlage
         {
             get
@@ -88,11 +74,9 @@ namespace HomeManager.Model.Budget
             }
             set
             {
-                
                 _bijlage = value;
                 OnPropertyChanged();
             }
-
         }
 
         //public string this[string columnName]
@@ -102,7 +86,7 @@ namespace HomeManager.Model.Budget
         //        string error = string.Empty;
         //        switch (columnName)
         //        {
-                    
+
 
         //            default:
         //                error = null;
@@ -114,4 +98,4 @@ namespace HomeManager.Model.Budget
 
     }
 
- }
+}

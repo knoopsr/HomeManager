@@ -32,6 +32,11 @@ namespace HomeManager.DataService.Budget
             return Repo.GetAll();
         }
 
+        public ObservableCollection<clsBijlageModel> GetAll(int BudgetTransactionID)
+        {
+            return Repo.GetAll(BudgetTransactionID);
+        }
+
         public clsBijlageModel GetById(int id)
         {
             return Repo.GetById(id);

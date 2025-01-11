@@ -10,6 +10,7 @@ namespace HomeManager.DAL.Budget
 {
     public interface ITransactieRepository : IRepository<clsTransactieModel>
     {
+        clsTransactieModel Insert2(clsTransactieModel entity);
 
     }
 }

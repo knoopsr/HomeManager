@@ -10,6 +10,7 @@ namespace HomeManager.DataService.Budget
 {
     public interface ITransactieDataService : IDataService<clsTransactieModel>    
     {
+        clsTransactieModel Insert2(clsTransactieModel entity);
 
     }
 }

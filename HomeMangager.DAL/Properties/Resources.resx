@@ -264,4 +264,7 @@
   <data name="S_BudgetOverzichtUitgaven" xml:space="preserve">
     <value>S_BudgetOverzichtUitgaven</value>
   </data>
+  <data name="S_BudgetBijlageByBudgetTransactionID" xml:space="preserve">
+    <value>S_BudgetBijlageByBudgetTransactionID</value>
+  </data>
 </root>

@@ -277,6 +277,15 @@ namespace HomeManager.DAL.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to S_BudgetBijlageByBudgetTransactionID.
+        /// </summary>
+        internal static string S_BudgetBijlageByBudgetTransactionID {
+            get {
+                return ResourceManager.GetString("S_BudgetBijlageByBudgetTransactionID", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to S_BudgetCategorie.
         /// </summary>
         internal static string S_BudgetCategorie {

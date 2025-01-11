@@ -41,6 +41,27 @@ namespace HomeManager.DAL.Budget
             return MijnCollectie;
         }
 
+        public ObservableCollection<clsBijlageModel> GetAll(int BudgetTransactionID)
+        {
+            SqlDataReader MijnDataReader = clsDAL.GetData(Properties.Resources.S_BudgetBijlageByBudgetTransactionID, 
+                clsDAL.Parameter("BudgetTransactionID", BudgetTransactionID));
+            MijnCollectie = new ObservableCollection<clsBijlageModel>();
+            while (MijnDataReader.Read())
+            {
+                clsBijlageModel m = new clsBijlageModel()
+                {
+                    BudgetBijlageID = (int)MijnDataReader["BudgetBijlageID"],
+                    BudgetTransactionID = (int)MijnDataReader["BudgetTransactionID"],
+                    BijlageNaam = MijnDataReader["BijlageNaam"].ToString(),
+                    Bijlage = MijnDataReader["Bijlage"] != DBNull.Value ? (byte[])MijnDataReader["Bijlage"] : null,
+                };
+                MijnCollectie.Add(m);
+            }
+            MijnDataReader.Close();
+            return MijnCollectie;
+        }
+
+
         private void GenerateCollection()
         {
             SqlDataReader MijnDataReader = clsDAL.GetData(Properties.Resources.S_BudgetBijlage);
@@ -116,6 +137,9 @@ namespace HomeManager.DAL.Budget
             }
             return OK;
         }
+
+
+
 
     }
 }

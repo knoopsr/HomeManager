@@ -5,10 +5,13 @@ using HomeManager.Messages;
 using HomeManager.Model.Budget;
 using HomeManager.Services;
 using HomeManager.View;
+using Microsoft.Win32;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.IO;
 using System.Windows;
 using System.Windows.Input;
+using System.Windows.Media.Imaging;
 
 
 
@@ -88,17 +91,32 @@ namespace HomeManager.ViewModel
             }
         }
 
-        private ObservableCollection<clsBijlageModel> _Bijlage;
+        private ObservableCollection<clsBijlageModel> _mijnCollectieBijlage;
 
-        public ObservableCollection<clsBijlageModel> Bijlage
+        public ObservableCollection<clsBijlageModel> MijnCollectieBijlage
         {
             get
             {
-                return _Bijlage;
+                return _mijnCollectieBijlage;
             }
             set
             {
-                _Bijlage = value;
+                _mijnCollectieBijlage = value;
+                OnPropertyChanged();
+            }
+        }
+
+
+        private clsBijlageModel _MijnSelectedBijlage;
+        public clsBijlageModel MijnSelectedBijlage
+        {
+            get
+            {
+                return _MijnSelectedBijlage;
+            }
+            set
+            {
+                _MijnSelectedBijlage = value;
                 OnPropertyChanged();
             }
         }
@@ -125,6 +143,7 @@ namespace HomeManager.ViewModel
                         }
 
                     }
+                    MijnCollectieBijlage = BijlageService.GetAll(value.BudgetTransactionID);
                 }
                 _MijnSelectedItem = value;
                 OnPropertyChanged();
@@ -140,27 +159,37 @@ namespace HomeManager.ViewModel
 
                 if (NewStatus)
                 {
-                    if (MijnService.Insert(MijnSelectedItem))
+
+                    clsTransactieModel _newTransaction = MijnService.Insert2(MijnSelectedItem);
+
+
+                    if (_newTransaction != null)
                     {
+                        foreach (clsBijlageModel _bijlage in MijnCollectieBijlage)
+                        {       
+                            _bijlage.BudgetTransactionID = _newTransaction.BudgetTransactionID;                            
+                            BijlageService.Insert(_bijlage);
+                        }
+
                         MijnSelectedItem.IsDirty = false;
-
                         MijnSelectedItem.MijnSelectedIndex = 0;
-
                         MijnSelectedItem.MyVisibility = (int)Visibility.Visible;
-
                         NewStatus = false;
                         LoadData();
                     }
                     else
                     {
                         MessageBox.Show(MijnSelectedItem.ErrorBoodschap, "Error?");
-                    }
-
-
+                    }    
                 }
 
                 else
                 {
+
+
+
+
+
                     if (MijnService.Update(MijnSelectedItem))
                     {
 
@@ -182,7 +211,7 @@ namespace HomeManager.ViewModel
         private void LoadData()
         {
             MijnCollectie = MijnService.GetAll();
-            Bijlage = new ObservableCollection<clsBijlageModel>();
+            MijnCollectieBijlage = new ObservableCollection<clsBijlageModel>();
 
 
         }
@@ -207,9 +236,9 @@ namespace HomeManager.ViewModel
             cmdClose = new clsCustomCommand(Execute_CloseCommand, CanExecute_CloseCommand);
             cmdEditBegunstigden = new clsCustomCommand(EditBegunstigde, CanExecute_EditBegunstigde);
             cmdEditCategorie = new clsCustomCommand(EditCategorie, CanExecute_EditCategorie);
-            //cmdUploadBijlage = new clsCustomCommand(Execute_UploadBijlage, CanExecute_UploadBijlage);
-            //cmdShowBijlage = new clsCustomCommand(Execute_ShowBijlage, CanExecute_ShowBijlage);
-            //cmdDeleteBijlage = new clsCustomCommand(Execute_DeleteBijlage, CanExecute_DeleteBijlage);
+            cmdUploadBijlage = new clsCustomCommand(Execute_UploadBijlage, CanExecute_UploadBijlage);
+            cmdShowBijlage = new clsCustomCommand(Execute_ShowBijlage, CanExecute_ShowBijlage);
+            cmdDeleteBijlage = new clsCustomCommand(Execute_DeleteBijlage, CanExecute_DeleteBijlage);
             cmdFilter = new clsCustomCommand(Execute_FilterCommand, CanExecute_FilterCommand);
             cmdDropBijlage = new clsRelayCommand<object>(Execute_Drop);
 
@@ -281,12 +310,10 @@ namespace HomeManager.ViewModel
                 Datum = DateOnly.FromDateTime(DateTime.Now),
                 Onderwerp = String.Empty,
                 BegunstigdeID = 0,
-                BudgetCategorieID = 0,
-                //BijlageNaam = null,
-                //Bijlage = null,
-
-
+                BudgetCategorieID = 0      
             };
+
+            MijnCollectieBijlage.Clear();
 
             MijnSelectedItem = ItemToInsert;
 
@@ -393,140 +420,160 @@ namespace HomeManager.ViewModel
         //private object bijlage;
 
 
-        //private bool CanExecute_UploadBijlage(object obj)
-        //{
-        //    return true;
-        //}
-        //private void Execute_UploadBijlage(object obj)
-        //{
-        //    OpenFileDialog openFileDialog = new OpenFileDialog
-        //    {
-        //        Multiselect = true,
-        //        Filter = "Alle bestanden (*.*)|*.*"
-        //    };
+        private bool CanExecute_UploadBijlage(object obj)
+        {
+            return true;
+        }
+        private void Execute_UploadBijlage(object obj)
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog
+            {
+                Multiselect = true,
+                Filter = "Alle bestanden (*.*)|*.*"
+            };
 
-        //    if (openFileDialog.ShowDialog() == true)
-        //    {
-        //        foreach (string filePath in openFileDialog.FileNames)
-        //        {
+            if (openFileDialog.ShowDialog() == true)
+            {
+                foreach (string filePath in openFileDialog.FileNames)
+                {
 
-        //            string fileName = Path.GetFileName(filePath);
+                    string fileName = Path.GetFileName(filePath);
 
-        //            // Controleer of er al een bijlage met dezelfde naam bestaat
-        //            if (BijlageCollectie.Any(b => b.BijlageNaam.Equals(fileName, StringComparison.OrdinalIgnoreCase)))
-        //            {
-        //                // Toon een waarschuwing aan de gebruiker
-        //                MessageBox.Show($"Er bestaat al een bijlage met de naam '{fileName}'.", "Duplicaat bijlage", MessageBoxButton.OK, MessageBoxImage.Warning);
-        //            }
-        //            else
-        //            {
-        //                BijlageCollectie.Add(new clsBijlageModel
-        //                {
-        //                    BijlageNaam = Path.GetFileName(filePath),
-        //                    Bijlage = File.ReadAllBytes(filePath)
-        //                });
+                    // Controleer of er al een bijlage met dezelfde naam bestaat
+                    if (MijnCollectieBijlage.Any(b => b.BijlageNaam.Equals(fileName, StringComparison.OrdinalIgnoreCase)))
+                    {
+                        // Toon een waarschuwing aan de gebruiker
+                        MessageBox.Show($"Er bestaat al een bijlage met de naam '{fileName}'.", "Duplicaat bijlage", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    }
+                    else
+                    {
+                        MijnCollectieBijlage.Add(new clsBijlageModel
+                        {
+                            BijlageNaam = Path.GetFileName(filePath),
+                            Bijlage = File.ReadAllBytes(filePath)
+                        });
 
-        //                // Sla de bijlage tijdelijk op de schijf op
-        //                string tempFilePath = Path.Combine(Path.GetTempPath(), fileName);
-        //                File.WriteAllBytes(tempFilePath, File.ReadAllBytes(filePath));
-        //            }
-        //        }
-        //    }
-        //}
-        //private bool CanExecute_ShowBijlage(object obj)
-        //{
-        //    return true;
-        //}
+                        // Sla de bijlage tijdelijk op de schijf op
+                        string tempFilePath = Path.Combine(Path.GetTempPath(), fileName);
+                        File.WriteAllBytes(tempFilePath, File.ReadAllBytes(filePath));
+                    }
+                }
+            }
+        }
 
-        //private void Execute_ShowBijlage(object obj)
-        //{
-        //    if (obj is clsBijlageModel bijlage)
-        //    {
-        //        try
-        //        {
-        //            // Zoek het tijdelijke bestandspad
-        //            string tempFilePath = Path.Combine(Path.GetTempPath(), bijlage.BijlageNaam);
+        private bool CanExecute_ShowBijlage(object obj)
+        {
+            if (MijnSelectedBijlage == null)
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
 
-        //            // Controleer of het bestand bestaat
-        //            if (!File.Exists(tempFilePath))
-        //            {
-        //                // Als het bestand niet bestaat, maak het dan opnieuw aan
-        //                File.WriteAllBytes(tempFilePath, bijlage.Bijlage);
-        //            }
+        private void Execute_ShowBijlage(object obj)
+        {
+            if (MijnSelectedBijlage is clsBijlageModel bijlage)
+            {
+                try
+                {
+                    // Zoek het tijdelijke bestandspad
+                    string tempFilePath = Path.Combine(Path.GetTempPath(), bijlage.BijlageNaam);
 
-        //            // Open het bestand met de standaardtoepassing
-        //            Process.Start(new ProcessStartInfo(tempFilePath) { UseShellExecute = true });
-        //        }
-        //        catch (Exception ex)
-        //        {
-        //            MessageBox.Show($"Er is een fout opgetreden bij het openen van de bijlage: {ex.Message}", "Fout", MessageBoxButton.OK, MessageBoxImage.Error);
-        //        }
-        //    }
-        //    else
-        //    {
-        //        MessageBox.Show("Geen geldige bijlage geselecteerd.", "Fout", MessageBoxButton.OK, MessageBoxImage.Warning);
-        //    }
-        //}
+                    // Controleer of het bestand bestaat
+                    if (!File.Exists(tempFilePath))
+                    {
+                        // Als het bestand niet bestaat, maak het dan opnieuw aan
+                        File.WriteAllBytes(tempFilePath, bijlage.Bijlage);
+                    }
 
-
-        ////FROM PATH TO BYTE
-        //public byte[] DocumentContent(string FullPath)
-        //{
-        //    if (!File.Exists(FullPath))
-        //    {
-        //        return null;
-
-        //    }
-        //    // HIER GA IK ALLE BYTES VAN HET BESTAND IN IN HET GEHEUGEN STEKEN
-        //    byte[] FileContent = File.ReadAllBytes(FullPath);
-        //    return FileContent;
-        //}
+                    // Open het bestand met de standaardtoepassing
+                    Process.Start(new ProcessStartInfo(tempFilePath) { UseShellExecute = true });
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Er is een fout opgetreden bij het openen van de bijlage: {ex.Message}", "Fout", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            }
+            else
+            {
+                MessageBox.Show("Geen geldige bijlage geselecteerd.", "Fout", MessageBoxButton.OK, MessageBoxImage.Warning);
+            }
+        }
 
 
-        ////BYTES OMZETTEN NAAR EEN FIGUUR
-        //public BitmapImage ImageFromBuffer_GoodQality(Byte[] bytes)
-        //{
-        //    MemoryStream stream = new MemoryStream(bytes);
-        //    stream.Seek(0, SeekOrigin.Begin);
-        //    BitmapImage image = new BitmapImage();
-        //    image.BeginInit();
-        //    image.StreamSource = stream;
+        //FROM PATH TO BYTE
+        public byte[] DocumentContent(string FullPath)
+        {
+            if (!File.Exists(FullPath))
+            {
+                return null;
 
-        //    image.EndInit();
-        //    return image;
+            }
+            // HIER GA IK ALLE BYTES VAN HET BESTAND IN IN HET GEHEUGEN STEKEN
+            byte[] FileContent = File.ReadAllBytes(FullPath);
+            return FileContent;
+        }
 
-        //}
 
-        //private bool CanExecute_DeleteBijlage(object obj)
-        //{
-        //    return obj is clsBijlageModel bijlage && bijlage != null;
-        //}
+        //BYTES OMZETTEN NAAR EEN FIGUUR
+        public BitmapImage ImageFromBuffer_GoodQality(Byte[] bytes)
+        {
+            MemoryStream stream = new MemoryStream(bytes);
+            stream.Seek(0, SeekOrigin.Begin);
+            BitmapImage image = new BitmapImage();
+            image.BeginInit();
+            image.StreamSource = stream;
 
-        //private void Execute_DeleteBijlage(object obj)
-        //{
-        //    // Probeer het object te casten naar clsBijlageModel
-        //    if (obj is clsBijlageModel bijlage)
-        //    {
-        //        // Controleer of de bijlage in de collectie voorkomt
-        //        if (BijlageCollectie.Contains(bijlage))
-        //        {
-        //            // Verwijder de bijlage uit de collectie
-        //            BijlageCollectie.Remove(bijlage);
+            image.EndInit();
+            return image;
 
-        //            // Optioneel: Verwijder het tijdelijke bestand van de schijf
-        //            string tempFilePath = Path.Combine(Path.GetTempPath(), bijlage.BijlageNaam);
-        //            if (File.Exists(tempFilePath))
-        //            {
-        //                File.Delete(tempFilePath);
-        //            }
-        //        }
-        //    }
-        //    else
-        //    {
-        //        // Toon een foutmelding als het object niet van het verwachte type is
-        //        MessageBox.Show("Het geselecteerde item is geen geldige bijlage.", "Fout", MessageBoxButton.OK, MessageBoxImage.Error);
-        //    }
-        //}
+        }
+
+        private bool CanExecute_DeleteBijlage(object obj)
+        {
+
+            if (MijnSelectedBijlage == null)
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }    
+        }
+
+        private void Execute_DeleteBijlage(object obj)
+        {
+            // Probeer het object te casten naar clsBijlageModel
+            if (MijnSelectedBijlage is clsBijlageModel bijlage)
+            {
+                // Controleer of de bijlage in de collectie voorkomt
+                if (MijnCollectieBijlage.Contains(bijlage))
+                {
+                    // Verwijder de bijlage uit de collectie
+                    MijnCollectieBijlage.Remove(bijlage);
+
+                    
+
+
+
+                    // Optioneel: Verwijder het tijdelijke bestand van de schijf
+                    string tempFilePath = Path.Combine(Path.GetTempPath(), bijlage.BijlageNaam);
+                    if (File.Exists(tempFilePath))
+                    {
+                        File.Delete(tempFilePath);
+                    }
+                }
+            }
+            else
+            {
+                // Toon een foutmelding als het object niet van het verwachte type is
+                MessageBox.Show("Het geselecteerde item is geen geldige bijlage.", "Fout", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
 
 
 
@@ -544,7 +591,7 @@ namespace HomeManager.ViewModel
                     foreach (var file in files)
                     {
                         string bijlageNaam = Path.GetFileName(file);
-                        Bijlage.Add(new clsBijlageModel
+                        MijnCollectieBijlage.Add(new clsBijlageModel
                         {
                             IsNew = true,
                             BijlageNaam = bijlageNaam,

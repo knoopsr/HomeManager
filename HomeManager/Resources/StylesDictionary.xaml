@@ -277,8 +277,7 @@
     <Style x:Key="UploadPersoonButton" TargetType="ContentControl">
         <Setter Property="Cursor" Value="Hand" />
         <Setter Property="Height" Value="31" />
-        <Setter Property="Width" Value="31" />
-        <Setter Property="Margin" Value="20,0,0,0" />
+        <Setter Property="Width" Value="31" />   
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="ContentControl">
@@ -320,16 +319,25 @@
 
     <Style x:Key="Showfile" TargetType="ContentControl">
         <Setter Property="Cursor" Value="Hand" />
-        <Setter Property="Margin" Value="0,0,0,0" />
+        <Setter Property="Height" Value="31" />
+        <Setter Property="Width" Value="31" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="ContentControl">
-                    <Path
+                    <Border
+                        Width="30"
+                        Height="30"
+                        Background="{StaticResource myBackground}"
+                        BorderBrush="{StaticResource myTitleBar}"
+                        BorderThickness="1"
+                        CornerRadius="15">
+                        <Path
                         Width="15"
                         Height="15"
                         Data="{StaticResource myShowfile}"
                         Fill="{StaticResource myTitleBar}"
                         Stretch="Fill" />
+                    </Border>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
@@ -337,16 +345,26 @@
 
     <Style x:Key="Deletefile" TargetType="ContentControl">
         <Setter Property="Cursor" Value="Hand" />
-        <Setter Property="Margin" Value="0,0,0,0" />
+        <Setter Property="Height" Value="31" />
+        <Setter Property="Width" Value="31" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="ContentControl">
-                    <Path
+                    <Border
+                        Width="30"
+                        Height="30"
+                        Background="{StaticResource myBackground}"
+                        BorderBrush="{StaticResource myTitleBar}"
+                        BorderThickness="1"
+                        CornerRadius="15">
+
+                        <Path
                         Width="15"
                         Height="15"
                         Data="{StaticResource myDeleteButton}"
                         Fill="{StaticResource myTitleBar}"
                         Stretch="Fill" />
+                    </Border>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
