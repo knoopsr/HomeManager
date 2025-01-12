@@ -71,11 +71,23 @@ namespace HomeManager.DAL.Personen
 
         public ObservableCollection<clsNotitiesModel> GetByPersoonID(int id)
         {
-            if (MijnCollectie == null)
+            SqlDataReader MijnDataReader = clsDAL.GetData(Properties.Resources.S_NotitiesByID,
+                clsDAL.Parameter("PersoonID", id));
+            MijnCollectie = new ObservableCollection<clsNotitiesModel>();
+            while (MijnDataReader.Read())
             {
-                GenerateCollection();
+                clsNotitiesModel n = new clsNotitiesModel()
+                {
+                    NotitieID = (int)MijnDataReader["NotitieID"],
+                    PersoonID = (int)MijnDataReader["PersoonID"],
+                    Onderwerp = MijnDataReader["Onderwerp"].ToString(),
+                    Notitie = MijnDataReader["Notitie"].ToString(),
+                    ControlField = MijnDataReader["ControlField"]
+                };
+                MijnCollectie.Add(n);
             }
-            return new ObservableCollection<clsNotitiesModel>(MijnCollectie.Where(notities => notities.PersoonID == id));
+            MijnDataReader.Close();
+            return MijnCollectie;
         }
 
         public clsNotitiesModel GetFirst()

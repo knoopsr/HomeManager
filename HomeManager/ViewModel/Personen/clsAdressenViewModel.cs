@@ -11,6 +11,7 @@ using HomeManager.Common;
 using HomeManager.DataService.Personen;
 using HomeManager.Model.Personen;
 using System.Diagnostics;
+using HomeManager.Messages;
 
 namespace HomeManager.ViewModel
 {
@@ -277,6 +278,8 @@ namespace HomeManager.ViewModel
                 clsHomeVM vm = (clsHomeVM)HomeWindow.DataContext;
                 vm.CurrentViewModel = null;
             }
+
+            clsMessenger.Default.Send<clsUpdateListMessages>(new clsUpdateListMessages());
         }
 
         private bool CanExecute_CancelCommand(object obj)

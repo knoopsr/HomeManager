@@ -35,6 +35,8 @@ namespace HomeManager.ViewModel
         public ICommand cmdEditNotities { get; set; }
         public ICommand cmdEditTelefoonNummers { get; set; }
         public ICommand cmdDeleteEmailAdressen { get; set; }
+        public ICommand cmdDeletePersoon { get; set; }
+        
 
 
 
@@ -122,7 +124,16 @@ namespace HomeManager.ViewModel
             }
         }
 
-
+        private clsEmailAdressenModel _selectedEmailAdres;
+        public clsEmailAdressenModel SelectedEmailAdres
+        {
+            get { return _selectedEmailAdres; }
+            set
+            {
+                _selectedEmailAdres = value;
+                OnPropertyChanged();
+            }
+        }
 
 
 
@@ -225,6 +236,7 @@ namespace HomeManager.ViewModel
             cmdEditNotities = new clsCustomCommand(Edit_Notities, CanExecute_Edit_Notities);
             cmdEditTelefoonNummers = new clsCustomCommand(Edit_TelefoonNummers, CanExecute_Edit_TelefoonNummers);
             cmdDeleteEmailAdressen = new clsCustomCommand(Delete_EmailAdres, CanExecute_Delete_EmailAdres);
+            cmdDeletePersoon = new clsCustomCommand(Delete_Persoon, CanExecute_Delete_Persoon);
 
             //messenger
             clsMessenger.Default.Register<clsUpdateListMessages>(this, OnUpdateListMessageReceived);
@@ -234,14 +246,67 @@ namespace HomeManager.ViewModel
             MijnSelectedItem = MijnService.GetFirst();
         }
 
+        private bool CanExecute_Delete_Persoon(object? obj)
+        {
+            if (MijnSelectedItem != null)
+            {
+                if (NewStatus)
+                {
+                    return false;
+                }
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        private void Delete_Persoon(object? obj)
+        {
+        if (MessageBox.Show("Wil je " + MijnSelectedItem + " verwijderen?", "Vewijderen?", MessageBoxButton.YesNo,
+            MessageBoxImage.Question) == MessageBoxResult.Yes) if (MijnSelectedItem != null)
+            {
+                if (MijnService.Delete(MijnSelectedItem))
+                {
+                    MijnSelectedItem.MijnSelectedIndex = 0;
+                    NewStatus = false;
+                    LoadData();
+                }
+                else
+                {
+                    MessageBox.Show("Error?", MijnSelectedItem.ErrorBoodschap);
+                }
+            }
+        }
+
         private void Delete_EmailAdres(object? obj)
         {
-            throw new NotImplementedException();
+            if (obj is clsEmailAdressenModel selectedEmail)
+            {
+                if (MessageBox.Show($"Wil je het e-mailadres '{selectedEmail.Emailadres}' verwijderen?",
+                    "Verwijderen?", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+                {
+                    if (MijnServiceEmailAdressen.Delete(selectedEmail))
+                    {
+                        EmailAdressenCollectie.Remove(selectedEmail);
+                        MessageBox.Show("Het e-mailadres is succesvol verwijderd.", "Succes");
+                    }
+                    else
+                    {
+                        MessageBox.Show("Er is een fout opgetreden bij het verwijderen van het e-mailadres.", "Error");
+                    }
+                }
+            }
+            else
+            {
+                MessageBox.Show("Selecteer een geldig e-mailadres om te verwijderen.", "Fout");
+            }
         }
 
         private bool CanExecute_Delete_EmailAdres(object? obj)
         {
-            return true;
+            return obj is clsEmailAdressenModel;
         }
 
 

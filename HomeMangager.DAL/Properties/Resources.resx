@@ -324,4 +324,16 @@
   <data name="U_Notities" xml:space="preserve">
     <value>U_Notities</value>
   </data>
+  <data name="S_EmailAdressenByID" xml:space="preserve">
+    <value>S_EmailAdressenByID</value>
+  </data>
+  <data name="S_AdressenByID" xml:space="preserve">
+    <value>S_AdressenByID</value>
+  </data>
+  <data name="S_TelefoonNummerByID" xml:space="preserve">
+    <value>S_TelefoonNummerByID</value>
+  </data>
+  <data name="S_NotitiesByID" xml:space="preserve">
+    <value>S_NotitiesByID</value>
+  </data>
 </root>

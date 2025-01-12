@@ -115,11 +115,23 @@ namespace HomeManager.DAL.Personen
 
         public ObservableCollection<clsTelefoonNummersModel> GetByPersoonID(int id)
         {
-            if (MijnCollectie == null)
+            SqlDataReader MijnDataReader = clsDAL.GetData(Properties.Resources.S_TelefoonNummerByID,
+                clsDAL.Parameter("PersoonID", id));
+            MijnCollectie = new ObservableCollection<clsTelefoonNummersModel>();
+            while (MijnDataReader.Read())
             {
-                GenerateCollection();
+                clsTelefoonNummersModel t = new clsTelefoonNummersModel()
+                {
+                    TelefoonNummerID = (int)MijnDataReader["TelefoonNummerID"],
+                    PersoonID = (int)MijnDataReader["PersoonID"],
+                    TelefoonTypeID = (int)MijnDataReader["TelefoonTypeID"],
+                    TelefoonNummer = MijnDataReader["TelefoonNummer"].ToString(),
+                    ControlField = MijnDataReader["ControlField"]
+                };
+                MijnCollectie.Add(t);
             }
-            return new ObservableCollection<clsTelefoonNummersModel>(MijnCollectie.Where(telefoonnummers => telefoonnummers.PersoonID == id));
+            MijnDataReader.Close();
+            return MijnCollectie;
         }
     }
 }

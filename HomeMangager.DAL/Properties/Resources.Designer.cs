@@ -376,6 +376,15 @@ namespace HomeManager.DAL.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to S_AdressenByID.
+        /// </summary>
+        internal static string S_AdressenByID {
+            get {
+                return ResourceManager.GetString("S_AdressenByID", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to S_BudgetCategorie.
         /// </summary>
         internal static string S_BudgetCategorie {
@@ -390,6 +399,15 @@ namespace HomeManager.DAL.Properties {
         internal static string S_EmailAdressen {
             get {
                 return ResourceManager.GetString("S_EmailAdressen", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to S_EmailAdressenByID.
+        /// </summary>
+        internal static string S_EmailAdressenByID {
+            get {
+                return ResourceManager.GetString("S_EmailAdressenByID", resourceCulture);
             }
         }
         
@@ -448,6 +466,15 @@ namespace HomeManager.DAL.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to S_NotitiesByID.
+        /// </summary>
+        internal static string S_NotitiesByID {
+            get {
+                return ResourceManager.GetString("S_NotitiesByID", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to S_Persoon.
         /// </summary>
         internal static string S_Persoon {
@@ -489,6 +516,15 @@ namespace HomeManager.DAL.Properties {
         internal static string S_Rollen {
             get {
                 return ResourceManager.GetString("S_Rollen", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to S_TelefoonNummerByID.
+        /// </summary>
+        internal static string S_TelefoonNummerByID {
+            get {
+                return ResourceManager.GetString("S_TelefoonNummerByID", resourceCulture);
             }
         }
         

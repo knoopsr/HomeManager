@@ -174,9 +174,9 @@
                                                 Width="10"
                                                 Height="10"
                                                 Margin="0,0,0,0"
-                                                Command="{Binding cmdDelete}"
                                                 CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}"
                                                 Style="{StaticResource DeletePersonImage}"
+                                                Command="{Binding DataContext.cmdDeletePersoon, RelativeSource={RelativeSource AncestorType=ListBox}}"
                                                 ToolTip="Delete" />
                                         </StackPanel>
                                     </Grid>
@@ -242,7 +242,7 @@
                         Grid.Column="1"
                         Width="200"
                         ItemsSource="{Binding EmailAdressenCollectie}"
-                        SelectedItem="{Binding MijnSelectedItem.PersoonID, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                        SelectedItem="{Binding SelectedEmailAdres, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
                         <ListBox.ItemTemplate>
                             <DataTemplate>
                                 <Grid HorizontalAlignment="Stretch">
@@ -286,6 +286,7 @@
                                         HorizontalAlignment="Right"
                                         VerticalAlignment="Center"
                                         Command="{Binding DataContext.cmdDeleteEmailAdressen, RelativeSource={RelativeSource AncestorType=ListBox}}"
+                                        CommandParameter="{Binding}"
                                         Style="{StaticResource DeleteEmail}" />
                                     <!--  Send-knop  -->
                                     <Button
@@ -383,7 +384,7 @@
                                 Style="{StaticResource AddImage}" />
                         </Grid>
                     </Border>
-                    <ListView
+                    <ListBox
                         Name="NotitiesListView"
                         Grid.Row="7"
                         Grid.Column="1"
@@ -392,12 +393,7 @@
                         ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                         ScrollViewer.VerticalScrollBarVisibility="Disabled"
                         SelectedItem="{Binding MijnSelectedItem.PersoonID, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
-                        <ListView.ItemsPanel>
-                            <ItemsPanelTemplate>
-                                <UniformGrid Columns="5" />
-                            </ItemsPanelTemplate>
-                        </ListView.ItemsPanel>
-                    </ListView>
+                    </ListBox>
                 </Grid>
             </Border>
         </Grid>
