@@ -61,7 +61,8 @@ namespace HomeManager.Helpers
 
             { "clsCategorieënVM", "500" },
             { "clsCollectiesVM", "500" },
-            { "clsKleurenVM", "500" }
+            { "clsKleurenVM", "500" },
+            { "clsTodoVM", "500" }
         };
 
 

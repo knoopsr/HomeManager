@@ -35,24 +35,32 @@ namespace HomeManager.ViewModel
         {
             clsPermissionChecker permissionChecker = new clsPermissionChecker();
 
-            if(permissionChecker.PermissionViewmodel(destination))
+            if (permissionChecker.PermissionViewmodel(destination))
             {
                 var type = this.GetType();
                 var match = type.Assembly.GetTypes().FirstOrDefault(t => t.Name == destination);
                 if (match != null)
                 {
                     Type t = Type.GetType(match.ToString(), true);
-                    var instance = Activator.CreateInstance(t) as clsBindableBase;
-                    CurrentViewModel = instance;
+
+                    // Check if the type is clsTodoVM and create an instance with the required parameter
+                    if (t == typeof(clsTodoVM))
+                    {
+                        var collectiesVM = new clsCollectiesVM(); // You need to provide the appropriate instance here
+                        var instance = Activator.CreateInstance(t, collectiesVM) as clsBindableBase;
+                        CurrentViewModel = instance;
+                    }
+                    else
+                    {
+                        var instance = Activator.CreateInstance(t) as clsBindableBase;
+                        CurrentViewModel = instance;
+                    }
                 }
-            } 
+            }
             else
             {
                 MessageBox.Show("U heeft geen toegang tot deze pagina");
             }
-
-
-
         }
     }
 

@@ -5,12 +5,14 @@ using System.Text;
 using System.Threading.Tasks;
 using HomeManager.Model.Todo;
 using HomeManager.ViewModel;
+using HomeManager.ViewModel.Todo;
 
 namespace HomeManager.ViewModel
 {
     public class clsVMLocator
     {
-      
+        private static readonly clsCollectiesVM _collectiesViewModel = new clsCollectiesVM();
+
         public clsPersoonVM PersoonViewModel
         {
             get
@@ -81,9 +83,12 @@ namespace HomeManager.ViewModel
 
         #endregion
         #region TODO
-        public clsCollectiesVM CollectiesViewModel => new clsCollectiesVM();
+        public clsCollectiesVM CollectiesViewModel => _collectiesViewModel;
         public clsCategorieënVM CategorieënViewModel => new clsCategorieënVM();
         public clsKleurenVM KleurenViewModel => new clsKleurenVM();
+        public clsTodoVM ToDoViewModel => new clsTodoVM(_collectiesViewModel);
+        
+
         #endregion
 
     }

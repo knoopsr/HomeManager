@@ -19,7 +19,7 @@ public class clsKleurenVM : clsCommonModelPropertiesBase
     public ICommand cmdNew { get; set; }
     public ICommand cmdCancel { get; set; }
     public ICommand cmdClose { get; set; }
-    public ICommand cmdSave { get; set; }
+    public ICommand cmdSave { get; set; } 
 
     private ObservableCollection<clsKleurenM> _MijnCollectie;
     public ObservableCollection<clsKleurenM> MijnCollectie

@@ -7,7 +7,6 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:HomeManager"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-
     Title="MainWindow"
     Width="1000"
     Height="900"
@@ -44,6 +43,12 @@
         <DataTemplate DataType="{x:Type VM:clsKleurenVM}">
             <V:ucKleuren />
         </DataTemplate>
+        <DataTemplate DataType="{x:Type VM:clsTodoVM}">
+            <V:ucTodo />
+        </DataTemplate>
+
+
+
 
         <Storyboard x:Key="ShowMenu">
             <DoubleAnimation
@@ -80,8 +85,8 @@
 
         <V:ucTitlePerson
             Grid.ColumnSpan="2"
-            Margin="0,0,10,0"
             Width="120"
+            Margin="0,0,10,0"
             HorizontalAlignment="Right"
             VerticalAlignment="Center" />
 
@@ -156,20 +161,26 @@
                     <Expander Style="{StaticResource myHamburgerTodo}">
 
                         <StackPanel x:Name="stckTodo">
-                            <Button 
-                                Content="Todo Collectie"
+                            <!--  REMOVELATER: Todo main test  -->
+                            <Button
+                                Command="{Binding NavCommand}"
+                                CommandParameter="clsTodoVM"
+                                Content="Todo main view Test:)"
+                                Style="{StaticResource myMenuTandwiel}" />
+                            <Button
                                 Command="{Binding NavCommand}"
                                 CommandParameter="clsCollectiesVM"
+                                Content="Todo Collectie"
                                 Style="{StaticResource myMenuTandwiel}" />
-                            <Button 
-                                Content="Todo Categoriën"
+                            <Button
                                 Command="{Binding NavCommand}"
                                 CommandParameter="clsCategorieënVM"
+                                Content="Todo Categoriën"
                                 Style="{StaticResource myMenuTandwiel}" />
-                            <Button 
-                                Content="Todo Kleuren"
+                            <Button
                                 Command="{Binding NavCommand}"
                                 CommandParameter="clsKleurenVM"
+                                Content="Todo Kleuren"
                                 Style="{StaticResource myMenuTandwiel}" />
                         </StackPanel>
 

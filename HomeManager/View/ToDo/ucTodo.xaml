@@ -4,14 +4,14 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:HomeManager.View"
-    xmlns:uc="clr-namespace:HomeManager.View"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:uc="clr-namespace:HomeManager.View"
     d:DesignHeight="450"
     d:DesignWidth="800"
-    mc:Ignorable="d"
-    Background="White">
+    Background="White"
+    mc:Ignorable="d">
 
-    <Grid>
+    <Grid DataContext="{Binding Source={StaticResource VML}, Path=ToDoViewModel}">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="150" />
             <ColumnDefinition Width="*" />
@@ -22,55 +22,67 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
-        <StackPanel
-            Grid.Row="0"
-            Grid.Column="0">
+        <StackPanel Grid.Row="0" Grid.Column="0">
             <Button
+                Name="OpenTodoCollecties"
                 Width="30"
                 Height="30"
                 Margin="0,20,0,0"
                 HorizontalAlignment="Right"
                 Style="{StaticResource AddButton}"
-            />
+                Command="{Binding OpenTodoCollectiesCommand}"/>
         </StackPanel>
-        <StackPanel
-            Grid.Row="0"
-            Grid.Column="1">
+        <StackPanel Grid.Row="0" Grid.Column="1">
             <Button
+                Name="OpenTodoPopupViewbtn"
                 Width="30"
                 Height="30"
                 Margin="0,20,0,0"
                 HorizontalAlignment="Right"
                 Style="{StaticResource AddButton}"
-            />
+                Command="{Binding OpenTodoPopupCommand}" />
         </StackPanel>
-        <StackPanel
-            Grid.Row="0"
-            Grid.Column="2">
+        <StackPanel Grid.Row="0" Grid.Column="2">
             <Button
                 Width="30"
                 Height="30"
                 Margin="0,20,0,0"
                 HorizontalAlignment="Right"
                 Style="{StaticResource AddButton}"
-            />
+                Command="{Binding OpenTodoDetailsCommand}"/>
         </StackPanel>
         <ListBox
-          
+            Name="ToDoCollectiesOpvullingListView"
             Grid.Row="1"
             Grid.Column="0"
-        />
+            ItemsSource="{Binding MijnCollectie}"
+            SelectedIndex="{Binding MijnSelectedItem.MijnSelectedIndex, Mode=TwoWay}"
+            SelectedItem="{Binding MijnSelectedItem, UpdateSourceTrigger=PropertyChanged}" />
         <ListBox
-            BorderBrush="Gray"
-            BorderThickness="1"
             Grid.Row="1"
             Grid.Column="1"
-        />
-        <ListBox
             BorderBrush="Gray"
-            BorderThickness="1"
+            BorderThickness="1" />
+        <ListBox
             Grid.Row="1"
             Grid.Column="2"
-        />
+            BorderBrush="Gray"
+            BorderThickness="1" />
+        <!-- Popup elements -->
+        <Popup Name="TodoPopup" Placement="Center" StaysOpen="False" IsOpen="{Binding IsTodoPopupOpen}" Width="700" Height="500">
+            <Border Background="White" BorderBrush="Black" BorderThickness="1" Width="700" Height="500">
+                <local:ucTodoPopup />
+            </Border>
+        </Popup>
+        <Popup Name="TodoCollecties" Placement="Center" StaysOpen="False" IsOpen="{Binding IsTodoCollectiesOpen}" Width="700" Height="500">
+            <Border Background="White" BorderBrush="Black" BorderThickness="1" Width="700" Height="500">
+                <local:ucCollecties />
+            </Border>
+        </Popup>
+        <Popup Name="TodoDetails" Placement="Center" StaysOpen="False" IsOpen="{Binding IsTodoDetailsOpen}" Width="700" Height="500">
+            <Border Background="White" BorderBrush="Black" BorderThickness="1" Width="700" Height="500">
+                <local:ucTodoDetails />
+            </Border>
+        </Popup>
     </Grid>
 </UserControl>

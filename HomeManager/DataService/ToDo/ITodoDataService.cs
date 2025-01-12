@@ -1,15 +1,15 @@
 ﻿using HomeManager.Common;
+using HomeManager.Model.Todo;
+using HomeManager.ViewModel;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HomeManager.Model.Todo
+namespace HomeManager.DataService.ToDo
 {
-    public class clsTodoM : clsCommonModelPropertiesBase
+    interface ITodoDataService : IDataService<clsTodoM>
     {
-       
     }
 }
