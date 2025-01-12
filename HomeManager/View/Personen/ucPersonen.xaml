@@ -167,16 +167,17 @@
                                                 Height="10"
                                                 Margin="0,0,0,0"
                                                 Command="{Binding cmdEditPersoon}"
-                                                CommandParameter="{Binding PersoonID}"
+                                                CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}"
+                                                DataContext="{Binding Source={StaticResource VML}, Path=PersonenViewModel}"
                                                 Style="{StaticResource EditPersoon}"
                                                 ToolTip="Aanpassen" />
                                             <Button
                                                 Width="10"
                                                 Height="10"
                                                 Margin="0,0,0,0"
+                                                Command="{Binding DataContext.cmdDeletePersoon, RelativeSource={RelativeSource AncestorType=ListBox}}"
                                                 CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}"
                                                 Style="{StaticResource DeletePersonImage}"
-                                                Command="{Binding DataContext.cmdDeletePersoon, RelativeSource={RelativeSource AncestorType=ListBox}}"
                                                 ToolTip="Delete" />
                                         </StackPanel>
                                     </Grid>
@@ -392,8 +393,7 @@
                         ItemsSource="{Binding NotitiesCollectie}"
                         ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                         ScrollViewer.VerticalScrollBarVisibility="Disabled"
-                        SelectedItem="{Binding MijnSelectedItem.PersoonID, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
-                    </ListBox>
+                        SelectedItem="{Binding MijnSelectedItem.PersoonID, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                 </Grid>
             </Border>
         </Grid>
