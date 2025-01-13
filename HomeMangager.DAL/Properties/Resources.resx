@@ -225,4 +225,16 @@
   <data name="U_ToDoKLeuren" xml:space="preserve">
     <value>U_ToDoKLeuren</value>
   </data>
+  <data name="D_ToDoPopup" xml:space="preserve">
+    <value>D_ToDoPopup</value>
+  </data>
+  <data name="S_ToDoPopup" xml:space="preserve">
+    <value>S_ToDoPopup</value>
+  </data>
+  <data name="I_ToDoPopup" xml:space="preserve">
+    <value>I_ToDoPopup</value>
+  </data>
+  <data name="U_ToDoPopup" xml:space="preserve">
+    <value>U_ToDoPopup</value>
+  </data>
 </root>

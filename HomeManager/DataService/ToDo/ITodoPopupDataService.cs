@@ -6,9 +6,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HomeManager.DAL.ToDo.Popup
+namespace HomeManager.DataService.ToDo
 {
-    public interface ITodoPopupRepository : IRepository<clsTodoPopupM>
+    interface ITodoPopupDataService : IDataService<clsTodoPopupM>
     {
     }
 }

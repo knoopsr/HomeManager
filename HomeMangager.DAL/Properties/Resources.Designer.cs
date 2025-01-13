@@ -115,6 +115,15 @@ namespace HomeManager.DAL.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to D_ToDoPopup.
+        /// </summary>
+        internal static string D_ToDoPopup {
+            get {
+                return ResourceManager.GetString("D_ToDoPopup", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to D_Wachtwoord.
         /// </summary>
         internal static string D_Wachtwoord {
@@ -183,6 +192,15 @@ namespace HomeManager.DAL.Properties {
         internal static string I_ToDoKLeuren {
             get {
                 return ResourceManager.GetString("I_ToDoKLeuren", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to I_ToDoPopup.
+        /// </summary>
+        internal static string I_ToDoPopup {
+            get {
+                return ResourceManager.GetString("I_ToDoPopup", resourceCulture);
             }
         }
         
@@ -286,6 +304,15 @@ namespace HomeManager.DAL.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to S_ToDoPopup.
+        /// </summary>
+        internal static string S_ToDoPopup {
+            get {
+                return ResourceManager.GetString("S_ToDoPopup", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to S_Wachtwoord.
         /// </summary>
         internal static string S_Wachtwoord {
@@ -363,6 +390,15 @@ namespace HomeManager.DAL.Properties {
         internal static string U_ToDoKLeuren {
             get {
                 return ResourceManager.GetString("U_ToDoKLeuren", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to U_ToDoPopup.
+        /// </summary>
+        internal static string U_ToDoPopup {
+            get {
+                return ResourceManager.GetString("U_ToDoPopup", resourceCulture);
             }
         }
         

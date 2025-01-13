@@ -29,8 +29,8 @@
                 Height="30"
                 Margin="0,20,0,0"
                 HorizontalAlignment="Right"
-                Style="{StaticResource AddButton}"
-                Command="{Binding OpenTodoCollectiesCommand}"/>
+                Command="{Binding OpenTodoCollectiesCommand}"
+                Style="{StaticResource AddButton}" />
         </StackPanel>
         <StackPanel Grid.Row="0" Grid.Column="1">
             <Button
@@ -39,8 +39,8 @@
                 Height="30"
                 Margin="0,20,0,0"
                 HorizontalAlignment="Right"
-                Style="{StaticResource AddButton}"
-                Command="{Binding OpenTodoPopupCommand}" />
+                Command="{Binding OpenTodoPopupCommand}"
+                Style="{StaticResource AddButton}" />
         </StackPanel>
         <StackPanel Grid.Row="0" Grid.Column="2">
             <Button
@@ -48,16 +48,16 @@
                 Height="30"
                 Margin="0,20,0,0"
                 HorizontalAlignment="Right"
-                Style="{StaticResource AddButton}"
-                Command="{Binding OpenTodoDetailsCommand}"/>
+                Command="{Binding OpenTodoDetailsCommand}"
+                Style="{StaticResource AddButton}" />
         </StackPanel>
         <ListBox
             Name="ToDoCollectiesOpvullingListView"
             Grid.Row="1"
             Grid.Column="0"
             ItemsSource="{Binding MijnCollectie}"
-            SelectedIndex="{Binding MijnSelectedItem.MijnSelectedIndex, Mode=TwoWay}"
-            SelectedItem="{Binding MijnSelectedItem, UpdateSourceTrigger=PropertyChanged}" />
+            SelectedItem="{Binding SelectedCollectie, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+
         <ListBox
             Grid.Row="1"
             Grid.Column="1"
@@ -68,19 +68,52 @@
             Grid.Column="2"
             BorderBrush="Gray"
             BorderThickness="1" />
-        <!-- Popup elements -->
-        <Popup Name="TodoPopup" Placement="Center" StaysOpen="False" IsOpen="{Binding IsTodoPopupOpen}" Width="700" Height="500">
-            <Border Background="White" BorderBrush="Black" BorderThickness="1" Width="700" Height="500">
+        <!--  Popup elements  -->
+        <Popup
+            Name="TodoPopup"
+            Width="700"
+            Height="500"
+            IsOpen="{Binding IsTodoPopupOpen}"
+            Placement="Center"
+            StaysOpen="False">
+            <Border
+                Width="700"
+                Height="500"
+                Background="White"
+                BorderBrush="Black"
+                BorderThickness="1">
                 <local:ucTodoPopup />
             </Border>
         </Popup>
-        <Popup Name="TodoCollecties" Placement="Center" StaysOpen="False" IsOpen="{Binding IsTodoCollectiesOpen}" Width="700" Height="500">
-            <Border Background="White" BorderBrush="Black" BorderThickness="1" Width="700" Height="500">
+        <Popup
+            Name="TodoCollecties"
+            Width="700"
+            Height="500"
+            IsOpen="{Binding IsTodoCollectiesOpen}"
+            Placement="Center"
+            StaysOpen="False">
+            <Border
+                Width="700"
+                Height="500"
+                Background="White"
+                BorderBrush="Black"
+                BorderThickness="1">
                 <local:ucCollecties />
             </Border>
         </Popup>
-        <Popup Name="TodoDetails" Placement="Center" StaysOpen="False" IsOpen="{Binding IsTodoDetailsOpen}" Width="700" Height="500">
-            <Border Background="White" BorderBrush="Black" BorderThickness="1" Width="700" Height="500">
+        <Popup
+            Name="TodoDetails"
+            Width="700"
+            Height="500"
+            IsOpen="{Binding IsTodoDetailsOpen}"
+            Placement="Center"
+            StaysOpen="False">
+            <Border
+                Width="700"
+                Height="500"
+                Background="White"
+                BorderBrush="Black"
+                BorderThickness="1">
                 <local:ucTodoDetails />
             </Border>
         </Popup>

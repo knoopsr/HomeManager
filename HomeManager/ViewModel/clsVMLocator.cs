@@ -11,7 +11,6 @@ namespace HomeManager.ViewModel
 {
     public class clsVMLocator
     {
-        private static readonly clsCollectiesVM _collectiesViewModel = new clsCollectiesVM();
 
         public clsPersoonVM PersoonViewModel
         {
@@ -83,12 +82,23 @@ namespace HomeManager.ViewModel
 
         #endregion
         #region TODO
+        private static readonly clsCollectiesVM _collectiesViewModel = new clsCollectiesVM();
         public clsCollectiesVM CollectiesViewModel => _collectiesViewModel;
+
         public clsCategorieënVM CategorieënViewModel => new clsCategorieënVM();
         public clsKleurenVM KleurenViewModel => new clsKleurenVM();
         public clsTodoVM ToDoViewModel => new clsTodoVM(_collectiesViewModel);
-        
 
+
+        private static readonly clsTodoPopupVM _todoPopupViewModel = new clsTodoPopupVM();
+        public clsTodoPopupVM TodoPopupViewModel => _todoPopupViewModel;
+
+
+        private static readonly clsTodoDetailsVM _todoDetailsViewModel = new clsTodoDetailsVM();
+        public clsTodoDetailsVM TodoDetailsViewModel => _todoDetailsViewModel;
+
+        
+       
         #endregion
 
     }

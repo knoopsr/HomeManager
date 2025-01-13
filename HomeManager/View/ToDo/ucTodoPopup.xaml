@@ -73,11 +73,13 @@
                 </Grid.RowDefinitions>
 
                 <ListBox
+                    Name="ToDoPopupListView"
                     Grid.Row="1"
                     Grid.RowSpan="9"
                     Grid.Column="1"
                     DisplayMemberPath="Login"
                     ItemsSource="{Binding MijnCollectie}"
+                    SelectedIndex="{Binding MijnSelectedItem.MijnSelectedIndex, Mode=TwoWay}"
                     SelectedItem="{Binding MijnSelectedItem, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 
 
@@ -89,10 +91,12 @@
                     Content="Onderwerp"
                     FontSize="12" />
                 <TextBox
+                    Name="Onderwerptxtb"
                     Grid.Row="1"
                     Grid.Column="3"
                     Height="20"
-                    VerticalAlignment="Center" />
+                    VerticalAlignment="Center"
+                    Text="{Binding MijnSelectedItem.Onderwerp, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" />
 
                 <Label
                     Grid.Row="2"
@@ -105,7 +109,8 @@
                     Grid.Row="2"
                     Grid.Column="3"
                     Height="80"
-                    VerticalAlignment="Center" />
+                    VerticalAlignment="Center"
+                    Text="{Binding MijnSelectedItem.Detail, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" />
 
 
 
@@ -125,7 +130,11 @@
                         Width="125"
                         Height="20"
                         Margin="0,0,4,0"
-                        VerticalAlignment="Center" />
+                        VerticalAlignment="Center"
+                        DataContext="{Binding Source={StaticResource VML}, Path=AccountViewModel}"
+                        ItemsSource="{Binding MijnPersoonCollectie}"
+                        SelectedValue="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Grid}}, Path=DataContext.MijnSelectedItem.PersoonID, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
+                        SelectedValuePath="PersoonID" />
                     <Button Style="{StaticResource OpenUCButton}" />
                 </StackPanel>
 
@@ -156,10 +165,15 @@
                     Grid.Column="3"
                     Orientation="Horizontal">
                     <ComboBox
+                        Name="TodoCollectiesComboBox"
                         Width="125"
                         Height="20"
                         Margin="0,0,4,0"
-                        VerticalAlignment="Center" />
+                        VerticalAlignment="Center"
+                        DataContext="{Binding Source={StaticResource VML}, Path=CollectiesViewModel}"
+                        ItemsSource="{Binding MijnCollectie}"
+                        SelectedValue="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Grid}}, Path=DataContext.SelectedCollectie.ToDoCollectieID, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
+                        SelectedValuePath="ToDoCollectieID" />
                     <Button Style="{StaticResource OpenUCButton}" />
 
                 </StackPanel>
@@ -172,10 +186,15 @@
                     Content="Todo Categorie"
                     FontSize="12" />
                 <ComboBox
+                    Name="TodoCategorieComboBox"
                     Grid.Row="6"
                     Grid.Column="3"
                     Height="20"
-                    VerticalAlignment="Center" />
+                    VerticalAlignment="Center"
+                    DataContext="{Binding Source={StaticResource VML}, Path=CategorieënViewModel}"
+                    ItemsSource="{Binding MijnCollectie}"
+                    SelectedValue="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Grid}}, Path=DataContext.MijnSelectedItem.TodoCategorieID, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
+                    SelectedValuePath="TodoCategorieID" />
                 <Label
                     Grid.Row="7"
                     Grid.Column="2"

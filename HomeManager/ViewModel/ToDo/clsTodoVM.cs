@@ -16,7 +16,12 @@ namespace HomeManager.ViewModel
         {
             MijnService = new clsTodoDataService();
             CollectiesVM = collectiesVM;
+            
+
             MijnCollectie = CollectiesVM.MijnCollectie;
+            MijnSelectedItem = CollectiesVM.MijnSelectedItem;
+
+
 
             OpenTodoPopupCommand = new clsRelayCommand<object>(param => OpenTodoPopup());
             OpenTodoCollectiesCommand = new clsRelayCommand<object>(param => OpenTodoCollecties());
@@ -50,6 +55,30 @@ namespace HomeManager.ViewModel
                 OnPropertyChanged();
             }
         }
+
+        private clsCollectiesM _SelectedCollectie;
+        public clsCollectiesM SelectedCollectie
+        {
+            get
+            {
+                return _SelectedCollectie;
+            }
+            set
+            {
+                _SelectedCollectie = value;
+                OnPropertyChanged();
+            }
+        }
+
+
+
+
+
+
+
+
+
+
 
         private bool _isTodoPopupOpen;
         public bool IsTodoPopupOpen
