@@ -7,11 +7,13 @@ using System.Threading.Tasks;
 
 namespace HomeManager.Model.Dagboek
 {
-    public class clsDagboekModel : clsCommonModelPropertiesBase
-    {
+	public class clsDagboekModel : clsCommonModelPropertiesBase
+	{
 		public int DagboekId { get; set; }
 
 		public int PersoonID { get; set; }
+
+		public string? MyRTFString { get; set; }
 
 		private string _DagboekContentString;
 
@@ -20,14 +22,14 @@ namespace HomeManager.Model.Dagboek
 			get { return _DagboekContentString; }
 			set 
 			{
-                if (_DagboekContentString != value)
-                {
+				if (_DagboekContentString != value)
+				{
 					if (_DagboekContentString != null)
 					{
 						IsDirty = true;
 					}
-                }
-                _DagboekContentString = value;
+				}
+				_DagboekContentString = value;
 				OnPropertyChanged();
 			}
 		}

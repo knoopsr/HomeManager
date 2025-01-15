@@ -181,7 +181,8 @@ namespace HomeManager.DAL
                         }
                         catch (SqlException ex)
                         {
-                            return (null, false, "De bewerking is NIET gelukt, gelieve jouw systeembeheerder te contacteren.");
+                            
+                            return (null, false, ex.Message);
                             throw new Exception(ex.Message);
                         }
                         catch (Exception ex)

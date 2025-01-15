@@ -10,6 +10,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Documents;
 using System.Windows.Input;
 
 namespace HomeManager.ViewModel
@@ -67,6 +69,7 @@ namespace HomeManager.ViewModel
                 //MessageBox.Show("collection is empty = " + isEmptyCollection.ToString());
             }
 
+
         }
 
         public clsDagboekViewModel()
@@ -77,6 +80,7 @@ namespace HomeManager.ViewModel
             cmdCancel = new clsCustomCommand(Execute_Cancel_Command, CanExecute_Cancel_Command);
             cmdClose = new clsCustomCommand(Execute_Close_Command, CanExecute_Close_Command);
             cmdTest = new clsCustomCommand(Execute_Test, CanExecute_Test);
+            UpdateRichTextBoxCommand = new clsCustomCommand(UpdateRichTextBox, CanExecute_UpdateRTB);
 
 
             MyService = new clsDagboekDataService();
@@ -108,6 +112,8 @@ namespace HomeManager.ViewModel
 
         }
 
+       
+
         private bool CanExecute_Test(object? obj)
         {
             return true;
@@ -120,6 +126,18 @@ namespace HomeManager.ViewModel
         }
 
 
+        //testing
+        public string ConvertRichTextBoxToRtf(RichTextBox richTextBox)
+        {
+            if (richTextBox == null) throw new ArgumentNullException(nameof(richTextBox));
+
+            using (var memoryStream = new System.IO.MemoryStream())
+            {
+                var range = new TextRange(richTextBox.Document.ContentStart, richTextBox.Document.ContentEnd);
+                range.Save(memoryStream, DataFormats.Rtf);
+                return System.Text.Encoding.UTF8.GetString(memoryStream.ToArray());
+            }
+        }
 
 
         /*Commands zijn onderverdeeld in 3 regions
@@ -135,9 +153,15 @@ namespace HomeManager.ViewModel
         public ICommand cmdCancel { get; set; }
         public ICommand cmdClose { get; set; }
         public ICommand cmdTest { get; set; }
+        public ICommand UpdateRichTextBoxCommand { get; }
         #endregion
 
         #region Command CanExecutes
+        private bool CanExecute_UpdateRTB(object? obj)
+        {
+            return true;
+        }
+
         private bool CanExecute_Close_Command(object? obj)
         {
             throw new NotImplementedException();
@@ -160,15 +184,34 @@ namespace HomeManager.ViewModel
 
         private bool CanExecute_Save_Command(object? obj)
         {
-            if (isNew || MySelectedItem.IsDirty)
-            {
-                return true;
-            }
-            return false;
+            //if (isNew || MySelectedItem.IsDirty)
+            //{
+            //    return true;
+            //}
+            //return false;
+
+            return true;
         }
         #endregion
 
         #region Command Actions
+        private void UpdateRichTextBox(object? obj)
+        {
+            var richTextBox = obj as RichTextBox;
+
+            if (MySelectedItem != null && richTextBox != null)
+            {
+                string rtfString = MySelectedItem.MyRTFString;
+                if (!string.IsNullOrEmpty(rtfString))
+                {
+                    using (var stream = new System.IO.MemoryStream(System.Text.Encoding.UTF8.GetBytes(rtfString)))
+                    {
+                        richTextBox.Selection.Load(stream, DataFormats.Rtf);
+                    }
+                }
+            }
+        }
+
         private void Execute_Close_Command(object? obj)
         {
             throw new NotImplementedException();
@@ -221,17 +264,39 @@ namespace HomeManager.ViewModel
 
         private void Execute_Save_Command(object? obj)
         {
-            if (isNew)
+            RichTextBox richTextBox = obj as RichTextBox;
+            if (richTextBox != null)
             {
-                MyService.Insert(MySelectedItem);
-                isNew = false;
+                MySelectedItem.MyRTFString = ConvertRichTextBoxToRtf(richTextBox);
+                MessageBox.Show(MySelectedItem.MyRTFString.ToString());
+
+                if (isNew)
+                {
+                    if (!MyService.Insert(MySelectedItem))
+                    {
+                        MessageBox.Show(MySelectedItem.ErrorBoodschap);
+                    }
+                    isNew = false;
+                }
+                else
+                {
+                    if(!MyService.Update(MySelectedItem))
+                    {
+                        MessageBox.Show(MySelectedItem.ErrorBoodschap);
+                    }
+                }
+
+                MySelectedItem.IsDirty = false;
+
             }
             else
             {
-                MyService.Update(MySelectedItem);
+                MessageBox.Show("casting error -> rtb isn't correct");
             }
+
+
+
             
-            MySelectedItem.IsDirty = false;
         }
         #endregion
         #endregion
@@ -255,7 +320,11 @@ namespace HomeManager.ViewModel
                 {
                     if (isEmptyCollection)
                     {
-                        MijnCollectie.Remove(MySelectedItem);
+                        if (MessageBox.Show("wil verwijderen", "ok", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+                        {
+                            MijnCollectie.Remove(MySelectedItem);
+                        }
+                        
                     }
                 }
             }

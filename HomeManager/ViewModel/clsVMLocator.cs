@@ -20,13 +20,13 @@ namespace HomeManager.ViewModel
         }
 
         #region DagBoek
-        private static clsDagboekViewModel _dagboekViewModel = new clsDagboekViewModel();
+        //private static clsDagboekViewModel _dagboekViewModel = new clsDagboekViewModel();
         public clsDagboekViewModel DagboekViewModel
         {
             get
             {
-                return _dagboekViewModel;
-                //return new clsDagboekViewModel();
+                //return _dagboekViewModel;
+                return new clsDagboekViewModel();
             }
         }
 
