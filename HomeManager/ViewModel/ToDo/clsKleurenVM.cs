@@ -19,7 +19,7 @@ public class clsKleurenVM : clsCommonModelPropertiesBase
     public ICommand cmdNew { get; set; }
     public ICommand cmdCancel { get; set; }
     public ICommand cmdClose { get; set; }
-    public ICommand cmdSave { get; set; } 
+    public ICommand cmdSave { get; set; }
 
     private ObservableCollection<clsKleurenM> _MijnCollectie;
     public ObservableCollection<clsKleurenM> MijnCollectie
@@ -251,18 +251,22 @@ public class clsKleurenVM : clsCommonModelPropertiesBase
         _MijnSelectedItem = obj;
     }
 
-    private object _selectedColor;
+    private ColorItem _selectedColor;
 
     // ObservableCollection voor databinding met de ComboBox
     public ObservableCollection<ColorItem> Colors { get; set; }
 
     // Geselecteerde kleur
-    public object SelectedColor
+    public ColorItem SelectedColor
     {
         get => _selectedColor;
         set
         {
             _selectedColor = value;
+            if (_selectedColor != null)
+            {
+                MijnSelectedItem.ToDoColor = _selectedColor.Name;
+            }
             OnPropertyChanged(); // Notificeer de View over de wijziging
         }
     }

@@ -94,7 +94,7 @@
                     VerticalAlignment="Center"
                     DisplayMemberPath="Name"
                     ItemsSource="{Binding Colors}"
-                    SelectedItem="{Binding SelectedColor}" />
+                    SelectedItem="{Binding SelectedColor, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 
                 <Label
                     Grid.Row="2"
