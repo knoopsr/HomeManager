@@ -33,7 +33,7 @@ namespace HomeManager.Helpers
             if (parameter == null)
             {
                 // Als parameter null is, geef een melding
-                MessageBox.Show("Parameter is null.");
+                //MessageBox.Show("Parameter is null.");
                 return;
             }
             var thistype = _execute.GetType();
@@ -66,7 +66,7 @@ namespace HomeManager.Helpers
                 Content = textBox,
                 SizeToContent = System.Windows.SizeToContent.WidthAndHeight
             };
-            window.ShowDialog();
+            //window.ShowDialog();
 
         }
 

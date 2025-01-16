@@ -141,6 +141,7 @@
                     Width="200"
                     HorizontalAlignment="Left"
                     Orientation="Vertical">
+                    
                     <Expander Style="{StaticResource myHamburgerPersonen}">
                         <StackPanel x:Name="stckPerson">
                             <Button

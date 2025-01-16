@@ -1,124 +1,39 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
 
-    <!--  Knop HomeManger  -->
-    <Style x:Key="myHamburgerMenu" TargetType="ToggleButton">
-        <Setter Property="Background" Value="{StaticResource myTitleBar}" />
-        <Setter Property="Margin" Value="10,0,0,0" />
-
+    <Style x:Key="myExpanderPerson" TargetType="Button">
+        <Setter Property="Margin" Value="35,5,0,5" />
+        <Setter Property="Foreground" Value="{StaticResource myWerkBalk}" />
         <Setter Property="Template">
             <Setter.Value>
-                <ControlTemplate TargetType="ToggleButton">
-                    <Grid Background="{TemplateBinding Background}" Cursor="Hand">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto" />
-                            <ColumnDefinition Width="*" />
-                        </Grid.ColumnDefinitions>
-
-                        <Path
-                            Grid.Column="0"
-                            Width="32"
-                            Height="24"
-                            HorizontalAlignment="Center"
-                            VerticalAlignment="Center"
-                            Data="{StaticResource myPathMenu}"
-                            Fill="White"
-                            IsHitTestVisible="False"
-                            Stretch="Uniform" />
-
-
-                        <Label
-                            Grid.Column="1"
-                            HorizontalAlignment="Center"
-                            VerticalAlignment="Center"
-                            Content="Home Manager"
-                            Foreground="White"
-                            IsHitTestVisible="False" />
-
-                    </Grid>
-                </ControlTemplate>
-            </Setter.Value>
-        </Setter>
-    </Style>
-
-    <Style x:Key="myHamburgerPersonen" TargetType="Expander">
-        <Setter Property="Margin" Value="0,5,0,5" />
-        <Setter Property="Template">
-            <Setter.Value>
-                <ControlTemplate TargetType="Expander">
-                    <Border
-                        Background="Transparent"
-                        BorderBrush="{TemplateBinding BorderBrush}"
-                        BorderThickness="{TemplateBinding BorderThickness}">
+                <ControlTemplate TargetType="Button">
+                    <Border Name="HeaderBorder" Background="Transparent">
                         <Grid>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="*" />
-                            </Grid.RowDefinitions>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="20" />
-                                <ColumnDefinition Width="auto" />
+                                <ColumnDefinition Width="*" />
                             </Grid.ColumnDefinitions>
-                            <ToggleButton
-                                x:Name="ExpanderToggleButton"
-                                Grid.Row="0"
-                                Grid.ColumnSpan="2"
-                                Background="Transparent"
-                                BorderThickness="0"
-                                IsChecked="{Binding IsExpanded, RelativeSource={RelativeSource TemplatedParent}}">
-                                <ToggleButton.Template>
-                                    <ControlTemplate TargetType="ToggleButton">
-                                        <StackPanel Orientation="Horizontal">
-                                            <Border Name="ExpanderBorder" Background="Transparent">
-                                                <StackPanel HorizontalAlignment="Left" Orientation="Horizontal">
-                                                    <Path
-                                                        x:Name="ExpanderIcon"
-                                                        Width="8"
-                                                        Height="8"
-                                                        HorizontalAlignment="Center"
-                                                        VerticalAlignment="Center"
-                                                        Data="{StaticResource myCollapsedIconPath}"
-                                                        Fill="{StaticResource myWerkBalk}"
-                                                        Stretch="Uniform" />
-                                                    <Path
-                                                        Width="24"
-                                                        Height="24"
-                                                        Margin="5,0,5,0"
-                                                        HorizontalAlignment="Center"
-                                                        VerticalAlignment="Center"
-                                                        Data="{StaticResource myPathPeople}"
-                                                        Fill="{StaticResource myMenuIcon}"
-                                                        IsHitTestVisible="False"
-                                                        Stretch="Uniform" />
-                                                    <TextBlock
-                                                        VerticalAlignment="Center"
-                                                        Foreground="{StaticResource myWerkBalk}"
-                                                        Text="Personen" />
-                                                </StackPanel>
-                                            </Border>
-                                        </StackPanel>
-                                        <ControlTemplate.Triggers>
-                                            <Trigger Property="IsChecked" Value="True">
-                                                <Setter TargetName="ExpanderIcon" Property="Data" Value="{StaticResource myExpandedIconPath}" />
-                                                <Setter TargetName="ExpanderIcon" Property="Fill" Value="{StaticResource myMenuIcon}" />
-                                            </Trigger>
-                                            <Trigger Property="IsMouseOver" Value="True">
-                                                <Setter TargetName="ExpanderBorder" Property="Background" Value="LightBlue" />
-                                            </Trigger>
-                                        </ControlTemplate.Triggers>
-                                    </ControlTemplate>
-                                </ToggleButton.Template>
-                            </ToggleButton>
+                            <Path
+                                Width="18"
+                                Height="18"
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Center"
+                                Data="{StaticResource myPathPerson}"
+                                Fill="{StaticResource myMenuIcon}"
+                                IsHitTestVisible="False"
+                                Stretch="Uniform" />
                             <ContentPresenter
-                                x:Name="ExpanderContent"
-                                Grid.Row="1"
-                                Grid.ColumnSpan="2"
-                                Visibility="Collapsed" />
+                                Grid.Column="1"
+                                Margin="2,0,0,0"
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Center" />
                         </Grid>
                     </Border>
                     <ControlTemplate.Triggers>
-                        <Trigger Property="IsExpanded" Value="True">
-                            <Setter TargetName="ExpanderContent" Property="Visibility" Value="Visible" />
+                        <Trigger SourceName="HeaderBorder" Property="IsMouseOver" Value="True">
+                            <Setter Property="Cursor" Value="Hand" />
+                            <Setter TargetName="HeaderBorder" Property="Background" Value="LightBlue" />
+                            <Setter TargetName="HeaderBorder" Property="CornerRadius" Value="1" />
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
@@ -167,6 +82,294 @@
         </Setter>
     </Style>
 
+    <Style x:Key="myExpanderBudget" TargetType="Button">
+        <Setter Property="Margin" Value="35,5,0,5" />
+        <Setter Property="Foreground" Value="{StaticResource myWerkBalk}" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border Name="HeaderBorder" Background="Transparent">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="20" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <Path
+                                Width="18"
+                                Height="18"
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Center"
+                                Data="{StaticResource myPathEuro}"
+                                Fill="{StaticResource myMenuIcon}"
+                                IsHitTestVisible="False"
+                                Stretch="Uniform" />
+                            <ContentPresenter
+                                Grid.Column="1"
+                                Margin="2,0,0,0"
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Center" />
+                        </Grid>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger SourceName="HeaderBorder" Property="IsMouseOver" Value="True">
+                            <Setter Property="Cursor" Value="Hand" />
+                            <Setter TargetName="HeaderBorder" Property="Background" Value="LightBlue" />
+                            <Setter TargetName="HeaderBorder" Property="CornerRadius" Value="1" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="myExpanderTodo" TargetType="Button">
+        <Setter Property="Margin" Value="35,5,0,5" />
+        <Setter Property="Foreground" Value="{StaticResource myWerkBalk}" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border Name="HeaderBorder" Background="Transparent">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="20" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <Path
+                                Width="18"
+                                Height="18"
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Center"
+                                Data="{StaticResource myPathToDo}"
+                                Fill="{StaticResource myMenuIcon}"
+                                IsHitTestVisible="False"
+                                Stretch="Uniform" />
+                            <ContentPresenter
+                                Grid.Column="1"
+                                Margin="2,0,0,0"
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Center" />
+                        </Grid>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger SourceName="HeaderBorder" Property="IsMouseOver" Value="True">
+                            <Setter Property="Cursor" Value="Hand" />
+                            <Setter TargetName="HeaderBorder" Property="Background" Value="LightBlue" />
+                            <Setter TargetName="HeaderBorder" Property="CornerRadius" Value="1" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+
+    <Style x:Key="myExpanderStickyNoteColors" TargetType="Button">
+        <Setter Property="Margin" Value="35,5,0,5" />
+        <Setter Property="Foreground" Value="{StaticResource myWerkBalk}" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border Name="HeaderBorder" Background="Transparent">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="20" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <Path
+                                Width="18"
+                                Height="18"
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Center"
+                                Data="{StaticResource myPathStickyNote}"
+                                Fill="{StaticResource myMenuIcon}"
+                                IsHitTestVisible="False"
+                                Stretch="Uniform" />
+                            <ContentPresenter
+                                Grid.Column="1"
+                                Margin="2,0,0,0"
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Center" />
+                        </Grid>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger SourceName="HeaderBorder" Property="IsMouseOver" Value="True">
+                            <Setter Property="Cursor" Value="Hand" />
+                            <Setter TargetName="HeaderBorder" Property="Background" Value="LightBlue" />
+                            <Setter TargetName="HeaderBorder" Property="CornerRadius" Value="1" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="myMenuTandwiel" TargetType="Button">
+        <Setter Property="Margin" Value="35,5,0,5" />
+        <Setter Property="Foreground" Value="{StaticResource myWerkBalk}" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border Name="HeaderBorder" Background="Transparent">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="20" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <Path
+                                Width="18"
+                                Height="18"
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Center"
+                                Data="{StaticResource myPathSetting}"
+                                Fill="{StaticResource myMenuIcon}"
+                                IsHitTestVisible="False"
+                                Stretch="Uniform" />
+                            <ContentPresenter
+                                Grid.Column="1"
+                                Margin="2,0,0,0"
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Center" />
+                        </Grid>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger SourceName="HeaderBorder" Property="IsMouseOver" Value="True">
+                            <Setter Property="Cursor" Value="Hand" />
+                            <Setter TargetName="HeaderBorder" Property="Background" Value="LightBlue" />
+                            <Setter TargetName="HeaderBorder" Property="CornerRadius" Value="1" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+
+
+
+    <!--  Knop HomeManger  -->
+    <Style x:Key="myHamburgerMenu" TargetType="ToggleButton">
+        <Setter Property="Background" Value="{StaticResource myTitleBar}" />
+        <Setter Property="Margin" Value="10,0,0,0" />
+
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ToggleButton">
+                    <Grid Background="{TemplateBinding Background}" Cursor="Hand">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+
+                        <Path
+                            Grid.Column="0"
+                            Width="32"
+                            Height="24"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            Data="{StaticResource myPathMenu}"
+                            Fill="White"
+                            IsHitTestVisible="False"
+                            Stretch="Uniform" />
+
+
+                        <Label
+                            Grid.Column="1"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            Content="Home Manager"
+                            Foreground="White"
+                            IsHitTestVisible="False" />
+
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+
+    <Style x:Key="myHamburgerPersonen" TargetType="Expander">
+        <Setter Property="Margin" Value="0,5,0,5" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Expander">
+                    <Border
+                        Background="Transparent"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="{TemplateBinding BorderThickness}">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="*" />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="20" />
+                                <ColumnDefinition Width="auto" />
+                            </Grid.ColumnDefinitions>
+                            <StackPanel
+                                Grid.Row="0"
+                                Grid.Column="0"
+                                Grid.ColumnSpan="2"
+                                Orientation="Horizontal">
+                                <ToggleButton
+                                    x:Name="ExpanderToggleButton"
+                                    Background="Transparent"
+                                    BorderThickness="0"
+                                    IsChecked="{Binding IsExpanded, RelativeSource={RelativeSource TemplatedParent}}">
+                                    <ToggleButton.Template>
+                                        <ControlTemplate TargetType="ToggleButton">
+                                            <StackPanel Orientation="Horizontal">
+                                                <Border Name="ExpanderBorder" Background="Transparent">
+                                                    <StackPanel HorizontalAlignment="Left" Orientation="Horizontal">
+                                                        <Path
+                                                            x:Name="ExpanderIcon"
+                                                            Width="8"
+                                                            Height="8"
+                                                            HorizontalAlignment="Center"
+                                                            VerticalAlignment="Center"
+                                                            Data="{StaticResource myCollapsedIconPath}"
+                                                            Fill="{StaticResource myWerkBalk}"
+                                                            Stretch="Uniform" />
+
+                                                    </StackPanel>
+                                                </Border>
+                                            </StackPanel>
+                                            <ControlTemplate.Triggers>
+                                                <Trigger Property="IsChecked" Value="True">
+                                                    <Setter TargetName="ExpanderIcon" Property="Data" Value="{StaticResource myExpandedIconPath}" />
+                                                    <Setter TargetName="ExpanderIcon" Property="Fill" Value="{StaticResource myMenuIcon}" />
+                                                </Trigger>
+                                                <Trigger Property="IsMouseOver" Value="True">
+                                                    <Setter TargetName="ExpanderBorder" Property="Background" Value="LightBlue" />
+                                                </Trigger>
+                                            </ControlTemplate.Triggers>
+                                        </ControlTemplate>
+                                    </ToggleButton.Template>
+                                </ToggleButton>
+                                <Button
+                                    Margin="10,0,0,0"
+                                    Command="{Binding NavCommand}"
+                                    CommandParameter="clsPersoonViewModel"
+                                    Content="Persoon"
+                                    Style="{StaticResource myExpanderPerson}" />
+                            </StackPanel>
+
+                            <ContentPresenter
+                                x:Name="ExpanderContent"
+                                Grid.Row="1"
+                                Grid.ColumnSpan="2"
+                                Visibility="Collapsed" />
+                        </Grid>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsExpanded" Value="True">
+                            <Setter TargetName="ExpanderContent" Property="Visibility" Value="Visible" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
     <Style x:Key="myHamburgerBudget" TargetType="Expander">
         <Setter Property="Margin" Value="0,5,0,5" />
         <Setter Property="Template">
@@ -185,56 +388,54 @@
                                 <ColumnDefinition Width="20" />
                                 <ColumnDefinition Width="auto" />
                             </Grid.ColumnDefinitions>
-                            <ToggleButton
-                                x:Name="ExpanderToggleButton"
+                            <StackPanel
                                 Grid.Row="0"
+                                Grid.Column="0"
                                 Grid.ColumnSpan="2"
-                                Background="Transparent"
-                                BorderThickness="0"
-                                IsChecked="{Binding IsExpanded, RelativeSource={RelativeSource TemplatedParent}}">
-                                <ToggleButton.Template>
-                                    <ControlTemplate TargetType="ToggleButton">
-                                        <StackPanel Orientation="Horizontal">
-                                            <Border Name="ExpanderBorder" Background="Transparent">
-                                                <StackPanel HorizontalAlignment="Left" Orientation="Horizontal">
-                                                    <Path
-                                                        x:Name="ExpanderIcon"
-                                                        Width="8"
-                                                        Height="8"
-                                                        HorizontalAlignment="Center"
-                                                        VerticalAlignment="Center"
-                                                        Data="{StaticResource myCollapsedIconPath}"
-                                                        Fill="{StaticResource myWerkBalk}"
-                                                        Stretch="Uniform" />
-                                                    <Path
-                                                        Width="24"
-                                                        Height="24"
-                                                        Margin="5,0,5,0"
-                                                        HorizontalAlignment="Center"
-                                                        VerticalAlignment="Center"
-                                                        Data="{StaticResource myPathEuro}"
-                                                        Fill="{StaticResource myMenuIcon}"
-                                                        IsHitTestVisible="False"
-                                                        Stretch="Uniform" />
-                                                    <TextBlock
-                                                        VerticalAlignment="Center"
-                                                        Foreground="{StaticResource myWerkBalk}"
-                                                        Text="Budget" />
-                                                </StackPanel>
-                                            </Border>
-                                        </StackPanel>
-                                        <ControlTemplate.Triggers>
-                                            <Trigger Property="IsChecked" Value="True">
-                                                <Setter TargetName="ExpanderIcon" Property="Data" Value="{StaticResource myExpandedIconPath}" />
-                                                <Setter TargetName="ExpanderIcon" Property="Fill" Value="{StaticResource myMenuIcon}" />
-                                            </Trigger>
-                                            <Trigger Property="IsMouseOver" Value="True">
-                                                <Setter TargetName="ExpanderBorder" Property="Background" Value="LightBlue" />
-                                            </Trigger>
-                                        </ControlTemplate.Triggers>
-                                    </ControlTemplate>
-                                </ToggleButton.Template>
-                            </ToggleButton>
+                                Orientation="Horizontal">
+                                <ToggleButton
+                                    x:Name="ExpanderToggleButton"
+                                    Background="Transparent"
+                                    BorderThickness="0"
+                                    IsChecked="{Binding IsExpanded, RelativeSource={RelativeSource TemplatedParent}}">
+                                    <ToggleButton.Template>
+                                        <ControlTemplate TargetType="ToggleButton">
+                                            <StackPanel Orientation="Horizontal">
+                                                <Border Name="ExpanderBorder" Background="Transparent">
+                                                    <StackPanel HorizontalAlignment="Left" Orientation="Horizontal">
+                                                        <Path
+                                                            x:Name="ExpanderIcon"
+                                                            Width="8"
+                                                            Height="8"
+                                                            HorizontalAlignment="Center"
+                                                            VerticalAlignment="Center"
+                                                            Data="{StaticResource myCollapsedIconPath}"
+                                                            Fill="{StaticResource myWerkBalk}"
+                                                            Stretch="Uniform" />
+
+                                                    </StackPanel>
+                                                </Border>
+                                            </StackPanel>
+                                            <ControlTemplate.Triggers>
+                                                <Trigger Property="IsChecked" Value="True">
+                                                    <Setter TargetName="ExpanderIcon" Property="Data" Value="{StaticResource myExpandedIconPath}" />
+                                                    <Setter TargetName="ExpanderIcon" Property="Fill" Value="{StaticResource myMenuIcon}" />
+                                                </Trigger>
+                                                <Trigger Property="IsMouseOver" Value="True">
+                                                    <Setter TargetName="ExpanderBorder" Property="Background" Value="LightBlue" />
+                                                </Trigger>
+                                            </ControlTemplate.Triggers>
+                                        </ControlTemplate>
+                                    </ToggleButton.Template>
+                                </ToggleButton>
+                                <Button
+                                    Margin="10,0,0,0"
+                                    Command="{Binding NavCommand}"
+                                    CommandParameter="clsCategorieViewModel"
+                                    Content="Budget OverView"
+                                    Style="{StaticResource myExpanderBudget}" />
+                            </StackPanel>
+
                             <ContentPresenter
                                 x:Name="ExpanderContent"
                                 Grid.Row="1"
@@ -270,56 +471,54 @@
                                 <ColumnDefinition Width="20" />
                                 <ColumnDefinition Width="auto" />
                             </Grid.ColumnDefinitions>
-                            <ToggleButton
-                                x:Name="ExpanderToggleButton"
+                            <StackPanel
                                 Grid.Row="0"
+                                Grid.Column="0"
                                 Grid.ColumnSpan="2"
-                                Background="Transparent"
-                                BorderThickness="0"
-                                IsChecked="{Binding IsExpanded, RelativeSource={RelativeSource TemplatedParent}}">
-                                <ToggleButton.Template>
-                                    <ControlTemplate TargetType="ToggleButton">
-                                        <StackPanel Orientation="Horizontal">
-                                            <Border Name="ExpanderBorder" Background="Transparent">
-                                                <StackPanel HorizontalAlignment="Left" Orientation="Horizontal">
-                                                    <Path
-                                                        x:Name="ExpanderIcon"
-                                                        Width="8"
-                                                        Height="8"
-                                                        HorizontalAlignment="Center"
-                                                        VerticalAlignment="Center"
-                                                        Data="{StaticResource myCollapsedIconPath}"
-                                                        Fill="{StaticResource myWerkBalk}"
-                                                        Stretch="Uniform" />
-                                                    <Path
-                                                        Width="24"
-                                                        Height="24"
-                                                        Margin="5,0,5,0"
-                                                        HorizontalAlignment="Center"
-                                                        VerticalAlignment="Center"
-                                                        Data="{StaticResource myPathToDo}"
-                                                        Fill="{StaticResource myMenuIcon}"
-                                                        IsHitTestVisible="False"
-                                                        Stretch="Uniform" />
-                                                    <TextBlock
-                                                        VerticalAlignment="Center"
-                                                        Foreground="{StaticResource myWerkBalk}"
-                                                        Text="Todo" />
-                                                </StackPanel>
-                                            </Border>
-                                        </StackPanel>
-                                        <ControlTemplate.Triggers>
-                                            <Trigger Property="IsChecked" Value="True">
-                                                <Setter TargetName="ExpanderIcon" Property="Data" Value="{StaticResource myExpandedIconPath}" />
-                                                <Setter TargetName="ExpanderIcon" Property="Fill" Value="{StaticResource myMenuIcon}" />
-                                            </Trigger>
-                                            <Trigger Property="IsMouseOver" Value="True">
-                                                <Setter TargetName="ExpanderBorder" Property="Background" Value="LightBlue" />
-                                            </Trigger>
-                                        </ControlTemplate.Triggers>
-                                    </ControlTemplate>
-                                </ToggleButton.Template>
-                            </ToggleButton>
+                                Orientation="Horizontal">
+                                <ToggleButton
+                                    x:Name="ExpanderToggleButton"
+                                    Background="Transparent"
+                                    BorderThickness="0"
+                                    IsChecked="{Binding IsExpanded, RelativeSource={RelativeSource TemplatedParent}}">
+                                    <ToggleButton.Template>
+                                        <ControlTemplate TargetType="ToggleButton">
+                                            <StackPanel Orientation="Horizontal">
+                                                <Border Name="ExpanderBorder" Background="Transparent">
+                                                    <StackPanel HorizontalAlignment="Left" Orientation="Horizontal">
+                                                        <Path
+                                                            x:Name="ExpanderIcon"
+                                                            Width="8"
+                                                            Height="8"
+                                                            HorizontalAlignment="Center"
+                                                            VerticalAlignment="Center"
+                                                            Data="{StaticResource myCollapsedIconPath}"
+                                                            Fill="{StaticResource myWerkBalk}"
+                                                            Stretch="Uniform" />
+
+                                                    </StackPanel>
+                                                </Border>
+                                            </StackPanel>
+                                            <ControlTemplate.Triggers>
+                                                <Trigger Property="IsChecked" Value="True">
+                                                    <Setter TargetName="ExpanderIcon" Property="Data" Value="{StaticResource myExpandedIconPath}" />
+                                                    <Setter TargetName="ExpanderIcon" Property="Fill" Value="{StaticResource myMenuIcon}" />
+                                                </Trigger>
+                                                <Trigger Property="IsMouseOver" Value="True">
+                                                    <Setter TargetName="ExpanderBorder" Property="Background" Value="LightBlue" />
+                                                </Trigger>
+                                            </ControlTemplate.Triggers>
+                                        </ControlTemplate>
+                                    </ToggleButton.Template>
+                                </ToggleButton>
+                                <Button
+                                    Margin="10,0,0,0"
+                                    Command="{Binding NavCommand}"
+                                    CommandParameter="clsCategorieViewModel"
+                                    Content="Budget OverView"
+                                    Style="{StaticResource myExpanderTodo}" />
+                            </StackPanel>
+
                             <ContentPresenter
                                 x:Name="ExpanderContent"
                                 Grid.Row="1"
@@ -507,125 +706,6 @@
         </Setter>
     </Style>
 
-    <Style x:Key="myExpanderPerson" TargetType="Button">
-        <Setter Property="Margin" Value="35,5,0,5" />
-        <Setter Property="Foreground" Value="{StaticResource myWerkBalk}" />
-        <Setter Property="Template">
-            <Setter.Value>
-                <ControlTemplate TargetType="Button">
-                    <Border Name="HeaderBorder" Background="Transparent">
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="20" />
-                                <ColumnDefinition Width="*" />
-                            </Grid.ColumnDefinitions>
-                            <Path
-                                Width="18"
-                                Height="18"
-                                HorizontalAlignment="Left"
-                                VerticalAlignment="Center"
-                                Data="{StaticResource myPathPerson}"
-                                Fill="{StaticResource myMenuIcon}"
-                                IsHitTestVisible="False"
-                                Stretch="Uniform" />
-                            <ContentPresenter
-                                Grid.Column="1"
-                                Margin="2,0,0,0"
-                                HorizontalAlignment="Left"
-                                VerticalAlignment="Center" />
-                        </Grid>
-                    </Border>
-                    <ControlTemplate.Triggers>
-                        <Trigger SourceName="HeaderBorder" Property="IsMouseOver" Value="True">
-                            <Setter Property="Cursor" Value="Hand" />
-                            <Setter TargetName="HeaderBorder" Property="Background" Value="LightBlue" />
-                            <Setter TargetName="HeaderBorder" Property="CornerRadius" Value="1" />
-                        </Trigger>
-                    </ControlTemplate.Triggers>
-                </ControlTemplate>
-            </Setter.Value>
-        </Setter>
-    </Style>
-
-    <Style x:Key="myExpanderStickyNoteColors" TargetType="Button">
-        <Setter Property="Margin" Value="35,5,0,5" />
-        <Setter Property="Foreground" Value="{StaticResource myWerkBalk}" />
-        <Setter Property="Template">
-            <Setter.Value>
-                <ControlTemplate TargetType="Button">
-                    <Border Name="HeaderBorder" Background="Transparent">
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="20" />
-                                <ColumnDefinition Width="*" />
-                            </Grid.ColumnDefinitions>
-                            <Path
-                                Width="18"
-                                Height="18"
-                                HorizontalAlignment="Left"
-                                VerticalAlignment="Center"
-                                Data="{StaticResource myPathStickyNote}"
-                                Fill="{StaticResource myMenuIcon}"
-                                IsHitTestVisible="False"
-                                Stretch="Uniform" />
-                            <ContentPresenter
-                                Grid.Column="1"
-                                Margin="2,0,0,0"
-                                HorizontalAlignment="Left"
-                                VerticalAlignment="Center" />
-                        </Grid>
-                    </Border>
-                    <ControlTemplate.Triggers>
-                        <Trigger SourceName="HeaderBorder" Property="IsMouseOver" Value="True">
-                            <Setter Property="Cursor" Value="Hand" />
-                            <Setter TargetName="HeaderBorder" Property="Background" Value="LightBlue" />
-                            <Setter TargetName="HeaderBorder" Property="CornerRadius" Value="1" />
-                        </Trigger>
-                    </ControlTemplate.Triggers>
-                </ControlTemplate>
-            </Setter.Value>
-        </Setter>
-    </Style>
-
-    <Style x:Key="myMenuTandwiel" TargetType="Button">
-        <Setter Property="Margin" Value="35,5,0,5" />
-        <Setter Property="Foreground" Value="{StaticResource myWerkBalk}" />
-        <Setter Property="Template">
-            <Setter.Value>
-                <ControlTemplate TargetType="Button">
-                    <Border Name="HeaderBorder" Background="Transparent">
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="20" />
-                                <ColumnDefinition Width="*" />
-                            </Grid.ColumnDefinitions>
-                            <Path
-                                Width="18"
-                                Height="18"
-                                HorizontalAlignment="Left"
-                                VerticalAlignment="Center"
-                                Data="{StaticResource myPathSetting}"
-                                Fill="{StaticResource myMenuIcon}"
-                                IsHitTestVisible="False"
-                                Stretch="Uniform" />
-                            <ContentPresenter
-                                Grid.Column="1"
-                                Margin="2,0,0,0"
-                                HorizontalAlignment="Left"
-                                VerticalAlignment="Center" />
-                        </Grid>
-                    </Border>
-                    <ControlTemplate.Triggers>
-                        <Trigger SourceName="HeaderBorder" Property="IsMouseOver" Value="True">
-                            <Setter Property="Cursor" Value="Hand" />
-                            <Setter TargetName="HeaderBorder" Property="Background" Value="LightBlue" />
-                            <Setter TargetName="HeaderBorder" Property="CornerRadius" Value="1" />
-                        </Trigger>
-                    </ControlTemplate.Triggers>
-                </ControlTemplate>
-            </Setter.Value>
-        </Setter>
-    </Style>
 
 
 
