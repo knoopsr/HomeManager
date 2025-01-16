@@ -61,6 +61,7 @@ namespace HomeManager.DAL.Security
             catch (SqlException ex)
             {
                 // Sla de foutmelding rechtstreeks op in de ErrorBoodschap
+                _login.AccountID = 0;
                 _login.ErrorBoodschap = ex.Message;
             }
             catch (Exception ex)
