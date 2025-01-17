@@ -66,6 +66,17 @@ namespace HomeManager.ViewModel
             }
         }
 
+        private clsCollectiesM _selectedCollectie;
+        public clsCollectiesM SelectedCollectie
+        {
+            get => _selectedCollectie;
+            set
+            {
+                _selectedCollectie = value;
+                OnPropertyChanged();
+            }
+        }
+
         private void OpslaanCommando()
         {
             if (MijnSelectedItem != null)
