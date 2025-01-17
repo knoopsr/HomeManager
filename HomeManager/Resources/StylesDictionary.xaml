@@ -330,7 +330,7 @@
         </Setter>
         <Style.Triggers>
             <Trigger Property="IsChecked" Value="True">
-                <Setter Property="Background" Value="LightYellow" />
+                <Setter Property="Background" Value="Red" />
                 <Setter Property="BorderThickness" Value="1" />
             </Trigger>
             <Trigger Property="IsMouseOver" Value="True">

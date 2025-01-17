@@ -22,6 +22,8 @@ namespace HomeManager.ViewModel
         {
             get { return clsLoginModel.Instance.AccountID; }
         }
+
+        public clsRTBLayout MyRTBLayout { get; set; }
             
         private bool isNew = false;
         private bool isEmptyCollection = false;
@@ -82,7 +84,12 @@ namespace HomeManager.ViewModel
             cmdTest = new clsCustomCommand(Execute_Test, CanExecute_Test);
             UpdateRichTextBoxCommand = new clsCustomCommand(UpdateRichTextBox, CanExecute_UpdateRTB);
 
+            //relaycommands for the layout
+            cmdSetFontWeight = new clsRelayCommand(SetFontWeight);
+            cmdSetUnderline = new clsRelayCommand(SetUnderline);
 
+
+            MyRTBLayout = new clsRTBLayout();
             MyService = new clsDagboekDataService();
             GenerateCollection();
 
@@ -112,7 +119,31 @@ namespace HomeManager.ViewModel
 
         }
 
-       
+        private void SetUnderline(object? obj)
+        {
+            RichTextBox rtb = obj as RichTextBox;
+            if (rtb == null)
+            {
+                MessageBox.Show("CommandParameter = null");
+                return;
+            }
+            TextRange range = rtb.Selection;
+
+            MyRTBLayout.ToggleUnderline(range);
+        }
+
+        private void SetFontWeight(object? obj)
+        {
+            RichTextBox rtb = obj as RichTextBox;
+            if (rtb == null)
+            {
+                MessageBox.Show("CommandParameter = null");
+                return;
+            }
+            TextRange range = rtb.Selection;
+
+            MyRTBLayout.SetFontWeight(MyRTBLayout.GetFontWeight(range), range);
+        }
 
         private bool CanExecute_Test(object? obj)
         {
@@ -154,6 +185,10 @@ namespace HomeManager.ViewModel
         public ICommand cmdClose { get; set; }
         public ICommand cmdTest { get; set; }
         public ICommand UpdateRichTextBoxCommand { get; }
+
+        //relaycommands
+        public ICommand cmdSetFontWeight {  get; set; }
+        public ICommand cmdSetUnderline { get; set; }
         #endregion
 
         #region Command CanExecutes

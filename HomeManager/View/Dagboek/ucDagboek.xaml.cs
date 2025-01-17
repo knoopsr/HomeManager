@@ -26,28 +26,30 @@ namespace HomeManager.View
         {
             InitializeComponent();
 
+            
+
             // Attach Loaded event
-            this.Loaded += ucDagboek_Loaded;
+            //this.Loaded += ucDagboek_Loaded;
         }
 
         private void ucDagboek_Loaded(object sender, RoutedEventArgs e)
         {
-            // Ensure the DataContext is set
-            if (this.DataContext is clsDagboekViewModel viewModel)
-            {
-                var richTextBox = MyRTB;  // Your RichTextBox control
+            //// Ensure the DataContext is set
+            //if (this.DataContext is clsDagboekViewModel viewModel)
+            //{
+            //    var richTextBox = MyRTB;  // Your RichTextBox control
 
-                // Execute the command to update the RichTextBox with MyRTFString
-                if (viewModel.UpdateRichTextBoxCommand.CanExecute(richTextBox))
-                {
-                    viewModel.UpdateRichTextBoxCommand.Execute(richTextBox);
-                }
-            }
-            else
-            {
-                // Handle the case where DataContext is not set or is not of the expected type
-                Debug.WriteLine("DataContext is not set correctly.");
-            }
+            //    // Execute the command to update the RichTextBox with MyRTFString
+            //    if (viewModel.UpdateRichTextBoxCommand.CanExecute(richTextBox))
+            //    {
+            //        viewModel.UpdateRichTextBoxCommand.Execute(richTextBox);
+            //    }
+            //}
+            //else
+            //{
+            //    // Handle the case where DataContext is not set or is not of the expected type
+            //    Debug.WriteLine("DataContext is not set correctly.");
+            //}
         }
     }
 }
