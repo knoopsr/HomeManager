@@ -19,6 +19,8 @@ namespace HomeManager.Model.Todo
             }
         }
 
+
+
         private string _onderwerp;
         public string Onderwerp
         {
@@ -55,8 +57,8 @@ namespace HomeManager.Model.Todo
             }
         }
 
-        private int? _gebruikerID;
-        public int? GebruikerID
+        private int _gebruikerID;
+        public int GebruikerID
         {
             get => _gebruikerID;
             set
@@ -184,7 +186,7 @@ namespace HomeManager.Model.Todo
                         break;
 
                     case nameof(GebruikerID):
-                        if (GebruikerID == null || GebruikerID <= 0)
+                        if (GebruikerID <= 0)
                         {
                             error = "Een gebruiker moet geselecteerd worden.";
                             if (!ErrorList.Contains(nameof(GebruikerID)))

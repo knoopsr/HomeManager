@@ -96,6 +96,7 @@ namespace HomeManager.DAL.Todo.Popup
 
         public bool Insert(clsTodoPopupM entity)
         {
+
             (DataTable DT, bool OK, string Boodschap) = clsDAL.ExecuteDataTable(Properties.Resources.I_ToDoPopup,
                 clsDAL.Parameter("Onderwerp", entity.Onderwerp),
                 clsDAL.Parameter("Detail", entity.Detail),
@@ -106,7 +107,7 @@ namespace HomeManager.DAL.Todo.Popup
                 clsDAL.Parameter("TodoColorID", entity.TodoColorID),
                 clsDAL.Parameter("IsKlaar", entity.IsKlaar),
                 clsDAL.Parameter("Volgorde", entity.Volgorde),
-                clsDAL.Parameter("ControlField", entity.ControlField),
+                //clsDAL.Parameter("ControlField", entity.ControlField),
                 clsDAL.Parameter("ReturnValue", 0));
             if (OK)
             {
@@ -117,6 +118,7 @@ namespace HomeManager.DAL.Todo.Popup
 
         public bool Update(clsTodoPopupM entity)
         {
+
             (DataTable DT, bool OK, string Boodschap) = clsDAL.ExecuteDataTable(Properties.Resources.U_ToDoPopup,
                 clsDAL.Parameter("TodoID", entity.TodoID),
                 clsDAL.Parameter("Onderwerp", entity.Onderwerp),

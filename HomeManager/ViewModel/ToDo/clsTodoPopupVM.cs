@@ -66,17 +66,17 @@ namespace HomeManager.ViewModel
             }
         }
 
-        private clsCollectiesM _selectedCollectie;
-        public clsCollectiesM SelectedCollectie
-        {
-            get => _selectedCollectie;
-            set
-            {
-                _selectedCollectie = value;
-                OnPropertyChanged();
-            }
-        }
-
+        //private clsCollectiesM _selectedCollectie;
+        //public clsCollectiesM SelectedCollectie
+        //{
+        //    get => _selectedCollectie;
+        //    set
+        //    {
+        //        _selectedCollectie = value;
+        //        OnPropertyChanged();
+        //    }
+        //}
+        //TODO: fix this -> saving in the UI resulting in an error
         private void OpslaanCommando()
         {
             if (MijnSelectedItem != null)
@@ -195,7 +195,7 @@ namespace HomeManager.ViewModel
                 TodoID = 0,
                 Onderwerp = string.Empty,
                 Detail = string.Empty,
-                GebruikerID = null, // Of een standaardwaarde als dat nodig is
+                GebruikerID = 0, // Of een standaardwaarde als dat nodig is
                 Belangrijk = false,
                 TodoCollectieID = null, // Of een standaardwaarde als dat nodig is
                 TodoCategorieID = null, // Of een standaardwaarde als dat nodig is
@@ -269,6 +269,7 @@ namespace HomeManager.ViewModel
             OpslaanCommando();
 
         }
+
 
         private void OnCollectiesReceived(clsTodoPopupM obj)
         {
