@@ -10,12 +10,14 @@ using System.Windows;
 using HomeManager.Common;
 using HomeManager.DataService.Personen;
 using HomeManager.Model.Personen;
+using HomeManager.Messages;
 
 namespace HomeManager.ViewModel
 {
     public class clsTelefoonNummersViewModel : clsCommonModelPropertiesBase
     {
         clsTelefoonNummersDataService MijnService;
+        clsPersoonDataService MijnPersoonService;
         private bool NewStatus = false;
 
         public ICommand cmdDelete { get; set; }
@@ -68,8 +70,8 @@ namespace HomeManager.ViewModel
             }
         }
 
-        private clsPersonenViewModel _mijnSelectedPersoonItem;
-        public clsPersonenViewModel MijnSelectedPersoonItem
+        private clsPersoonModel _mijnSelectedPersoonItem;
+        public clsPersoonModel MijnSelectedPersoonItem
         {
             get
             {
@@ -77,20 +79,6 @@ namespace HomeManager.ViewModel
             }
             set
             {
-                if (value != null)
-                {
-                    if (_mijnSelectedPersoonItem != null && _mijnSelectedPersoonItem.IsDirty)
-                    {
-                        if (MessageBox.Show("Wil je " + _mijnSelectedPersoonItem + "Opslaan?", "Opslaan",
-                            MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
-                        {
-                            _mijnSelectedPersoonItem.IsDirty = false;
-                            _mijnSelectedPersoonItem.MijnSelectedIndex = 0;
-                            OpslaanCommando();
-                            LoadData();
-                        }
-                    }
-                }
                 _mijnSelectedPersoonItem = value;
                 OnPropertyChanged();
             }
@@ -132,37 +120,12 @@ namespace HomeManager.ViewModel
             }
         }
 
-        private bool _IsFocused = false;
-        public bool IsFocused
-        {
-            get
-            {
-                return _IsFocused;
-            }
-            set
-            {
-                _IsFocused = value;
-                OnPropertyChanged();
-            }
-        }
-
-        private bool _IsFocusedAfterNew = false;
-        public bool IsFocusedAfterNew
-        {
-            get
-            {
-                return _IsFocusedAfterNew;
-            }
-            set
-            {
-                _IsFocusedAfterNew = value;
-                OnPropertyChanged();
-            }
-        }
 
         public clsTelefoonNummersViewModel()
         {
             MijnService = new clsTelefoonNummersDataService();
+            MijnPersoonService = new clsPersoonDataService();
+
             cmdNew = new clsCustomCommand(Execute_NewCommand, CanExecute_NewCommand);
             cmdDelete = new clsCustomCommand(Execute_DeleteCommand, CanExecute_DeleteCommand);
             cmdSave = new clsCustomCommand(Execute_SaveCommand, CanExecute_SaveCommand);
@@ -177,19 +140,15 @@ namespace HomeManager.ViewModel
 
         private void OnTelefoonNummersReceived(clsTelefoonNummersModel obj)
         {
-            //mijnSelectedItem = obj;
-
-            //if (obj.TelefoonNummerID == 0)
-            //{
-            //    NewStatus = true;
-            //}
-
-            mijnSelectedItem = obj;
-
-            if (mijnSelectedItem != null && mijnSelectedItem.TelefoonNummerID == 0)
+            if (obj != null)
             {
-                NewStatus = true;
-                mijnSelectedItem.MyVisibility = (int)Visibility.Hidden;
+                MijnSelectedItem = obj;
+                MijnSelectedPersoonItem = MijnPersoonService.GetById(MijnSelectedItem.PersoonID);
+
+                if (obj.TelefoonTypeID == 0)
+                {
+                    NewStatus = true;
+                }
             }
         }
 
@@ -203,7 +162,7 @@ namespace HomeManager.ViewModel
             clsTelefoonNummersModel ItemToInsert = new clsTelefoonNummersModel()
             {
                 TelefoonNummerID = 0,
-                PersoonID = 0,
+                PersoonID = MijnSelectedPersoonItem.PersoonID,
                 TelefoonTypeID = 0,
                 TelefoonNummer = string.Empty
             };
@@ -272,6 +231,7 @@ namespace HomeManager.ViewModel
                 clsHomeVM vm = (clsHomeVM)HomeWindow.DataContext;
                 vm.CurrentViewModel = null;
             }
+            clsMessenger.Default.Send<clsUpdateListMessages>(new clsUpdateListMessages());
         }
 
         private bool CanExecute_CancelCommand(object obj)

@@ -277,6 +277,15 @@ namespace HomeManager.DAL.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to I_GetAdresMetGemeente.
+        /// </summary>
+        internal static string I_GetAdresMetGemeente {
+            get {
+                return ResourceManager.GetString("I_GetAdresMetGemeente", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to I_Land.
         /// </summary>
         internal static string I_Land {

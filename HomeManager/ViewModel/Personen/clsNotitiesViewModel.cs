@@ -17,6 +17,7 @@ namespace HomeManager.ViewModel
     public class clsNotitiesViewModel : clsCommonModelPropertiesBase
     {
         clsNotitiesDataService MijnService;
+        clsPersoonDataService MijnPersoonService;
         private bool NewStatus = false;
 
         public ICommand cmdDelete { get; set; }
@@ -70,8 +71,8 @@ namespace HomeManager.ViewModel
         }
 
 
-        private clsPersonenViewModel _mijnSelectedPersoonItem;
-        public clsPersonenViewModel MijnSelectedPersoonItem
+        private clsPersoonModel _mijnSelectedPersoonItem;
+        public clsPersoonModel MijnSelectedPersoonItem
         {
             get
             {
@@ -79,20 +80,6 @@ namespace HomeManager.ViewModel
             }
             set
             {
-                if (value != null)
-                {
-                    if (_mijnSelectedPersoonItem != null && _mijnSelectedPersoonItem.IsDirty)
-                    {
-                        if (MessageBox.Show("Wil je " + _mijnSelectedPersoonItem + "Opslaan?", "Opslaan",
-                            MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
-                        {
-                            _mijnSelectedPersoonItem.IsDirty = false;
-                            _mijnSelectedPersoonItem.MijnSelectedIndex = 0;
-                            OpslaanCommando();
-                            LoadData();
-                        }
-                    }
-                }
                 _mijnSelectedPersoonItem = value;
                 OnPropertyChanged();
             }
@@ -134,37 +121,11 @@ namespace HomeManager.ViewModel
             }
         }
 
-        private bool _IsFocused = false;
-        public bool IsFocused
-        {
-            get
-            {
-                return _IsFocused;
-            }
-            set
-            {
-                _IsFocused = value;
-                OnPropertyChanged();
-            }
-        }
-
-        private bool _IsFocusedAfterNew = false;
-        public bool IsFocusedAfterNew
-        {
-            get
-            {
-                return _IsFocusedAfterNew;
-            }
-            set
-            {
-                _IsFocusedAfterNew = value;
-                OnPropertyChanged();
-            }
-        }
 
         public clsNotitiesViewModel()
         {
             MijnService = new clsNotitiesDataService();
+            MijnPersoonService = new clsPersoonDataService();
             cmdNew = new clsCustomCommand(Execute_NewCommand, CanExecute_NewCommand);
             cmdDelete = new clsCustomCommand(Execute_DeleteCommand, CanExecute_DeleteCommand);
             cmdSave = new clsCustomCommand(Execute_SaveCommand, CanExecute_SaveCommand);
@@ -177,13 +138,17 @@ namespace HomeManager.ViewModel
             //MijnSelectedItem.MijnSelectedIndex = 0;
         }
 
-        private void OnNotitiesReceived(clsNotitiesModel model)
+        private void OnNotitiesReceived(clsNotitiesModel obj)
         {
-            mijnSelectedItem = model;
-
-            if (model.NotitieID == null)
+            if (obj != null)
             {
-                NewStatus = true;
+                MijnSelectedItem = obj;
+                MijnSelectedPersoonItem = MijnPersoonService.GetById(MijnSelectedItem.PersoonID);
+
+                if (obj.NotitieID == 0)
+                {
+                    NewStatus = true;
+                }
             }
         }
 
@@ -200,6 +165,7 @@ namespace HomeManager.ViewModel
                 PersoonID = 0,
                 Onderwerp = string.Empty,
                 Notitie = string.Empty,
+                //Datum = DateTime.Now
             };
             MijnSelectedItem = ItemToInsert;
             //MijnSelectedItem = ItemToInsert;

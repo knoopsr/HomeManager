@@ -110,9 +110,55 @@ namespace HomeManager.Model.Personen
                 OnPropertyChanged();
             }
         }
+
+        private string _gemeente;
+
+        public string Gemeente
+        {
+            get
+            {
+                return _gemeente;
+            }
+            set
+            {
+                if (_gemeente != value)
+                {
+                    if (_gemeente != null)
+                    {
+                        IsDirty = true;
+                    }
+                }
+                _gemeente = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private string _postCode;
+
+        public string PostCode
+        {
+            get
+            {
+                return _postCode;
+            }
+            set
+            {
+                if (_postCode != value)
+                {
+                    if (_postCode != null)
+                    {
+                        IsDirty = true;
+                    }
+                }
+                _postCode = value;
+                OnPropertyChanged();
+            }
+        }
+
+
         public override string ToString()
         {
-            return Straat + " (" + Nummer + ")";
+            return Straat + ", " + Nummer + " (" + Gemeente + "-" + PostCode + ")";
         }
 
         public string this[string columnName]

@@ -136,6 +136,8 @@ namespace HomeManager.DAL.Personen
                     FunctieID = (int)MijnDataReader["FunctieID"],
                     Straat = MijnDataReader["Straat"].ToString(),
                     Nummer = MijnDataReader["Nummer"].ToString(),
+                    Gemeente = MijnDataReader["Gemeente"].ToString(),
+                    PostCode = MijnDataReader["PostCode"].ToString(),
                     ControlField = MijnDataReader["ControlField"]
                 };
                 MijnCollectie.Add(x);

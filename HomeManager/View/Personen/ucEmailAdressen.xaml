@@ -7,8 +7,8 @@
     xmlns:local="clr-namespace:HomeManager.View"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:uc="clr-namespace:HomeManager.View"
-    d:DesignHeight="250"
-    d:DesignWidth="400"
+    d:DesignHeight="200"
+    d:DesignWidth="500"
     Background="{StaticResource myBackground}"
     mc:Ignorable="d">
     <Grid DataContext="{Binding Source={StaticResource VML}, Path=EmailAdressenViewModel}">
@@ -23,7 +23,12 @@
             BorderBrush="LightBlue"
             BorderThickness="2">
             <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="auto" />
+                </Grid.ColumnDefinitions>
                 <StackPanel
+                    Grid.Column="0"
                     Margin="10,0,0,0"
                     HorizontalAlignment="Left"
                     VerticalAlignment="Center"
@@ -35,14 +40,13 @@
                         Fill="White"
                         Stretch="Fill" />
                     <TextBlock
-                        Margin="10,0,0,0"
-                        VerticalAlignment="Center"
-                        FontSize="20"
-                        Foreground="White"
-                        Text="EmailAdressen" />
-
+                        Style="{StaticResource TitleBarText}"
+                        Text="Emailadressen" />
                 </StackPanel>
-                <uc:ucWerkBalk HorizontalAlignment="Right" VerticalAlignment="Top" />
+                <uc:ucWerkBalk
+                    Grid.Column="1"
+                    Margin="10,0,10,0"
+                    VerticalAlignment="Top" />
             </Grid>
         </Border>
         <Border
@@ -65,29 +69,16 @@
                     <RowDefinition Height="auto" />
                     <RowDefinition Height="auto" />
                     <RowDefinition Height="auto" />
-                    <RowDefinition Height="auto" />
-                    <RowDefinition Height="auto" />
-                    <RowDefinition Height="auto" />
-                    <RowDefinition Height="auto" />
-                    <RowDefinition Height="*" />
-                    <RowDefinition Height="50" />
+                    <RowDefinition Height="35" />
                 </Grid.RowDefinitions>
 
-                <!--<ListBox
-                    Name="UserListView"
-                    Grid.Row="2"
-                    Grid.RowSpan="7"
-                    Grid.Column="1"
-                    Width="250"
-                    ItemsSource="{Binding MijnCollectie}"
-                    SelectedItem="{Binding MijnSelectedItem, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />-->
                 <TextBlock
                     x:Name="tbNaam"
                     Grid.Row="0"
                     Grid.Column="3"
-                    Text="{Binding MijnSelectedItem.PersoonID, Mode=OneWay}" />
-                
-                
+                    Text="{Binding MijnSelectedPersoonItem, Mode=OneWay}" />
+
+
                 <TextBlock
                     x:Name="EmailAdres"
                     Grid.Row="2"
@@ -104,14 +95,14 @@
 
                 <TextBlock
                     x:Name="EmailType"
-                    Grid.Row="4"
+                    Grid.Row="3"
                     Grid.Column="2"
                     Margin="5"
                     Text="EmailType"
                     TextAlignment="Right" />
                 <ComboBox
                     x:Name="cboEmailAdressen"
-                    Grid.Row="4"
+                    Grid.Row="3"
                     Grid.Column="3"
                     Margin="5"
                     DataContext="{Binding Source={StaticResource VML}, Path=EmailTypeViewModel}"

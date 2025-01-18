@@ -31,5 +31,10 @@ namespace HomeManager.View
         {
             
         }
+
+        private void EmailAdressenListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
     }
 }

@@ -18,6 +18,8 @@ namespace HomeManager.ViewModel
     public class clsAdressenViewModel : clsCommonModelPropertiesBase
     {
         clsAdressenDataService MijnService;
+        clsPersoonDataService MijnPersoonService;
+
         private bool NewStatus = false;
 
         public ICommand cmdDelete { get; set; }
@@ -70,8 +72,8 @@ namespace HomeManager.ViewModel
             }
         }
 
-        private clsPersonenViewModel _mijnSelectedPersoonItem;
-        public clsPersonenViewModel MijnSelectedPersoonItem
+        private clsPersoonModel _mijnSelectedPersoonItem;
+        public clsPersoonModel MijnSelectedPersoonItem
         {
             get
             {
@@ -79,20 +81,6 @@ namespace HomeManager.ViewModel
             }
             set
             {
-                if (value != null)
-                {
-                    if (_mijnSelectedPersoonItem != null && _mijnSelectedPersoonItem.IsDirty)
-                    {
-                        if (MessageBox.Show("Wil je " + _mijnSelectedPersoonItem + "Opslaan?", "Opslaan",
-                            MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
-                        {
-                            _mijnSelectedPersoonItem.IsDirty = false;
-                            _mijnSelectedPersoonItem.MijnSelectedIndex = 0;
-                            OpslaanCommando();
-                            LoadData();
-                        }
-                    }
-                }
                 _mijnSelectedPersoonItem = value;
                 OnPropertyChanged();
             }
@@ -134,37 +122,12 @@ namespace HomeManager.ViewModel
             }
         }
 
-        private bool _IsFocused = false;
-        public bool IsFocused
-        {
-            get
-            {
-                return _IsFocused;
-            }
-            set
-            {
-                _IsFocused = value;
-                OnPropertyChanged();
-            }
-        }
-
-        private bool _IsFocusedAfterNew = false;
-        public bool IsFocusedAfterNew
-        {
-            get
-            {
-                return _IsFocusedAfterNew;
-            }
-            set
-            {
-                _IsFocusedAfterNew = value;
-                OnPropertyChanged();
-            }
-        }
 
         public clsAdressenViewModel()
         {
             MijnService = new clsAdressenDataService();
+            MijnPersoonService = new clsPersoonDataService();
+
             cmdNew = new clsCustomCommand(Execute_NewCommand, CanExecute_NewCommand);
             cmdDelete = new clsCustomCommand(Execute_DeleteCommand, CanExecute_DeleteCommand);
             cmdSave = new clsCustomCommand(Execute_SaveCommand, CanExecute_SaveCommand);
@@ -174,25 +137,20 @@ namespace HomeManager.ViewModel
 
             LoadData();
             MijnSelectedItem = MijnService.GetFirst();
-            //MijnSelectedItem.MijnSelectedIndex = 0;
         }
 
 
         private void OnAdressenReceived(clsAdressenModel obj)
         {
-            //mijnSelectedItem = obj;
-
-            //if (obj.AdresID == 0)
-            //{
-            //    NewStatus = true;
-            //}
-
-            mijnSelectedItem = obj;
-
-            if (mijnSelectedItem != null && mijnSelectedItem.AdresID == 0)
+            if (obj != null)
             {
-                NewStatus = true;
-                mijnSelectedItem.MyVisibility = (int)Visibility.Hidden;
+                MijnSelectedItem = obj;
+                MijnSelectedPersoonItem = MijnPersoonService.GetById(MijnSelectedItem.PersoonID);
+
+                if (obj.AdresID == 0)
+                {
+                    NewStatus = true;
+                }
             }
         }
         
@@ -214,7 +172,6 @@ namespace HomeManager.ViewModel
                 Nummer = string.Empty,
             };
             MijnSelectedItem = ItemToInsert;
-            //MijnSelectedItem = ItemToInsert;
 
             MijnSelectedItem.MyVisibility = (int)Visibility.Hidden;
             NewStatus = true;
@@ -278,7 +235,6 @@ namespace HomeManager.ViewModel
                 clsHomeVM vm = (clsHomeVM)HomeWindow.DataContext;
                 vm.CurrentViewModel = null;
             }
-
             clsMessenger.Default.Send<clsUpdateListMessages>(new clsUpdateListMessages());
         }
 

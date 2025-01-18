@@ -126,6 +126,7 @@ namespace HomeManager.DAL.Personen
                     PersoonID = (int)MijnDataReader["PersoonID"],
                     TelefoonTypeID = (int)MijnDataReader["TelefoonTypeID"],
                     TelefoonNummer = MijnDataReader["TelefoonNummer"].ToString(),
+                    TelefoonType = MijnDataReader["TelefoonType"].ToString(),
                     ControlField = MijnDataReader["ControlField"]
                 };
                 MijnCollectie.Add(t);

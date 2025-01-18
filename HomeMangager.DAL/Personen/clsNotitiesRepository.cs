@@ -82,6 +82,7 @@ namespace HomeManager.DAL.Personen
                     PersoonID = (int)MijnDataReader["PersoonID"],
                     Onderwerp = MijnDataReader["Onderwerp"].ToString(),
                     Notitie = MijnDataReader["Notitie"].ToString(),
+                    CreatedOn = (DateTime)MijnDataReader["CreatedOn"],
                     ControlField = MijnDataReader["ControlField"]
                 };
                 MijnCollectie.Add(n);
@@ -111,6 +112,11 @@ namespace HomeManager.DAL.Personen
             if (!OK)
             {
                 entity.ErrorBoodschap = Boodschap;
+                Console.WriteLine($"Insert failed: {Boodschap}"); // Log de fout
+            }
+            else
+            {
+                Console.WriteLine("Insert successful");
             }
             return OK;
         }
@@ -129,6 +135,11 @@ namespace HomeManager.DAL.Personen
             if (!OK)
             {
                 entity.ErrorBoodschap = Boodschap;
+                Console.WriteLine($"Update failed: {Boodschap}"); // Log de fout
+            }
+            else
+            {
+                Console.WriteLine("Update successful");
             }
             return OK;
         }

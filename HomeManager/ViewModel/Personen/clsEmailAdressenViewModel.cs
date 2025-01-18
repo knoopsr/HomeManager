@@ -1,22 +1,18 @@
-﻿using HomeManager.Helpers;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Input;
-using System.Windows;
-using HomeManager.Common;
+﻿using HomeManager.Common;
 using HomeManager.DataService.Personen;
-using HomeManager.Model.Personen;
+using HomeManager.Helpers;
 using HomeManager.Messages;
+using HomeManager.Model.Personen;
+using System.Collections.ObjectModel;
+using System.Windows;
+using System.Windows.Input;
 
 namespace HomeManager.ViewModel
 {
     public class clsEmailAdressenViewModel : clsCommonModelPropertiesBase
     {
         clsEmailAdressenDataService MijnService;
+        clsPersoonDataService MijnPersoonService;
         private bool NewStatus = false;
 
         public ICommand cmdDelete { get; set; }
@@ -70,8 +66,8 @@ namespace HomeManager.ViewModel
         }
 
 
-        private clsPersonenViewModel _mijnSelectedPersoonItem;
-        public clsPersonenViewModel MijnSelectedPersoonItem
+        private clsPersoonModel _mijnSelectedPersoonItem;
+        public clsPersoonModel MijnSelectedPersoonItem
         {
             get
             {
@@ -79,20 +75,6 @@ namespace HomeManager.ViewModel
             }
             set
             {
-                if (value != null)
-                {
-                    if (_mijnSelectedPersoonItem != null && _mijnSelectedPersoonItem.IsDirty)
-                    {
-                        if (MessageBox.Show("Wil je " + _mijnSelectedPersoonItem + "Opslaan?", "Opslaan",
-                            MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
-                        {
-                            _mijnSelectedPersoonItem.IsDirty = false;
-                            _mijnSelectedPersoonItem.MijnSelectedIndex = 0;
-                            OpslaanCommando();
-                            LoadData();
-                        }
-                    }
-                }
                 _mijnSelectedPersoonItem = value;
                 OnPropertyChanged();
             }
@@ -134,37 +116,12 @@ namespace HomeManager.ViewModel
             }
         }
 
-        private bool _IsFocused = false;
-        public bool IsFocused
-        {
-            get
-            {
-                return _IsFocused;
-            }
-            set
-            {
-                _IsFocused = value;
-                OnPropertyChanged();
-            }
-        }
-
-        private bool _IsFocusedAfterNew = false;
-        public bool IsFocusedAfterNew
-        {
-            get
-            {
-                return _IsFocusedAfterNew;
-            }
-            set
-            {
-                _IsFocusedAfterNew = value;
-                OnPropertyChanged();
-            }
-        }
 
         public clsEmailAdressenViewModel()
         {
             MijnService = new clsEmailAdressenDataService();
+            MijnPersoonService = new clsPersoonDataService();
+
             cmdNew = new clsCustomCommand(Execute_NewCommand, CanExecute_NewCommand);
             cmdDelete = new clsCustomCommand(Execute_DeleteCommand, CanExecute_DeleteCommand);
             cmdSave = new clsCustomCommand(Execute_SaveCommand, CanExecute_SaveCommand);
@@ -179,11 +136,15 @@ namespace HomeManager.ViewModel
 
         private void OnEmailAdressenReceived(clsEmailAdressenModel obj)
         {
-            mijnSelectedItem = obj;
-
-            if (obj.EmailAdresID == 0)
+            if (obj != null)
             {
-                NewStatus = true;
+                MijnSelectedItem = obj;
+                MijnSelectedPersoonItem = MijnPersoonService.GetById(MijnSelectedItem.PersoonID);
+
+                if (obj.EmailAdresID == 0)
+                {
+                    NewStatus = true;
+                }
             }
         }
 
@@ -198,11 +159,10 @@ namespace HomeManager.ViewModel
             {
                 EmailAdresID = 0,
                 Emailadres = string.Empty,
-                PersoonID = 0,
+                PersoonID = MijnSelectedPersoonItem.PersoonID,
                 EmailTypeID = 0,
             };
             MijnSelectedItem = ItemToInsert;
-            //MijnSelectedItem = ItemToInsert;
 
             MijnSelectedItem.MyVisibility = (int)Visibility.Hidden;
             NewStatus = true;

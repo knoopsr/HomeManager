@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -74,9 +75,31 @@ namespace HomeManager.Model.Personen
             }
         }
 
+        private string _telefoonType;
+
+        public string TelefoonType
+        {
+            get
+            {
+                return _telefoonType;
+            }
+            set
+            {
+                if (_telefoonType != value)
+                {
+                    if (_telefoonType != null)
+                    {
+                        IsDirty = true;
+                    }
+                }
+                _telefoonType = value;
+                OnPropertyChanged();
+            }
+        }
+
         public override string ToString()
         {
-            return TelefoonNummer;
+            return TelefoonNummer + " (" + TelefoonType + ")" ;
         }
 
         public string this[string columnName]

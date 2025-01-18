@@ -36,11 +36,8 @@
                         Fill="White"
                         Stretch="Fill" />
                     <TextBlock
-                        Margin="10,0,0,0"
-                        VerticalAlignment="Center"
-                        FontSize="20"
-                        Foreground="White"
-                        Text="Gemeenten" />
+                        Style="{StaticResource TitleBarText}"
+                        Text="Gemeente" />
 
                 </StackPanel>
                 <uc:ucWerkBalk HorizontalAlignment="Right" VerticalAlignment="Top" />

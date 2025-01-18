@@ -96,7 +96,7 @@ namespace HomeManager.Model.Personen
                         }
                         else if (_emailadres.Length > 100)
                         {
-                            error = "Your text is to long!!!";
+                            error = "Emailadres mag niet langer zijn dan 100 tekens.";
                             if (!ErrorList.Contains("Emailadres"))
                             {
                                 ErrorList.Add("Emailadres");
@@ -120,9 +120,27 @@ namespace HomeManager.Model.Personen
                             }
                         }
                         return error;
-                    default:
-                        error = null;
+
+                    case "EmailTypeID":
+                        if (_emailTypeID <= 0)
+                        {
+                            error = "Selecteer een geldig e-mailtype.";
+                            if (!ErrorList.Contains("EmailTypeID"))
+                            {
+                                ErrorList.Add("EmailTypeID");
+                            }
+                        }
+                        else
+                        {
+                            if (ErrorList.Contains("EmailTypeID"))
+                            {
+                                ErrorList.Remove("EmailTypeID");
+                            }
+                        }
                         return error;
+
+                    default:
+                        return null;
                 }
             }
         }

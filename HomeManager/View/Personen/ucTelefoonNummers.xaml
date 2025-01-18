@@ -25,11 +25,16 @@
             BorderBrush="LightBlue"
             BorderThickness="2">
             <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="auto" />
+                </Grid.ColumnDefinitions>
                 <StackPanel
                     Margin="10,0,0,0"
                     HorizontalAlignment="Left"
                     VerticalAlignment="Center"
-                    Orientation="Horizontal">
+                    Orientation="Horizontal"
+                    Grid.Column="0">
                     <Path
                         Width="20"
                         Height="20"
@@ -37,14 +42,13 @@
                         Fill="White"
                         Stretch="Fill" />
                     <TextBlock
-                        Margin="10,0,0,0"
-                        VerticalAlignment="Center"
-                        FontSize="20"
-                        Foreground="White"
-                        Text="Telefoonnummers" />
-
+                        Style="{StaticResource TitleBarText}"
+                        Text="Telefoonnummer" />
                 </StackPanel>
-                <uc:ucWerkBalk HorizontalAlignment="Right" VerticalAlignment="Top" />
+                <uc:ucWerkBalk 
+                    Grid.Column="1" 
+                    Margin="10,0,10,0" 
+                    VerticalAlignment="Top" />
             </Grid>
         </Border>
 
@@ -67,11 +71,6 @@
                     <RowDefinition Height="35" />
                     <RowDefinition Height="auto" />
                     <RowDefinition Height="auto" />
-                    <RowDefinition Height="auto" />
-                    <RowDefinition Height="auto" />
-                    <RowDefinition Height="auto" />
-                    <RowDefinition Height="auto" />
-                    <RowDefinition Height="auto" />
                     <RowDefinition Height="*" />
                     <RowDefinition Height="50" />
                 </Grid.RowDefinitions>
@@ -89,7 +88,7 @@
                     x:Name="tbNaam"
                     Grid.Row="0"
                     Grid.Column="3"
-                    Text="{Binding MijnSelectedItem.PersoonID, Mode=OneWay}" />
+                    Text="{Binding MijnSelectedPersoonItem, Mode=OneWay}" />
 
                 <TextBlock
                     x:Name="Telefoonnummer"

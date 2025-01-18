@@ -82,10 +82,28 @@ namespace HomeManager.Model.Personen
             }
         }
 
+
+        private DateTime _createdOn;
+        public DateTime CreatedOn
+        {
+            get { return _createdOn; }
+            set
+            {
+                if (_createdOn != value)
+                {
+                    _createdOn = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+
         public override string ToString()
         {
-            return Onderwerp + ", " + Notitie;
+            return CreatedOn.ToShortDateString() + " " + Onderwerp;
         }
+        //{Datum:dd-MM-yyyy}
+
         public string this[string columnName]
         {
             get
@@ -102,7 +120,7 @@ namespace HomeManager.Model.Personen
                                 ErrorList.Add(nameof(Onderwerp));
                             }
                         }
-                        else if (_onderwerp.Length > 150)
+                        else if (_onderwerp.Length > 50)
                         {
                             error = "Onderwerp mag niet langer zijn dan 50 tekens.";
                             if (!ErrorList.Contains(nameof(Onderwerp)))
@@ -116,28 +134,28 @@ namespace HomeManager.Model.Personen
                         }
                         return error;
 
-                    //case nameof(Notitie):
-                    //    if (string.IsNullOrWhiteSpace(_notitie))
-                    //    {
-                    //        error = "Notitie is een verplicht veld.";
-                    //        if (!ErrorList.Contains(nameof(Notitie)))
-                    //        {
-                    //            ErrorList.Add(nameof(Notitie));
-                    //        }
-                    //    }
-                    //    else if (_notitie.Length > 10000000000000000)
-                    //    {
-                    //        error = "Notitie mag niet langer zijn dan 5 tekens.";
-                    //        if (!ErrorList.Contains(nameof(Notitie)))
-                    //        {
-                    //            ErrorList.Add(nameof(Notitie));
-                    //        }
-                    //    }
-                    //    else
-                    //    {
-                    //        ErrorList.Remove(nameof(Notitie));
-                    //    }
-                    //    return error;
+                    case nameof(Notitie):
+                        if (string.IsNullOrWhiteSpace(_notitie))
+                        {
+                            error = "Notitie is een verplicht veld.";
+                            if (!ErrorList.Contains(nameof(Notitie)))
+                            {
+                                ErrorList.Add(nameof(Notitie));
+                            }
+                        }
+                        else if (_notitie.Length > 100000)
+                        {
+                            error = "Notitie mag niet langer zijn dan 5 tekens.";
+                            if (!ErrorList.Contains(nameof(Notitie)))
+                            {
+                                ErrorList.Add(nameof(Notitie));
+                            }
+                        }
+                        else
+                        {
+                            ErrorList.Remove(nameof(Notitie));
+                        }
+                        return error;
 
                     default:
                         return null;

@@ -35,11 +35,8 @@
                         Fill="White"
                         Stretch="Fill" />
                     <TextBlock
-                        Margin="10,0,0,0"
-                        VerticalAlignment="Center"
-                        FontSize="20"
-                        Foreground="White"
-                        Text="Functies" />
+                        Style="{StaticResource TitleBarText}"
+                        Text="Functie" />
 
                 </StackPanel>
                 <uc:ucWerkBalk HorizontalAlignment="Right" VerticalAlignment="Top" />

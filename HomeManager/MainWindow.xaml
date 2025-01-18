@@ -210,11 +210,11 @@
                                 CommandParameter="clsTelefoonNummersViewModel"
                                 Content="Telefoonnummers"
                                 Style="{StaticResource myExpanderPerson}" />-->
-                            <Button
+                            <!--<Button
                                 Command="{Binding NavCommand}"
                                 CommandParameter="clsNotitiesViewModel"
                                 Content="Notities"
-                                Style="{StaticResource myExpanderPerson}" />
+                                Style="{StaticResource myExpanderPerson}" />-->
                         </StackPanel>
                     </Expander>
 

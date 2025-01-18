@@ -145,17 +145,16 @@ namespace HomeManager.ViewModel
             cmdCancel = new clsCustomCommand(Execute_Cancel_Command, CanExecute_Cancel_Command);
             cmdClose = new clsCustomCommand(Execute_Close_Command, CanExecute_Close_Command);
             cmdUploadPicture = new clsCustomCommand(Execute_UploadPicture_Command, CanExecute_UploadPicture_Command);
-            clsMessenger.Default.Register<clsNewPersoonMessage>(this, OnNewPersonenReceive);
+            //clsMessenger.Default.Register<clsNewPersoonMessage>(this, OnNewPersonenReceive);
             clsMessenger.Default.Register<clsPersoonModel>(this, OnPersoonReceived);
 
             LoadData();
-
             MijnSelectedItem = MijnService.GetFirst();
         }
 
         private void OnPersoonReceived(clsPersoonModel obj)
         {
-            _mijnSelectedItem = obj;
+            MijnSelectedItem = obj;
 
             if (obj.PersoonID == 0)
             {
@@ -163,11 +162,11 @@ namespace HomeManager.ViewModel
             }
         }
 
-        private void OnNewPersonenReceive(clsNewPersoonMessage message)
-        {
-            CreateNewStatus();
-            clsMessenger.Default.Unregister(this);
-        }
+        //private void OnNewPersonenReceive(clsNewPersoonMessage message)
+        //{
+        //    CreateNewStatus();
+        //    clsMessenger.Default.Unregister(this);
+        //}
 
         private void Execute_UploadPicture_Command(object? obj)
         {

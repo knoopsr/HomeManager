@@ -37,10 +37,7 @@
                         Fill="White"
                         Stretch="Fill" />
                     <TextBlock
-                        Margin="10,0,0,0"
-                        VerticalAlignment="Center"
-                        FontSize="20"
-                        Foreground="White"
+                        Style="{StaticResource TitleBarText}"
                         Text="Notities" />
 
                 </StackPanel>
@@ -57,29 +54,26 @@
             CornerRadius="5">
             <Grid>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="100" />
+                    <!-- Linkerkolom -->
                     <ColumnDefinition Width="250" />
-                    <ColumnDefinition Width="auto" />
-                    <ColumnDefinition Width="*" />
+                    <!-- Kolom voor txtOnderwerp en tbNotities -->
+                    <ColumnDefinition Width="100" />
+                    <!-- Vaste marge aan de rechterkant -->
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="35" />
                     <RowDefinition Height="auto" />
                     <RowDefinition Height="auto" />
-                    <RowDefinition Height="auto" />
-                    <RowDefinition Height="auto" />
-                    <RowDefinition Height="auto" />
-                    <RowDefinition Height="auto" />
-                    <RowDefinition Height="auto" />
                     <RowDefinition Height="*" />
-                    <RowDefinition Height="50" />
+                    <RowDefinition Height="20" />
                 </Grid.RowDefinitions>
 
                 <TextBlock
                     x:Name="tbNaam"
                     Grid.Row="0"
                     Grid.Column="1"
-                    Text="{Binding MijnSelectedItem.PersoonID, Mode=OneWay}" />
+                    Text="{Binding MijnSelectedPersoonItem, Mode=OneWay}" />
 
                 <TextBlock
                     x:Name="tbOnderwerp"
@@ -97,31 +91,19 @@
                     TextWrapping="Wrap" />
 
                 <TextBlock
-                    x:Name="TelefoonType"
+                    x:Name="Notitie"
                     Grid.Row="3"
                     Grid.Column="0"
                     Margin="5"
-                    Text="TelefoonType"
+                    Text="Notities"
                     TextAlignment="Right" />
                 <TextBox
                     x:Name="tbNotities"
                     Grid.Row="3"
                     Grid.Column="1"
-                    Width="250"
-                    Height="200"
+                    Height="250"
                     Margin="5"
-                    Text="{Binding MijnSelectedItem.Notitie, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnValidationError=true, ValidatesOnExceptions=True}"
-                    TextWrapping="Wrap" />
-                <!--<ComboBox
-                    x:Name="cboPersoon"
-                    Grid.Row="4"
-                    Grid.Column="1"
-                    Margin="5"
-                    DataContext="{Binding Source={StaticResource VML}, Path=PersonenViewModel}"
-                    DisplayMemberPath="PersoonDisplayName"
-                    ItemsSource="{Binding MijnCollectie}"
-                    SelectedValue="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Grid}}, Path=DataContext.MijnSelectedItem.PersoonID, Mode=TwoWay}"
-                    SelectedValuePath="PersoonID" />-->
+                    Text="{Binding MijnSelectedItem.Notitie, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnValidationError=true, ValidatesOnExceptions=True}" />
             </Grid>
         </Border>
     </Grid>
