@@ -6,6 +6,7 @@ using HomeManager.View;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -24,6 +25,28 @@ namespace HomeManager.ViewModel
         public ICommand cmdCancel { get; set; }
         public ICommand cmdClose { get; set; }
         public ICommand cmdSave { get; set; }
+        public ICommand OpenCollectiesCommand { get; }
+
+        private void OpenCollecties(object parameter)
+        {
+            // Logic to open ucCollecties.xaml
+            var collectiesWindow = new Window
+            {
+                Content = new ucCollecties(),
+                Title = "Collecties",
+                Width = 800,
+                Height = 450
+            };
+            collectiesWindow.ShowDialog();
+        }
+
+        // Implement INotifyPropertyChanged interface
+        public event PropertyChangedEventHandler PropertyChanged;
+        protected void OnPropertyChanged(string propertyName)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
 
         private ObservableCollection<clsTodoPopupM> _MijnCollectie;
         public ObservableCollection<clsTodoPopupM> MijnCollectie
@@ -132,6 +155,7 @@ namespace HomeManager.ViewModel
             cmdClose = new clsCustomCommand(Execute_CloseCommand, CanExecute_CloseCommand);
 
             clsMessenger.Default.Register<clsTodoPopupM>(this, OnCollectiesReceived);
+            OpenCollectiesCommand = new clsRelayCommand<object>(OpenCollecties);
 
             LoadData();
             MijnSelectedItem = MijnService.GetFirst();

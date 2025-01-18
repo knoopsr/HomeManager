@@ -68,54 +68,5 @@
             Grid.Column="2"
             BorderBrush="Gray"
             BorderThickness="1" />
-        <!--  Popup elements  -->
-        <Popup
-            Name="TodoPopup"
-            Width="700"
-            Height="500"
-            IsOpen="{Binding IsTodoPopupOpen}"
-            Placement="Center"
-            StaysOpen="False">
-            <Border
-                Width="700"
-                Height="500"
-                Background="White"
-                BorderBrush="Black"
-                BorderThickness="1">
-                <local:ucTodoPopup />
-            </Border>
-        </Popup>
-        <Popup
-            Name="TodoCollecties"
-            Width="700"
-            Height="500"
-            IsOpen="{Binding IsTodoCollectiesOpen}"
-            Placement="Center"
-            StaysOpen="False">
-            <Border
-                Width="700"
-                Height="500"
-                Background="White"
-                BorderBrush="Black"
-                BorderThickness="1">
-                <local:ucCollecties />
-            </Border>
-        </Popup>
-        <Popup
-            Name="TodoDetails"
-            Width="700"
-            Height="500"
-            IsOpen="{Binding IsTodoDetailsOpen}"
-            Placement="Center"
-            StaysOpen="False">
-            <Border
-                Width="700"
-                Height="500"
-                Background="White"
-                BorderBrush="Black"
-                BorderThickness="1">
-                <local:ucTodoDetails />
-            </Border>
-        </Popup>
     </Grid>
 </UserControl>

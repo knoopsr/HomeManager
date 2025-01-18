@@ -175,7 +175,9 @@
                         ItemsSource="{Binding MijnCollectie}"
                         SelectedValue="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Grid}}, Path=DataContext.MijnSelectedItem.TodoCollectieID, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
                         SelectedValuePath="ToDoCollectieID" />
-                    <Button Style="{StaticResource OpenUCButton}" />
+                    <Button
+                        Style="{StaticResource OpenUCButton}"
+                        Command="{Binding OpenCollectiesCommand}" />
 
                 </StackPanel>
 
