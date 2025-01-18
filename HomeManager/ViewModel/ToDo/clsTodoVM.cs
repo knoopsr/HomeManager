@@ -138,16 +138,5 @@ namespace HomeManager.ViewModel
             todoDetailsWindow.ShowDialog();
 
         }
-
-        //private bool _isTodoDetailsOpen;
-        //public bool IsTodoDetailsOpen
-        //{
-        //    get { return _isTodoDetailsOpen; }
-        //    set
-        //    {
-        //        _isTodoDetailsOpen = value;
-        //        OnPropertyChanged();
-        //    }
-        //}
     }
 }
