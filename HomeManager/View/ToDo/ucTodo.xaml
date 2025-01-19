@@ -59,10 +59,21 @@
             SelectedItem="{Binding SelectedCollectie, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 
         <ListBox
+            Name="ToDoItemOpvulling"
             Grid.Row="1"
             Grid.Column="1"
+            HorizontalAlignment="Stretch"
+            VerticalAlignment="Stretch"
             BorderBrush="Gray"
-            BorderThickness="1" />
+            BorderThickness="1"
+            ItemsSource="{Binding Items}">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <local:ucTodoItem/>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+        
         <ListBox
             Grid.Row="1"
             Grid.Column="2"

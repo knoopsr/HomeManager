@@ -7,6 +7,7 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;
+using static HomeManager.Model.Todo.clsKleurenM;
 
 namespace HomeManager.ViewModel;
 
@@ -251,13 +252,13 @@ public class clsKleurenVM : clsCommonModelPropertiesBase
         _MijnSelectedItem = obj;
     }
 
-    private ColorItem _selectedColor;
+    private clsKleurenM _selectedColor;
 
     // ObservableCollection voor databinding met de ComboBox
-    public ObservableCollection<ColorItem> Colors { get; set; }
+    public ObservableCollection<clsKleurenM> Colors { get; set; }
 
     // Geselecteerde kleur
-    public ColorItem SelectedColor
+    public clsKleurenM SelectedColor
     {
         get => _selectedColor;
         set
@@ -273,12 +274,17 @@ public class clsKleurenVM : clsCommonModelPropertiesBase
 
     private void LoadColors()
     {
-        Colors = new ObservableCollection<ColorItem>(
+        Colors = new ObservableCollection<clsKleurenM>(
             typeof(Colors).GetProperties()
-                          .Select(c => new ColorItem
+                          .Select(c => new clsKleurenM
                           {
                               Name = c.Name,
-                              Color = (Color)c.GetValue(null)
+                              Color = System.Drawing.Color.FromArgb(
+                                  ((Color)c.GetValue(null)).A,
+                                  ((Color)c.GetValue(null)).R,
+                                  ((Color)c.GetValue(null)).G,
+                                  ((Color)c.GetValue(null)).B)
                           }));
     }
+
 }

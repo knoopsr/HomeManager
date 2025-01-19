@@ -68,35 +68,10 @@ namespace HomeManager.ViewModel
             }
         }
 
-        //private bool _isTodoPopupOpen;
-        //public bool IsTodoPopupOpen
-        //{
-        //    get { return _isTodoPopupOpen; }
-        //    set
-        //    {
-        //        _isTodoPopupOpen = value;
-        //        OnPropertyChanged();
-        //    }
-        //}
-
-        //private bool _isTodoCollectiesOpen;
-        //public bool IsTodoCollectiesOpen
-        //{
-        //    get { return _isTodoCollectiesOpen; }
-        //    set
-        //    {
-        //        _isTodoCollectiesOpen = value;
-        //        OnPropertyChanged();
-        //    }
-        //}
-
         public ICommand OpenTodoPopupCommand { get; }
 
         private void OpenTodoPopup()
         {
-            //IsTodoPopupOpen = true;
-
-            // Logic to open ucTodoPopup.xaml
             var todoPopupWindow = new Window
             {
                 Content = new ucTodoPopup(),
@@ -110,9 +85,6 @@ namespace HomeManager.ViewModel
         public ICommand OpenTodoCollectiesCommand { get; }
         private void OpenTodoCollecties()
         {
-            //IsTodoCollectiesOpen = true;
-
-            // Logic to open ucCollecties.xaml
             var collectiesWindow = new Window
             {
                 Content = new ucCollecties(),
@@ -126,8 +98,6 @@ namespace HomeManager.ViewModel
         public ICommand OpenTodoDetailsCommand { get; }
         private void OpenTodoDetails()
         {
-            //IsTodoDetailsOpen = true;
-
             var todoDetailsWindow = new Window
             {
                 Content = new ucTodoDetails(),
@@ -136,7 +106,6 @@ namespace HomeManager.ViewModel
                 Height = 450
             };
             todoDetailsWindow.ShowDialog();
-
         }
     }
 }

@@ -20,7 +20,7 @@ namespace HomeManager.DAL.Todo.Popup
         {
             (DataTable DT, bool OK, string Boodschap) = clsDAL.ExecuteDataTable(Properties.Resources.D_ToDoPopup,
                 clsDAL.Parameter("TodoID", entity.TodoID),
-                //TODO: enkel todoID meegeven 
+                
                 //clsDAL.Parameter("Onderwerp", entity.Onderwerp),
                 //clsDAL.Parameter("Detail", entity.Detail),
                 //clsDAL.Parameter("GebruikerID", entity.GebruikerID),

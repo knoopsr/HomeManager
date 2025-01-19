@@ -99,7 +99,6 @@ namespace HomeManager.ViewModel
         //        OnPropertyChanged();
         //    }
         //}
-        //TODO: fix this -> saving in the UI resulting in an error
         private void OpslaanCommando()
         {
             if (MijnSelectedItem != null)

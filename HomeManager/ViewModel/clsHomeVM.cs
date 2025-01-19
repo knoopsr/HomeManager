@@ -43,7 +43,7 @@ namespace HomeManager.ViewModel
                 {
                     Type t = Type.GetType(match.ToString(), true);
 
-                    // Check if the type is clsTodoVM and create an instance with the required parameter
+                    // TODO: check what to do with clsTodoVM
                     if (t == typeof(clsTodoVM))
                     {
                         var collectiesVM = new clsCollectiesVM(); // You need to provide the appropriate instance here

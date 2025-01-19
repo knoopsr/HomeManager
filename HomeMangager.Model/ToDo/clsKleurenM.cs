@@ -1,5 +1,6 @@
 using HomeManager.Common;
 using System.ComponentModel;
+using System.Drawing;
 
 namespace HomeManager.Model.Todo;
 
@@ -44,6 +45,12 @@ public class clsKleurenM : clsCommonModelPropertiesBase, IDataErrorInfo
     {
         return ToDoColor;
     }
+
+    
+    public string Name { get; set; }
+    public Color Color { get; set; }
+    
+
     public string this[string columnName]
     {
         get
