@@ -129,6 +129,7 @@ namespace HomeManager.DAL.Personen
                 GenerateCollection();
             }
             return new ObservableCollection<clsPersoonModel>(MijnCollectie.Where(persoon => persoon.PersoonID == id));
+        }
 
         public ObservableCollection<clsPersoonModel> GetAllApplicationUser()
         { 

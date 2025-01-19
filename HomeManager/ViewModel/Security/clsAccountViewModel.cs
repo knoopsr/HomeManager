@@ -1,19 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Input;
-using System.Windows;
-using HomeManager.Common;
-using HomeManager.DataService.Security;
+﻿using HomeManager.Common;
 using HomeManager.DataService.Personen;
+using HomeManager.DataService.Security;
+using HomeManager.MailService;
 using HomeManager.Helpers;
-using HomeManager.Model.Security;
-using HomeManager.Model.Personen;
-using System.Security.Cryptography;
 using HomeManager.Mail;
+using HomeManager.Model.Personen;
+using HomeManager.Model.Security;
+using System.Collections.ObjectModel;
+using System.Security.Cryptography;
+using System.Windows;
+using System.Windows.Input;
 
 namespace HomeManager.ViewModel
 {
@@ -75,6 +71,17 @@ namespace HomeManager.ViewModel
             }
         }
 
+        private clsPersoonModel _mijnSelectedPersoonItem;
+        public clsPersoonModel MijnSelectedPersoonItem
+        {
+            get { return _mijnSelectedPersoonItem; }
+            set
+            {
+                _mijnSelectedPersoonItem = value;
+                OnPropertyChanged();
+            }
+        }
+
 
         private void LoadData()
         {
@@ -83,7 +90,7 @@ namespace HomeManager.ViewModel
 
 
         private async void OpslaanCommando()
-        {     
+        {
 
             if (_mijnSelectedItem != null)
             {
@@ -95,36 +102,20 @@ namespace HomeManager.ViewModel
                         MijnSelectedItem.MijnSelectedIndex = 0;
                         MijnSelectedItem.MyVisibility = (int)Visibility.Visible;
                         NewStatus = false;
+
+
+                        int id = _mijnSelectedPersoonItem.PersoonID;
+                        clsMailService mailService = new clsMailService();
+
+                        List<string> verzondenEmails = await mailService.SendNewPassToPerson(                    
+                            _mijnSelectedItem, 
+                            _mijnSelectedPersoonItem
+
+                        );
+
+                        MessageBox.Show("E-mail succesvol verzonden naar:\n" + string.Join(Environment.NewLine, verzondenEmails));
+
                         LoadData();
-                  
-                        //ObservableCollection<clsEmailAdressenModel> emailAdressen = new ObservableCollection<clsEmailAdressenModel>();
-                        //clsEmailAdressenDataService emailAdressenService = new clsEmailAdressenDataService();
-
-                        //emailAdressen = emailAdressenService.GetById(_mijnSelectedItem.PersoonID);
-
-                        //string[] emailAdressenArray = new string[emailAdressen.Count];
-                        //foreach (var email in emailAdressen)
-                        //{
-
-                        //    clsMailModel mailModel = new clsMailModel
-                        //    {
-                        //        MailToName = "HomeManager Admin",
-                        //        MailFromEmail = "admin@HomeManager.be",
-                        //        MailToEmail = "johndoe@example.com",
-                        //        Subject = "Backup Gemaakt",
-                        //        Body = "U kan het volgende wachtwoord gebruiken om in te loggen" + Environment.NewLine + "Wachtwoord: " + _mijnSelectedItem.Wachtwoord
-                        //    };
-
-                        //    bool emailVerzonden = await clsMail.SendEmail(mailModel);
-
-                        //    if (emailVerzonden)
-                        //    {
-                        //        emailAdressenArray.Append(email.Emailadres);
-                        //    }
-                        //};
-
-                        //MessageBox.Show("E-mail succesvol verzonden naar " + emailAdressenArray);
-
                     }
                     else
                     {
@@ -162,7 +153,7 @@ namespace HomeManager.ViewModel
             LoadData();
 
             MijnSelectedItem = MijnService.GetFirst();
-            //MijnPersoonCollectie = MijnPersoonService.GetAllApplicationUser();
+            MijnPersoonCollectie = MijnPersoonService.GetAllApplicationUser();
         }
 
         private async void Execute_Save_Command(object? obj)
@@ -222,22 +213,7 @@ namespace HomeManager.ViewModel
                 return false;
             }
         }
-        private string GenereerWachtwoord(int lengte)
-        {
-            const string geldigTekens = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890!@#$%^&*";
-            char[] wachtwoord = new char[lengte];
-            using (var rng = RandomNumberGenerator.Create())
-            {
-                byte[] randomBytes = new byte[lengte];
-                rng.GetBytes(randomBytes);
-                for (int i = 0; i < lengte; i++)
-                {
-                    wachtwoord[i] = geldigTekens[randomBytes[i] % geldigTekens.Length];
-                }
-            }
-            return new string(wachtwoord);
-        }
-
+    
         private void Execute_New_Command(object? obj)
         {
 
@@ -253,13 +229,13 @@ namespace HomeManager.ViewModel
             }
 
 
-
+            PasswordGenerator generator = new PasswordGenerator();
 
             clsAccountModel _itemToInsert = new clsAccountModel()
             {
                 AccountID = 0,
                 RolID = 0,
-                Wachtwoord = GenereerWachtwoord(10),
+                Wachtwoord = generator.GeneratePassword(8),
                 Login = string.Empty,
                 PersoonID = 0,
                 IsNew = true,

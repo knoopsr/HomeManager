@@ -544,8 +544,8 @@
                                 <Button
                                     Margin="10,0,0,0"
                                     Command="{Binding NavCommand}"
-                                    CommandParameter="clsPersoonViewModel"
-                                    Content="Persoon"
+                                    CommandParameter="clsPersonenViewModel"
+                                    Content="Personen"
                                     Style="{StaticResource myExpanderPerson}" />
                             </StackPanel>
 

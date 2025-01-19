@@ -288,11 +288,20 @@
   <data name="U_EmailAdressen" xml:space="preserve">
     <value>U_EmailAdressen</value>
   </data>
+  <data name="S_LockedUsers" xml:space="preserve">
+    <value>S_LockedUsers</value>
+  </data>
+  <data name="U_LockedUsers" xml:space="preserve">
+    <value>U_LockedUsers</value>
+  </data>
+  <data name="S_EmailAdressenByRolName" xml:space="preserve">
+    <value>S_EmailAdressenByRolName</value>
+  </data>
+  <data name="S_EmailAdressenByID" xml:space="preserve">
+    <value>S_EmailAdressenByID</value>
+  </data>
   <data name="D_Adressen" xml:space="preserve">
     <value>D_Adressen</value>
-  </data>
-  <data name="I_Adressen" xml:space="preserve">
-    <value>I_Adressen</value>
   </data>
   <data name="S_Adressen" xml:space="preserve">
     <value>S_Adressen</value>
@@ -300,49 +309,40 @@
   <data name="U_Adressen" xml:space="preserve">
     <value>U_Adressen</value>
   </data>
-  <data name="D_TelefoonNummers" xml:space="preserve">
-    <value>D_TelefoonNummers</value>
-  </data>
-  <data name="I_TelefoonNummers" xml:space="preserve">
-    <value>I_TelefoonNummers</value>
-  </data>
-  <data name="S_TelefoonNummers" xml:space="preserve">
-    <value>S_TelefoonNummers</value>
+  <data name="S_AdressenByID" xml:space="preserve">
+    <value>S_AdressenByID</value>
   </data>
   <data name="U_TelefoonNummers" xml:space="preserve">
     <value>U_TelefoonNummers</value>
   </data>
+  <data name="I_TelefoonNummers" xml:space="preserve">
+    <value>I_TelefoonNummers</value>
+  </data>
   <data name="D_Notities" xml:space="preserve">
     <value>D_Notities</value>
-  </data>
-  <data name="I_Notities" xml:space="preserve">
-    <value>I_Notities</value>
   </data>
   <data name="S_Notities" xml:space="preserve">
     <value>S_Notities</value>
   </data>
-  <data name="U_Notities" xml:space="preserve">
-    <value>U_Notities</value>
-  </data>
-  <data name="S_EmailAdressenByID" xml:space="preserve">
-    <value>S_EmailAdressenByID</value>
-  </data>
-  <data name="S_AdressenByID" xml:space="preserve">
-    <value>S_AdressenByID</value>
-  </data>
-  <data name="S_TelefoonNummerByID" xml:space="preserve">
-    <value>S_TelefoonNummerByID</value>
+  <data name="I_Notities" xml:space="preserve">
+    <value>I_Notities</value>
   </data>
   <data name="S_NotitiesByID" xml:space="preserve">
     <value>S_NotitiesByID</value>
   </data>
-  <data name="I_GetAdresMetGemeente" xml:space="preserve">
-    <value>I_GetAdresMetGemeente</value>
+  <data name="S_TelefoonNummerByID" xml:space="preserve">
+    <value>S_TelefoonNummerByID</value>
   </data>
-  <data name="S_LockedUsers" xml:space="preserve">
-    <value>S_LockedUsers</value>
+  <data name="S_TelefoonNummers" xml:space="preserve">
+    <value>S_TelefoonNummers</value>
   </data>
-  <data name="U_LockedUsers" xml:space="preserve">
-    <value>U_LockedUsers</value>
+  <data name="D_TelefoonNummers" xml:space="preserve">
+    <value>D_TelefoonNummers</value>
+  </data>
+  <data name="U_Notities" xml:space="preserve">
+    <value>U_Notities</value>
+  </data>
+  <data name="I_Adressen" xml:space="preserve">
+    <value>I_Adressen</value>
   </data>
 </root>

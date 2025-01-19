@@ -200,6 +200,8 @@ namespace HomeManager.DAL
             }
         }
 
+            
+
         public static SqlDataReader GetData(string storedProcedureName)
         {
             SqlConnection cnn = new SqlConnection(MyConnenctionString);

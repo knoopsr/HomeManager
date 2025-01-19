@@ -135,5 +135,27 @@ namespace HomeManager.DAL.Personen
             }
             return OK;
         }
+
+        public ObservableCollection<clsEmailAdressenModel> GetAllbyRollName(string rolName)
+        {
+            SqlDataReader MijnDataReader = clsDAL.GetData(Properties.Resources.S_EmailAdressenByRolName,
+                clsDAL.Parameter("RolName", rolName));
+            MijnCollectie = new ObservableCollection<clsEmailAdressenModel>();
+            while (MijnDataReader.Read())
+            {
+                clsEmailAdressenModel x = new clsEmailAdressenModel()
+                {
+                    EmailAdresID = (int)MijnDataReader["EmailAdresID"],
+                    Emailadres = MijnDataReader["Emailadres"].ToString(),
+                    PersoonID = (int)MijnDataReader["PersoonID"],
+                    EmailTypeID = (int)MijnDataReader["EmailTypeID"],
+                    ControlField = MijnDataReader["ControlField"]
+                };
+                MijnCollectie.Add(x);
+            }
+            MijnDataReader.Close();
+            return MijnCollectie;
+
+        }
     }
 }

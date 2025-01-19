@@ -12,5 +12,6 @@ namespace HomeManager.DataService.Personen
     public interface IEmailAdressenDataService : IDataService<clsEmailAdressenModel>
     {
         ObservableCollection<clsEmailAdressenModel> GetByPersoonID(int id);
+        ObservableCollection<clsEmailAdressenModel> GetAllbyRollName(string rolName);
     }
 }

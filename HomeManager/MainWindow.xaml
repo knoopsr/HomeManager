@@ -137,9 +137,9 @@
                     <RowDefinition Height="20" />
                 </Grid.RowDefinitions>
 
-                <Path Style="{StaticResource myHomeButtonMenu}"/>
+                <Path Style="{StaticResource myHomeButtonMenu}" />
 
- 
+
 
                 <StackPanel
                     Grid.Row="1"
@@ -147,8 +147,8 @@
                     HorizontalAlignment="Left"
                     Orientation="Vertical">
 
-                    <Expander Style="{StaticResource myHamburgerPersonen}" IsExpanded="{Binding IsPersonenExpanderMenu, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" >
-                        <StackPanel x:Name="stckPerson" >
+                    <Expander IsExpanded="{Binding IsPersonenExpanderMenu, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource myHamburgerPersonen}">
+                        <StackPanel x:Name="stckPerson">
                             <Button
                                 Command="{Binding NavCommand}"
                                 CommandParameter="clsPersonenViewModel"
@@ -214,7 +214,7 @@
 
                     <Button Content="Dagboek" Style="{StaticResource myExpanderDagboek}" />
 
-                    <Expander Style="{StaticResource myHamburgerBudget}" IsExpanded="{Binding IsBudgetExpanderMenu, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                    <Expander IsExpanded="{Binding IsBudgetExpanderMenu, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource myHamburgerBudget}">
                         <StackPanel x:Name="stckBudget">
                             <Button Content="Domiciliëring" Style="{StaticResource myMenuTandwiel}" />
                             <Button Content="Begunstigden" Style="{StaticResource myMenuTandwiel}" />
@@ -227,7 +227,7 @@
                         </StackPanel>
                     </Expander>
 
-                    <Expander Style="{StaticResource myHamburgerTodo}" IsExpanded="{Binding IsTodoExpanderMenu, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                    <Expander IsExpanded="{Binding IsTodoExpanderMenu, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource myHamburgerTodo}">
 
                         <StackPanel x:Name="stckTodo">
                             <Button Content="Todo Collectie" Style="{StaticResource myMenuTandwiel}" />
@@ -237,7 +237,7 @@
 
                     </Expander>
 
-                    <Expander Style="{StaticResource myHamburgerSecurity}" IsExpanded="{Binding IsSecurityExpanderMenu, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                    <Expander IsExpanded="{Binding IsSecurityExpanderMenu, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource myHamburgerSecurity}">
                         <StackPanel x:Name="stckSecurity">
                             <Button
                                 Command="{Binding NavCommand}"
@@ -262,14 +262,11 @@
                         </StackPanel>
                     </Expander>
 
-                    <Expander Style="{StaticResource myHamburgerStickyNotes}" 
-                              IsExpanded="{Binding IsStickyNotesExpanderMenu, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                              
-                              >
+                    <Expander IsExpanded="{Binding IsStickyNotesExpanderMenu, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource myHamburgerStickyNotes}">
                         <StackPanel x:Name="stckStickynotes">
                             <Button Content="Sticky notes colors" Style="{StaticResource myExpanderStickyNoteColors}" />
                         </StackPanel>
-              
+
                     </Expander>
 
                 </StackPanel>

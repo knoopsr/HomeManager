@@ -89,7 +89,8 @@
                     Grid.Column="3"
                     Height="20"
                     VerticalAlignment="Center"
-                     ItemsSource="{Binding MijnPersoonCollectie}"
+                    ItemsSource="{Binding MijnPersoonCollectie}"
+                    SelectedItem="{Binding MijnSelectedPersoonItem, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                     SelectedValue="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Grid}}, Path=DataContext.MijnSelectedItem.PersoonID, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                     SelectedValuePath="PersoonID" />
 

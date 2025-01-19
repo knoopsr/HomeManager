@@ -63,24 +63,9 @@ namespace HomeManager.DAL.Security
                 // Doorloop alle SQL-errors
                 foreach (SqlError error in ex.Errors)
                 {
-                    if (error.Class == 16 && error.State == 1)
-                    {
-                        _login.ErrorBoodschap = "Account bestaat niet.";
-                    }
-                    else if (error.Class == 16 && error.State == 2)
-                    {
-                        _login.ErrorBoodschap = "Account is locked.";
-         
-                    }
-                    else if (error.Class == 16)
-                    {
-                        _login.ErrorBoodschap = "Invalid login credentials.";
-                    }
-                    else
-                    {
-                        // Algemene SQL-foutmelding
-                        _login.ErrorBoodschap = "SQL-fout: " + error.Message;
-                    }
+                    _login.ErrorBoodschap = error.Message;
+                    _login.ErrorCode = Convert.ToInt16($"{error.Class}{error.State}");
+           
                 }
 
                 // Zorg ervoor dat het account-ID wordt gereset als er een fout is

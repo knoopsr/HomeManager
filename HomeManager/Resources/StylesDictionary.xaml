@@ -32,10 +32,10 @@
                         <ControlTemplate TargetType="ContentControl">
                             <Border Background="{StaticResource myBackground}">
                                 <Path
-                                Data="{StaticResource myDeleteButton}"
-                                Fill="DarkGray"
-                                RenderTransformOrigin="0.5,0.5"
-                                Stretch="Uniform" />
+                                    Data="{StaticResource myDeleteButton}"
+                                    Fill="DarkGray"
+                                    RenderTransformOrigin="0.5,0.5"
+                                    Stretch="Uniform" />
                             </Border>
                         </ControlTemplate>
                     </Setter.Value>
@@ -47,10 +47,10 @@
                         <ControlTemplate TargetType="ContentControl">
                             <Border Background="{StaticResource myBackground}">
                                 <Path
-                                Data="{StaticResource myDeleteButton}"
-                                Fill="{StaticResource myWerkBalkDisable}"
-                                RenderTransformOrigin="0.5,0.5"
-                                Stretch="Uniform" />
+                                    Data="{StaticResource myDeleteButton}"
+                                    Fill="{StaticResource myWerkBalkDisable}"
+                                    RenderTransformOrigin="0.5,0.5"
+                                    Stretch="Uniform" />
                             </Border>
                         </ControlTemplate>
                     </Setter.Value>
@@ -627,14 +627,14 @@
             </Setter.Value>
         </Setter>
     </Style>
-    
-    
-    <!--Thomas personen style-->
+
+
+    <!--  Thomas personen style  -->
     <Style x:Key="TitleBarText" TargetType="TextBlock">
-        <Setter Property="Margin" Value="10,0,0,0"/>
-        <Setter Property="VerticalAlignment" Value="Center"/>
-        <Setter Property="FontSize" Value="20"/>
-        <Setter Property="Foreground" Value="White"/>
+        <Setter Property="Margin" Value="10,0,0,0" />
+        <Setter Property="VerticalAlignment" Value="Center" />
+        <Setter Property="FontSize" Value="20" />
+        <Setter Property="Foreground" Value="White" />
     </Style>
 
 </ResourceDictionary>

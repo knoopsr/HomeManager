@@ -2,9 +2,9 @@
     x:Class="HomeManager.View.Security.ucUnlockUser"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:B="clr-namespace:HomeManager.Behaviors"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
-    xmlns:B="clr-namespace:HomeManager.Behaviors"
     xmlns:local="clr-namespace:HomeManager.View.Security"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:uc="clr-namespace:HomeManager.View"
@@ -68,10 +68,10 @@
                     Grid.Column="1"
                     Width="280"
                     Height="350"
+                    B:ListBoxAttachedProperties.BindableSelectedItems="{Binding SelectedItem, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                     Background="Transparent"
                     BorderThickness="0"
                     ItemsSource="{Binding MijnCollectie}"
-                    B:ListBoxAttachedProperties.BindableSelectedItems="{Binding SelectedItem, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                     SelectionMode="Multiple">
 
 
@@ -115,7 +115,7 @@
                                 </Setter.Value>
                             </Setter>
 
-                            <Setter Property="IsSelected" Value="{Binding IsSelected, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                            <Setter Property="IsSelected" Value="{Binding IsSelected, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                         </Style>
                     </ListBox.ItemContainerStyle>
                     <ListBox.ItemTemplate>

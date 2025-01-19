@@ -27,6 +27,11 @@ namespace HomeManager.DataService.Personen
             return Repo.GetAll();
         }
 
+        public ObservableCollection<clsEmailAdressenModel> GetAllbyRollName(string rolName)
+        {
+            return Repo.GetAllbyRollName(rolName);
+        }
+
         public clsEmailAdressenModel GetById(int id)
         {
             return Repo.GetById(id);

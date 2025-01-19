@@ -277,15 +277,6 @@ namespace HomeManager.DAL.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to I_GetAdresMetGemeente.
-        /// </summary>
-        internal static string I_GetAdresMetGemeente {
-            get {
-                return ResourceManager.GetString("I_GetAdresMetGemeente", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to I_Land.
         /// </summary>
         internal static string I_Land {
@@ -421,6 +412,15 @@ namespace HomeManager.DAL.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to S_EmailAdressenByRolName.
+        /// </summary>
+        internal static string S_EmailAdressenByRolName {
+            get {
+                return ResourceManager.GetString("S_EmailAdressenByRolName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to S_EmailType.
         /// </summary>
         internal static string S_EmailType {
@@ -457,6 +457,15 @@ namespace HomeManager.DAL.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to S_LockedUsers.
+        /// </summary>
+        internal static string S_LockedUsers {
+            get {
+                return ResourceManager.GetString("S_LockedUsers", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to S_Login.
         /// </summary>
         internal static string S_Login {
@@ -471,33 +480,15 @@ namespace HomeManager.DAL.Properties {
         internal static string S_Notities {
             get {
                 return ResourceManager.GetString("S_Notities", resourceCulture);
-                }
-          }
-        /// <summary>
-        ///   Looks up a localized string similar to S_LockedUsers.
-        /// </summary>
-        internal static string S_LockedUsers {
-            get {
-                return ResourceManager.GetString("S_LockedUsers", resourceCulture);
-
             }
         }
         
         /// <summary>
-
         ///   Looks up a localized string similar to S_NotitiesByID.
         /// </summary>
         internal static string S_NotitiesByID {
             get {
                 return ResourceManager.GetString("S_NotitiesByID", resourceCulture);
-            }
-        }
-        /// <summary>
-        ///   Looks up a localized string similar to S_Login.
-        /// </summary>
-        internal static string S_Login {
-            get {
-                return ResourceManager.GetString("S_Login", resourceCulture);
             }
         }
         
@@ -601,7 +592,6 @@ namespace HomeManager.DAL.Properties {
         }
         
         /// <summary>
-
         ///   Looks up a localized string similar to U_Adressen.
         /// </summary>
         internal static string U_Adressen {
@@ -665,39 +655,29 @@ namespace HomeManager.DAL.Properties {
         }
         
         /// <summary>
-
-        ///   Looks up a localized string similar to U_Login.
-        /// </summary>
-        internal static string U_Login {
-            get {
-                return ResourceManager.GetString("U_Login", resourceCulture);
-}
-}
-        /// <summary>
         ///   Looks up a localized string similar to U_LockedUsers.
         /// </summary>
         internal static string U_LockedUsers {
             get {
                 return ResourceManager.GetString("U_LockedUsers", resourceCulture);
-
             }
         }
         
         /// <summary>
-
-        ///   Looks up a localized string similar to U_Notities.
-        /// </summary>
-        internal static string U_Notities {
-            get {
-                return ResourceManager.GetString("U_Notities", resourceCulture);
-        }
-        }
-                /// <summary>
         ///   Looks up a localized string similar to U_Login.
         /// </summary>
         internal static string U_Login {
             get {
                 return ResourceManager.GetString("U_Login", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to U_Notities.
+        /// </summary>
+        internal static string U_Notities {
+            get {
+                return ResourceManager.GetString("U_Notities", resourceCulture);
             }
         }
         
