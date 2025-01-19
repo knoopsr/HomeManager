@@ -43,6 +43,11 @@ namespace HomeManager.DataService.Security
             return _repo.Insert(entity);
         }
 
+        public bool UnLockUsers(clsLockedAccountModel AccountsIds)
+        {
+            return _repo.UnLockUsers(AccountsIds);
+        }
+
         public bool Update(clsLockedAccountModel entity)
         {
             return _repo.Update(entity);

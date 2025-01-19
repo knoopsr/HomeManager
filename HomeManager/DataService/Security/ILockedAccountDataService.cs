@@ -10,5 +10,6 @@ namespace HomeManager.DataService.Security
 {
    public interface ILockedAccountDataService : IDataService<clsLockedAccountModel>
     {
+        bool UnLockUsers(clsLockedAccountModel AccountsIds);
     }
 }

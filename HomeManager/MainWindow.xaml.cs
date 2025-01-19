@@ -23,17 +23,6 @@ namespace HomeManager
             InitializeComponent();
         }
 
-        private void ToggleButton_Checked(object sender, RoutedEventArgs e)
-        {
-            Storyboard showMenu = (Storyboard)FindResource("ShowMenu");
-            showMenu.Begin();
-        }
-
-        private void ToggleButton_Unchecked(object sender, RoutedEventArgs e)
-        {
-            Storyboard hideMenu = (Storyboard)FindResource("HideMenu");
-            hideMenu.Begin();
-        }
         
     }
 }

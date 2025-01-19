@@ -520,6 +520,15 @@ namespace HomeManager.DAL.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to U_LockedUsers.
+        /// </summary>
+        internal static string U_LockedUsers {
+            get {
+                return ResourceManager.GetString("U_LockedUsers", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to U_Login.
         /// </summary>
         internal static string U_Login {

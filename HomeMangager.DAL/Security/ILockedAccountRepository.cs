@@ -10,5 +10,6 @@ namespace HomeManager.DAL.Security
 {
     public interface ILockedAccountRepository : IRepository<clsLockedAccountModel>
     {
+        bool UnLockUsers(clsLockedAccountModel AccountsIds);
     }
 }

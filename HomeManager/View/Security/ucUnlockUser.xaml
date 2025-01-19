@@ -3,6 +3,8 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+    xmlns:B="clr-namespace:HomeManager.Behaviors"
     xmlns:local="clr-namespace:HomeManager.View.Security"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:uc="clr-namespace:HomeManager.View"
@@ -69,7 +71,14 @@
                     Background="Transparent"
                     BorderThickness="0"
                     ItemsSource="{Binding MijnCollectie}"
+                    B:ListBoxAttachedProperties.BindableSelectedItems="{Binding SelectedItem, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                     SelectionMode="Multiple">
+
+
+
+
+
+
                     <ListBox.ItemContainerStyle>
                         <Style TargetType="ListBoxItem">
                             <!--  Standaardachtergrond en rand verwijderen  -->
@@ -105,6 +114,8 @@
                                     </ControlTemplate>
                                 </Setter.Value>
                             </Setter>
+
+                            <Setter Property="IsSelected" Value="{Binding IsSelected, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                         </Style>
                     </ListBox.ItemContainerStyle>
                     <ListBox.ItemTemplate>
@@ -176,23 +187,21 @@
                                         <TextBlock
                                             FontSize="15"
                                             Foreground="Black"
-                                            Text="{Binding Persoon.Naam, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />                                      
+                                            Text="{Binding Persoon.Naam, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                                     </StackPanel>
                                     <Path
-                        Grid.Column="2"
-                        Width="15"
-                        Height="15"
-                        HorizontalAlignment="Left"
-                        Fill="Black"
-                        Stretch="Fill">
+                                        Grid.Column="2"
+                                        Width="15"
+                                        Height="15"
+                                        HorizontalAlignment="Left"
+                                        Fill="Black"
+                                        Stretch="Fill">
                                         <Path.Style>
                                             <Style TargetType="Path">
                                                 <Setter Property="Data" Value="{StaticResource myLock}" />
-                                            
                                                 <Style.Triggers>
                                                     <DataTrigger Binding="{Binding RelativeSource={RelativeSource AncestorType=ListBoxItem}, Path=IsSelected}" Value="True">
                                                         <Setter Property="Data" Value="{StaticResource myUnLock2}" />
-                                                      
                                                     </DataTrigger>
                                                 </Style.Triggers>
                                             </Style>

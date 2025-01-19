@@ -60,12 +60,12 @@ namespace HomeManager.Helpers
             };
 
             // Maak een nieuw venster om de TextBox weer te geven
-            var window = new System.Windows.Window
-            {
-                Title = "Parameter Info",
-                Content = textBox,
-                SizeToContent = System.Windows.SizeToContent.WidthAndHeight
-            };
+            //var window = new System.Windows.Window
+            //{
+            //    Title = "Parameter Info",
+            //    Content = textBox,
+            //    SizeToContent = System.Windows.SizeToContent.WidthAndHeight
+            //};
             //window.ShowDialog();
 
         }

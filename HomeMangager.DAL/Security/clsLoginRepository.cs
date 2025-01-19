@@ -60,18 +60,41 @@ namespace HomeManager.DAL.Security
             }
             catch (SqlException ex)
             {
-                // Sla de foutmelding rechtstreeks op in de ErrorBoodschap
+                // Doorloop alle SQL-errors
+                foreach (SqlError error in ex.Errors)
+                {
+                    if (error.Class == 16 && error.State == 1)
+                    {
+                        _login.ErrorBoodschap = "Account bestaat niet.";
+                    }
+                    else if (error.Class == 16 && error.State == 2)
+                    {
+                        _login.ErrorBoodschap = "Account is locked.";
+         
+                    }
+                    else if (error.Class == 16)
+                    {
+                        _login.ErrorBoodschap = "Invalid login credentials.";
+                    }
+                    else
+                    {
+                        // Algemene SQL-foutmelding
+                        _login.ErrorBoodschap = "SQL-fout: " + error.Message;
+                    }
+                }
+
+                // Zorg ervoor dat het account-ID wordt gereset als er een fout is
                 _login.AccountID = 0;
-                _login.ErrorBoodschap = ex.Message;
             }
             catch (Exception ex)
             {
-                // Algemene foutmelding
+                // Algemene foutmelding voor andere uitzonderingen
                 _login.ErrorBoodschap = "Er is een onbekende fout opgetreden: " + ex.Message;
             }
 
             return _login;
         }
+
 
 
 
