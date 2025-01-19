@@ -104,13 +104,9 @@ namespace HomeManager.ViewModel
         {
             _loginModel = MijnService.GetByLogin(Login, Wachtwoord);
 
-            if (_loginModel != null)
-            {
-                if (_loginModel.IsLock)
-                {
-                    MessageBox.Show("Account is locked");
-                }
-                else if (_loginModel.IsNew)
+            if (_loginModel.AccountID !=0)
+            {        
+                if (_loginModel.IsNew)
                 {
                     _objHome = obj;
                     clsMessenger.Default.Send<clsLoginModel>(_loginModel);
@@ -120,6 +116,10 @@ namespace HomeManager.ViewModel
                 {
                     OpenMainWindow(obj);
                 }
+            }
+            else
+            {
+                MessageBox.Show(_loginModel.ErrorBoodschap);
             }
         }
 

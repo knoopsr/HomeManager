@@ -13,6 +13,7 @@ using HomeManager.Helpers;
 using HomeManager.Model.Security;
 using HomeManager.Model.Personen;
 using System.Security.Cryptography;
+using HomeManager.Mail;
 
 namespace HomeManager.ViewModel
 {
@@ -80,8 +81,10 @@ namespace HomeManager.ViewModel
             MijnCollectie = MijnService.GetAll();
         }
 
-        private void OpslaanCommando()
-        {
+
+        private async void OpslaanCommando()
+        {     
+
             if (_mijnSelectedItem != null)
             {
                 if (NewStatus)
@@ -93,6 +96,35 @@ namespace HomeManager.ViewModel
                         MijnSelectedItem.MyVisibility = (int)Visibility.Visible;
                         NewStatus = false;
                         LoadData();
+                  
+                        //ObservableCollection<clsEmailAdressenModel> emailAdressen = new ObservableCollection<clsEmailAdressenModel>();
+                        //clsEmailAdressenDataService emailAdressenService = new clsEmailAdressenDataService();
+
+                        //emailAdressen = emailAdressenService.GetById(_mijnSelectedItem.PersoonID);
+
+                        //string[] emailAdressenArray = new string[emailAdressen.Count];
+                        //foreach (var email in emailAdressen)
+                        //{
+
+                        //    clsMailModel mailModel = new clsMailModel
+                        //    {
+                        //        MailToName = "HomeManager Admin",
+                        //        MailFromEmail = "admin@HomeManager.be",
+                        //        MailToEmail = "johndoe@example.com",
+                        //        Subject = "Backup Gemaakt",
+                        //        Body = "U kan het volgende wachtwoord gebruiken om in te loggen" + Environment.NewLine + "Wachtwoord: " + _mijnSelectedItem.Wachtwoord
+                        //    };
+
+                        //    bool emailVerzonden = await clsMail.SendEmail(mailModel);
+
+                        //    if (emailVerzonden)
+                        //    {
+                        //        emailAdressenArray.Append(email.Emailadres);
+                        //    }
+                        //};
+
+                        //MessageBox.Show("E-mail succesvol verzonden naar " + emailAdressenArray);
+
                     }
                     else
                     {
@@ -133,7 +165,7 @@ namespace HomeManager.ViewModel
             //MijnPersoonCollectie = MijnPersoonService.GetAllApplicationUser();
         }
 
-        private void Execute_Save_Command(object? obj)
+        private async void Execute_Save_Command(object? obj)
         {
             OpslaanCommando();
             //MijnPersoonCollectie = MijnPersoonService.GetAllApplicationUser();

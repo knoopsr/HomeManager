@@ -20,6 +20,17 @@ namespace HomeManager.Model.Security
             }
         }
 
+        public string _mailFromEmail;
+        public string MailFromEmail
+        {
+            get { return _mailFromEmail; }
+            set
+            {
+                _mailFromEmail = value;
+                OnPropertyChanged();
+            }
+        }
+
         private string _mailToName;
         public string MailToName
         {

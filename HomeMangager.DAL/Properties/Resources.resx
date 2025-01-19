@@ -339,4 +339,10 @@
   <data name="I_GetAdresMetGemeente" xml:space="preserve">
     <value>I_GetAdresMetGemeente</value>
   </data>
+  <data name="S_LockedUsers" xml:space="preserve">
+    <value>S_LockedUsers</value>
+  </data>
+  <data name="U_LockedUsers" xml:space="preserve">
+    <value>U_LockedUsers</value>
+  </data>
 </root>

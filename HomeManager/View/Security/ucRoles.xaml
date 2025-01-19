@@ -96,7 +96,7 @@
                     IsEnabled="{Binding MijnSelectedItem.IsTextBoxEnabled}"
                     Text="{Binding MijnSelectedItem.RolName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" />
 
-     
+
 
                 <Label
                     Grid.Row="2"

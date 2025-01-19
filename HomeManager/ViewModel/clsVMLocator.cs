@@ -1,5 +1,6 @@
 ﻿using HomeManager.Model.Personen;
 using HomeManager.ViewModel;
+using HomeManager.ViewModel.Security;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -173,6 +174,14 @@ namespace HomeManager.ViewModel
             get
             {
                 return _newPassViewModel;
+            }
+        }
+
+        public clsUnLockViewModel UnLockViewModel
+        {
+            get
+            {
+                return new clsUnLockViewModel();
             }
         }
 

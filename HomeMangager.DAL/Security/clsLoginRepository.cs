@@ -35,34 +35,67 @@ namespace HomeManager.DAL.Security
         {
             var _login = clsLoginModel.Instance;
 
-
-            using (SqlDataReader MijnDataReader = clsDAL.GetData(Properties.Resources.S_Login,
-                clsDAL.Parameter("@Login", login),
-                clsDAL.Parameter("@Wachtwoord", wachtwoord)))
+            try
             {
-                // Controleer of er resultaten zijn en maak een instantie van clsLoginModel
-                if (MijnDataReader.Read())
+                using (SqlDataReader MijnDataReader = clsDAL.GetData(Properties.Resources.S_Login,
+                    clsDAL.Parameter("@Login", login),
+                    clsDAL.Parameter("@Wachtwoord", wachtwoord)))
                 {
-                    // Instantieer een nieuw object van clsLoginModel
-
-                    _login.AccountID = (int)MijnDataReader["AccountID"];
-                    _login.PersoonID = (int)MijnDataReader["PersoonID"];
-                    _login.Naam = MijnDataReader["Naam"].ToString();
-                    _login.Foto = MijnDataReader["Foto"] != DBNull.Value ? (byte[])MijnDataReader["Foto"] : null;
-                    _login.VoorNaam = MijnDataReader["VoorNaam"].ToString();
-                    _login.RolID = (int)MijnDataReader["RolID"];
-                    _login.RolName = MijnDataReader["RolName"].ToString();
-                    _login.CountFailLogins = (int)MijnDataReader["CountFailLogins"];
-                    _login.IsNew = (bool)MijnDataReader["IsNew"];
-                    _login.IsLock = (bool)MijnDataReader["IsLock"];
-                    _login.RechtenCodes = MijnDataReader["RechtenCodes"].ToString();
-                    _login.ControlField = MijnDataReader["ControlField"];
+                    if (MijnDataReader.Read())
+                    {
+                        _login.AccountID = (int)MijnDataReader["AccountID"];
+                        _login.PersoonID = (int)MijnDataReader["PersoonID"];
+                        _login.Naam = MijnDataReader["Naam"].ToString();
+                        _login.Foto = MijnDataReader["Foto"] != DBNull.Value ? (byte[])MijnDataReader["Foto"] : null;
+                        _login.VoorNaam = MijnDataReader["VoorNaam"].ToString();
+                        _login.RolID = (int)MijnDataReader["RolID"];
+                        _login.RolName = MijnDataReader["RolName"].ToString();
+                        _login.CountFailLogins = (int)MijnDataReader["CountFailLogins"];
+                        _login.IsNew = (bool)MijnDataReader["IsNew"];
+                        _login.IsLock = (bool)MijnDataReader["IsLock"];
+                        _login.RechtenCodes = MijnDataReader["RechtenCodes"].ToString();
+                        _login.ControlField = MijnDataReader["ControlField"];
+                    }
+                }
+            }
+            catch (SqlException ex)
+            {
+                // Doorloop alle SQL-errors
+                foreach (SqlError error in ex.Errors)
+                {
+                    if (error.Class == 16 && error.State == 1)
+                    {
+                        _login.ErrorBoodschap = "Account bestaat niet.";
+                    }
+                    else if (error.Class == 16 && error.State == 2)
+                    {
+                        _login.ErrorBoodschap = "Account is locked.";
+         
+                    }
+                    else if (error.Class == 16)
+                    {
+                        _login.ErrorBoodschap = "Invalid login credentials.";
+                    }
+                    else
+                    {
+                        // Algemene SQL-foutmelding
+                        _login.ErrorBoodschap = "SQL-fout: " + error.Message;
+                    }
                 }
 
+                // Zorg ervoor dat het account-ID wordt gereset als er een fout is
+                _login.AccountID = 0;
+            }
+            catch (Exception ex)
+            {
+                // Algemene foutmelding voor andere uitzonderingen
+                _login.ErrorBoodschap = "Er is een onbekende fout opgetreden: " + ex.Message;
             }
 
             return _login;
         }
+
+
 
 
         public clsLoginModel GetFirst()

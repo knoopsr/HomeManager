@@ -121,6 +121,7 @@ namespace HomeManager.DAL.Personen
             MijnDataReader.Close();
         }
 
+
         public ObservableCollection<clsPersoonModel> GetByPersoonID(int id)
         {
             if (MijnCollectie == null)
@@ -128,7 +129,16 @@ namespace HomeManager.DAL.Personen
                 GenerateCollection();
             }
             return new ObservableCollection<clsPersoonModel>(MijnCollectie.Where(persoon => persoon.PersoonID == id));
+
+        public ObservableCollection<clsPersoonModel> GetAllApplicationUser()
+        { 
+            GenerateCollection();
+            return new ObservableCollection<clsPersoonModel>(
+                MijnCollectie.Where(persoon => persoon.IsApplicationUser == true)
+            );
+
         }
+
     }
 }
 
