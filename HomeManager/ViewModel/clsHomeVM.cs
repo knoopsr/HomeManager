@@ -42,28 +42,19 @@ namespace HomeManager.ViewModel
                 if (match != null)
                 {
                     Type t = Type.GetType(match.ToString(), true);
-
-                    // TODO: check what to do with clsTodoVM
-                    if (t == typeof(clsTodoVM))
-                    {
-                        var collectiesVM = new clsCollectiesVM(); // You need to provide the appropriate instance here
-                        var instance = Activator.CreateInstance(t, collectiesVM) as clsBindableBase;
-                        CurrentViewModel = instance;
-                    }
-                    else
-                    {
-                        var instance = Activator.CreateInstance(t) as clsBindableBase;
-                        CurrentViewModel = instance;
-                    }
+                    var instance = Activator.CreateInstance(t) as clsBindableBase;
+                    CurrentViewModel = instance;
                 }
             }
             else
             {
                 MessageBox.Show("U heeft geen toegang tot deze pagina");
             }
+
+
+
         }
     }
-
-
-
 }
+
+

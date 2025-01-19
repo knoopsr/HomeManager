@@ -69,11 +69,11 @@
             ItemsSource="{Binding Items}">
             <ListBox.ItemTemplate>
                 <DataTemplate>
-                    <local:ucTodoItem/>
+                    <local:ucTodoItem />
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
-        
+
         <ListBox
             Grid.Row="1"
             Grid.Column="2"

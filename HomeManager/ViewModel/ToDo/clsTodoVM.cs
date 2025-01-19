@@ -10,16 +10,17 @@ namespace HomeManager.ViewModel
 {
     public class clsTodoVM : clsCommonModelPropertiesBase
     {
-        clsTodoDataService MijnService;
+        clsCollectiesDataService MijnService;
         clsCollectiesVM CollectiesVM;
 
-        public clsTodoVM(clsCollectiesVM collectiesVM)
+        public clsTodoVM()
         {
-            MijnService = new clsTodoDataService();
-            CollectiesVM = collectiesVM;
+            MijnService = new clsCollectiesDataService();
+            //CollectiesVM = collectiesVM;
 
-            MijnCollectie = CollectiesVM.MijnCollectie;
-            MijnSelectedItem = CollectiesVM.MijnSelectedItem;
+            //MijnCollectie = CollectiesVM.MijnCollectie;
+            MijnCollectie = MijnService.GetAll();
+            //MijnSelectedItem = CollectiesVM.MijnSelectedItem;
 
             OpenTodoPopupCommand = new clsRelayCommand<object>(param => OpenTodoPopup());
             OpenTodoCollectiesCommand = new clsRelayCommand<object>(param => OpenTodoCollecties());

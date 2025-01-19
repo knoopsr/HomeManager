@@ -82,18 +82,56 @@ namespace HomeManager.ViewModel
 
         #endregion
         #region TODO
-
         private static readonly clsCollectiesVM _collectiesViewModel = new clsCollectiesVM();
-        public clsCollectiesVM CollectiesViewModel => _collectiesViewModel;
-        public clsCategorieënVM CategorieënViewModel => new clsCategorieënVM();
-        public clsKleurenVM KleurenViewModel => new clsKleurenVM();
-        public clsTodoVM ToDoViewModel => new clsTodoVM(_collectiesViewModel);
+        public clsCollectiesVM CollectiesViewModel
+        {
+            get
+            {
+                return _collectiesViewModel;
+            }
+        }
+
+        public clsCategorieënVM CategorieënViewModel
+        {
+            get
+            {
+                return new clsCategorieënVM();
+            }
+        }
+
+        public clsKleurenVM KleurenViewModel
+        {
+            get
+            {
+                return new clsKleurenVM();
+            }
+        }
+
+        public clsTodoVM ToDoViewModel
+        {
+            get
+            {
+                return new clsTodoVM();
+            }
+        }
+
         private static readonly clsTodoPopupVM _todoPopupViewModel = new clsTodoPopupVM();
-        public clsTodoPopupVM TodoPopupViewModel => _todoPopupViewModel;
+        public clsTodoPopupVM TodoPopupViewModel
+        {
+            get
+            {
+                return _todoPopupViewModel;
+            }
+        }
+
         private static readonly clsTodoDetailsVM _todoDetailsViewModel = new clsTodoDetailsVM();
-        public clsTodoDetailsVM TodoDetailsViewModel => _todoDetailsViewModel;
-
+        public clsTodoDetailsVM TodoDetailsViewModel
+        {
+            get
+            {
+                return _todoDetailsViewModel;
+            }
+        }
         #endregion
-
     }
 }
