@@ -55,7 +55,8 @@ namespace HomeManager.DAL.Personen
                     EmailAdresID = (int)MijnDataReader["EmailAdresID"],
                     Emailadres = MijnDataReader["Emailadres"].ToString(),
                     PersoonID = (int)MijnDataReader["PersoonID"],
-                    EmailTypeID = (int)MijnDataReader["EmailTypeID"]
+                    EmailTypeID = (int)MijnDataReader["EmailTypeID"],
+                    ControlField = MijnDataReader["ControlField"]
                 };
                 MijnCollectie.Add(m);
             }
@@ -69,6 +70,27 @@ namespace HomeManager.DAL.Personen
                 GenerateCollection();
             }
             return MijnCollectie.Where(emailadress => emailadress.EmailAdresID == id).FirstOrDefault();
+        }
+
+        public ObservableCollection<clsEmailAdressenModel> GetByPersoonID(int id)
+        {
+            SqlDataReader MijnDataReader = clsDAL.GetData(Properties.Resources.S_EmailAdressenByID,
+                clsDAL.Parameter("PersoonID", id));
+            MijnCollectie = new ObservableCollection<clsEmailAdressenModel>();
+            while (MijnDataReader.Read())
+            {
+                clsEmailAdressenModel x = new clsEmailAdressenModel()
+                {
+                    EmailAdresID = (int)MijnDataReader["EmailAdresID"],
+                    Emailadres = MijnDataReader["Emailadres"].ToString(),
+                    PersoonID = (int)MijnDataReader["PersoonID"],
+                    EmailTypeID = (int)MijnDataReader["EmailTypeID"],
+                    ControlField = MijnDataReader["ControlField"]
+                };
+                MijnCollectie.Add(x);
+            }
+            MijnDataReader.Close();
+            return MijnCollectie;
         }
 
         public clsEmailAdressenModel GetFirst()
@@ -104,6 +126,7 @@ namespace HomeManager.DAL.Personen
                     clsDAL.Parameter("Emailadres", entity.Emailadres),
                     clsDAL.Parameter("PersoonID", entity.PersoonID),
                     clsDAL.Parameter("EmailTypeID", entity.EmailTypeID),
+                    clsDAL.Parameter("ControlField", entity.ControlField),
                     clsDAL.Parameter("@ReturnValue", 0)
                 );
             if (!OK)

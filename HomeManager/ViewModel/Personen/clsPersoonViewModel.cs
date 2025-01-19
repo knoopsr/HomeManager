@@ -13,6 +13,7 @@ using HomeManager.DataService.Personen;
 using HomeManager.Model.Personen;
 using System.IO;
 using System.Windows.Media.Imaging;
+using HomeManager.Messages;
 
 namespace HomeManager.ViewModel
 {
@@ -60,6 +61,34 @@ namespace HomeManager.ViewModel
                     }
                 }
                 _mijnSelectedItem = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private clsPersonenViewModel _mijnSelectedPersoonItem;
+        public clsPersonenViewModel MijnSelectedPersoonItem
+        {
+            get
+            {
+                return _mijnSelectedPersoonItem;
+            }
+            set
+            {
+                if (value != null)
+                {
+                    if (_mijnSelectedPersoonItem != null && _mijnSelectedPersoonItem.IsDirty)
+                    {
+                        if (MessageBox.Show("Wil je " + _mijnSelectedPersoonItem + "Opslaan?", "Opslaan",
+                            MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+                        {
+                            _mijnSelectedPersoonItem.IsDirty = false;
+                            _mijnSelectedPersoonItem.MijnSelectedIndex = 0;
+                            OpslaanCommando();
+                            LoadData();
+                        }
+                    }
+                }
+                _mijnSelectedPersoonItem = value;
                 OnPropertyChanged();
             }
         }
@@ -116,11 +145,28 @@ namespace HomeManager.ViewModel
             cmdCancel = new clsCustomCommand(Execute_Cancel_Command, CanExecute_Cancel_Command);
             cmdClose = new clsCustomCommand(Execute_Close_Command, CanExecute_Close_Command);
             cmdUploadPicture = new clsCustomCommand(Execute_UploadPicture_Command, CanExecute_UploadPicture_Command);
+            //clsMessenger.Default.Register<clsNewPersoonMessage>(this, OnNewPersonenReceive);
+            clsMessenger.Default.Register<clsPersoonModel>(this, OnPersoonReceived);
 
             LoadData();
-
             MijnSelectedItem = MijnService.GetFirst();
         }
+
+        private void OnPersoonReceived(clsPersoonModel obj)
+        {
+            MijnSelectedItem = obj;
+
+            if (obj.PersoonID == 0)
+            {
+                NewStatus = true;
+            }
+        }
+
+        //private void OnNewPersonenReceive(clsNewPersoonMessage message)
+        //{
+        //    CreateNewStatus();
+        //    clsMessenger.Default.Unregister(this);
+        //}
 
         private void Execute_UploadPicture_Command(object? obj)
         {
@@ -229,7 +275,7 @@ namespace HomeManager.ViewModel
             }
         }
 
-        private void Execute_New_Command(object? obj)
+        private void CreateNewStatus()
         {
             clsPersoonModel _itemToInsert = new clsPersoonModel()
             {
@@ -245,6 +291,10 @@ namespace HomeManager.ViewModel
             MijnSelectedItem.MyVisibility = (int)Visibility.Hidden;
             NewStatus = true;
             IsFocusedAfterNew = true;
+        }
+        private void Execute_New_Command(object? obj)
+        {
+            CreateNewStatus();
         }
 
         private bool CanExecute_New_Command(object? obj)
@@ -290,14 +340,10 @@ namespace HomeManager.ViewModel
                 clsHomeVM vm = (clsHomeVM)HomeWindow.DataContext;
                 vm.CurrentViewModel = null;
             }
+            clsMessenger.Default.Send<clsUpdateListMessages>(new clsUpdateListMessages());
         }
 
         private bool CanExecute_Close_Command(object? obj)
-        {
-            return true;
-        }
-
-        private bool CanExecute_SelectionChangedCommand(object obj)
         {
             return true;
         }

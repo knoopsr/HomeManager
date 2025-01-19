@@ -1,21 +1,18 @@
-﻿using HomeManager.Helpers;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Input;
-using System.Windows;
-using HomeManager.Common;
+﻿using HomeManager.Common;
 using HomeManager.DataService.Personen;
+using HomeManager.Helpers;
+using HomeManager.Messages;
 using HomeManager.Model.Personen;
+using System.Collections.ObjectModel;
+using System.Windows;
+using System.Windows.Input;
 
 namespace HomeManager.ViewModel
 {
     public class clsEmailAdressenViewModel : clsCommonModelPropertiesBase
     {
         clsEmailAdressenDataService MijnService;
+        clsPersoonDataService MijnPersoonService;
         private bool NewStatus = false;
 
         public ICommand cmdDelete { get; set; }
@@ -68,6 +65,21 @@ namespace HomeManager.ViewModel
             }
         }
 
+
+        private clsPersoonModel _mijnSelectedPersoonItem;
+        public clsPersoonModel MijnSelectedPersoonItem
+        {
+            get
+            {
+                return _mijnSelectedPersoonItem;
+            }
+            set
+            {
+                _mijnSelectedPersoonItem = value;
+                OnPropertyChanged();
+            }
+        }
+
         private void OpslaanCommando()
         {
             if (MijnSelectedItem != null)
@@ -104,46 +116,36 @@ namespace HomeManager.ViewModel
             }
         }
 
-        private bool _IsFocused = false;
-        public bool IsFocused
-        {
-            get
-            {
-                return _IsFocused;
-            }
-            set
-            {
-                _IsFocused = value;
-                OnPropertyChanged();
-            }
-        }
-
-        private bool _IsFocusedAfterNew = false;
-        public bool IsFocusedAfterNew
-        {
-            get
-            {
-                return _IsFocusedAfterNew;
-            }
-            set
-            {
-                _IsFocusedAfterNew = value;
-                OnPropertyChanged();
-            }
-        }
 
         public clsEmailAdressenViewModel()
         {
             MijnService = new clsEmailAdressenDataService();
+            MijnPersoonService = new clsPersoonDataService();
+
             cmdNew = new clsCustomCommand(Execute_NewCommand, CanExecute_NewCommand);
             cmdDelete = new clsCustomCommand(Execute_DeleteCommand, CanExecute_DeleteCommand);
             cmdSave = new clsCustomCommand(Execute_SaveCommand, CanExecute_SaveCommand);
             cmdClose = new clsCustomCommand(Execute_CloseCommand, CanExecute_CloseCommand);
             cmdCancel = new clsCustomCommand(Execute_CancelCommand, CanExecute_CancelCommand);
+            clsMessenger.Default.Register<clsEmailAdressenModel>(this, OnEmailAdressenReceived);
 
             LoadData();
             MijnSelectedItem = MijnService.GetFirst();
             //MijnSelectedItem.MijnSelectedIndex = 0;
+        }
+
+        private void OnEmailAdressenReceived(clsEmailAdressenModel obj)
+        {
+            if (obj != null)
+            {
+                MijnSelectedItem = obj;
+                MijnSelectedPersoonItem = MijnPersoonService.GetById(MijnSelectedItem.PersoonID);
+
+                if (obj.EmailAdresID == 0)
+                {
+                    NewStatus = true;
+                }
+            }
         }
 
         private bool CanExecute_NewCommand(object? obj)
@@ -157,11 +159,10 @@ namespace HomeManager.ViewModel
             {
                 EmailAdresID = 0,
                 Emailadres = string.Empty,
-                PersoonID = 0,
+                PersoonID = MijnSelectedPersoonItem.PersoonID,
                 EmailTypeID = 0,
             };
             MijnSelectedItem = ItemToInsert;
-            //MijnSelectedItem = ItemToInsert;
 
             MijnSelectedItem.MyVisibility = (int)Visibility.Hidden;
             NewStatus = true;
@@ -225,6 +226,8 @@ namespace HomeManager.ViewModel
                 clsHomeVM vm = (clsHomeVM)HomeWindow.DataContext;
                 vm.CurrentViewModel = null;
             }
+
+            clsMessenger.Default.Send<clsUpdateListMessages>(new clsUpdateListMessages());
         }
 
         private bool CanExecute_CancelCommand(object obj)

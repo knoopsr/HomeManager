@@ -1,4 +1,8 @@
-﻿using System;
+﻿using HomeManager.Helpers;
+using HomeManager.Messages;
+using HomeManager.Model.Personen;
+using HomeManager.ViewModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,6 +27,7 @@ namespace HomeManager.View
         public ucEmailAdressen()
         {
             InitializeComponent();
+            this.DataContext = new clsEmailAdressenViewModel();
         }
     }
 }

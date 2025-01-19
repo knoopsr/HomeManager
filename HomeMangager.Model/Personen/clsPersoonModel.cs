@@ -131,6 +131,15 @@ namespace HomeManager.Model.Personen
             return Naam + ", " + Voornaam;
         }
 
+        
+        public string PersoonDisplayName
+        {
+            get
+            {
+                return $"{Naam} ({Voornaam})";
+            }
+        }
+
         public string this[string columnName]
         {
             get

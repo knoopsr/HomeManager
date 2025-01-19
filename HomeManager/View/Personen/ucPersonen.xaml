@@ -1,16 +1,17 @@
 ﻿<UserControl
-    x:Class="HomeManager.View.Personen.ucPersonen"
+    x:Class="HomeManager.View.ucPersonen"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:local="clr-namespace:HomeManager.View.Personen"
+    xmlns:local="clr-namespace:HomeManager.View"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:uc="clr-namespace:HomeManager.View"
     d:DesignHeight="450"
     d:DesignWidth="800"
     Background="{StaticResource myBackground}"
     mc:Ignorable="d">
-    <Grid>
+    
+    <Grid DataContext="{Binding Source={StaticResource VML}, Path=PersonenViewModel}">
         <Grid.RowDefinitions>
             <RowDefinition Height="50" />
             <RowDefinition Height="*" />
@@ -33,12 +34,7 @@
                         Data="{StaticResource myPathPeople}"
                         Fill="White"
                         Stretch="Fill" />
-                    <TextBlock
-                        Margin="10,0,0,0"
-                        VerticalAlignment="Center"
-                        FontSize="20"
-                        Foreground="White"
-                        Text="Persoon" />
+                    <TextBlock Style="{StaticResource TitleBarText}" Text="Persoon" />
 
                 </StackPanel>
                 <uc:ucWerkBalk
@@ -50,11 +46,12 @@
 
         </Border>
 
-        <Grid Grid.Row="1" DataContext="{Binding Source={StaticResource VML}, Path=PersoonViewModel}">
+        <Grid Grid.Row="1">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="200" />
             </Grid.ColumnDefinitions>
+
             <Border
                 Margin="1,1,1,1"
                 BorderBrush="{StaticResource myTitleBar}"
@@ -65,27 +62,44 @@
                         <RowDefinition Height="20" />
                         <RowDefinition Height="*" />
                     </Grid.RowDefinitions>
-
-                    <StackPanel
+                    <!--<StackPanel
                         Margin="2"
                         HorizontalAlignment="Left"
                         Orientation="Horizontal">
-                        <TextBox Width="200" />
+                        <TextBox
+                            x:Name="txtSearchbar"
+                            Width="200"
+                            Height="20" />
                         <Button
+                            x:Name="btnSearch"
                             Width="15"
                             Height="15"
                             Margin="5,0,0,0"
                             Style="{StaticResource FilterImage}" />
+                    </StackPanel>-->
+                    <StackPanel
+                        Margin="2"
+                        HorizontalAlignment="Left"
+                        Orientation="Horizontal">
+                        <TextBox
+                            x:Name="txtSearchbar"
+                            Width="200"
+                            Height="20"
+                            Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}" />
+                        <Button
+                            Width="15"
+                            Height="15"
+                            Margin="5,0,0,0"
+                            Command="{Binding ClearSearchCommand}"
+                            Style="{StaticResource FilterImage}" />
                     </StackPanel>
+
+
                     <ListView
                         Name="UserListView"
-                        Grid.Row="2"
                         Grid.RowSpan="7"
-                        Grid.Column="1"
-                        Width="600"
-                        Height="375"
-                        Margin="2,-10,2,0"
-                        ItemsSource="{Binding MijnCollectie}"
+                        Margin="2,20,2,5"
+                        ItemsSource="{Binding FilteredCollectie}"
                         ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                         ScrollViewer.VerticalScrollBarVisibility="Auto"
                         SelectedItem="{Binding MijnSelectedItem, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
@@ -97,17 +111,28 @@
                         <ListView.ItemTemplate>
                             <DataTemplate>
                                 <Border
-                                    Width="95"
+                                    Width="90"
                                     Margin="5"
                                     Padding="2"
                                     Background="LightGray"
                                     BorderBrush="Gray"
                                     BorderThickness="1"
                                     CornerRadius="8">
-                                    <StackPanel Orientation="Horizontal">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*" />
+                                            <ColumnDefinition Width="*" />
+                                            <ColumnDefinition Width="*" />
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="*" />
+                                            <RowDefinition Height="*" />
+                                        </Grid.RowDefinitions>
                                         <Border
+                                            Grid.Column="0"
                                             Width="30"
                                             Height="64"
+                                            Margin="1,0,0,0"
                                             BorderBrush="Gray"
                                             BorderThickness="1">
                                             <Border.Effect>
@@ -121,53 +146,64 @@
                                                 <ImageBrush ImageSource="{Binding Foto, TargetNullValue='https://p92.com/binaries/content/gallery/p92website/technologies/c-sharp-overview.png'}" Stretch="UniformToFill" />
                                             </Border.Background>
                                         </Border>
-                                        <StackPanel Margin="5,30,0,5" Orientation="Vertical">
+                                        <StackPanel
+                                            Grid.Column="1"
+                                            Grid.ColumnSpan="2"
+                                            HorizontalAlignment="Left"
+                                            VerticalAlignment="Bottom"
+                                            Orientation="Vertical">
                                             <TextBlock
                                                 FontSize="9"
                                                 FontWeight="Bold"
-                                                Text="{Binding Naam}" />
-                                            <TextBlock FontSize="8" Text="{Binding Voornaam}" />
+                                                Text="{Binding Naam}"
+                                                TextWrapping="Wrap" />
+                                            <TextBlock
+                                                Grid.RowSpan="3"
+                                                FontSize="8"
+                                                Text="{Binding Voornaam}"
+                                                TextWrapping="Wrap" />
                                             <TextBlock FontSize="8" Text="{Binding Geboortedatum}" />
                                         </StackPanel>
-                                        <StackPanel Margin="-15,-50,0,0" Orientation="Horizontal">
+                                        <StackPanel
+                                            Grid.Column="2"
+                                            HorizontalAlignment="Center"
+                                            VerticalAlignment="Top"
+                                            Orientation="Horizontal">
                                             <Button
                                                 Width="10"
                                                 Height="10"
                                                 Margin="0,0,0,0"
                                                 Command="{Binding cmdNew}"
                                                 CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}"
+                                                DataContext="{Binding Source={StaticResource VML}, Path=PersonenViewModel}"
                                                 Style="{StaticResource AddImagePersoon}"
                                                 ToolTip="New" />
                                             <Button
                                                 Width="10"
                                                 Height="10"
                                                 Margin="0,0,0,0"
-                                                Command="{Binding cmdEdit}"
-                                                CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}"
+                                                Command="{Binding PersonenViewModel.cmdEditPersoon, Source={StaticResource VML}}"
+                                                CommandParameter="{Binding}"
                                                 Style="{StaticResource EditPersoon}"
                                                 ToolTip="Aanpassen" />
                                             <Button
                                                 Width="10"
                                                 Height="10"
                                                 Margin="0,0,0,0"
-                                                Command="{Binding cmdDelete}"
+                                                Command="{Binding DataContext.cmdDeletePersoon, RelativeSource={RelativeSource AncestorType=ListBox}}"
                                                 CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}"
                                                 Style="{StaticResource DeletePersonImage}"
-                                                ToolTip="Aanpassen" />
+                                                ToolTip="Delete" />
                                         </StackPanel>
-                                    </StackPanel>
+                                    </Grid>
                                 </Border>
                             </DataTemplate>
                         </ListView.ItemTemplate>
                     </ListView>
-
                 </Grid>
             </Border>
 
-
-
-
-
+            <!--  Rechtercolumn  -->
             <Border
                 Grid.Column="1"
                 Margin="1,1,1,1"
@@ -186,13 +222,16 @@
                         <RowDefinition Height="*" />
                     </Grid.RowDefinitions>
 
+                    <!--  EmailAdressen  -->
                     <Border
                         Margin="1"
                         Background="{StaticResource myTitleBar}"
                         CornerRadius="3">
                         <Grid>
                             <TextBlock
+                                Width="189"
                                 Margin="5,0,0,0"
+                                HorizontalAlignment="Left"
                                 Foreground="White"
                                 Text="Email adressen" />
                             <Button
@@ -201,10 +240,60 @@
                                 Margin="0,0,5,0"
                                 HorizontalAlignment="Right"
                                 VerticalAlignment="Center"
+                                Command="{Binding cmdEditEmailAdressen}"
                                 Style="{StaticResource AddImage}" />
                         </Grid>
                     </Border>
-                    <ListBox Grid.Row="1" Margin="1" />
+                    <ListBox
+                        Name="EmailAdressenListView"
+                        Grid.Row="1"
+                        Grid.Column="1"
+                        Width="200"
+                        ItemsSource="{Binding EmailAdressenCollectie}"
+                        SelectedItem="{Binding SelectedEmailAdres, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                        SelectionChanged="EmailAdressenListView_SelectionChanged">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <Grid HorizontalAlignment="Stretch">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="140" />
+                                        <ColumnDefinition Width="45" />
+                                    </Grid.ColumnDefinitions>
+
+                                    <!--  E-mailadres  -->
+                                    <TextBlock
+                                        Margin="2"
+                                        VerticalAlignment="Center"
+                                        FontSize="10"
+                                        Text="{Binding}"
+                                        TextWrapping="Wrap" />
+                                    <StackPanel
+                                        Grid.Column="1"
+                                        HorizontalAlignment="Right"
+                                        Orientation="Horizontal">
+                                        <!--  Edit-knop  -->
+                                        <Button
+                                            Command="{Binding DataContext.cmdEditEmailAdressen, RelativeSource={RelativeSource AncestorType=ListBox}}"
+                                            CommandParameter="{Binding}"
+                                            Content="Edit"
+                                            Style="{StaticResource EditEmail}" />
+
+                                        <!--  Delete-knop  -->
+                                        <Button
+                                            Command="{Binding DataContext.cmdDeleteEmailAdressen, RelativeSource={RelativeSource AncestorType=ListBox}}"
+                                            CommandParameter="{Binding}"
+                                            Style="{StaticResource DeleteEmail}" />
+                                        <!--  Send-knop  -->
+                                        <Button Style="{StaticResource SendEmail}" />
+                                    </StackPanel>
+                                </Grid>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+
+
+
+                    <!--  Adressen  -->
                     <Border
                         Grid.Row="2"
                         Margin="1"
@@ -212,7 +301,9 @@
                         CornerRadius="3">
                         <Grid>
                             <TextBlock
+                                Width="189"
                                 Margin="5,0,0,0"
+                                HorizontalAlignment="Left"
                                 Foreground="White"
                                 Text="Adressen" />
                             <Button
@@ -221,10 +312,55 @@
                                 Margin="0,0,5,0"
                                 HorizontalAlignment="Right"
                                 VerticalAlignment="Center"
+                                Command="{Binding cmdEditAdres}"
                                 Style="{StaticResource AddImage}" />
                         </Grid>
                     </Border>
-                    <ListBox Grid.Row="3" Margin="1" />
+                    <ListBox
+                        Name="AdressenListView"
+                        Grid.Row="3"
+                        Grid.Column="1"
+                        Width="200"
+                        ItemsSource="{Binding AdressenCollectie}"
+                        SelectedItem="{Binding SelectedAdres, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <Grid HorizontalAlignment="Stretch">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="140" />
+                                        <ColumnDefinition Width="45" />
+                                    </Grid.ColumnDefinitions>
+
+                                    <!--  Adresinformatie  -->
+                                    <TextBlock
+                                        VerticalAlignment="Center"
+                                        FontSize="10"
+                                        Text="{Binding}"
+                                        TextWrapping="Wrap" />
+                                    <StackPanel
+                                        Grid.Column="1"
+                                        HorizontalAlignment="Right"
+                                        Orientation="Horizontal">
+                                        <!--  Edit-knop  -->
+                                        <Button
+                                            Command="{Binding DataContext.cmdEditAdres, RelativeSource={RelativeSource AncestorType=ListBox}}"
+                                            CommandParameter="{Binding}"
+                                            Content="Edit"
+                                            Style="{StaticResource EditEmail}" />
+
+                                        <!--  Delete-knop  -->
+                                        <Button
+                                            Command="{Binding DataContext.cmdDeleteAdres, RelativeSource={RelativeSource AncestorType=ListBox}}"
+                                            CommandParameter="{Binding}"
+                                            Style="{StaticResource DeleteAdres}" />
+                                    </StackPanel>
+                                </Grid>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+
+
+                    <!--  Telefonnummers  -->
                     <Border
                         Grid.Row="4"
                         Margin="1"
@@ -232,7 +368,9 @@
                         CornerRadius="3">
                         <Grid>
                             <TextBlock
+                                Width="189"
                                 Margin="5,0,0,0"
+                                HorizontalAlignment="Left"
                                 Foreground="White"
                                 Text="Telefonnummers" />
                             <Button
@@ -241,10 +379,54 @@
                                 Margin="0,0,5,0"
                                 HorizontalAlignment="Right"
                                 VerticalAlignment="Center"
+                                Command="{Binding cmdEditTelefoonNummers}"
                                 Style="{StaticResource AddImage}" />
                         </Grid>
                     </Border>
-                    <ListBox Grid.Row="5" Margin="1" />
+                    <ListBox
+                        Name="TelefoonNummersListView"
+                        Grid.Row="5"
+                        Grid.Column="1"
+                        Width="200"
+                        ItemsSource="{Binding TelefoonNummersCollectie}"
+                        SelectedItem="{Binding MijnSelectedItem.PersoonID, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <Grid HorizontalAlignment="Stretch">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="140" />
+                                        <ColumnDefinition Width="45" />
+                                    </Grid.ColumnDefinitions>
+
+                                    <!--  Telefoonnummer  -->
+                                    <TextBlock
+                                        VerticalAlignment="Center"
+                                        FontSize="10"
+                                        Text="{Binding}"
+                                        TextWrapping="Wrap" />
+                                    <StackPanel
+                                        Grid.Column="1"
+                                        HorizontalAlignment="Right"
+                                        Orientation="Horizontal">
+                                        <!--  Edit-knop  -->
+                                        <Button
+                                            Command="{Binding DataContext.cmdEditTelefoonNummers, RelativeSource={RelativeSource AncestorType=ListBox}}"
+                                            CommandParameter="{Binding}"
+                                            Content="Edit"
+                                            Style="{StaticResource EditEmail}" />
+
+                                        <!--  Delete-knop  -->
+                                        <Button
+                                            Command="{Binding DataContext.cmdDeleteTelefoonNummer, RelativeSource={RelativeSource AncestorType=ListBox}}"
+                                            CommandParameter="{Binding}"
+                                            Style="{StaticResource DeleteAdres}" />
+                                    </StackPanel>
+                                </Grid>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+
+                    <!--  Notities  -->
                     <Border
                         Grid.Row="6"
                         Margin="1"
@@ -252,9 +434,9 @@
                         CornerRadius="3">
                         <Grid>
                             <TextBlock
+                                Width="189"
                                 Margin="5,0,0,0"
                                 HorizontalAlignment="Left"
-                                VerticalAlignment="Center"
                                 Foreground="White"
                                 Text="Notities" />
                             <Button
@@ -263,21 +445,52 @@
                                 Margin="0,0,5,0"
                                 HorizontalAlignment="Right"
                                 VerticalAlignment="Center"
+                                Command="{Binding cmdEditNotities}"
                                 Style="{StaticResource AddImage}" />
                         </Grid>
-
                     </Border>
-                    <ListBox Grid.Row="7" Margin="1" />
+                    <ListBox
+                        Name="NotitiesListView"
+                        Grid.Row="7"
+                        Grid.Column="1"
+                        Width="200"
+                        ItemsSource="{Binding NotitiesCollectie}"
+                        SelectedItem="{Binding MijnSelectedItem.PersoonID, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <Grid HorizontalAlignment="Stretch">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="140" />
+                                        <ColumnDefinition Width="45" />
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock
+                                        VerticalAlignment="Center"
+                                        FontSize="10"
+                                        Text="{Binding}"
+                                        TextWrapping="Wrap" />
+                                    <StackPanel
+                                        Grid.Column="1"
+                                        HorizontalAlignment="Right"
+                                        Orientation="Horizontal">
+                                        <!--  Edit-knop  -->
+                                        <Button
+                                            Command="{Binding DataContext.cmdEditNotities, RelativeSource={RelativeSource AncestorType=ListBox}}"
+                                            CommandParameter="{Binding}"
+                                            Content="Edit"
+                                            Style="{StaticResource EditEmail}" />
 
+                                        <!--  Delete-knop  -->
+                                        <Button
+                                            Command="{Binding DataContext.cmdDeleteNotitie, RelativeSource={RelativeSource AncestorType=ListBox}}"
+                                            CommandParameter="{Binding}"
+                                            Style="{StaticResource DeleteAdres}" />
+                                    </StackPanel>
+                                </Grid>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
                 </Grid>
-
-
-
             </Border>
-
-
         </Grid>
-
-
     </Grid>
 </UserControl>

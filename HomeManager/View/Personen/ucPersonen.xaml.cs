@@ -1,4 +1,5 @@
-﻿using System;
+﻿using HomeManager.ViewModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,7 +14,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace HomeManager.View.Personen
+namespace HomeManager.View
 {
     /// <summary>
     /// Interaction logic for ucPersonen.xaml
@@ -23,9 +24,15 @@ namespace HomeManager.View.Personen
         public ucPersonen()
         {
             InitializeComponent();
+            this.DataContext = new clsPersoonViewModel();
         }
 
         private void ucWerkBalk_Loaded(object sender, RoutedEventArgs e)
+        {
+            
+        }
+
+        private void EmailAdressenListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
 
         }

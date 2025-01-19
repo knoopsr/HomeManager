@@ -42,6 +42,15 @@
         <DataTemplate DataType="{x:Type VM:clsEmailAdressenViewModel}">
             <V:ucEmailAdressen />
         </DataTemplate>
+        <DataTemplate DataType="{x:Type VM:clsAdressenViewModel}">
+            <V:ucAdressen />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type VM:clsTelefoonNummersViewModel}">
+            <V:ucTelefoonNummers />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type VM:clsNotitiesViewModel}">
+            <V:ucNotities />
+        </DataTemplate>
 
         <DataTemplate DataType="{x:Type VM:clsRechtenViewModel}">
             <V:ucRoles />
@@ -54,6 +63,9 @@
         </DataTemplate>
         <DataTemplate DataType="{x:Type VM:clsAccountViewModel}">
             <V:ucAccount />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type VM:clsPersonenViewModel}">
+            <V:ucPersonen />
         </DataTemplate>
 
 
@@ -139,6 +151,11 @@
                         <StackPanel x:Name="stckPerson" >
                             <Button
                                 Command="{Binding NavCommand}"
+                                CommandParameter="clsPersonenViewModel"
+                                Content="Personen"
+                                Style="{StaticResource myMenuTandwiel}" />
+                            <Button
+                                Command="{Binding NavCommand}"
                                 CommandParameter="clsPersoonViewModel"
                                 Content="Persoon"
                                 Style="{StaticResource myExpanderPerson}" />
@@ -172,11 +189,26 @@
                                 CommandParameter="clsFunctieViewModel"
                                 Content="Functies"
                                 Style="{StaticResource myExpanderPerson}" />
-                            <Button
+                            <!--<Button
                                 Command="{Binding NavCommand}"
                                 CommandParameter="clsEmailAdressenViewModel"
                                 Content="EmailAdressen"
                                 Style="{StaticResource myExpanderPerson}" />
+                            <Button
+                                Command="{Binding NavCommand}"
+                                CommandParameter="clsAdressenViewModel"
+                                Content="Adressen"
+                                Style="{StaticResource myExpanderPerson}" />
+                            <Button
+                                Command="{Binding NavCommand}"
+                                CommandParameter="clsTelefoonNummersViewModel"
+                                Content="Telefoonnummers"
+                                Style="{StaticResource myExpanderPerson}" />-->
+                            <!--<Button
+                                Command="{Binding NavCommand}"
+                                CommandParameter="clsNotitiesViewModel"
+                                Content="Notities"
+                                Style="{StaticResource myExpanderPerson}" />-->
                         </StackPanel>
                     </Expander>
 

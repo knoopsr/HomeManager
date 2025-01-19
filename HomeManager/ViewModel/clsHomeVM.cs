@@ -1,5 +1,7 @@
 ﻿using HomeManager.Common;
 using HomeManager.Helpers;
+using HomeManager.Messages;
+using HomeManager.Model.Personen;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -122,7 +124,22 @@ namespace HomeManager.ViewModel
         public clsHomeVM()
         {
             NavCommand = new clsRelayCommand<string>(OnNav);
-            cmdMenu = new clsCustomCommand(Execute_cmdMenu_Command, CanExecute_cmdMenu_Command);
+                    cmdMenu = new clsCustomCommand(Execute_cmdMenu_Command, CanExecute_cmdMenu_Command);
+
+            clsMessenger.Default.Register<clsPersoonModel>(this, OnNewPersonenReceive);
+        }
+
+        private void OnNewPersonenReceive(clsPersoonModel persoon)
+        {
+            if (persoon != null)
+            {
+                if (persoon.PersoonID == 0)
+                {
+                    OnNav("clsPersoonViewModel");
+                }
+            }
+
+    
         }
 
         private void Execute_cmdMenu_Command(object? obj)
@@ -142,6 +159,7 @@ namespace HomeManager.ViewModel
         private bool CanExecute_cmdMenu_Command(object? obj)
         {
             return true;    
+
         }
 
         private void OnNav(string destination)
@@ -163,9 +181,6 @@ namespace HomeManager.ViewModel
             {
                 MessageBox.Show("U heeft geen toegang tot deze pagina");
             }
-
-
-
         }
     }
 

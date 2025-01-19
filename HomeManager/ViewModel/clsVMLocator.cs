@@ -11,11 +11,13 @@ namespace HomeManager.ViewModel
 {
     public class clsVMLocator
     {
+        private static clsPersoonViewModel _persoonViewModel = new clsPersoonViewModel();
+
         public clsPersoonViewModel PersoonViewModel
         {
             get
             {
-                return new clsPersoonViewModel();
+                return _persoonViewModel;
             }
         }
         public clsFunctieViewModel FunctieViewModel
@@ -65,13 +67,56 @@ namespace HomeManager.ViewModel
                 return new clsGemeenteViewModel();
             }
         }
+        private static clsEmailAdressenViewModel _EmailAdressen = new clsEmailAdressenViewModel();
         public clsEmailAdressenViewModel EmailAdressenViewModel
         {
             get
             {
-                return new clsEmailAdressenViewModel();
+                return _EmailAdressen;
+                //return new clsEmailAdressenViewModel();
             }
         }
+
+        public clsPersonenViewModel PersonenViewModel
+        {
+            get
+            {
+                return new clsPersonenViewModel();
+            }
+        }
+
+        private static clsAdressenViewModel _Adressen = new clsAdressenViewModel();
+
+        public clsAdressenViewModel AdressenViewModel
+        {
+            get
+            {
+                return _Adressen;
+                //return new clsAdressenViewModel();
+            }
+        }
+
+
+        private static clsTelefoonNummersViewModel _TelefoonNummers = new clsTelefoonNummersViewModel();
+        public clsTelefoonNummersViewModel TelefoonNummersViewModel
+        {
+            get
+            {
+                return _TelefoonNummers;
+                //return new clsTelefoonNummersViewModel();
+            }
+        }
+
+        private static clsNotitiesViewModel _Notities = new clsNotitiesViewModel();
+        public clsNotitiesViewModel NotitiesViewModel
+        {
+            get
+            {
+                return _Notities;
+                //return new clsNotitiesViewModel();
+            }
+        }
+
 
         #region Security
         public clsTitlePersonViewModel TitlePersonViewModel

@@ -62,7 +62,7 @@ namespace HomeManager.DAL.Personen
                 clsDAL.ExecuteDataTable(Properties.Resources.I_Persoon,
                 clsDAL.Parameter("Naam", entity.Naam),
                 clsDAL.Parameter("Voornaam", entity.Voornaam),
-             clsDAL.Parameter("Foto", entity.Foto != null ? (object)entity.Foto : DBNull.Value, SqlDbType.VarBinary),
+                clsDAL.Parameter("Foto", entity.Foto != null ? (object)entity.Foto : DBNull.Value, SqlDbType.VarBinary),
                 clsDAL.Parameter("Geboortedatum", entity.Geboortedatum),
                 clsDAL.Parameter("IsApplicationUser", entity.IsApplicationUser),
                 clsDAL.Parameter("@ReturnValue", 0)
@@ -81,7 +81,7 @@ namespace HomeManager.DAL.Personen
                 clsDAL.Parameter("PersoonID", entity.PersoonID),
                 clsDAL.Parameter("Naam", entity.Naam),
                 clsDAL.Parameter("Voornaam", entity.Voornaam),
-                   clsDAL.Parameter("Foto", entity.Foto != null ? (object)entity.Foto : DBNull.Value, SqlDbType.VarBinary),
+                clsDAL.Parameter("Foto", entity.Foto != null ? (object)entity.Foto : DBNull.Value, SqlDbType.VarBinary),
                 clsDAL.Parameter("Geboortedatum", entity.Geboortedatum),
                 clsDAL.Parameter("IsApplicationUser", entity.IsApplicationUser),
                 clsDAL.Parameter("ControlField", entity.ControlField),
@@ -121,12 +121,22 @@ namespace HomeManager.DAL.Personen
             MijnDataReader.Close();
         }
 
+
+        public ObservableCollection<clsPersoonModel> GetByPersoonID(int id)
+        {
+            if (MijnCollectie == null)
+            {
+                GenerateCollection();
+            }
+            return new ObservableCollection<clsPersoonModel>(MijnCollectie.Where(persoon => persoon.PersoonID == id));
+
         public ObservableCollection<clsPersoonModel> GetAllApplicationUser()
         { 
             GenerateCollection();
             return new ObservableCollection<clsPersoonModel>(
                 MijnCollectie.Where(persoon => persoon.IsApplicationUser == true)
             );
+
         }
 
     }
