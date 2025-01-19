@@ -40,7 +40,64 @@
         </Setter>
     </Style>
 
+    <Style x:Key="DeleteTodoImage" TargetType="ContentControl">
+        <Setter Property="Cursor" Value="Hand" />
+        <Setter Property="Height" Value="10" />
+        <Setter Property="Width" Value="10" />
+        <Setter Property="Margin" Value="2,0,2,0" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ContentControl">
+                    <Border Background="{StaticResource myBackground}">
+                        <Path
+                            Data="{StaticResource myDeleteButton}"
+                            Fill="Gray"
+                            Stretch="Fill" />
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="PaperclipTodoImage" TargetType="ContentControl">
+        <Setter Property="Cursor" Value="Hand" />
+        <Setter Property="Height" Value="10" />
+        <Setter Property="Width" Value="10" />
+        <Setter Property="Margin" Value="2,0,2,0" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ContentControl">
+                    <Border Background="{StaticResource myBackground}">
+                        <Path
+                            Data="{StaticResource myPaperclipButton}"
+                            Fill="Gray"
+                            Stretch="Fill" />
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
     <Style x:Key="EditPersonImage" TargetType="ContentControl">
+        <Setter Property="Cursor" Value="Hand" />
+        <Setter Property="Height" Value="10" />
+        <Setter Property="Width" Value="10" />
+        <Setter Property="Margin" Value="2,0,2,0" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ContentControl">
+                    <Border Background="{StaticResource myBackground}">
+                        <Path
+                            Data="{StaticResource myEditButton}"
+                            Fill="Gray"
+                            Stretch="Fill" />
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="EditTodoImage" TargetType="ContentControl">
         <Setter Property="Cursor" Value="Hand" />
         <Setter Property="Height" Value="10" />
         <Setter Property="Width" Value="10" />

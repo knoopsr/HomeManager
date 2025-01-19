@@ -84,7 +84,7 @@
                             <local:ucPersonItem
                                 Height="100"
                                 MaxWidth="150"
-                                MaxHeight="100" />
+                                MaxHeight="100" Loaded="ucPersonItem_Loaded" />
                             <local:ucPersonItem
                                 Height="100"
                                 MaxWidth="150"

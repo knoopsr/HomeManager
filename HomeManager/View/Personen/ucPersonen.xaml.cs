@@ -24,5 +24,10 @@ namespace HomeManager.View.Personen
         {
             InitializeComponent();
         }
+
+        private void ucPersonItem_Loaded(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
