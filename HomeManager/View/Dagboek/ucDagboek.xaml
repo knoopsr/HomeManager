@@ -92,7 +92,9 @@
                                     <RowDefinition Height="auto" />
                                 </Grid.RowDefinitions>
 
-                                <RibbonToggleButton Content="{StaticResource PasteIcon}" Style="{StaticResource myToggleButton}" />
+                                <RibbonButton Content="{StaticResource PasteIcon}" 
+                                              Style="{StaticResource myRibbonButton}" 
+                                              Command="{Binding CmdPaste}"/>
                                 <Label
                                     Grid.Row="1"
                                     Padding="1"
@@ -100,10 +102,11 @@
                                     Paste
                                 </Label>
 
-                                <RibbonToggleButton
+                                <RibbonButton
                                     Grid.Column="1"
                                     Content="{StaticResource CutIcon}"
-                                    Style="{StaticResource myToggleButton}" />
+                                    Style="{StaticResource myRibbonButton}" 
+                                    Command="{Binding cmdCut}"/>
                                 <Label
                                     Grid.Row="1"
                                     Grid.Column="1"
@@ -112,10 +115,11 @@
                                     Cut
                                 </Label>
 
-                                <RibbonToggleButton
+                                <RibbonButton
                                     Grid.Column="3"
                                     Content="{StaticResource CopyIcon}"
-                                    Style="{StaticResource myToggleButton}" />
+                                    Style="{StaticResource myRibbonButton}"
+                                    Command="{Binding cmdCopy}"/>
                                 <Label
                                     Grid.Row="1"
                                     Grid.Column="3"
@@ -158,7 +162,10 @@
                                     Width="10"
                                     Height="10"
                                     Content="{StaticResource ItalicIcon}"
-                                    Style="{StaticResource myToggleButton}" />
+                                    Style="{StaticResource myToggleButton}" 
+                                    Command="{Binding cmdToggleItalic}"
+                                    CommandParameter="{Binding ElementName=MyRTB}"
+                                    IsChecked="{Binding MyRTBLayout.IsItalic, Mode=OneWay}"/>
                                 <Label
                                     Grid.Row="1"
                                     Grid.Column="1"

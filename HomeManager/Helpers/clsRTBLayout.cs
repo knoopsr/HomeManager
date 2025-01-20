@@ -1,11 +1,14 @@
 ﻿using HomeManager.Common;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Documents;
+using System.Windows.Documents.DocumentStructures;
 using System.Xml.Linq;
 
 namespace HomeManager.Helpers
@@ -75,9 +78,9 @@ namespace HomeManager.Helpers
 		#endregion
 
 		#region Underline & striketrough
-		private List<TextDecoration> _myTextDecorations = new List<TextDecoration>();
+		private TextDecorationCollection _myTextDecorations = new TextDecorationCollection();
 
-		public List<TextDecoration> MyTextDecorations
+		public TextDecorationCollection MyTextDecorations
 		{
 			get { return _myTextDecorations; }
 			set 
@@ -106,18 +109,12 @@ namespace HomeManager.Helpers
             }
         }
 
-		public List<TextDecoration> GetMyDecorations(TextRange range)
+		public TextDecorationCollection GetMyDecorations(TextRange range)
 		{
-			var mijnDecorations = range.GetPropertyValue(Inline.TextDecorationsProperty) as TextDecorationCollection;
-			if (mijnDecorations != null && mijnDecorations.Count>0)
-			{
-				return mijnDecorations.ToList();
-			}
-			else
-			{
-				
-				return new List<TextDecoration>();
-			}
+			var mijnDecorations = range.GetPropertyValue(Inline.TextDecorationsProperty);
+
+			return mijnDecorations as TextDecorationCollection ?? new TextDecorationCollection();
+
 		}
 
 		public void ToggleUnderline(TextRange range)
@@ -125,10 +122,11 @@ namespace HomeManager.Helpers
 			if (IsUnderline)
 			{
 				//remove underline decoration
-				MyTextDecorations.RemoveAll(decoration => decoration.Location == TextDecorationLocation.Underline);
+				var collection = MyTextDecorations.Where(decoration => decoration.Location != TextDecorationLocation.Underline);
+                MyTextDecorations = new TextDecorationCollection(collection);
 
 				//apply the changes to the textrange
-				range.ApplyPropertyValue(Inline.TextDecorationsProperty, new TextDecorationCollection(MyTextDecorations));
+				range.ApplyPropertyValue(Inline.TextDecorationsProperty, MyTextDecorations);
 			}
 			else
 			{
@@ -138,7 +136,7 @@ namespace HomeManager.Helpers
 				MyTextDecorations.Add(decoration);
 
 				//aply the underline
-				range.ApplyPropertyValue(Inline.TextDecorationsProperty,new TextDecorationCollection(MyTextDecorations));
+				range.ApplyPropertyValue(Inline.TextDecorationsProperty,MyTextDecorations);
 			}
 		}
 
@@ -146,8 +144,9 @@ namespace HomeManager.Helpers
         {
             if (MyTextDecorations.Any(decoration => decoration.Location == TextDecorationLocation.Strikethrough))
             {
-                //remove striketrough decoration
-                MyTextDecorations.RemoveAll(decoration => decoration.Location == TextDecorationLocation.Strikethrough);
+				//remove striketrough decoration
+				var collection = MyTextDecorations.Where(decoration => decoration.Location != TextDecorationLocation.Strikethrough);
+				MyTextDecorations = new TextDecorationCollection(collection);
 
                 //apply the changes to the textrange
                 range.ApplyPropertyValue(Inline.TextDecorationsProperty, MyTextDecorations);
@@ -163,19 +162,82 @@ namespace HomeManager.Helpers
                 range.ApplyPropertyValue(Inline.TextDecorationsProperty, MyTextDecorations);
             }
         }
-        #endregion
+		#endregion
 
-        #region Italic
+		#region Italic
+		private FontStyle _myFontStyle = FontStyles.Normal;
 
-        #endregion
+		public FontStyle MyFontStyle
+		{
+			get { return _myFontStyle; }
+			set 
+			{ 
+				_myFontStyle = value; 
+				OnPropertyChanged();
+				OnPropertyChanged(nameof(IsItalic));
+			}
+		}
 
-        /*deze method gaat de layout ophalen van geselecteerder text
+		public bool IsItalic
+		{
+			get
+			{
+				if (_myFontStyle == FontStyles.Italic)
+				{
+					return true;
+				}
+				else
+				{
+					return false;
+				}
+			}
+		}
+
+		public FontStyle GetFontStyles(TextRange range)
+		{
+			var fontStyle = range.GetPropertyValue(TextElement.FontStyleProperty);
+
+
+            if (fontStyle != DependencyProperty.UnsetValue && fontStyle is FontStyle)
+			{
+      
+				return (FontStyle)fontStyle;
+            }
+			
+			return FontStyles.Normal;
+		}
+
+		public void ToggleItalic(TextRange range)
+		{
+			FontStyle font = GetFontStyles(range);
+			if (font == FontStyles.Normal)
+			{
+				MyFontStyle = FontStyles.Italic;
+            }
+			else
+			{
+				MyFontStyle = FontStyles.Normal;
+			}
+            range.ApplyPropertyValue(TextElement.FontStyleProperty, MyFontStyle);
+        }
+
+		#endregion
+
+		/*deze method gaat de layout ophalen van geselecteerder text
 		 * de behavior gaat deze functie gebruiken
 		 */
-        public void UpdateLayoutFromSelection(TextRange range)
+		public void UpdateLayoutFromSelection(TextRange range)
 		{
 			MyFontWeight = GetFontWeight(range);
-			MyTextDecorations = GetMyDecorations(range);
+			
+			var currentDecorations = GetMyDecorations(range);
+			if (!currentDecorations.SequenceEqual(MyTextDecorations))
+			{
+				MyTextDecorations = currentDecorations;
+			}
+			
+			MyFontStyle = GetFontStyles(range);
+			
 		}
 	}
 }

@@ -87,7 +87,11 @@ namespace HomeManager.ViewModel
             //relaycommands for the layout
             cmdSetFontWeight = new clsRelayCommand(SetFontWeight);
             cmdSetUnderline = new clsRelayCommand(SetUnderline);
-
+            cmdToggleItalic = new clsRelayCommand(ToggleItalic);
+            cmdCut = ApplicationCommands.Cut;
+            cmdCopy = ApplicationCommands.Copy;
+            CmdPaste = ApplicationCommands.Paste;
+            
 
             MyRTBLayout = new clsRTBLayout();
             MyService = new clsDagboekDataService();
@@ -117,6 +121,17 @@ namespace HomeManager.ViewModel
             }
 
 
+        }
+
+
+        private void ToggleItalic(object? obj)
+        {
+            RichTextBox rtb = obj as RichTextBox;
+            if (rtb != null)
+            {
+                TextRange range = rtb.Selection;
+                MyRTBLayout.ToggleItalic(range);
+            }
         }
 
         private void SetUnderline(object? obj)
@@ -189,6 +204,10 @@ namespace HomeManager.ViewModel
         //relaycommands
         public ICommand cmdSetFontWeight {  get; set; }
         public ICommand cmdSetUnderline { get; set; }
+        public ICommand cmdToggleItalic { get; set; }
+        public ICommand cmdCut { get; set; }
+        public ICommand cmdCopy { get; set; }
+        public ICommand CmdPaste { get; set; }
         #endregion
 
         #region Command CanExecutes
