@@ -2,6 +2,7 @@
 using HomeManager.DataService.ToDo;
 using HomeManager.Helpers;
 using HomeManager.Model.Todo;
+//using HomeManager.Model.ToDo;
 using HomeManager.View;
 using System;
 using System.Collections.Generic;
@@ -47,7 +48,6 @@ namespace HomeManager.ViewModel
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
-
         private ObservableCollection<clsTodoPopupM> _MijnCollectie;
         public ObservableCollection<clsTodoPopupM> MijnCollectie
         {
@@ -89,16 +89,6 @@ namespace HomeManager.ViewModel
             }
         }
 
-        //private clsCollectiesM _selectedCollectie;
-        //public clsCollectiesM SelectedCollectie
-        //{
-        //    get => _selectedCollectie;
-        //    set
-        //    {
-        //        _selectedCollectie = value;
-        //        OnPropertyChanged();
-        //    }
-        //}
         private void OpslaanCommando()
         {
             if (MijnSelectedItem != null)
@@ -141,6 +131,7 @@ namespace HomeManager.ViewModel
         private void LoadData()
         {
             MijnCollectie = MijnService.GetAll();
+            
         }
 
         public clsTodoPopupVM()
@@ -290,15 +281,11 @@ namespace HomeManager.ViewModel
         private void Execute_SaveCommand(object obj)
         {
             OpslaanCommando();
-
         }
-
 
         private void OnCollectiesReceived(clsTodoPopupM obj)
         {
             _MijnSelectedItem = obj;
         }
-
-
     }
 }
