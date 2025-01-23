@@ -360,4 +360,13 @@
   <data name="S_AgendaCategory" xml:space="preserve">
     <value>S_AgendaCategory</value>
   </data>
+  <data name="D_Dagboek" xml:space="preserve">
+    <value>D_Dagboek</value>
+  </data>
+  <data name="I_Dagboek" xml:space="preserve">
+    <value>I_Dagboek</value>
+  </data>
+  <data name="S_Dagboek" xml:space="preserve">
+    <value>S_Dagboek</value>
+  </data>
 </root>
