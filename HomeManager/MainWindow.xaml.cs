@@ -34,6 +34,10 @@ namespace HomeManager
             Storyboard hideMenu = (Storyboard)FindResource("HideMenu");
             hideMenu.Begin();
         }
-        
+
+  
+
+
+
     }
 }
