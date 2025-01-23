@@ -5,12 +5,18 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:HomeManager.View"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:uc="clr-namespace:HomeManager.View" xmlns:viewmodel="clr-namespace:HomeManager.ViewModel"
+    xmlns:uc="clr-namespace:HomeManager.View"
+    xmlns:viewmodel="clr-namespace:HomeManager.ViewModel"
+    xmlns:converter="clr-namespace:HomeManager.Converter"
     x:Name="ucTodoControl"
     d:DesignHeight="450"
     d:DesignWidth="800"
     Background="White"
     mc:Ignorable="d">
+    <UserControl.Resources>
+        <converter:BoolToColorBrushConverter x:Key="BoolToColorBrushConverter" />
+    </UserControl.Resources>
+
     <Grid DataContext="{Binding Source={StaticResource VML}, Path=ToDoViewModel}">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="150" />
@@ -74,9 +80,9 @@
                         Width="285"
                         Margin="5"
                         Padding="2"
-                        Background="{Binding IsKlaar, ConverterParameter=Background}"
-                        BorderBrush="{Binding IsKlaar, ConverterParameter=BorderBrush}"
-                        BorderThickness="1"
+                        Background="{Binding IsKlaar, Converter={StaticResource BoolToColorBrushConverter}, ConverterParameter=Background}"
+                        BorderBrush="{Binding IsKlaar, Converter={StaticResource BoolToColorBrushConverter}, ConverterParameter=Border}"
+                        BorderThickness="2"
                         CornerRadius="5">
                         <StackPanel Orientation="Horizontal">
                             <Rectangle Width="10" Fill="{Binding TodoColorID}" />

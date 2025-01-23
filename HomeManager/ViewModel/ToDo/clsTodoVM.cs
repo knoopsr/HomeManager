@@ -95,8 +95,6 @@ namespace HomeManager.ViewModel
             }
         }
 
-        //TODO: public ObservableCollection voor clsTodoPopup maken !!!!
-
         private clsCollectiesM _MijnSelectedItem;
         public clsCollectiesM MijnSelectedItem
         {
@@ -163,27 +161,6 @@ namespace HomeManager.ViewModel
                 Height = 450
             };
             todoDetailsWindow.ShowDialog();
-        }
-
-        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
-        {
-            if (value is bool isKlaar)
-            {
-                if (parameter.ToString() == "Background")
-                {
-                    return isKlaar ? new SolidColorBrush(Colors.LightGreen) : new SolidColorBrush(Colors.MistyRose);
-                }
-                else if (parameter.ToString() == "BorderBrush")
-                {
-                    return isKlaar ? new SolidColorBrush(Colors.Green) : new SolidColorBrush(Colors.Red);
-                }
-            }
-            return new SolidColorBrush(Colors.Transparent);
-        }
-
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
-        {
-            throw new NotImplementedException();
         }
     }
 }
