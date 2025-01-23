@@ -107,8 +107,9 @@ namespace HomeManager.ViewModel
                         int id = _mijnSelectedPersoonItem.PersoonID;
                         clsMailService mailService = new clsMailService();
 
-                        List<string> verzondenEmails = await mailService.SendNewPassToPerson(
-                            _mijnSelectedItem,
+                        List<string> verzondenEmails = await mailService.SendNewPassToPerson(                    
+                            _mijnSelectedItem, 
+
                             _mijnSelectedPersoonItem
 
                         );

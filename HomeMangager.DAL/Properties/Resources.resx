@@ -345,28 +345,4 @@
   <data name="I_Adressen" xml:space="preserve">
     <value>I_Adressen</value>
   </data>
-  <data name="S_AgendaItems" xml:space="preserve">
-    <value>S_AgendaItems</value>
-  </data>
-  <data name="D_AgendaItems" xml:space="preserve">
-    <value>D_AgendaItems</value>
-  </data>
-  <data name="I_AgendaItems" xml:space="preserve">
-    <value>I_AgendaItems</value>
-  </data>
-  <data name="U_AgendaItems" xml:space="preserve">
-    <value>U_AgendaItems</value>
-  </data>
-  <data name="S_AgendaCategory" xml:space="preserve">
-    <value>S_AgendaCategory</value>
-  </data>
-  <data name="D_Dagboek" xml:space="preserve">
-    <value>D_Dagboek</value>
-  </data>
-  <data name="I_Dagboek" xml:space="preserve">
-    <value>I_Dagboek</value>
-  </data>
-  <data name="S_Dagboek" xml:space="preserve">
-    <value>S_Dagboek</value>
-  </data>
 </root>

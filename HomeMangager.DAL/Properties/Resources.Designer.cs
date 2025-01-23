@@ -88,29 +88,11 @@ namespace HomeManager.DAL.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to D_AgendaItems.
-        /// </summary>
-        internal static string D_AgendaItems {
-            get {
-                return ResourceManager.GetString("D_AgendaItems", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to D_BudgetCategorie.
         /// </summary>
         internal static string D_BudgetCategorie {
             get {
                 return ResourceManager.GetString("D_BudgetCategorie", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to D_Dagboek.
-        /// </summary>
-        internal static string D_Dagboek {
-            get {
-                return ResourceManager.GetString("D_Dagboek", resourceCulture);
             }
         }
         
@@ -250,29 +232,11 @@ namespace HomeManager.DAL.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to I_AgendaItems.
-        /// </summary>
-        internal static string I_AgendaItems {
-            get {
-                return ResourceManager.GetString("I_AgendaItems", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to I_BudgetCategorie.
         /// </summary>
         internal static string I_BudgetCategorie {
             get {
                 return ResourceManager.GetString("I_BudgetCategorie", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to I_Dagboek.
-        /// </summary>
-        internal static string I_Dagboek {
-            get {
-                return ResourceManager.GetString("I_Dagboek", resourceCulture);
             }
         }
         
@@ -421,38 +385,11 @@ namespace HomeManager.DAL.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to S_AgendaCategory.
-        /// </summary>
-        internal static string S_AgendaCategory {
-            get {
-                return ResourceManager.GetString("S_AgendaCategory", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to S_AgendaItems.
-        /// </summary>
-        internal static string S_AgendaItems {
-            get {
-                return ResourceManager.GetString("S_AgendaItems", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to S_BudgetCategorie.
         /// </summary>
         internal static string S_BudgetCategorie {
             get {
                 return ResourceManager.GetString("S_BudgetCategorie", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to S_Dagboek.
-        /// </summary>
-        internal static string S_Dagboek {
-            get {
-                return ResourceManager.GetString("S_Dagboek", resourceCulture);
             }
         }
         
@@ -660,15 +597,6 @@ namespace HomeManager.DAL.Properties {
         internal static string U_Adressen {
             get {
                 return ResourceManager.GetString("U_Adressen", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to U_AgendaItems.
-        /// </summary>
-        internal static string U_AgendaItems {
-            get {
-                return ResourceManager.GetString("U_AgendaItems", resourceCulture);
             }
         }
         

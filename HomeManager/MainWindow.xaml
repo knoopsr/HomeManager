@@ -71,8 +71,9 @@
         <DataTemplate DataType="{x:Type VM:clsPersonenViewModel}">
             <V:ucPersonen />
         </DataTemplate>
-   
-
+        <DataTemplate DataType="{x:Type VM:clsCategorieViewModel}">
+            <V:ucCategorie />
+        </DataTemplate>
     </Window.Resources>
 
 
@@ -91,6 +92,7 @@
 
         <V:ucTitlePerson
             Grid.ColumnSpan="2"
+            Width="120"
             Margin="0,0,10,0"
             HorizontalAlignment="Right"
             VerticalAlignment="Center" />
@@ -146,13 +148,6 @@
                     Width="200"
                     HorizontalAlignment="Left"
                     Orientation="Vertical">
-
-                    <Button
-                        Command="{Binding NavCommand}"
-                        CommandParameter="clsAgendaViewModel"
-                        Content="Agenda"
-                        Style="{StaticResource myExpanderCalendar}" />
-
                     <Expander IsExpanded="{Binding IsPersonenExpanderMenu, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource myHamburgerPersonen}">
                         <StackPanel x:Name="stckPerson">
                             <Button
@@ -298,104 +293,10 @@
 
         <!--#endregion-->
 
-
-
-
-
-
-        <Canvas
+        <ContentControl
             Grid.Row="1"
             Grid.Column="1"
-            HorizontalAlignment="Stretch"
-            VerticalAlignment="Stretch"
-            DataContext="{Binding Source={StaticResource VML}, Path=NoteViewModel}">
-            <i:Interaction.Triggers>
-                <i:EventTrigger EventName="SizeChanged">
-                    <i:InvokeCommandAction Command="{Binding CanvasSizeChangedCommand}" CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=Canvas}}" />
-                </i:EventTrigger>
-            </i:Interaction.Triggers>
-
-            <TextBlock Text="{Binding ActualWidth, RelativeSource={RelativeSource AncestorType=Canvas}, Mode=OneWay}" />
-
-
-            <ContentControl
-                Width="{Binding ActualWidth, RelativeSource={RelativeSource AncestorType=Canvas}, Mode=OneWay}"
-                Height="{Binding ActualHeight, RelativeSource={RelativeSource AncestorType=Canvas}, Mode=OneWay}"
-                Content="{Binding CurrentViewModel}"
-                DataContext="{Binding ElementName=MainWIN, Path=DataContext}" />
-
-
-            <ItemsControl DataContext="{Binding Source={StaticResource VML}, Path=NoteViewModel}" ItemsSource="{Binding MijnCollectie}">
-                <ItemsControl.ItemsPanel>
-                    <ItemsPanelTemplate>
-                        <Canvas />
-                    </ItemsPanelTemplate>
-                </ItemsControl.ItemsPanel>
-                <ItemsControl.ItemContainerStyle>
-                    <Style TargetType="ContentPresenter">
-                        <Setter Property="Canvas.Left" Value="{Binding CanvasLeft, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                        <Setter Property="Canvas.Top" Value="{Binding CanvasTop, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                        <Setter Property="Panel.ZIndex" Value="{Binding ZIndex, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                    </Style>
-                </ItemsControl.ItemContainerStyle>
-                <ItemsControl.ItemTemplate>
-                    <DataTemplate>
-
-                        <StackPanel Margin="0,-5,0,0" Orientation="Vertical">
-
-                            <Border
-                                Width="{Binding Width, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                Height="{Binding Height, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                Margin="2,0,0,0"
-                                Panel.ZIndex="2"
-                                Background="{Binding NoteColor, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                BorderBrush="{Binding NoteBorderColor, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                BorderThickness="1"
-                                CornerRadius="1"
-                                Cursor="Hand">
-                                <i:Interaction.Triggers>
-                                    <i:EventTrigger EventName="MouseLeftButtonUp">
-                                        <i:InvokeCommandAction Command="{Binding DataContext.MouseLeftUpNoteItem, RelativeSource={RelativeSource AncestorType=Canvas}}" CommandParameter="{Binding}" />
-                                    </i:EventTrigger>
-                                    <i:EventTrigger EventName="MouseLeftButtonDown">
-                                        <i:InvokeCommandAction Command="{Binding DataContext.MouseLeftDownNoteItem, RelativeSource={RelativeSource AncestorType=Canvas}}" CommandParameter="{Binding}" />
-                                    </i:EventTrigger>
-                                    <i:EventTrigger EventName="MouseMove">
-                                        <i:InvokeCommandAction Command="{Binding DataContext.MouseMoveNoteItem, RelativeSource={RelativeSource AncestorType=Canvas}}" CommandParameter="{Binding}" />
-                                    </i:EventTrigger>
-                                    <i:EventTrigger EventName="MouseEnter">
-                                        <i:InvokeCommandAction Command="{Binding DataContext.MouseEnterNoteItem, RelativeSource={RelativeSource AncestorType=Canvas}}" CommandParameter="{Binding}" />
-                                    </i:EventTrigger>
-                                    <i:EventTrigger EventName="MouseLeave">
-                                        <i:InvokeCommandAction Command="{Binding DataContext.MouseLeaveNoteItem, RelativeSource={RelativeSource AncestorType=Canvas}}" CommandParameter="{Binding}" />
-                                    </i:EventTrigger>
-                                </i:Interaction.Triggers>
-
-
-
-                                <StackPanel>
-                                    <TextBlock
-                                        HorizontalAlignment="Center"
-                                        FontSize="12"
-                                        FontWeight="Bold"
-                                        Foreground="Black"
-                                        Text="{Binding NoteTitle, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                                    <TextBlock
-                                        Margin="3,2,3,3"
-                                        FontSize="10"
-                                        Text="{Binding NoteText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                                </StackPanel>
-                            </Border>
-
-                        </StackPanel>
-                    </DataTemplate>
-                </ItemsControl.ItemTemplate>
-            </ItemsControl>
-
-
-
-        </Canvas>
-
+            Content="{Binding CurrentViewModel}" />
 
     </Grid>
 </Window>

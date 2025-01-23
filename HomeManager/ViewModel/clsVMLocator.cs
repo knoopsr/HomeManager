@@ -1,6 +1,6 @@
-﻿using HomeManager.Agenda.ViewModel;
-using HomeManager.ViewModel.AddOns;
-using HomeManager.ViewModel.StickyNotes;
+using HomeManager.Model.Personen;
+using HomeManager.ViewModel;
+using HomeManager.ViewModel.Security;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,8 +11,6 @@ namespace HomeManager.ViewModel
 {
     public class clsVMLocator
     {
-
-
         private static clsPersoonViewModel _persoonViewModel = new clsPersoonViewModel();
 
         public clsPersoonViewModel PersoonViewModel
@@ -119,6 +117,7 @@ namespace HomeManager.ViewModel
             }
         }
 
+
         #region Security
         public clsTitlePersonViewModel TitlePersonViewModel
         {
@@ -127,7 +126,6 @@ namespace HomeManager.ViewModel
                 return new clsTitlePersonViewModel();
             }
         }
-
 
         public clsRechtenViewModel RechtenViewModel
         {
@@ -152,20 +150,21 @@ namespace HomeManager.ViewModel
                 return new clsAccountViewModel();
             }
         }
-        private clsCredentialManagementViewModel _credentialManagementViewModel = new clsCredentialManagementViewModel();
+
         public clsCredentialManagementViewModel CredentialManagementViewModel
         {
             get
             {
-                return _credentialManagementViewModel;
+                return new clsCredentialManagementViewModel();
             }
         }
-        
+
+        private static clsLogin _loginViewModel = new clsLogin();
         public clsLogin LoginViewModel
         {
             get
             {
-                return new clsLogin();
+                return _loginViewModel;
             }
         }
 
@@ -178,52 +177,23 @@ namespace HomeManager.ViewModel
             }
         }
 
-        #endregion
-
-        #region Agenda
-
-        private static clsAgendaViewModel _agendaViewModel = new clsAgendaViewModel();
-        public clsAgendaViewModel AgendaViewModel
+        public clsUnLockViewModel UnLockViewModel
         {
             get
             {
-                return _agendaViewModel;
+                return new clsUnLockViewModel();
             }
         }
-
 
         #endregion
 
-        #region Notes
-
-        private static clsNoteViewModel _noteViewModel = new clsNoteViewModel();
-        public clsNoteViewModel NoteViewModel
+        public clsCategorieViewModel CategorieViewModel
         {
             get
             {
-                return _noteViewModel;
+                return new clsCategorieViewModel(); ;
             }
+
         }
-        #endregion
-
-        private static clsHomeVM _homeViewModel = new clsHomeVM();
-        public clsHomeVM HomeViewModel
-        {
-            get
-            {
-                return _homeViewModel;
-            }
-        }
-
-        private static clsComputersViewModel _computersViewModel = new clsComputersViewModel();
-
-        public clsComputersViewModel ComputersViewModel
-        {
-            get
-            {
-                return _computersViewModel;
-            }
-        }
-
     }
 }

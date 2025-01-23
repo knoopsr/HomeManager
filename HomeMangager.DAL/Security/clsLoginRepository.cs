@@ -65,7 +65,6 @@ namespace HomeManager.DAL.Security
                 {
                     _login.ErrorBoodschap = error.Message;
                     _login.ErrorCode = Convert.ToInt16($"{error.Class}{error.State}");
-
                 }
 
                 // Zorg ervoor dat het account-ID wordt gereset als er een fout is

@@ -133,54 +133,9 @@
                     <BeginStoryboard Storyboard="{StaticResource AnimateIconHomeHide}" />
                 </DataTrigger.ExitActions>
             </DataTrigger>
-
         </Style.Triggers>
-
-
-
     </Style>
 
-
-    <Style x:Key="myExpanderCalendar" TargetType="Button">
-        <Setter Property="Margin" Value="-95,5,0,0" />
-        <Setter Property="Width" Value="75" />
-        <Setter Property="Foreground" Value="{StaticResource myWerkBalk}" />
-        <Setter Property="Template">
-            <Setter.Value>
-                <ControlTemplate TargetType="Button">
-                    <Border Name="HeaderBorder" Background="Transparent">
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="24" />
-                                <ColumnDefinition Width="*" />
-                            </Grid.ColumnDefinitions>
-                            <Path
-                                Width="24"
-                                Height="24"
-                                HorizontalAlignment="Center"
-                                VerticalAlignment="Center"
-                                Data="{StaticResource myCalendarButton}"
-                                Fill="{StaticResource myMenuIcon}"
-                                IsHitTestVisible="False"
-                                Stretch="Uniform" />
-                            <ContentPresenter
-                                Grid.Column="1"
-                                Margin="6,0,0,0"
-                                HorizontalAlignment="Left"
-                                VerticalAlignment="Center" />
-                        </Grid>
-                    </Border>
-                    <ControlTemplate.Triggers>
-                        <Trigger SourceName="HeaderBorder" Property="IsMouseOver" Value="True">
-                            <Setter Property="Cursor" Value="Hand" />
-                            <Setter TargetName="HeaderBorder" Property="Background" Value="LightBlue" />
-                            <Setter TargetName="HeaderBorder" Property="CornerRadius" Value="1" />
-                        </Trigger>
-                    </ControlTemplate.Triggers>
-                </ControlTemplate>
-            </Setter.Value>
-        </Setter>
-    </Style>
 
 
 
