@@ -109,6 +109,7 @@ namespace HomeManager.ViewModel
 
                         List<string> verzondenEmails = await mailService.SendNewPassToPerson(                    
                             _mijnSelectedItem, 
+
                             _mijnSelectedPersoonItem
 
                         );
@@ -213,7 +214,7 @@ namespace HomeManager.ViewModel
                 return false;
             }
         }
-    
+
         private void Execute_New_Command(object? obj)
         {
 

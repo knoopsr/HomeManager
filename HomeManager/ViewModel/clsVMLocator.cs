@@ -1,4 +1,4 @@
-﻿using HomeManager.Model.Personen;
+using HomeManager.Model.Personen;
 using HomeManager.ViewModel;
 using HomeManager.ViewModel.Security;
 using System;

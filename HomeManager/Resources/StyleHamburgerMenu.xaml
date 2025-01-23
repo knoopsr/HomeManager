@@ -133,14 +133,8 @@
                     <BeginStoryboard Storyboard="{StaticResource AnimateIconHomeHide}" />
                 </DataTrigger.ExitActions>
             </DataTrigger>
-
         </Style.Triggers>
-
-
-
     </Style>
-
-
 
 
 

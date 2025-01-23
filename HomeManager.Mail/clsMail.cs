@@ -51,7 +51,7 @@ namespace HomeManager.Mail
                 var email = await Email
                     .From(MailModel.MailFromEmail)
                     .To(MailModel.MailToEmail, MailModel.MailToName)
-                    .Subject(MailModel.Subject)                    
+                    .Subject(MailModel.Subject)                 
                     .Body(htmlBody.ToString(), isHtml: true)
                     .SendAsync();
 

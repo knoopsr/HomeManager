@@ -1,4 +1,4 @@
-﻿using HomeManager.Common;
+using HomeManager.Common;
 using HomeManager.Helpers;
 using HomeManager.Messages;
 using HomeManager.Model.Personen;

@@ -1,0 +1,517 @@
+﻿<UserControl
+    x:Class="HomeManager.Agenda.View.ucAgendaView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:ConVerter="clr-namespace:HomeManager.Agenda.Converter"
+    xmlns:Helpers="clr-namespace:HomeManager.Agenda.Helpers"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+    xmlns:local="clr-namespace:HomeManager.Agenda.View"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    d:DesignHeight="600"
+    d:DesignWidth="1000"
+    Background="LightGray"
+    mc:Ignorable="d">
+
+
+
+
+
+    <UserControl.Resources>
+        <Style x:Key="KopTekstDagen" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="15" />
+            <Setter Property="HorizontalAlignment" Value="Center" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+            <Setter Property="FontWeight" Value="Bold" />
+            <Setter Property="Foreground" Value="{StaticResource myMenuIconBrush}" />
+        </Style>
+        <Style x:Key="UrenZijkant" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="8" />
+            <Setter Property="HorizontalAlignment" Value="Center" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+            <Setter Property="Foreground" Value="#475561" />
+        </Style>
+
+        <Storyboard x:Key="ShowAgendaItem">
+            <DoubleAnimation
+                Storyboard.TargetProperty="Width"
+                From="0"
+                To="300"
+                Duration="0:0:0.7" />
+        </Storyboard>
+
+
+        <Storyboard x:Key="HideAgendaItem">
+            <DoubleAnimation
+                Storyboard.TargetProperty="Width"
+                From="300"
+                To="0"
+                Duration="0:0:0.7" />
+        </Storyboard>
+
+        <ConVerter:clsTimeOnlyConverter x:Key="TimeOnlyConverter" />
+
+
+
+
+
+    </UserControl.Resources>
+
+
+
+    <Grid DataContext="{Binding Source={StaticResource VML}, Path=AgendaViewModel}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Border
+            Grid.Row="0"
+            Background="{StaticResource myTitleBar}"
+            BorderBrush="LightBlue"
+            BorderThickness="1">
+            <Grid>
+                <StackPanel
+                    Margin="10,0,0,0"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Center"
+                    Orientation="Horizontal">
+                    <Path
+                        Width="20"
+                        Height="20"
+                        Data="{StaticResource myCalendarButton}"
+                        Fill="White"
+                        Stretch="Fill" />
+                    <TextBlock
+                        Margin="10,0,0,0"
+                        VerticalAlignment="Center"
+                        FontSize="20"
+                        Foreground="White"
+                        Text="Agenda" />
+                </StackPanel>
+                <local:ucWerkBalk HorizontalAlignment="Right" VerticalAlignment="top" />
+
+            </Grid>
+        </Border>
+        <Border
+            Grid.Row="1"
+            Grid.Column="0"
+            Margin="3"
+            BorderBrush="Black"
+            BorderThickness="1"
+            CornerRadius="5">
+
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="auto" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="50" />
+                </Grid.RowDefinitions>
+
+                <ScrollViewer
+                    Grid.Column="0"
+                    HorizontalScrollBarVisibility="Disabled"
+                    VerticalScrollBarVisibility="Visible">
+                    <Canvas
+                        Height="1200"
+                        Margin="2"
+                        Background="LightGray">
+
+
+
+
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="SizeChanged">
+                                <i:InvokeCommandAction Command="{Binding SizeChangedCommand}" CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=Canvas}}" />
+                            </i:EventTrigger>
+                            <i:EventTrigger EventName="Loaded">
+                                <i:InvokeCommandAction Command="{Binding SizeChangedCommand}" CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=Canvas}}" />
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+
+                        <ItemsControl ItemsSource="{Binding HorLines}">
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <Canvas />
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <Line
+                                        Stroke="{Binding Color, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                        StrokeThickness="{Binding Thickness, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                        X1="{Binding X1, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                        X2="{Binding X2, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                        Y1="{Binding Y1, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                        Y2="{Binding Y2, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+
+                        <ItemsControl ItemsSource="{Binding VerLines}">
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <Canvas />
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <Line
+                                        Stroke="{Binding Color, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                        StrokeThickness="{Binding Thickness, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                        X1="{Binding X1, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                        X2="{Binding X2, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                        Y1="{Binding Y1, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                        Y2="{Binding Y2, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+
+                        <ItemsControl ItemsSource="{Binding KopDagen}">
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <Canvas />
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+                            <ItemsControl.ItemContainerStyle>
+                                <Style TargetType="ContentPresenter">
+                                    <Setter Property="Canvas.Left" Value="{Binding Left, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                    <Setter Property="Canvas.Top" Value="{Binding Top, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                </Style>
+                            </ItemsControl.ItemContainerStyle>
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <StackPanel
+                                        Width="{Binding Width, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                        Height="{Binding Height, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                        HorizontalAlignment="Center"
+                                        VerticalAlignment="Center"
+                                        Orientation="Horizontal">
+                                        <TextBlock
+                                            HorizontalAlignment="Center"
+                                            VerticalAlignment="Center"
+                                            FontFamily="{Binding FontFamily, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                            FontSize="{Binding FontSize, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                            Text="{Binding Tekst, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                    </StackPanel>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+
+                        <ItemsControl ItemsSource="{Binding Uren}">
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <Canvas />
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+                            <ItemsControl.ItemContainerStyle>
+                                <Style TargetType="ContentPresenter">
+                                    <Setter Property="Canvas.Left" Value="{Binding Left, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                    <Setter Property="Canvas.Top" Value="{Binding Top, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                </Style>
+                            </ItemsControl.ItemContainerStyle>
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <StackPanel
+                                        Width="{Binding Width, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                        Height="{Binding Height, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                        HorizontalAlignment="Center"
+                                        VerticalAlignment="Center"
+                                        Orientation="Horizontal">
+                                        <TextBlock
+                                            HorizontalAlignment="Center"
+                                            VerticalAlignment="Center"
+                                            FontFamily="{Binding FontFamily, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                            FontSize="{Binding FontSize, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                            Text="{Binding Tekst, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                    </StackPanel>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+
+                        <ItemsControl ItemsSource="{Binding MijnCollectie}">
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <Canvas />
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+                            <ItemsControl.ItemContainerStyle>
+                                <Style TargetType="ContentPresenter">
+                                    <Setter Property="Canvas.Left" Value="{Binding CanvasLeft, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                    <Setter Property="Canvas.Top" Value="{Binding CanvasTop, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                </Style>
+                            </ItemsControl.ItemContainerStyle>
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+
+                                    <StackPanel Margin="0,-5,0,0" Orientation="Vertical">
+
+                                        <Thumb
+                                            Height="5"
+                                            VerticalAlignment="Top"
+                                            Cursor="SizeNS"
+                                            Opacity="0">
+                                            <i:Interaction.Triggers>
+                                                <i:EventTrigger EventName="DragDelta">
+                                                    <i:InvokeCommandAction Command="{Binding DataContext.ResizeTopCommand, RelativeSource={RelativeSource AncestorType=Canvas}}" CommandParameter="{Binding AgendaID}" />
+                                                </i:EventTrigger>
+                                            </i:Interaction.Triggers>
+                                        </Thumb>
+                                        <Border
+                                            Width="{Binding Width, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                            Height="{Binding Height, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                            Margin="2,0,0,0"
+                                            Background="{Binding AgendaColor, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                            BorderBrush="{Binding AgendaBorderColor, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                            BorderThickness="2"
+                                            CornerRadius="5"
+                                            Cursor="Hand">
+                                            <i:Interaction.Triggers>
+                                                <i:EventTrigger EventName="MouseLeftButtonUp">
+                                                    <i:InvokeCommandAction Command="{Binding DataContext.MouseLeftUpAgendaItem, RelativeSource={RelativeSource AncestorType=Canvas}}" CommandParameter="{Binding AgendaID}" />
+                                                </i:EventTrigger>
+                                                <i:EventTrigger EventName="MouseEnter">
+                                                    <i:InvokeCommandAction Command="{Binding DataContext.MouseEnterAgendaItem, RelativeSource={RelativeSource AncestorType=Canvas}}" CommandParameter="{Binding AgendaID}" />
+                                                </i:EventTrigger>
+                                                <i:EventTrigger EventName="MouseLeave">
+                                                    <i:InvokeCommandAction Command="{Binding DataContext.MouseLeaveAgendaItem, RelativeSource={RelativeSource AncestorType=Canvas}}" CommandParameter="{Binding AgendaID}" />
+                                                </i:EventTrigger>
+                                            </i:Interaction.Triggers>
+
+                                            <StackPanel>
+                                                <TextBlock
+                                                    HorizontalAlignment="Center"
+                                                    FontSize="12"
+                                                    FontWeight="Bold"
+                                                    Foreground="Black"
+                                                    Text="{Binding AgendaTitle, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                                <TextBlock
+                                                    Margin="3,2,3,3"
+                                                    FontSize="10"
+                                                    Text="{Binding AgendaDescription}" />
+                                            </StackPanel>
+                                        </Border>
+                                        <Thumb
+                                            Height="5"
+                                            VerticalAlignment="Bottom"
+                                            Cursor="SizeNS"
+                                            Opacity="0">
+                                            <i:Interaction.Triggers>
+                                                <i:EventTrigger EventName="DragDelta">
+                                                    <i:InvokeCommandAction Command="{Binding DataContext.ResizeBottomCommand, RelativeSource={RelativeSource AncestorType=Canvas}}" CommandParameter="{Binding AgendaID}" />
+                                                </i:EventTrigger>
+                                            </i:Interaction.Triggers>
+                                        </Thumb>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+
+                        <ItemsControl ItemsSource="{Binding Uurlijn}">
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <Canvas />
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <Line
+                                        Stroke="{Binding Color, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                        StrokeThickness="{Binding Thickness, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                        X1="{Binding X1, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                        X2="{Binding X2, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                        Y1="{Binding Y1, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                        Y2="{Binding Y2, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+
+
+                    </Canvas>
+                </ScrollViewer>
+
+                <Border
+                    x:Name="AgendaItem"
+                    Grid.Column="1"
+                    Width="0"
+                    Margin="0,-1,-1,-1"
+                    BorderBrush="Black"
+                    BorderThickness="1"
+                    CornerRadius="0,5,0,0">
+                    <Border.Style>
+                        <Style>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding IsAgendaItemVisible, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Value="True">
+                                    <DataTrigger.EnterActions>
+                                        <BeginStoryboard Storyboard="{StaticResource ShowAgendaItem}" />
+                                    </DataTrigger.EnterActions>
+                                    <DataTrigger.ExitActions>
+                                        <BeginStoryboard Storyboard="{StaticResource HideAgendaItem}" />
+                                    </DataTrigger.ExitActions>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Border.Style>
+
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="auto" />
+                            <ColumnDefinition Width="auto" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+
+                        <TextBlock
+                            Grid.Row="1"
+                            Grid.Column="1"
+                            HorizontalAlignment="Right"
+                            VerticalAlignment="Center"
+                            Text="Titel:" />
+                        <TextBox
+                            Grid.Row="1"
+                            Grid.Column="2"
+                            Width="200"
+                            Margin="3"
+                            Text="{Binding MijnSelectedItem.AgendaTitle, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" />
+                        <TextBlock
+                            Grid.Row="2"
+                            Grid.Column="1"
+                            HorizontalAlignment="Right"
+                            VerticalAlignment="Top"
+                            Text="Omschrijving:" />
+                        <TextBox
+                            Grid.Row="2"
+                            Grid.Column="2"
+                            Width="200"
+                            Height="100"
+                            Margin="3"
+                            AcceptsReturn="True"
+                            Text="{Binding MijnSelectedItem.AgendaDescription, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
+                            TextWrapping="Wrap" />
+                        <TextBlock
+                            Grid.Row="3"
+                            Grid.Column="1"
+                            HorizontalAlignment="Right"
+                            VerticalAlignment="Center"
+                            Text="Category:" />
+                        <ComboBox
+                            Grid.Row="3"
+                            Grid.Column="2"
+                            Width="200"
+                            Margin="3"
+                            ItemsSource="{Binding MijnCategoryCollectie}"
+                            SelectedValue="{Binding MijnSelectedItem.AgendaCategoryID, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
+                            SelectedValuePath="CategoryID">
+
+                            <ComboBox.ItemTemplate>
+                                <DataTemplate>
+                                    <Border
+                                        Width="150"
+                                        Height="25"
+                                        Background="{Binding BackgroundColor}"
+                                        BorderBrush="{Binding BorderColor}"
+                                        BorderThickness="2"
+                                        CornerRadius="5">
+                                        <TextBlock
+                                            HorizontalAlignment="Center"
+                                            VerticalAlignment="Center"
+                                            Text="{Binding CategoryName}" />
+                                    </Border>
+
+
+
+                                </DataTemplate>
+                            </ComboBox.ItemTemplate>
+                        </ComboBox>
+
+
+                        <TextBlock
+                            Grid.Row="4"
+                            Grid.Column="1"
+                            HorizontalAlignment="Right"
+                            VerticalAlignment="Center"
+                            Text="Datum:" />
+                        <DatePicker
+                            Grid.Row="4"
+                            Grid.Column="2"
+                            Width="200"
+                            Margin="3"
+                            SelectedDate="{Binding MijnSelectedItem.AgendaDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" />
+                        <TextBlock
+                            Grid.Row="5"
+                            Grid.Column="1"
+                            HorizontalAlignment="Right"
+                            VerticalAlignment="Center"
+                            Text="Begin tijd:" />
+                        <TextBox
+                            Grid.Row="5"
+                            Grid.Column="2"
+                            Width="200"
+                            Margin="3"
+                            Text="{Binding MijnSelectedItem.AgendaBeginTime, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, StringFormat=hh\\:mm}" />
+                        <TextBlock
+                            Grid.Row="6"
+                            Grid.Column="1"
+                            HorizontalAlignment="Right"
+                            VerticalAlignment="Center"
+                            Text="Eind tijd:" />
+                        <TextBox
+                            Grid.Row="6"
+                            Grid.Column="2"
+                            Width="200"
+                            Margin="3"
+                            Text="{Binding MijnSelectedItem.AgendaEndTime, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, StringFormat=hh\\:mm}" />
+
+
+
+                    </Grid>
+                </Border>
+
+                <Border
+                    Grid.Row="1"
+                    Grid.ColumnSpan="2"
+                    Margin="-1,0,-1,-1"
+                    BorderBrush="Black"
+                    BorderThickness="1"
+                    CornerRadius="0,0,5,5">
+                    <StackPanel
+                        HorizontalAlignment="center"
+                        VerticalAlignment="Center"
+                        Orientation="Horizontal">
+                        <Button Command="{Binding cmdPrev}" Style="{StaticResource PrevsButton}" />
+                        <Button
+                            Margin="5,0,5,0"
+                            Command="{Binding cmdToday}"
+                            Style="{StaticResource TodayButton}" />
+                        <Button Command="{Binding cmdNext}" Style="{StaticResource NextButton}" />
+
+
+                    </StackPanel>
+
+
+
+
+                </Border>
+
+            </Grid>
+
+
+
+
+
+
+        </Border>
+    </Grid>
+</UserControl>

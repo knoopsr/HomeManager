@@ -1,4 +1,4 @@
-﻿using HomeManager.Common;
+using HomeManager.Common;
 using HomeManager.DataService.Homepage;
 using HomeManager.Helpers;
 using HomeManager.Mail;

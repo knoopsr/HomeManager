@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "HomeManager": {
+      "commandName": "Project",
+      "sqlDebugging": true
+    }
+  }
+}

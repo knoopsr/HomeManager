@@ -4,9 +4,13 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:V="clr-namespace:HomeManager.View"
     xmlns:VM="clr-namespace:HomeManager.ViewModel"
+    xmlns:VMagenda="clr-namespace:HomeManager.Agenda.ViewModel;assembly=HomeManager.Agenda"
+    xmlns:Vagenda="clr-namespace:HomeManager.Agenda.View;assembly=HomeManager.Agenda"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
     xmlns:local="clr-namespace:HomeManager"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    x:Name="MainWIN"
     Title="MainWindow"
     Width="1000"
     Height="900"
@@ -67,12 +71,9 @@
         <DataTemplate DataType="{x:Type VM:clsPersonenViewModel}">
             <V:ucPersonen />
         </DataTemplate>
-
-
         <DataTemplate DataType="{x:Type VM:clsCategorieViewModel}">
             <V:ucCategorie />
         </DataTemplate>
-
     </Window.Resources>
 
 
@@ -86,6 +87,7 @@
             <ColumnDefinition Width="auto" />
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
+
 
 
         <V:ucTitlePerson
@@ -146,7 +148,6 @@
                     Width="200"
                     HorizontalAlignment="Left"
                     Orientation="Vertical">
-
                     <Expander IsExpanded="{Binding IsPersonenExpanderMenu, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource myHamburgerPersonen}">
                         <StackPanel x:Name="stckPerson">
                             <Button
@@ -296,5 +297,6 @@
             Grid.Row="1"
             Grid.Column="1"
             Content="{Binding CurrentViewModel}" />
+
     </Grid>
 </Window>
