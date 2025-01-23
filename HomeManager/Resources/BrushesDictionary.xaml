@@ -9,6 +9,7 @@
     <SolidColorBrush x:Key="myWerkBalk" Color="White" />
     <SolidColorBrush x:Key="myWerkBalkDisable" Color="Gray" />
     <SolidColorBrush x:Key="myBackground" Color="LightGray" />
+    <SolidColorBrush x:Key="myDagboekButtonIconColor" Color="SteelBlue" />
 
     <!--#endregion-->
 

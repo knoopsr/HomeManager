@@ -28,6 +28,8 @@
 
 
 
+
+
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="\Resources\BrushesDictionary.xaml" />
                 <ResourceDictionary Source="\Resources\GeometryDrawingDictionary.xaml" />
