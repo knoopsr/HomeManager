@@ -1,5 +1,6 @@
 ﻿using HomeManager.Model.Personen;
 using HomeManager.ViewModel;
+using HomeManager.ViewModel.Personen;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -115,6 +116,17 @@ namespace HomeManager.ViewModel
                 //return new clsNotitiesViewModel();
             }
         }
+
+        private static clsEmailVerzendenViewModel _EmailVerzenden = new clsEmailVerzendenViewModel();
+        public clsEmailVerzendenViewModel EmailVerzendenViewModel
+        {
+            get
+            {
+                return _EmailVerzenden;
+
+            }
+        }
+
 
 
         #region Security

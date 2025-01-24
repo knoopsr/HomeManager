@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+
 namespace HomeManager.Model.Personen
 {
     public class clsNotitiesModel : clsCommonModelPropertiesBase, IDataErrorInfo
@@ -81,6 +82,7 @@ namespace HomeManager.Model.Personen
                 OnPropertyChanged();
             }
         }
+
 
 
         private DateTime _createdOn;

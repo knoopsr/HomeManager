@@ -1,5 +1,4 @@
-﻿using HomeManager.ViewModel;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,14 +13,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace HomeManager.View
+namespace HomeManager.View.Personen
 {
     /// <summary>
-    /// Interaction logic for ucTelefoonNummers.xaml
+    /// Interaction logic for ucEmailVerzenden.xaml
     /// </summary>
-    public partial class ucNotities : UserControl
+    public partial class ucEmailVerzenden : UserControl
     {
-        public ucNotities()
+        public ucEmailVerzenden()
         {
             InitializeComponent();
         }
