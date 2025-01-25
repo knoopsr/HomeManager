@@ -34,6 +34,7 @@ namespace HomeManager.ViewModel
             OpenTodoPopupCommand = new clsRelayCommand<object>(param => OpenTodoPopup());
             OpenTodoCollectiesCommand = new clsRelayCommand<object>(param => OpenTodoCollecties());
             OpenTodoDetailsCommand = new clsRelayCommand<object>(param => OpenTodoDetails());
+            OpenTodoBijlageCommand = new clsRelayCommand<object>(param => OpenTodoBijlage());
         }
 
         public clsTodoPopupVM TodoPopupViewModel { get; set; }
@@ -161,6 +162,19 @@ namespace HomeManager.ViewModel
                 Height = 450
             };
             todoDetailsWindow.ShowDialog();
+        }
+
+        public ICommand OpenTodoBijlageCommand { get; }
+        private void OpenTodoBijlage()
+        {
+            var todoBijlageWindow = new Window
+            {
+                Content = new ucTodoBijlage(),
+                Title = "Todo Bijlage",
+                Width = 800,
+                Height = 450
+            };
+            todoBijlageWindow.ShowDialog();
         }
     }
 }

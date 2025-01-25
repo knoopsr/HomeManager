@@ -132,6 +132,15 @@ namespace HomeManager.ViewModel
                 return _todoDetailsViewModel;
             }
         }
+
+        public clsTodoBijlageVM TodoBijlageViewModel
+        {
+            get
+            {
+                return new clsTodoBijlageVM();
+            }
+        }
+
         #endregion
     }
 }

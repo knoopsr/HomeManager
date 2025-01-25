@@ -131,13 +131,15 @@
                                 VerticalAlignment="Center"
                                 Style="{StaticResource DeleteTodoImage}" />
                             <Button
+                                x:Name="PaperclipBtn"
                                 Grid.Column="4"
                                 Width="8"
                                 Height="15"
                                 Margin="5,0"
                                 HorizontalAlignment="Right"
                                 VerticalAlignment="Center"
-                                Style="{StaticResource PaperclipTodoImage}" />
+                                Style="{StaticResource PaperclipTodoImage}"
+                                Command="{Binding DataContext.OpenTodoBijlageCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"/>
                         </Grid>
                     </Border>
                 </DataTemplate>

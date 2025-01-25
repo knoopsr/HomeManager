@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace HomeManager.ViewModel.Todo
 {
-    class clsTodoBijlageVM
+    public class clsTodoBijlageVM
     {
     }
 }

@@ -41,6 +41,8 @@ namespace HomeManager.ViewModel
             collectiesWindow.ShowDialog();
         }
 
+
+
         // Implement INotifyPropertyChanged interface
         public event PropertyChangedEventHandler PropertyChanged;
         protected void OnPropertyChanged(string propertyName)
@@ -146,6 +148,7 @@ namespace HomeManager.ViewModel
 
             clsMessenger.Default.Register<clsTodoPopupM>(this, OnCollectiesReceived);
             OpenCollectiesCommand = new clsRelayCommand<object>(OpenCollecties);
+            
 
             LoadData();
             MijnSelectedItem = MijnService.GetFirst();
