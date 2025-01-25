@@ -17,7 +17,7 @@ namespace HomeManager.Converter
             {
                 if (parameter?.ToString() == "Background")
                 {
-                    return isKlaar ? Brushes.Lavender : Brushes.MistyRose;
+                    return isKlaar ? Brushes.LavenderBlush : Brushes.MistyRose;
                 }
                 else if (parameter?.ToString() == "Border")
                 {
