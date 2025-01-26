@@ -117,18 +117,24 @@
                                 VerticalAlignment="Center"
                                 IsChecked="{Binding IsKlaar, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                             <Button
+                                x:Name="EditBtn"
                                 Grid.Column="2"
                                 Width="10"
                                 Height="10"
                                 Margin="5,0"
                                 VerticalAlignment="Center"
+                                Command="{Binding DataContext.EditTodoCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                CommandParameter="{Binding}"
                                 Style="{StaticResource EditTodoImage}" />
                             <Button
+                                x:Name="DeleteBtn"
                                 Grid.Column="3"
                                 Width="10"
                                 Height="10"
                                 Margin="5,0"
                                 VerticalAlignment="Center"
+                                Command="{Binding DataContext.DeleteTodoCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                CommandParameter="{Binding}"
                                 Style="{StaticResource DeleteTodoImage}" />
                             <Button
                                 x:Name="PaperclipBtn"
@@ -138,8 +144,8 @@
                                 Margin="5,0"
                                 HorizontalAlignment="Right"
                                 VerticalAlignment="Center"
-                                Style="{StaticResource PaperclipTodoImage}"
-                                Command="{Binding DataContext.OpenTodoBijlageCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"/>
+                                Command="{Binding DataContext.OpenTodoBijlageCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                Style="{StaticResource PaperclipTodoImage}" />
                         </Grid>
                     </Border>
                 </DataTemplate>

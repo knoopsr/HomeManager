@@ -35,6 +35,8 @@ namespace HomeManager.ViewModel
             OpenTodoCollectiesCommand = new clsRelayCommand<object>(param => OpenTodoCollecties());
             OpenTodoDetailsCommand = new clsRelayCommand<object>(param => OpenTodoDetails());
             OpenTodoBijlageCommand = new clsRelayCommand<object>(param => OpenTodoBijlage());
+            EditTodoCommand = new clsRelayCommand<object>(param => EditTodoItem(param as clsTodoPopupM));
+            DeleteTodoCommand = new clsRelayCommand<object>(param => DeleteTodoItem(param as clsTodoPopupM), param => CanDeleteTodoItem(param as clsTodoPopupM));
         }
 
         public clsTodoPopupVM TodoPopupViewModel { get; set; }
@@ -175,6 +177,54 @@ namespace HomeManager.ViewModel
                 Height = 450
             };
             todoBijlageWindow.ShowDialog();
+        }
+
+        public ICommand EditTodoCommand { get; }
+        private void EditTodoItem(clsTodoPopupM todoItem)
+        {
+            if (todoItem == null) return;
+
+            // Stel de MijnSelectedItemTodoPopup in op het geselecteerde item
+            MijnSelectedItemTodoPopup = todoItem;
+
+            var todoPopupWindow = new Window
+            {
+                Content = new ucTodoPopup(),
+                Title = "Edit Todo",
+                Width = 800,
+                Height = 450
+            };
+
+            // Stel de DataContext van het venster in op de TodoPopupViewModel
+            todoPopupWindow.DataContext = TodoPopupViewModel;
+
+            // Update de geselecteerde item in de TodoPopupViewModel
+            TodoPopupViewModel.MijnSelectedItem = todoItem;
+
+            todoPopupWindow.ShowDialog();
+        }
+
+        public ICommand DeleteTodoCommand { get; }
+        private bool CanDeleteTodoItem(clsTodoPopupM todoItem)
+        {
+            return todoItem != null;
+        }
+
+        private void DeleteTodoItem(clsTodoPopupM todoItem)
+        {
+            if (todoItem == null) return;
+
+            if (MessageBox.Show($"Wil je {todoItem.Onderwerp} verwijderen?", "Verwijderen?", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+            {
+                if (MijnServiceTodoPopup.Delete(todoItem))
+                {
+                    MijnCollectieTodoPopup.Remove(todoItem);
+                }
+                else
+                {
+                    MessageBox.Show("Error?", todoItem.ErrorBoodschap);
+                }
+            }
         }
     }
 }
