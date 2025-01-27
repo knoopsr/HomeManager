@@ -40,7 +40,7 @@
                     <RibbonTab IsEnabled="True">
                         <RibbonTab.Header>
                             <TextBlock>
-                                <Run FontWeight="Bold" Text="Text Format" />
+                                <Run FontWeight="Bold" Text="Options" />
                             </TextBlock>
                         </RibbonTab.Header>
 
@@ -90,6 +90,8 @@
                                     <ColumnDefinition Width="*" />
                                     <ColumnDefinition Width="*" />
                                     <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="*" />
                                 </Grid.ColumnDefinitions>
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="*" />
@@ -121,20 +123,56 @@
                                 </Label>
 
                                 <RibbonButton
-                                    Grid.Column="3"
+                                    Grid.Column="2"
                                     Command="{Binding cmdCopy}"
                                     Content="{StaticResource CopyIcon}"
+                                    Style="{StaticResource myRibbonButton}" />
+                                <Label
+                                    Grid.Row="1"
+                                    Grid.Column="2"
+                                    Padding="1"
+                                    HorizontalAlignment="Center">
+                                    Copy
+                                </Label>
+
+                                <RibbonButton
+                                    Grid.Column="3"
+                                    Command="{Binding cmdUndo}"
+                                    Content="{StaticResource Undo}"
                                     Style="{StaticResource myRibbonButton}" />
                                 <Label
                                     Grid.Row="1"
                                     Grid.Column="3"
                                     Padding="1"
                                     HorizontalAlignment="Center">
-                                    Copy
+                                    Undo
+                                </Label>
+
+                                <RibbonButton
+                                    Grid.Column="4"
+                                    Command="{Binding cmdRedo}"
+                                    Content="{StaticResource Redo}"
+                                    Style="{StaticResource myRibbonButton}" />
+                                <Label
+                                    Grid.Row="1"
+                                    Grid.Column="4"
+                                    Padding="1"
+                                    HorizontalAlignment="Center">
+                                    Redo
                                 </Label>
 
                             </Grid>
                         </RibbonGroup>
+
+                        
+                        <RibbonGroup />
+                    </RibbonTab>
+                    <RibbonTab>
+                        <RibbonTab.Header>
+                            <TextBlock>
+                                <Run FontWeight="Bold" Text="Text Format" />
+                            </TextBlock>
+                        </RibbonTab.Header>
 
                         <!--  groep2  -->
                         <RibbonGroup Header="Edit tekst">
@@ -291,7 +329,6 @@
 
                         </RibbonGroup>
 
-                        <RibbonGroup />
                     </RibbonTab>
 
                 </Ribbon>

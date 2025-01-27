@@ -98,6 +98,8 @@ namespace HomeManager.ViewModel
             cmdCut = ApplicationCommands.Cut;
             cmdCopy = ApplicationCommands.Copy;
             CmdPaste = ApplicationCommands.Paste;
+            cmdUndo = ApplicationCommands.Undo;
+            cmdRedo = ApplicationCommands.Redo;
             
 
             MyRTBLayout = new clsRTBLayout();
@@ -246,6 +248,8 @@ namespace HomeManager.ViewModel
         public ICommand cmdCut { get; set; }
         public ICommand cmdCopy { get; set; }
         public ICommand CmdPaste { get; set; }
+        public ICommand cmdUndo { get; set; }
+        public ICommand cmdRedo { get; set; }
         public ICommand cmdSetForegroundToText { get; set; }
         public ICommand cmdSetBackgroundToText { get; set; }
         #endregion
