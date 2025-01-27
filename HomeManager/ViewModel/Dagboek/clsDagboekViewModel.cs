@@ -9,10 +9,13 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Media;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
 using System.Windows.Input;
+using System.Reflection;
+using Microsoft.IdentityModel.Tokens;
 
 namespace HomeManager.ViewModel
 {
@@ -28,6 +31,7 @@ namespace HomeManager.ViewModel
         private bool isNew = false;
         private bool isEmptyCollection = false;
 
+        
         private ObservableCollection<clsDagboekModel> _mijnCollectie;
 
         public ObservableCollection<clsDagboekModel> MijnCollectie
@@ -88,6 +92,9 @@ namespace HomeManager.ViewModel
             cmdSetFontWeight = new clsRelayCommand(SetFontWeight);
             cmdSetUnderline = new clsRelayCommand(SetUnderline);
             cmdToggleItalic = new clsRelayCommand(ToggleItalic);
+            cmdToggleStrikeTrough = new clsRelayCommand(ToggleStrikeTrough);
+            cmdSetForegroundToText = new clsRelayCommand(SetForegroundToText);
+            cmdSetBackgroundToText = new clsRelayCommand(SetBackgroundToText);
             cmdCut = ApplicationCommands.Cut;
             cmdCopy = ApplicationCommands.Copy;
             CmdPaste = ApplicationCommands.Paste;
@@ -120,9 +127,40 @@ namespace HomeManager.ViewModel
                 
             }
 
-
         }
 
+        private void SetBackgroundToText(object? obj)
+        {
+            RichTextBox rtb = obj as RichTextBox;
+            if (rtb != null)
+            {
+                TextRange range = rtb.Selection;
+                MyRTBLayout.ApplyTextBackgroundColorToTextRange(range);
+
+            }
+        }
+
+        private void SetForegroundToText(object? obj)
+        {
+            RichTextBox rtb = obj as RichTextBox;
+            if (rtb != null)
+            {
+                TextRange range = rtb.Selection;
+                MyRTBLayout.ApplyForegroundColorToTextRange(range);
+
+            }
+        }
+
+        private void ToggleStrikeTrough(object? obj)
+        {
+            RichTextBox rtb = obj as RichTextBox;
+            if (rtb != null)
+            {
+                TextRange range = rtb.Selection;
+                MyRTBLayout.ToggleTrikeTrough(range);
+
+            }
+        }
 
         private void ToggleItalic(object? obj)
         {
@@ -167,8 +205,7 @@ namespace HomeManager.ViewModel
 
         private void Execute_Test(object? obj)
         {
-            MessageBox.Show(MySelectedItem.DagboekContentString + "\n" +
-                            "IsDirty = " + MySelectedItem.IsDirty);
+            MessageBox.Show(MyRTBLayout.SelectedTextColor.ColorName);
         }
 
 
@@ -205,9 +242,12 @@ namespace HomeManager.ViewModel
         public ICommand cmdSetFontWeight {  get; set; }
         public ICommand cmdSetUnderline { get; set; }
         public ICommand cmdToggleItalic { get; set; }
+        public ICommand cmdToggleStrikeTrough { get; set; }
         public ICommand cmdCut { get; set; }
         public ICommand cmdCopy { get; set; }
         public ICommand CmdPaste { get; set; }
+        public ICommand cmdSetForegroundToText { get; set; }
+        public ICommand cmdSetBackgroundToText { get; set; }
         #endregion
 
         #region Command CanExecutes

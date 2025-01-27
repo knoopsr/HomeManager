@@ -1,20 +1,36 @@
 ﻿using HomeManager.Common;
+using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
 using System.Windows.Documents.DocumentStructures;
+using System.Windows.Media;
 using System.Xml.Linq;
 
 namespace HomeManager.Helpers
 {
     public class clsRTBLayout : clsCommonModelPropertiesBase
     {
+        /*deze method gaat de layout ophalen van geselecteerder text
+		 * de behavior gaat deze functie gebruiken
+		 */
+        public void UpdateLayoutFromSelection(TextRange range)
+        {
+            MyFontWeight = GetFontWeight(range);
+            MyTextDecorations = GetMyDecorations(range);
+            MyFontStyle = GetFontStyles(range);
+			GetColorsFromSelectionChanged(range);
+        }
+
         #region Bold
         private FontWeight _myFontWeight = FontWeights.Regular;
 
@@ -142,7 +158,7 @@ namespace HomeManager.Helpers
 
         public void ToggleTrikeTrough(TextRange range)
         {
-            if (MyTextDecorations.Any(decoration => decoration.Location == TextDecorationLocation.Strikethrough))
+            if (IsStrikeTrough)
             {
 				//remove striketrough decoration
 				var collection = MyTextDecorations.Where(decoration => decoration.Location != TextDecorationLocation.Strikethrough);
@@ -156,7 +172,7 @@ namespace HomeManager.Helpers
                 //add the decoration
                 TextDecoration decoration = new TextDecoration();
                 decoration.Location = TextDecorationLocation.Strikethrough;
-                MyTextDecorations.Append(decoration);
+                MyTextDecorations.Add(decoration);
 
                 //aply the underline
                 range.ApplyPropertyValue(Inline.TextDecorationsProperty, MyTextDecorations);
@@ -223,21 +239,142 @@ namespace HomeManager.Helpers
 
 		#endregion
 
-		/*deze method gaat de layout ophalen van geselecteerder text
-		 * de behavior gaat deze functie gebruiken
-		 */
-		public void UpdateLayoutFromSelection(TextRange range)
+		#region TextColor
+		private clsDagboekCustomColor _selectedTextColor = new clsDagboekCustomColor()
 		{
-			MyFontWeight = GetFontWeight(range);
-			
-			var currentDecorations = GetMyDecorations(range);
-			if (!currentDecorations.SequenceEqual(MyTextDecorations))
-			{
-				MyTextDecorations = currentDecorations;
+			ColorName = "Black",
+			MyColor = Colors.Black
+		};
+
+		public clsDagboekCustomColor SelectedTextColor
+		{
+			get { return _selectedTextColor; }
+			set 
+			{ 
+				_selectedTextColor = value;
+				OnPropertyChanged();
 			}
-			
-			MyFontStyle = GetFontStyles(range);
-			
 		}
-	}
+
+		private clsDagboekCustomColor _selectedTextBackgroundColor = new clsDagboekCustomColor()
+		{
+			ColorName = "White",
+			MyColor = Colors.White
+		};
+
+		public clsDagboekCustomColor SelectedTextBackgroundColor
+		{
+			get { return _selectedTextBackgroundColor; }
+			set 
+			{ 
+				_selectedTextBackgroundColor = value;
+				OnPropertyChanged();
+			}
+		}
+
+
+		private ObservableCollection<clsDagboekCustomColor> _colorsCollection;
+
+		public ObservableCollection<clsDagboekCustomColor> ColorsCollection
+		{
+			get
+			{
+				if (_colorsCollection.IsNullOrEmpty())
+				{
+					_colorsCollection = new ObservableCollection<clsDagboekCustomColor>();
+					PopulateColors();
+				}
+				return _colorsCollection;
+			}	
+		}
+
+        private void PopulateColors()
+        {
+            // Get all properties of the Colors class
+            var colorProperties = typeof(Colors).GetProperties(BindingFlags.Public | BindingFlags.Static);
+
+            // Loop through each property and add to the collection
+            foreach (var prop in colorProperties)
+            {
+                var color = (System.Windows.Media.Color)prop.GetValue(null);
+                _colorsCollection.Add(new clsDagboekCustomColor
+                {
+                    ColorName = prop.Name,
+                    MyColor = color
+                });
+            }
+        }
+
+        public void GetColorsFromSelectionChanged(TextRange range)
+        {
+            // Get the Foreground (Brush) of the selection
+            var textColorProperty = range.GetPropertyValue(TextElement.ForegroundProperty) as SolidColorBrush;
+
+            if (textColorProperty != null) // Ensure it's a SolidColorBrush
+            {
+                // Extract the Color from the Brush
+                var textColor = textColorProperty.Color;
+
+                // Find the matching color in the ColorsCollection
+                SelectedTextColor = ColorsCollection.SingleOrDefault(color => color.MyColor.Equals(textColor));
+
+                // Optionally handle the case where no match is found
+                if (SelectedTextColor == null)
+                {
+                    // Default to Black or handle as needed
+                    SelectedTextColor = ColorsCollection.FirstOrDefault(c => c.ColorName == "Black");
+                }
+            }
+            else
+            {
+                // If no brush, default to Black or any fallback color
+                SelectedTextColor = ColorsCollection.FirstOrDefault(c => c.ColorName == "Black");
+            }
+
+            // Get the Background (Brush) of the selection
+            var textBackgroundColorProperty = range.GetPropertyValue(TextElement.BackgroundProperty) as SolidColorBrush;
+
+
+            // Handle the Background (background color)
+            if (textBackgroundColorProperty != null) // Ensure it's a SolidColorBrush
+            {
+                var textBackgroundColor = textBackgroundColorProperty.Color;
+
+                // Find the matching color in the ColorsCollection for the background
+                SelectedTextBackgroundColor = ColorsCollection.SingleOrDefault(color => color.MyColor.Equals(textBackgroundColor));
+
+                // Optionally handle the case where no match is found
+                if (SelectedTextBackgroundColor == null)
+                {
+                    // Default to White or handle as needed
+                    SelectedTextBackgroundColor = ColorsCollection.FirstOrDefault(c => c.ColorName == "White");
+                }
+            }
+            else
+            {
+                // If no brush, default to White or any fallback color for the background
+                SelectedTextBackgroundColor = ColorsCollection.FirstOrDefault(c => c.ColorName == "White");
+            }
+        }
+
+		public void ApplyForegroundColorToTextRange(TextRange range)
+		{
+			SolidColorBrush brush = new SolidColorBrush(SelectedTextColor.MyColor);
+			range.ApplyPropertyValue(TextElement.ForegroundProperty, brush);
+		}
+
+		public void ApplyTextBackgroundColorToTextRange(TextRange range)
+		{
+            SolidColorBrush brush = new SolidColorBrush(SelectedTextBackgroundColor.MyColor);
+            range.ApplyPropertyValue(TextElement.BackgroundProperty, brush);
+        }
+        #endregion
+
+        #region TextFont
+        #endregion
+
+
+
+
+    }
 }
