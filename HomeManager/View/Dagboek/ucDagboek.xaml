@@ -164,17 +164,17 @@
                             </Grid>
                         </RibbonGroup>
 
-                        
+
                         <RibbonGroup />
                     </RibbonTab>
-                    <RibbonTab>
+                    <RibbonTab IsSelected="True">
                         <RibbonTab.Header>
                             <TextBlock>
                                 <Run FontWeight="Bold" Text="Text Format" />
                             </TextBlock>
                         </RibbonTab.Header>
 
-                        <!--  groep2  -->
+                        <!--  groep1  -->
                         <RibbonGroup Header="Edit tekst">
                             <Grid>
                                 <Grid.ColumnDefinitions>
@@ -233,6 +233,7 @@
                             </Grid>
                         </RibbonGroup>
 
+                        <!--  groep 2  -->
                         <RibbonGroup Header="Edit Text">
                             <Grid>
                                 <Grid.RowDefinitions>
@@ -257,12 +258,55 @@
                                         CommandParameter="{Binding ElementName=MyRTB}"
                                         Content="{StaticResource PaintBucked}"
                                         Style="{StaticResource myRibbonButton}" />
-                                    <ComboBox ItemsSource="{Binding MyRTBLayout.ColorsCollection}" 
-                                              SelectedItem="{Binding MyRTBLayout.SelectedTextBackgroundColor, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                    <ComboBox ItemsSource="{Binding MyRTBLayout.ColorsCollection}" SelectedItem="{Binding MyRTBLayout.SelectedTextBackgroundColor, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                                 </StackPanel>
 
                             </Grid>
 
+                        </RibbonGroup>
+
+                        <!--  groep3  -->
+                        <RibbonGroup Header="Letter opmaak">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="auto" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*" />
+                                    <RowDefinition Height="*" />
+                                </Grid.RowDefinitions>
+
+                                <Label>Letter fond</Label>
+
+                                <ComboBox
+                                    x:Name="cboMyFonds"
+                                    Grid.Column="1"
+                                    DisplayMemberPath="Source"
+                                    ItemsSource="{Binding MyRTBLayout.MyFonds}"
+                                    SelectedItem="{Binding MyRTBLayout.SelectedFond, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                                    <i:Interaction.Triggers>
+                                        <i:EventTrigger EventName="SelectionChanged">
+                                            <i:InvokeCommandAction Command="{Binding cmdSetFondFamily}" CommandParameter="{Binding ElementName=MyRTB}"/>
+                                        </i:EventTrigger>
+                                    </i:Interaction.Triggers>
+                                </ComboBox>
+
+                                <Label Grid.Row="1">Letter Grootte</Label>
+
+                                <ComboBox
+                                    x:Name="cboMyFondSizes"
+                                    Grid.Row="1"
+                                    Grid.Column="1"
+                                    ItemsSource="{Binding MyRTBLayout.FondSizes}"
+                                    SelectedItem="{Binding MyRTBLayout.MyFondSize, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                                    <i:Interaction.Triggers>
+                                        <i:EventTrigger EventName="SelectionChanged">
+                                            <i:InvokeCommandAction Command="{Binding cmdSetFondSize}" CommandParameter="{Binding ElementName=MyRTB}"/>
+                                        </i:EventTrigger>
+                                    </i:Interaction.Triggers>
+                                </ComboBox>
+                            </Grid>
                         </RibbonGroup>
 
                         <!--  groep4  -->

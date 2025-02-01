@@ -95,6 +95,8 @@ namespace HomeManager.ViewModel
             cmdToggleStrikeTrough = new clsRelayCommand(ToggleStrikeTrough);
             cmdSetForegroundToText = new clsRelayCommand(SetForegroundToText);
             cmdSetBackgroundToText = new clsRelayCommand(SetBackgroundToText);
+            cmdSetFondSize = new clsRelayCommand(SetFondSize);
+            cmdSetFondFamily = new clsRelayCommand(SetFondFamily);
             cmdCut = ApplicationCommands.Cut;
             cmdCopy = ApplicationCommands.Copy;
             CmdPaste = ApplicationCommands.Paste;
@@ -127,6 +129,29 @@ namespace HomeManager.ViewModel
                 MySelectedItem = MijnCollectie.FirstOrDefault();
                
                 
+            }
+
+        }
+
+        private void SetFondFamily(object? obj)
+        {
+            RichTextBox rtb = obj as RichTextBox;
+            if (rtb != null)
+            {
+                TextRange range = rtb.Selection;
+                MyRTBLayout.SetFondFamily(range);
+
+            }
+        }
+
+        private void SetFondSize(object? obj)
+        {
+            RichTextBox rtb = obj as RichTextBox;
+            if (rtb != null)
+            {
+                TextRange range = rtb.Selection;
+                MyRTBLayout.SetFondSize(range);
+
             }
 
         }
@@ -252,6 +277,8 @@ namespace HomeManager.ViewModel
         public ICommand cmdRedo { get; set; }
         public ICommand cmdSetForegroundToText { get; set; }
         public ICommand cmdSetBackgroundToText { get; set; }
+        public ICommand cmdSetFondFamily { get; set; }
+        public ICommand cmdSetFondSize { get; set; }
         #endregion
 
         #region Command CanExecutes

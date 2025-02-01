@@ -18,26 +18,28 @@ using System.Xml.Linq;
 
 namespace HomeManager.Helpers
 {
-    public class clsRTBLayout : clsCommonModelPropertiesBase
-    {
-        /*deze method gaat de layout ophalen van geselecteerder text
+	public class clsRTBLayout : clsCommonModelPropertiesBase
+	{
+		/*deze method gaat de layout ophalen van geselecteerder text
 		 * de behavior gaat deze functie gebruiken
 		 */
-        public void UpdateLayoutFromSelection(TextRange range)
-        {
-            MyFontWeight = GetFontWeight(range);
-            MyTextDecorations = GetMyDecorations(range);
-            MyFontStyle = GetFontStyles(range);
+		public void UpdateLayoutFromSelection(TextRange range)
+		{
+			MyFontWeight = GetFontWeight(range);
+			MyTextDecorations = GetMyDecorations(range);
+			MyFontStyle = GetFontStyles(range);
 			GetColorsFromSelectionChanged(range);
-        }
+			MyFondSize = ReturnFontSizeFromSelectionChanged(range);
+			SelectedFond = GetFontFamilyFromSelection(range);
+		}
 
-        #region Bold
-        private FontWeight _myFontWeight = FontWeights.Regular;
+		#region Bold
+		private FontWeight _myFontWeight = FontWeights.Regular;
 
 		public FontWeight MyFontWeight
 		{
 			get { return _myFontWeight; }
-			set 
+			set
 			{
 				_myFontWeight = value;
 				OnPropertyChanged();
@@ -45,13 +47,13 @@ namespace HomeManager.Helpers
 			}
 		}
 
-		public bool IsBold 
-		{ 
+		public bool IsBold
+		{
 			get
 			{
 				if (_myFontWeight == FontWeights.Bold)
-				{  
-					return true; 
+				{
+					return true;
 				}
 				else
 				{
@@ -75,7 +77,7 @@ namespace HomeManager.Helpers
 			}
 ;
 
-        }
+		}
 
 		//this is for the command
 		public void SetFontWeight(FontWeight fontWeight, TextRange range)
@@ -83,13 +85,13 @@ namespace HomeManager.Helpers
 			if (fontWeight == FontWeights.Regular)
 			{
 				MyFontWeight = FontWeights.Bold;
-                range.ApplyPropertyValue(TextElement.FontWeightProperty, MyFontWeight);
-            }
+				range.ApplyPropertyValue(TextElement.FontWeightProperty, MyFontWeight);
+			}
 			else
 			{
-                MyFontWeight = FontWeights.Regular;
-                range.ApplyPropertyValue(TextElement.FontWeightProperty, MyFontWeight);
-            }
+				MyFontWeight = FontWeights.Regular;
+				range.ApplyPropertyValue(TextElement.FontWeightProperty, MyFontWeight);
+			}
 		}
 		#endregion
 
@@ -99,8 +101,8 @@ namespace HomeManager.Helpers
 		public TextDecorationCollection MyTextDecorations
 		{
 			get { return _myTextDecorations; }
-			set 
-			{ 
+			set
+			{
 				_myTextDecorations = value;
 				OnPropertyChanged();
 				OnPropertyChanged(nameof(IsUnderline));
@@ -119,11 +121,11 @@ namespace HomeManager.Helpers
 
 		public bool IsStrikeTrough
 		{
-            get
-            {
-                return MyTextDecorations.Any(decoration => decoration.Location == TextDecorationLocation.Strikethrough);
-            }
-        }
+			get
+			{
+				return MyTextDecorations.Any(decoration => decoration.Location == TextDecorationLocation.Strikethrough);
+			}
+		}
 
 		public TextDecorationCollection GetMyDecorations(TextRange range)
 		{
@@ -139,7 +141,7 @@ namespace HomeManager.Helpers
 			{
 				//remove underline decoration
 				var collection = MyTextDecorations.Where(decoration => decoration.Location != TextDecorationLocation.Underline);
-                MyTextDecorations = new TextDecorationCollection(collection);
+				MyTextDecorations = new TextDecorationCollection(collection);
 
 				//apply the changes to the textrange
 				range.ApplyPropertyValue(Inline.TextDecorationsProperty, MyTextDecorations);
@@ -152,32 +154,32 @@ namespace HomeManager.Helpers
 				MyTextDecorations.Add(decoration);
 
 				//aply the underline
-				range.ApplyPropertyValue(Inline.TextDecorationsProperty,MyTextDecorations);
+				range.ApplyPropertyValue(Inline.TextDecorationsProperty, MyTextDecorations);
 			}
 		}
 
-        public void ToggleTrikeTrough(TextRange range)
-        {
-            if (IsStrikeTrough)
-            {
+		public void ToggleTrikeTrough(TextRange range)
+		{
+			if (IsStrikeTrough)
+			{
 				//remove striketrough decoration
 				var collection = MyTextDecorations.Where(decoration => decoration.Location != TextDecorationLocation.Strikethrough);
 				MyTextDecorations = new TextDecorationCollection(collection);
 
-                //apply the changes to the textrange
-                range.ApplyPropertyValue(Inline.TextDecorationsProperty, MyTextDecorations);
-            }
-            else
-            {
-                //add the decoration
-                TextDecoration decoration = new TextDecoration();
-                decoration.Location = TextDecorationLocation.Strikethrough;
-                MyTextDecorations.Add(decoration);
+				//apply the changes to the textrange
+				range.ApplyPropertyValue(Inline.TextDecorationsProperty, MyTextDecorations);
+			}
+			else
+			{
+				//add the decoration
+				TextDecoration decoration = new TextDecoration();
+				decoration.Location = TextDecorationLocation.Strikethrough;
+				MyTextDecorations.Add(decoration);
 
-                //aply the underline
-                range.ApplyPropertyValue(Inline.TextDecorationsProperty, MyTextDecorations);
-            }
-        }
+				//aply the underline
+				range.ApplyPropertyValue(Inline.TextDecorationsProperty, MyTextDecorations);
+			}
+		}
 		#endregion
 
 		#region Italic
@@ -186,9 +188,9 @@ namespace HomeManager.Helpers
 		public FontStyle MyFontStyle
 		{
 			get { return _myFontStyle; }
-			set 
-			{ 
-				_myFontStyle = value; 
+			set
+			{
+				_myFontStyle = value;
 				OnPropertyChanged();
 				OnPropertyChanged(nameof(IsItalic));
 			}
@@ -214,12 +216,12 @@ namespace HomeManager.Helpers
 			var fontStyle = range.GetPropertyValue(TextElement.FontStyleProperty);
 
 
-            if (fontStyle != DependencyProperty.UnsetValue && fontStyle is FontStyle)
+			if (fontStyle != DependencyProperty.UnsetValue && fontStyle is FontStyle)
 			{
-      
+
 				return (FontStyle)fontStyle;
-            }
-			
+			}
+
 			return FontStyles.Normal;
 		}
 
@@ -229,13 +231,13 @@ namespace HomeManager.Helpers
 			if (font == FontStyles.Normal)
 			{
 				MyFontStyle = FontStyles.Italic;
-            }
+			}
 			else
 			{
 				MyFontStyle = FontStyles.Normal;
 			}
-            range.ApplyPropertyValue(TextElement.FontStyleProperty, MyFontStyle);
-        }
+			range.ApplyPropertyValue(TextElement.FontStyleProperty, MyFontStyle);
+		}
 
 		#endregion
 
@@ -249,8 +251,8 @@ namespace HomeManager.Helpers
 		public clsDagboekCustomColor SelectedTextColor
 		{
 			get { return _selectedTextColor; }
-			set 
-			{ 
+			set
+			{
 				_selectedTextColor = value;
 				OnPropertyChanged();
 			}
@@ -265,8 +267,8 @@ namespace HomeManager.Helpers
 		public clsDagboekCustomColor SelectedTextBackgroundColor
 		{
 			get { return _selectedTextBackgroundColor; }
-			set 
-			{ 
+			set
+			{
 				_selectedTextBackgroundColor = value;
 				OnPropertyChanged();
 			}
@@ -285,77 +287,77 @@ namespace HomeManager.Helpers
 					PopulateColors();
 				}
 				return _colorsCollection;
-			}	
+			}
 		}
 
-        private void PopulateColors()
-        {
-            // Get all properties of the Colors class
-            var colorProperties = typeof(Colors).GetProperties(BindingFlags.Public | BindingFlags.Static);
+		private void PopulateColors()
+		{
+			// Get all properties of the Colors class
+			var colorProperties = typeof(Colors).GetProperties(BindingFlags.Public | BindingFlags.Static);
 
-            // Loop through each property and add to the collection
-            foreach (var prop in colorProperties)
-            {
-                var color = (System.Windows.Media.Color)prop.GetValue(null);
-                _colorsCollection.Add(new clsDagboekCustomColor
-                {
-                    ColorName = prop.Name,
-                    MyColor = color
-                });
-            }
-        }
+			// Loop through each property and add to the collection
+			foreach (var prop in colorProperties)
+			{
+				var color = (System.Windows.Media.Color)prop.GetValue(null);
+				_colorsCollection.Add(new clsDagboekCustomColor
+				{
+					ColorName = prop.Name,
+					MyColor = color
+				});
+			}
+		}
 
-        public void GetColorsFromSelectionChanged(TextRange range)
-        {
-            // Get the Foreground (Brush) of the selection
-            var textColorProperty = range.GetPropertyValue(TextElement.ForegroundProperty) as SolidColorBrush;
+		public void GetColorsFromSelectionChanged(TextRange range)
+		{
+			// Get the Foreground (Brush) of the selection
+			var textColorProperty = range.GetPropertyValue(TextElement.ForegroundProperty) as SolidColorBrush;
 
-            if (textColorProperty != null) // Ensure it's a SolidColorBrush
-            {
-                // Extract the Color from the Brush
-                var textColor = textColorProperty.Color;
+			if (textColorProperty != null) // Ensure it's a SolidColorBrush
+			{
+				// Extract the Color from the Brush
+				var textColor = textColorProperty.Color;
 
-                // Find the matching color in the ColorsCollection
-                SelectedTextColor = ColorsCollection.SingleOrDefault(color => color.MyColor.Equals(textColor));
+				// Find the matching color in the ColorsCollection
+				SelectedTextColor = ColorsCollection.SingleOrDefault(color => color.MyColor.Equals(textColor));
 
-                // Optionally handle the case where no match is found
-                if (SelectedTextColor == null)
-                {
-                    // Default to Black or handle as needed
-                    SelectedTextColor = ColorsCollection.FirstOrDefault(c => c.ColorName == "Black");
-                }
-            }
-            else
-            {
-                // If no brush, default to Black or any fallback color
-                SelectedTextColor = ColorsCollection.FirstOrDefault(c => c.ColorName == "Black");
-            }
+				// Optionally handle the case where no match is found
+				if (SelectedTextColor == null)
+				{
+					// Default to Black or handle as needed
+					SelectedTextColor = ColorsCollection.FirstOrDefault(c => c.ColorName == "Black");
+				}
+			}
+			else
+			{
+				// If no brush, default to Black or any fallback color
+				SelectedTextColor = ColorsCollection.FirstOrDefault(c => c.ColorName == "Black");
+			}
 
-            // Get the Background (Brush) of the selection
-            var textBackgroundColorProperty = range.GetPropertyValue(TextElement.BackgroundProperty) as SolidColorBrush;
+			// Get the Background (Brush) of the selection
+			var textBackgroundColorProperty = range.GetPropertyValue(TextElement.BackgroundProperty) as SolidColorBrush;
 
 
-            // Handle the Background (background color)
-            if (textBackgroundColorProperty != null) // Ensure it's a SolidColorBrush
-            {
-                var textBackgroundColor = textBackgroundColorProperty.Color;
+			// Handle the Background (background color)
+			if (textBackgroundColorProperty != null) // Ensure it's a SolidColorBrush
+			{
+				var textBackgroundColor = textBackgroundColorProperty.Color;
 
-                // Find the matching color in the ColorsCollection for the background
-                SelectedTextBackgroundColor = ColorsCollection.SingleOrDefault(color => color.MyColor.Equals(textBackgroundColor));
+				// Find the matching color in the ColorsCollection for the background
+				SelectedTextBackgroundColor = ColorsCollection.SingleOrDefault(color => color.MyColor.Equals(textBackgroundColor));
 
-                // Optionally handle the case where no match is found
-                if (SelectedTextBackgroundColor == null)
-                {
-                    // Default to White or handle as needed
-                    SelectedTextBackgroundColor = ColorsCollection.FirstOrDefault(c => c.ColorName == "White");
-                }
-            }
-            else
-            {
-                // If no brush, default to White or any fallback color for the background
-                SelectedTextBackgroundColor = ColorsCollection.FirstOrDefault(c => c.ColorName == "White");
-            }
-        }
+				// Optionally handle the case where no match is found
+				if (SelectedTextBackgroundColor == null)
+				{
+					// Default to White or handle as needed
+					SelectedTextBackgroundColor = ColorsCollection.FirstOrDefault(c => c.ColorName == "White");
+				}
+			}
+			else
+			{
+				// If no brush, default to White or any fallback color for the background
+				SelectedTextBackgroundColor = ColorsCollection.FirstOrDefault(c => c.ColorName == "White");
+			}
+		}
 
 		public void ApplyForegroundColorToTextRange(TextRange range)
 		{
@@ -365,16 +367,123 @@ namespace HomeManager.Helpers
 
 		public void ApplyTextBackgroundColorToTextRange(TextRange range)
 		{
-            SolidColorBrush brush = new SolidColorBrush(SelectedTextBackgroundColor.MyColor);
-            range.ApplyPropertyValue(TextElement.BackgroundProperty, brush);
-        }
-        #endregion
+			SolidColorBrush brush = new SolidColorBrush(SelectedTextBackgroundColor.MyColor);
+			range.ApplyPropertyValue(TextElement.BackgroundProperty, brush);
+		}
+		#endregion
 
-        #region TextFont
-        #endregion
+		#region TextFont
+		private FontFamily _selectedFond;
+
+		public FontFamily SelectedFond
+		{
+			get
+			{
+				if (_selectedFond == null)
+				{
+					_selectedFond = MyFonds.FirstOrDefault();
+				}
+				return _selectedFond;
+			}
+			set
+			{
+				_selectedFond = value;
+				OnPropertyChanged();
+			}
+		}
+
+		private ObservableCollection<FontFamily> _myFonds;
+
+		public ObservableCollection<FontFamily> MyFonds
+		{
+			get
+			{
+				if (_myFonds.IsNullOrEmpty())
+				{
+					_myFonds = new ObservableCollection<FontFamily>(Fonts.SystemFontFamilies);
+				}
+				return _myFonds;
+			}
+		}
+
+		private double _myFondSize = 12;
+
+		public double MyFondSize
+		{
+			get
+			{
+				return _myFondSize;
+			}
+
+			set
+			{
+				_myFondSize = value;
+				OnPropertyChanged();
+				OnPropertyChanged(nameof(IsBiggestFondSize));
+				OnPropertyChanged(nameof(IsSmallestFondSize));
+			}
+		}
+
+		public bool IsSmallestFondSize
+		{
+			get 
+			{
+				if (_myFondSize == FondSizes[0])
+				{
+					return true;
+				}
+				return false;
+			}
+		}
+
+		public bool IsBiggestFondSize
+		{
+			get
+			{
+                if (_myFondSize == FondSizes[FondSizes.Length - 1])
+                {
+                    return true;
+                }
+                return false;
+            }
+		}
+			
+		public double[] FondSizes { get; } = new double[] { 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27 };
+
+		public double ReturnFontSizeFromSelectionChanged(TextRange range)
+		{
+			object selection = range.GetPropertyValue(TextElement.FontSizeProperty);
+			if (selection is double size)
+			{
+                return size;
+            }
+			return _myFondSize;
+		}
+
+		public void SetFondSize(TextRange range)
+		{
+			range.ApplyPropertyValue(TextElement.FontSizeProperty, MyFondSize);
+		}
+
+		public FontFamily GetFontFamilyFromSelection(TextRange range)
+		{
+			object selection = range.GetPropertyValue(TextElement.FontFamilyProperty);
+			if (selection is FontFamily family)
+			{
+				return family;
+			}
+			return SelectedFond;
+		}
+
+		public void SetFondFamily(TextRange range)
+		{
+			range.ApplyPropertyValue(TextElement.FontFamilyProperty, SelectedFond);
+		}
+
+		#endregion
 
 
 
 
-    }
+	}
 }
