@@ -1,10 +1,6 @@
 ﻿using HomeManager.Helpers;
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
 using System.Windows;
 using HomeManager.Common;
@@ -12,12 +8,10 @@ using HomeManager.DataService.Personen;
 using HomeManager.Model.Personen;
 using HomeManager.Messages;
 using System.Windows.Documents;
-using HomeManager.Converter;
-using System.Reflection.Metadata;
 using System.Windows.Controls;
-using RazorLight.Text;
 using System.IO;
-using static HomeManager.ViewModel.clsPersonenViewModel;
+using HomeManager.Behaviors;
+
 
 namespace HomeManager.ViewModel
 {
@@ -33,12 +27,14 @@ namespace HomeManager.ViewModel
         public ICommand cmdClose { get; set; }
         public ICommand cmdSave { get; set; }
 
-
-
+        //chatgpt
         public ICommand BoldCommand { get; }
         public ICommand ItalicCommand { get; }
         public ICommand BulletCommand { get; }
         public ICommand NumberedCommand { get; }
+
+
+
 
         private ObservableCollection<clsNotitiesModel> mijnCollectie;
 
@@ -101,13 +97,16 @@ namespace HomeManager.ViewModel
 
         private void OpslaanCommando()
         {
-            //model.notitie converteren naar rtf
             if (MijnSelectedItem != null)
             {
+                Console.WriteLine($"Opslaan aangeroepen: NotitieID: {MijnSelectedItem.NotitieID}, Onderwerp: {MijnSelectedItem.Onderwerp}, Notitie: {MijnSelectedItem.Notitie}");
+
                 if (NewStatus)
                 {
+                    Console.WriteLine("Nieuwe notitie wordt ingevoegd...");
                     if (MijnService.Insert(MijnSelectedItem))
                     {
+                        Console.WriteLine("Invoegen gelukt!");
                         MijnSelectedItem.IsDirty = false;
                         MijnSelectedItem.MijnSelectedIndex = 0;
                         MijnSelectedItem.MyVisibility = (int)Visibility.Visible;
@@ -116,13 +115,16 @@ namespace HomeManager.ViewModel
                     }
                     else
                     {
+                        Console.WriteLine("Invoegen mislukt: " + MijnSelectedItem.ErrorBoodschap);
                         MessageBox.Show(MijnSelectedItem.ErrorBoodschap, "Error?");
                     }
                 }
                 else
                 {
+                    Console.WriteLine("Bestaande notitie wordt geüpdatet...");
                     if (MijnService.Update(MijnSelectedItem))
                     {
+                        Console.WriteLine("Update gelukt!");
                         MijnSelectedItem.IsDirty = false;
                         MijnSelectedItem.MijnSelectedIndex = 0;
                         NewStatus = false;
@@ -130,11 +132,45 @@ namespace HomeManager.ViewModel
                     }
                     else
                     {
+                        Console.WriteLine("Update mislukt: " + MijnSelectedItem.ErrorBoodschap);
                         MessageBox.Show(MijnSelectedItem.ErrorBoodschap, "Error?");
                     }
                 }
             }
+
+
+            //if (MijnSelectedItem != null)
+            //{
+            //    if (NewStatus)
+            //    {
+            //        if (MijnService.Insert(MijnSelectedItem))
+            //        {
+            //            MijnSelectedItem.IsDirty = false;
+            //            NewStatus = false;
+            //            LoadData();
+            //        }
+            //        else
+            //        {
+            //            MessageBox.Show(MijnSelectedItem.ErrorBoodschap, "Opslaan mislukt");
+            //        }
+            //    }
+            //    else
+            //    {
+            //        if (MijnService.Update(MijnSelectedItem))
+            //        {
+            //            MijnSelectedItem.IsDirty = false;
+            //            NewStatus = false;
+            //            LoadData();
+            //        }
+            //        else
+            //        {
+            //            MessageBox.Show(MijnSelectedItem.ErrorBoodschap, "Opslaan mislukt");
+            //        }
+            //    }
+            //}
         }
+
+
 
 
         public clsNotitiesViewModel()
@@ -147,13 +183,11 @@ namespace HomeManager.ViewModel
             cmdClose = new clsCustomCommand(Execute_CloseCommand, CanExecute_CloseCommand);
             cmdCancel = new clsCustomCommand(Execute_CancelCommand, CanExecute_CancelCommand);
 
-            //Test Notities
-            BoldCommand = new RelayCommand(ApplyBold);
-            ItalicCommand = new RelayCommand(ApplyItalic);
-            BulletCommand = new RelayCommand(ApplyBullets);
-            NumberedCommand = new RelayCommand(ApplyNumbering);
-
-
+            //test
+            BoldCommand = new RelayCommando<RichTextBox>(ToggleBold);
+            ItalicCommand = new RelayCommando<RichTextBox>(ToggleItalic);
+            BulletCommand = new RelayCommando<RichTextBox>(AddBullets);
+            NumberedCommand = new RelayCommando<RichTextBox>(AddNumbering);
 
             clsMessenger.Default.Register<clsNotitiesModel>(this, OnNotitiesReceived);
 
@@ -164,73 +198,63 @@ namespace HomeManager.ViewModel
 
 
         //Test Notities
-        private void ApplyBold(object parameter)
+        private void ToggleBold(RichTextBox richTextBox)
         {
-            if (parameter is RichTextBox rtb)
+            if (richTextBox != null && !richTextBox.Selection.IsEmpty)
             {
-                var selection = rtb.Selection;
-                if (!selection.IsEmpty)
+                var selection = richTextBox.Selection;
+                var weight = selection.GetPropertyValue(TextElement.FontWeightProperty);
+                selection.ApplyPropertyValue(TextElement.FontWeightProperty,
+                    weight.Equals(FontWeights.Bold) ? FontWeights.Normal : FontWeights.Bold);
+            }
+        }
+
+        private void ToggleItalic(RichTextBox richTextBox)
+        {
+            if (richTextBox != null && !richTextBox.Selection.IsEmpty)
+            {
+                var selection = richTextBox.Selection;
+                var style = selection.GetPropertyValue(TextElement.FontStyleProperty);
+                selection.ApplyPropertyValue(TextElement.FontStyleProperty,
+                    style.Equals(FontStyles.Italic) ? FontStyles.Normal : FontStyles.Italic);
+            }
+        }
+
+        private void AddBullets(RichTextBox richTextBox)
+        {
+            if (richTextBox != null)
+            {
+                var selection = richTextBox.Selection;
+                var paragraph = selection.Start.Paragraph;
+                if (paragraph != null)
                 {
-                    var currentWeight = selection.GetPropertyValue(TextElement.FontWeightProperty);
-                    var newWeight = currentWeight.Equals(FontWeights.Bold) ? FontWeights.Normal : FontWeights.Bold;
-                    selection.ApplyPropertyValue(TextElement.FontWeightProperty, newWeight);
+                    var list = new List { MarkerStyle = TextMarkerStyle.Disc };
+                    list.ListItems.Add(new ListItem(paragraph));
+                    richTextBox.Document.Blocks.Add(list);
                 }
             }
         }
 
-        private void ApplyItalic(object parameter)
+        private void AddNumbering(RichTextBox richTextBox)
         {
-            if (parameter is RichTextBox rtb)
+            if (richTextBox != null)
             {
-                var selection = rtb.Selection;
-                if (!selection.IsEmpty)
+                var selection = richTextBox.Selection;
+                var paragraph = selection.Start.Paragraph;
+                if (paragraph != null)
                 {
-                    var currentStyle = selection.GetPropertyValue(TextElement.FontStyleProperty);
-                    var newStyle = currentStyle.Equals(FontStyles.Italic) ? FontStyles.Normal : FontStyles.Italic;
-                    selection.ApplyPropertyValue(TextElement.FontStyleProperty, newStyle);
+                    var list = new List { MarkerStyle = TextMarkerStyle.Decimal };
+                    list.ListItems.Add(new ListItem(paragraph));
+                    richTextBox.Document.Blocks.Add(list);
                 }
             }
         }
 
-        private void ApplyBullets(object parameter)
-        {
-            if (parameter is RichTextBox rtb)
-            {
-                var selection = rtb.Selection;
-                if (!selection.IsEmpty)
-                {
-                    var parent = selection.Start.Paragraph?.Parent as List;
-                    if (parent == null)
-                    {
-                        var list = new List { MarkerStyle = TextMarkerStyle.Disc };
-                        var paragraph = new Paragraph(new Run(selection.Text));
-                        list.ListItems.Add(new ListItem(paragraph));
-                        rtb.Document.Blocks.Add(list);
-                        selection.Text = string.Empty;
-                    }
-                }
-            }
-        }
 
-        private void ApplyNumbering(object parameter)
-        {
-            if (parameter is RichTextBox rtb)
-            {
-                var selection = rtb.Selection;
-                if (!selection.IsEmpty)
-                {
-                    var parent = selection.Start.Paragraph?.Parent as List;
-                    if (parent == null)
-                    {
-                        var list = new List { MarkerStyle = TextMarkerStyle.Decimal };
-                        var paragraph = new Paragraph(new Run(selection.Text));
-                        list.ListItems.Add(new ListItem(paragraph));
-                        rtb.Document.Blocks.Add(list);
-                        selection.Text = string.Empty;
-                    }
-                }
-            }
-        }
+
+
+
+
 
         private void OnNotitiesReceived(clsNotitiesModel obj)
         {
@@ -244,6 +268,8 @@ namespace HomeManager.ViewModel
                     NewStatus = true;
                 }
             }
+
+
         }
 
         private bool CanExecute_NewCommand(object? obj)
@@ -368,8 +394,6 @@ namespace HomeManager.ViewModel
         {
             OpslaanCommando();
         }
-
-
     }
 }
 

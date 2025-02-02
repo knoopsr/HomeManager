@@ -2,16 +2,18 @@
     x:Class="HomeManager.View.ucNotities"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:Converters="clr-namespace:HomeManager.Converter"
+    xmlns:converters="clr-namespace:HomeManager.Converter"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
-    xmlns:local="clr-namespace:HomeManager.View"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:helpers="clr-namespace:HomeManager.Helpers"
     xmlns:uc="clr-namespace:HomeManager.View"
     d:DesignHeight="400"
     d:DesignWidth="450"
     Background="{StaticResource myBackground}"
     mc:Ignorable="d">
+    <UserControl.Resources>
+        <!--<converters:RichTextToStringConverter x:Key="RichTextToStringConverter" />-->
+    </UserControl.Resources>
     <Grid DataContext="{Binding Source={StaticResource VML}, Path=NotitiesViewModel}">
         <Grid.RowDefinitions>
             <RowDefinition Height="50" />
@@ -36,9 +38,7 @@
                         Data="{StaticResource myPathNote}"
                         Fill="White"
                         Stretch="Fill" />
-                    <TextBlock
-                        Style="{StaticResource TitleBarText}"
-                        Text="Notities" />
+                    <TextBlock Style="{StaticResource TitleBarText}" Text="Notities" />
 
                 </StackPanel>
                 <uc:ucWerkBalk HorizontalAlignment="Right" VerticalAlignment="Top" />
@@ -55,17 +55,18 @@
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="100" />
-                    <!-- Linkerkolom -->
+                    <!--  Linkerkolom  -->
                     <ColumnDefinition Width="250" />
-                    <!-- Kolom voor txtOnderwerp en tbNotities -->
+                    <!--  Kolom voor txtOnderwerp en tbNotities  -->
                     <ColumnDefinition Width="100" />
-                    <!-- Vaste marge aan de rechterkant -->
+                    <!--  Vaste marge aan de rechterkant  -->
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="35" />
                     <RowDefinition Height="auto" />
                     <RowDefinition Height="auto" />
-                    <RowDefinition Height="*" />
+                    <RowDefinition Height="250" />
+                    <RowDefinition Height="auto" />
                     <RowDefinition Height="20" />
                 </Grid.RowDefinitions>
 
@@ -97,13 +98,49 @@
                     Margin="5"
                     Text="Notities"
                     TextAlignment="Right" />
-                <TextBox
-                    x:Name="tbNotities"
+                <!--<TextBox
+                     x:Name="tbNotities"
+                     Grid.Row="3"
+                     Grid.Column="1"
+                     Height="250"
+                     Margin="5"
+                     Text="{Binding MijnSelectedItem.Notitie, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnValidationError=true, ValidatesOnExceptions=True}" />-->
+                <RichTextBox
+                    x:Name="rtbNotities"
                     Grid.Row="3"
                     Grid.Column="1"
                     Height="250"
                     Margin="5"
-                    Text="{Binding MijnSelectedItem.Notitie, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnValidationError=true, ValidatesOnExceptions=True}" />
+                    AcceptsReturn="True"
+                    converters:RichTextBoxHelper.BoundDocument="{Binding MijnSelectedItem.Notitie, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+
+
+                <!--  Werkbalk  -->
+                <StackPanel
+                    Grid.Row="4"
+                    Grid.Column="1"
+                    Margin="5"
+                    Orientation="Horizontal">
+                    <Button
+                        Command="{Binding BoldCommand}"
+                        CommandParameter="{Binding ElementName=rtbNotities}"
+                        Content="B"
+                        FontWeight="Bold" />
+                    <Button
+                        Command="{Binding ItalicCommand}"
+                        CommandParameter="{Binding ElementName=rtbNotities}"
+                        Content="I"
+                        FontStyle="Italic" />
+                    <Button
+                        Command="{Binding BulletCommand}"
+                        CommandParameter="{Binding ElementName=rtbNotities}"
+                        Content="•" />
+                    <Button
+                        Command="{Binding NumberedCommand}"
+                        CommandParameter="{Binding ElementName=rtbNotities}"
+                        Content="1." />
+                </StackPanel>
+
             </Grid>
         </Border>
     </Grid>
