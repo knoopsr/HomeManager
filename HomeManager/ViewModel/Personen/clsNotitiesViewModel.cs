@@ -102,8 +102,7 @@ namespace HomeManager.ViewModel
                 Console.WriteLine($"Opslaan aangeroepen: NotitieID: {MijnSelectedItem.NotitieID}, Onderwerp: {MijnSelectedItem.Onderwerp}, Notitie: {MijnSelectedItem.Notitie}");
 
                 if (NewStatus)
-                {
-                    Console.WriteLine("Nieuwe notitie wordt ingevoegd...");
+                {            
                     if (MijnService.Insert(MijnSelectedItem))
                     {
                         Console.WriteLine("Invoegen gelukt!");
