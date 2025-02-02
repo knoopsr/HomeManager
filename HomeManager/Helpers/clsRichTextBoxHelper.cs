@@ -33,7 +33,11 @@ namespace HomeManager.Helpers
                 if (GetCurrentRtfText(rtb) != newRtf)
                 {
                     var textRange = new TextRange(rtb.Document.ContentStart, rtb.Document.ContentEnd);
-                    using (var stream = new MemoryStream(Encoding.UTF8.GetBytes(newRtf)))
+
+                    // 🔹 Eerst inhoud wissen om refresh te forceren
+                    rtb.Document.Blocks.Clear();
+
+                    using (var stream = new MemoryStream(Encoding.Default.GetBytes(newRtf))) // 🔹 Gebruik ASCII encoding
                     {
                         try
                         {
@@ -78,7 +82,7 @@ namespace HomeManager.Helpers
                         try
                         {
                             textRange.Save(stream, DataFormats.Rtf);
-                            SetRtfText(rtb, Encoding.UTF8.GetString(stream.ToArray()));
+                            SetRtfText(rtb, Encoding.Default.GetString(stream.ToArray())); // 🔹 Gebruik ASCII encoding
                         }
                         catch
                         {
@@ -97,7 +101,7 @@ namespace HomeManager.Helpers
                 try
                 {
                     textRange.Save(stream, DataFormats.Rtf);
-                    return Encoding.UTF8.GetString(stream.ToArray());
+                    return Encoding.Default.GetString(stream.ToArray()); // 🔹 Gebruik ASCII encoding
                 }
                 catch
                 {
