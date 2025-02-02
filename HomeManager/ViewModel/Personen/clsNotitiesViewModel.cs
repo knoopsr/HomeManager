@@ -104,8 +104,7 @@ namespace HomeManager.ViewModel
                 if (NewStatus)
                 {            
                     if (MijnService.Insert(MijnSelectedItem))
-                    {
-                        Console.WriteLine("Invoegen gelukt!");
+                    {                      
                         MijnSelectedItem.IsDirty = false;
                         MijnSelectedItem.MijnSelectedIndex = 0;
                         MijnSelectedItem.MyVisibility = (int)Visibility.Visible;
