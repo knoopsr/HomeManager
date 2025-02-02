@@ -111,8 +111,10 @@
                     Grid.Column="1"
                     Height="250"
                     Margin="5"
-                    AcceptsReturn="True"
-                    converters:RichTextBoxHelper.BoundDocument="{Binding MijnSelectedItem.Notitie, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                    helpers:clsRichTextBoxHelper.RtfText="{Binding MijnSelectedItem.Notitie, Mode=TwoWay}"
+                    helpers:clsRichTextBoxHelper.BindBack="True" />
+
+
 
 
                 <!--  Werkbalk  -->

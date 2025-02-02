@@ -84,16 +84,16 @@ namespace HomeManager.Model.Personen
         //}
 
         private string _notitie;
-
         public string Notitie
         {
-            get => _notitie;
+            get { return _notitie; }
             set
             {
                 _notitie = value;
-                OnPropertyChanged(nameof(Notitie));
+                OnPropertyChanged();
             }
         }
+
 
 
 
@@ -148,28 +148,28 @@ namespace HomeManager.Model.Personen
                         }
                         return error;
 
-                    //case nameof(Notitie):
-                    //    if (string.IsNullOrWhiteSpace(_notitie))
-                    //    {
-                    //        error = "Notitie is een verplicht veld.";
-                    //        if (!ErrorList.Contains(nameof(Notitie)))
-                    //        {
-                    //            ErrorList.Add(nameof(Notitie));
-                    //        }
-                    //    }
-                    //    else if (_notitie.Length > 100000)
-                    //    {
-                    //        error = "Notitie mag niet langer zijn dan 5 tekens.";
-                    //        if (!ErrorList.Contains(nameof(Notitie)))
-                    //        {
-                    //            ErrorList.Add(nameof(Notitie));
-                    //        }
-                    //    }
-                    //    else
-                    //    {
-                    //        ErrorList.Remove(nameof(Notitie));
-                    //    }
-                    //    return error;
+                    case nameof(Notitie):
+                        if (string.IsNullOrWhiteSpace(_notitie))
+                        {
+                            error = "Notitie is een verplicht veld.";
+                            if (!ErrorList.Contains(nameof(Notitie)))
+                            {
+                                ErrorList.Add(nameof(Notitie));
+                            }
+                        }
+                        else if (_notitie.Length > 100000)
+                        {
+                            error = "Notitie mag niet langer zijn dan 5 tekens.";
+                            if (!ErrorList.Contains(nameof(Notitie)))
+                            {
+                                ErrorList.Add(nameof(Notitie));
+                            }
+                        }
+                        else
+                        {
+                            ErrorList.Remove(nameof(Notitie));
+                        }
+                        return error;
 
                     default:
                         return null;

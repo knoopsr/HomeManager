@@ -16,6 +16,8 @@ namespace HomeManager.Converter
             {
                 try
                 {
+                    Console.WriteLine($"RTF ontvangen voor conversie: {rtfText}");
+
                     var richTextBox = new RichTextBox();
                     using (var stream = new MemoryStream(System.Text.Encoding.UTF8.GetBytes(rtfText)))
                     {
@@ -24,23 +26,36 @@ namespace HomeManager.Converter
                     }
                     return richTextBox.Document;
                 }
-                catch
+                catch (Exception ex)
                 {
+                    Console.WriteLine($"Fout bij laden van RTF: {ex.Message}");
                     return new FlowDocument();
                 }
             }
             return new FlowDocument();
         }
 
+
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
             if (value is FlowDocument document)
             {
-                using (var stream = new MemoryStream())
+                try
                 {
-                    var textRange = new TextRange(document.ContentStart, document.ContentEnd);
-                    textRange.Save(stream, DataFormats.Rtf);
-                    return System.Text.Encoding.UTF8.GetString(stream.ToArray());
+                    using (var stream = new MemoryStream())
+                    {
+                        var textRange = new TextRange(document.ContentStart, document.ContentEnd);
+                        textRange.Save(stream, DataFormats.Rtf);
+                        string rtfResult = System.Text.Encoding.UTF8.GetString(stream.ToArray());
+
+                        Console.WriteLine($"Geconverteerde RTF: {rtfResult}");
+                        return rtfResult;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"Fout bij opslaan als RTF: {ex.Message}");
+                    return string.Empty;
                 }
             }
             return string.Empty;
