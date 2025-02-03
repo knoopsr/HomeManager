@@ -76,7 +76,11 @@
                     Grid.Column="0"
                     Width="350"
                     Height="200"
-                    HorizontalAlignment="Right" />
+                    HorizontalAlignment="Right"
+                    ItemsSource="{Binding MijnTodoBijlage}"
+                    SelectedIndex="{Binding SelectedTodoBijlage.MijnSelectedIndex, Mode=TwoWay}"
+                    SelectedItem="{Binding MijnSelectedTodoBijlage, UpdateSourceTrigger=PropertyChanged}"
+                    />
 
                 <StackPanel
                     Grid.Row="2"
@@ -87,7 +91,11 @@
                         Height="30"
                         Margin="0,0,10,0"
                         HorizontalAlignment="Left"
-                        Command="{Binding cmdUploadFile}" Style="{StaticResource UploadButton}" />
+                        AllowDrop="True"
+                        Command="{Binding cmdUploadFile}"
+                        DragEnter="Button_DragEnter"
+                        Drop="Button_Drop"
+                        Style="{StaticResource UploadButton}" />
                     <Button
                         Width="30"
                         Height="30"
@@ -105,6 +113,7 @@
                     Content="Naam"
                     FontSize="12" />
                 <TextBox
+                    x:Name="txtBijlageNaam"
                     Grid.Row="3"
                     Grid.Column="2"
                     Width="350"
