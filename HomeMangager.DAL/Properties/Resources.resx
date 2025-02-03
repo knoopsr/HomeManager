@@ -237,4 +237,16 @@
   <data name="U_ToDoPopup" xml:space="preserve">
     <value>U_ToDoPopup</value>
   </data>
+  <data name="D_ToDoBijlage" xml:space="preserve">
+    <value>D_ToDoBijlage</value>
+  </data>
+  <data name="S_ToDoBijlage" xml:space="preserve">
+    <value>S_ToDoBijlage</value>
+  </data>
+  <data name="I_ToDoBijlage" xml:space="preserve">
+    <value>I_ToDoBijlage</value>
+  </data>
+  <data name="U_ToDoBijlage" xml:space="preserve">
+    <value>U_ToDoBijlage</value>
+  </data>
 </root>

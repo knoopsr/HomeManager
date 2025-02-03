@@ -88,6 +88,15 @@ namespace HomeManager.DAL.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to D_ToDoBijlage.
+        /// </summary>
+        internal static string D_ToDoBijlage {
+            get {
+                return ResourceManager.GetString("D_ToDoBijlage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to D_ToDoCategorieën.
         /// </summary>
         internal static string D_ToDoCategorieën {
@@ -165,6 +174,15 @@ namespace HomeManager.DAL.Properties {
         internal static string I_Rollen {
             get {
                 return ResourceManager.GetString("I_Rollen", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to I_ToDoBijlage.
+        /// </summary>
+        internal static string I_ToDoBijlage {
+            get {
+                return ResourceManager.GetString("I_ToDoBijlage", resourceCulture);
             }
         }
         
@@ -277,6 +295,15 @@ namespace HomeManager.DAL.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to S_ToDoBijlage.
+        /// </summary>
+        internal static string S_ToDoBijlage {
+            get {
+                return ResourceManager.GetString("S_ToDoBijlage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to S_ToDoCategorieën.
         /// </summary>
         internal static string S_ToDoCategorieën {
@@ -363,6 +390,15 @@ namespace HomeManager.DAL.Properties {
         internal static string U_Rollen {
             get {
                 return ResourceManager.GetString("U_Rollen", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to U_ToDoBijlage.
+        /// </summary>
+        internal static string U_ToDoBijlage {
+            get {
+                return ResourceManager.GetString("U_ToDoBijlage", resourceCulture);
             }
         }
         

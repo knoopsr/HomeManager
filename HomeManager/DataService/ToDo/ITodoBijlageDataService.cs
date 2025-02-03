@@ -6,10 +6,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HomeManager.DAL.Todo.Bijlage
+namespace HomeManager.DataService.ToDo
 {
-    public interface ITodoBijlageRepository : IRepository<clsTodoBijlageM>
+    internal interface ITodoBijlageDataService : IDataService<clsTodoBijlageM>
     {
-
     }
 }
