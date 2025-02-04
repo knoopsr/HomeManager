@@ -78,10 +78,7 @@
                     Height="200"
                     HorizontalAlignment="Right"
                     ItemsSource="{Binding MijnTodoBijlage}"
-                    SelectedIndex="{Binding SelectedTodoBijlage.MijnSelectedIndex, Mode=TwoWay}"
-                    SelectedItem="{Binding MijnSelectedTodoBijlage, UpdateSourceTrigger=PropertyChanged}"
-                    />
-
+                    SelectedItem="{Binding MijnSelectedTodoBijlage, UpdateSourceTrigger=PropertyChanged}"/>
                 <StackPanel
                     Grid.Row="2"
                     Grid.Column="3"
@@ -104,22 +101,20 @@
                         Style="{StaticResource EyeButton}" />
                 </StackPanel>
 
-
                 <Label
                     Grid.Row="3"
                     Grid.Column="1"
                     HorizontalAlignment="Right"
                     VerticalAlignment="Top"
                     Content="Naam"
-                    FontSize="12" />
+                    FontSize="11" />
                 <TextBox
                     x:Name="txtBijlageNaam"
                     Grid.Row="3"
                     Grid.Column="2"
                     Width="350"
-                    HorizontalAlignment="Left" />
-
-
+                    HorizontalAlignment="Left"
+                    Text="{Binding MijnSelectedTodoBijlage.BijlageNaam}"/>
             </Grid>
         </Border>
     </Grid>
