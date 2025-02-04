@@ -11,7 +11,7 @@ namespace HomeManager.Model.Todo
     public class clsTodoDetailsM : clsCommonModelPropertiesBase, IDataErrorInfo
     {
         private int _toDoDetailID;
-        public int ToDoDetailID
+        public int TodoDetailID
         {
             get
             {
@@ -25,7 +25,7 @@ namespace HomeManager.Model.Todo
         }
 
         private int _toDoID;
-        public int ToDoID
+        public int TodoID
         {
             get
             {
@@ -39,7 +39,7 @@ namespace HomeManager.Model.Todo
         }
 
         private string _toDoDetail;
-        public string ToDoDetail
+        public string TodoDetail
         {
             get
             {

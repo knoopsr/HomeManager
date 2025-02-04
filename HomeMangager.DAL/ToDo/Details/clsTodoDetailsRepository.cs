@@ -18,7 +18,7 @@ namespace HomeManager.DAL.Todo.Details
         public bool Delete(clsTodoDetailsM entity)
         {
             (DataTable DT, bool OK, string Boodschap) = clsDAL.ExecuteDataTable(Properties.Resources.D_ToDoDetails,
-                clsDAL.Parameter("TodoDetailID", entity.ToDoDetailID),
+                clsDAL.Parameter("TodoDetailID", entity.TodoDetailID),
                 clsDAL.Parameter("ControlField", entity.ControlField),
                 clsDAL.Parameter("ReturnValue", 0));
             if (OK)
@@ -48,9 +48,9 @@ namespace HomeManager.DAL.Todo.Details
             {
                 clsTodoDetailsM m = new clsTodoDetailsM()
                 {
-                    ToDoDetailID = (int)MijnDataReader["TodoDetailID"],
-                    ToDoID = (int)MijnDataReader["TodoID"],
-                    ToDoDetail = MijnDataReader["TodoDetail"].ToString(),
+                    TodoDetailID = (int)MijnDataReader["TodoDetailID"],
+                    TodoID = (int)MijnDataReader["TodoID"],
+                    TodoDetail = MijnDataReader["TodoDetail"].ToString(),
                     IsKlaar = (bool)MijnDataReader["IsKlaar"],
                     Volgorde = (int)MijnDataReader["Volgorde"],
                     ControlField = MijnDataReader["ControlField"]
@@ -81,8 +81,8 @@ namespace HomeManager.DAL.Todo.Details
         public bool Insert(clsTodoDetailsM entity)
         {
             (DataTable DT, bool OK, string Boodschap) = clsDAL.ExecuteDataTable(Properties.Resources.I_ToDoDetails,
-                clsDAL.Parameter("TodoID", entity.ToDoID),
-                clsDAL.Parameter("TodoDetail", entity.ToDoDetail),
+                clsDAL.Parameter("TodoID", entity.TodoID),
+                clsDAL.Parameter("TodoDetail", entity.TodoDetail),
                 clsDAL.Parameter("IsKlaar", entity.IsKlaar),
                 clsDAL.Parameter("Volgorde", entity.Volgorde),
                 //clsDAL.Parameter("ControlField", entity.ControlField),
@@ -97,9 +97,9 @@ namespace HomeManager.DAL.Todo.Details
         public bool Update(clsTodoDetailsM entity)
         {
             (DataTable DT, bool OK, string Boodschap) = clsDAL.ExecuteDataTable(Properties.Resources.U_ToDoDetails,
-                clsDAL.Parameter("TodoDetailID", entity.ToDoDetailID),
-                clsDAL.Parameter("TodoID", entity.ToDoID),
-                clsDAL.Parameter("TodoDetail", entity.ToDoDetail),
+                clsDAL.Parameter("TodoDetailID", entity.TodoDetailID),
+                clsDAL.Parameter("TodoID", entity.TodoID),
+                clsDAL.Parameter("TodoDetail", entity.TodoDetail),
                 clsDAL.Parameter("IsKlaar", entity.IsKlaar),
                 clsDAL.Parameter("Volgorde", entity.Volgorde),
                 clsDAL.Parameter("ControlField", entity.ControlField),
