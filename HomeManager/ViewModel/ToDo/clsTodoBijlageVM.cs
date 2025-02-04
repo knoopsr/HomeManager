@@ -28,6 +28,7 @@ namespace HomeManager.ViewModel.Todo
         public ICommand cmdClose { get; set; }
         public ICommand cmdSave { get; set; }
         public ICommand cmdUploadFile { get; set; }
+        public ICommand cmdViewFile { get; set; }
 
         public clsTodoBijlageVM()
         {
@@ -39,6 +40,7 @@ namespace HomeManager.ViewModel.Todo
             cmdCancel = new clsCustomCommand(Execute_CancelCommand, CanExecute_CancelCommand);
             cmdClose = new clsCustomCommand(Execute_CloseCommand, CanExecute_CloseCommand);
             cmdUploadFile = new clsCustomCommand(Execute_UploadFileCommand, CanExecute_UploadFileCommand);
+            cmdViewFile = new clsCustomCommand(Execute_ViewFileCommand, CanExecute_ViewFileCommand);
 
             LoadData();
             MijnSelectedTodoBijlage = MijnService.GetFirst();
@@ -180,7 +182,7 @@ namespace HomeManager.ViewModel.Todo
             clsTodoBijlageM ItemToInsert = new clsTodoBijlageM()
             {
                TodoBijlageID = 0,
-               TodoID = 0, 
+               TodoID = 0, //TODO: volgens mij moet ik deze linken met de todoID van tblTodos
                Bijlage = new byte[0],
                BijlageNaam = string.Empty, 
                ControlField = null 
@@ -289,6 +291,21 @@ namespace HomeManager.ViewModel.Todo
                 MijnSelectedTodoBijlage.Bijlage = fileData;
                 MijnSelectedTodoBijlage.BijlageNaam = Path.GetFileName(filePath);
                 MijnSelectedTodoBijlage.IsDirty = true;
+            }
+        }
+
+        private bool CanExecute_ViewFileCommand(object obj)
+        {
+            return MijnSelectedTodoBijlage != null && MijnSelectedTodoBijlage.Bijlage != null && MijnSelectedTodoBijlage.Bijlage.Length > 0;
+        }
+
+        private void Execute_ViewFileCommand(object obj)
+        {
+            if (MijnSelectedTodoBijlage != null && MijnSelectedTodoBijlage.Bijlage != null)
+            {
+                string tempFilePath = Path.Combine(Path.GetTempPath(), MijnSelectedTodoBijlage.BijlageNaam);
+                File.WriteAllBytes(tempFilePath, MijnSelectedTodoBijlage.Bijlage);
+                System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo(tempFilePath) { UseShellExecute = true });
             }
         }
     }
