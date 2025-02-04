@@ -115,6 +115,15 @@ namespace HomeManager.DAL.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to D_ToDoDetails.
+        /// </summary>
+        internal static string D_ToDoDetails {
+            get {
+                return ResourceManager.GetString("D_ToDoDetails", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to D_ToDoKLeuren.
         /// </summary>
         internal static string D_ToDoKLeuren {
@@ -201,6 +210,15 @@ namespace HomeManager.DAL.Properties {
         internal static string I_ToDoCollecties {
             get {
                 return ResourceManager.GetString("I_ToDoCollecties", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to I_ToDoDetails.
+        /// </summary>
+        internal static string I_ToDoDetails {
+            get {
+                return ResourceManager.GetString("I_ToDoDetails", resourceCulture);
             }
         }
         
@@ -322,6 +340,15 @@ namespace HomeManager.DAL.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to S_ToDoDetails.
+        /// </summary>
+        internal static string S_ToDoDetails {
+            get {
+                return ResourceManager.GetString("S_ToDoDetails", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to S_ToDoKLeuren.
         /// </summary>
         internal static string S_ToDoKLeuren {
@@ -417,6 +444,15 @@ namespace HomeManager.DAL.Properties {
         internal static string U_ToDoCollecties {
             get {
                 return ResourceManager.GetString("U_ToDoCollecties", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to U_ToDoDetails.
+        /// </summary>
+        internal static string U_ToDoDetails {
+            get {
+                return ResourceManager.GetString("U_ToDoDetails", resourceCulture);
             }
         }
         
