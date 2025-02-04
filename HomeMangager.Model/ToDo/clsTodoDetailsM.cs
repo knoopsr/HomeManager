@@ -89,7 +89,7 @@ namespace HomeManager.Model.Todo
 
         public override string ToString()
         {
-            return ToDoDetail;
+            return TodoDetail;
         }
 
         public string this[string columnName]
@@ -99,21 +99,21 @@ namespace HomeManager.Model.Todo
                 string error = string.Empty;
                 switch (columnName)
                 {
-                    case nameof(ToDoDetail):
+                    case nameof(TodoDetail):
                         if (string.IsNullOrWhiteSpace(_toDoDetail))
                         {
                             error = "Detail is een verplicht veld.";
-                            if (ErrorList.Contains(nameof(ToDoDetail)) == false)
+                            if (ErrorList.Contains(nameof(TodoDetail)) == false)
                             {
-                                ErrorList.Add(nameof(ToDoDetail));
+                                ErrorList.Add(nameof(TodoDetail));
                             }
                         }
                         else if (_toDoDetail.Length > 50)
                         {
                             error = "Detail mag maximaal 50 karakters bevatten.";
-                            if (ErrorList.Contains(nameof(ToDoDetail)) == false)
+                            if (ErrorList.Contains(nameof(TodoDetail)) == false)
                             {
-                                ErrorList.Add(nameof(ToDoDetail));
+                                ErrorList.Add(nameof(TodoDetail));
                             }
                         }
                         break;

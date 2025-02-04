@@ -252,13 +252,13 @@
   <data name="D_ToDoDetails" xml:space="preserve">
     <value>D_ToDoDetails</value>
   </data>
-  <data name="S_ToDoDetails" xml:space="preserve">
-    <value>S_ToDoDetails</value>
-  </data>
   <data name="I_ToDoDetails" xml:space="preserve">
     <value>I_ToDoDetails</value>
   </data>
   <data name="U_ToDoDetails" xml:space="preserve">
     <value>U_ToDoDetails</value>
+  </data>
+  <data name="S_ToDoDetails" xml:space="preserve">
+    <value>S_ToDoDetails</value>
   </data>
 </root>
