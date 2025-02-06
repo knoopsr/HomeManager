@@ -1,6 +1,8 @@
 ﻿using HomeManager.Common;
+using HomeManager.DataService.Security;
 using HomeManager.DataService.ToDo;
 using HomeManager.Helpers;
+using HomeManager.Model.Security;
 using HomeManager.Model.Todo;
 //using HomeManager.Model.ToDo;
 using HomeManager.View;
@@ -19,6 +21,7 @@ namespace HomeManager.ViewModel
     public class clsTodoPopupVM : clsCommonModelPropertiesBase
     {
         clsTodoPopupDataService MijnService;
+        clsAccountDataService MijnserviceGebruikers;
 
         private bool NewStatus = false;
         public ICommand cmdDelete { get; set; }
@@ -27,6 +30,7 @@ namespace HomeManager.ViewModel
         public ICommand cmdClose { get; set; }
         public ICommand cmdSave { get; set; }
         public ICommand OpenCollectiesCommand { get; }
+        public ICommand OpenAccountCommand { get; }
 
         private void OpenCollecties(object parameter)
         {
@@ -41,7 +45,18 @@ namespace HomeManager.ViewModel
             collectiesWindow.ShowDialog();
         }
 
-
+        private void OpenAccount(object parameter)
+        {
+            // Logic to open ucAccount.xaml
+            var accountWindow = new Window
+            {
+                Content = new ucAccount(),
+                Title = "Account",
+                Width = 800,
+                Height = 450
+            };
+            accountWindow.ShowDialog();
+        }
 
         // Implement INotifyPropertyChanged interface
         public event PropertyChangedEventHandler PropertyChanged;
@@ -133,12 +148,14 @@ namespace HomeManager.ViewModel
         private void LoadData()
         {
             MijnCollectie = MijnService.GetAll();
-            
+            MijnCollectieGebruikers = MijnserviceGebruikers.GetAll();
+
         }
 
         public clsTodoPopupVM()
         {
             MijnService = new clsTodoPopupDataService();
+            MijnserviceGebruikers = new clsAccountDataService();
 
             cmdSave = new clsCustomCommand(Execute_SaveCommand, CanExecute_SaveCommand);
             cmdDelete = new clsCustomCommand(Execute_DeleteCommand, CanExecute_DeleteCommand);
@@ -148,7 +165,8 @@ namespace HomeManager.ViewModel
 
             clsMessenger.Default.Register<clsTodoPopupM>(this, OnCollectiesReceived);
             OpenCollectiesCommand = new clsRelayCommand<object>(OpenCollecties);
-            
+            OpenAccountCommand = new clsRelayCommand<object>(OpenAccount);
+
 
             LoadData();
             MijnSelectedItem = MijnService.GetFirst();
@@ -212,7 +230,8 @@ namespace HomeManager.ViewModel
                 TodoID = 0,
                 Onderwerp = string.Empty,
                 Detail = string.Empty,
-                GebruikerID = 0, // Of een standaardwaarde als dat nodig is
+                //GebruikerID = 0, // Of een standaardwaarde als dat nodig is
+                GebruikerID = clsLoginModel.Instance.AccountID,
                 Belangrijk = false,
                 TodoCollectieID = null, // Of een standaardwaarde als dat nodig is
                 TodoCategorieID = null, // Of een standaardwaarde als dat nodig is
@@ -289,6 +308,51 @@ namespace HomeManager.ViewModel
         private void OnCollectiesReceived(clsTodoPopupM obj)
         {
             _MijnSelectedItem = obj;
+        }
+
+        private int _gebruikerID;
+        public int GebruikerID
+        {
+            get
+            {
+                return _gebruikerID;
+            }
+            set
+            {
+                _gebruikerID = clsLoginModel.Instance.PersoonID;
+            }
+
+        }
+
+        private ObservableCollection<clsAccountModel> _MijnCollectieGebruikers;
+        public ObservableCollection<clsAccountModel> MijnCollectieGebruikers
+        {
+            get
+            {
+                return _MijnCollectieGebruikers;
+            }
+            set
+            {
+                _MijnCollectieGebruikers = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private clsAccountModel _MijnSelectedGebruiker;
+        public clsAccountModel MijnSelectedGebruiker
+        {
+            get
+            {
+                return _MijnSelectedGebruiker;
+            }
+            set
+            {
+
+                _MijnSelectedGebruiker = MijnserviceGebruikers.GetById(clsLoginModel.Instance.AccountID);
+               //_MijnSelectedGebruiker = clsLoginModel.Instance.
+                //_MijnSelectedGebruiker.ToString();
+                OnPropertyChanged();
+            }
         }
     }
 }

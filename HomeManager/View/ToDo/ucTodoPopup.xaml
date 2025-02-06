@@ -131,11 +131,10 @@
                         Height="20"
                         Margin="0,0,4,0"
                         VerticalAlignment="Center"
-                        DataContext="{Binding Source={StaticResource VML}, Path=AccountViewModel}"
-                        ItemsSource="{Binding MijnPersoonCollectie}"
-                        SelectedValue="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Grid}}, Path=DataContext.MijnSelectedItem.PersoonID, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
+                        ItemsSource="{Binding MijnCollectieGebruikers}"
+                        SelectedValue="{Binding MijnSelectedGebruiker.AccountID}"
                         SelectedValuePath="PersoonID" />
-                    <Button Style="{StaticResource OpenUCButton}" />
+                    <Button Command="{Binding OpenAccountCommand}" Style="{StaticResource OpenUCButton}" />
                 </StackPanel>
 
 
