@@ -132,7 +132,35 @@ namespace HomeManager.ViewModel
 
             GefilterdeCollectie = new ObservableCollection<clsCredentialManagementModel>(MijnCollectie);
 
+
+            clsMessenger.Default.Register<clsLoginModel>(this, OnLoginReceived);
+
         }
+
+        private void OnLoginReceived(clsLoginModel model)
+        {
+            LoginModel = model;
+        }
+
+        private clsLoginModel _loginModel;
+        public clsLoginModel LoginModel
+        {
+            get { return _loginModel; }
+            set
+            {
+                if (_loginModel != value)
+                {
+                    _loginModel = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+
+
+
+
+
         private string _filterTekst;
         public string FilterTekst
         {
@@ -154,8 +182,13 @@ namespace HomeManager.ViewModel
             }
         }
 
+
+
+
+
         private void Execute_Filter_Command(object? obj)
         {
+           
             if (string.IsNullOrWhiteSpace(FilterTekst))
             {
                 // Als er geen filtertekst is, toon alles
