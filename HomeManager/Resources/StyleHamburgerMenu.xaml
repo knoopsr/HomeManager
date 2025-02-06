@@ -686,7 +686,7 @@
                                 <Button
                                     Margin="10,0,0,0"
                                     Command="{Binding NavCommand}"
-                                    CommandParameter="clsCategorieViewModel"
+                                    CommandParameter="clsTodoVM"
                                     Content="ToDo"
                                     Style="{StaticResource myExpanderTodo}" />
                             </StackPanel>

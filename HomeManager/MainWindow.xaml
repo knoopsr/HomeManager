@@ -53,7 +53,6 @@
         <DataTemplate DataType="{x:Type VM:clsNotitiesViewModel}">
             <V:ucNotities />
         </DataTemplate>
-
         <DataTemplate DataType="{x:Type VM:clsRechtenViewModel}">
             <V:ucRoles />
         </DataTemplate>
@@ -82,14 +81,14 @@
             <V:ucTodo />
         </DataTemplate>
 
-        <Storyboard x:Key="HideMenu">
+        <!--<Storyboard x:Key="HideMenu">
             <DoubleAnimation
                 Storyboard.TargetName="HamburgerMenu"
                 Storyboard.TargetProperty="Width"
                 From="200"
                 To="0"
                 Duration="0:0:0.3" />
-        </Storyboard>
+        </Storyboard>-->
     </Window.Resources>
 
 
@@ -248,11 +247,11 @@
 
                         <StackPanel x:Name="stckTodo">
                             <!--  REMOVELATER: Todo main test  -->
-                            <Button
+                            <!--<Button
                                 Command="{Binding NavCommand}"
                                 CommandParameter="clsTodoVM"
                                 Content="Todo main view Test:)"
-                                Style="{StaticResource myMenuTandwiel}" />
+                                Style="{StaticResource myMenuTandwiel}" />-->
                             <Button
                                 Command="{Binding NavCommand}"
                                 CommandParameter="clsCollectiesVM"
