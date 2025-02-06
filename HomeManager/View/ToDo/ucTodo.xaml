@@ -16,6 +16,8 @@
     <UserControl.Resources>
         <converter:BoolToColorBrushConverter x:Key="BoolToColorBrushConverter" />
         <converter:IntToBrushConverter x:Key="IntToBrushConverter" />
+        <viewmodel:clsKleurenVM x:Key="KleurenViewModel" />
+        <converter:KleurenMToBrushConverter x:Key="KleurenMToBrushConverter" />
     </UserControl.Resources>
 
     <Grid DataContext="{Binding Source={StaticResource VML}, Path=ToDoViewModel}">
@@ -32,6 +34,7 @@
         <StackPanel Grid.Row="0" Grid.Column="0">
             <Button
                 Name="OpenTodoCollecties"
+                ToolTip="Collectie toevoegen"
                 Width="30"
                 Height="30"
                 Margin="0,20,0,0"
@@ -42,6 +45,7 @@
         <StackPanel Grid.Row="0" Grid.Column="1">
             <Button
                 Name="OpenTodoPopupViewbtn"
+                ToolTip="Todo toevoegen"
                 Width="30"
                 Height="30"
                 Margin="0,20,0,0"
@@ -51,6 +55,8 @@
         </StackPanel>
         <StackPanel Grid.Row="0" Grid.Column="2">
             <Button
+                Name="OpenTodoDetails"
+                ToolTip="Todo detail toevoegen"
                 Width="30"
                 Height="30"
                 Margin="0,20,0,0"
@@ -98,7 +104,7 @@
                                 <Rectangle
                                     Width="5"
                                     Margin="5"
-                                    Fill="{Binding TodoColorID}" />
+                                    Fill="{Binding Source={StaticResource KleurenViewModel}, Path=SelectedColor, Converter={StaticResource KleurenMToBrushConverter}}" />
                                 <StackPanel>
                                     <TextBlock
                                         FontSize="14"
@@ -115,13 +121,16 @@
                                 Grid.Column="1"
                                 Margin="5,0"
                                 VerticalAlignment="Center"
+                                ToolTip="Door dit aan te vinken is de Todo klaar"
                                 IsChecked="{Binding IsKlaar, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+
                             <Button
                                 x:Name="EditBtn"
                                 Grid.Column="2"
                                 Width="10"
                                 Height="10"
                                 Margin="5,0"
+                                ToolTip="Todo aanpassen"
                                 VerticalAlignment="Center"
                                 Command="{Binding DataContext.EditTodoCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
                                 CommandParameter="{Binding}"
@@ -132,6 +141,7 @@
                                 Width="10"
                                 Height="10"
                                 Margin="5,0"
+                                ToolTip="Todo verwijderen"
                                 VerticalAlignment="Center"
                                 Command="{Binding DataContext.DeleteTodoCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
                                 CommandParameter="{Binding}"
@@ -142,6 +152,7 @@
                                 Width="8"
                                 Height="15"
                                 Margin="5,0"
+                                ToolTip="Bijlage toevoegen"
                                 HorizontalAlignment="Right"
                                 VerticalAlignment="Center"
                                 Command="{Binding DataContext.OpenTodoBijlageCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
@@ -152,11 +163,75 @@
             </ListView.ItemTemplate>
         </ListView>
 
-
-        <ListBox
+        <ListView
+            Name="ToDoDetailsOpvulling"
             Grid.Row="1"
             Grid.Column="2"
             BorderBrush="Gray"
-            BorderThickness="1" />
+            BorderThickness="1"
+            ItemsSource="{Binding MijnTodoDetails}"
+            SelectedItem="{Binding MijnSelectedTodoDetail, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <Border
+                        Width="300"
+                        Padding="5"
+                        HorizontalAlignment="Stretch"
+                        VerticalAlignment="Stretch"
+                        Background="{Binding IsKlaar, Converter={StaticResource BoolToColorBrushConverter}, ConverterParameter=Background}"
+                        BorderBrush="{Binding IsKlaar, Converter={StaticResource BoolToColorBrushConverter}, ConverterParameter=Border}"
+                        BorderThickness="2"
+                        CornerRadius="5">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <StackPanel Grid.Column="0" Orientation="Horizontal">
+                                <StackPanel>
+                                    <TextBlock
+                                        FontSize="12"
+                                        FontWeight="Bold"
+                                        Foreground="Black"
+                                        Text="{Binding TodoDetail}"/>
+                                </StackPanel>
+                            </StackPanel>
+                            <CheckBox
+                                Grid.Column="1"
+                                Margin="5,0"
+                                VerticalAlignment="Center"
+                                ToolTip="Door dit aan te vinken is de Todo Detail klaar"
+                                IsChecked="{Binding IsKlaar, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                            <Button
+                                x:Name="EditBtn"
+                                Grid.Column="2"
+                                Width="10"
+                                Height="10"
+                                Margin="5,0"
+                                ToolTip="Todo aanpassen"
+                                VerticalAlignment="Center"
+                                Command="{Binding DataContext.EditTodoDetailCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                CommandParameter="{Binding}"
+                                Style="{StaticResource EditTodoImage}" />
+                            <Button
+                                x:Name="DeleteBtn"
+                                Grid.Column="3"
+                                Width="10"
+                                Height="10"
+                                Margin="5,0"
+                                ToolTip="Todo verwijderen"
+                                VerticalAlignment="Center"
+                                Command="{Binding DataContext.DeleteTodoDetailCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                CommandParameter="{Binding}"
+                                Style="{StaticResource DeleteTodoImage}" />
+                        </Grid>
+                    </Border>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+        
     </Grid>
 </UserControl>

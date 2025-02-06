@@ -70,9 +70,13 @@
                 </Grid.RowDefinitions>
 
                 <ListBox
+                    Name="TodoDetailsListBox"
                     Grid.Row="1"
                     Grid.RowSpan="5"
-                    Grid.Column="1" />
+                    Grid.Column="1"
+                    ItemsSource="{Binding MijnTodoDetails}"
+                    SelectedIndex="{Binding MijnSelectedTodoDetail.MijnSelectedIndex, Mode=TwoWay}"
+                    SelectedItem="{Binding MijnSelectedTodoDetail, UpdateSourceTrigger=PropertyChanged}"/>
 
                 <Label
                     Grid.Row="1"
@@ -82,10 +86,12 @@
                     Content="Todo Detail"
                     FontSize="12" />
                 <TextBox
+                    Name="todoDetailtxtb"
                     Grid.Row="1"
                     Grid.Column="3"
                     Height="75"
-                    VerticalAlignment="Center" />
+                    VerticalAlignment="Center"
+                    Text="{Binding MijnSelectedTodoDetail.TodoDetail, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"/>
             </Grid>
         </Border>
 

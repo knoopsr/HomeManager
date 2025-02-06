@@ -41,20 +41,15 @@ namespace HomeManager.Model.Todo
         private string _toDoDetail;
         public string TodoDetail
         {
-            get
-            {
-                return _toDoDetail;
-            }
+            get { return _toDoDetail; }
             set
             {
                 if (_toDoDetail != value)
                 {
-                    if (_toDoDetail != null)
-                    {
-                        IsDirty = true;
-                    }
                     _toDoDetail = value;
-                    OnPropertyChanged();
+                    IsDirty = true;  // Markeer dat er een wijziging is geweest
+                    OnPropertyChanged();  // Informeer de UI dat de waarde is veranderd
+                    //CommandManager.InvalidateRequerySuggested();  // Laat WPF de Save-knop opnieuw evalueren
                 }
             }
         }
@@ -91,7 +86,6 @@ namespace HomeManager.Model.Todo
         {
             return TodoDetail;
         }
-
         public string this[string columnName]
         {
             get
@@ -103,7 +97,7 @@ namespace HomeManager.Model.Todo
                         if (string.IsNullOrWhiteSpace(_toDoDetail))
                         {
                             error = "Detail is een verplicht veld.";
-                            if (ErrorList.Contains(nameof(TodoDetail)) == false)
+                            if (!ErrorList.Contains(nameof(TodoDetail)))
                             {
                                 ErrorList.Add(nameof(TodoDetail));
                             }
@@ -111,10 +105,15 @@ namespace HomeManager.Model.Todo
                         else if (_toDoDetail.Length > 50)
                         {
                             error = "Detail mag maximaal 50 karakters bevatten.";
-                            if (ErrorList.Contains(nameof(TodoDetail)) == false)
+                            if (!ErrorList.Contains(nameof(TodoDetail)))
                             {
                                 ErrorList.Add(nameof(TodoDetail));
                             }
+                        }
+                        else
+                        {
+                            // Verwijder fout als de invoer correct is
+                            ErrorList.Remove(nameof(TodoDetail));
                         }
                         break;
                 }

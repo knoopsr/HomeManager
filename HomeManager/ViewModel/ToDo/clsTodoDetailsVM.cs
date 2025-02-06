@@ -6,6 +6,8 @@ using HomeManager.Model.Todo;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -224,28 +226,43 @@ namespace HomeManager.ViewModel.Todo
             }
         }
 
+        //private bool CanExecute_SaveCommand(object obj)
+        //{
+        //    if (MijnSelectedTodoDetail != null &&
+        //    MijnSelectedTodoDetail.Error == null &&
+        //    MijnSelectedTodoDetail.IsDirty == true)
+        //    {
+        //        return true;
+        //    }
+        //    else
+        //    {
+        //        return false;
+        //    }
+        //}
+
         private bool CanExecute_SaveCommand(object obj)
         {
-            if (MijnSelectedTodoDetail != null &&
-            MijnSelectedTodoDetail.Error == null &&
-            MijnSelectedTodoDetail.IsDirty == true)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
+            return MijnSelectedTodoDetail != null &&
+                   MijnSelectedTodoDetail.Error == null &&
+                   MijnSelectedTodoDetail.IsDirty;
         }
+
 
         private void Execute_SaveCommand(object obj)
         {
             OpslaanCommando();
         }
 
-        private void OnTodoDetailsReceived(clsTodoDetailsM obj)
-        {
-            MijnSelectedTodoDetail = obj;
-        }
+        //private void OnTodoDetailsReceived(clsTodoDetailsM obj)
+        //{
+        //    _MijnSelectedTodoDetail = obj;
+        //}
+
+        //// Implement INotifyPropertyChanged interface
+        //public event PropertyChangedEventHandler PropertyChanged;
+        //protected void OnPropertyChanged(string propertyName)
+        //{
+        //    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        //}
     }
 }

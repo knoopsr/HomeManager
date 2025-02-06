@@ -1,5 +1,7 @@
 ﻿using HomeManager.Common;
 using HomeManager.DataService.ToDo;
+using HomeManager.Helpers;
+using HomeManager.Messages;
 using HomeManager.Model.Todo;
 using HomeManager.View;
 using System.Collections.ObjectModel;
@@ -14,6 +16,7 @@ namespace HomeManager.ViewModel
     {
         clsCollectiesDataService MijnService;
         clsTodoPopupDataService MijnServiceTodoPopup;
+        clsTodoDetailsDataService MijnServiceTodoDetails;
         clsCollectiesVM CollectiesVM;
 
         public clsTodoVM()
@@ -22,12 +25,14 @@ namespace HomeManager.ViewModel
 
             MijnService = new clsCollectiesDataService();
             MijnServiceTodoPopup = new clsTodoPopupDataService();
+            MijnServiceTodoDetails = new clsTodoDetailsDataService();
 
             //CollectiesVM = collectiesVM;
 
             //MijnCollectie = CollectiesVM.MijnCollectie;
             MijnCollectie = MijnService.GetAll();
             MijnCollectieTodoPopup = MijnServiceTodoPopup.GetAll();
+            MijnTodoDetails = MijnServiceTodoDetails.GetAll();
 
             //MijnSelectedItem = CollectiesVM.MijnSelectedItem;
 
@@ -37,6 +42,17 @@ namespace HomeManager.ViewModel
             OpenTodoBijlageCommand = new clsRelayCommand<object>(param => OpenTodoBijlage());
             EditTodoCommand = new clsRelayCommand<object>(param => EditTodoItem(param as clsTodoPopupM));
             DeleteTodoCommand = new clsRelayCommand<object>(param => DeleteTodoItem(param as clsTodoPopupM), param => CanDeleteTodoItem(param as clsTodoPopupM));
+            //TODO: EditTodoDetailCommand IMPLEMENTEREN
+            //TODO: DeleteTodoDetailCommand IMPLEMENTEREN
+
+            // Registreer om berichten te ontvangen
+            clsMessenger.Default.Register<clsCollectieAangemaaktMessage>(this, OnCollectieAangemaakt);
+        }
+
+        private void OnCollectieAangemaakt(clsCollectieAangemaaktMessage message)
+        {
+            // Voeg de nieuwe collectie toe aan de collectie
+            MijnCollectie.Add(message.NieuweCollectie);
         }
 
         public clsTodoPopupVM TodoPopupViewModel { get; set; }
@@ -66,6 +82,34 @@ namespace HomeManager.ViewModel
             set
             {
                 _MijnCollectieTodoPopup = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private ObservableCollection<clsTodoDetailsM> _MijnTodoDetails; //TODO: moet de naamgeving overeenkomen met de cslTodoDetailsVM?
+        public ObservableCollection<clsTodoDetailsM> MijnTodoDetails
+        {
+            get
+            {
+                return _MijnTodoDetails;
+            }
+            set
+            {
+                _MijnTodoDetails = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private ObservableCollection<clsTodoDetailsM> _MijnSelectedTodoDetail; //TODO: moet de naamgeving overeenkomen met de cslTodoDetailsVM?
+        public ObservableCollection<clsTodoDetailsM> MijnSelectedTodoDetail
+        {
+            get
+            {
+                return _MijnSelectedTodoDetail;
+            }
+            set
+            {
+                _MijnSelectedTodoDetail = value;
                 OnPropertyChanged();
             }
         }
