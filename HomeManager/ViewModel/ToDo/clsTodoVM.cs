@@ -27,14 +27,9 @@ namespace HomeManager.ViewModel
             MijnServiceTodoPopup = new clsTodoPopupDataService();
             MijnServiceTodoDetails = new clsTodoDetailsDataService();
 
-            //CollectiesVM = collectiesVM;
-
-            //MijnCollectie = CollectiesVM.MijnCollectie;
             MijnCollectie = MijnService.GetAll();
             MijnCollectieTodoPopup = MijnServiceTodoPopup.GetAll();
             MijnTodoDetails = MijnServiceTodoDetails.GetAll();
-
-            //MijnSelectedItem = CollectiesVM.MijnSelectedItem;
 
             OpenTodoPopupCommand = new clsRelayCommand<object>(param => OpenTodoPopup());
             OpenTodoCollectiesCommand = new clsRelayCommand<object>(param => OpenTodoCollecties());
@@ -42,9 +37,7 @@ namespace HomeManager.ViewModel
             OpenTodoBijlageCommand = new clsRelayCommand<object>(param => OpenTodoBijlage());
             EditTodoCommand = new clsRelayCommand<object>(param => EditTodoItem(param as clsTodoPopupM));
             DeleteTodoCommand = new clsRelayCommand<object>(param => DeleteTodoItem(param as clsTodoPopupM), param => CanDeleteTodoItem(param as clsTodoPopupM));
-            //TODO: EditTodoDetailCommand IMPLEMENTEREN
             EditTodoDetailCommand = new clsRelayCommand<object>(param => EditTodoDetailItem(param as clsTodoDetailsM));
-            //TODO: DeleteTodoDetailCommand IMPLEMENTEREN
             DeleteTodoDetailCommand = new clsRelayCommand<object>(param => DeleteTodoDetailItem(param as clsTodoDetailsM), param => CanDeleteTodoDetailItem(param as clsTodoDetailsM));
 
             // Registreer om berichten te ontvangen
@@ -88,7 +81,7 @@ namespace HomeManager.ViewModel
             }
         }
 
-        private ObservableCollection<clsTodoDetailsM> _MijnTodoDetails; //TODO: moet de naamgeving overeenkomen met de cslTodoDetailsVM?
+        private ObservableCollection<clsTodoDetailsM> _MijnTodoDetails;
         public ObservableCollection<clsTodoDetailsM> MijnTodoDetails
         {
             get
@@ -102,7 +95,7 @@ namespace HomeManager.ViewModel
             }
         }
 
-        private ObservableCollection<clsTodoDetailsM> _MijnSelectedTodoDetail; //TODO: moet de naamgeving overeenkomen met de cslTodoDetailsVM?
+        private ObservableCollection<clsTodoDetailsM> _MijnSelectedTodoDetail;
         public ObservableCollection<clsTodoDetailsM> MijnSelectedTodoDetail
         {
             get
