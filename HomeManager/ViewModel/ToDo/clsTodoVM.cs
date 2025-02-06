@@ -43,7 +43,9 @@ namespace HomeManager.ViewModel
             EditTodoCommand = new clsRelayCommand<object>(param => EditTodoItem(param as clsTodoPopupM));
             DeleteTodoCommand = new clsRelayCommand<object>(param => DeleteTodoItem(param as clsTodoPopupM), param => CanDeleteTodoItem(param as clsTodoPopupM));
             //TODO: EditTodoDetailCommand IMPLEMENTEREN
+            EditTodoDetailCommand = new clsRelayCommand<object>(param => EditTodoDetailItem(param as clsTodoDetailsM));
             //TODO: DeleteTodoDetailCommand IMPLEMENTEREN
+            DeleteTodoDetailCommand = new clsRelayCommand<object>(param => DeleteTodoDetailItem(param as clsTodoDetailsM), param => CanDeleteTodoDetailItem(param as clsTodoDetailsM));
 
             // Registreer om berichten te ontvangen
             clsMessenger.Default.Register<clsCollectieAangemaaktMessage>(this, OnCollectieAangemaakt);
@@ -267,6 +269,51 @@ namespace HomeManager.ViewModel
                 else
                 {
                     MessageBox.Show("Error?", todoItem.ErrorBoodschap);
+                }
+            }
+        }
+
+        public ICommand EditTodoDetailCommand { get; }
+        private void EditTodoDetailItem(clsTodoDetailsM todoDetail)
+        {
+            if (todoDetail == null) return;
+
+            // Stel de MijnSelectedTodoDetail in op het geselecteerde detail
+            MijnSelectedTodoDetail = new ObservableCollection<clsTodoDetailsM> { todoDetail };
+
+            var todoDetailsWindow = new Window
+            {
+                Content = new ucTodoDetails(),
+                Title = "Edit Todo Detail",
+                Width = 800,
+                Height = 450
+            };
+
+            // Stel de DataContext van het venster in op de huidige ViewModel
+            todoDetailsWindow.DataContext = this;
+
+            todoDetailsWindow.ShowDialog();
+        }
+
+        public ICommand DeleteTodoDetailCommand { get; }
+        private bool CanDeleteTodoDetailItem(clsTodoDetailsM todoDetail)
+        {
+            return todoDetail != null;
+        }
+
+        private void DeleteTodoDetailItem(clsTodoDetailsM todoDetail)
+        {
+            if (todoDetail == null) return;
+
+            if (MessageBox.Show($"Wil je {todoDetail.TodoDetail} verwijderen?", "Verwijderen?", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+            {
+                if (MijnServiceTodoDetails.Delete(todoDetail))
+                {
+                    MijnTodoDetails.Remove(todoDetail);
+                }
+                else
+                {
+                    MessageBox.Show("Error?", todoDetail.ErrorBoodschap);
                 }
             }
         }
