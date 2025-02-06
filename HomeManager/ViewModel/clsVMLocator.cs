@@ -250,8 +250,6 @@ namespace HomeManager.ViewModel
             }
         }
 
-        #endregion
-
         public clsCategorieViewModel CategorieViewModel
         {
             get

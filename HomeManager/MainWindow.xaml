@@ -69,8 +69,11 @@
         <DataTemplate DataType="{x:Type VM:clsPersonenViewModel}">
             <V:ucPersonen />
         </DataTemplate>
-        <DataTemplate DataType="{x:Type VM:clsCategorieViewModel}">
-            <V:ucCategorie />
+        <DataTemplate DataType="{x:Type VM:clsCollectiesVM}">
+            <V:ucCollecties />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type VM:clsCategorieënVM}">
+            <V:ucCategorieën />
         </DataTemplate>
         <DataTemplate DataType="{x:Type VM:clsKleurenVM}">
             <V:ucKleuren />
@@ -78,19 +81,6 @@
         <DataTemplate DataType="{x:Type VM:clsTodoVM}">
             <V:ucTodo />
         </DataTemplate>
-
-
-
-
-        <Storyboard x:Key="ShowMenu">
-            <DoubleAnimation
-                Storyboard.TargetName="HamburgerMenu"
-                Storyboard.TargetProperty="Width"
-                From="0"
-                To="200"
-                Duration="0:0:0.3" />
-        </Storyboard>
-
 
         <Storyboard x:Key="HideMenu">
             <DoubleAnimation

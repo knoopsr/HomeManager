@@ -37,10 +37,10 @@
                     <TextBlock Style="{StaticResource TitleBarText}" Text="Persoon" />
 
                 </StackPanel>
-                <uc:ucWerkBalk
+                <!--<uc:ucWerkBalk
                     HorizontalAlignment="Right"
                     VerticalAlignment="top"
-                    Loaded="ucWerkBalk_Loaded" />
+                    Loaded="ucWerkBalk_Loaded" />-->
 
             </Grid>
 
@@ -96,86 +96,11 @@
 
                     <ScrollViewer Grid.Row="1">
 
-                        <UniformGrid
+                        <!--<UniformGrid
                             HorizontalAlignment="Left"
                             VerticalAlignment="Top"
                             Columns="4">
-                            <local:ucPersonItem
-                                Height="100"
-                                MaxWidth="150"
-                                MaxHeight="100"
-                                Loaded="ucPersonItem_Loaded" />
-                            <local:ucPersonItem
-                                Height="100"
-                                MaxWidth="150"
-                                MaxHeight="100" />
-                            <local:ucPersonItem
-                                Height="100"
-                                MaxWidth="150"
-                                MaxHeight="100" />
-                            <local:ucPersonItem
-                                Height="100"
-                                MaxWidth="150"
-                                MaxHeight="100" />
-                            <local:ucPersonItem
-                                Height="100"
-                                MaxWidth="150"
-                                MaxHeight="100" />
-                            <local:ucPersonItem
-                                Height="100"
-                                MaxWidth="150"
-                                MaxHeight="100" />
-                            <local:ucPersonItem
-                                Height="100"
-                                MaxWidth="150"
-                                MaxHeight="100" />
-                            <local:ucPersonItem
-                                Height="100"
-                                MaxWidth="150"
-                                MaxHeight="100" />
-                            <local:ucPersonItem
-                                Height="100"
-                                MaxWidth="150"
-                                MaxHeight="100" />
-                            <local:ucPersonItem
-                                Height="100"
-                                MaxWidth="150"
-                                MaxHeight="100" />
-                            <local:ucPersonItem
-                                Height="100"
-                                MaxWidth="150"
-                                MaxHeight="100" />
-                            <local:ucPersonItem
-                                Height="100"
-                                MaxWidth="150"
-                                MaxHeight="100" />
-                            <local:ucPersonItem
-                                Height="100"
-                                MaxWidth="150"
-                                MaxHeight="100" />
-                            <local:ucPersonItem
-                                Height="100"
-                                MaxWidth="150"
-                                MaxHeight="100" />
-                            <local:ucPersonItem
-                                Height="100"
-                                MaxWidth="150"
-                                MaxHeight="100" />
-                            <local:ucPersonItem
-                                Height="100"
-                                MaxWidth="150"
-                                MaxHeight="100" />
-                            <local:ucPersonItem
-                                Height="100"
-                                MaxWidth="150"
-                                MaxHeight="100" />
-                            <local:ucPersonItem
-                                Height="100"
-                                MaxWidth="150"
-                                MaxHeight="100" />
-
-
-                        </UniformGrid>
+                        </UniformGrid>-->
 
                     </ScrollViewer>
 

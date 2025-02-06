@@ -187,16 +187,29 @@ namespace HomeManager.DAL.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to D_ToDoBijlage.
-        /// </summary>
-        internal static string D_ToDoBijlage {
-            get {
-                return ResourceManager.GetString("D_ToDoBijlage", resourceCulture);
         ///   Looks up a localized string similar to D_TelefoonNummers.
         /// </summary>
         internal static string D_TelefoonNummers {
             get {
                 return ResourceManager.GetString("D_TelefoonNummers", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to D_TelefoonType.
+        /// </summary>
+        internal static string D_TelefoonType {
+            get {
+                return ResourceManager.GetString("D_TelefoonType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to D_ToDoBijlage.
+        /// </summary>
+        internal static string D_ToDoBijlage {
+            get {
+                return ResourceManager.GetString("D_ToDoBijlage", resourceCulture);
             }
         }
         
@@ -242,11 +255,6 @@ namespace HomeManager.DAL.Properties {
         internal static string D_ToDoPopup {
             get {
                 return ResourceManager.GetString("D_ToDoPopup", resourceCulture);
-        ///   Looks up a localized string similar to D_TelefoonType.
-        /// </summary>
-        internal static string D_TelefoonType {
-            get {
-                return ResourceManager.GetString("D_TelefoonType", resourceCulture);
             }
         }
         
@@ -386,16 +394,29 @@ namespace HomeManager.DAL.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to I_ToDoBijlage.
-        /// </summary>
-        internal static string I_ToDoBijlage {
-            get {
-                return ResourceManager.GetString("I_ToDoBijlage", resourceCulture);
         ///   Looks up a localized string similar to I_TelefoonNummers.
         /// </summary>
         internal static string I_TelefoonNummers {
             get {
                 return ResourceManager.GetString("I_TelefoonNummers", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to I_TelefoonType.
+        /// </summary>
+        internal static string I_TelefoonType {
+            get {
+                return ResourceManager.GetString("I_TelefoonType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to I_ToDoBijlage.
+        /// </summary>
+        internal static string I_ToDoBijlage {
+            get {
+                return ResourceManager.GetString("I_ToDoBijlage", resourceCulture);
             }
         }
         
@@ -441,11 +462,6 @@ namespace HomeManager.DAL.Properties {
         internal static string I_ToDoPopup {
             get {
                 return ResourceManager.GetString("I_ToDoPopup", resourceCulture);
-        ///   Looks up a localized string similar to I_TelefoonType.
-        /// </summary>
-        internal static string I_TelefoonType {
-            get {
-                return ResourceManager.GetString("I_TelefoonType", resourceCulture);
             }
         }
         
@@ -657,11 +673,6 @@ namespace HomeManager.DAL.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to S_ToDoBijlage.
-        /// </summary>
-        internal static string S_ToDoBijlage {
-            get {
-                return ResourceManager.GetString("S_ToDoBijlage", resourceCulture);
         ///   Looks up a localized string similar to S_TelefoonNummerByID.
         /// </summary>
         internal static string S_TelefoonNummerByID {
@@ -671,16 +682,38 @@ namespace HomeManager.DAL.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to S_ToDoCategorieën.
-        /// </summary>
-        internal static string S_ToDoCategorieën {
-            get {
-                return ResourceManager.GetString("S_ToDoCategorieën", resourceCulture);
         ///   Looks up a localized string similar to S_TelefoonNummers.
         /// </summary>
         internal static string S_TelefoonNummers {
             get {
                 return ResourceManager.GetString("S_TelefoonNummers", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to S_TelefoonType.
+        /// </summary>
+        internal static string S_TelefoonType {
+            get {
+                return ResourceManager.GetString("S_TelefoonType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to S_ToDoBijlage.
+        /// </summary>
+        internal static string S_ToDoBijlage {
+            get {
+                return ResourceManager.GetString("S_ToDoBijlage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to S_ToDoCategorieën.
+        /// </summary>
+        internal static string S_ToDoCategorieën {
+            get {
+                return ResourceManager.GetString("S_ToDoCategorieën", resourceCulture);
             }
         }
         
@@ -717,11 +750,6 @@ namespace HomeManager.DAL.Properties {
         internal static string S_ToDoPopup {
             get {
                 return ResourceManager.GetString("S_ToDoPopup", resourceCulture);
-        ///   Looks up a localized string similar to S_TelefoonType.
-        /// </summary>
-        internal static string S_TelefoonType {
-            get {
-                return ResourceManager.GetString("S_TelefoonType", resourceCulture);
             }
         }
         
@@ -870,16 +898,29 @@ namespace HomeManager.DAL.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to U_ToDoBijlage.
-        /// </summary>
-        internal static string U_ToDoBijlage {
-            get {
-                return ResourceManager.GetString("U_ToDoBijlage", resourceCulture);
         ///   Looks up a localized string similar to U_TelefoonNummers.
         /// </summary>
         internal static string U_TelefoonNummers {
             get {
                 return ResourceManager.GetString("U_TelefoonNummers", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to U_TelefoonType.
+        /// </summary>
+        internal static string U_TelefoonType {
+            get {
+                return ResourceManager.GetString("U_TelefoonType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to U_ToDoBijlage.
+        /// </summary>
+        internal static string U_ToDoBijlage {
+            get {
+                return ResourceManager.GetString("U_ToDoBijlage", resourceCulture);
             }
         }
         
@@ -925,11 +966,6 @@ namespace HomeManager.DAL.Properties {
         internal static string U_ToDoPopup {
             get {
                 return ResourceManager.GetString("U_ToDoPopup", resourceCulture);
-        ///   Looks up a localized string similar to U_TelefoonType.
-        /// </summary>
-        internal static string U_TelefoonType {
-            get {
-                return ResourceManager.GetString("U_TelefoonType", resourceCulture);
             }
         }
         

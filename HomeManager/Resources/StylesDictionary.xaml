@@ -544,11 +544,6 @@
         </Style.Triggers>
     </Style>
 
-
-
-
-
-
     <Style x:Key="CancelImage" TargetType="ContentControl">
         <Setter Property="Margin" Value="5" />
         <Setter Property="Cursor" Value="Hand" />
@@ -721,6 +716,11 @@
                         Data="{StaticResource myAddButton}"
                         Fill="{StaticResource myTitleBar}"
                         Stretch="Fill" />
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    
     <Style x:Key="UploadVlagButton" TargetType="ContentControl">
         <Setter Property="Cursor" Value="Hand" />
         <Setter Property="Height" Value="31" />
