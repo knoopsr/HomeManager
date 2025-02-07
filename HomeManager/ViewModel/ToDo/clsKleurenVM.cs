@@ -331,5 +331,17 @@ public class clsKleurenVM : clsCommonModelPropertiesBase
             }
         }
     }
+    //public void LoadColors()
+    //{
+    //    foreach (var todo in MijnCollectie)
+    //    {
+    //        var kleur = KleurenCollectie.FirstOrDefault(k => k.ToDoColorID == todo.ToDoColorID);
+    //        if (kleur != null)
+    //        {
+    //            todo.ToDoColor = kleur.ToDoColor;  // Kleurnaam correct instellen
+    //        }
+    //    }
+    //}
+
 
 }

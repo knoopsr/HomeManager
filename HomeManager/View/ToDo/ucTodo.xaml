@@ -16,8 +16,8 @@
     <UserControl.Resources>
         <converter:BoolToColorBrushConverter x:Key="BoolToColorBrushConverter" />
         <converter:ColorNameToBrushConverter x:Key="ColorNameToBrushConverter" />
-        <viewmodel:clsKleurenVM x:Key="KleurenViewModel" />
-        
+        <converter:IntToBrushConverter x:Key="IntToBrushConverter" />
+
     </UserControl.Resources>
 
     <Grid DataContext="{Binding Source={StaticResource VML}, Path=ToDoViewModel}">
@@ -34,35 +34,35 @@
         <StackPanel Grid.Row="0" Grid.Column="0">
             <Button
                 Name="OpenTodoCollecties"
-                ToolTip="Collectie toevoegen"
                 Width="30"
                 Height="30"
                 Margin="0,20,0,0"
                 HorizontalAlignment="Right"
                 Command="{Binding OpenTodoCollectiesCommand}"
-                Style="{StaticResource AddButton}" />
+                Style="{StaticResource AddButton}"
+                ToolTip="Collectie toevoegen" />
         </StackPanel>
         <StackPanel Grid.Row="0" Grid.Column="1">
             <Button
                 Name="OpenTodoPopupViewbtn"
-                ToolTip="Todo toevoegen"
                 Width="30"
                 Height="30"
                 Margin="0,20,0,0"
                 HorizontalAlignment="Right"
                 Command="{Binding OpenTodoPopupCommand}"
-                Style="{StaticResource AddButton}" />
+                Style="{StaticResource AddButton}"
+                ToolTip="Todo toevoegen" />
         </StackPanel>
         <StackPanel Grid.Row="0" Grid.Column="2">
             <Button
                 Name="OpenTodoDetails"
-                ToolTip="Todo detail toevoegen"
                 Width="30"
                 Height="30"
                 Margin="0,20,0,0"
                 HorizontalAlignment="Right"
                 Command="{Binding OpenTodoDetailsCommand}"
-                Style="{StaticResource AddButton}" />
+                Style="{StaticResource AddButton}"
+                ToolTip="Todo detail toevoegen" />
         </StackPanel>
         <ListBox
             Name="ToDoCollectiesOpvullingListView"
@@ -104,7 +104,7 @@
                                 <Rectangle
                                     Width="5"
                                     Margin="5"
-                                    Fill="{Binding ToDoColor, Converter={StaticResource ColorNameToBrushConverter}}" />
+                                    Fill="{Binding TodoColorID, Converter={StaticResource IntToBrushConverter}}" />
                                 <StackPanel>
                                     <TextBlock
                                         FontSize="14"
@@ -121,8 +121,8 @@
                                 Grid.Column="1"
                                 Margin="5,0"
                                 VerticalAlignment="Center"
-                                ToolTip="Door dit aan te vinken is de Todo klaar"
-                                IsChecked="{Binding IsKlaar, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                IsChecked="{Binding IsKlaar, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                ToolTip="Door dit aan te vinken is de Todo klaar" />
 
                             <Button
                                 x:Name="EditBtn"
@@ -130,33 +130,33 @@
                                 Width="10"
                                 Height="10"
                                 Margin="5,0"
-                                ToolTip="Todo aanpassen"
                                 VerticalAlignment="Center"
                                 Command="{Binding DataContext.EditTodoCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
                                 CommandParameter="{Binding}"
-                                Style="{StaticResource EditTodoImage}" />
+                                Style="{StaticResource EditTodoImage}"
+                                ToolTip="Todo aanpassen" />
                             <Button
                                 x:Name="DeleteBtn"
                                 Grid.Column="3"
                                 Width="10"
                                 Height="10"
                                 Margin="5,0"
-                                ToolTip="Todo verwijderen"
                                 VerticalAlignment="Center"
                                 Command="{Binding DataContext.DeleteTodoCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
                                 CommandParameter="{Binding}"
-                                Style="{StaticResource DeleteTodoImage}" />
+                                Style="{StaticResource DeleteTodoImage}"
+                                ToolTip="Todo verwijderen" />
                             <Button
                                 x:Name="PaperclipBtn"
                                 Grid.Column="4"
                                 Width="8"
                                 Height="15"
                                 Margin="5,0"
-                                ToolTip="Bijlage toevoegen"
                                 HorizontalAlignment="Right"
                                 VerticalAlignment="Center"
                                 Command="{Binding DataContext.OpenTodoBijlageCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
-                                Style="{StaticResource PaperclipTodoImage}" />
+                                Style="{StaticResource PaperclipTodoImage}"
+                                ToolTip="Bijlage toevoegen" />
                         </Grid>
                     </Border>
                 </DataTemplate>
@@ -196,42 +196,42 @@
                                         FontSize="12"
                                         FontWeight="Bold"
                                         Foreground="Black"
-                                        Text="{Binding TodoDetail}"/>
+                                        Text="{Binding TodoDetail}" />
                                 </StackPanel>
                             </StackPanel>
                             <CheckBox
                                 Grid.Column="1"
                                 Margin="5,0"
                                 VerticalAlignment="Center"
-                                ToolTip="Door dit aan te vinken is de Todo Detail klaar"
-                                IsChecked="{Binding IsKlaar, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                IsChecked="{Binding IsKlaar, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                ToolTip="Door dit aan te vinken is de Todo Detail klaar" />
                             <Button
                                 x:Name="EditBtn"
                                 Grid.Column="2"
                                 Width="10"
                                 Height="10"
                                 Margin="5,0"
-                                ToolTip="Todo aanpassen"
                                 VerticalAlignment="Center"
                                 Command="{Binding DataContext.EditTodoDetailCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
                                 CommandParameter="{Binding}"
-                                Style="{StaticResource EditTodoImage}" />
+                                Style="{StaticResource EditTodoImage}"
+                                ToolTip="Todo aanpassen" />
                             <Button
                                 x:Name="DeleteBtn"
                                 Grid.Column="3"
                                 Width="10"
                                 Height="10"
                                 Margin="5,0"
-                                ToolTip="Todo verwijderen"
                                 VerticalAlignment="Center"
                                 Command="{Binding DataContext.DeleteTodoDetailCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
                                 CommandParameter="{Binding}"
-                                Style="{StaticResource DeleteTodoImage}" />
+                                Style="{StaticResource DeleteTodoImage}"
+                                ToolTip="Todo verwijderen" />
                         </Grid>
                     </Border>
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
-        
+
     </Grid>
 </UserControl>

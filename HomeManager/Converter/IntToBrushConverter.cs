@@ -1,0 +1,315 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Globalization;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Data;
+using System.Windows.Media;
+
+namespace HomeManager.Converter
+{
+    public class IntToBrushConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            if (value is int intValue)
+            {
+                // Voeg hier je logica toe om de int om te zetten naar een Brush
+                switch (intValue)
+                {
+                    case 1:
+                        return Brushes.AliceBlue;
+                    case 2:
+                        return Brushes.AntiqueWhite;
+                    case 3:
+                        return Brushes.Aqua;
+                    case 4:
+                        return Brushes.Aquamarine;
+                    case 5:
+                        return Brushes.Azure;
+                    case 6:
+                        return Brushes.Beige;
+                    case 7:
+                        return Brushes.Bisque;
+                    case 8:
+                        return Brushes.Black;
+                    case 9:
+                        return Brushes.BlanchedAlmond;
+                    case 10:
+                        return Brushes.Blue;
+                    case 11:
+                        return Brushes.BlueViolet;
+                    case 12:
+                        return Brushes.Brown;
+                    case 13:
+                        return Brushes.BurlyWood;
+                    case 14:
+                        return Brushes.CadetBlue;
+                    case 15:
+                        return Brushes.Chartreuse;
+                    case 16:
+                        return Brushes.Chocolate;
+                    case 17:
+                        return Brushes.Coral;
+                    case 18:
+                        return Brushes.CornflowerBlue;
+                    case 19:
+                        return Brushes.Cornsilk;
+                    case 20:
+                        return Brushes.Crimson;
+                    case 21:
+                        return Brushes.Cyan;
+                    case 22:
+                        return Brushes.DarkBlue;
+                    case 23:
+                        return Brushes.DarkCyan;
+                    case 24:
+                        return Brushes.DarkGoldenrod;
+                    case 25:
+                        return Brushes.DarkGray;
+                    case 26:
+                        return Brushes.DarkGreen;
+                    case 27:
+                        return Brushes.DarkKhaki;
+                    case 28:
+                        return Brushes.DarkMagenta;
+                    case 29:
+                        return Brushes.DarkOliveGreen;
+                    case 30:
+                        return Brushes.DarkOrange;
+                    case 31:
+                        return Brushes.DarkOrchid;
+                    case 32:
+                        return Brushes.DarkRed;
+                    case 33:
+                        return Brushes.DarkSalmon;
+                    case 34:
+                        return Brushes.DarkSeaGreen;
+                    case 35:
+                        return Brushes.DarkSlateBlue;
+                    case 36:
+                        return Brushes.DarkSlateGray;
+                    case 37:
+                        return Brushes.DarkTurquoise;
+                    case 38:
+                        return Brushes.DarkViolet;
+                    case 39:
+                        return Brushes.DeepPink;
+                    case 40:
+                        return Brushes.DeepSkyBlue;
+                    case 41:
+                        return Brushes.DimGray;
+                    case 42:
+                        return Brushes.DodgerBlue;
+                    case 43:
+                        return Brushes.Firebrick;
+                    case 44:
+                        return Brushes.FloralWhite;
+                    case 45:
+                        return Brushes.ForestGreen;
+                    case 46:
+                        return Brushes.Fuchsia;
+                    case 47:
+                        return Brushes.Gainsboro;
+                    case 48:
+                        return Brushes.GhostWhite;
+                    case 49:
+                        return Brushes.Gold;
+                    case 50:
+                        return Brushes.Goldenrod;
+                    case 51:
+                        return Brushes.Gray;
+                    case 52:
+                        return Brushes.Green;
+                    case 53:
+                        return Brushes.GreenYellow;
+                    case 54:
+                        return Brushes.Honeydew;
+                    case 55:
+                        return Brushes.HotPink;
+                    case 56:
+                        return Brushes.IndianRed;
+                    case 57:
+                        return Brushes.Indigo;
+                    case 58:
+                        return Brushes.Ivory;
+                    case 59:
+                        return Brushes.Khaki;
+                    case 60:
+                        return Brushes.Lavender;
+                    case 61:
+                        return Brushes.LavenderBlush;
+                    case 62:
+                        return Brushes.LawnGreen;
+                    case 63:
+                        return Brushes.LemonChiffon;
+                    case 64:
+                        return Brushes.LightBlue;
+                    case 65:
+                        return Brushes.LightCoral;
+                    case 66:
+                        return Brushes.LightCyan;
+                    case 67:
+                        return Brushes.LightGoldenrodYellow;
+                    case 68:
+                        return Brushes.LightGray;
+                    case 69:
+                        return Brushes.LightGreen;
+                    case 70:
+                        return Brushes.LightPink;
+                    case 71:
+                        return Brushes.LightSalmon;
+                    case 72:
+                        return Brushes.LightSeaGreen;
+                    case 73:
+                        return Brushes.LightSkyBlue;
+                    case 74:
+                        return Brushes.LightSlateGray;
+                    case 75:
+                        return Brushes.LightSteelBlue;
+                    case 76:
+                        return Brushes.LightYellow;
+                    case 77:
+                        return Brushes.Lime;
+                    case 78:
+                        return Brushes.LimeGreen;
+                    case 79:
+                        return Brushes.Linen;
+                    case 80:
+                        return Brushes.Magenta;
+                    case 81:
+                        return Brushes.Maroon;
+                    case 82:
+                        return Brushes.MediumAquamarine;
+                    case 83:
+                        return Brushes.MediumBlue;
+                    case 84:
+                        return Brushes.MediumOrchid;
+                    case 85:
+                        return Brushes.MediumPurple;
+                    case 86:
+                        return Brushes.MediumSeaGreen;
+                    case 87:
+                        return Brushes.MediumSlateBlue;
+                    case 88:
+                        return Brushes.MediumSpringGreen;
+                    case 89:
+                        return Brushes.MediumTurquoise;
+                    case 90:
+                        return Brushes.MediumVioletRed;
+                    case 91:
+                        return Brushes.MidnightBlue;
+                    case 92:
+                        return Brushes.MintCream;
+                    case 93:
+                        return Brushes.MistyRose;
+                    case 94:
+                        return Brushes.Moccasin;
+                    case 95:
+                        return Brushes.NavajoWhite;
+                    case 96:
+                        return Brushes.Navy;
+                    case 97:
+                        return Brushes.OldLace;
+                    case 98:
+                        return Brushes.Olive;
+                    case 99:
+                        return Brushes.OliveDrab;
+                    case 100:
+                        return Brushes.Orange;
+                    case 101:
+                        return Brushes.OrangeRed;
+                    case 102:
+                        return Brushes.Orchid;
+                    case 103:
+                        return Brushes.PaleGoldenrod;
+                    case 104:
+                        return Brushes.PaleGreen;
+                    case 105:
+                        return Brushes.PaleTurquoise;
+                    case 106:
+                        return Brushes.PaleVioletRed;
+                    case 107:
+                        return Brushes.PapayaWhip;
+                    case 108:
+                        return Brushes.PeachPuff;
+                    case 109:
+                        return Brushes.Peru;
+                    case 110:
+                        return Brushes.Pink;
+                    case 111:
+                        return Brushes.Plum;
+                    case 112:
+                        return Brushes.PowderBlue;
+                    case 113:
+                        return Brushes.Purple;
+                    case 114:
+                        return Brushes.Red;
+                    case 115:
+                        return Brushes.RosyBrown;
+                    case 116:
+                        return Brushes.RoyalBlue;
+                    case 117:
+                        return Brushes.SaddleBrown;
+                    case 118:
+                        return Brushes.Salmon;
+                    case 119:
+                        return Brushes.SandyBrown;
+                    case 120:
+                        return Brushes.SeaGreen;
+                    case 121:
+                        return Brushes.SeaShell;
+                    case 122:
+                        return Brushes.Sienna;
+                    case 123:
+                        return Brushes.Silver;
+                    case 124:
+                        return Brushes.SkyBlue;
+                    case 125:
+                        return Brushes.SlateBlue;
+                    case 126:
+                        return Brushes.SlateGray;
+                    case 127:
+                        return Brushes.Snow;
+                    case 128:
+                        return Brushes.SpringGreen;
+                    case 129:
+                        return Brushes.SteelBlue;
+                    case 130:
+                        return Brushes.Tan;
+                    case 131:
+                        return Brushes.Teal;
+                    case 132:
+                        return Brushes.Thistle;
+                    case 133:
+                        return Brushes.Tomato;
+                    case 134:
+                        return Brushes.Transparent;
+                    case 135:
+                        return Brushes.Turquoise;
+                    case 136:
+                        return Brushes.Violet;
+                    case 137:
+                        return Brushes.Wheat;
+                    case 138:
+                        return Brushes.White;
+                    case 139:
+                        return Brushes.WhiteSmoke;
+                    case 140:
+                        return Brushes.Yellow;
+                    case 141:
+                        return Brushes.YellowGreen;
+                    default:
+                        return Brushes.Transparent;
+                }
+            }
+            return Brushes.Transparent;
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            throw new NotImplementedException();
+        }
+    }
+}
