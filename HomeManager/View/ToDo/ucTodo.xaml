@@ -15,9 +15,9 @@
     mc:Ignorable="d">
     <UserControl.Resources>
         <converter:BoolToColorBrushConverter x:Key="BoolToColorBrushConverter" />
-        <converter:IntToBrushConverter x:Key="IntToBrushConverter" />
+        <converter:ColorNameToBrushConverter x:Key="ColorNameToBrushConverter" />
         <viewmodel:clsKleurenVM x:Key="KleurenViewModel" />
-        <converter:KleurenMToBrushConverter x:Key="KleurenMToBrushConverter" />
+        
     </UserControl.Resources>
 
     <Grid DataContext="{Binding Source={StaticResource VML}, Path=ToDoViewModel}">
@@ -104,7 +104,7 @@
                                 <Rectangle
                                     Width="5"
                                     Margin="5"
-                                    Fill="{Binding Source={StaticResource KleurenViewModel}, Path=SelectedColor, Converter={StaticResource KleurenMToBrushConverter}}" />
+                                    Fill="{Binding ToDoColor, Converter={StaticResource ColorNameToBrushConverter}}" />
                                 <StackPanel>
                                     <TextBlock
                                         FontSize="14"

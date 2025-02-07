@@ -19,8 +19,6 @@ namespace HomeManager.Model.Todo
             }
         }
 
-
-
         private string _onderwerp;
         public string Onderwerp
         {
@@ -133,7 +131,6 @@ namespace HomeManager.Model.Todo
                 OnPropertyChanged();
             }
         }
-
        
         public override string ToString()
         {
@@ -236,8 +233,6 @@ namespace HomeManager.Model.Todo
                 return error;
             }
         }
-
-
         public string Error => null;
     }
 }
