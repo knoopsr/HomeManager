@@ -46,10 +46,22 @@ public class clsKleurenM : clsCommonModelPropertiesBase, IDataErrorInfo
         return ToDoColor;
     }
 
-    
-    public string Name { get; set; }
-    public Color Color { get; set; }
-    
+    //public string Name { get; set; }
+
+    //private Color _color;
+    //public Color Color
+    //{
+    //    get => _color;
+    //    set
+    //    {
+    //        if (_color != value)
+    //        {
+    //            _color = value;
+    //            OnPropertyChanged();
+    //        }
+    //    }
+    //}
+
 
     public string this[string columnName]
     {

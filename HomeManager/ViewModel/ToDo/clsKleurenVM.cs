@@ -4,6 +4,7 @@ using HomeManager.Helpers;
 using HomeManager.Model.Todo;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Reflection;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;
@@ -32,6 +33,20 @@ public class clsKleurenVM : clsCommonModelPropertiesBase
         set
         {
             _MijnCollectie = value;
+            OnPropertyChanged();
+        }
+    }
+
+    private ObservableCollection<clsKleurenM> _KleurenCollectie;
+    public ObservableCollection<clsKleurenM> KleurenCollectie
+    {
+        get
+        {
+            return _KleurenCollectie;
+        }
+        set
+        {
+            _KleurenCollectie = value;
             OnPropertyChanged();
         }
     }
@@ -252,39 +267,69 @@ public class clsKleurenVM : clsCommonModelPropertiesBase
         _MijnSelectedItem = obj;
     }
 
-    private clsKleurenM _selectedColor;
-
-    // ObservableCollection voor databinding met de ComboBox
-    public ObservableCollection<clsKleurenM> Colors { get; set; }
+    //public ObservableCollection<clsKleurenM> Colors { get; } //= new();
 
     // Geselecteerde kleur
-    public clsKleurenM SelectedColor
+    //private clsKleurenM _selectedColor;
+    //public clsKleurenM SelectedColor
+    //{
+    //    get => _selectedColor;
+    //    set
+    //    {
+    //        if (_selectedColor != value)
+    //        {
+    //            _selectedColor = value;
+    //            if (MijnSelectedItem != null)
+    //            {
+    //                MijnSelectedItem.ToDoColor = _selectedColor?.Name;
+    //                OnPropertyChanged(nameof(MijnSelectedItem.ToDoColor)); // UI update
+    //            }
+    //            OnPropertyChanged();
+    //        }
+    //    }
+    //}
+    //private void LoadColors()
+    //{
+    //    MijnCollectie.Clear();
+    //    foreach (var colorProp in typeof(System.Drawing.Color).GetProperties(BindingFlags.Static | BindingFlags.Public))
+    //    {
+    //        if (colorProp.GetValue(null) is System.Drawing.Color color)
+    //        {
+    //            MijnCollectie.Add(new clsKleurenM
+    //            {
+    //                Name = colorProp.Name,
+    //                ToDoColor = System.Drawing.Color.FromArgb(color.A, color.R, color.G, color.B)
+    //            });
+    //        }
+    //    }
+    //}
+    //private void LoadColors() //HEX kleuren
+    //{
+    //    KleurenCollectie = new ObservableCollection<clsKleurenM>();
+    //    foreach (var colorProp in typeof(Colors).GetProperties(BindingFlags.Static | BindingFlags.Public))
+    //    {
+    //        if (colorProp.GetValue(null) is Color color)
+    //        {
+    //            KleurenCollectie.Add(new clsKleurenM
+    //            {
+    //                ToDoColor = color.ToString()
+    //            });
+    //        }
+    //    }
+    //}
+    private void LoadColors()//tekst kleuren
     {
-        get => _selectedColor;
-        set
+        KleurenCollectie = new ObservableCollection<clsKleurenM>();
+        foreach (var colorProp in typeof(Colors).GetProperties(BindingFlags.Static | BindingFlags.Public))
         {
-            _selectedColor = value;
-            if (_selectedColor != null)
+            if (colorProp.GetValue(null) is Color)
             {
-                MijnSelectedItem.ToDoColor = _selectedColor.Name;
+                KleurenCollectie.Add(new clsKleurenM
+                {
+                    ToDoColor = colorProp.Name
+                });
             }
-            OnPropertyChanged(); // Notificeer de View over de wijziging
         }
-    }
-
-    private void LoadColors()
-    {
-        Colors = new ObservableCollection<clsKleurenM>(
-            typeof(Colors).GetProperties()
-                          .Select(c => new clsKleurenM
-                          {
-                              Name = c.Name,
-                              Color = System.Drawing.Color.FromArgb(
-                                  ((Color)c.GetValue(null)).A,
-                                  ((Color)c.GetValue(null)).R,
-                                  ((Color)c.GetValue(null)).G,
-                                  ((Color)c.GetValue(null)).B)
-                          }));
     }
 
 }

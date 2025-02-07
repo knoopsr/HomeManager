@@ -6,10 +6,12 @@
     xmlns:local="clr-namespace:HomeManager.View"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:uc="clr-namespace:HomeManager.View"
+    xmlns:converter="clr-namespace:HomeManager.Converter"
     d:DesignHeight="450"
     d:DesignWidth="800"
     Background="{StaticResource myBackground}"
     mc:Ignorable="d">
+
     <Grid DataContext="{Binding Source={StaticResource VML}, Path=KleurenViewModel}">
         <Grid.RowDefinitions>
             <RowDefinition Height="50" />
@@ -92,9 +94,9 @@
                     Grid.Column="3"
                     Height="20"
                     VerticalAlignment="Center"
-                    DisplayMemberPath="Name"
-                    ItemsSource="{Binding Colors}"
-                    SelectedItem="{Binding SelectedColor, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                    DisplayMemberPath="ToDoColor"
+                    ItemsSource="{Binding KleurenCollectie}"
+                    SelectedItem="{Binding MijnSelectedItem.ToDoColor, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 
                 <Label
                     Grid.Row="2"
@@ -109,7 +111,7 @@
                     Grid.Column="3"
                     Height="20"
                     VerticalAlignment="Center"
-                    Text="{Binding MijnSelectedItem.ToDoColor, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" />
+                    Text="{Binding MijnSelectedItem.ToDoColor, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
             </Grid>
         </Border>
     </Grid>

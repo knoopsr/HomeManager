@@ -210,8 +210,8 @@
                     VerticalAlignment="Center"
                     DataContext="{Binding Source={StaticResource VML}, Path=KleurenViewModel}"
                     ItemsSource="{Binding MijnCollectie}"
-                    SelectedValue="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Grid}}, Path=DataContext.MijnSelectedItem.TodoColorID, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
-                    SelectedValuePath="ToDoColorID" />
+                    SelectedValue="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Grid}}, Path=DataContext.MijnSelectedItem.ToDoColor, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
+                    SelectedValuePath="ToDoColor" />
                 <Label
                     Grid.Row="8"
                     Grid.Column="2"
