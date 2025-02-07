@@ -15,7 +15,6 @@
     mc:Ignorable="d">
     <UserControl.Resources>
         <converter:BoolToColorBrushConverter x:Key="BoolToColorBrushConverter" />
-        <converter:ColorNameToBrushConverter x:Key="ColorNameToBrushConverter" />
         <converter:IntToBrushConverter x:Key="IntToBrushConverter" />
 
     </UserControl.Resources>
