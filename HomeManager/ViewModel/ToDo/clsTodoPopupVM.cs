@@ -32,6 +32,26 @@ namespace HomeManager.ViewModel
         public ICommand OpenCollectiesCommand { get; }
         public ICommand OpenAccountCommand { get; }
 
+        public clsTodoPopupVM()
+        {
+            MijnService = new clsTodoPopupDataService();
+            MijnserviceGebruikers = new clsAccountDataService();
+
+            cmdSave = new clsCustomCommand(Execute_SaveCommand, CanExecute_SaveCommand);
+            cmdDelete = new clsCustomCommand(Execute_DeleteCommand, CanExecute_DeleteCommand);
+            cmdNew = new clsCustomCommand(Execute_NewCommand, CanExecute_NewCommand);
+            cmdCancel = new clsCustomCommand(Execute_CancelCommand, CanExecute_CancelCommand);
+            cmdClose = new clsCustomCommand(Execute_CloseCommand, CanExecute_CloseCommand);
+
+            clsMessenger.Default.Register<clsTodoPopupM>(this, OnCollectiesReceived);
+            OpenCollectiesCommand = new clsRelayCommand<object>(OpenCollecties);
+            OpenAccountCommand = new clsRelayCommand<object>(OpenAccount);
+
+
+            LoadData();
+            MijnSelectedItem = MijnService.GetFirst();
+        }
+
         private void OpenCollecties(object parameter)
         {
             // Logic to open ucCollecties.xaml
@@ -150,26 +170,6 @@ namespace HomeManager.ViewModel
             MijnCollectie = MijnService.GetAll();
             MijnCollectieGebruikers = MijnserviceGebruikers.GetAll();
 
-        }
-
-        public clsTodoPopupVM()
-        {
-            MijnService = new clsTodoPopupDataService();
-            MijnserviceGebruikers = new clsAccountDataService();
-
-            cmdSave = new clsCustomCommand(Execute_SaveCommand, CanExecute_SaveCommand);
-            cmdDelete = new clsCustomCommand(Execute_DeleteCommand, CanExecute_DeleteCommand);
-            cmdNew = new clsCustomCommand(Execute_NewCommand, CanExecute_NewCommand);
-            cmdCancel = new clsCustomCommand(Execute_CancelCommand, CanExecute_CancelCommand);
-            cmdClose = new clsCustomCommand(Execute_CloseCommand, CanExecute_CloseCommand);
-
-            clsMessenger.Default.Register<clsTodoPopupM>(this, OnCollectiesReceived);
-            OpenCollectiesCommand = new clsRelayCommand<object>(OpenCollecties);
-            OpenAccountCommand = new clsRelayCommand<object>(OpenAccount);
-
-
-            LoadData();
-            MijnSelectedItem = MijnService.GetFirst();
         }
 
         private bool CanExecute_CloseCommand(object obj)

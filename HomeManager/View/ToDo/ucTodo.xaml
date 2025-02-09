@@ -59,7 +59,7 @@
                 Height="30"
                 Margin="0,20,0,0"
                 HorizontalAlignment="Right"
-                Command="{Binding OpenTodoDetailsCommand}"
+                Command="{Binding OpenTodoDetailsCommand}" CommandParameter="{Binding MijnCollectieTodoPopup}" Content="Open Todo Details"
                 Style="{StaticResource AddButton}"
                 ToolTip="Todo detail toevoegen" />
         </StackPanel>

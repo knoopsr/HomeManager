@@ -4,6 +4,7 @@ using HomeManager.Helpers;
 using HomeManager.Messages;
 using HomeManager.Model.Todo;
 using HomeManager.View;
+using HomeManager.ViewModel.Todo;
 using System.Collections.ObjectModel;
 using System.Globalization;
 using System.Windows;
@@ -203,15 +204,26 @@ namespace HomeManager.ViewModel
         public ICommand OpenTodoDetailsCommand { get; }
         private void OpenTodoDetails()
         {
-            var todoDetailsWindow = new Window
+            if (MijnSelectedItemTodoPopup != null)
             {
-                Content = new ucTodoDetails(),
-                Title = "Todo Details",
-                Width = 800,
-                Height = 450
-            };
-            todoDetailsWindow.ShowDialog();
+
+
+                var todoDetailsWindow = new Window
+                {
+                    Content = new ucTodoDetails(),
+                    Title = "Todo Details",
+                    Width = 800,
+                    Height = 450
+                };
+
+                todoDetailsWindow.ShowDialog();
+            }
+            else
+            {
+                MessageBox.Show("Selecteer eerst een Todo Item!", "Fout", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
         }
+
 
         public ICommand OpenTodoBijlageCommand { get; }
         private void OpenTodoBijlage()
