@@ -44,11 +44,19 @@ namespace HomeManager.ViewModel
             clsMessenger.Default.Register<clsCollectieAangemaaktMessage>(this, OnCollectieAangemaakt);
         }
 
+        //private void OnCollectieAangemaakt(clsCollectieAangemaaktMessage message)
+        //{
+        //    // Voeg de nieuwe collectie toe aan de collectie
+        //    MijnCollectie.Add(message.NieuweCollectie);
+        //}
         private void OnCollectieAangemaakt(clsCollectieAangemaaktMessage message)
         {
-            // Voeg de nieuwe collectie toe aan de collectie
-            MijnCollectie.Add(message.NieuweCollectie);
+            Application.Current.Dispatcher.Invoke(() =>
+            {
+                MijnCollectie.Add(message.NieuweCollectie);
+            });
         }
+
 
         public clsTodoPopupVM TodoPopupViewModel { get; set; }
 

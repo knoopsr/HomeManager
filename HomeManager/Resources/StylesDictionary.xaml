@@ -720,7 +720,7 @@
             </Setter.Value>
         </Setter>
     </Style>
-    
+
     <Style x:Key="UploadVlagButton" TargetType="ContentControl">
         <Setter Property="Cursor" Value="Hand" />
         <Setter Property="Height" Value="31" />

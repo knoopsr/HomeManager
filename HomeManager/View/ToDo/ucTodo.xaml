@@ -67,7 +67,7 @@
             Name="ToDoCollectiesOpvullingListView"
             Grid.Row="1"
             Grid.Column="0"
-            ItemsSource="{Binding MijnCollectie}"
+            ItemsSource="{Binding Source={StaticResource VML}, Path=CollectiesViewModel.MijnCollectie, UpdateSourceTrigger=PropertyChanged}"
             SelectedItem="{Binding SelectedCollectie, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 
         <ListView

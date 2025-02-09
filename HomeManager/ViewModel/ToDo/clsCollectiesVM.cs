@@ -5,6 +5,7 @@ using HomeManager.Model.Todo;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
 using System.Windows;
+using HomeManager.Messages;
 
 namespace HomeManager.ViewModel;
 
@@ -73,6 +74,8 @@ public class clsCollectiesVM : clsCommonModelPropertiesBase
                     MijnSelectedItem.MyVisibility = (int)Visibility.Visible;
                     NewStatus = false;
                     LoadData();
+
+                    clsMessenger.Default.Send(new clsCollectieAangemaaktMessage(MijnSelectedItem));
                 }
                 else
                 {
@@ -118,6 +121,11 @@ public class clsCollectiesVM : clsCommonModelPropertiesBase
 
         LoadData();
         MijnSelectedItem = MijnService.GetFirst();
+    }
+
+    private void OnCollectiesReceived(clsCollectiesM obj)
+    {
+        _MijnSelectedItem = obj;
     }
 
     private bool CanExecute_CloseCommand(object obj)
@@ -185,6 +193,9 @@ public class clsCollectiesVM : clsCommonModelPropertiesBase
         MijnSelectedItem.MyVisibility = (int)Visibility.Hidden;
         NewStatus = true;
         IsFocusedAfterNew = true;
+
+        // Verstuur een bericht dat een nieuwe collectie is aangemaakt
+        //clsMessenger.Default.Send(new clsCollectieAangemaaktMessage(ItemToInsert));
     }
 
     private bool CanExecute_DeleteCommand(object obj)
@@ -242,10 +253,5 @@ public class clsCollectiesVM : clsCommonModelPropertiesBase
     {
         OpslaanCommando();
 
-    }
-
-    private void OnCollectiesReceived(clsCollectiesM obj)
-    {
-        _MijnSelectedItem = obj;
     }
 }
