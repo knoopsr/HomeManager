@@ -16,7 +16,7 @@
     <UserControl.Resources>
         <converter:BoolToColorBrushConverter x:Key="BoolToColorBrushConverter" />
         <converter:IntToBrushConverter x:Key="IntToBrushConverter" />
-
+        <converter:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
     </UserControl.Resources>
 
     <Grid DataContext="{Binding Source={StaticResource VML}, Path=ToDoViewModel}">
@@ -168,8 +168,9 @@
             Grid.Column="2"
             BorderBrush="Gray"
             BorderThickness="1"
-            ItemsSource="{Binding Source={StaticResource VML}, Path=TodoDetailsViewModel.MijnTodoDetails, UpdateSourceTrigger=PropertyChanged}"
-            SelectedItem="{Binding MijnSelectedTodoDetail, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+            ItemsSource="{Binding FilteredTodoDetails, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+            SelectedItem="{Binding MijnSelectedTodoDetail, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+            Visibility="{Binding IsTodoItemSelected, Converter={StaticResource BoolToVisibilityConverter}}">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <Border

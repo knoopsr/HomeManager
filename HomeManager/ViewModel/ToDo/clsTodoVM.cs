@@ -128,6 +128,11 @@ namespace HomeManager.ViewModel
             set
             {
                 _MijnSelectedItemTodoPopup = value;
+                IsTodoItemSelected = value != null;
+                if (value != null)
+                {
+                    UpdateFilteredTodoDetails(value.TodoID);
+                }
                 OnPropertyChanged();
             }
         }
@@ -331,6 +336,34 @@ namespace HomeManager.ViewModel
                     MessageBox.Show("Error?", todoDetail.ErrorBoodschap);
                 }
             }
+        }
+
+        private bool _isTodoItemSelected;
+        public bool IsTodoItemSelected
+        {
+            get { return _isTodoItemSelected; }
+            set
+            {
+                _isTodoItemSelected = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private ObservableCollection<clsTodoDetailsM> _filteredTodoDetails;
+        public ObservableCollection<clsTodoDetailsM> FilteredTodoDetails
+        {
+            get { return _filteredTodoDetails; }
+            set
+            {
+                _filteredTodoDetails = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private void UpdateFilteredTodoDetails(int todoID)
+        {
+            FilteredTodoDetails = new ObservableCollection<clsTodoDetailsM>(
+                MijnTodoDetails.Where(detail => detail.TodoID == todoID).ToList());
         }
     }
 }
