@@ -76,7 +76,7 @@
                     Grid.Column="1"
                     ItemsSource="{Binding MijnTodoDetails}"
                     SelectedIndex="{Binding MijnSelectedTodoDetail.MijnSelectedIndex, Mode=TwoWay}"
-                    SelectedItem="{Binding MijnSelectedTodoDetail, UpdateSourceTrigger=PropertyChanged}"/>
+                    SelectedItem="{Binding MijnSelectedTodoDetail, UpdateSourceTrigger=PropertyChanged}" />
 
                 <Label
                     Grid.Row="1"
@@ -91,7 +91,7 @@
                     Grid.Column="3"
                     Height="75"
                     VerticalAlignment="Center"
-                    Text="{Binding MijnSelectedTodoDetail.TodoDetail, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"/>
+                    Text="{Binding MijnSelectedTodoDetail.TodoDetail, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" />
             </Grid>
         </Border>
 

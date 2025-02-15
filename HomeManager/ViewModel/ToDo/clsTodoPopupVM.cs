@@ -354,5 +354,11 @@ namespace HomeManager.ViewModel
                 OnPropertyChanged();
             }
         }
+        //public void SetTodoID(int todoID)
+        //{
+        //    clsTodoPopupM.Instance.TodoID = todoID;
+        //}
+
+
     }
 }

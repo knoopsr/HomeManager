@@ -6,6 +6,19 @@ namespace HomeManager.Model.Todo
 {
     public class clsTodoPopupM : clsCommonModelPropertiesBase, IDataErrorInfo
     {
+        private static clsTodoPopupM? _instance;
+
+        public static clsTodoPopupM Instance
+        {
+            get
+            {
+                if (_instance == null)
+                {
+                    _instance = new clsTodoPopupM();
+                }
+                return _instance;
+            }
+        }
         public int PersoonID { get; set; }
 
         private int _todoID;

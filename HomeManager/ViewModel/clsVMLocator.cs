@@ -224,7 +224,7 @@ namespace HomeManager.ViewModel
             }
         }
 
-        private static readonly clsTodoDetailsVM _todoDetailsViewModel = new clsTodoDetailsVM();
+        private static readonly clsTodoDetailsVM _todoDetailsViewModel = new clsTodoDetailsVM(0);
         public clsTodoDetailsVM TodoDetailsViewModel
         {
             get

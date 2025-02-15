@@ -27,8 +27,9 @@ namespace HomeManager.ViewModel.Todo
         public ICommand cmdClose { get; set; }
         public ICommand cmdSave { get; set; }
 
-        public clsTodoDetailsVM()
+        public clsTodoDetailsVM(int todoID)
         {
+            clsTodoPopupM.Instance.TodoID = todoID;
             MijnService = new clsTodoDetailsDataService();
 
             cmdSave = new clsCustomCommand(Execute_SaveCommand, CanExecute_SaveCommand);
@@ -173,17 +174,22 @@ namespace HomeManager.ViewModel.Todo
 
         private void Execute_NewCommand(object obj)
         {
+            if (clsTodoPopupM.Instance.TodoID == 0)
+            {
+                MessageBox.Show("TodoID is niet correct ingesteld.");
+                return;
+            }
+
             clsTodoDetailsM ItemToInsert = new clsTodoDetailsM()
             {
                 TodoDetailID = 0,
-                TodoID = 0,
+                TodoID = clsTodoPopupM.Instance.TodoID,
                 TodoDetail = string.Empty,
                 IsKlaar = false,
                 Volgorde = null
             };
 
             MijnSelectedTodoDetail = ItemToInsert;
-
 
             MijnSelectedTodoDetail.MyVisibility = (int)Visibility.Hidden;
             NewStatus = true;
@@ -226,20 +232,6 @@ namespace HomeManager.ViewModel.Todo
             }
         }
 
-        //private bool CanExecute_SaveCommand(object obj)
-        //{
-        //    if (MijnSelectedTodoDetail != null &&
-        //    MijnSelectedTodoDetail.Error == null &&
-        //    MijnSelectedTodoDetail.IsDirty == true)
-        //    {
-        //        return true;
-        //    }
-        //    else
-        //    {
-        //        return false;
-        //    }
-        //}
-
         private bool CanExecute_SaveCommand(object obj)
         {
             return MijnSelectedTodoDetail != null &&
@@ -253,16 +245,17 @@ namespace HomeManager.ViewModel.Todo
             OpslaanCommando();
         }
 
-        //private void OnTodoDetailsReceived(clsTodoDetailsM obj)
-        //{
-        //    _MijnSelectedTodoDetail = obj;
-        //}
-
-        //// Implement INotifyPropertyChanged interface
-        //public event PropertyChangedEventHandler PropertyChanged;
-        //protected void OnPropertyChanged(string propertyName)
-        //{
-        //    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        //}
+        private int _todoID;
+        public int TodoID
+        {
+            get
+            {
+                return _todoID;
+            }
+            set
+            {
+                _todoID = clsTodoPopupM.Instance.TodoID;
+            }
+        }
     }
 }

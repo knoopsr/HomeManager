@@ -34,7 +34,7 @@ namespace HomeManager.ViewModel
 
             OpenTodoPopupCommand = new clsRelayCommand<object>(param => OpenTodoPopup());
             OpenTodoCollectiesCommand = new clsRelayCommand<object>(param => OpenTodoCollecties());
-            OpenTodoDetailsCommand = new clsRelayCommand<object>(param => OpenTodoDetails());
+            OpenTodoDetailsCommand = new clsRelayCommand<object>(param => OpenTodoDetails(param));
             OpenTodoBijlageCommand = new clsRelayCommand<object>(param => OpenTodoBijlage());
             EditTodoCommand = new clsRelayCommand<object>(param => EditTodoItem(param as clsTodoPopupM));
             DeleteTodoCommand = new clsRelayCommand<object>(param => DeleteTodoItem(param as clsTodoPopupM), param => CanDeleteTodoItem(param as clsTodoPopupM));
@@ -202,10 +202,12 @@ namespace HomeManager.ViewModel
         }
 
         public ICommand OpenTodoDetailsCommand { get; }
-        private void OpenTodoDetails()
+        private void OpenTodoDetails(object parameter)
         {
             if (MijnSelectedItemTodoPopup != null)
             {
+                int todoID = MijnSelectedItemTodoPopup.TodoID;
+                var todoDetailsVM = new clsTodoDetailsVM(todoID);
 
 
                 var todoDetailsWindow = new Window
