@@ -68,7 +68,7 @@
             Grid.Row="1"
             Grid.Column="0"
             ItemsSource="{Binding Source={StaticResource VML}, Path=CollectiesViewModel.MijnCollectie, UpdateSourceTrigger=PropertyChanged}"
-            SelectedItem="{Binding SelectedCollectie, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+            SelectedItem="{Binding MijnSelectedCollectieItem, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 
         <ListView
             Name="ToDoItemOpvulling"
@@ -78,8 +78,9 @@
             VerticalAlignment="Stretch"
             BorderBrush="Gray"
             BorderThickness="1"
-            ItemsSource="{Binding Source={StaticResource VML}, Path=TodoPopupViewModel.MijnCollectie, UpdateSourceTrigger=PropertyChanged}"
-            SelectedItem="{Binding MijnSelectedItemTodoPopup, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+            ItemsSource="{Binding FilteredTodoItems, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+            SelectedItem="{Binding MijnSelectedItemTodoPopup, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+            Visibility="{Binding IsCollectieItemSelected, Converter={StaticResource BoolToVisibilityConverter}}">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <Border

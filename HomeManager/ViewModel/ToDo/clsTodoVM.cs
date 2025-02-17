@@ -32,6 +32,9 @@ namespace HomeManager.ViewModel
             MijnCollectieTodoPopup = MijnServiceTodoPopup.GetAll();
             MijnTodoDetails = MijnServiceTodoDetails.GetAll();
 
+            FilteredTodoItems = new ObservableCollection<clsTodoPopupM>();
+            IsCollectieItemSelected = false;
+
             OpenTodoPopupCommand = new clsRelayCommand<object>(param => OpenTodoPopup());
             OpenTodoCollectiesCommand = new clsRelayCommand<object>(param => OpenTodoCollecties());
             OpenTodoDetailsCommand = new clsRelayCommand<object>(param => OpenTodoDetails(param));
@@ -75,6 +78,25 @@ namespace HomeManager.ViewModel
                 OnPropertyChanged();
             }
         }
+        private clsCollectiesM _MijnSelectedCollectieItem;
+        public clsCollectiesM MijnSelectedCollectieItem
+        {
+            get
+            {
+                return _MijnSelectedCollectieItem;
+            }
+            set
+            {
+                _MijnSelectedCollectieItem = value;
+                IsCollectieItemSelected = value != null;
+                if (value != null)
+                {
+                    UpdateFilteredTodoItems(value.ToDoCollectieID);
+                }
+                OnPropertyChanged();
+            }
+        }
+
 
         private ObservableCollection<clsTodoPopupM> _MijnCollectieTodoPopup;
         public ObservableCollection<clsTodoPopupM> MijnCollectieTodoPopup
@@ -86,6 +108,25 @@ namespace HomeManager.ViewModel
             set
             {
                 _MijnCollectieTodoPopup = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private clsTodoPopupM _MijnSelectedItemTodoPopup;
+        public clsTodoPopupM MijnSelectedItemTodoPopup
+        {
+            get
+            {
+                return _MijnSelectedItemTodoPopup;
+            }
+            set
+            {
+                _MijnSelectedItemTodoPopup = value;
+                IsTodoItemSelected = value != null;
+                if (value != null)
+                {
+                    UpdateFilteredTodoDetails(value.TodoID);
+                }
                 OnPropertyChanged();
             }
         }
@@ -118,66 +159,37 @@ namespace HomeManager.ViewModel
             }
         }
 
-        private clsTodoPopupM _MijnSelectedItemTodoPopup;
-        public clsTodoPopupM MijnSelectedItemTodoPopup
-        {
-            get
-            {
-                return _MijnSelectedItemTodoPopup;
-            }
-            set
-            {
-                _MijnSelectedItemTodoPopup = value;
-                IsTodoItemSelected = value != null;
-                if (value != null)
-                {
-                    UpdateFilteredTodoDetails(value.TodoID);
-                }
-                OnPropertyChanged();
-            }
-        }
 
-        private clsTodoPopupM _SelectedCollectieTodoPopup;
-        public clsTodoPopupM SelectedCollectieTodoPopup
-        {
-            get
-            {
-                return _SelectedCollectieTodoPopup;
-            }
-            set
-            {
-                _SelectedCollectieTodoPopup = value;
-                OnPropertyChanged();
-            }
-        }
 
-        private clsCollectiesM _MijnSelectedItem;
-        public clsCollectiesM MijnSelectedItem
-        {
-            get
-            {
-                return _MijnSelectedItem;
-            }
-            set
-            {
-                _MijnSelectedItem = value;
-                OnPropertyChanged();
-            }
-        }
+        //private clsTodoPopupM _SelectedCollectieTodoPopup;
+        //public clsTodoPopupM SelectedCollectieTodoPopup
+        //{
+        //    get
+        //    {
+        //        return _SelectedCollectieTodoPopup;
+        //    }
+        //    set
+        //    {
+        //        _SelectedCollectieTodoPopup = value;
+        //        OnPropertyChanged();
+        //    }
+        //}
 
-        private clsCollectiesM _SelectedCollectie;
-        public clsCollectiesM SelectedCollectie
-        {
-            get
-            {
-                return _SelectedCollectie;
-            }
-            set
-            {
-                _SelectedCollectie = value;
-                OnPropertyChanged();
-            }
-        }
+        //private clsCollectiesM _MijnSelectedItem;
+        //public clsCollectiesM MijnSelectedItem
+        //{
+        //    get
+        //    {
+        //        return _MijnSelectedItem;
+        //    }
+        //    set
+        //    {
+        //        _MijnSelectedItem = value;
+        //        OnPropertyChanged();
+        //    }
+        //}
+
+
 
         public ICommand OpenTodoPopupCommand { get; }
 
@@ -235,6 +247,7 @@ namespace HomeManager.ViewModel
         public ICommand OpenTodoBijlageCommand { get; }
         private void OpenTodoBijlage()
         {
+
             var todoBijlageWindow = new Window
             {
                 Content = new ucTodoBijlage(),
@@ -365,5 +378,34 @@ namespace HomeManager.ViewModel
             FilteredTodoDetails = new ObservableCollection<clsTodoDetailsM>(
                 MijnTodoDetails.Where(detail => detail.TodoID == todoID).ToList());
         }
+
+        private bool _isCollectieItemSelected;
+        public bool IsCollectieItemSelected
+        {
+            get { return _isCollectieItemSelected; }
+            set
+            {
+                _isCollectieItemSelected = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private ObservableCollection<clsTodoPopupM> _filteredTodoItems;
+        public ObservableCollection<clsTodoPopupM> FilteredTodoItems
+        {
+            get { return _filteredTodoItems; }
+            set
+            {
+                _filteredTodoItems = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private void UpdateFilteredTodoItems(int todoCollectieID)
+        {
+            FilteredTodoItems = new ObservableCollection<clsTodoPopupM>(
+                MijnCollectieTodoPopup.Where(item => item.TodoCollectieID == todoCollectieID).ToList());
+        }
+
     }
 }

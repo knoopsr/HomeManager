@@ -30,8 +30,9 @@ namespace HomeManager.ViewModel.Todo
         public ICommand cmdUploadFile { get; set; }
         public ICommand cmdViewFile { get; set; }
 
-        public clsTodoBijlageVM()
+        public clsTodoBijlageVM(int todoID)
         {
+            clsTodoPopupM.Instance.TodoID = todoID;
             MijnService = new clsTodoBijlageDataService();
 
             cmdSave = new clsCustomCommand(Execute_SaveCommand, CanExecute_SaveCommand);
@@ -179,10 +180,15 @@ namespace HomeManager.ViewModel.Todo
 
         private void Execute_NewCommand(object obj)
         {
+            if (clsTodoPopupM.Instance.TodoID == 0) //TODO: Fix de ID zodat ik bijlages kan aanmaken voor een todo
+            {
+                MessageBox.Show("TodoID is niet correct ingesteld.");
+                return;
+            }
             clsTodoBijlageM ItemToInsert = new clsTodoBijlageM()
             {
                TodoBijlageID = 0,
-               TodoID = 0, //TODO: volgens mij moet ik deze linken met de todoID van tblTodos
+               TodoID = clsTodoPopupM.Instance.TodoID, //TODO: volgens mij moet ik deze linken met de todoID van tblTodos
                Bijlage = new byte[0],
                BijlageNaam = string.Empty, 
                ControlField = null 
@@ -194,9 +200,6 @@ namespace HomeManager.ViewModel.Todo
             MijnSelectedTodoBijlage.MyVisibility = (int)Visibility.Hidden;
             NewStatus = true;
             IsFocusedAfterNew = true;
-
-            // Verstuur een bericht dat een nieuwe collectie is aangemaakt
-            //clsMessenger.Default.Send(new clsCollectieAangemaaktMessage(ItemToInsert));
         }
 
         private bool CanExecute_DeleteCommand(object obj)
@@ -306,6 +309,18 @@ namespace HomeManager.ViewModel.Todo
                 string tempFilePath = Path.Combine(Path.GetTempPath(), MijnSelectedTodoBijlage.BijlageNaam);
                 File.WriteAllBytes(tempFilePath, MijnSelectedTodoBijlage.Bijlage);
                 System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo(tempFilePath) { UseShellExecute = true });
+            }
+        }
+        private int _todoID;
+        public int TodoID
+        {
+            get
+            {
+                return _todoID;
+            }
+            set
+            {
+                _todoID = clsTodoPopupM.Instance.TodoID;
             }
         }
     }

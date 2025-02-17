@@ -358,7 +358,5 @@ namespace HomeManager.ViewModel
         //{
         //    clsTodoPopupM.Instance.TodoID = todoID;
         //}
-
-
     }
 }
