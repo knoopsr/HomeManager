@@ -155,6 +155,7 @@
                                 HorizontalAlignment="Right"
                                 VerticalAlignment="Center"
                                 Command="{Binding DataContext.OpenTodoBijlageCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                CommandParameter="{Binding}"
                                 Style="{StaticResource PaperclipTodoImage}"
                                 ToolTip="Bijlage toevoegen" />
                         </Grid>

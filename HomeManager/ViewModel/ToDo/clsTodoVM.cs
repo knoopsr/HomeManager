@@ -38,7 +38,7 @@ namespace HomeManager.ViewModel
             OpenTodoPopupCommand = new clsRelayCommand<object>(param => OpenTodoPopup());
             OpenTodoCollectiesCommand = new clsRelayCommand<object>(param => OpenTodoCollecties());
             OpenTodoDetailsCommand = new clsRelayCommand<object>(param => OpenTodoDetails(param));
-            OpenTodoBijlageCommand = new clsRelayCommand<object>(param => OpenTodoBijlage());
+            OpenTodoBijlageCommand = new clsRelayCommand<object>(param => OpenTodoBijlage(param as clsTodoPopupM));
             EditTodoCommand = new clsRelayCommand<object>(param => EditTodoItem(param as clsTodoPopupM));
             DeleteTodoCommand = new clsRelayCommand<object>(param => DeleteTodoItem(param as clsTodoPopupM), param => CanDeleteTodoItem(param as clsTodoPopupM));
             EditTodoDetailCommand = new clsRelayCommand<object>(param => EditTodoDetailItem(param as clsTodoDetailsM));
@@ -195,13 +195,24 @@ namespace HomeManager.ViewModel
 
         private void OpenTodoPopup()
         {
+            if (MijnSelectedCollectieItem == null)
+            {
+                MessageBox.Show("Selecteer eerst collectie uit de lijst!", "Fout", MessageBoxButton.OK, MessageBoxImage.Information);
+                return;
+            }
+
+            // Stel de geselecteerde item in de TodoPopupViewModel in
+            TodoPopupViewModel.MijnSelectedCollectieItem = MijnSelectedCollectieItem;
+
             var todoPopupWindow = new Window
             {
                 Content = new ucTodoPopup(),
                 Title = "Todo Popup",
                 Width = 800,
-                Height = 450
+                Height = 450,
+                DataContext = TodoPopupViewModel // Stel de DataContext in op de TodoPopupViewModel
             };
+
             todoPopupWindow.ShowDialog();
         }
 
@@ -245,16 +256,30 @@ namespace HomeManager.ViewModel
 
 
         public ICommand OpenTodoBijlageCommand { get; }
-        private void OpenTodoBijlage()
+        private void OpenTodoBijlage(clsTodoPopupM todoItem)
         {
+            MijnSelectedItemTodoPopup = todoItem;
+            //// Controleer of er een item is geselecteerd
+            if (MijnSelectedItemTodoPopup == null)
+            {
+                MessageBox.Show("Selecteer eerst een Todo Item om een bijlage toe te voegen", "Fout", MessageBoxButton.OK, MessageBoxImage.Information);
+                return;
+            }
+
+            // Stel de TodoID in op de static Instance
+            clsTodoPopupM.Instance.TodoID = MijnSelectedItemTodoPopup.TodoID;
+
+            var todoBijlageVM = new clsTodoBijlageVM();
 
             var todoBijlageWindow = new Window
             {
                 Content = new ucTodoBijlage(),
                 Title = "Todo Bijlage",
                 Width = 800,
-                Height = 450
+                Height = 450,
+                DataContext = todoBijlageVM // Stel de DataContext in op het ViewModel
             };
+
             todoBijlageWindow.ShowDialog();
         }
 

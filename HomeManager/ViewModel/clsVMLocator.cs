@@ -237,7 +237,7 @@ namespace HomeManager.ViewModel
         {
             get
             {
-                return new clsTodoBijlageVM(0);
+                return new clsTodoBijlageVM();
             }
         }
 

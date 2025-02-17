@@ -358,5 +358,18 @@ namespace HomeManager.ViewModel
         //{
         //    clsTodoPopupM.Instance.TodoID = todoID;
         //}
+        private clsCollectiesM _MijnSelectedCollectieItem;
+        public clsCollectiesM MijnSelectedCollectieItem
+        {
+            get
+            {
+                return _MijnSelectedCollectieItem;
+            }
+            set
+            {
+                _MijnSelectedCollectieItem = value;
+                OnPropertyChanged(nameof(MijnSelectedCollectieItem));
+            }
+        }
     }
 }

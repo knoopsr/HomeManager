@@ -30,9 +30,9 @@ namespace HomeManager.ViewModel.Todo
         public ICommand cmdUploadFile { get; set; }
         public ICommand cmdViewFile { get; set; }
 
-        public clsTodoBijlageVM(int todoID)
+        public clsTodoBijlageVM()
         {
-            clsTodoPopupM.Instance.TodoID = todoID;
+            
             MijnService = new clsTodoBijlageDataService();
 
             cmdSave = new clsCustomCommand(Execute_SaveCommand, CanExecute_SaveCommand);
@@ -309,18 +309,6 @@ namespace HomeManager.ViewModel.Todo
                 string tempFilePath = Path.Combine(Path.GetTempPath(), MijnSelectedTodoBijlage.BijlageNaam);
                 File.WriteAllBytes(tempFilePath, MijnSelectedTodoBijlage.Bijlage);
                 System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo(tempFilePath) { UseShellExecute = true });
-            }
-        }
-        private int _todoID;
-        public int TodoID
-        {
-            get
-            {
-                return _todoID;
-            }
-            set
-            {
-                _todoID = clsTodoPopupM.Instance.TodoID;
             }
         }
     }
