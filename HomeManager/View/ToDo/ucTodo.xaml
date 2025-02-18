@@ -99,6 +99,7 @@
                                 <ColumnDefinition Width="Auto" />
                                 <ColumnDefinition Width="Auto" />
                                 <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="Auto" />
                             </Grid.ColumnDefinitions>
                             <StackPanel Grid.Column="0" Orientation="Horizontal">
                                 <Rectangle
@@ -123,10 +124,18 @@
                                 VerticalAlignment="Center"
                                 IsChecked="{Binding IsKlaar, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                 ToolTip="Door dit aan te vinken is de Todo klaar" />
+                            <Button
+                                x:Name="BelangrijkBtn"
+                                Grid.Column="2"
+                                Width="17"
+                                Height="17"
+                                Margin="5,0"
+                                HorizontalAlignment="Center"
+                                Style="{StaticResource BelangrijkButton}" />
 
                             <Button
                                 x:Name="EditBtn"
-                                Grid.Column="2"
+                                Grid.Column="3"
                                 Width="10"
                                 Height="10"
                                 Margin="5,0"
@@ -137,7 +146,7 @@
                                 ToolTip="Todo aanpassen" />
                             <Button
                                 x:Name="DeleteBtn"
-                                Grid.Column="3"
+                                Grid.Column="4"
                                 Width="10"
                                 Height="10"
                                 Margin="5,0"
@@ -148,7 +157,7 @@
                                 ToolTip="Todo verwijderen" />
                             <Button
                                 x:Name="PaperclipBtn"
-                                Grid.Column="4"
+                                Grid.Column="5"
                                 Width="8"
                                 Height="15"
                                 Margin="5,0"
@@ -158,6 +167,7 @@
                                 CommandParameter="{Binding}"
                                 Style="{StaticResource PaperclipTodoImage}"
                                 ToolTip="Bijlage toevoegen" />
+                            
                         </Grid>
                     </Border>
                 </DataTemplate>
