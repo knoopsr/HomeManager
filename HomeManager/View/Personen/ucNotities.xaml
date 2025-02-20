@@ -11,9 +11,6 @@
     d:DesignWidth="450"
     Background="{StaticResource myBackground}"
     mc:Ignorable="d">
-    <UserControl.Resources>
-        <!--<converters:RichTextToStringConverter x:Key="RichTextToStringConverter" />-->
-    </UserControl.Resources>
     <Grid DataContext="{Binding Source={StaticResource VML}, Path=NotitiesViewModel}">
         <Grid.RowDefinitions>
             <RowDefinition Height="50" />
@@ -134,6 +131,10 @@
                         CommandParameter="{Binding ElementName=rtbNotities}"
                         Content="I"
                         FontStyle="Italic" />
+                    <Button
+                        Command="{Binding UnderlineCommand}"
+                        CommandParameter="{Binding ElementName=rtbNotities}"
+                        Content="U"/>
                     <Button
                         Command="{Binding BulletCommand}"
                         CommandParameter="{Binding ElementName=rtbNotities}"

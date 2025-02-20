@@ -128,39 +128,55 @@ namespace HomeManager.Model.Personen
                             }
                         }
                         return error;
-
-                    //case nameof(PostCode):
-                    //    if (string.IsNullOrWhiteSpace(PostCode))
-                    //    {
-                    //        error = "PostCode is een verplicht veld.";
-                    //        if (ErrorList.Contains("PostCode") == false)
-                    //        {
-                    //            ErrorList.Add("PostCode");
-                    //        }
-                    //    }
-                    //    else if (PostCode.Length > 12)
-                    //    {
-                    //        error = "Your text is to long!!!";
-                    //        if (ErrorList.Contains("PostCode") == false)
-                    //        {
-                    //            ErrorList.Add("PostCode");
-                    //        }
-                    //    }
-                    //    else
-                    //    {
-                    //        if (ErrorList.Contains("PostCode"))
-                    //        {
-                    //            ErrorList.Remove("PostCode");
-                    //        }
-                    //    }
-                    //    return error;
+                    case nameof(PostCode):
+                        if (string.IsNullOrWhiteSpace(PostCode))
+                        {
+                            error = "PostCode is een verplicht veld.";
+                            if (ErrorList.Contains("PostCode") == false)
+                            {
+                                ErrorList.Add("PostCode");
+                            }
+                        }
+                        else if (PostCode.Length > 12)
+                        {
+                            error = "Your text is to long!!!";
+                            if (ErrorList.Contains("PostCode") == false)
+                            {
+                                ErrorList.Add("PostCode");
+                            }
+                        }
+                        else
+                        {
+                            if (ErrorList.Contains("PostCode"))
+                            {
+                                ErrorList.Remove("PostCode");
+                            }
+                        }
+                        return error;
+                    case nameof(ProvincieID):
+                        if (ProvincieID == 0)
+                        {
+                            error = "Provincie is een verplicht veld.";
+                            if (ErrorList.Contains(nameof(ProvincieID)) == false)
+                            {
+                                ErrorList.Add(nameof(ProvincieID));
+                            }
+                        }
+   
+                        else
+                        {
+                            if (ErrorList.Contains(nameof(ProvincieID)))
+                            {
+                                ErrorList.Remove(nameof(ProvincieID));
+                            }
+                        }
+                        return error;
                     default:
                         error = null;
                         return error;
                 }
             }
         }
-
     }
 }
 

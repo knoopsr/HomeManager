@@ -12,7 +12,6 @@ using System.Windows.Controls;
 using System.IO;
 using HomeManager.Behaviors;
 
-
 namespace HomeManager.ViewModel
 {
     public class clsNotitiesViewModel : clsCommonModelPropertiesBase
@@ -27,11 +26,12 @@ namespace HomeManager.ViewModel
         public ICommand cmdClose { get; set; }
         public ICommand cmdSave { get; set; }
 
-        //chatgpt
+        //Test
         public ICommand BoldCommand { get; }
         public ICommand ItalicCommand { get; }
         public ICommand BulletCommand { get; }
         public ICommand NumberedCommand { get; }
+        public ICommand UnderlineCommand { get; }
 
 
 
@@ -99,8 +99,6 @@ namespace HomeManager.ViewModel
         {
             if (MijnSelectedItem != null)
             {
-                Console.WriteLine($"Opslaan aangeroepen: NotitieID: {MijnSelectedItem.NotitieID}, Onderwerp: {MijnSelectedItem.Onderwerp}, Notitie: {MijnSelectedItem.Notitie}");
-
                 if (NewStatus)
                 {            
                     if (MijnService.Insert(MijnSelectedItem))
@@ -113,13 +111,11 @@ namespace HomeManager.ViewModel
                     }
                     else
                     {
-                        Console.WriteLine("Invoegen mislukt: " + MijnSelectedItem.ErrorBoodschap);
                         MessageBox.Show(MijnSelectedItem.ErrorBoodschap, "Error?");
                     }
                 }
                 else
                 {
-                    Console.WriteLine("Bestaande notitie wordt geüpdatet...");
                     if (MijnService.Update(MijnSelectedItem))
                     {
                         Console.WriteLine("Update gelukt!");
@@ -130,7 +126,6 @@ namespace HomeManager.ViewModel
                     }
                     else
                     {
-                        Console.WriteLine("Update mislukt: " + MijnSelectedItem.ErrorBoodschap);
                         MessageBox.Show(MijnSelectedItem.ErrorBoodschap, "Error?");
                     }
                 }
@@ -186,6 +181,7 @@ namespace HomeManager.ViewModel
             ItalicCommand = new RelayCommando<RichTextBox>(ToggleItalic);
             BulletCommand = new RelayCommando<RichTextBox>(AddBullets);
             NumberedCommand = new RelayCommando<RichTextBox>(AddNumbering);
+            UnderlineCommand = new RelayCommando<RichTextBox>(ApplyUnderline);
 
             clsMessenger.Default.Register<clsNotitiesModel>(this, OnNotitiesReceived);
 
@@ -195,13 +191,23 @@ namespace HomeManager.ViewModel
         }
 
 
+
         //Test Notities
         private void ToggleBold(RichTextBox richTextBox)
         {
+            //if (richTextBox != null && !richTextBox.Selection.IsEmpty)
+            //{
+            //    var selection = richTextBox.Selection;
+            //    var weight = selection.GetPropertyValue(TextElement.FontWeightProperty);
+            //    selection.ApplyPropertyValue(TextElement.FontWeightProperty,
+            //        weight.Equals(FontWeights.Bold) ? FontWeights.Normal : FontWeights.Bold);
+            //}
             if (richTextBox != null && !richTextBox.Selection.IsEmpty)
             {
                 var selection = richTextBox.Selection;
                 var weight = selection.GetPropertyValue(TextElement.FontWeightProperty);
+
+                // Wissel tussen vet en normaal
                 selection.ApplyPropertyValue(TextElement.FontWeightProperty,
                     weight.Equals(FontWeights.Bold) ? FontWeights.Normal : FontWeights.Bold);
             }
@@ -247,9 +253,26 @@ namespace HomeManager.ViewModel
                 }
             }
         }
+        private void ApplyUnderline(RichTextBox richTextBox)
+        {
+            if (richTextBox == null) return;
 
+            TextRange selection = new TextRange(richTextBox.Selection.Start, richTextBox.Selection.End);
+            if (!selection.IsEmpty)
+            {
+                var currentDecorations = selection.GetPropertyValue(Inline.TextDecorationsProperty) as TextDecorationCollection;
 
-
+                // Toggle underline
+                if (currentDecorations == null || currentDecorations.Count == 0)
+                {
+                    selection.ApplyPropertyValue(Inline.TextDecorationsProperty, TextDecorations.Underline);
+                }
+                else
+                {
+                    selection.ApplyPropertyValue(Inline.TextDecorationsProperty, null);
+                }
+            }
+        }
 
 
 
