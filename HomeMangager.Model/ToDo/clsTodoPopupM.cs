@@ -82,11 +82,14 @@ namespace HomeManager.Model.Todo
         private bool _belangrijk;
         public bool Belangrijk
         {
-            get => _belangrijk;
+            get { return _belangrijk; }
             set
             {
-                _belangrijk = value;
-                OnPropertyChanged();
+                if (_belangrijk != value)
+                {
+                    _belangrijk = value;
+                    OnPropertyChanged(nameof(Belangrijk));
+                }
             }
         }
 

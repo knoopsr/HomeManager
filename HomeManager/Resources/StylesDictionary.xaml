@@ -105,10 +105,10 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="ContentControl">
-                    <Border Background ="Transparent">
+                    <Border Background="Transparent">
                         <Path
                             Data="{StaticResource myBelangrijkButton}"
-                            Fill="Gray"
+                            Fill="{TemplateBinding Background}"
                             Stretch="Fill" />
                     </Border>
                 </ControlTemplate>

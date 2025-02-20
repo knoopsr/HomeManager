@@ -13,15 +13,17 @@ namespace HomeManager.Converter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if (value is bool isKlaar)
+            if (value is bool boolValue)
             {
-                if (parameter?.ToString() == "Background")
+                // Controleer de parameter om te bepalen welke logica moet worden gebruikt
+                switch (parameter?.ToString())
                 {
-                    return isKlaar ? Brushes.LavenderBlush : Brushes.MistyRose;
-                }
-                else if (parameter?.ToString() == "Border")
-                {
-                    return isKlaar ? Brushes.Green : Brushes.Red;
+                    case "Background":
+                        return boolValue ? Brushes.LavenderBlush : Brushes.MistyRose;
+                    case "Border":
+                        return boolValue ? Brushes.Green : Brushes.Red;
+                    case "Belangrijk":
+                        return boolValue ? Brushes.Red : Brushes.Gray;
                 }
             }
             return Brushes.Transparent;

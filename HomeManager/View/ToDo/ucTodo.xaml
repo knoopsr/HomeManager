@@ -131,6 +131,9 @@
                                 Height="17"
                                 Margin="5,0"
                                 HorizontalAlignment="Center"
+                                Command="{Binding Source={StaticResource VML}, Path=ToDoViewModel.BelangrijkCommand, UpdateSourceTrigger=PropertyChanged}"
+                                CommandParameter="{Binding}"
+                                Background="{Binding Belangrijk, Converter={StaticResource BoolToColorBrushConverter}, ConverterParameter=Belangrijk}"
                                 Style="{StaticResource BelangrijkButton}" />
 
                             <Button
@@ -173,6 +176,48 @@
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
+
+        <Expander Grid.Column="1" Grid.Row="1" Header="Afgehandelde Todo Items" ExpandDirection="Up" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center" Background="LightGray">
+            <Expander.Style>
+                <Style TargetType="Expander">
+                    <Setter Property="Height" Value="30"/>
+                    <Setter Property="VerticalAlignment" Value="Bottom"/>
+                    <Style.Triggers>
+                        <Trigger Property="IsExpanded" Value="True">
+                            <Setter Property="Height" Value="300"/>
+                            <!-- Uitgeklapte hoogte -->
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </Expander.Style>
+
+            <ScrollViewer VerticalScrollBarVisibility="Hidden"  MaxHeight="200">
+                <StackPanel>
+                    <Label Content="test"/>
+                    <Label Content="test"/>
+                    <Label Content="test"/>
+                    <Label Content="test"/>
+                    <Label Content="test"/>
+                    <Label Content="test"/>
+                    <Label Content="test"/>
+                    <Label Content="test"/>
+                    <Label Content="Extra item 1"/>
+                    <Label Content="Extra item 2"/>
+                    <Label Content="Extra item 3"/>
+                    <Label Content="test"/>
+                    <Label Content="test"/>
+                    <Label Content="test"/>
+                    <Label Content="test"/>
+                    <Label Content="test"/>
+                    <Label Content="test"/>
+                    <Label Content="test"/>
+                    <Label Content="test"/>
+                    <Label Content="Extra item 1"/>
+                    <Label Content="Extra item 2"/>
+                    <Label Content="Extra item 3"/>
+                </StackPanel>
+            </ScrollViewer>
+        </Expander>
 
         <ListView
             Name="ToDoDetailsOpvulling"

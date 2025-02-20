@@ -43,6 +43,7 @@ namespace HomeManager.ViewModel
             DeleteTodoCommand = new clsRelayCommand<object>(param => DeleteTodoItem(param as clsTodoPopupM), param => CanDeleteTodoItem(param as clsTodoPopupM));
             EditTodoDetailCommand = new clsRelayCommand<object>(param => EditTodoDetailItem(param as clsTodoDetailsM));
             DeleteTodoDetailCommand = new clsRelayCommand<object>(param => DeleteTodoDetailItem(param as clsTodoDetailsM), param => CanDeleteTodoDetailItem(param as clsTodoDetailsM));
+            BelangrijkCommand = new clsRelayCommand<object>(param => OnBelangrijkClicked(param as clsTodoPopupM));
 
             // Registreer om berichten te ontvangen
             clsMessenger.Default.Register<clsCollectieAangemaaktMessage>(this, OnCollectieAangemaakt);
@@ -431,6 +432,36 @@ namespace HomeManager.ViewModel
             FilteredTodoItems = new ObservableCollection<clsTodoPopupM>(
                 MijnCollectieTodoPopup.Where(item => item.TodoCollectieID == todoCollectieID).ToList());
         }
+
+        public ICommand BelangrijkCommand { get; }
+
+        // Methode die wordt uitgevoerd wanneer de knop wordt geklikt
+        private void OnBelangrijkClicked(clsTodoPopupM todoItem)
+        {
+            if (todoItem == null)
+            {
+                MessageBox.Show("CommandParameter is null!", "Debug", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
+            MijnSelectedItemTodoPopup = todoItem;
+
+            // Toggle de waarde van Belangrijk
+            MijnSelectedItemTodoPopup.Belangrijk = !MijnSelectedItemTodoPopup.Belangrijk;
+
+            // Debug-melding om de nieuwe waarde te controleren
+            // TODO: Na het werkend krijgen van de kleur -> debuggers verwijderen
+            //MessageBox.Show($"Belangrijk is nu: {MijnSelectedItemTodoPopup.Belangrijk}", "Debug", MessageBoxButton.OK, MessageBoxImage.Information);
+
+            // Update de database
+            if (!MijnServiceTodoPopup.Update(MijnSelectedItemTodoPopup))
+            {
+                // Toon een foutmelding als de update mislukt
+                MessageBox.Show("Kon de waarde van Belangrijk niet bijwerken in de database.", "Fout", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+
 
     }
 }
