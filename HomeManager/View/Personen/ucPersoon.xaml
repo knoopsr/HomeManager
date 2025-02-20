@@ -194,7 +194,7 @@
                     Grid.Row="5"
                     Grid.Column="3"
                     Margin="5"
-                    SelectedDate="{Binding MijnSelectedItem.Geboortedatum, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource DateOnlyToDateTimeConverter}}"
+                    SelectedDate="{Binding MijnSelectedItem.Geboortedatum, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, Converter={StaticResource DateOnlyToDateTimeConverter}}"
                     SelectedDateFormat="Short" />
 
 

@@ -4,8 +4,8 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:converters="clr-namespace:HomeManager.Converter"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:helpers="clr-namespace:HomeManager.Helpers"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:uc="clr-namespace:HomeManager.View"
     d:DesignHeight="400"
     d:DesignWidth="450"
@@ -55,7 +55,7 @@
                     <!--  Linkerkolom  -->
                     <ColumnDefinition Width="250" />
                     <!--  Kolom voor txtOnderwerp en tbNotities  -->
-                    <ColumnDefinition Width="100" />
+                    <ColumnDefinition Width="200" />
                     <!--  Vaste marge aan de rechterkant  -->
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
@@ -108,8 +108,8 @@
                     Grid.Column="1"
                     Height="250"
                     Margin="5"
-                    helpers:clsRichTextBoxHelper.RtfText="{Binding MijnSelectedItem.Notitie, Mode=TwoWay}"
-                    helpers:clsRichTextBoxHelper.BindBack="True" />
+                    helpers:clsRichTextBoxHelper.BindBack="True"
+                    helpers:clsRichTextBoxHelper.RtfText="{Binding MijnSelectedItem.Notitie, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnValidationError=true, ValidatesOnExceptions=True}" />
 
 
 
@@ -134,7 +134,7 @@
                     <Button
                         Command="{Binding UnderlineCommand}"
                         CommandParameter="{Binding ElementName=rtbNotities}"
-                        Content="U"/>
+                        Content="U" />
                     <Button
                         Command="{Binding BulletCommand}"
                         CommandParameter="{Binding ElementName=rtbNotities}"

@@ -61,11 +61,11 @@
             CornerRadius="5">
             <Grid>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="100" />
                     <ColumnDefinition Width="auto" />
                     <ColumnDefinition Width="auto" />
                     <ColumnDefinition Width="150" />
-                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="250" />
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="35" />
@@ -120,7 +120,7 @@
                     DataContext="{Binding Source={StaticResource VML}, Path=TelefoonTypeViewModel}"
                     DisplayMemberPath="TelefoonTypeDisplayName"
                     ItemsSource="{Binding MijnCollectie}"
-                    SelectedValue="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Grid}}, Path=DataContext.MijnSelectedItem.TelefoonTypeID, Mode=TwoWay}"
+                    SelectedValue="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Grid}}, Path=DataContext.MijnSelectedItem.TelefoonTypeID, Mode=TwoWay,  UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
                     SelectedValuePath="TelefoonTypeID" />
             </Grid>
         </Border>

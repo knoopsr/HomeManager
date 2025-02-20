@@ -121,20 +121,21 @@ namespace HomeManager.Model.Personen
                         }
                         return error;
 
-                    case "EmailTypeID":
-                        if (_emailTypeID <= 0)
+                    case nameof(EmailTypeID):
+                        if (EmailTypeID == 0)
                         {
-                            error = "Selecteer een geldig e-mailtype.";
-                            if (!ErrorList.Contains("EmailTypeID"))
+                            error = "Emailtype is een verplicht veld.";
+                            if (ErrorList.Contains(nameof(EmailTypeID)) == false)
                             {
-                                ErrorList.Add("EmailTypeID");
+                                ErrorList.Add(nameof(EmailTypeID));
                             }
                         }
+
                         else
                         {
-                            if (ErrorList.Contains("EmailTypeID"))
+                            if (ErrorList.Contains(nameof(EmailTypeID)))
                             {
-                                ErrorList.Remove("EmailTypeID");
+                                ErrorList.Remove(nameof(EmailTypeID));
                             }
                         }
                         return error;
