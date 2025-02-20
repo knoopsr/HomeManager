@@ -25,19 +25,47 @@ namespace HomeManager.Helpers
             obj.SetValue(RtfTextProperty, value);
         }
 
+        //private static void OnRtfTextChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        //{
+        //    if (d is RichTextBox rtb && e.NewValue is string newRtf)
+        //    {
+        //        // 🔹 Voorkom oneindige lus door alleen te laden als de waarde echt verandert
+        //        if (GetCurrentRtfText(rtb) != newRtf)
+        //        {
+        //            var textRange = new TextRange(rtb.Document.ContentStart, rtb.Document.ContentEnd);
+
+        //            // 🔹 Eerst inhoud wissen om refresh te forceren
+        //            rtb.Document.Blocks.Clear();
+
+        //            using (var stream = new MemoryStream(Encoding.Default.GetBytes(newRtf))) // 🔹 Gebruik ASCII encoding
+        //            {
+        //                try
+        //                {
+        //                    textRange.Load(stream, DataFormats.Rtf);
+        //                }
+        //                catch
+        //                {
+        //                    // Als laden mislukt, leeg document instellen
+        //                    rtb.Document.Blocks.Clear();
+        //                }
+        //            }
+        //        }
+        //    }
+        //}
+
         private static void OnRtfTextChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             if (d is RichTextBox rtb && e.NewValue is string newRtf)
             {
-                // 🔹 Voorkom oneindige lus door alleen te laden als de waarde echt verandert
+                // Voorkom oneindige lus door alleen te laden als de waarde echt verandert
                 if (GetCurrentRtfText(rtb) != newRtf)
                 {
                     var textRange = new TextRange(rtb.Document.ContentStart, rtb.Document.ContentEnd);
 
-                    // 🔹 Eerst inhoud wissen om refresh te forceren
+                    // Eerst inhoud wissen om refresh te forceren
                     rtb.Document.Blocks.Clear();
 
-                    using (var stream = new MemoryStream(Encoding.Default.GetBytes(newRtf))) // 🔹 Gebruik ASCII encoding
+                    using (var stream = new MemoryStream(Encoding.Default.GetBytes(newRtf)))
                     {
                         try
                         {

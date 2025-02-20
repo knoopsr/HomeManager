@@ -26,7 +26,7 @@ namespace HomeManager.ViewModel
         public ICommand cmdClose { get; set; }
         public ICommand cmdSave { get; set; }
 
-        //Test
+       
         public ICommand BoldCommand { get; }
         public ICommand ItalicCommand { get; }
         public ICommand BulletCommand { get; }
@@ -195,13 +195,6 @@ namespace HomeManager.ViewModel
         //Test Notities
         private void ToggleBold(RichTextBox richTextBox)
         {
-            //if (richTextBox != null && !richTextBox.Selection.IsEmpty)
-            //{
-            //    var selection = richTextBox.Selection;
-            //    var weight = selection.GetPropertyValue(TextElement.FontWeightProperty);
-            //    selection.ApplyPropertyValue(TextElement.FontWeightProperty,
-            //        weight.Equals(FontWeights.Bold) ? FontWeights.Normal : FontWeights.Bold);
-            //}
             if (richTextBox != null && !richTextBox.Selection.IsEmpty)
             {
                 var selection = richTextBox.Selection;
@@ -210,6 +203,14 @@ namespace HomeManager.ViewModel
                 // Wissel tussen vet en normaal
                 selection.ApplyPropertyValue(TextElement.FontWeightProperty,
                     weight.Equals(FontWeights.Bold) ? FontWeights.Normal : FontWeights.Bold);
+
+                // Zorg ervoor dat de wijzigingen worden opgeslagen
+                var textRange = new TextRange(richTextBox.Document.ContentStart, richTextBox.Document.ContentEnd);
+                using (var stream = new MemoryStream())
+                {
+                    textRange.Save(stream, DataFormats.Rtf);
+                    clsRichTextBoxHelper.SetRtfText(richTextBox, Encoding.Default.GetString(stream.ToArray())); // Zorg ervoor dat je de helper aanroept
+                }
             }
         }
 

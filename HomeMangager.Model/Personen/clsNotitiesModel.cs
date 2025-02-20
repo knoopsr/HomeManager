@@ -61,38 +61,38 @@ namespace HomeManager.Model.Personen
             }
         }
 
-        private string _notitie;
-
-        public string Notitie
-        {
-            get
-            {
-                return _notitie;
-            }
-            set
-            {
-                if (_notitie != value)
-                {
-                    if (_notitie != null)
-                    {
-                        IsDirty = true;
-                    }
-                }
-                _notitie = value;
-                OnPropertyChanged();
-            }
-        }
-
         //private string _notitie;
+
         //public string Notitie
         //{
-        //    get { return _notitie; }
+        //    get
+        //    {
+        //        return _notitie;
+        //    }
         //    set
         //    {
+        //        if (_notitie != value)
+        //        {
+        //            if (_notitie != null)
+        //            {
+        //                IsDirty = true;
+        //            }
+        //        }
         //        _notitie = value;
         //        OnPropertyChanged();
         //    }
         //}
+
+        private string _notitie;
+        public string Notitie
+        {
+            get { return _notitie; }
+            set
+            {
+                _notitie = value;
+                OnPropertyChanged();
+            }
+        }
 
 
 
