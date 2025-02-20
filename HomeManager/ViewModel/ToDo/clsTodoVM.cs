@@ -44,6 +44,7 @@ namespace HomeManager.ViewModel
             EditTodoDetailCommand = new clsRelayCommand<object>(param => EditTodoDetailItem(param as clsTodoDetailsM));
             DeleteTodoDetailCommand = new clsRelayCommand<object>(param => DeleteTodoDetailItem(param as clsTodoDetailsM), param => CanDeleteTodoDetailItem(param as clsTodoDetailsM));
             BelangrijkCommand = new clsRelayCommand<object>(param => OnBelangrijkClicked(param as clsTodoPopupM));
+            IsKlaarCommand = new clsRelayCommand<object>(param => OnIsKlaarClicked(param as clsTodoPopupM));
 
             // Registreer om berichten te ontvangen
             clsMessenger.Default.Register<clsCollectieAangemaaktMessage>(this, OnCollectieAangemaakt);
@@ -458,6 +459,24 @@ namespace HomeManager.ViewModel
             {
                 // Toon een foutmelding als de update mislukt
                 MessageBox.Show("Kon de waarde van Belangrijk niet bijwerken in de database.", "Fout", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+        public ICommand IsKlaarCommand { get; }
+
+        private void OnIsKlaarClicked(clsTodoPopupM todoItem)
+        {
+            if (todoItem == null)
+            {
+                MessageBox.Show("Geen Todo-item geselecteerd!", "Fout", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
+            // Update de database
+            if (!MijnServiceTodoPopup.Update(todoItem))
+            {
+                // Toon een foutmelding als de update mislukt
+                MessageBox.Show("Kon de waarde van IsKlaar niet bijwerken in de database.", "Fout", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 

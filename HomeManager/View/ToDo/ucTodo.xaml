@@ -119,10 +119,13 @@
                                 </StackPanel>
                             </StackPanel>
                             <CheckBox
+                                x:Name="IsKlaarCbx"
                                 Grid.Column="1"
                                 Margin="5,0"
                                 VerticalAlignment="Center"
                                 IsChecked="{Binding IsKlaar, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                Command="{Binding Source={StaticResource VML}, Path=ToDoViewModel.IsKlaarCommand, UpdateSourceTrigger=PropertyChanged}"
+                                CommandParameter="{Binding}"
                                 ToolTip="Door dit aan te vinken is de Todo klaar" />
                             <Button
                                 x:Name="BelangrijkBtn"
