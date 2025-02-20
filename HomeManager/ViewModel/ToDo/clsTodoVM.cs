@@ -45,6 +45,7 @@ namespace HomeManager.ViewModel
             DeleteTodoDetailCommand = new clsRelayCommand<object>(param => DeleteTodoDetailItem(param as clsTodoDetailsM), param => CanDeleteTodoDetailItem(param as clsTodoDetailsM));
             BelangrijkCommand = new clsRelayCommand<object>(param => OnBelangrijkClicked(param as clsTodoPopupM));
             IsKlaarCommand = new clsRelayCommand<object>(param => OnIsKlaarClicked(param as clsTodoPopupM));
+            IsKlaarTodoDetailCommand = new clsRelayCommand<object>(param => OnIsKlaarTodoDetailClicked(param as clsTodoDetailsM));
 
             // Registreer om berichten te ontvangen
             clsMessenger.Default.Register<clsCollectieAangemaaktMessage>(this, OnCollectieAangemaakt);
@@ -474,6 +475,22 @@ namespace HomeManager.ViewModel
 
             // Update de database
             if (!MijnServiceTodoPopup.Update(todoItem))
+            {
+                // Toon een foutmelding als de update mislukt
+                MessageBox.Show("Kon de waarde van IsKlaar niet bijwerken in de database.", "Fout", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+        public ICommand IsKlaarTodoDetailCommand { get; }
+        private void OnIsKlaarTodoDetailClicked(clsTodoDetailsM todoDetailItem)
+        {
+            if (todoDetailItem == null)
+            {
+                MessageBox.Show("Geen Todo Detail-item geselecteerd!", "Fout", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
+            // Update de database
+            if (!MijnServiceTodoDetails.Update(todoDetailItem))
             {
                 // Toon een foutmelding als de update mislukt
                 MessageBox.Show("Kon de waarde van IsKlaar niet bijwerken in de database.", "Fout", MessageBoxButton.OK, MessageBoxImage.Error);

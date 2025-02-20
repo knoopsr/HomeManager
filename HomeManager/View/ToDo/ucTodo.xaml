@@ -137,7 +137,8 @@
                                 Command="{Binding Source={StaticResource VML}, Path=ToDoViewModel.BelangrijkCommand, UpdateSourceTrigger=PropertyChanged}"
                                 CommandParameter="{Binding}"
                                 Background="{Binding Belangrijk, Converter={StaticResource BoolToColorBrushConverter}, ConverterParameter=Belangrijk}"
-                                Style="{StaticResource BelangrijkButton}" />
+                                Style="{StaticResource BelangrijkButton}"
+                                ToolTip="Door dit aan te kliken wordt de todo item bovenaan in de lijst gezet"/>
 
                             <Button
                                 x:Name="EditBtn"
@@ -204,20 +205,7 @@
                     <Label Content="test"/>
                     <Label Content="test"/>
                     <Label Content="test"/>
-                    <Label Content="Extra item 1"/>
-                    <Label Content="Extra item 2"/>
-                    <Label Content="Extra item 3"/>
-                    <Label Content="test"/>
-                    <Label Content="test"/>
-                    <Label Content="test"/>
-                    <Label Content="test"/>
-                    <Label Content="test"/>
-                    <Label Content="test"/>
-                    <Label Content="test"/>
-                    <Label Content="test"/>
-                    <Label Content="Extra item 1"/>
-                    <Label Content="Extra item 2"/>
-                    <Label Content="Extra item 3"/>
+                    
                 </StackPanel>
             </ScrollViewer>
         </Expander>
@@ -260,10 +248,13 @@
                                 </StackPanel>
                             </StackPanel>
                             <CheckBox
+                                x:Name="IsKlaarCbxTodoDetail"
                                 Grid.Column="1"
                                 Margin="5,0"
                                 VerticalAlignment="Center"
                                 IsChecked="{Binding IsKlaar, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                Command="{Binding Source={StaticResource VML}, Path=ToDoViewModel.IsKlaarTodoDetailCommand, UpdateSourceTrigger=PropertyChanged}"
+                                CommandParameter="{Binding}"
                                 ToolTip="Door dit aan te vinken is de Todo Detail klaar" />
                             <Button
                                 x:Name="EditBtn"
