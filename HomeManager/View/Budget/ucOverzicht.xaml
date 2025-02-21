@@ -8,8 +8,8 @@
     xmlns:local="clr-namespace:HomeManager.View"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:uc="clr-namespace:HomeManager.View"
-    d:DesignHeight="800"
-    d:DesignWidth="800"
+    d:DesignHeight="733.518"
+    d:DesignWidth="1268.648"
     Background="{StaticResource myBackground}"
     mc:Ignorable="d">
 
@@ -20,7 +20,7 @@
 
 
 
-    <Grid DataContext="{Binding Source={StaticResource VML}, Path=TransactieViewModel}">
+    <Grid DataContext="{Binding Source={StaticResource VML}, Path=OverzichtViewModel}">
         <Grid.RowDefinitions>
             <RowDefinition Height="50" />
             <RowDefinition Height="*" />
@@ -45,15 +45,28 @@
                         Fill="White"
                         Stretch="Fill" />
                     <TextBlock
-                        Margin="10,0,0,0"
+                        Margin="10"
                         VerticalAlignment="Center"
                         FontSize="20"
                         Foreground="White"
                         Text="Budget Overzicht" />
-
                 </StackPanel>
-
-
+                <Button
+                    Margin="5,0,6,10"
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Center"
+                    Background="#024f87"
+                    BorderBrush="Transparent"
+                    BorderThickness="0"
+                    Command="{Binding cmdClose}"
+                    CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=Window}}">
+                    <Path
+                        Width="20"
+                        Height="20"
+                        Data="{StaticResource myCloseButton}"
+                        Fill="White"
+                        Stretch="Fill" />
+                </Button>
             </Grid>
         </Border>
 
@@ -65,10 +78,12 @@
             BorderThickness="1"
             CornerRadius="5">
             <Grid Margin="10">
+
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="auto" />
-                    <ColumnDefinition Width="auto" />
+                    <ColumnDefinition Width="200" />
+                    <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
+
                 <Grid.RowDefinitions>
                     <RowDefinition Height="80" />
                     <RowDefinition Height="auto" />
@@ -79,75 +94,83 @@
                     <RowDefinition Height="auto" />
                 </Grid.RowDefinitions>
 
+                <StackPanel
+                    Grid.Row="0"
+                    Grid.Column="1"
+                    HorizontalAlignment="Right"
+                    Orientation="Horizontal">
+                    <ToggleButton
+                        x:Name="ToonToekomstigeToggle"
+                        Width="108"
+                        Margin="20"
+                        HorizontalAlignment="Center"
+                        Content="Toggle" />
+                    <Button
+                        Width="30"
+                        Height="30"
+                        Margin="5"
+                        HorizontalAlignment="Right"
+                        Command="{Binding cmdExportToExcel}"
+                        Style="{StaticResource Excel}" />
 
+                </StackPanel>
 
                 <!--  Selectie  -->
                 <StackPanel
-                    Grid.Row="0"
+                    Grid.Row="1"
                     Margin="5"
                     HorizontalAlignment="Left"
                     VerticalAlignment="Top"
-                    Orientation="Horizontal">
+                    Orientation="Vertical">
                     <TextBlock
                         VerticalAlignment="Center"
                         FontSize="16"
                         Text="Jaar:" />
                     <ComboBox
-                        x:Name="JaarCbo"
+                        x:Name="InkomstenJaarCbo"
                         Width="120"
-                        Margin="10,0,0,0" />
+                        ItemsSource="{Binding BeschikbareInkomstenJaren}"
+                        SelectedItem="{Binding GeselecteerdInkomstenJaar}" />
                     <TextBlock
                         VerticalAlignment="Center"
                         FontSize="16"
                         Text=" Maand:" />
                     <ComboBox
-                        x:Name="MaandCbo"
+                        x:Name="InkomstenMaandCbo"
                         Width="120"
-                        Margin="10,0,0,0" />
+                        ItemsSource="{Binding BeschikbareInkomstenMaanden}"
+                        SelectedItem="{Binding GeselecteerdeInkomstenMaand}" />
                     <TextBlock
                         VerticalAlignment="Center"
                         FontSize="16"
                         Text=" Categorie:" />
                     <ComboBox
-                        x:Name="CategorieCbo"
+                        x:Name="InkomstenCategorieCbo"
                         Width="120"
-                        Margin="10,0,0,0" />
+                        ItemsSource="{Binding BeschikbareInkomstenCategorie}"
+                        SelectedItem="{Binding GeselecteerdeInkomstenCategorie}" />
                     <TextBlock
                         VerticalAlignment="Center"
                         FontSize="16"
                         Text=" Begunstigde:" />
                     <ComboBox
-                        x:Name="BegunstigdeCbo"
+                        x:Name="InkomstenBegunstigdeCbo"
                         Width="120"
-                        Margin="10,0,0,0" />
+                        ItemsSource="{Binding BeschikbareInkomstenBegunstigden}"
+                        SelectedItem="{Binding GeselecteerdeInkomstenBegunstigde}" />
+
+                    <Button
+                        Margin="5"
+                        Command="{Binding cmdEmptyInkomstenComboboxen}"
+                        Style="{StaticResource Deletefile}" />
                 </StackPanel>
 
-                <!--  DataGrid  -->
-
-                <DataGrid
-                    x:Name="BudgetDataInkomsten"
-                    Grid.Row="1"
-                    Height="200"
-                    Margin="5"
-                    AutoGenerateColumns="True"
-                    BorderBrush="LightGreen"
-                    BorderThickness="4"
-                    IsReadOnly="True"
-                    ItemsSource="{Binding MijnInkomsten}">
-                    <DataGrid.Resources>
-                        <Style TargetType="ScrollViewer">
-                            <Setter Property="HorizontalScrollBarVisibility" Value="Auto" />
-                            <Setter Property="VerticalScrollBarVisibility" Value="Auto" />
-                        </Style>
-                    </DataGrid.Resources>
-                </DataGrid>
-
-
-                <!--  Resultaat Uitgaven  -->
+                <!--  Resultaat Inkomsten  -->
                 <StackPanel
-                    Grid.Row="2"
+                    Grid.Row="0"
+                    Grid.Column="1"
                     HorizontalAlignment="Left"
-                    VerticalAlignment="Top"
+                    VerticalAlignment="Bottom"
                     Orientation="Horizontal">
                     <Label
                         Margin="5"
@@ -158,29 +181,94 @@
                         x:Name="Inkomsten"
                         Width="150"
                         Margin="5"
+                        HorizontalContentAlignment="Right"
                         FontSize="16"
                         FontWeight="Bold"
-                        Foreground="Green" />
+                        Text="{Binding TotaalInkomsten, StringFormat=N2}" />
+                </StackPanel>
+
+                <!--  DataGrid  -->
+
+                <DataGrid
+                    x:Name="BudgetDataInkomsten"
+                    Grid.Row="1"
+                    Grid.Column="2"
+                    Height="200"
+                    AutoGenerateColumns="False"
+                    BorderBrush="LightGreen"
+                    BorderThickness="4"
+                    ColumnWidth="*"
+                    IsReadOnly="True"
+                    ItemsSource="{Binding GefilterdeInkomsten}">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Binding="{Binding Jaar}" Header="Jaar" />
+                        <DataGridTextColumn Binding="{Binding Maand}" Header="Maand" />
+                        <DataGridTextColumn Binding="{Binding BudgetCategorie}" Header="Categorie" />
+                        <DataGridTextColumn Binding="{Binding Begunstigde}" Header="Begunstigde" />
+                        <DataGridTextColumn Binding="{Binding Bedrag, StringFormat=N2}" Header="Bedrag" />
+                        <DataGridTextColumn Binding="{Binding Onderwerp}" Header="Onderwerp" />
+                    </DataGrid.Columns>
+                    <DataGrid.Resources>
+                        <Style TargetType="ScrollViewer">
+                            <Setter Property="HorizontalScrollBarVisibility" Value="Auto" />
+                            <Setter Property="VerticalScrollBarVisibility" Value="Auto" />
+                        </Style>
+                    </DataGrid.Resources>
+                </DataGrid>
+
+                <!--  Selectie  -->
+                <StackPanel
+                    Grid.Row="4"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Top"
+                    Orientation="Vertical">
+                    <TextBlock
+                        VerticalAlignment="Center"
+                        FontSize="16"
+                        Text="Jaar:" />
+                    <ComboBox
+                        x:Name="UitgavenJaarCbo"
+                        Width="120"
+                        ItemsSource="{Binding BeschikbareUitgavenJaren}"
+                        SelectedItem="{Binding GeselecteerdUitgavenJaar}" />
+                    <TextBlock
+                        VerticalAlignment="Center"
+                        FontSize="16"
+                        Text=" Maand:" />
+                    <ComboBox
+                        x:Name="UitgavenMaandCbo"
+                        Width="120"
+                        ItemsSource="{Binding BeschikbareUitgavenMaanden}"
+                        SelectedItem="{Binding GeselecteerdeUitgavenMaand}" />
+                    <TextBlock
+                        VerticalAlignment="Center"
+                        FontSize="16"
+                        Text=" Categorie:" />
+                    <ComboBox
+                        x:Name="UitgavenCategorieCbo"
+                        Width="120"
+                        ItemsSource="{Binding BeschikbareUitgavenCategorie}"
+                        SelectedItem="{Binding GeselecteerdeUitgavenCategorie}" />
+                    <TextBlock
+                        VerticalAlignment="Center"
+                        FontSize="16"
+                        Text=" Begunstigde:" />
+                    <ComboBox
+                        x:Name="UitgavenBegunstigdeCbo"
+                        Width="120"
+                        ItemsSource="{Binding BeschikbareUitgavenBegunstigden}"
+                        SelectedItem="{Binding GeselecteerdeUitgavenBegunstigde}" />
+                    <Button
+                        Margin="5"
+                        Command="{Binding cmdEmptyUitgavenComboboxen}"
+                        Style="{StaticResource Deletefile}" />
                 </StackPanel>
 
 
-                <!--  DataGrid  -->
-                <DataGrid
-                    x:Name="BudgetDataUitgaven"
-                    Grid.Row="3"
-                    Height="200"
-                    Margin="5"
-                    AutoGenerateColumns="True"
-                    BorderBrush="Red"
-                    BorderThickness="4"
-                    HorizontalScrollBarVisibility="Auto"
-                    IsReadOnly="True"
-                    ItemsSource="{Binding MijnUitgaven}"
-                    VerticalScrollBarVisibility="Auto" />
-
                 <!--  Resultaat Uitgaven  -->
                 <StackPanel
-                    Grid.Row="5"
+                    Grid.Row="3"
+                    Grid.Column="1"
                     HorizontalAlignment="Left"
                     VerticalAlignment="Top"
                     Orientation="Horizontal">
@@ -193,29 +281,58 @@
                         x:Name="Uitgaven"
                         Width="150"
                         Margin="5"
+                        HorizontalContentAlignment="Right"
                         FontSize="16"
                         FontWeight="Bold"
-                        Foreground="Red" />
+                        Text="{Binding TotaalUitgaven, StringFormat=N2}" />
                 </StackPanel>
 
+                <!--  DataGrid  -->
+                <DataGrid
+                    x:Name="BudgetDataUitgaven"
+                    Grid.Row="4"
+                    Grid.Column="1"
+                    Height="200"
+                    Margin="5"
+                    AutoGenerateColumns="False"
+                    BorderBrush="Red"
+                    BorderThickness="4"
+                    ColumnWidth="*"
+                    IsReadOnly="True"
+                    ItemsSource="{Binding GefilterdeUitgaven}">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Binding="{Binding Jaar}" Header="Jaar" />
+                        <DataGridTextColumn Binding="{Binding Maand}" Header="Maand" />
+                        <DataGridTextColumn Binding="{Binding BudgetCategorie}" Header="Categorie" />
+                        <DataGridTextColumn Binding="{Binding Begunstigde}" Header="Begunstigde" />
+                        <DataGridTextColumn Binding="{Binding Bedrag, StringFormat=N2}" Header="Bedrag" />
+                        <DataGridTextColumn Binding="{Binding Onderwerp}" Header="Onderwerp" />
+                    </DataGrid.Columns>
+                </DataGrid>
+
+
                 <StackPanel
-                    Grid.Row="6"
-                    HorizontalAlignment="Center"
+                    Grid.Row="5"
+                    Grid.Column="1"
+                    HorizontalAlignment="Left"
                     VerticalAlignment="Center"
                     Orientation="Horizontal">
                     <Label
                         Margin="5"
                         VerticalAlignment="Center"
-                        Content="Result:   "
+                        Content="Result:         "
                         FontSize="16" />
                     <TextBox
                         x:Name="Result"
                         Width="150"
                         Margin="5"
+                        HorizontalContentAlignment="Right"
                         FontSize="16"
                         FontWeight="Bold"
-                        Foreground="Black" />
+                        Text="{Binding Resultaat, StringFormat=N2}" />
                 </StackPanel>
+
+
             </Grid>
 
 

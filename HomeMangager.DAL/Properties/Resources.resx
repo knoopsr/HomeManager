@@ -249,15 +249,6 @@
   <data name="U_BudgetTransaction" xml:space="preserve">
     <value>U_BudgetTransaction</value>
   </data>
-  <data name="I_BudgetBijlage" xml:space="preserve">
-    <value>I_BudgetBijlage</value>
-  </data>
-  <data name="S_BudgetBijlage" xml:space="preserve">
-    <value>S_BudgetBijlage</value>
-  </data>
-  <data name="U_BudgetBijlage" xml:space="preserve">
-    <value>U_BudgetBijlage</value>
-  </data>
   <data name="S_BudgetOverzichtInkomsten" xml:space="preserve">
     <value>S_BudgetOverzichtInkomsten</value>
   </data>
@@ -266,5 +257,8 @@
   </data>
   <data name="S_BudgetBijlageByBudgetTransactionID" xml:space="preserve">
     <value>S_BudgetBijlageByBudgetTransactionID</value>
+  </data>
+  <data name="I_BudgetBijlage" xml:space="preserve">
+    <value>I_BudgetBijlage</value>
   </data>
 </root>

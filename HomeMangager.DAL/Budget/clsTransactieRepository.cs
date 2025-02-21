@@ -8,8 +8,7 @@ namespace HomeManager.DAL.Budget
     public class clsTransactieRepository : ITransactieRepository
     {
         private ObservableCollection<clsTransactieModel> MijnCollectie;
-        private ObservableCollection<clsTransactieModel> MijnInkomsten;
-        private ObservableCollection<clsTransactieModel> MijnUitgaven;
+        
         private IEnumerable<clsBijlageModel> bijlagen;
 
         public clsTransactieRepository()
@@ -67,77 +66,7 @@ namespace HomeManager.DAL.Budget
             MijnDataReader.Close();
         }
 
-        public ObservableCollection<clsTransactieModel> GetInkomsten()
-        {
-            if (MijnInkomsten == null)
-            {
-                GenerateInkomsten();
-            }
-            return MijnInkomsten;
-        }
-
-        private void GenerateInkomsten()
-        {
-            SqlDataReader MijnDataReader = clsDAL.GetData(Properties.Resources.S_BudgetOverzichtInkomsten);
-            MijnInkomsten = new ObservableCollection<clsTransactieModel>();
-
-            while (MijnDataReader.Read())
-            {
-                clsTransactieModel m = new clsTransactieModel()
-                {
-                    BudgetTransactionID = (int)MijnDataReader["BudgetTransactionID"],
-                    IsUitgaven = (bool)MijnDataReader["IsUitgaven"],
-                    Bedrag = MijnDataReader["Bedrag"] as decimal? ?? 0,
-                    Datum = DateOnly.FromDateTime((DateTime)MijnDataReader["Datum"]),
-                    Onderwerp = MijnDataReader["Onderwerp"].ToString(),
-                    BegunstigdeID = (int)MijnDataReader["BegunstigdenID"],
-                    Begunstigde = MijnDataReader["Begunstigde"].ToString(),
-                    BudgetCategorieID = (int)MijnDataReader["BudgetCategorieID"],
-                    BudgetCategorie = MijnDataReader["BudgetCategorie"].ToString(),
-                    ControlField = MijnDataReader["ControlField"]
-                };
-                MijnInkomsten.Add(m);
-            }
-            MijnDataReader.Close();
-        }
-
-        public ObservableCollection<clsTransactieModel> GetUitgaven()
-        {
-            if (MijnUitgaven == null)
-            {
-                GenerateUitgaven();
-            }
-            return MijnUitgaven;
-        }
-
-        private void GenerateUitgaven()
-        {
-            SqlDataReader MijnDataReader = clsDAL.GetData(Properties.Resources.S_BudgetOverzichtUitgaven);
-            MijnUitgaven = new ObservableCollection<clsTransactieModel>();
-
-            while (MijnDataReader.Read())
-            {
-                clsTransactieModel m = new clsTransactieModel()
-                {
-                    BudgetTransactionID = (int)MijnDataReader["BudgetTransactionID"],
-                    IsUitgaven = (bool)MijnDataReader["IsUitgaven"],
-                    Bedrag = MijnDataReader["Bedrag"] as decimal? ?? 0,
-                    Datum = DateOnly.FromDateTime((DateTime)MijnDataReader["Datum"]),
-                    Onderwerp = MijnDataReader["Onderwerp"].ToString(),
-                    BegunstigdeID = (int)MijnDataReader["BegunstigdenID"],
-                    Begunstigde = MijnDataReader["Begunstigde"].ToString(),
-                    BudgetCategorieID = (int)MijnDataReader["BudgetCategorieID"],
-                    BudgetCategorie = MijnDataReader["BudgetCategorie"].ToString(),
-                    ControlField = MijnDataReader["ControlField"]
-                };
-                MijnUitgaven.Add(m);
-            }
-            MijnDataReader.Close();
-        }
-
-
-
-
+        
 
         public clsTransactieModel GetById(int id)
         {

@@ -127,7 +127,10 @@ namespace HomeManager.ViewModel
 
         private void LoadData()
         {
+            
             MijnCollectie = MijnService.GetAll();
+            GefilterdeCollectie = new ObservableCollection<clsDomicilieringModel>(MijnCollectie);
+
         }
 
 
@@ -152,10 +155,12 @@ namespace HomeManager.ViewModel
             clsMessenger.Default.Register<clsUpdateListMessages>(this, OnUpdateListMessageReceived);
 
             LoadData();
+
             MijnSelectedItem = MijnService.GetFirst();
+
         }
 
-
+        #region Save - Delete - Cancel - Close
 
         private bool CanExecute_CloseCommand(object obj)
         {
@@ -285,6 +290,9 @@ namespace HomeManager.ViewModel
             OpslaanCommando();
 
         }
+
+        #endregion
+
         #region Popup Windows
         private void OnUpdateListMessageReceived(clsUpdateListMessages obj)
         {
@@ -357,7 +365,7 @@ namespace HomeManager.ViewModel
             set
             {
                 _gefilterdeCollectie = value;
-                OnPropertyChanged(nameof(_gefilterdeCollectie));
+                OnPropertyChanged(nameof(GefilterdeCollectie));
             }
         }
 
@@ -368,26 +376,28 @@ namespace HomeManager.ViewModel
 
         private void Execute_FilterCommand (object obj)
         {
-            //if (string.IsNullOrWhiteSpace(FilterTekst))
-            //{
-            //    // Als er geen filtertekst is, toon alles
-            //    GefilterdeCollectie = new ObservableCollection<clsDomicilieringModel>(MijnCollectie);
-            //}
-            //else
-            //{
-            //    // Filter de collectie op basis van FilterTekst
-            //    var gefilterdeItems = MijnCollectie
-            //        .Where(item =>
-                        
-            //            (item.Begunstigde.IndexOf(FilterTekst, StringComparison.OrdinalIgnoreCase) >= 0))
-            //        .ToList();
+            if (string.IsNullOrWhiteSpace(FilterTekst))
+            {
+                // Als er geen filtertekst is, toon alles
+                GefilterdeCollectie = new ObservableCollection<clsDomicilieringModel>(MijnCollectie);
+            }
+            else
+            {
+                // Filter de collectie op basis van FilterTekst
+                var GefilterdeItems = MijnCollectie
+                    .Where(item =>
 
-            //    // Update de gefilterde collectie
-            //    GefilterdeCollectie = new ObservableCollection<clsDomicilieringModel>(gefilterdeItems);
-            //}
+                        (item.Begunstigde.IndexOf(FilterTekst, StringComparison.OrdinalIgnoreCase) >= 0) ||
+                        (item.BudgetCategorie.IndexOf(FilterTekst, StringComparison.OrdinalIgnoreCase) >= 0) ||
+                        (item.Onderwerp.IndexOf(FilterTekst, StringComparison.OrdinalIgnoreCase) >= 0)
+                        )
+                    .ToList();
+
+                //update de gefilterde collectie
+                GefilterdeCollectie = new ObservableCollection<clsDomicilieringModel>(GefilterdeItems);
+            }
         }
-
         #endregion
+
     }
 }
-//To Do : Filter installeren voor zoeken op Frequentie, Begunstigde, Categorie

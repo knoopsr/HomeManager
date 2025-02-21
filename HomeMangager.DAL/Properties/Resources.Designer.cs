@@ -268,15 +268,6 @@ namespace HomeManager.DAL.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to S_BudgetBijlage.
-        /// </summary>
-        internal static string S_BudgetBijlage {
-            get {
-                return ResourceManager.GetString("S_BudgetBijlage", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to S_BudgetBijlageByBudgetTransactionID.
         /// </summary>
         internal static string S_BudgetBijlageByBudgetTransactionID {
@@ -417,15 +408,6 @@ namespace HomeManager.DAL.Properties {
         internal static string U_Begunstigden {
             get {
                 return ResourceManager.GetString("U_Begunstigden", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to U_BudgetBijlage.
-        /// </summary>
-        internal static string U_BudgetBijlage {
-            get {
-                return ResourceManager.GetString("U_BudgetBijlage", resourceCulture);
             }
         }
         

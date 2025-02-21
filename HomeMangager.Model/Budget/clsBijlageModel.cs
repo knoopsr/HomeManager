@@ -60,8 +60,16 @@ namespace HomeManager.Model.Budget
             }
             set
             {
-                _bijlageNaam = value;
-                OnPropertyChanged();
+                if(_bijlageNaam != value)
+                {
+                    if (_bijlageNaam != null)
+                    {
+                        IsDirty = true;
+                    }
+                    _bijlageNaam = value;
+                    OnPropertyChanged();
+                }
+                
             }
         }
 

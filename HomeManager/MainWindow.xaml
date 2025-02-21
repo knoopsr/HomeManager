@@ -57,11 +57,11 @@
         </DataTemplate>
         <DataTemplate DataType="{x:Type VM:clsTransactieViewModel}">
             <V:ucTransactie />
-        </DataTemplate> 
+        </DataTemplate>
         <DataTemplate DataType="{x:Type VM:clsOverzichtViewModel}">
             <V:ucOverzicht />
         </DataTemplate>
-       
+
 
 
         <Storyboard x:Key="ShowMenu">
@@ -169,7 +169,7 @@
                                 Command="{Binding NavCommand}"
                                 CommandParameter="clsOverzichtViewModel"
                                 Content="Overzicht"
-                                Style="{StaticResource myMenuTandwiel}" /> 
+                                Style="{StaticResource myMenuTandwiel}" />
                             <Button
                                 Command="{Binding NavCommand}"
                                 CommandParameter="clsTransactieViewModel"

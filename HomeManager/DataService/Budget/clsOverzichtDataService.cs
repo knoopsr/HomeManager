@@ -13,44 +13,52 @@ using Microsoft.Data.SqlClient;
 
 namespace HomeManager.DataService.Budget
 {
-    public class clsOverzichtDataService /*: IOverzichtDataService*/
+    public class clsOverzichtDataService : IOverzichtDataService
     {
-        //ITransactieRepository Repo = new clsTransactieRepository();
+        IOverzichtRepository Repo = new clsOverzichtRepository();
 
-        //public bool Delete(clsTransactieModel entity)
-        //{
-        //    return Repo.Delete(entity);
-        //}
+        public bool Delete(clsOverzichtModel entity)
+        {
+            return Repo.Delete(entity);
+        }
 
-        //public clsTransactieModel Find()
-        //{
-        //    return Repo.Find();
-        //}
+        public clsOverzichtModel Find()
+        {
+            return Repo.Find();
+        }
 
-        //public ObservableCollection<clsTransactieModel> GetAll()
-        //{
-        //    return Repo.GetAll();
-        //}
+        public ObservableCollection<clsOverzichtModel> GetAll()
+        {
+            return Repo.GetAll();
+        }
+        public ObservableCollection<clsOverzichtModel> GetInkomsten()
+        {
+            return Repo.GetInkomsten();
+        }
+        public ObservableCollection<clsOverzichtModel> GetUitgaven()
+        {
+            return Repo.GetUitgaven();
+        }
 
-        //public clsTransactieModel GetById(int id)
-        //{
-        //    return Repo.GetById(id);
-        //}
+        public clsOverzichtModel GetById(int id)
+        {
+            return Repo.GetById(id);
+        }
 
-        //public clsTransactieModel GetFirst()
-        //{
-        //    return Repo.GetFirst();
-        //}
+        public clsOverzichtModel GetFirst()
+        {
+            return Repo.GetFirst();
+        }
 
-        //public bool Insert (clsTransactieModel entity)
-        //{
-        //    return Repo.Insert(entity);
-        //}
+        public bool Insert(clsOverzichtModel entity)
+        {
+            return Repo.Insert(entity);
+        }
 
-        //public bool Update(clsTransactieModel entity)
-        //{
-        //    return Repo.Update(entity);
-        //}
+        public bool Update(clsOverzichtModel entity)
+        {
+            return Repo.Update(entity);
+        }
 
 
     }

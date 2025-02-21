@@ -63,33 +63,7 @@ namespace HomeManager.ViewModel
             }
         }
 
-        private ObservableCollection<clsTransactieModel> _MijnUitgaven;
-        public ObservableCollection<clsTransactieModel> MijnUitgaven
-        {
-            get
-            {
-                return _MijnUitgaven;
-            }
-            set
-            {
-                _MijnUitgaven = value;
-                OnPropertyChanged();
-            }
-        }
-
-        private ObservableCollection<clsTransactieModel> _MijnInkomsten;
-        public ObservableCollection<clsTransactieModel> MijnInkomsten
-        {
-            get
-            {
-                return _MijnInkomsten;
-            }
-            set
-            {
-                _MijnInkomsten = value;
-                OnPropertyChanged();
-            }
-        }
+        
 
         private ObservableCollection<clsBijlageModel> _mijnCollectieBijlage;
 
@@ -185,14 +159,8 @@ namespace HomeManager.ViewModel
 
                 else
                 {
-
-
-
-
-
                     if (MijnService.Update(MijnSelectedItem))
                     {
-
 
                         MijnSelectedItem.IsDirty = false;
                         MijnSelectedItem.MijnSelectedIndex = 0;
@@ -212,12 +180,10 @@ namespace HomeManager.ViewModel
         {
             MijnCollectie = MijnService.GetAll();
             MijnCollectieBijlage = new ObservableCollection<clsBijlageModel>();
+            GefilterdeCollectie = new ObservableCollection<clsTransactieModel>(MijnCollectie);
 
 
         }
-
-
-
 
 
 
@@ -609,7 +575,7 @@ namespace HomeManager.ViewModel
         #endregion
 
 
-        #region Filter_Domciliering
+        #region Filter_Transactie
 
         private string _filterTekst;
 
@@ -626,9 +592,9 @@ namespace HomeManager.ViewModel
             }
         }
 
-        private ObservableCollection<clsDomicilieringModel> _gefilterdeCollectie;
+        private ObservableCollection<clsTransactieModel> _gefilterdeCollectie;
 
-        public ObservableCollection<clsDomicilieringModel> GefilterdeCollectie
+        public ObservableCollection<clsTransactieModel> GefilterdeCollectie
         {
             get
             {
@@ -637,7 +603,7 @@ namespace HomeManager.ViewModel
             set
             {
                 _gefilterdeCollectie = value;
-                OnPropertyChanged(nameof(_gefilterdeCollectie));
+                OnPropertyChanged(nameof(GefilterdeCollectie));
             }
         }
 
@@ -648,23 +614,25 @@ namespace HomeManager.ViewModel
 
         private void Execute_FilterCommand(object obj)
         {
-            //if (string.IsNullOrWhiteSpace(FilterTekst))
-            //{
-            //    // Als er geen filtertekst is, toon alles
-            //    GefilterdeCollectie = new ObservableCollection<clsTransactieModel>(MijnCollectie);
-            //}
-            //else
-            //{
-            //    // Filter de collectie op basis van FilterTekst
-            //    var gefilterdeItems = MijnCollectie
-            //        .Where(item =>
+            if (string.IsNullOrWhiteSpace(FilterTekst))
+            {
+                // Als er geen filtertekst is, toon alles
+                GefilterdeCollectie = new ObservableCollection<clsTransactieModel>(MijnCollectie);
+            }
+            else
+            {
+                // Filter de collectie op basis van FilterTekst
+                var GefilterdeItems = MijnCollectie
+                    .Where(item =>
+                        (item.Begunstigde.IndexOf(FilterTekst, StringComparison.OrdinalIgnoreCase) >= 0) ||
+                        (item.BudgetCategorie.IndexOf(FilterTekst, StringComparison.OrdinalIgnoreCase) >=0) ||
+                        (item.Onderwerp.IndexOf(FilterTekst, StringComparison.OrdinalIgnoreCase) >=0)
+                        )
+                    .ToList();
 
-            //            (item.Begunstigde.IndexOf(FilterTekst, StringComparison.OrdinalIgnoreCase) >= 0))
-            //        .ToList();
-
-            //    // Update de gefilterde collectie
-            //    GefilterdeCollectie = new ObservableCollection<clsTransactieModel>(gefilterdeItems);
-            //}
+                // Update de gefilterde collectie
+                GefilterdeCollectie = new ObservableCollection<clsTransactieModel>(GefilterdeItems);
+            }
         }
 
         #endregion

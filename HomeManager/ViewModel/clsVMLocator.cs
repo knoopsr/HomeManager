@@ -90,59 +90,59 @@ namespace HomeManager.ViewModel
         public clsKleurenVM KleurenViewModel => new clsKleurenVM();
         #endregion
 
-
+        private static clsCategorieViewModel _categorieViewModel = new clsCategorieViewModel();
         public clsCategorieViewModel CategorieViewModel
         {
             get
             {
-                return new clsCategorieViewModel(); ;
+                return _categorieViewModel; 
             }
         }
 
+        private static clsFrequentieViewModel _frequentieViewModel = new clsFrequentieViewModel();
         public clsFrequentieViewModel FrequentieViewModel
         {
             get
             {
-                return new clsFrequentieViewModel(); ;
+                return _frequentieViewModel;
             }
         }
 
+        private static clsBegunstigdenViewModel _begunstigdenViewModel = new clsBegunstigdenViewModel();
         public clsBegunstigdenViewModel BegunstigdenViewModel
         {
             get
             {
-                return new clsBegunstigdenViewModel();
+                return _begunstigdenViewModel;
             }
         }
 
+        private static clsDomicilieringViewModel _domicilieringViewModel = new clsDomicilieringViewModel();
         public clsDomicilieringViewModel DomicilieringViewModel
         {
             get
             {
-                return new clsDomicilieringViewModel();
+                return _domicilieringViewModel;
             }
         }
+
+        private static clsTransactieViewModel _transactieViewModel = new clsTransactieViewModel();
         public clsTransactieViewModel TransactieViewModel
         {
             get
             {
-                return new clsTransactieViewModel();
+                return _transactieViewModel;
             }
         }
+        
+        private static clsOverzichtViewModel _overzichtViewModel = new clsOverzichtViewModel();
         public clsOverzichtViewModel OverzichtViewModel
         {
             get
             {
-                return new clsOverzichtViewModel();
+                return _overzichtViewModel;
             }
         }
-        public clsBijlageViewModel BijlageViewModel
-        {
-            get
-            {
-                return new clsBijlageViewModel();
-            }
-        }
-
+        
     }
 }

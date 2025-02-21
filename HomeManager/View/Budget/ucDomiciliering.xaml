@@ -123,9 +123,9 @@
                     Grid.Column="1"
                     Width="230"
                     Margin="5"
-                    Foreground="#024f87"
-                    ItemsSource="{Binding MijnCollectie}"
-                    SelectedItem="{Binding MijnSelectedItem, UpdateSourceTrigger=PropertyChanged}">
+                   
+                    ItemsSource="{Binding GefilterdeCollectie}"
+                    SelectedItem="{Binding MijnSelectedItem, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
 
                     <ListBox.ItemTemplate>
                         <DataTemplate>
@@ -167,11 +167,7 @@
                             </Border>
                         </DataTemplate>
                     </ListBox.ItemTemplate>
-
-
-
-
-                </ListBox>
+               </ListBox>
 
 
 
@@ -180,7 +176,7 @@
                     Grid.Column="3"
                     HorizontalContentAlignment="Right"
                     Content="Uitgave"
-                    Foreground="#024f87" />
+                     />
                 <CheckBox
                     x:Name="IsUitgave"
                     Grid.Row="1"
@@ -192,7 +188,7 @@
                     Grid.Column="3"
                     HorizontalContentAlignment="Right"
                     Content="Bedrag"
-                    Foreground="#024f87" />
+                     />
                 <TextBox
                     Grid.Row="2"
                     Grid.Column="4"
@@ -200,14 +196,14 @@
                     Margin="5"
                     Helpers:clsFocusExtension.IsFocused="{Binding IsFocusedAfterNew, Mode=TwoWay}"
                     Background="White"
-                    Foreground="#024f87"
+                    
                     Text="{Binding MijnSelectedItem.Bedrag, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, TargetNullValue=' '}" />
                 <Label
                     Grid.Row="3"
                     Grid.Column="3"
                     HorizontalContentAlignment="Right"
                     Content="Van Datum"
-                    Foreground="#024f87" />
+                     />
 
                 <DatePicker
                     x:Name="dpVanDatum"
@@ -215,7 +211,7 @@
                     Grid.Column="4"
                     Width="200"
                     Margin="5"
-                    Foreground="#024f87"
+                    
                     SelectedDate="{Binding MijnSelectedItem.VanDatum, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, ValidatesOnExceptions=True, Converter={StaticResource DateOnlyToDateTimeConverter}}"
                     SelectedDateFormat="Short" />
                 <Label
@@ -223,7 +219,7 @@
                     Grid.Column="3"
                     HorizontalContentAlignment="Right"
                     Content="Tot Datum"
-                    Foreground="#024f87" />
+                     />
 
                 <DatePicker
                     x:Name="dpTotDatum"
@@ -231,7 +227,7 @@
                     Grid.Column="4"
                     Width="200"
                     Margin="5"
-                    Foreground="#024f87"
+                    
                     SelectedDate="{Binding MijnSelectedItem.TotDatum, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, ValidatesOnExceptions=True, Converter={StaticResource DateOnlyToDateTimeConverter}}"
                     SelectedDateFormat="Short" />
 
@@ -249,7 +245,7 @@
                     Margin="5"
                     VerticalAlignment="Center"
                     Background="White"
-                    Foreground="#024f87"
+                    
                     Text="{Binding MijnSelectedItem.Onderwerp, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
                     TextWrapping="Wrap"/>
 
@@ -260,7 +256,7 @@
                     Margin="5"
                     HorizontalContentAlignment="Right"
                     Content="Frequentie"
-                    Foreground="#024f87" />
+                     />
                 <StackPanel
                     Grid.Row="6"
                     Grid.Column="4"
@@ -272,7 +268,7 @@
                         Width="170"
                         Margin="5"
                         DataContext="{Binding Source={StaticResource VML}, Path=FrequentieViewModel}"
-                        Foreground="#024f87"
+                       
                         ItemsSource="{Binding MijnCollectie}"
                         SelectedValue="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Grid}}, Path=DataContext.MijnSelectedItem.FrequentieID, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
                         SelectedValuePath="FrequentieID" />
@@ -287,7 +283,7 @@
                     Grid.Column="3"
                     HorizontalContentAlignment="Right"
                     Content="Begunstigde"
-                    Foreground="#024f87" />
+                     />
                 <StackPanel
                     Grid.Row="7"
                     Grid.Column="4"
@@ -299,7 +295,7 @@
                         Width="170"
                         Margin="5"
                         DataContext="{Binding Source={StaticResource VML}, Path=BegunstigdenViewModel}"
-                        Foreground="#024f87"
+                       
                         ItemsSource="{Binding MijnCollectie}"
                         SelectedValue="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Grid}}, Path=DataContext.MijnSelectedItem.BegunstigdeID, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
                         SelectedValuePath="BegunstigdeID" />
@@ -316,7 +312,7 @@
                     Grid.Column="3"
                     HorizontalContentAlignment="Right"
                     Content="Categorie"
-                    Foreground="#024f87" />
+                     />
 
                 <StackPanel
                     Grid.Row="8"
@@ -329,7 +325,7 @@
                         Width="170"
                         Margin="5"
                         DataContext="{Binding Source={StaticResource VML}, Path=CategorieViewModel}"
-                        Foreground="#024f87"
+                        
                         ItemsSource="{Binding MijnCollectie}"
                         SelectedValue="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Grid}}, Path=DataContext.MijnSelectedItem.BudgetCategorieID, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
                         SelectedValuePath="BudgetCategorieID" />

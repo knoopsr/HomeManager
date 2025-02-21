@@ -11,7 +11,6 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:uc="clr-namespace:HomeManager.View"
     xmlns:viewmodel="clr-namespace:HomeManager.ViewModel"
-    d:DataContext="{d:DesignInstance Type=viewmodel:clsBijlageViewModel}"
     d:DesignHeight="733.518"
     d:DesignWidth="1268.648"
     Background="{StaticResource myBackground}"
@@ -58,6 +57,7 @@
                         Text="Transactie" />
 
                 </StackPanel>
+                
                 <uc:ucWerkBalk HorizontalAlignment="Right" VerticalAlignment="Top" />
 
             </Grid>
@@ -73,6 +73,8 @@
             <Grid Grid.Row="1">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="auto" />
+                    <ColumnDefinition Width="auto" />
                     <ColumnDefinition Width="auto" />
                     <ColumnDefinition Width="auto" />
                     <ColumnDefinition Width="auto" />
@@ -132,9 +134,9 @@
                     Grid.Column="1"
                     Width="230"
                     Margin="5"
-                    Foreground="#024f87"
-                    ItemsSource="{Binding MijnCollectie}"
-                    SelectedItem="{Binding MijnSelectedItem, UpdateSourceTrigger=PropertyChanged}">
+                  
+                    ItemsSource="{Binding GefilterdeCollectie}"
+                    SelectedItem="{Binding MijnSelectedItem, Mode=TwoWay ,UpdateSourceTrigger=PropertyChanged}">
 
                     <ListBox.ItemTemplate>
                         <DataTemplate>
@@ -184,7 +186,7 @@
                     Grid.Column="3"
                     HorizontalContentAlignment="Right"
                     Content="Uitgave"
-                    Foreground="#024f87" />
+                     />
                 <CheckBox
                     x:Name="IsUitgave"
                     Grid.Row="1"
@@ -196,7 +198,7 @@
                     Grid.Column="3"
                     HorizontalContentAlignment="Right"
                     Content="Bedrag"
-                    Foreground="#024f87" />
+                     />
                 <TextBox
                     Grid.Row="2"
                     Grid.Column="4"
@@ -204,14 +206,14 @@
                     Margin="5"
                     Helpers:clsFocusExtension.IsFocused="{Binding IsFocusedAfterNew, Mode=TwoWay}"
                     Background="White"
-                    Foreground="#024f87"
+                    
                     Text="{Binding MijnSelectedItem.Bedrag, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, TargetNullValue=' '}" />
                 <Label
                     Grid.Row="3"
                     Grid.Column="3"
                     HorizontalContentAlignment="Right"
                     Content="Datum"
-                    Foreground="#024f87" />
+                    />
 
                 <DatePicker
                     x:Name="dpDatum"
@@ -219,7 +221,7 @@
                     Grid.Column="4"
                     Width="200"
                     Margin="5"
-                    Foreground="#024f87"
+                   
                     SelectedDate="{Binding MijnSelectedItem.Datum, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, ValidatesOnExceptions=True, Converter={StaticResource DateOnlyToDateTimeConverter}}"
                     SelectedDateFormat="Short" />
 
@@ -228,7 +230,7 @@
                     Grid.Column="3"
                     HorizontalContentAlignment="Right"
                     Content="Onderwerp"
-                    Foreground="#024f87" />
+                     />
                 <TextBox
                     Grid.Row="5"
                     Grid.Column="4"
@@ -237,7 +239,7 @@
                     Margin="5"
                     VerticalAlignment="Center"
                     Background="White"
-                    Foreground="#024f87"
+                   
                     Text="{Binding MijnSelectedItem.Onderwerp, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
                     TextWrapping="Wrap" />
 
@@ -247,7 +249,7 @@
                     Grid.Column="3"
                     HorizontalContentAlignment="Right"
                     Content="Begunstigde"
-                    Foreground="#024f87" />
+                     />
                 <StackPanel
                     Grid.Row="7"
                     Grid.Column="4"
@@ -289,7 +291,7 @@
                         Width="170"
                         Margin="5"
                         DataContext="{Binding Source={StaticResource VML}, Path=CategorieViewModel}"
-                        Foreground="#024f87"
+                        
                         ItemsSource="{Binding MijnCollectie}"
                         SelectedValue="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Grid}}, Path=DataContext.MijnSelectedItem.BudgetCategorieID, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
                         SelectedValuePath="BudgetCategorieID" />
@@ -307,31 +309,24 @@
                     Grid.Column="3"
                     HorizontalContentAlignment="Right"
                     Content="Bijlage"
-                    Foreground="#024f87" />
+                    />
                 <ListBox
-          x:Name="ListViewBijlage"
-          Margin="0"
+                    x:Name="ListViewBijlage"
                     Grid.Row="9"
                     Grid.Column="4"
-          Foreground="#024f87"
-          ItemsSource="{Binding MijnCollectieBijlage}"
-          SelectedItem="{Binding MijnSelectedBijlage, UpdateSourceTrigger=PropertyChanged}"                        
-          SelectedValuePath="BudgetBijlageID"/>
+                    Margin="0"
+                    ItemsSource="{Binding MijnCollectieBijlage}"
+                    SelectedItem="{Binding MijnSelectedBijlage, UpdateSourceTrigger=PropertyChanged}"
+                    SelectedValuePath="BudgetBijlageID" />
                 <StackPanel
                     Grid.Row="9"
-                    Grid.Column="5"             
-                    HorizontalAlignment="Left"              
-                    Orientation="Vertical">
-              
-                    <Button                    
-                        Command="{Binding cmdUploadBijlage}"
-                        Style="{StaticResource UploadPersoonButton}" />
-                    <Button  
-                        Command="{Binding cmdShowBijlage}"                        
-                        Style="{StaticResource Showfile}" />
-                    <Button                
-                        Command="{Binding cmdDeleteBijlage}"                     
-                        Style="{StaticResource Deletefile}" />
+                    Grid.Column="5"
+                    HorizontalAlignment="Left"
+                    Orientation="Vertical" Grid.ColumnSpan="5" Margin="15,0,0,150" Grid.RowSpan="2">
+
+                    <Button Command="{Binding cmdUploadBijlage}" Style="{StaticResource UploadPersoonButton}" />
+                    <Button Command="{Binding cmdShowBijlage}" Style="{StaticResource Showfile}" />
+                    <Button Command="{Binding cmdDeleteBijlage}" Style="{StaticResource Deletefile}" />
 
 
                 </StackPanel>
@@ -344,26 +339,25 @@
                     Content="Drop here" />
 
                 <Rectangle
-                        Grid.Row="10"
-                        Grid.Column="4"
-                        x:Name="DropPlace"
-                        Width="200"
-                        Height="100"
-                        Fill="#bbeeeeee"
-                        RadiusX="8"
-                        RadiusY="8"
-                        Stroke="Gray"
-                        StrokeDashArray="2.0 1.0"
-                        StrokeThickness="4">
-                        <i:Interaction.Behaviors>
-                            <Behaviors:clsDragDropBehavior
-                                DropCommand="{Binding cmdDropBijlage}" />
-                        </i:Interaction.Behaviors>
-                    </Rectangle>
+                    x:Name="DropPlace"
+                    Grid.Row="10"
+                    Grid.Column="4"
+                    Width="200"
+                    Height="100"
+                    Fill="#bbeeeeee"
+                    RadiusX="8"
+                    RadiusY="8"
+                    Stroke="Gray"
+                    StrokeDashArray="2.0 1.0"
+                    StrokeThickness="4">
+                    <i:Interaction.Behaviors>
+                        <Behaviors:clsDragDropBehavior DropCommand="{Binding cmdDropBijlage}" />
+                    </i:Interaction.Behaviors>
+                </Rectangle>
 
-                    
-           
-                
+
+
+
             </Grid>
         </Border>
 

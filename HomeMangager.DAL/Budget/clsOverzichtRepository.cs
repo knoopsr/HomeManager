@@ -14,126 +14,110 @@ using System.Data.SqlTypes;
 
 namespace HomeManager.DAL.Budget
 {
-    public class clsOverzichtRepository  /* : IOverzichtRepository */
+    public class clsOverzichtRepository  : IOverzichtRepository 
     {
-        //private ObservableCollection<clsTransactieModel> MijnCollectie;
+        private ObservableCollection<clsOverzichtModel> MijnInkomsten;
+        private ObservableCollection<clsOverzichtModel> MijnUitgaven;
 
-        //public clsTransactieRepository()
-        //{
+        public clsOverzichtRepository()
+        {
 
-        //}
+        }
 
-        //public bool Delete(clsTransactieModel entity)
-        //{
-        //    (DataTable DT, bool OK, string Boodschap) = clsDAL.ExecuteDataTable(Properties.Resources.D_BudgetTransaction,
-        //        clsDAL.Parameter("BudgetTransactionID", entity.BudgetTransactionID),
-        //        clsDAL.Parameter("ControlField", entity.ControlField),
-        //        clsDAL.Parameter("@ReturnValue", 0));
-        //    if (OK)
-        //    {
-        //        entity.ErrorBoodschap = Boodschap;
-        //    }
-        //    return OK;
-        //}
+        public ObservableCollection<clsOverzichtModel> GetInkomsten()
+        {
+            if (MijnInkomsten == null)
+            {
+                GenerateInkomsten();
+            }
+            return MijnInkomsten;
+        }
 
-        //public clsTransactieModel Find()
-        //{
-        //    throw new NotImplementedException();
-        //}
+        private void GenerateInkomsten()
+        {
+            SqlDataReader MijnDataReader = clsDAL.GetData(Properties.Resources.S_BudgetOverzichtInkomsten);
+            MijnInkomsten = new ObservableCollection<clsOverzichtModel>();
 
-        //public ObservableCollection<clsTransactieModel> GetAll()
-        //{
-        //    GenerateCollection();
-        //    return MijnCollectie;
-        //}
+            while (MijnDataReader.Read())
+            {
+                clsOverzichtModel m = new clsOverzichtModel()
+                {
+                    Jaar = (int)MijnDataReader["Jaar"],
+                    Maand = MijnDataReader["Maand"].ToString(),
+                    Begunstigde = MijnDataReader["Begunstigde"].ToString(),
+                    BudgetCategorie = MijnDataReader["BudgetCategorie"].ToString(),
+                    Bedrag = MijnDataReader["Bedrag"] as decimal? ?? 0,
+                    Onderwerp = MijnDataReader["Onderwerp"].ToString()
+                    
+                };
+                MijnInkomsten.Add(m);
+            }
+            MijnDataReader.Close();
+        }
 
-        //private void GenerateCollection()
-        //{
-        //    SqlDataReader MijnDataReader = clsDAL.GetData(Properties.Resources.S_BudgetTransaction);
-        //    MijnCollectie = new ObservableCollection<clsTransactieModel>();
+        public ObservableCollection<clsOverzichtModel> GetUitgaven()
+        {
+            if (MijnUitgaven == null)
+            {
+                GenerateUitgaven();
+            }
+            return MijnUitgaven;
+        }
 
-        //    while (MijnDataReader.Read())
-        //    {
-        //        clsTransactieModel m = new clsTransactieModel()
-        //        {
-        //            BudgetTransactionID = (int)MijnDataReader["BudgetTransactionID"],
-        //            IsUitgaven = (bool)MijnDataReader["IsUitgaven"],
-        //            Bedrag = MijnDataReader["Bedrag"] as decimal? ?? 0,
-        //            Datum = DateOnly.FromDateTime((DateTime)MijnDataReader["Datum"]),
-        //            Onderwerp = MijnDataReader["Onderwerp"].ToString(),
-        //            BegunstigdeID = (int)MijnDataReader["BegunstigdenID"],
-        //            Begunstigde = MijnDataReader["Begunstigde"].ToString(),
-        //            BudgetCategorieID = (int)MijnDataReader["BudgetCategorieID"],
-        //            BudgetCategorie = MijnDataReader["BudgetCategorie"].ToString(), 
-        //            Bijlage = MijnDataReader["Bijlage"] != DBNull.Value ? (byte[])MijnDataReader["Bijlage"] : null,
-        //            ControlField = MijnDataReader["ControlField"]
+        private void GenerateUitgaven()
+        {
+            SqlDataReader MijnDataReader = clsDAL.GetData(Properties.Resources.S_BudgetOverzichtUitgaven);
+            MijnUitgaven = new ObservableCollection<clsOverzichtModel>();
 
-        //        };
-        //        MijnCollectie.Add(m);
-        //    }
-        //    MijnDataReader.Close();
-        //}
+            while (MijnDataReader.Read())
+            {
+                clsOverzichtModel m = new clsOverzichtModel()
+                {
+                    Jaar = (int)MijnDataReader["Jaar"],
+                    Maand = MijnDataReader["Maand"].ToString(),
+                    Begunstigde = MijnDataReader["Begunstigde"].ToString(),
+                    BudgetCategorie = MijnDataReader["BudgetCategorie"].ToString(),
+                    Bedrag = MijnDataReader["Bedrag"] as decimal? ?? 0,
+                    Onderwerp = MijnDataReader["Onderwerp"].ToString()
 
-        //public clsTransactieModel GetById(int id)
-        //{
-        //    if (MijnCollectie == null)
-        //    {
-        //        GenerateCollection();
-        //    }
-        //    return MijnCollectie.FirstOrDefault(); //nog te bepalen hoe ID te noemen
+                };
+                MijnUitgaven.Add(m);
+            }
+            MijnDataReader.Close();
+        }
 
-        //}
+        public bool Insert(clsOverzichtModel entity)
+        {
+            throw new NotImplementedException();
+        }
+        public bool Update(clsOverzichtModel entity)
+        {
+            throw new NotImplementedException();
+        }
+        public bool Delete(clsOverzichtModel entity)
+        {
+            throw new NotImplementedException();
+        }
 
-        //public clsTransactieModel GetFirst()
-        //{
-        //    if(MijnCollectie == null)
-        //    {
-        //        GenerateCollection();
-        //    }
-        //    return MijnCollectie.FirstOrDefault();
-        //}
+        public clsOverzichtModel GetById(int id)
+        {
+            throw new NotImplementedException();
 
-        //public bool Insert(clsTransactieModel entity)
-        //{
-        //    (DataTable DT, bool OK, string Boodschap) =
-        //        clsDAL.ExecuteDataTable(Properties.Resources.I_BudgetTransaction,
-        //        clsDAL.Parameter("IsUitgaven", entity.IsUitgaven),
-        //        clsDAL.Parameter("Bedrag", entity.Bedrag),
-        //        clsDAL.Parameter("Datum", entity.Datum),
-        //         clsDAL.Parameter("Onderwerp", entity.Onderwerp),
-        //        clsDAL.Parameter("BegunstigdenID", entity.BegunstigdeID),
-        //        clsDAL.Parameter("BudgetCategorieID", entity.BudgetCategorieID),
-        //        clsDAL.Parameter("Bijlage",entity.Bijlage != null ? (object)entity.Bijlage : DBNull.Value, SqlDbType.VarBinary),
-        //        clsDAL.Parameter("@ReturnValue", 0)) ;
+        }
+        public clsOverzichtModel GetFirst()
+        {
+            throw new NotImplementedException();
+        }
 
-        //    if (!OK)
-        //    {
-        //        entity.ErrorBoodschap = Boodschap;  
-        //    }
-        //    return OK;
-        //}
+        public clsOverzichtModel Find()
+        {
+            throw new NotImplementedException();
+        }
 
-        //public bool Update(clsTransactieModel entity)
-        //{
-        //    (DataTable DT, bool OK, string Boodschap) =
-        //        clsDAL.ExecuteDataTable(Properties.Resources.U_BudgetTransaction,
-        //        clsDAL.Parameter("BudgetTransactionID", entity.BudgetTransactionID),
-        //        clsDAL.Parameter("IsUitgaven", entity.IsUitgaven),
-        //        clsDAL.Parameter("Bedrag", entity.Bedrag),
-        //        clsDAL.Parameter("Datum", entity.Datum),
-        //        clsDAL.Parameter("Onderwerp", entity.Onderwerp),
-        //        clsDAL.Parameter("BegunstigdenID", entity.BegunstigdeID),
-        //        clsDAL.Parameter("BudgetCategorieID", entity.BudgetCategorieID),
-        //        clsDAL.Parameter("Bijlage", entity.Bijlage != null ? (object)entity.Bijlage : DBNull.Value, SqlDbType.VarBinary),
-        //        clsDAL.Parameter("ControlField", entity.ControlField),
-        //        clsDAL.Parameter("@ReturnValue", 0));
-
-        //    if (!OK)
-        //    {
-        //        entity.ErrorBoodschap = Boodschap;
-        //    }
-        //    return OK;
-        //}
+        public ObservableCollection<clsOverzichtModel> GetAll()
+        {
+            throw new NotImplementedException();
+        }
 
     }
 }

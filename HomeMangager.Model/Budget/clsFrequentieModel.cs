@@ -44,7 +44,28 @@ namespace HomeManager.Model.Budget
                     OnPropertyChanged();
                 }
             }
+        }
 
+        private int _aantalDagen;
+        public int  AantalDagen
+        {
+            get
+            {
+                return _aantalDagen;
+            }
+            set
+            {
+                if ( _aantalDagen != value)
+                {
+                    if (_aantalDagen != null)
+                    {
+                        //IsDirty = true;
+                    }
+                    
+                }
+                _aantalDagen = value;
+                OnPropertyChanged();
+            }
         }
 
         public override string ToString()

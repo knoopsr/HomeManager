@@ -71,23 +71,51 @@
                     <RowDefinition Height="auto" />
                     <RowDefinition Height="*" />
                     <RowDefinition Height="*" />
-
                 </Grid.RowDefinitions>
+
+                <StackPanel
+                    Grid.Row="1"
+                    Grid.Column="1"
+                    HorizontalAlignment="Left"
+                    Orientation="Horizontal">
+                    <TextBox
+                        Width="150"
+                        Margin="5"
+                        HorizontalAlignment="Right"
+                        Text="{Binding FilterTekst, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                    <Button Command="{Binding cmdFilter}" Cursor="Hand">
+                        <Button.Template>
+                            <ControlTemplate>
+                                <Border Background="{StaticResource myBackground}">
+
+                                    <Path
+                                        Width="20"
+                                        Height="20"
+                                        Margin="5"
+                                        Data="{StaticResource myFilterButton}"
+                                        Fill="{StaticResource myTitleBar}"
+                                        Stretch="Fill" />
+
+                                </Border>
+                            </ControlTemplate>
+                        </Button.Template>
+                    </Button>
+                </StackPanel>
 
                 <ListBox
                     Name="Frequentie"
-                    Grid.Row="1"
+                    Grid.Row="2"
                     Grid.RowSpan="5"
                     Grid.Column="1"
                     Width="150"
-                    Margin="5"
+                    Margin="5,2,0,2"
+                    HorizontalAlignment="Left"
                     Foreground="#024f87"
-                    ItemsSource="{Binding MijnCollectie}"
-                    SelectedIndex="{Binding MijnSelectedItem.MijnSelectedIndex, Mode=Twoway}"
-                    SelectedItem="{Binding MijnSelectedItem, UpdateSourceTrigger=PropertyChanged}" />
+                    ItemsSource="{Binding GefilterdeCollectie}"
+                    SelectedItem="{Binding MijnSelectedItem, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 
                 <Label
-                    Grid.Row="1"
+                    Grid.Row="2"
                     Grid.Column="3"
                     HorizontalAlignment="Right"
                     HorizontalContentAlignment="Right"
@@ -95,7 +123,7 @@
                     Foreground="#024f87" />
                 <TextBox
                     x:Name="txtFrequentie"
-                    Grid.Row="1"
+                    Grid.Row="2"
                     Grid.Column="4"
                     Width="200"
                     Margin="5"
@@ -103,6 +131,21 @@
                     Foreground="#024f87"
                     Text="{Binding MijnSelectedItem.Frequentie, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" />
 
+                <Label
+                    Grid.Row="3"
+                    Grid.Column="3"
+                    HorizontalAlignment="Right"
+                    HorizontalContentAlignment="Right"
+                    Content="Aantal Dagen" />
+
+                <TextBox
+                    x:Name="txtAantalDagen"
+                    Grid.Row="3"
+                    Grid.Column="4"
+                    Width="200"
+                    Margin="5"
+                    Background="White"
+                    Text="{Binding MijnSelectedItem.AantalDagen, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" />
 
             </Grid>
         </Border>

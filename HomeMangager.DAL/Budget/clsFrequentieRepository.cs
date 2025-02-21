@@ -57,6 +57,7 @@ namespace HomeManager.DAL.Budget
                 {
                     FrequentieID = (int)MijnDataReader["FrequentieID"],
                     Frequentie = MijnDataReader["Frequentie"].ToString(),
+                    AantalDagen = (int)MijnDataReader["AantalDagen"],
                     ControlField = MijnDataReader["ControlField"]
 
                 };
@@ -89,6 +90,7 @@ namespace HomeManager.DAL.Budget
             (DataTable DT, bool OK, string Boodschap) =
                 clsDAL.ExecuteDataTable(Properties.Resources.I_Frequentie,
                 clsDAL.Parameter("Frequentie", entity.Frequentie),
+                clsDAL.Parameter("AantalDagen", entity.AantalDagen),
                 clsDAL.Parameter("@ReturnValue", 0));
 
             if (!OK)
@@ -104,6 +106,7 @@ namespace HomeManager.DAL.Budget
                 clsDAL.ExecuteDataTable(Properties.Resources.U_Frequentie,
                 clsDAL.Parameter("FrequentieID", entity.FrequentieID),
                 clsDAL.Parameter("Frequentie", entity.Frequentie),
+                clsDAL.Parameter("AantalDagen", entity.AantalDagen),
                 clsDAL.Parameter("ControlField", entity.ControlField),
                 clsDAL.Parameter("@ReturnValue", 0));
 

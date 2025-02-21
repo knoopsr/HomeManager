@@ -10,87 +10,78 @@ namespace HomeManager.Model.Budget
 {
     public class clsOverzichtModel : clsCommonModelPropertiesBase
     {
-        private int _budgetTransactionID;
+        private int _jaar;
+        
 
-        public int BudgetTransactionID
+        public int Jaar
         {
-            get
-            {
-                return _budgetTransactionID;
-            }
+            get { return _jaar; }
             set
             {
-                _budgetTransactionID = value;
-                OnPropertyChanged();
-            }
-        }
-
-        private bool? _isUitgaven;
-
-        public bool? IsUitgaven
-        {
-            get
-            {
-                return _isUitgaven;
-            }
-            set
-            {
-                if (_isUitgaven != null)
+                if (_jaar != value)
                 {
-                    if (_isUitgaven != value)
-                    {
-                        IsDirty = true;
-                    }
+                    _jaar = value;
+                    OnPropertyChanged(nameof(Jaar));
                 }
-
-                _isUitgaven = value;
-                OnPropertyChanged();
             }
         }
 
-        private decimal? _bedrag;
-
-        public decimal? Bedrag
+        private string _maand;
+        
+        public string Maand
         {
-            get
+            get { return _maand; }
+            set
             {
-                return _bedrag.HasValue ? Math.Round(_bedrag.Value, 2) : (decimal?)null;
-
+                if (_maand != value)
+                {
+                    _maand = value;
+                    OnPropertyChanged(nameof(Maand));
+                }
             }
+        }
+        private string _begunstigde;
+        
+
+        public string Begunstigde
+        {
+            get { return _begunstigde; }
+            set
+            {
+                if (_begunstigde != value)
+                {
+                    _begunstigde = value;
+                    OnPropertyChanged(nameof(Begunstigde));
+                }
+            }
+        }
+        private string _budgetCategorie;
+        
+        public string BudgetCategorie
+        {
+            get { return _budgetCategorie; }
+            set
+            {
+                if (_budgetCategorie != value)
+                {
+                    _budgetCategorie = value;
+                    OnPropertyChanged(nameof(BudgetCategorie));
+                }
+            }
+        }
+
+        private decimal _bedrag;
+
+        public decimal Bedrag
+        {
+            get { return _bedrag; }
             set
             {
                 if (_bedrag != value)
                 {
-                    if (_bedrag != null)
-                    {
-                        IsDirty = true;
-                    }
+                    _bedrag = value;
+                    OnPropertyChanged(nameof(Bedrag));
                 }
-                _bedrag = value;
-                OnPropertyChanged();
-            }
-        }
-
-        private DateOnly _datum;
-
-        public DateOnly Datum
-        {
-            get
-            {
-                return _datum;
-            }
-            set
-            {
-
-                if (_datum != DateOnly.MinValue)
-                {
-                    if (_datum != value)
-                    {
-                        IsDirty = true;
-                    }
-                }
-                _datum = value;
-                OnPropertyChanged();
             }
         }
 
@@ -98,135 +89,24 @@ namespace HomeManager.Model.Budget
 
         public string Onderwerp
         {
-            get
-            {
-                return _onderwerp;
-            }
+            get { return _onderwerp; }
             set
             {
                 if (_onderwerp != value)
                 {
-                    if (_onderwerp != null)
-                    {
-                        IsDirty = true;
-                    }
+                    _onderwerp = value;
+                    OnPropertyChanged(nameof(Onderwerp));
                 }
-                _onderwerp = value;
-                OnPropertyChanged();
             }
         }
 
-        private int _begunstigdeID;
-        public int BegunstigdeID
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected virtual void OnPropertyChanged(string propertyName = null)
         {
-            get
-            {
-                return _begunstigdeID;
-            }
-            set
-            {
-                if (_begunstigdeID != value)
-                {
-                    if (_begunstigdeID != 0)
-                    {
-                        IsDirty = true;
-                    }
-
-                }
-                _begunstigdeID = value;
-                OnPropertyChanged();
-
-            }
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
-
-        private string _begunstigde;
-        public string Begunstigde
-        {
-            get
-            {
-                return _begunstigde;
-            }
-            set
-            {
-                if (_begunstigde != value)
-                {
-                    if (_begunstigde != null)
-                    {
-                        IsDirty = true;
-                    }
-
-                }
-                _begunstigde = value;
-                OnPropertyChanged();
-            }
-
-        }
-
-        private int _budgetCategorieID;
-        public int BudgetCategorieID
-        {
-            get
-            {
-                return _budgetCategorieID;
-            }
-            set
-            {
-                if (_budgetCategorieID != value)
-                {
-                    if (_budgetCategorieID != 0)
-                    {
-                        IsDirty = true;
-                    }
-
-                }
-                _budgetCategorieID = value;
-                OnPropertyChanged();
-            }
-        }
-
-        private string _budgetCategorie;
-
-        public string BudgetCategorie
-        {
-
-            get
-            {
-                return _budgetCategorie;
-            }
-
-            set
-            {
-                if (_budgetCategorie != value)
-                {
-                    if (_budgetCategorie != null)
-                    {
-                        IsDirty = true;
-                    }
-                }
-
-                _budgetCategorie = value;
-                OnPropertyChanged();
-            }
-        }
-
-        private byte[] _bijlage;
-
-        public byte[] Bijlage
-        {
-            get
-            {
-                return _bijlage;
-            }
-            set
-            {
-                _bijlage = value;
-                OnPropertyChanged();
-            }
-
-        }
-
-       
-
     }
+}
 
- }
+ 
