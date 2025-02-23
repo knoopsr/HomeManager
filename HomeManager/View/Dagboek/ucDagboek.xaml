@@ -271,13 +271,15 @@
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="auto" />
                                     <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="auto" />
+                                    <ColumnDefinition Width="auto" />
                                 </Grid.ColumnDefinitions>
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="*" />
                                     <RowDefinition Height="*" />
                                 </Grid.RowDefinitions>
 
-                                <Label>Letter fond</Label>
+                                <Label FontFamily="{Binding MyRTBLayout.SelectedFond, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">Letter fond</Label>
 
                                 <ComboBox
                                     x:Name="cboMyFonds"
@@ -306,6 +308,35 @@
                                         </i:EventTrigger>
                                     </i:Interaction.Triggers>
                                 </ComboBox>
+
+                                <RibbonButton 
+                                    Content="{StaticResource SuperScript}"
+                                    Command="{Binding cmdSetSuperScript}"
+                                    CommandParameter="{Binding ElementName=MyRTB}"
+                                    Style="{StaticResource myRibbonButton}"
+                                    Grid.Column="2"/>
+
+                                <RibbonButton 
+                                    Content="{StaticResource SubScript}"
+                                    Command="{Binding cmdSetSubScript}"
+                                    CommandParameter="{Binding ElementName=MyRTB}"
+                                    Style="{StaticResource myRibbonButton}"
+                                    Grid.Column="3"/>
+
+                                <RibbonButton 
+                                    Content="{StaticResource IncreaseLetterSize}"
+                                    Style="{StaticResource myRibbonButton}"
+                                    Command="{Binding cmdIncreaseTextSize}"
+                                    Grid.Column="2"
+                                    Grid.Row="1"/>
+
+                                <RibbonButton 
+                                    Content="{StaticResource DecreaseLetterSize}"
+                                    Style="{StaticResource myRibbonButton}"
+                                    Command="{Binding cmdDecreaseTextSize}"
+                                    Grid.Column="3"
+                                    Grid.Row="1"/>
+
                             </Grid>
                         </RibbonGroup>
 
@@ -328,21 +359,35 @@
                                     Grid.Row="0"
                                     Grid.Column="0"
                                     Content="{StaticResource TextAlignLeft}"
+                                    Command="{Binding cmdSetTextAlignmentLeft}"
+                                    CommandParameter="{Binding ElementName=MyRTB}"
+                                    IsChecked="{Binding MyRTBLayout.IsLeftTextAlignment, Mode=OneWay}"
                                     Style="{StaticResource myToggleButton}" />
+                                
                                 <RibbonToggleButton
                                     Grid.Row="0"
                                     Grid.Column="1"
                                     Content="{StaticResource TextAlignCenter}"
+                                    Command="{Binding cmdSetTextAlignmentCenter}"
+                                    CommandParameter="{Binding ElementName=MyRTB}"
+                                    IsChecked="{Binding MyRTBLayout.IsCenterTextAlignment, Mode=OneWay}"
                                     Style="{StaticResource myToggleButton}" />
+                                
                                 <RibbonToggleButton
                                     Grid.Row="0"
                                     Grid.Column="2"
                                     Content="{StaticResource TextAlignRight}"
+                                    Command="{Binding cmdSetTextAlignmentRight}"
+                                    CommandParameter="{Binding ElementName=MyRTB}"
+                                    IsChecked="{Binding MyRTBLayout.IsRightTextAlignment, Mode=OneWay}"
                                     Style="{StaticResource myToggleButton}" />
                                 <RibbonToggleButton
                                     Grid.Row="0"
                                     Grid.Column="3"
                                     Content="{StaticResource TextAlignFill}"
+                                    Command="{Binding cmdSetTextAlignmentJustify}"
+                                    CommandParameter="{Binding ElementName=MyRTB}"
+                                    IsChecked="{Binding MyRTBLayout.IsJustifyTextAlignment, Mode=OneWay}"
                                     Style="{StaticResource myToggleButton}" />
                                 <RibbonToggleButton
                                     Grid.Row="1"
@@ -368,8 +413,15 @@
 
                         <!--  groep5  -->
                         <RibbonGroup Header="hoofding">
-                            <RibbonToggleButton Content="{StaticResource ListIcon_Squares}" Style="{StaticResource myToggleButton}" />
-                            <RibbonToggleButton Content="{StaticResource ListIcon_Numbers}" Style="{StaticResource myToggleButton}" />
+                            <RibbonButton Content="{StaticResource ListIcon_Squares}" 
+                                          Style="{StaticResource myRibbonButton}" 
+                                          Command="{Binding cmdCreateBullets}"
+                                          CommandParameter="{Binding ElementName=MyRTB}"
+                                                />
+                            <RibbonButton Content="{StaticResource ListIcon_Numbers}" 
+                                          Command="{Binding cmdCreateNumbering}"
+                                          CommandParameter="{Binding ElementName=MyRTB}"
+                                          Style="{StaticResource myRibbonButton}" />
 
                         </RibbonGroup>
 
@@ -388,6 +440,7 @@
                         Margin="2"
                         Background="LightGray"
                         ItemsSource="{Binding MijnCollectie}"
+                        SelectedItem="{Binding MySelectedItem, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                         SelectedIndex="-1">
                         <i:Interaction.Behaviors>
                             <behaviors:clsDagboekListboxSelectionChangedBehavior TargetRichTextBox="{Binding ElementName=MyRTB}" />
@@ -398,6 +451,7 @@
                         x:Name="MyRTB"
                         Grid.Column="1"
                         Margin="2">
+                        
                         <i:Interaction.Behaviors>
                             <behaviors:clsRichTextBoxSelectionBehavior Layout="{Binding MyRTBLayout}" />
                         </i:Interaction.Behaviors>

@@ -87,6 +87,8 @@ namespace HomeManager.ViewModel
             cmdClose = new clsCustomCommand(Execute_Close_Command, CanExecute_Close_Command);
             cmdTest = new clsCustomCommand(Execute_Test, CanExecute_Test);
             UpdateRichTextBoxCommand = new clsCustomCommand(UpdateRichTextBox, CanExecute_UpdateRTB);
+            cmdDecreaseTextSize = new clsCustomCommand(DecreaseTextSize, CanDecreaseTextSize);
+            cmdIncreaseTextSize = new clsCustomCommand(IncreaseTextSize, CanIncreaseTextSize);
 
             //relaycommands for the layout
             cmdSetFontWeight = new clsRelayCommand(SetFontWeight);
@@ -97,6 +99,16 @@ namespace HomeManager.ViewModel
             cmdSetBackgroundToText = new clsRelayCommand(SetBackgroundToText);
             cmdSetFondSize = new clsRelayCommand(SetFondSize);
             cmdSetFondFamily = new clsRelayCommand(SetFondFamily);
+            cmdSetSubScript = new clsRelayCommand(SetSubScript);
+            cmdSetSuperScript = new clsRelayCommand(SetSuperScript);
+            cmdSetTextAlignmentLeft = new clsRelayCommand(SetTextAlignmentLeft);
+            cmdSetTextAlignmentRight = new clsRelayCommand(SetTextAlignmentRight);
+            cmdSetTextAlignmentCenter = new clsRelayCommand(SetTextAlignmentCenter);
+            cmdSetTextAlignmentJustify = new clsRelayCommand(SetTextAlignmentJustify);
+            cmdCreateBullets = new clsRelayCommand(CreateBullets);
+            cmdCreateNumbering = new clsRelayCommand(CreateNumbering); //moet ik deze meegeven aan database?
+
+            //AplicationCommands
             cmdCut = ApplicationCommands.Cut;
             cmdCopy = ApplicationCommands.Copy;
             CmdPaste = ApplicationCommands.Paste;
@@ -131,6 +143,128 @@ namespace HomeManager.ViewModel
                 
             }
 
+        }
+
+        //dit gaat nooit niet goedkomen.als iemand een nummer verwijderd kan ik heel moeilijk zoeken achter welk nummer weg is en hoe ik al
+        //de nummers moet corrigeren...
+        private void CreateNumbering(object? obj)
+        {
+            RichTextBox rtb = obj as RichTextBox;
+            if (rtb != null)
+            {
+                var selection = rtb.Selection;
+                var paragraph = selection.Start.Paragraph;
+                if (paragraph != null)
+                {
+                    var list = new List { MarkerStyle = TextMarkerStyle.Decimal };
+                    list.ListItems.Add(new ListItem(paragraph));
+                    rtb.Document.Blocks.Add(list);
+                }
+            }
+        }
+
+        private void CreateBullets(object? obj)
+        {
+            RichTextBox rtb = obj as RichTextBox;
+            if (rtb != null)
+            {
+                var selection = rtb.Selection;
+                var paragraph = selection.Start.Paragraph;
+                if (paragraph != null)
+                {
+                    var list = new List { MarkerStyle = TextMarkerStyle.Box };
+                    list.ListItems.Add(new ListItem(paragraph));
+                    rtb.Document.Blocks.Add(list);
+                }
+            }
+        }
+
+        private void SetTextAlignmentJustify(object? obj)
+        {
+            RichTextBox rtb = obj as RichTextBox;
+            if (rtb != null)
+            {
+                TextRange range = rtb.Selection;
+                MyRTBLayout.SetTextAlignmentToSelection(range, TextAlignment.Justify);
+            }
+        }
+
+        private void SetTextAlignmentCenter(object? obj)
+        {
+            RichTextBox rtb = obj as RichTextBox;
+            if (rtb != null)
+            {
+                TextRange range = rtb.Selection;
+                MyRTBLayout.SetTextAlignmentToSelection(range, TextAlignment.Center);
+            }
+        }
+
+        private void SetTextAlignmentRight(object? obj)
+        {
+            RichTextBox rtb = obj as RichTextBox;
+            if (rtb != null)
+            {
+                TextRange range = rtb.Selection;
+                MyRTBLayout.SetTextAlignmentToSelection(range, TextAlignment.Right);
+            }
+        }
+
+        private void SetTextAlignmentLeft(object? obj)
+        {
+            RichTextBox rtb = obj as RichTextBox;
+            if (rtb != null)
+            {
+                TextRange range = rtb.Selection;
+                MyRTBLayout.SetTextAlignmentToSelection(range, TextAlignment.Left);
+            }
+        }
+
+        private void SetSuperScript(object? obj)
+        {
+            RichTextBox rtb = obj as RichTextBox;
+            if (rtb != null)
+            {
+                TextRange range = rtb.Selection;
+                MyRTBLayout.SetSelectionToSuperscript(range);
+            }
+        }
+
+        private void SetSubScript(object? obj)
+        {
+            RichTextBox rtb = obj as RichTextBox;
+            if (rtb != null)
+            {
+                TextRange range = rtb.Selection;
+                MyRTBLayout.SetSelectionToSubscript(range);
+            }
+        }
+
+        private bool CanIncreaseTextSize(object? obj)
+        {
+            if (MyRTBLayout.IsBiggestFondSize)
+            {
+                return false;
+            }
+            return true;
+        }
+
+        private bool CanDecreaseTextSize(object? obj)
+        {
+            if (MyRTBLayout.IsSmallestFondSize)
+            {
+                return false;
+            }
+            return true;
+        }
+
+        private void IncreaseTextSize(object? obj)
+        {
+            MyRTBLayout.MyFondSize++;
+        }
+
+        private void DecreaseTextSize(object? obj)
+        {
+            MyRTBLayout.MyFondSize--;
         }
 
         private void SetFondFamily(object? obj)
@@ -264,22 +398,38 @@ namespace HomeManager.ViewModel
         public ICommand cmdClose { get; set; }
         public ICommand cmdTest { get; set; }
         public ICommand UpdateRichTextBoxCommand { get; }
+        public ICommand cmdIncreaseTextSize {  get; set; }
+        public ICommand cmdDecreaseTextSize { get; set; }
 
         //relaycommands
         public ICommand cmdSetFontWeight {  get; set; }
         public ICommand cmdSetUnderline { get; set; }
         public ICommand cmdToggleItalic { get; set; }
         public ICommand cmdToggleStrikeTrough { get; set; }
+        
+        public ICommand cmdSetForegroundToText { get; set; }
+        public ICommand cmdSetBackgroundToText { get; set; }
+        public ICommand cmdSetFondFamily { get; set; }
+        public ICommand cmdSetFondSize { get; set; }
+        public ICommand cmdSetSuperScript { get; set; }
+        public ICommand cmdSetSubScript { get; set; }
+        public ICommand cmdSetTextAlignmentLeft { get; set; }
+        public ICommand cmdSetTextAlignmentRight { get; set; }
+        public ICommand cmdSetTextAlignmentCenter { get; set; }
+        public ICommand cmdSetTextAlignmentJustify { get; set; }
+        public ICommand cmdCreateBullets { get; set; }
+        public ICommand cmdCreateNumbering { get; set; }
+
+        //aplicationCommands
         public ICommand cmdCut { get; set; }
         public ICommand cmdCopy { get; set; }
         public ICommand CmdPaste { get; set; }
         public ICommand cmdUndo { get; set; }
         public ICommand cmdRedo { get; set; }
-        public ICommand cmdSetForegroundToText { get; set; }
-        public ICommand cmdSetBackgroundToText { get; set; }
-        public ICommand cmdSetFondFamily { get; set; }
-        public ICommand cmdSetFondSize { get; set; }
+       
         #endregion
+
+
 
         #region Command CanExecutes
         private bool CanExecute_UpdateRTB(object? obj)

@@ -201,4 +201,22 @@
   <data name="U_Dagboek" xml:space="preserve">
     <value>U_Dagboek</value>
   </data>
+  <data name="I_ButtonLog" xml:space="preserve">
+    <value>I_ButtonLog</value>
+  </data>
+  <data name="S_ButtonLogsByAccountId" xml:space="preserve">
+    <value>S_ButtonLogsByAccountId</value>
+  </data>
+  <data name="S_ButtonLogsByActionName" xml:space="preserve">
+    <value>S_ButtonLogsByActionName</value>
+  </data>
+  <data name="S_ButtonLogsByActionTarget" xml:space="preserve">
+    <value>S_ButtonLogsByActionTarget</value>
+  </data>
+  <data name="S_ButtonLogsByDate" xml:space="preserve">
+    <value>S_ButtonLogsByDate</value>
+  </data>
+  <data name="S_ButtonLogsFirst1000" xml:space="preserve">
+    <value>S_ButtonLogsFirst1000</value>
+  </data>
 </root>

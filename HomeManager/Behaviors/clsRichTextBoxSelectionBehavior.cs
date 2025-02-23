@@ -37,6 +37,10 @@ namespace HomeManager.Behaviors
 
         private void OnSelectionChanged(object sender, RoutedEventArgs e)
         {
+            if (!Layout.SelectionChangedIsEnabled)
+            {
+                return;
+            }
             if (Layout != null)
             {
                 TextRange range = AssociatedObject.Selection;

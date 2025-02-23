@@ -42,9 +42,5 @@ namespace HomeManager.Model.Dagboek
 			return DateCreated.ToLongDateString();
 		}
 
-		private void ConvertToRTF()
-		{
-		}
-
 	}
 }

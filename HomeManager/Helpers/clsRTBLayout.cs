@@ -14,6 +14,7 @@ using System.Windows.Controls;
 using System.Windows.Documents;
 using System.Windows.Documents.DocumentStructures;
 using System.Windows.Media;
+using System.Windows.Media.TextFormatting;
 using System.Xml.Linq;
 
 namespace HomeManager.Helpers
@@ -31,7 +32,13 @@ namespace HomeManager.Helpers
 			GetColorsFromSelectionChanged(range);
 			MyFondSize = ReturnFontSizeFromSelectionChanged(range);
 			SelectedFond = GetFontFamilyFromSelection(range);
+			MyTextAlignment = GetTextAlignmentFromSelection(range);
+			//MyTypographyVariant = GetTypographyFromSelection(range);
+			//UpdateTypographyFromSelection(range);
 		}
+
+		//deze bool kan ik gebruiken om mijn selectionchanged af te zetten
+		public bool SelectionChangedIsEnabled = true;
 
 		#region Bold
 		private FontWeight _myFontWeight = FontWeights.Regular;
@@ -372,7 +379,7 @@ namespace HomeManager.Helpers
 		}
 		#endregion
 
-		#region TextFont
+		#region TextFont and TextSize
 		private FontFamily _selectedFond;
 
 		public FontFamily SelectedFond
@@ -480,8 +487,250 @@ namespace HomeManager.Helpers
 			range.ApplyPropertyValue(TextElement.FontFamilyProperty, SelectedFond);
 		}
 
+        #endregion
+
+        #region SubScript & SupperScript
+        //private BaselineAlignment _currentBaseline = BaselineAlignment.Baseline;
+
+        //public void UpdateTypographyFromSelection(TextRange range)
+        //{
+        //    object safetyObject = range.GetPropertyValue(Inline.BaselineAlignmentProperty);
+        //    if (safetyObject is BaselineAlignment alignment)
+        //    {
+        //        _currentBaseline = alignment;
+        //    }
+        //    else
+        //    {
+        //        _currentBaseline = BaselineAlignment.Baseline; // Default to normal
+        //    }
+
+        //    // Notify UI that the buttons need to be updated
+        //    OnPropertyChanged(nameof(IsSubscript));
+        //    OnPropertyChanged(nameof(IsSuperscript));
+        //}
+
+        //public bool IsSubscript
+        //{
+        //    get
+        //    {
+        //        return _currentBaseline == BaselineAlignment.Subscript;
+        //    }
+        //}
+
+        //public bool IsSuperscript
+        //{
+        //    get
+        //    {
+        //        return _currentBaseline == BaselineAlignment.Superscript;
+        //    }
+        //}
+
+  //      public FontVariants GetTypographyFromSelection (TextRange range)
+		//{
+		//	object safetyObject = range.GetPropertyValue(Typography.VariantsProperty);
+		//	if (safetyObject is FontVariants variant )
+		//	{
+		//		return variant;
+		//	}
+		//	return MyTypographyVariant;
+		//}
+
+		//public void SetSelectionToSubscript(TextRange range)
+		//{
+		//	//als subscript al aanstaat zetten we dit uit
+		//	if (MyTypographyVariant == FontVariants.Subscript)
+		//	{
+  //              range.ApplyPropertyValue(Typography.VariantsProperty, FontVariants.Normal);
+  //          }
+		//	else
+		//	{
+  //              range.ApplyPropertyValue(Typography.VariantsProperty, FontVariants.Subscript);
+  //          }
+  //          MyTypographyVariant = GetTypographyFromSelection(range);
+  //      }
+
+		//public void SetSelectionToSupperScript(TextRange range)
+		//{
+		//	//als supperscript al aanstaat zetten we dit uit
+		//	if (MyTypographyVariant == FontVariants.Superscript)
+		//	{
+		//		range.ApplyPropertyValue(Typography.VariantsProperty, FontVariants.Normal);
+		//	}
+		//	else
+		//	{
+		//		range.ApplyPropertyValue(Typography.VariantsProperty, FontVariants.Superscript);
+		//	}
+		//	MyTypographyVariant = GetTypographyFromSelection(range);
+		//}
+
+        public void SetSelectionToSubscript(TextRange range)
+        {
+            if (range.IsEmpty) return; // Don't apply formatting to an empty selection
+
+            object currentBaseline = range.GetPropertyValue(Inline.BaselineAlignmentProperty);
+
+            if (currentBaseline is BaselineAlignment alignment && alignment == BaselineAlignment.Subscript)
+            {
+                // Reset to normal text
+                range.ApplyPropertyValue(Inline.BaselineAlignmentProperty, BaselineAlignment.Baseline);
+                range.ApplyPropertyValue(TextElement.FontSizeProperty, MyFondSize); // Reset font size
+            }
+            else
+            {
+                // Apply subscript formatting
+                range.ApplyPropertyValue(Inline.BaselineAlignmentProperty, BaselineAlignment.Subscript);
+                range.ApplyPropertyValue(TextElement.FontSizeProperty, MyFondSize - 2); // Adjust font size for subscript effect
+            }
+        }
+
+        public void SetSelectionToSuperscript(TextRange range)
+        {
+            if (range.IsEmpty) return; // Don't apply formatting to an empty selection
+
+            object currentBaseline = range.GetPropertyValue(Inline.BaselineAlignmentProperty);
+
+            if (currentBaseline is BaselineAlignment alignment && alignment == BaselineAlignment.Superscript)
+            {
+                // Reset to normal text (Baseline)
+                range.ApplyPropertyValue(Inline.BaselineAlignmentProperty, BaselineAlignment.Baseline);
+                range.ApplyPropertyValue(TextElement.FontSizeProperty, MyFondSize); // Reset font size
+            }
+            else
+            {
+                // Apply superscript formatting
+                range.ApplyPropertyValue(Inline.BaselineAlignmentProperty, BaselineAlignment.Superscript);
+                range.ApplyPropertyValue(TextElement.FontSizeProperty, MyFondSize - 2); // Adjust font size for superscript effect
+            }
+        }
+
 		#endregion
 
+		#region AlineaOpmaak
+		private TextAlignment? _myTextAlignment = TextAlignment.Left;
+
+		public TextAlignment? MyTextAlignment
+		{
+			get { return _myTextAlignment; }
+			set 
+			{ 
+				_myTextAlignment = value;
+				OnPropertyChanged();
+				OnPropertyChanged(nameof(IsLeftTextAlignment));
+				OnPropertyChanged(nameof(IsRightTextAlignment));
+				OnPropertyChanged(nameof(IsCenterTextAlignment));
+				OnPropertyChanged(nameof(IsJustifyTextAlignment));
+			}
+		}
+		
+		public bool IsLeftTextAlignment
+		{
+			get
+			{
+				if (MyTextAlignment == TextAlignment.Left)
+				{
+					return true;
+				}
+				return false;
+			}
+		}
+
+		public bool IsRightTextAlignment
+		{
+			get
+			{
+				if (MyTextAlignment == TextAlignment.Right)
+				{
+					return true;
+				}
+				return false;
+			}
+		}
+
+		public bool IsCenterTextAlignment
+		{
+			get
+			{
+				if (MyTextAlignment == TextAlignment.Center)
+				{
+					return true;
+				}
+				return false;
+			}
+		}
+
+		public bool IsJustifyTextAlignment
+		{
+			get
+			{
+				if (MyTextAlignment == TextAlignment.Justify)
+				{
+					return true;
+				}
+				return false;
+			}
+		}
+
+		public TextAlignment? GetTextAlignmentFromSelection(TextRange range)
+		{
+			if (range.IsEmpty)
+			{
+				return null;
+			}
+			else
+			{
+				var myParagraph = range.Start.Paragraph;
+				return myParagraph.TextAlignment;
+			}
+		}
+
+		public void SetTextAlignmentToSelection(TextRange range, TextAlignment alignment)
+		{
+            var paragraph = range.Start.Paragraph;
+			if (paragraph == null) return;
+
+            switch (alignment)
+			{
+				case TextAlignment.Right:
+					MyTextAlignment = TextAlignment.Right;
+					paragraph.TextAlignment = (TextAlignment)MyTextAlignment;
+					break;
+
+				case TextAlignment.Center:
+					MyTextAlignment = TextAlignment.Center;
+                    paragraph.TextAlignment = (TextAlignment)MyTextAlignment;
+                    break;
+
+				case TextAlignment.Justify:
+					MyTextAlignment = TextAlignment.Justify;
+                    paragraph.TextAlignment = (TextAlignment)MyTextAlignment;
+					paragraph.Inlines.Add(new LineBreak()); //justify werkt aleen met meerdere regels.
+                    break;
+
+				default:
+					MyTextAlignment = TextAlignment.Left;
+                    paragraph.TextAlignment = (TextAlignment)MyTextAlignment;
+                    break;
+
+			}
+		}
+
+
+		private double _myTextIndentation = 0;
+
+		public double MyTextIndentation
+		{
+			get { return _myTextIndentation = 0; }
+			set 
+			{ 
+				_myTextIndentation = value;
+				OnPropertyChanged();
+			}
+		}
+
+		#endregion
+
+		#region Opsommingen
+		#endregion
 
 
 
