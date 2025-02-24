@@ -31,9 +31,11 @@ namespace HomeManager.DAL.Dagboek
                         DagboekId = (int)row[0],
                         PersoonID = (int)row[1],
                         DateCreated = (DateTime)row[2],
-                        DagboekContentString = (string)row[3],
+                        MyRTFString = (string)row[3],
                         ControlField = row[4] as object
                     };
+                    
+                    obj.DagboekContentString = obj.MyRTFString;
                     mijnCollectie.Add(obj);
                 }
             }
@@ -71,7 +73,7 @@ namespace HomeManager.DAL.Dagboek
         {
             (DataTable? DT, bool ok, string boodschap) = clsDAL.ExecuteDataTable(Properties.Resources.I_Dagboek,
                                                                                  clsDAL.Parameter("@PersoonID", entity.PersoonID),
-                                                                                 clsDAL.Parameter("@DagboekNotitie", entity.DagboekContentString),
+                                                                                 clsDAL.Parameter("@DagboekNotitie", entity.MyRTFString),
                                                                                  clsDAL.Parameter("@User", Environment.UserName),
                                                                                  clsDAL.Parameter("ReturnValue", 0)
                                                                                  );
@@ -81,9 +83,9 @@ namespace HomeManager.DAL.Dagboek
 
         public bool Update(clsDagboekModel entity)
         {
-            (DataTable? DT, bool ok, string boodschap) = clsDAL.ExecuteDataTable(Properties.Resources.I_Dagboek,
+            (DataTable? DT, bool ok, string boodschap) = clsDAL.ExecuteDataTable(Properties.Resources.U_Dagboek,
                                                                                  clsDAL.Parameter("@DagboekID", entity.DagboekId),
-                                                                                 clsDAL.Parameter("@DagboekNotitie", entity.DagboekContentString),
+                                                                                 clsDAL.Parameter("@DagboekNotitie", entity.MyRTFString),
                                                                                  clsDAL.Parameter("@User", Environment.UserName),
                                                                                  clsDAL.Parameter("@ControlField", entity.ControlField),
                                                                                  clsDAL.Parameter("ReturnValue", 0)

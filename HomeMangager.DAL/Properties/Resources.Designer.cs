@@ -313,6 +313,24 @@ namespace HomeManager.DAL.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to I_ButtonLog.
+        /// </summary>
+        internal static string I_ButtonLog {
+            get {
+                return ResourceManager.GetString("I_ButtonLog", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to I_Dagboek.
+        /// </summary>
+        internal static string I_Dagboek {
+            get {
+                return ResourceManager.GetString("I_Dagboek", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to I_Persoon.
         /// </summary>
         internal static string I_Persoon {
@@ -489,6 +507,60 @@ namespace HomeManager.DAL.Properties {
         internal static string S_LockedUsers {
             get {
                 return ResourceManager.GetString("S_LockedUsers", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to S_ButtonLogsByAccountId.
+        /// </summary>
+        internal static string S_ButtonLogsByAccountId {
+            get {
+                return ResourceManager.GetString("S_ButtonLogsByAccountId", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to S_ButtonLogsByActionName.
+        /// </summary>
+        internal static string S_ButtonLogsByActionName {
+            get {
+                return ResourceManager.GetString("S_ButtonLogsByActionName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to S_ButtonLogsByActionTarget.
+        /// </summary>
+        internal static string S_ButtonLogsByActionTarget {
+            get {
+                return ResourceManager.GetString("S_ButtonLogsByActionTarget", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to S_ButtonLogsByDate.
+        /// </summary>
+        internal static string S_ButtonLogsByDate {
+            get {
+                return ResourceManager.GetString("S_ButtonLogsByDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to S_ButtonLogsFirst1000.
+        /// </summary>
+        internal static string S_ButtonLogsFirst1000 {
+            get {
+                return ResourceManager.GetString("S_ButtonLogsFirst1000", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to S_Dagboek.
+        /// </summary>
+        internal static string S_Dagboek {
+            get {
+                return ResourceManager.GetString("S_Dagboek", resourceCulture);
             }
         }
         
@@ -687,6 +759,15 @@ namespace HomeManager.DAL.Properties {
         internal static string U_LockedUsers {
             get {
                 return ResourceManager.GetString("U_LockedUsers", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to U_Dagboek.
+        /// </summary>
+        internal static string U_Dagboek {
+            get {
+                return ResourceManager.GetString("U_Dagboek", resourceCulture);
             }
         }
         
