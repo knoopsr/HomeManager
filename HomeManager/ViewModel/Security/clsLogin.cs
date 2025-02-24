@@ -13,7 +13,6 @@ using System.Configuration;
 using System.Windows;
 using System.Windows.Input;
 using System.Xml;
-using HomeManager.Mail;
 
 namespace HomeManager.ViewModel
 {
@@ -29,7 +28,7 @@ namespace HomeManager.ViewModel
         public ICommand cmdAnnuleer { get; set; }
         public ICommand cmdClose { get; set; }
 
-        private string _login ;
+        private string _login;
         public string Login
         {
             get { return _login; }
@@ -62,6 +61,10 @@ namespace HomeManager.ViewModel
             cmdAnnuleer = new clsCustomCommand(Execute_annuleer_Command, CanExecute_annuleer_Command);
             cmdClose = new clsCustomCommand(Execute_close_Command, CanExecute_close_Command);
             clsMessenger.Default.Register<clsUpdatePassWordMessages>(this, OnUpdatePassWord);
+
+            Wachtwoord = string.Empty;
+
+
         }
         private void OnUpdatePassWord(clsUpdatePassWordMessages obj)
         {
@@ -105,29 +108,18 @@ namespace HomeManager.ViewModel
         {
             _loginModel = MijnService.GetByLogin(Login, Wachtwoord);
 
-            if (_loginModel.AccountID !=0)
-            {        
+            if (_loginModel.AccountID != 0)
+            {
                 if (_loginModel.IsNew)
                 {
                     _objHome = obj;
                     clsMessenger.Default.Send<clsLoginModel>(_loginModel);
-                    HomeManager.Agenda.Helpers.clsMessenger.Default.Send<clsLoginModel>(_loginModel);
                     _dialogService.ShowNewPassWordView();
                 }
                 else
                 {
                     OpenMainWindow(obj);
                 }
-
-
-                clsMailModel _itemToInsert = new clsMailModel()
-                {
-                    MailToEmail = "test@test.com",
-                    MailToName = _loginModel.VoorNaam,
-                    Subject = "Login",
-                    Body = "Login: " + _loginModel.Naam + " is ingelogd",
-                };
-                clsMail.SendEmail(_itemToInsert);
             }
             else
             {
@@ -149,7 +141,7 @@ namespace HomeManager.ViewModel
                             MailToName = "HomeManager Admin",
                             MailFromEmail = "admin@HomeManager.be",
                             MailToEmail = email.Emailadres,
-                            Subject = "Gebruiker " + Login  + " is geblokkeerd",
+                            Subject = "Gebruiker " + Login + " is geblokkeerd",
                             Body = "Het systeem heeft de gebruiker <b>" + Login + "</b> geblokeerd op " + DateTime.Now + " . <br />"
                             + "De gebruiker heeft te vaak een foutief wachtwoord ingegeven. <br />"
                             + "Gelieve de gebruiker te deblokkeren in het systeem. <br />"
@@ -173,8 +165,9 @@ namespace HomeManager.ViewModel
 
         private void OpenMainWindow(object? obj)
         {
-            
+
             MainWindow mainWindow = new MainWindow();
+            mainWindow.WindowStartupLocation = WindowStartupLocation.CenterScreen;
             mainWindow.Show();
 
             clsMessenger.Default.Send<clsLoginModel>(_loginModel);

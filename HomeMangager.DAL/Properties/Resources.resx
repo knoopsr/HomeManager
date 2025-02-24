@@ -345,4 +345,13 @@
   <data name="I_Adressen" xml:space="preserve">
     <value>I_Adressen</value>
   </data>
+  <data name="S_Dagboek" xml:space="preserve">
+    <value>S_Dagboek</value>
+  </data>
+  <data name="D_Dagboek" xml:space="preserve">
+    <value>D_Dagboek</value>
+  </data>
+  <data name="I_Dagboek" xml:space="preserve">
+    <value>I_Dagboek</value>
+  </data>
 </root>
