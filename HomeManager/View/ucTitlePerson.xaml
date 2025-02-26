@@ -35,8 +35,8 @@
                         CommandParameter="{Binding PlacementTarget, RelativeSource={RelativeSource AncestorType=ContextMenu}}"
                         Header="Afmelden" />
                     <MenuItem Header="Mijn Info" />
-                    <MenuItem Command="{Binding cmdUnLockUser}" Header="Ontgrendel een computer" />
-                    <MenuItem Command="{Binding cmdBackup}" Header="Back-up maken" />
+                    <MenuItem Command="{Binding cmdUnLockUser}" CommandParameter="{Binding}" Header="Ontgrendel een computer" />
+                    <MenuItem Command="{Binding cmdBackup}" CommandParameter="{Binding}" Header="Back-up maken" />
                     <MenuItem Header="Logs raadplegen" />
                     <MenuItem Header="Exceptions raadplegen" />
                     <MenuItem Header="Exception emails beheren" />
