@@ -1,7 +1,10 @@
-﻿using HomeManager.Model.Security;
+﻿using HomeManager.DataService.Logging;
+using HomeManager.Model.Logging;
+using HomeManager.Model.Security;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -11,6 +14,9 @@ namespace HomeManager.Helpers
 {
     public class clsCustomCommand : ICommand
     {
+
+        clsButtonLoggingDataService MijnLoggingService;
+
         private Action<object?> _execute;
         private Predicate<object?> _canExecute;
 
@@ -18,6 +24,8 @@ namespace HomeManager.Helpers
         {
             this._execute = execute;
             this._canExecute = canExecute;
+
+            MijnLoggingService = new clsButtonLoggingDataService();
         }
 
         public bool CanExecute(object? parameter)
@@ -30,43 +38,30 @@ namespace HomeManager.Helpers
         {
             _execute(parameter);
 
+
+            //Hier word geen logging gedaan.
+            //Er is geen CommandParameter meegestuurd.
             if (parameter == null)
             {
-                // Als parameter null is, geef een melding
-                //MessageBox.Show("Parameter is null.");
+                MessageBox.Show("Geen Logging. Er word geen gebruik gemaakt van CommandParameter in de xamll.");
                 return;
             }
-            var thistype = _execute.GetType();
-            var thisproperties = thistype.GetProperties();
+  
 
-            string thisInfo = $"Type: {thistype.FullName}\n\nProperties:\n";
 
-            foreach (var property in thisproperties)
+            if (_execute is Delegate del)
             {
-                var value = property.GetValue(_execute);
-                thisInfo += $"{property.Name}: {value}\n";
-            }
-            thisInfo += clsLoginModel.Instance.AccountID;
+                string targetName = del.Target?.GetType().Name ?? "null";
+                string methodName = del.Method.Name;
 
-            // Toon de informatie in een TextBox (als voorbeeld een MessageBox)
-            var textBox = new System.Windows.Controls.TextBox
-            {
-                Text = thisInfo,
-                VerticalScrollBarVisibility = System.Windows.Controls.ScrollBarVisibility.Auto,
-                HorizontalScrollBarVisibility = System.Windows.Controls.ScrollBarVisibility.Auto,
-                TextWrapping = System.Windows.TextWrapping.Wrap,
-                Width = 400,
-                Height = 300
-            };
-
-            // Maak een nieuw venster om de TextBox weer te geven
-            //var window = new System.Windows.Window
-            //{
-            //    Title = "Parameter Info",
-            //    Content = textBox,
-            //    SizeToContent = System.Windows.SizeToContent.WidthAndHeight
-            //};
-            //window.ShowDialog();
+        
+                MijnLoggingService.Insert(new clsButtonLoggingModel()
+                {
+                    AccountId = clsLoginModel.Instance.AccountID,
+                    ActionName = methodName,
+                    ActionTarget = targetName
+                });
+            }       
 
         }
 
