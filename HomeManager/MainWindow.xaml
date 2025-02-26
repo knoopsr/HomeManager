@@ -286,6 +286,7 @@
             Grid.Column="0"
             Grid.ColumnSpan="2"
             Command="{Binding cmdMenu}"
+            CommandParameter="{Binding}"
             IsChecked="True"
             Style="{StaticResource myHamburgerMenu}" />
 

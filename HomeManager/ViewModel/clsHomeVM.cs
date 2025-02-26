@@ -1,12 +1,9 @@
 using HomeManager.Common;
+using HomeManager.DataService.Logging;
 using HomeManager.Helpers;
-using HomeManager.Messages;
+using HomeManager.Model.Logging;
 using HomeManager.Model.Personen;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using HomeManager.Model.Security;
 using System.Windows;
 using System.Windows.Input;
 
@@ -16,6 +13,9 @@ namespace HomeManager.ViewModel
     {
 
         public ICommand cmdMenu { get; }
+        clsButtonLoggingDataService MijnLoggingService;
+
+
 
 
         private clsBindableBase _currentViewModel;
@@ -27,6 +27,7 @@ namespace HomeManager.ViewModel
             }
             set
             {
+
                 SetProperty(ref _currentViewModel, value);
             }
         }
@@ -124,7 +125,9 @@ namespace HomeManager.ViewModel
         public clsHomeVM()
         {
             NavCommand = new clsRelayCommand<string>(OnNav);
-                    cmdMenu = new clsCustomCommand(Execute_cmdMenu_Command, CanExecute_cmdMenu_Command);
+            cmdMenu = new clsCustomCommand(Execute_cmdMenu_Command, CanExecute_cmdMenu_Command);
+
+            MijnLoggingService = new clsButtonLoggingDataService();
 
             clsMessenger.Default.Register<clsPersoonModel>(this, OnNewPersonenReceive);
         }
@@ -139,7 +142,7 @@ namespace HomeManager.ViewModel
                 }
             }
 
-    
+
         }
 
         private void Execute_cmdMenu_Command(object? obj)
@@ -153,20 +156,30 @@ namespace HomeManager.ViewModel
                 IsTodoExpanderMenu = false;
                 IsSecurityExpanderMenu = false;
                 IsStickyNotesExpanderMenu = false;
-            }    
+            }
         }
 
         private bool CanExecute_cmdMenu_Command(object? obj)
         {
-            return true;    
+            return true;
 
         }
 
         private void OnNav(string destination)
         {
+            //Logging van de buttonklik
+
+            MijnLoggingService.Insert(new clsButtonLoggingModel()
+            {
+                AccountId = clsLoginModel.Instance.AccountID,
+                ActionName = "MenuKnop",
+                ActionTarget = destination
+            });
+
+
             clsPermissionChecker permissionChecker = new clsPermissionChecker();
 
-            if(permissionChecker.PermissionViewmodel(destination))
+            if (permissionChecker.PermissionViewmodel(destination))
             {
                 var type = this.GetType();
                 var match = type.Assembly.GetTypes().FirstOrDefault(t => t.Name == destination);
@@ -176,7 +189,7 @@ namespace HomeManager.ViewModel
                     var instance = Activator.CreateInstance(t) as clsBindableBase;
                     CurrentViewModel = instance;
                 }
-            } 
+            }
             else
             {
                 MessageBox.Show("U heeft geen toegang tot deze pagina");

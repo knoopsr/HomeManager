@@ -117,11 +117,13 @@
                         Margin="3"
                         Padding="5,0,5,0"
                         Command="{Binding cmdAnnuleer}"
+                        CommandParameter="{Binding}"
                         Content="Annuleren" />
                     <Button
                         Margin="3"
                         Padding="5,0,5,0"
                         Command="{Binding cmdClose}"
+                        CommandParameter="{Binding}"
                         Content="Sluiten" />
                 </StackPanel>
 
