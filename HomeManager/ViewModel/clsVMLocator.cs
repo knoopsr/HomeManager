@@ -1,5 +1,6 @@
 using HomeManager.Model.Personen;
 using HomeManager.ViewModel;
+using HomeManager.ViewModel.Logging;
 using HomeManager.ViewModel.Security;
 using System;
 using System.Collections.Generic;
@@ -211,5 +212,16 @@ namespace HomeManager.ViewModel
             }
 
         }
+
+        #region Logging
+
+        public clsButtonLoggingViewModel ButtonLoggingViewModel
+        {
+            get
+            {
+                return new clsButtonLoggingViewModel();
+            }
+        }
+        #endregion
     }
 }
