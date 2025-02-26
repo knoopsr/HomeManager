@@ -72,7 +72,11 @@ namespace HomeManager.Helpers
             { "clsCredentialGroupViewModel", "200" },
             { "clsAccountViewModel", "200" },
 
-            {"clsDagboekViewModel", "300" }
+            {"clsDagboekViewModel", "300" },
+
+
+            {"clsUnLockViewModel","711"},
+            {"clsButtonLoggingViewModel","712"}
         };
 
 
