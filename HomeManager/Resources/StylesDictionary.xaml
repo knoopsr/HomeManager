@@ -682,6 +682,7 @@
                 <Setter Property="Background" Value="White" />
             </Trigger>
         </Style.Triggers>
+    </Style>
 
     <!--  Thomas personen style  -->
     <Style x:Key="TitleBarText" TargetType="TextBlock">

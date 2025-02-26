@@ -321,14 +321,6 @@ namespace HomeManager.DAL.Properties {
             }
         }
         
-        /// <summary>
-        ///   Looks up a localized string similar to I_Dagboek.
-        /// </summary>
-        internal static string I_Dagboek {
-            get {
-                return ResourceManager.GetString("I_Dagboek", resourceCulture);
-            }
-        }
         
         /// <summary>
         ///   Looks up a localized string similar to I_Persoon.
@@ -555,14 +547,6 @@ namespace HomeManager.DAL.Properties {
             }
         }
         
-        /// <summary>
-        ///   Looks up a localized string similar to S_Dagboek.
-        /// </summary>
-        internal static string S_Dagboek {
-            get {
-                return ResourceManager.GetString("S_Dagboek", resourceCulture);
-            }
-        }
         
         /// <summary>
         ///   Looks up a localized string similar to S_Login.

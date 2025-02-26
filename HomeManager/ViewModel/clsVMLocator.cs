@@ -11,6 +11,7 @@ namespace HomeManager.ViewModel
 {
     public class clsVMLocator
     {
+        #region Personen
         private static clsPersoonViewModel _persoonViewModel = new clsPersoonViewModel();
 
         public clsPersoonViewModel PersoonViewModel
