@@ -320,7 +320,7 @@ namespace HomeManager.DAL.Properties {
                 return ResourceManager.GetString("I_ButtonLog", resourceCulture);
             }
         }
-                
+
         /// <summary>
         ///   Looks up a localized string similar to I_Persoon.
         /// </summary>
@@ -545,7 +545,7 @@ namespace HomeManager.DAL.Properties {
                 return ResourceManager.GetString("S_ButtonLogsFirst1000", resourceCulture);
             }
         }
-                
+
         /// <summary>
         ///   Looks up a localized string similar to S_Login.
         /// </summary>
