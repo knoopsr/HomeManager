@@ -88,21 +88,22 @@
                     VerticalAlignment="Center"
                     Content="Wachtwoord" />
 
-                <TextBox
+                <PasswordBox
                     x:Name="txtWachtwoord"
                     Grid.Row="2"
                     Grid.Column="2"
                     Width="150"
                     Height="18"
-                    Text="{Binding Wachtwoord, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
-                    <TextBox.InputBindings>
+                    Helpers:clsPasswordHelper.BoundPassword="{Binding Wachtwoord, Mode=TwoWay}"
+                   Helpers:clsPasswordHelper.Attach="True"
+                    >
+                    <PasswordBox.InputBindings>
                         <KeyBinding
                             Key="Enter"
                             Command="{Binding cmdLogin}"
-                              CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=Window}}"
-                            />
-                    </TextBox.InputBindings>
-                </TextBox>
+                            CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=Window}}" />
+                    </PasswordBox.InputBindings>
+                </PasswordBox>
 
 
 

@@ -42,6 +42,8 @@ namespace HomeManager.ViewModel
             }
         }
 
+
+
         private ObservableCollection<clsBackupModel> _mijnBackupCollectie;
         public ObservableCollection<clsBackupModel> MijnBackupCollectie
         {
@@ -158,7 +160,7 @@ namespace HomeManager.ViewModel
 
             winLogin _winLogin = new winLogin();
             _winLogin.WindowStartupLocation = WindowStartupLocation.CenterScreen;
-            _winLogin.txtWachtwoord.Text = string.Empty;
+           _winLogin.txtWachtwoord.Password = "";
             _winLogin.Show();
 
 
