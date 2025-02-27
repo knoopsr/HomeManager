@@ -157,7 +157,8 @@ namespace HomeManager.ViewModel
                         {
                             MessageBox.Show("Er is een fout opgetreden bij het versturen van de e-mail.");
                         }
-                    };
+                    }
+                    ;
                 }
                 MessageBox.Show(_loginModel.ErrorBoodschap);
             }

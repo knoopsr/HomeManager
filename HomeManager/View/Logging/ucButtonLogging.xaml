@@ -64,14 +64,9 @@
                 <DataGrid
                     x:Name="BudgetDataInkomsten"
                     Grid.Row="1"
-                    Grid.Column="1"
-                    
-                    MaxHeight="300"
-             
-             
-                    AutoGenerateColumns="False"
-                    BorderBrush="LightGreen"
-                    BorderThickness="4"
+                    Grid.Column="1"                    
+                    MaxHeight="300"           
+                    AutoGenerateColumns="False"  
                     ColumnWidth="*"
                     IsReadOnly="True"
                     ItemsSource="{Binding MijnCollectie}">
@@ -79,8 +74,7 @@
                         <DataGridTextColumn Binding="{Binding AccountName}" Header="Account" Width="auto" />
                         <DataGridTextColumn Binding="{Binding ActionName}" Header="Action" Width="auto" />
                         <DataGridTextColumn Binding="{Binding ActionTarget}" Header="Target" Width="auto" />
-                        <DataGridTextColumn Binding="{Binding LogTime}" Header="Datum Tijd" Width="auto" />
-              
+                        <DataGridTextColumn Binding="{Binding LogTime}" Header="Datum Tijd" Width="auto" />              
                     </DataGrid.Columns>
                     <DataGrid.Resources>
                         <Style TargetType="ScrollViewer">
@@ -90,14 +84,7 @@
                     </DataGrid.Resources>
                 </DataGrid>
 
-
-
-
-
-
             </Grid>
-
-
 
         </Border>
 
