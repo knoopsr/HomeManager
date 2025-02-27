@@ -94,7 +94,16 @@
                     Grid.Column="2"
                     Width="150"
                     Height="18"
-                    Text="{Binding Wachtwoord, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                    Text="{Binding Wachtwoord, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                    <TextBox.InputBindings>
+                        <KeyBinding
+                            Key="Enter"
+                            Command="{Binding cmdLogin}"
+                              CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=Window}}"
+                            />
+                    </TextBox.InputBindings>
+                </TextBox>
+
 
 
 
