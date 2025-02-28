@@ -3,13 +3,7 @@ using HomeManager.DataService.Logging;
 using HomeManager.Helpers;
 using HomeManager.Model.Logging;
 using HomeManager.Model.Security;
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
 using System.Windows.Input;
 
 namespace HomeManager.ViewModel.Logging
@@ -36,8 +30,50 @@ namespace HomeManager.ViewModel.Logging
             }
         }
 
+        private ObservableCollection<clsButtonLoggingModel> _mijnGefilterdeCollectie;
+        public ObservableCollection<clsButtonLoggingModel> MijnGefilterdeCollectie
+        {
+            get { return _mijnGefilterdeCollectie; }
+            set
+            {
+                _mijnGefilterdeCollectie = value;
+                OnPropertyChanged();
+            }
+        }
 
-        public clsButtonLoggingViewModel() 
+        private ObservableCollection<clsAccountModel> _mijnAccounten;
+        public ObservableCollection<clsAccountModel> MijnAccounten
+        {
+            get { return _mijnAccounten; }
+            set
+            {
+                _mijnAccounten = value;
+                OnPropertyChanged();
+            }
+        }
+
+
+
+        private clsAccountModel _selectedAccount;
+        public clsAccountModel SelectedAccount
+        {
+            get => _selectedAccount;
+            set
+            {
+                _selectedAccount = value;
+                OnPropertyChanged();
+
+                FilterData();
+            }
+        }
+
+
+
+
+
+
+
+        public clsButtonLoggingViewModel()
         {
             MijnService = new clsButtonLoggingDataService();
 
@@ -53,7 +89,41 @@ namespace HomeManager.ViewModel.Logging
         private void LoadData()
         {
             MijnCollectie = MijnService.GetAll();
+
+            // Unieke accounts ophalen
+            var uniekeAccounts = MijnCollectie
+                .Select(x => new clsAccountModel { AccountID = x.AccountId, AccountName = x.AccountName })
+                .DistinctBy(x => x.AccountID) // Alleen unieke AccountID's
+                .ToList();
+
+            // ❗ Voeg een speciale "Alle Accounts" optie toe
+            var alleAccountsOptie = new clsAccountModel { AccountID = 0, AccountName = "-- Alle Accounts --" };
+            uniekeAccounts.Insert(0, alleAccountsOptie);
+
+            // Koppel de lijst aan de ObservableCollection
+            MijnAccounten = new ObservableCollection<clsAccountModel>(uniekeAccounts);
+
+            // ❗ Standaard "-- Alle Accounts --" selecteren
+            SelectedAccount = alleAccountsOptie;
         }
+
+
+
+        private void FilterData()
+        {
+            if (SelectedAccount != null)
+            {
+                if (SelectedAccount.AccountID == 0) // ❗ Controleer op AccountID = 0
+                {
+                    MijnCollectie = MijnService.GetAll();
+                }
+                else
+                {
+                    MijnCollectie = MijnService.GetAllByAccountId(SelectedAccount.AccountID);
+                }
+            }
+        }
+
 
 
         #region Command Methods
@@ -67,7 +137,7 @@ namespace HomeManager.ViewModel.Logging
         {
             MainWindow HomeWindow = obj as MainWindow;
             if (HomeWindow != null)
-            {  
+            {
                 clsHomeVM vm = (clsHomeVM)HomeWindow.DataContext;
                 vm.CurrentViewModel = null;
             }

@@ -94,9 +94,8 @@
                     Grid.Column="2"
                     Width="150"
                     Height="18"
-                    Helpers:clsPasswordHelper.BoundPassword="{Binding Wachtwoord, Mode=TwoWay}"
-                   Helpers:clsPasswordHelper.Attach="True"
-                    >
+                    Helpers:clsPasswordHelper.Attach="True"
+                    Helpers:clsPasswordHelper.BoundPassword="{Binding Wachtwoord, Mode=TwoWay}">
                     <PasswordBox.InputBindings>
                         <KeyBinding
                             Key="Enter"

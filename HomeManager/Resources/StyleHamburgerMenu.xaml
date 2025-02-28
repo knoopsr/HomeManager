@@ -760,7 +760,7 @@
                                 <Button
                                     Margin="10,0,0,0"
                                     Command="{Binding NavCommand}"
-                                    CommandParameter="clsPersoonViewModel"
+                                    CommandParameter="clsCredentialManagementViewModel"
                                     Content="Security"
                                     Style="{StaticResource myExpanderSecurity}" />
                             </StackPanel>
