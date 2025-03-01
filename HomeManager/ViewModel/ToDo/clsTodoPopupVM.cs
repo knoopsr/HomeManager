@@ -22,6 +22,7 @@ namespace HomeManager.ViewModel
     {
         clsTodoPopupDataService MijnService;
         clsAccountDataService MijnserviceGebruikers;
+        clsCollectiesDataService MijnServiceCollecties;
 
         private bool NewStatus = false;
         public ICommand cmdDelete { get; set; }
@@ -36,6 +37,7 @@ namespace HomeManager.ViewModel
         {
             MijnService = new clsTodoPopupDataService();
             MijnserviceGebruikers = new clsAccountDataService();
+            MijnServiceCollecties = new clsCollectiesDataService();
 
             cmdSave = new clsCustomCommand(Execute_SaveCommand, CanExecute_SaveCommand);
             cmdDelete = new clsCustomCommand(Execute_DeleteCommand, CanExecute_DeleteCommand);
@@ -43,13 +45,35 @@ namespace HomeManager.ViewModel
             cmdCancel = new clsCustomCommand(Execute_CancelCommand, CanExecute_CancelCommand);
             cmdClose = new clsCustomCommand(Execute_CloseCommand, CanExecute_CloseCommand);
 
-            clsMessenger.Default.Register<clsTodoPopupM>(this, OnCollectiesReceived);
+            //clsMessenger.Default.Register<clsTodoPopupM>(this, OnCollectiesReceived);
             OpenCollectiesCommand = new clsRelayCommand<object>(OpenCollecties);
             OpenAccountCommand = new clsRelayCommand<object>(OpenAccount);
 
 
             LoadData();
-            MijnSelectedItem = MijnService.GetFirst();
+            MijnSelectedItem = MijnService.GetFirst() ?? new clsTodoPopupM();
+
+            clsMessenger.Default.Register<clsCollectiesM>(this, OnCollectiesReceived);
+        }
+
+        private void OnCollectiesReceived(clsCollectiesM obj)
+        {
+            MijnSelectedCollectieItem = obj;
+            if (MijnSelectedItem != null)
+            {
+                MijnSelectedItem.TodoCollectieID = obj.ToDoCollectieID;
+                OnPropertyChanged(nameof(MijnSelectedItem));
+            }
+        }
+
+        public void SetDefaultCollectieItem(clsCollectiesM defaultItem)
+        {
+            MijnSelectedCollectieItem = defaultItem;
+            if (MijnSelectedItem != null)
+            {
+                MijnSelectedItem.TodoCollectieID = defaultItem.ToDoCollectieID;
+                OnPropertyChanged(nameof(MijnSelectedItem));
+            }
         }
 
         private void OpenCollecties(object parameter)
@@ -79,11 +103,11 @@ namespace HomeManager.ViewModel
         }
 
         // Implement INotifyPropertyChanged interface
-        public event PropertyChangedEventHandler PropertyChanged;
-        protected void OnPropertyChanged(string propertyName)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
+        //public event PropertyChangedEventHandler PropertyChanged;
+        //protected void OnPropertyChanged(string propertyName)
+        //{
+        //    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        //}
 
         private ObservableCollection<clsTodoPopupM> _MijnCollectie;
         public ObservableCollection<clsTodoPopupM> MijnCollectie
@@ -126,10 +150,61 @@ namespace HomeManager.ViewModel
             }
         }
 
+        //private void OpslaanCommando()
+        //{
+        //    if (MijnSelectedItem != null)
+        //    {
+        //        if (NewStatus)
+        //        {
+        //            if (MijnService.Insert(MijnSelectedItem))
+        //            {
+        //                MijnSelectedItem.IsDirty = false;
+        //                MijnSelectedItem.MijnSelectedIndex = 0;
+        //                MijnSelectedItem.MyVisibility = (int)Visibility.Visible;
+        //                NewStatus = false;
+        //                LoadData();
+        //            }
+        //            else
+        //            {
+        //                MessageBox.Show(MijnSelectedItem.ErrorBoodschap, "Error?");
+        //            }
+        //        }
+
+        //        else
+        //        {
+        //            if (MijnService.Update(MijnSelectedItem))
+        //            {
+
+
+        //                MijnSelectedItem.IsDirty = false;
+        //                MijnSelectedItem.MijnSelectedIndex = 0;
+        //                NewStatus = false;
+        //                LoadData();
+        //            }
+        //            else
+        //            {
+        //                MessageBox.Show(MijnSelectedItem.ErrorBoodschap, "Error?");
+        //            }
+        //        }
+        //    }
+        //}
+
         private void OpslaanCommando()
         {
             if (MijnSelectedItem != null)
             {
+                // Zorg ervoor dat TodoCollectieID en Volgorde niet null zijn
+                if (MijnSelectedItem.TodoCollectieID == null)
+                {
+                    MessageBox.Show("TodoCollectieID mag niet null zijn.", "Error");
+                    return;
+                }
+
+                if (MijnSelectedItem.Volgorde == null)
+                {
+                    MijnSelectedItem.Volgorde = 0; // Of een andere standaardwaarde
+                }
+
                 if (NewStatus)
                 {
                     if (MijnService.Insert(MijnSelectedItem))
@@ -145,13 +220,10 @@ namespace HomeManager.ViewModel
                         MessageBox.Show(MijnSelectedItem.ErrorBoodschap, "Error?");
                     }
                 }
-
                 else
                 {
                     if (MijnService.Update(MijnSelectedItem))
                     {
-
-
                         MijnSelectedItem.IsDirty = false;
                         MijnSelectedItem.MijnSelectedIndex = 0;
                         NewStatus = false;
@@ -165,11 +237,12 @@ namespace HomeManager.ViewModel
             }
         }
 
+
         private void LoadData()
         {
             MijnCollectie = MijnService.GetAll();
             MijnCollectieGebruikers = MijnserviceGebruikers.GetAll();
-
+            MijnCollectieCollecties = MijnServiceCollecties.GetAll();
         }
 
         private bool CanExecute_CloseCommand(object obj)
@@ -233,7 +306,7 @@ namespace HomeManager.ViewModel
                 //GebruikerID = 0, // Of een standaardwaarde als dat nodig is
                 GebruikerID = clsLoginModel.Instance.AccountID,
                 Belangrijk = false,
-                TodoCollectieID = null, // Of een standaardwaarde als dat nodig is
+                TodoCollectieID = MijnSelectedCollectieItem?.ToDoCollectieID, // Of een standaardwaarde als dat nodig is
                 TodoCategorieID = null, // Of een standaardwaarde als dat nodig is
                 TodoColorID = null, // Of een standaardwaarde als dat nodig is
                 IsKlaar = false,
@@ -305,10 +378,10 @@ namespace HomeManager.ViewModel
             OpslaanCommando();
         }
 
-        private void OnCollectiesReceived(clsTodoPopupM obj)
-        {
-            _MijnSelectedItem = obj;
-        }
+        //private void OnCollectiesReceived(clsTodoPopupM obj)
+        //{
+        //    _MijnSelectedItem = obj;
+        //}
 
         private int _gebruikerID;
         public int GebruikerID
@@ -347,17 +420,25 @@ namespace HomeManager.ViewModel
             }
             set
             {
-
                 _MijnSelectedGebruiker = MijnserviceGebruikers.GetById(clsLoginModel.Instance.AccountID);
-               //_MijnSelectedGebruiker = clsLoginModel.Instance.
-                //_MijnSelectedGebruiker.ToString();
                 OnPropertyChanged();
             }
         }
-        //public void SetTodoID(int todoID)
-        //{
-        //    clsTodoPopupM.Instance.TodoID = todoID;
-        //}
+
+        private ObservableCollection<clsCollectiesM> _MijnCollectieCollecties;
+        public ObservableCollection<clsCollectiesM> MijnCollectieCollecties
+        {
+            get
+            {
+                return _MijnCollectieCollecties;
+            }
+            set
+            {
+                _MijnCollectieCollecties = value;
+                OnPropertyChanged();
+            }
+        }
+
         private clsCollectiesM _MijnSelectedCollectieItem;
         public clsCollectiesM MijnSelectedCollectieItem
         {

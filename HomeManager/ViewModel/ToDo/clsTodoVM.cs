@@ -209,7 +209,7 @@ namespace HomeManager.ViewModel
 
             var todoPopupWindow = new Window
             {
-                Content = new ucTodoPopup(),
+                Content = new ucTodoPopup(MijnSelectedCollectieItem),
                 Title = "Todo Popup",
                 Width = 800,
                 Height = 450,
@@ -296,7 +296,7 @@ namespace HomeManager.ViewModel
 
             var todoPopupWindow = new Window
             {
-                Content = new ucTodoPopup(),
+                Content = new ucTodoPopup(MijnSelectedCollectieItem), //TODO: Constructor aanpassen dat hij de juiste todotem edit
                 Title = "Edit Todo",
                 Width = 800,
                 Height = 450
