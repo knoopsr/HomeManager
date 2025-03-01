@@ -102,7 +102,7 @@ namespace HomeManager.DAL.Todo.Popup
                 clsDAL.Parameter("Detail", entity.Detail),
                 clsDAL.Parameter("GebruikerID", entity.GebruikerID),
                 clsDAL.Parameter("Belangrijk", entity.Belangrijk),
-                clsDAL.Parameter("TodoCollectieID", entity.TodoCollectieID),
+                clsDAL.Parameter("TodoCollectieID", entity.TodoCollectieID ?? (object)DBNull.Value),
                 clsDAL.Parameter("TodoCategorieID", entity.TodoCategorieID),
                 clsDAL.Parameter("TodoColorID", entity.TodoColorID),
                 clsDAL.Parameter("IsKlaar", entity.IsKlaar),

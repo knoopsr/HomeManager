@@ -1,4 +1,7 @@
-﻿using System;
+﻿using HomeManager.Helpers;
+using HomeManager.Model.Todo;
+using HomeManager.ViewModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,9 +23,15 @@ namespace HomeManager.View
     /// </summary>
     public partial class ucTodoPopup : UserControl
     {
-        public ucTodoPopup()
+        public ucTodoPopup(clsCollectiesM todoCollectieItem)
         {
             InitializeComponent();
+
+            var viewModel = new clsTodoPopupVM();
+            DataContext = viewModel;
+
+            clsMessenger.Default.Send(todoCollectieItem);
+            viewModel.SetDefaultCollectieItem(todoCollectieItem);
         }
     }
 }

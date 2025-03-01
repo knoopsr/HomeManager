@@ -172,8 +172,10 @@
                         VerticalAlignment="Center"
                         DataContext="{Binding Source={StaticResource VML}, Path=CollectiesViewModel}"
                         ItemsSource="{Binding MijnCollectie}"
-                        SelectedValue="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Grid}}, Path=DataContext.MijnSelectedItem.TodoCollectieID, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
-                        SelectedValuePath="ToDoCollectieID" />
+                        SelectedValue="{Binding DataContext.MijnSelectedItem.TodoCollectieID, RelativeSource={RelativeSource AncestorType=UserControl}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
+                        SelectedValuePath="ToDoCollectieID"
+                        DisplayMemberPath="ToDoCollectie" />
+    
                     <Button Command="{Binding OpenCollectiesCommand}" Style="{StaticResource OpenUCButton}" />
 
                 </StackPanel>
