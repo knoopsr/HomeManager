@@ -78,7 +78,7 @@
             VerticalAlignment="Stretch"
             BorderBrush="Gray"
             BorderThickness="1"
-            ItemsSource="{Binding FilteredTodoItems, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+            ItemsSource="{Binding OnAfgehandeldeTodoItems, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
             SelectedItem="{Binding MijnSelectedItemTodoPopup, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
             Visibility="{Binding IsCollectieItemSelected, Converter={StaticResource BoolToVisibilityConverter}}">
             <ListView.ItemTemplate>
@@ -181,7 +181,7 @@
             </ListView.ItemTemplate>
         </ListView>
 
-        <Expander Grid.Column="1" Grid.Row="1" Header="Afgehandelde Todo Items" ExpandDirection="Up" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center" Background="LightGray">
+        <Expander Grid.Column="1" Grid.Row="1" Header="Afgehandelde Todo Items" ExpandDirection="Up" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center" Background="Transparent">
             <Expander.Style>
                 <Style TargetType="Expander">
                     <Setter Property="Height" Value="30"/>
@@ -195,18 +195,106 @@
                 </Style>
             </Expander.Style>
 
-            <ScrollViewer VerticalScrollBarVisibility="Hidden"  MaxHeight="200">
-                <StackPanel>
-                    <Label Content="test"/>
-                    <Label Content="test"/>
-                    <Label Content="test"/>
-                    <Label Content="test"/>
-                    <Label Content="test"/>
-                    <Label Content="test"/>
-                    <Label Content="test"/>
-                    <Label Content="test"/>
-                    
-                </StackPanel>
+            <ScrollViewer VerticalScrollBarVisibility="Hidden" MaxHeight="200">
+                <ItemsControl ItemsSource="{Binding AfgehandeldeTodoItems}">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <!-- Gebruik hetzelfde DataTemplate als in de ListView -->
+                            <Border
+                                Width="300"
+                                Padding="10"
+                                HorizontalAlignment="Stretch"
+                                VerticalAlignment="Stretch"
+                                Background="{Binding IsKlaar, Converter={StaticResource BoolToColorBrushConverter}, ConverterParameter=Background}"
+                                BorderBrush="{Binding IsKlaar, Converter={StaticResource BoolToColorBrushConverter}, ConverterParameter=Border}"
+                                BorderThickness="2"
+                                CornerRadius="5">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="Auto" />
+                                    </Grid.ColumnDefinitions>
+                                    <StackPanel Grid.Column="0" Orientation="Horizontal">
+                                        <Rectangle
+                                    Width="5"
+                                    Margin="5"
+                                    Fill="{Binding TodoColorID, Converter={StaticResource IntToBrushConverter}}" />
+                                        <StackPanel>
+                                            <TextBlock
+                                        FontSize="14"
+                                        FontWeight="Bold"
+                                        Foreground="Black"
+                                        Text="{Binding Onderwerp}" />
+                                            <TextBlock
+                                        FontSize="12"
+                                        Foreground="Gray"
+                                        Text="{Binding Detail}" />
+                                        </StackPanel>
+                                    </StackPanel>
+                                    <CheckBox
+                                x:Name="IsKlaarCbx"
+                                Grid.Column="1"
+                                Margin="5,0"
+                                VerticalAlignment="Center"
+                                IsChecked="{Binding IsKlaar, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                Command="{Binding Source={StaticResource VML}, Path=ToDoViewModel.IsKlaarCommand, UpdateSourceTrigger=PropertyChanged}"
+                                CommandParameter="{Binding}"
+                                ToolTip="Door dit aan te vinken is de Todo klaar" />
+                                    <Button
+                                x:Name="BelangrijkBtn"
+                                Grid.Column="2"
+                                Width="17"
+                                Height="17"
+                                Margin="5,0"
+                                HorizontalAlignment="Center"
+                                Command="{Binding Source={StaticResource VML}, Path=ToDoViewModel.BelangrijkCommand, UpdateSourceTrigger=PropertyChanged}"
+                                CommandParameter="{Binding}"
+                                Background="{Binding Belangrijk, Converter={StaticResource BoolToColorBrushConverter}, ConverterParameter=Belangrijk}"
+                                Style="{StaticResource BelangrijkButton}"
+                                ToolTip="Door dit aan te kliken wordt de todo item bovenaan in de lijst gezet" />
+                                    <Button
+                                x:Name="EditBtn"
+                                Grid.Column="3"
+                                Width="10"
+                                Height="10"
+                                Margin="5,0"
+                                VerticalAlignment="Center"
+                                Command="{Binding DataContext.EditTodoCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                CommandParameter="{Binding}"
+                                Style="{StaticResource EditTodoImage}"
+                                ToolTip="Todo aanpassen" />
+                                    <Button
+                                x:Name="DeleteBtn"
+                                Grid.Column="4"
+                                Width="10"
+                                Height="10"
+                                Margin="5,0"
+                                VerticalAlignment="Center"
+                                Command="{Binding DataContext.DeleteTodoCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                CommandParameter="{Binding}"
+                                Style="{StaticResource DeleteTodoImage}"
+                                ToolTip="Todo verwijderen" />
+                                    <Button
+                                x:Name="PaperclipBtn"
+                                Grid.Column="5"
+                                Width="8"
+                                Height="15"
+                                Margin="5,0"
+                                HorizontalAlignment="Right"
+                                VerticalAlignment="Center"
+                                Command="{Binding DataContext.OpenTodoBijlageCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                CommandParameter="{Binding}"
+                                Style="{StaticResource PaperclipTodoImage}"
+                                ToolTip="Bijlage toevoegen" />
+                                </Grid>
+                            </Border>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
             </ScrollViewer>
         </Expander>
 
