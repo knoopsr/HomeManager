@@ -33,6 +33,8 @@ namespace HomeManager.ViewModel
             MijnTodoDetails = MijnServiceTodoDetails.GetAll();
 
             FilteredTodoItems = new ObservableCollection<clsTodoPopupM>();
+            AfgehandeldeTodoItems = new ObservableCollection<clsTodoPopupM>();
+            OnAfgehandeldeTodoItems = new ObservableCollection<clsTodoPopupM>();
             IsCollectieItemSelected = false;
 
             OpenTodoPopupCommand = new clsRelayCommand<object>(param => OpenTodoPopup());
@@ -48,7 +50,7 @@ namespace HomeManager.ViewModel
             IsKlaarTodoDetailCommand = new clsRelayCommand<object>(param => OnIsKlaarTodoDetailClicked(param as clsTodoDetailsM));
 
             // Registreer om berichten te ontvangen
-            clsMessenger.Default.Register<clsCollectieAangemaaktMessage>(this, OnCollectieAangemaakt);
+            //clsMessenger.Default.Register<clsCollectieAangemaaktMessage>(this, OnCollectieAangemaakt);
         }
 
         //private void OnCollectieAangemaakt(clsCollectieAangemaaktMessage message)
@@ -56,13 +58,13 @@ namespace HomeManager.ViewModel
         //    // Voeg de nieuwe collectie toe aan de collectie
         //    MijnCollectie.Add(message.NieuweCollectie);
         //}
-        private void OnCollectieAangemaakt(clsCollectieAangemaaktMessage message)
-        {
-            Application.Current.Dispatcher.Invoke(() =>
-            {
-                MijnCollectie.Add(message.NieuweCollectie);
-            });
-        }
+        //private void OnCollectieAangemaakt(clsCollectieAangemaaktMessage message)
+        //{
+        //    Application.Current.Dispatcher.Invoke(() =>
+        //    {
+        //        MijnCollectie.Add(message.NieuweCollectie);
+        //    });
+        //}
 
 
         public clsTodoPopupVM TodoPopupViewModel { get; set; }
@@ -161,38 +163,6 @@ namespace HomeManager.ViewModel
                 OnPropertyChanged();
             }
         }
-
-
-
-        //private clsTodoPopupM _SelectedCollectieTodoPopup;
-        //public clsTodoPopupM SelectedCollectieTodoPopup
-        //{
-        //    get
-        //    {
-        //        return _SelectedCollectieTodoPopup;
-        //    }
-        //    set
-        //    {
-        //        _SelectedCollectieTodoPopup = value;
-        //        OnPropertyChanged();
-        //    }
-        //}
-
-        //private clsCollectiesM _MijnSelectedItem;
-        //public clsCollectiesM MijnSelectedItem
-        //{
-        //    get
-        //    {
-        //        return _MijnSelectedItem;
-        //    }
-        //    set
-        //    {
-        //        _MijnSelectedItem = value;
-        //        OnPropertyChanged();
-        //    }
-        //}
-
-
 
         public ICommand OpenTodoPopupCommand { get; }
 
@@ -428,11 +398,26 @@ namespace HomeManager.ViewModel
                 OnPropertyChanged();
             }
         }
-
         private void UpdateFilteredTodoItems(int todoCollectieID)
         {
-            FilteredTodoItems = new ObservableCollection<clsTodoPopupM>(
-                MijnCollectieTodoPopup.Where(item => item.TodoCollectieID == todoCollectieID).ToList());
+            var items = MijnCollectieTodoPopup.Where(item => item.TodoCollectieID == todoCollectieID).ToList();
+
+            AfgehandeldeTodoItems.Clear();
+            OnAfgehandeldeTodoItems.Clear();
+
+            foreach (var item in items)
+            {
+                if (item.IsKlaar)
+                {
+                    AfgehandeldeTodoItems.Add(item);
+                }
+                else
+                {
+                    OnAfgehandeldeTodoItems.Add(item);
+                }
+            }
+
+            FilteredTodoItems = new ObservableCollection<clsTodoPopupM>(items);
         }
 
         public ICommand BelangrijkCommand { get; }
@@ -473,10 +458,21 @@ namespace HomeManager.ViewModel
                 return;
             }
 
+            // Verplaats het item tussen de lijsten op basis van de IsKlaar waarde
+            if (todoItem.IsKlaar)
+            {
+                OnAfgehandeldeTodoItems.Remove(todoItem);
+                AfgehandeldeTodoItems.Add(todoItem);
+            }
+            else
+            {
+                AfgehandeldeTodoItems.Remove(todoItem);
+                OnAfgehandeldeTodoItems.Add(todoItem);
+            }
+
             // Update de database
             if (!MijnServiceTodoPopup.Update(todoItem))
             {
-                // Toon een foutmelding als de update mislukt
                 MessageBox.Show("Kon de waarde van IsKlaar niet bijwerken in de database.", "Fout", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
@@ -497,7 +493,26 @@ namespace HomeManager.ViewModel
             }
         }
 
+        private ObservableCollection<clsTodoPopupM> _afgehandeldeTodoItems; //TodoItems die Isklaar = true zijn
+        public ObservableCollection<clsTodoPopupM> AfgehandeldeTodoItems
+        {
+            get => _afgehandeldeTodoItems;
+            set
+            {
+                _afgehandeldeTodoItems = value;
+                OnPropertyChanged();
+            }
+        }
 
-
+        private ObservableCollection<clsTodoPopupM> _onAfgehandeldeTodoItems; //TodoItems die Isklaar = false zijn
+        public ObservableCollection<clsTodoPopupM> OnAfgehandeldeTodoItems
+        {
+            get => _onAfgehandeldeTodoItems;
+            set
+            {
+                _onAfgehandeldeTodoItems = value;
+                OnPropertyChanged();
+            }
+        }
     }
 }
