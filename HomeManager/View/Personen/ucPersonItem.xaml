@@ -5,6 +5,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:HomeManager.View.Personen"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:uc="clr-namespace:HomeManager.View"
     MinWidth="150"
     MinHeight="100"
     d:DesignHeight="100"
@@ -24,7 +25,7 @@
         BorderBrush="Blue"
         BorderThickness="1"
         CornerRadius="4">
-        <Grid>
+        <Grid DataContext="{Binding Source={StaticResource VML}, Path=PersoonViewModel}">
             <Border
                 Width="70"
                 Height="94"
@@ -34,8 +35,14 @@
                 BorderThickness="1"
                 CornerRadius="3"
                 Effect="{DynamicResource shadowEffect}">
+                <Border.Background>
+                    <ImageBrush ImageSource="{Binding MijnSelectedItem.Foto, TargetNullValue={x:Null}}" Stretch="UniformToFill" />
+                </Border.Background>
+
                 <!--<Border.Background>
-                    --><!--<ImageBrush ImageSource="\Images\person1.jpg" Stretch="UniformToFill" />--><!--
+                -->
+                <!--<ImageBrush ImageSource="\Images\person1.jpg" Stretch="UniformToFill" />-->
+                <!--
                 </Border.Background>-->
             </Border>
 
@@ -48,15 +55,15 @@
                     FontSize="12"
                     FontWeight="Bold"
                     Foreground="Black"
-                    Text="Peter" />
+                    Text="{Binding MijnSelectedItem.Naam, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnValidationError=true, ValidatesOnExceptions=True}" />
                 <TextBlock
                     FontSize="10"
                     Foreground="Black"
-                    Text="Ceulemans" />
+                    Text="{Binding MijnSelectedItem.Voornaam, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnValidationError=true, ValidatesOnExceptions=True}" />
                 <TextBlock
                     FontSize="8"
                     Foreground="Black"
-                    Text="03.11.2000" />
+                    Text="{Binding MijnSelectedDate.GeboorteDatum}" />
             </StackPanel>
 
             <StackPanel
@@ -64,10 +71,18 @@
                 HorizontalAlignment="Right"
                 VerticalAlignment="Top"
                 Orientation="Horizontal">
-                <Button Style="{StaticResource AddPersonImage}" ToolTip="Edit" />
+                <!--<Button
+                    Command="{Binding cmdNew}"
+                    CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}"
+                    Style="{StaticResource AddPersonImage}"
+                    ToolTip="Add"/>
                 <Button Style="{StaticResource EditPersonImage}" ToolTip="Edit" />
-                <Button Style="{StaticResource DeletePersonImage}" ToolTip="Delete" />
+                <Button Style="{StaticResource DeletePersonImage}" ToolTip="Delete" />-->
 
+                <uc:ucWerkBalk
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Top"
+                    Loaded="ucWerkBalk_Loaded" />
             </StackPanel>
 
 

@@ -17,23 +17,17 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="Properties\Connection.Designer.cs">
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Connection.settings</DependentUpon>
+    </Compile>
     <Compile Update="Properties\Resources.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Update="Properties\Connection.Designer.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Connection.resx</DependentUpon>
-    </Compile>
-    <Compile Update="Properties\Connection.Designer.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Connection.resx</DependentUpon>
-    </Compile>
   </ItemGroup>
-
 	<ItemGroup>
 		<None Update="Properties\Connection.settings">
 			<Generator>SettingsSingleFileGenerator</Generator>
@@ -41,13 +35,11 @@
 		</None>
 	</ItemGroup>
 
+
   <ItemGroup>
     <Folder Include="Dagboek\" />
     <Folder Include="Homepage\" />
     <Folder Include="StickyNotes\" />
-    <Folder Include="Security\" />
-    <Folder Include="Personen\" />
-
     <Folder Include="Todo\" />
   </ItemGroup>
 

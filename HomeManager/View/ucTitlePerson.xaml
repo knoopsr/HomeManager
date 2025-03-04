@@ -1,4 +1,4 @@
-﻿<UserControl
+<UserControl
     x:Class="HomeManager.View.ucTitlePerson"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -35,9 +35,18 @@
                         CommandParameter="{Binding PlacementTarget, RelativeSource={RelativeSource AncestorType=ContextMenu}}"
                         Header="Afmelden" />
                     <MenuItem Header="Mijn Info" />
-                    <MenuItem Header="Ontgrendel een computer" />
-                    <MenuItem Command="{Binding cmdBackup}" Header="Back-up maken" />
-                    <MenuItem Header="Logs raadplegen" />
+                    <MenuItem
+                        Command="{Binding cmdUnLockUser}"
+                        CommandParameter="{Binding}"
+                        Header="Ontgrendel een computer" />
+                    <MenuItem
+                        Command="{Binding cmdBackup}"
+                        CommandParameter="{Binding}"
+                        Header="Back-up maken" />
+                    <MenuItem
+                        Command="{Binding cmdLogs}"
+                        CommandParameter="{Binding}"
+                        Header="Logs raadplegen" />
                     <MenuItem Header="Exceptions raadplegen" />
                     <MenuItem Header="Exception emails beheren" />
                 </ContextMenu>

@@ -1,0 +1,128 @@
+﻿<UserControl
+    x:Class="HomeManager.View.ucTelefoonNummers"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:Converters="clr-namespace:HomeManager.Converter"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+    xmlns:local="clr-namespace:HomeManager.View"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:uc="clr-namespace:HomeManager.View"
+    d:DesignHeight="200"
+    d:DesignWidth="450"
+    Background="{StaticResource myBackground}"
+    mc:Ignorable="d">
+    <Grid DataContext="{Binding Source={StaticResource VML}, Path=TelefoonNummersViewModel}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <Border
+            Grid.Row="0"
+            Grid.ColumnSpan="5"
+            Background="{StaticResource myTitleBar}"
+            BorderBrush="LightBlue"
+            BorderThickness="2">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="auto" />
+                </Grid.ColumnDefinitions>
+                <StackPanel
+                    Margin="10,0,0,0"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Center"
+                    Orientation="Horizontal"
+                    Grid.Column="0">
+                    <Path
+                        Width="20"
+                        Height="20"
+                        Data="{StaticResource myPathSetting}"
+                        Fill="White"
+                        Stretch="Fill" />
+                    <TextBlock
+                        Style="{StaticResource TitleBarText}"
+                        Text="Telefoonnummer" />
+                </StackPanel>
+                <uc:ucWerkBalk 
+                    Grid.Column="1" 
+                    Margin="10,0,10,0" 
+                    VerticalAlignment="Top" />
+            </Grid>
+        </Border>
+
+        <Border
+            Grid.Row="1"
+            Grid.Column="0"
+            Margin="3"
+            BorderBrush="Black"
+            BorderThickness="1"
+            CornerRadius="5">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="auto" />
+                    <ColumnDefinition Width="auto" />
+                    <ColumnDefinition Width="150" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="35" />
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="50" />
+                </Grid.RowDefinitions>
+
+                <!--<ListBox
+                    Name="UserListView"
+                    Grid.Row="2"
+                    Grid.RowSpan="7"
+                    Grid.Column="1"
+                    Width="250"
+                    ItemsSource="{Binding MijnCollectie}"
+                    SelectedItem="{Binding MijnSelectedItem, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />-->
+
+                <TextBlock
+                    x:Name="tbNaam"
+                    Grid.Row="0"
+                    Grid.Column="3"
+                    Text="{Binding MijnSelectedPersoonItem, Mode=OneWay}" />
+
+                <TextBlock
+                    x:Name="Telefoonnummer"
+                    Grid.Row="2"
+                    Grid.Column="2"
+                    Margin="5"
+                    Text="Telefoonnummer"
+                    TextAlignment="Right" />
+                <TextBox
+                    x:Name="txtTelefoonnummer"
+                    Grid.Row="2"
+                    Grid.Column="3"
+                    Margin="5"
+                    Text="{Binding MijnSelectedItem.TelefoonNummer, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnValidationError=true, ValidatesOnExceptions=True}"
+                    TextWrapping="Wrap" />
+
+                <TextBlock
+                    x:Name="TelefoonType"
+                    Grid.Row="3"
+                    Grid.Column="2"
+                    Margin="5"
+                    Text="TelefoonType"
+                    TextAlignment="Right" />
+                <ComboBox
+                    x:Name="cboTelefoonType"
+                    Grid.Row="3"
+                    Grid.Column="3"
+                    Margin="5"
+                    DataContext="{Binding Source={StaticResource VML}, Path=TelefoonTypeViewModel}"
+                    DisplayMemberPath="TelefoonTypeDisplayName"
+                    ItemsSource="{Binding MijnCollectie}"
+                    SelectedValue="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Grid}}, Path=DataContext.MijnSelectedItem.TelefoonTypeID, Mode=TwoWay}"
+                    SelectedValuePath="TelefoonTypeID" />
+            </Grid>
+        </Border>
+    </Grid>
+</UserControl>

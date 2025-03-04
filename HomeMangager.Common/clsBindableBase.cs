@@ -24,5 +24,9 @@ namespace HomeManager.Common
         {
             PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
         }
+        protected virtual void OnPropertyChange([CallerMemberName] string propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
     }
 }

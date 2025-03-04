@@ -5,8 +5,10 @@
     xmlns:V="clr-namespace:HomeManager.View"
     xmlns:VM="clr-namespace:HomeManager.ViewModel"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
     xmlns:local="clr-namespace:HomeManager"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    x:Name="MainWIN"
     Title="MainWindow"
     Width="1000"
     Height="900"
@@ -18,8 +20,38 @@
 
 
     <Window.Resources>
-        <DataTemplate DataType="{x:Type VM:clsPersoonVM}">
+        <DataTemplate DataType="{x:Type VM:clsPersoonViewModel}">
             <V:ucPersoon />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type VM:clsFunctieViewModel}">
+            <V:ucFunctie />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type VM:clsEmailTypeViewModel}">
+            <V:ucEmailType />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type VM:clsTelefoonTypeViewModel}">
+            <V:ucTelefoonType />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type VM:clsLandViewModel}">
+            <V:ucLand />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type VM:clsProvincieViewModel}">
+            <V:ucProvincie />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type VM:clsGemeenteViewModel}">
+            <V:ucGemeente />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type VM:clsEmailAdressenViewModel}">
+            <V:ucEmailAdressen />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type VM:clsAdressenViewModel}">
+            <V:ucAdressen />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type VM:clsTelefoonNummersViewModel}">
+            <V:ucTelefoonNummers />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type VM:clsNotitiesViewModel}">
+            <V:ucNotities />
         </DataTemplate>
 
         <DataTemplate DataType="{x:Type VM:clsRechtenViewModel}">
@@ -34,14 +66,8 @@
         <DataTemplate DataType="{x:Type VM:clsAccountViewModel}">
             <V:ucAccount />
         </DataTemplate>
-        <DataTemplate DataType="{x:Type VM:clsCollectiesVM}">
-            <V:ucCollecties />
-        </DataTemplate>
-        <DataTemplate DataType="{x:Type VM:clsCategorieënVM}">
-            <V:ucCategorieën />
-        </DataTemplate>
-        <DataTemplate DataType="{x:Type VM:clsKleurenVM}">
-            <V:ucKleuren />
+        <DataTemplate DataType="{x:Type VM:clsPersonenViewModel}">
+            <V:ucPersonen />
         </DataTemplate>
         <DataTemplate DataType="{x:Type VM:clsCategorieViewModel}">
             <V:ucCategorie />
@@ -62,26 +88,6 @@
             <V:ucOverzicht />
         </DataTemplate>
 
-
-
-        <Storyboard x:Key="ShowMenu">
-            <DoubleAnimation
-                Storyboard.TargetName="HamburgerMenu"
-                Storyboard.TargetProperty="Width"
-                From="0"
-                To="200"
-                Duration="0:0:0.3" />
-        </Storyboard>
-
-
-        <Storyboard x:Key="HideMenu">
-            <DoubleAnimation
-                Storyboard.TargetName="HamburgerMenu"
-                Storyboard.TargetProperty="Width"
-                From="200"
-                To="0"
-                Duration="0:0:0.3" />
-        </Storyboard>
     </Window.Resources>
 
 
@@ -95,6 +101,7 @@
             <ColumnDefinition Width="auto" />
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
+
 
 
         <V:ucTitlePerson
@@ -124,46 +131,85 @@
             Width="200"
             HorizontalAlignment="Left"
             Background="#99024f87">
+            <Border.Style>
+                <Style>
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding IsMenuVisible, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Value="true">
+                            <DataTrigger.EnterActions>
+                                <BeginStoryboard Storyboard="{StaticResource ShowMenu}" />
+                            </DataTrigger.EnterActions>
+                            <DataTrigger.ExitActions>
+                                <BeginStoryboard Storyboard="{StaticResource HideMenu}" />
+                            </DataTrigger.ExitActions>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Border.Style>
 
             <Grid Width="200">
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="30" />
+                    <RowDefinition Height="40" />
                     <RowDefinition Height="*" />
                     <RowDefinition Height="20" />
                 </Grid.RowDefinitions>
-                <Path
-                    Width="30"
-                    Height="30"
-                    Margin="0,5,0,0"
-                    HorizontalAlignment="Center"
-                    Data="{StaticResource myPathHouse}"
-                    Fill="White" />
+
+                <Path Style="{StaticResource myHomeButtonMenu}" />
+
+
 
                 <StackPanel
                     Grid.Row="1"
                     Width="200"
                     HorizontalAlignment="Left"
                     Orientation="Vertical">
-                    <Expander Style="{StaticResource myHamburgerPersonen}">
+                    <Expander IsExpanded="{Binding IsPersonenExpanderMenu, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource myHamburgerPersonen}">
                         <StackPanel x:Name="stckPerson">
                             <Button
                                 Command="{Binding NavCommand}"
-                                CommandParameter="clsPersoonVM"
+                                CommandParameter="clsPersonenViewModel"
+                                Content="Personen"
+                                Style="{StaticResource myMenuTandwiel}" />
+                            <Button
+                                Command="{Binding NavCommand}"
+                                CommandParameter="clsPersoonViewModel"
                                 Content="Persoon"
                                 Style="{StaticResource myExpanderPerson}" />
-                            <Button Content="EmailType" Style="{StaticResource myMenuTandwiel}" />
-                            <Button Content="TelefoonType" Style="{StaticResource myMenuTandwiel}" />
-                            <Button Content="Land" Style="{StaticResource myMenuTandwiel}" />
-                            <Button Content="Provincie" Style="{StaticResource myMenuTandwiel}" />
-                            <Button Content="Gemeente" Style="{StaticResource myMenuTandwiel}" />
-                            <Button Content="Functies" Style="{StaticResource myMenuTandwiel}" />
+                            <Button
+                                Command="{Binding NavCommand}"
+                                CommandParameter="clsEmailTypeViewModel"
+                                Content="EmailType"
+                                Style="{StaticResource myMenuTandwiel}" />
+                            <Button
+                                Command="{Binding NavCommand}"
+                                CommandParameter="clsTelefoonTypeViewModel"
+                                Content="TelefoonType"
+                                Style="{StaticResource myMenuTandwiel}" />
+                            <Button
+                                Command="{Binding NavCommand}"
+                                CommandParameter="clsLandViewModel"
+                                Content="Land"
+                                Style="{StaticResource myMenuTandwiel}" />
+                            <Button
+                                Command="{Binding NavCommand}"
+                                CommandParameter="clsProvincieViewModel"
+                                Content="Provincie"
+                                Style="{StaticResource myMenuTandwiel}" />
+                            <Button
+                                Command="{Binding NavCommand}"
+                                CommandParameter="clsGemeenteViewModel"
+                                Content="Gemeente"
+                                Style="{StaticResource myMenuTandwiel}" />
+                            <Button
+                                Command="{Binding NavCommand}"
+                                CommandParameter="clsFunctieViewModel"
+                                Content="Functies"
+                                Style="{StaticResource myExpanderPerson}" /> 
                         </StackPanel>
                     </Expander>
 
-
                     <Button Content="Dagboek" Style="{StaticResource myExpanderDagboek}" />
 
-                    <Expander Style="{StaticResource myHamburgerBudget}">
+                    <Expander IsExpanded="{Binding IsBudgetExpanderMenu, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource myHamburgerBudget}">
                         <StackPanel x:Name="stckBudget">
                             <Button
                                 Command="{Binding NavCommand}"
@@ -193,14 +239,25 @@
                             <Button
                                 Command="{Binding NavCommand}"
                                 CommandParameter="clsCategorieViewModel"
-                                Content="Categorie"
+                                  Style="{StaticResource myMenuTandwiel}"
+                                Content="Categorie"/>
+
+                            <Button Content="Domiciliëring" Style="{StaticResource myMenuTandwiel}" />
+                            <Button Content="Begunstigden" Style="{StaticResource myMenuTandwiel}" />
+                            <Button  Content="Frequentie"  Style="{StaticResource myMenuTandwiel}" />
+                            <Button
+                                Command="{Binding NavCommand}"
+                                CommandParameter="clsCategorieViewModel"
+                                Content="Budget Categorie"
+
                                 Style="{StaticResource myMenuTandwiel}" />
                         </StackPanel>
                     </Expander>
 
-                    <Expander Style="{StaticResource myHamburgerTodo}">
+                    <Expander IsExpanded="{Binding IsTodoExpanderMenu, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource myHamburgerTodo}">
 
                         <StackPanel x:Name="stckTodo">
+
                             <Button
                                 Command="{Binding NavCommand}"
                                 CommandParameter="clsCollectiesVM"
@@ -216,10 +273,12 @@
                                 CommandParameter="clsKleurenVM"
                                 Content="Todo Kleuren"
                                 Style="{StaticResource myMenuTandwiel}" />
+
                         </StackPanel>
 
                     </Expander>
-                    <Expander Style="{StaticResource myHamburgerSecurity}">
+
+                    <Expander IsExpanded="{Binding IsSecurityExpanderMenu, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource myHamburgerSecurity}">
                         <StackPanel x:Name="stckSecurity">
                             <Button
                                 Command="{Binding NavCommand}"
@@ -244,14 +303,12 @@
                         </StackPanel>
                     </Expander>
 
-                    <Expander Style="{StaticResource myHamburgerStickyNotes}">
+                    <Expander IsExpanded="{Binding IsStickyNotesExpanderMenu, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource myHamburgerStickyNotes}">
                         <StackPanel x:Name="stckStickynotes">
                             <Button Content="Sticky notes colors" Style="{StaticResource myExpanderStickyNoteColors}" />
                         </StackPanel>
+
                     </Expander>
-
-
-
 
                 </StackPanel>
 
@@ -268,19 +325,19 @@
         </Border>
 
         <ToggleButton
-            x:Name="btnMenu"
             Grid.Column="0"
             Grid.ColumnSpan="2"
-            HorizontalAlignment="Left"
-            Checked="ToggleButton_Checked"
+            Command="{Binding cmdMenu}"
+            CommandParameter="{Binding}"
             IsChecked="True"
-            Style="{StaticResource myHamburgerMenu}"
-            Unchecked="ToggleButton_Unchecked" />
+            Style="{StaticResource myHamburgerMenu}" />
 
         <!--#endregion-->
+
         <ContentControl
             Grid.Row="1"
             Grid.Column="1"
             Content="{Binding CurrentViewModel}" />
+
     </Grid>
 </Window>

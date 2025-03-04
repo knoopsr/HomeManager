@@ -1,14 +1,22 @@
-﻿using System;
+﻿using HomeManager.DataService.Logging;
+using HomeManager.Model.Logging;
+using HomeManager.Model.Security;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 
 namespace HomeManager.Helpers
 {
     public class clsCustomCommand : ICommand
     {
+
+        clsButtonLoggingDataService MijnLoggingService;
+
         private Action<object?> _execute;
         private Predicate<object?> _canExecute;
 
@@ -16,6 +24,8 @@ namespace HomeManager.Helpers
         {
             this._execute = execute;
             this._canExecute = canExecute;
+
+            MijnLoggingService = new clsButtonLoggingDataService();
         }
 
         public bool CanExecute(object? parameter)
@@ -27,6 +37,32 @@ namespace HomeManager.Helpers
         public void Execute(object? parameter)
         {
             _execute(parameter);
+
+
+            //Hier word geen logging gedaan.
+            //Er is geen CommandParameter meegestuurd.
+            if (parameter == null)
+            {
+                MessageBox.Show("Geen Logging. Er word geen gebruik gemaakt van CommandParameter in de xamll.");
+                return;
+            }
+  
+
+
+            if (_execute is Delegate del)
+            {
+                string targetName = del.Target?.GetType().Name ?? "null";
+                string methodName = del.Method.Name;
+
+        
+                MijnLoggingService.Insert(new clsButtonLoggingModel()
+                {
+                    AccountId = clsLoginModel.Instance.AccountID,
+                    ActionName = methodName,
+                    ActionTarget = targetName
+                });
+            }       
+
         }
 
         public event EventHandler? CanExecuteChanged
@@ -41,6 +77,7 @@ namespace HomeManager.Helpers
             }
 
         }
+
     }
 
 }

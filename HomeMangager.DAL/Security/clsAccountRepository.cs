@@ -72,6 +72,10 @@ namespace HomeManager.DAL.Security
 
         public clsAccountModel GetById(int id)
         {
+            if (_mijnCollectie == null)
+            {
+                GenerateCollection();
+            }
             return _mijnCollectie.Where(x => x.AccountID == id).FirstOrDefault();
         }
 
