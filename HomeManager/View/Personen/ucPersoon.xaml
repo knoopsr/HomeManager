@@ -41,12 +41,13 @@
                         Data="{StaticResource myPathPeople}"
                         Fill="White"
                         Stretch="Fill" />
-                    <TextBlock
-                        Style="{StaticResource TitleBarText}"
-                        Text="Persoon" />
+                    <TextBlock Style="{StaticResource TitleBarText}" Text="Persoon" />
 
                 </StackPanel>
-                <uc:ucWerkBalk HorizontalAlignment="Right" VerticalAlignment="Top" Loaded="ucWerkBalk_Loaded" />
+                <uc:ucWerkBalk
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Top"
+                    Loaded="ucWerkBalk_Loaded" />
             </Grid>
         </Border>
 

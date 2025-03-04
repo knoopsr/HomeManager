@@ -435,4 +435,10 @@
   <data name="D_EmailAdressen" xml:space="preserve">
     <value>D_EmailAdressen</value>
   </data>
+  <data name="D_DomicilieringMetTransacties" xml:space="preserve">
+    <value>D_DomicilieringMetTransacties</value>
+  </data>
+  <data name="I_DomicilieringMetTransacties" xml:space="preserve">
+    <value>I_DomicilieringMetTransacties</value>
+  </data>
 </root>

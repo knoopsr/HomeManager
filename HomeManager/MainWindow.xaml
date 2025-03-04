@@ -203,7 +203,7 @@
                                 Command="{Binding NavCommand}"
                                 CommandParameter="clsFunctieViewModel"
                                 Content="Functies"
-                                Style="{StaticResource myExpanderPerson}" /> 
+                                Style="{StaticResource myExpanderPerson}" />
                         </StackPanel>
                     </Expander>
 
@@ -239,17 +239,16 @@
                             <Button
                                 Command="{Binding NavCommand}"
                                 CommandParameter="clsCategorieViewModel"
-                                  Style="{StaticResource myMenuTandwiel}"
-                                Content="Categorie"/>
+                                Content="Categorie"
+                                Style="{StaticResource myMenuTandwiel}" />
 
                             <Button Content="Domiciliëring" Style="{StaticResource myMenuTandwiel}" />
                             <Button Content="Begunstigden" Style="{StaticResource myMenuTandwiel}" />
-                            <Button  Content="Frequentie"  Style="{StaticResource myMenuTandwiel}" />
+                            <Button Content="Frequentie" Style="{StaticResource myMenuTandwiel}" />
                             <Button
                                 Command="{Binding NavCommand}"
                                 CommandParameter="clsCategorieViewModel"
                                 Content="Budget Categorie"
-
                                 Style="{StaticResource myMenuTandwiel}" />
                         </StackPanel>
                     </Expander>
