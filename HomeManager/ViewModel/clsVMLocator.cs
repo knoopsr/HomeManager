@@ -18,9 +18,6 @@ namespace HomeManager.ViewModel
 {
     public class clsVMLocator
     {
-
-        public clsPersoonVM PersoonViewModel
-
         #region Personen
         private static clsPersoonViewModel _persoonViewModel = new clsPersoonViewModel();
 
@@ -213,7 +210,7 @@ namespace HomeManager.ViewModel
         public clsKleurenVM KleurenViewModel => new clsKleurenVM();
         #endregion
 
-        private static clsCategorieViewModel _categorieViewModel = new clsCategorieViewModel();
+       
         public clsUnLockViewModel UnLockViewModel
         {
             get
@@ -222,8 +219,8 @@ namespace HomeManager.ViewModel
             }
         }
 
-        #endregion
 
+        private static clsCategorieViewModel _categorieViewModel = new clsCategorieViewModel();
         public clsCategorieViewModel CategorieViewModel
         {
             get

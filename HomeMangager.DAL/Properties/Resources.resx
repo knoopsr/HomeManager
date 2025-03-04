@@ -336,9 +336,6 @@
   <data name="U_Gemeente" xml:space="preserve">
     <value>U_Gemeente</value>
   </data>
-  <data name="D_EmailAdressen" xml:space="preserve">
-    <value>D_EmailAdressen</value>
-  </data>
   <data name="I_EmailAdressen" xml:space="preserve">
     <value>I_EmailAdressen</value>
   </data>
@@ -359,9 +356,6 @@
   </data>
   <data name="S_EmailAdressenByID" xml:space="preserve">
     <value>S_EmailAdressenByID</value>
-  </data>
-  <data name="D_Adressen" xml:space="preserve">
-    <value>D_Adressen</value>
   </data>
   <data name="S_Adressen" xml:space="preserve">
     <value>S_Adressen</value>
@@ -434,5 +428,11 @@
   </data>
   <data name="S_ButtonLogsFirst1000" xml:space="preserve">
     <value>S_ButtonLogsFirst1000</value>
+  </data>
+  <data name="D_Adressen" xml:space="preserve">
+    <value>D_Adressen</value>
+  </data>
+  <data name="D_EmailAdressen" xml:space="preserve">
+    <value>D_EmailAdressen</value>
   </data>
 </root>

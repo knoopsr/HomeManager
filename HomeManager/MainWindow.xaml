@@ -72,10 +72,6 @@
         <DataTemplate DataType="{x:Type VM:clsCategorieViewModel}">
             <V:ucCategorie />
         </DataTemplate>
-
-        <DataTemplate DataType="{x:Type VM:clsCategorieViewModel}">
-            <V:ucCategorie />
-        </DataTemplate>
         <DataTemplate DataType="{x:Type VM:clsFrequentieViewModel}">
             <V:ucFrequentie />
         </DataTemplate>
@@ -207,27 +203,7 @@
                                 Command="{Binding NavCommand}"
                                 CommandParameter="clsFunctieViewModel"
                                 Content="Functies"
-                                Style="{StaticResource myExpanderPerson}" />
-                            <!--<Button
-                                Command="{Binding NavCommand}"
-                                CommandParameter="clsEmailAdressenViewModel"
-                                Content="EmailAdressen"
-                                Style="{StaticResource myExpanderPerson}" />
-                            <Button
-                                Command="{Binding NavCommand}"
-                                CommandParameter="clsAdressenViewModel"
-                                Content="Adressen"
-                                Style="{StaticResource myExpanderPerson}" />
-                            <Button
-                                Command="{Binding NavCommand}"
-                                CommandParameter="clsTelefoonNummersViewModel"
-                                Content="Telefoonnummers"
-                                Style="{StaticResource myExpanderPerson}" />-->
-                            <!--<Button
-                                Command="{Binding NavCommand}"
-                                CommandParameter="clsNotitiesViewModel"
-                                Content="Notities"
-                                Style="{StaticResource myExpanderPerson}" />-->
+                                Style="{StaticResource myExpanderPerson}" /> 
                         </StackPanel>
                     </Expander>
 
@@ -263,11 +239,12 @@
                             <Button
                                 Command="{Binding NavCommand}"
                                 CommandParameter="clsCategorieViewModel"
+                                  Style="{StaticResource myMenuTandwiel}"
                                 Content="Categorie"/>
 
                             <Button Content="Domiciliëring" Style="{StaticResource myMenuTandwiel}" />
                             <Button Content="Begunstigden" Style="{StaticResource myMenuTandwiel}" />
-                            <Button Content="Frequentie" Style="{StaticResource myMenuTandwiel}" />
+                            <Button  Content="Frequentie"  Style="{StaticResource myMenuTandwiel}" />
                             <Button
                                 Command="{Binding NavCommand}"
                                 CommandParameter="clsCategorieViewModel"

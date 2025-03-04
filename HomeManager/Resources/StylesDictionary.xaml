@@ -622,7 +622,7 @@
         <Setter Property="Cursor" Value="Hand" />
         <Setter Property="Height" Value="31" />
         <Setter Property="Width" Value="31" />
-      </style>
+    </Style>
 
     <Style x:Key="UploadVlagButton" TargetType="ContentControl">
         <Setter Property="Cursor" Value="Hand" />
@@ -643,10 +643,7 @@
                         <Path
                             Width="15"
                             Height="15"
-
-                            Data="{StaticResource myShowfile}"
                             Data="{StaticResource myUploadButton}"
-
                             Fill="{StaticResource myTitleBar}"
                             Stretch="Fill" />
                     </Border>
@@ -677,6 +674,12 @@
                             Data="{StaticResource myDeleteButton}"
                             Fill="{StaticResource myTitleBar}"
                             Stretch="Fill" />
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
 
     <Style x:Key="myRibbonButton" TargetType="RibbonButton">
         <Setter Property="Width" Value="25" />
@@ -685,8 +688,6 @@
         <Setter Property="Padding" Value="1" />
         <Setter Property="Background" Value="Transparent" />
         <Setter Property="BorderThickness" Value="0" />
-
-
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="RibbonButton">
@@ -700,13 +701,19 @@
                             Data="{Binding Path=Content, RelativeSource={RelativeSource TemplatedParent}}"
                             Fill="{StaticResource myDagboekButtonIconColor}"
                             Stretch="Uniform" />
-
                     </Border>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
-
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="DeepSkyBlue" />
+                <Setter Property="BorderThickness" Value="1" />
+            </Trigger>
+        </Style.Triggers>
     </Style>
+
+
 
     <Style x:Key="Excel" TargetType="ContentControl">
         <Setter Property="Cursor" Value="Hand" />
@@ -784,13 +791,7 @@
 
 
 
-        <Style.Triggers>
-            <Trigger Property="IsMouseOver" Value="True">
-                <Setter Property="Background" Value="DeepSkyBlue" />
-                <Setter Property="BorderThickness" Value="1" />
-            </Trigger>
-        </Style.Triggers>
-    </Style>
+
 
     <!--  dagboekkleurbutton werkt nog niet  -->
     <Style x:Key="myFontColorButton" TargetType="Button">
