@@ -25,7 +25,7 @@ namespace HomeManager.DAL.Budget
 
         public bool Delete(clsDomicilieringModel entity)
         {
-            (DataTable DT, bool OK, string Boodschap) = clsDAL.ExecuteDataTable(Properties.Resources.D_Domiciliering,
+            (DataTable DT, bool OK, string Boodschap) = clsDAL.ExecuteDataTable(Properties.Resources.D_DomicilieringMetTransacties,
                 clsDAL.Parameter("DomicilieringID", entity.DomicilieringID),
                 clsDAL.Parameter("ControlField", entity.ControlField),
                 clsDAL.Parameter("@ReturnValue", 0));
@@ -97,7 +97,7 @@ namespace HomeManager.DAL.Budget
         public bool Insert(clsDomicilieringModel entity)
         {
             (DataTable DT, bool OK, string Boodschap) =
-                clsDAL.ExecuteDataTable(Properties.Resources.I_Domiciliering,
+                clsDAL.ExecuteDataTable(Properties.Resources.I_DomicilieringMetTransacties,
                 clsDAL.Parameter("IsUitgaven", entity.IsUitgaven),
                 clsDAL.Parameter("Bedrag", entity.Bedrag),
                 clsDAL.Parameter("VanDatum", entity.VanDatum),

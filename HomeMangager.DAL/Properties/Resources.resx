@@ -261,4 +261,13 @@
   <data name="I_BudgetBijlage" xml:space="preserve">
     <value>I_BudgetBijlage</value>
   </data>
+  <data name="I_DomicilieringMetTransacties" xml:space="preserve">
+    <value>I_DomicilieringMetTransacties</value>
+  </data>
+  <data name="D_DomicilieringMetTransacties" xml:space="preserve">
+    <value>D_DomicilieringMetTransacties</value>
+  </data>
+  <data name="U_DomicilieringUitgevoerdeTransacties" xml:space="preserve">
+    <value>U_DomicilieringUitgevoerdeTransacties</value>
+  </data>
 </root>

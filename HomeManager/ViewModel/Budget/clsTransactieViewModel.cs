@@ -614,6 +614,7 @@ namespace HomeManager.ViewModel
 
         private void Execute_FilterCommand(object obj)
         {
+            LoadData();
             if (string.IsNullOrWhiteSpace(FilterTekst))
             {
                 // Als er geen filtertekst is, toon alles

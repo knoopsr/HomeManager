@@ -106,6 +106,15 @@ namespace HomeManager.DAL.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to D_DomicilieringMetTransacties.
+        /// </summary>
+        internal static string D_DomicilieringMetTransacties {
+            get {
+                return ResourceManager.GetString("D_DomicilieringMetTransacties", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to D_Frequentie.
         /// </summary>
         internal static string D_Frequentie {
@@ -201,6 +210,15 @@ namespace HomeManager.DAL.Properties {
         internal static string I_Domiciliering {
             get {
                 return ResourceManager.GetString("I_Domiciliering", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to I_DomicilieringMetTransacties.
+        /// </summary>
+        internal static string I_DomicilieringMetTransacties {
+            get {
+                return ResourceManager.GetString("I_DomicilieringMetTransacties", resourceCulture);
             }
         }
         
@@ -435,6 +453,15 @@ namespace HomeManager.DAL.Properties {
         internal static string U_Domiciliering {
             get {
                 return ResourceManager.GetString("U_Domiciliering", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to U_DomicilieringUitgevoerdeTransacties.
+        /// </summary>
+        internal static string U_DomicilieringUitgevoerdeTransacties {
+            get {
+                return ResourceManager.GetString("U_DomicilieringUitgevoerdeTransacties", resourceCulture);
             }
         }
         
