@@ -14,6 +14,7 @@ using HomeManager.DataService.Budget;
 using HomeManager.Messages;
 
 
+
 namespace HomeManager.ViewModel
 {
     public class clsCategorieViewModel : clsCommonModelPropertiesBase
@@ -28,6 +29,7 @@ namespace HomeManager.ViewModel
         public ICommand cmdClose { get; set; }
         public ICommand cmdSave { get; set; }
         public ICommand cmdFilter { get; set; }
+
 
 
         private ObservableCollection<clsCategorieModel> _MijnCollectie;
@@ -58,6 +60,7 @@ namespace HomeManager.ViewModel
                     if (_MijnSelectedItem != null && _MijnSelectedItem.IsDirty)
                     {
                         if (MessageBox.Show("wil je " + _MijnSelectedItem + " Opslaan? ", "Opslaan", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+
                         {
                             OpslaanCommando();
                             LoadData();
@@ -118,6 +121,7 @@ namespace HomeManager.ViewModel
             MijnCollectie = MijnService.GetAll();
             GefilterdeCollectie = new ObservableCollection<clsCategorieModel>(MijnCollectie);
 
+
         }
 
 
@@ -131,15 +135,17 @@ namespace HomeManager.ViewModel
             cmdCancel = new clsCustomCommand(Execute_CancelCommand, CanExecute_CancelCommand);
             cmdClose = new clsCustomCommand(Execute_CloseCommand, CanExecute_CloseCommand);
             cmdFilter = new clsCustomCommand(Execute_FilterCommand, CanExecute_FilterCommand);
-
             clsMessenger.Default.Register<clsCategorieModel>(this, OnCategorieReceived);
+
 
             LoadData();
             MijnSelectedItem = MijnService.GetFirst();
         }
 
 
+
         #region Save - Delete - Cancel - Close
+
 
         private bool CanExecute_CloseCommand(object obj)
         {
@@ -166,7 +172,9 @@ namespace HomeManager.ViewModel
                 vm.CurrentViewModel = null;
             }
 
+
             clsMessenger.Default.Send<clsUpdateListMessages>(new clsUpdateListMessages());
+
         }
 
 
@@ -266,6 +274,7 @@ namespace HomeManager.ViewModel
 
         }
 
+
         private void OnCategorieReceived(clsCategorieModel obj)
         {
             _MijnSelectedItem = obj;
@@ -333,6 +342,5 @@ namespace HomeManager.ViewModel
             }
         }
         #endregion
-
     }
 }

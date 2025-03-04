@@ -3,7 +3,7 @@ using System.ComponentModel;
 
 namespace HomeManager.Model.Personen
 {
-    public class clsPersoonM : clsCommonModelPropertiesBase, IDataErrorInfo
+    public class clsPersoonModel : clsCommonModelPropertiesBase, IDataErrorInfo
     {
         private int _persoonID;
         public int PersoonID
@@ -129,6 +129,15 @@ namespace HomeManager.Model.Personen
         public override string ToString()
         {
             return Naam + ", " + Voornaam;
+        }
+
+        
+        public string PersoonDisplayName
+        {
+            get
+            {
+                return $"{Naam} ({Voornaam})";
+            }
         }
 
         public string this[string columnName]

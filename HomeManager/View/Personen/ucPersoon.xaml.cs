@@ -1,4 +1,5 @@
-﻿using System;
+﻿using HomeManager.ViewModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.IO;
 
 namespace HomeManager.View
 {
@@ -23,6 +25,11 @@ namespace HomeManager.View
         public ucPersoon()
         {
             InitializeComponent();
+        }
+
+        private void ucWerkBalk_Loaded(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }
