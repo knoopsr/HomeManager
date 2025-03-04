@@ -12,15 +12,19 @@ using HomeManager.Helpers;
 using HomeManager.Model.Budget;
 using HomeManager.DataService.Budget;
 using HomeManager.Messages;
-
+using HomeManager.Services;
+using System.Runtime.CompilerServices;
+using HomeManager.Messages;
 
 
 namespace HomeManager.ViewModel
 {
-    public class clsCategorieViewModel : clsCommonModelPropertiesBase
+    public class clsFrequentieViewModel : clsCommonModelPropertiesBase
     {
         
-        clsCategorieDataService MijnService;
+        clsFrequentieDataService MijnService;
+
+        
 
         private bool NewStatus = false;
         public ICommand cmdDelete { get; set; }
@@ -29,11 +33,9 @@ namespace HomeManager.ViewModel
         public ICommand cmdClose { get; set; }
         public ICommand cmdSave { get; set; }
         public ICommand cmdFilter { get; set; }
-
-
-
-        private ObservableCollection<clsCategorieModel> _MijnCollectie;
-        public ObservableCollection<clsCategorieModel> MijnCollectie
+        
+        private ObservableCollection<clsFrequentieModel> _MijnCollectie;
+        public ObservableCollection<clsFrequentieModel> MijnCollectie
         {
             get
             {
@@ -45,8 +47,8 @@ namespace HomeManager.ViewModel
                 OnPropertyChanged();
             }
         }
-        private clsCategorieModel _MijnSelectedItem;
-        public clsCategorieModel MijnSelectedItem
+        private clsFrequentieModel _MijnSelectedItem;
+        public clsFrequentieModel MijnSelectedItem
         {
             get
             {
@@ -60,7 +62,6 @@ namespace HomeManager.ViewModel
                     if (_MijnSelectedItem != null && _MijnSelectedItem.IsDirty)
                     {
                         if (MessageBox.Show("wil je " + _MijnSelectedItem + " Opslaan? ", "Opslaan", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
-
                         {
                             OpslaanCommando();
                             LoadData();
@@ -119,15 +120,15 @@ namespace HomeManager.ViewModel
         private void LoadData()
         {
             MijnCollectie = MijnService.GetAll();
-            GefilterdeCollectie = new ObservableCollection<clsCategorieModel>(MijnCollectie);
+            GefilterdeCollectie = new ObservableCollection<clsFrequentieModel>(MijnCollectie);
 
 
         }
 
 
-        public clsCategorieViewModel()
+        public clsFrequentieViewModel()
         {
-            MijnService = new clsCategorieDataService();
+            MijnService = new clsFrequentieDataService();
 
             cmdSave = new clsCustomCommand(Execute_SaveCommand, CanExecute_SaveCommand);
             cmdDelete = new clsCustomCommand(Execute_DeleteCommand, CanExecute_DeleteCommand);
@@ -135,17 +136,16 @@ namespace HomeManager.ViewModel
             cmdCancel = new clsCustomCommand(Execute_CancelCommand, CanExecute_CancelCommand);
             cmdClose = new clsCustomCommand(Execute_CloseCommand, CanExecute_CloseCommand);
             cmdFilter = new clsCustomCommand(Execute_FilterCommand, CanExecute_FilterCommand);
-            clsMessenger.Default.Register<clsCategorieModel>(this, OnCategorieReceived);
 
+            clsMessenger.Default.Register<clsFrequentieModel>(this, OnFrequentieReceived);
 
+            
+            
             LoadData();
             MijnSelectedItem = MijnService.GetFirst();
         }
 
-
-
         #region Save - Delete - Cancel - Close
-
 
         private bool CanExecute_CloseCommand(object obj)
         {
@@ -153,7 +153,9 @@ namespace HomeManager.ViewModel
         }
         private void Execute_CloseCommand(object obj)
         {
+                        
             MainWindow HomeWindow = obj as MainWindow;
+            
             if (HomeWindow != null)
             {
 
@@ -166,19 +168,18 @@ namespace HomeManager.ViewModel
                         OpslaanCommando();
                         clsHomeVM vm2 = (clsHomeVM)HomeWindow.DataContext;
                         vm2.CurrentViewModel = null;
+         
                     }
                 }
                 clsHomeVM vm = (clsHomeVM)HomeWindow.DataContext;
                 vm.CurrentViewModel = null;
+                
             }
 
-
             clsMessenger.Default.Send<clsUpdateListMessages>(new clsUpdateListMessages());
+            
 
         }
-
-
-
 
         private bool CanExecute_CancelCommand(object obj)
         {
@@ -196,6 +197,7 @@ namespace HomeManager.ViewModel
             NewStatus = false;
             IsFocusedAfterNew = false;
             IsFocused = true;
+            
         }
         private bool CanExecute_NewCommand(object obj)
         {
@@ -204,10 +206,11 @@ namespace HomeManager.ViewModel
 
         private void Execute_NewCommand(object obj)
         {
-            clsCategorieModel ItemToInsert = new clsCategorieModel()
+            clsFrequentieModel ItemToInsert = new clsFrequentieModel()
             {
-                BudgetCategorieID = 0,
-                BudgetCategorie = string.Empty                
+                FrequentieID = 0,
+                Frequentie = string.Empty,
+                AantalDagen = 0
             };
 
             MijnSelectedItem = ItemToInsert;
@@ -216,6 +219,7 @@ namespace HomeManager.ViewModel
             MijnSelectedItem.MyVisibility = (int)Visibility.Hidden;
             NewStatus = true;
             IsFocusedAfterNew = true;
+           
         }
         private bool CanExecute_DeleteCommand(object obj)
         {
@@ -246,6 +250,8 @@ namespace HomeManager.ViewModel
                 {
                     NewStatus = false;
                     LoadData();
+
+                    
                 }
                 else
                 {
@@ -271,18 +277,19 @@ namespace HomeManager.ViewModel
         private void Execute_SaveCommand(object obj)
         {
             OpslaanCommando();
-
+         
         }
 
-
-        private void OnCategorieReceived(clsCategorieModel obj)
+        private void OnFrequentieReceived(clsFrequentieModel obj)
         {
+            
             _MijnSelectedItem = obj;
+            
         }
 
         #endregion
 
-        #region Filter_Categorie
+        #region Filter_Frequentie
 
         private string _filterTekst;
 
@@ -299,9 +306,9 @@ namespace HomeManager.ViewModel
             }
         }
 
-        private ObservableCollection<clsCategorieModel> _gefilterdeCollectie;
+        private ObservableCollection<clsFrequentieModel> _gefilterdeCollectie;
 
-        public ObservableCollection<clsCategorieModel> GefilterdeCollectie
+        public ObservableCollection<clsFrequentieModel> GefilterdeCollectie
         {
             get
             {
@@ -324,7 +331,7 @@ namespace HomeManager.ViewModel
             if (string.IsNullOrWhiteSpace(FilterTekst))
             {
                 // Als er geen filtertekst is, toon alles
-                GefilterdeCollectie = new ObservableCollection<clsCategorieModel>(MijnCollectie);
+                GefilterdeCollectie = new ObservableCollection<clsFrequentieModel>(MijnCollectie);
             }
             else
             {
@@ -332,15 +339,16 @@ namespace HomeManager.ViewModel
                 var GefilterdeItems = MijnCollectie
                     .Where(item =>
 
-                        
-                        (item.BudgetCategorie.IndexOf(FilterTekst, StringComparison.OrdinalIgnoreCase) >= 0)                        
+                        (item.Frequentie.IndexOf(FilterTekst, StringComparison.OrdinalIgnoreCase) >= 0) 
                         )
                     .ToList();
 
                 //update de gefilterde collectie
-                GefilterdeCollectie = new ObservableCollection<clsCategorieModel>(GefilterdeItems);
+                GefilterdeCollectie = new ObservableCollection<clsFrequentieModel>(GefilterdeItems);
             }
         }
         #endregion
+
+
     }
 }

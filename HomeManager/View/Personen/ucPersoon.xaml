@@ -88,10 +88,16 @@
                     <ListBox.ItemTemplate>
                         <DataTemplate>
                             <Border
+
+                                Width="60"
+                                Height="60"
+                                HorizontalAlignment="Left"
+
                                 Width="205"
                                 Margin="5"
                                 Padding="2"
                                 Background="LightGray"
+
                                 BorderBrush="Gray"
                                 BorderThickness="1"
                                 CornerRadius="8">
@@ -161,6 +167,17 @@
                     Text="Foto"
                     TextAlignment="Right" />
 
+
+
+                            <StackPanel Margin="10,0,0,0" Orientation="Vertical">
+                                <TextBlock
+                                    Margin="0,5,0,8"
+                                    FontWeight="Bold"
+                                    Text="{Binding Naam}" />
+                                <TextBlock Margin="0,8,0,0" Text="{Binding Voornaam}" />
+                            </StackPanel>
+                        </StackPanel>
+
                 <StackPanel
                     Grid.Row="4"
                     Grid.Column="3"
@@ -176,6 +193,7 @@
                         <Border.Background>
                             <ImageBrush ImageSource="{Binding MijnSelectedItem.Foto, TargetNullValue={x:Null}}" Stretch="UniformToFill" />
                         </Border.Background>
+
                     </Border>
                     <Button Command="{Binding cmdUploadPicture}" Style="{StaticResource UploadPersoonButton}" />
                 </StackPanel>

@@ -14,14 +14,12 @@ using HomeManager.DataService.Budget;
 using HomeManager.Messages;
 
 
-
 namespace HomeManager.ViewModel
 {
-    public class clsCategorieViewModel : clsCommonModelPropertiesBase
+    public class clsBegunstigdenViewModel : clsCommonModelPropertiesBase
     {
-        
-        clsCategorieDataService MijnService;
 
+        clsBegunstigdenDataService MijnService;
         private bool NewStatus = false;
         public ICommand cmdDelete { get; set; }
         public ICommand cmdNew { get; set; }
@@ -31,9 +29,8 @@ namespace HomeManager.ViewModel
         public ICommand cmdFilter { get; set; }
 
 
-
-        private ObservableCollection<clsCategorieModel> _MijnCollectie;
-        public ObservableCollection<clsCategorieModel> MijnCollectie
+        private ObservableCollection<clsBegunstigdenModel> _MijnCollectie;
+        public ObservableCollection<clsBegunstigdenModel> MijnCollectie
         {
             get
             {
@@ -45,8 +42,8 @@ namespace HomeManager.ViewModel
                 OnPropertyChanged();
             }
         }
-        private clsCategorieModel _MijnSelectedItem;
-        public clsCategorieModel MijnSelectedItem
+        private clsBegunstigdenModel _MijnSelectedItem;
+        public clsBegunstigdenModel MijnSelectedItem
         {
             get
             {
@@ -60,7 +57,6 @@ namespace HomeManager.ViewModel
                     if (_MijnSelectedItem != null && _MijnSelectedItem.IsDirty)
                     {
                         if (MessageBox.Show("wil je " + _MijnSelectedItem + " Opslaan? ", "Opslaan", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
-
                         {
                             OpslaanCommando();
                             LoadData();
@@ -119,15 +115,14 @@ namespace HomeManager.ViewModel
         private void LoadData()
         {
             MijnCollectie = MijnService.GetAll();
-            GefilterdeCollectie = new ObservableCollection<clsCategorieModel>(MijnCollectie);
-
+            GefilterdeCollectie = new ObservableCollection<clsBegunstigdenModel>(MijnCollectie);
 
         }
 
 
-        public clsCategorieViewModel()
+        public clsBegunstigdenViewModel()
         {
-            MijnService = new clsCategorieDataService();
+            MijnService = new clsBegunstigdenDataService();
 
             cmdSave = new clsCustomCommand(Execute_SaveCommand, CanExecute_SaveCommand);
             cmdDelete = new clsCustomCommand(Execute_DeleteCommand, CanExecute_DeleteCommand);
@@ -135,17 +130,14 @@ namespace HomeManager.ViewModel
             cmdCancel = new clsCustomCommand(Execute_CancelCommand, CanExecute_CancelCommand);
             cmdClose = new clsCustomCommand(Execute_CloseCommand, CanExecute_CloseCommand);
             cmdFilter = new clsCustomCommand(Execute_FilterCommand, CanExecute_FilterCommand);
-            clsMessenger.Default.Register<clsCategorieModel>(this, OnCategorieReceived);
 
+            clsMessenger.Default.Register<clsBegunstigdenModel>(this, OnBegunstigdenReceived);
 
             LoadData();
             MijnSelectedItem = MijnService.GetFirst();
         }
 
-
-
         #region Save - Delete - Cancel - Close
-
 
         private bool CanExecute_CloseCommand(object obj)
         {
@@ -171,7 +163,6 @@ namespace HomeManager.ViewModel
                 clsHomeVM vm = (clsHomeVM)HomeWindow.DataContext;
                 vm.CurrentViewModel = null;
             }
-
 
             clsMessenger.Default.Send<clsUpdateListMessages>(new clsUpdateListMessages());
 
@@ -204,10 +195,11 @@ namespace HomeManager.ViewModel
 
         private void Execute_NewCommand(object obj)
         {
-            clsCategorieModel ItemToInsert = new clsCategorieModel()
+            clsBegunstigdenModel ItemToInsert = new clsBegunstigdenModel()
             {
-                BudgetCategorieID = 0,
-                BudgetCategorie = string.Empty                
+                BegunstigdeID = 0,
+                Begunstigde = string.Empty,
+                Opmerking = string.Empty,
             };
 
             MijnSelectedItem = ItemToInsert;
@@ -274,15 +266,15 @@ namespace HomeManager.ViewModel
 
         }
 
-
-        private void OnCategorieReceived(clsCategorieModel obj)
+        private void OnBegunstigdenReceived(clsBegunstigdenModel obj)
         {
             _MijnSelectedItem = obj;
         }
 
         #endregion
 
-        #region Filter_Categorie
+
+        #region Filter_Begunstigden
 
         private string _filterTekst;
 
@@ -299,9 +291,9 @@ namespace HomeManager.ViewModel
             }
         }
 
-        private ObservableCollection<clsCategorieModel> _gefilterdeCollectie;
+        private ObservableCollection<clsBegunstigdenModel> _gefilterdeCollectie;
 
-        public ObservableCollection<clsCategorieModel> GefilterdeCollectie
+        public ObservableCollection<clsBegunstigdenModel> GefilterdeCollectie
         {
             get
             {
@@ -324,7 +316,7 @@ namespace HomeManager.ViewModel
             if (string.IsNullOrWhiteSpace(FilterTekst))
             {
                 // Als er geen filtertekst is, toon alles
-                GefilterdeCollectie = new ObservableCollection<clsCategorieModel>(MijnCollectie);
+                GefilterdeCollectie = new ObservableCollection<clsBegunstigdenModel>(MijnCollectie);
             }
             else
             {
@@ -332,13 +324,12 @@ namespace HomeManager.ViewModel
                 var GefilterdeItems = MijnCollectie
                     .Where(item =>
 
-                        
-                        (item.BudgetCategorie.IndexOf(FilterTekst, StringComparison.OrdinalIgnoreCase) >= 0)                        
+                        (item.Begunstigde.IndexOf(FilterTekst, StringComparison.OrdinalIgnoreCase) >= 0)
                         )
                     .ToList();
 
                 //update de gefilterde collectie
-                GefilterdeCollectie = new ObservableCollection<clsCategorieModel>(GefilterdeItems);
+                GefilterdeCollectie = new ObservableCollection<clsBegunstigdenModel>(GefilterdeItems);
             }
         }
         #endregion

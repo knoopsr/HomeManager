@@ -28,17 +28,16 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
   </ItemGroup>
+	<ItemGroup>
+		<None Update="Properties\Connection.settings">
+			<Generator>SettingsSingleFileGenerator</Generator>
+			<LastGenOutput>Connection.Designer.cs</LastGenOutput>
+		</None>
+	</ItemGroup>
 
-  <ItemGroup>
-    <None Update="Properties\Connection.settings">
-      <Generator>SettingsSingleFileGenerator</Generator>
-      <LastGenOutput>Connection.Designer.cs</LastGenOutput>
-    </None>
-  </ItemGroup>
 
   <ItemGroup>
     <Folder Include="Dagboek\" />
-    <Folder Include="Budget\" />
     <Folder Include="Homepage\" />
     <Folder Include="StickyNotes\" />
     <Folder Include="Todo\" />

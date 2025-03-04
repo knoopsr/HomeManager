@@ -72,6 +72,26 @@
         <DataTemplate DataType="{x:Type VM:clsCategorieViewModel}">
             <V:ucCategorie />
         </DataTemplate>
+
+        <DataTemplate DataType="{x:Type VM:clsCategorieViewModel}">
+            <V:ucCategorie />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type VM:clsFrequentieViewModel}">
+            <V:ucFrequentie />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type VM:clsBegunstigdenViewModel}">
+            <V:ucBegunstigden />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type VM:clsDomicilieringViewModel}">
+            <V:ucDomiciliering />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type VM:clsTransactieViewModel}">
+            <V:ucTransactie />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type VM:clsOverzichtViewModel}">
+            <V:ucOverzicht />
+        </DataTemplate>
+
     </Window.Resources>
 
 
@@ -215,6 +235,36 @@
 
                     <Expander IsExpanded="{Binding IsBudgetExpanderMenu, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource myHamburgerBudget}">
                         <StackPanel x:Name="stckBudget">
+                            <Button
+                                Command="{Binding NavCommand}"
+                                CommandParameter="clsOverzichtViewModel"
+                                Content="Overzicht"
+                                Style="{StaticResource myMenuTandwiel}" />
+                            <Button
+                                Command="{Binding NavCommand}"
+                                CommandParameter="clsTransactieViewModel"
+                                Content="Transacties"
+                                Style="{StaticResource myMenuTandwiel}" />
+                            <Button
+                                Command="{Binding NavCommand}"
+                                CommandParameter="clsDomicilieringViewModel"
+                                Content="Domiciliëring"
+                                Style="{StaticResource myMenuTandwiel}" />
+                            <Button
+                                Command="{Binding NavCommand}"
+                                CommandParameter="clsBegunstigdenViewModel"
+                                Content="Begunstigden"
+                                Style="{StaticResource myMenuTandwiel}" />
+                            <Button
+                                Command="{Binding NavCommand}"
+                                CommandParameter="clsFrequentieViewModel"
+                                Content="Frequentie"
+                                Style="{StaticResource myMenuTandwiel}" />
+                            <Button
+                                Command="{Binding NavCommand}"
+                                CommandParameter="clsCategorieViewModel"
+                                Content="Categorie"/>
+
                             <Button Content="Domiciliëring" Style="{StaticResource myMenuTandwiel}" />
                             <Button Content="Begunstigden" Style="{StaticResource myMenuTandwiel}" />
                             <Button Content="Frequentie" Style="{StaticResource myMenuTandwiel}" />
@@ -222,6 +272,7 @@
                                 Command="{Binding NavCommand}"
                                 CommandParameter="clsCategorieViewModel"
                                 Content="Budget Categorie"
+
                                 Style="{StaticResource myMenuTandwiel}" />
                         </StackPanel>
                     </Expander>
@@ -229,9 +280,23 @@
                     <Expander IsExpanded="{Binding IsTodoExpanderMenu, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource myHamburgerTodo}">
 
                         <StackPanel x:Name="stckTodo">
-                            <Button Content="Todo Collectie" Style="{StaticResource myMenuTandwiel}" />
-                            <Button Content="Todo Categoriën" Style="{StaticResource myMenuTandwiel}" />
-                            <Button Content="Todo Kleuren" Style="{StaticResource myMenuTandwiel}" />
+
+                            <Button
+                                Command="{Binding NavCommand}"
+                                CommandParameter="clsCollectiesVM"
+                                Content="Todo Collectie"
+                                Style="{StaticResource myMenuTandwiel}" />
+                            <Button
+                                Command="{Binding NavCommand}"
+                                CommandParameter="clsCategorieënVM"
+                                Content="Todo Categoriën"
+                                Style="{StaticResource myMenuTandwiel}" />
+                            <Button
+                                Command="{Binding NavCommand}"
+                                CommandParameter="clsKleurenVM"
+                                Content="Todo Kleuren"
+                                Style="{StaticResource myMenuTandwiel}" />
+
                         </StackPanel>
 
                     </Expander>

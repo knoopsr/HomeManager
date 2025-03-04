@@ -8,10 +8,19 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+using HomeManager.Model.Budget;
+using HomeManager.Model.Todo;
+using HomeManager.ViewModel;
+
+
+
 namespace HomeManager.ViewModel
 {
     public class clsVMLocator
     {
+
+        public clsPersoonVM PersoonViewModel
+
         #region Personen
         private static clsPersoonViewModel _persoonViewModel = new clsPersoonViewModel();
 
@@ -136,6 +145,7 @@ namespace HomeManager.ViewModel
 
 
         #region Security
+
         public clsTitlePersonViewModel TitlePersonViewModel
         {
             get
@@ -194,6 +204,16 @@ namespace HomeManager.ViewModel
             }
         }
 
+
+        #endregion
+
+        #region TODO
+        public clsCollectiesVM CollectiesViewModel => new clsCollectiesVM();
+        public clsCategorieënVM CategorieënViewModel => new clsCategorieënVM();
+        public clsKleurenVM KleurenViewModel => new clsKleurenVM();
+        #endregion
+
+        private static clsCategorieViewModel _categorieViewModel = new clsCategorieViewModel();
         public clsUnLockViewModel UnLockViewModel
         {
             get
@@ -208,20 +228,54 @@ namespace HomeManager.ViewModel
         {
             get
             {
-                return new clsCategorieViewModel(); ;
+                return _categorieViewModel; 
             }
-
         }
 
-        #region Logging
-
-        public clsButtonLoggingViewModel ButtonLoggingViewModel
+        private static clsFrequentieViewModel _frequentieViewModel = new clsFrequentieViewModel();
+        public clsFrequentieViewModel FrequentieViewModel
         {
             get
             {
-                return new clsButtonLoggingViewModel();
+                return _frequentieViewModel;
             }
         }
-        #endregion
+
+        private static clsBegunstigdenViewModel _begunstigdenViewModel = new clsBegunstigdenViewModel();
+        public clsBegunstigdenViewModel BegunstigdenViewModel
+        {
+            get
+            {
+                return _begunstigdenViewModel;
+            }
+        }
+
+        private static clsDomicilieringViewModel _domicilieringViewModel = new clsDomicilieringViewModel();
+        public clsDomicilieringViewModel DomicilieringViewModel
+        {
+            get
+            {
+                return _domicilieringViewModel;
+            }
+        }
+
+        private static clsTransactieViewModel _transactieViewModel = new clsTransactieViewModel();
+        public clsTransactieViewModel TransactieViewModel
+        {
+            get
+            {
+                return _transactieViewModel;
+            }
+        }
+        
+        private static clsOverzichtViewModel _overzichtViewModel = new clsOverzichtViewModel();
+        public clsOverzichtViewModel OverzichtViewModel
+        {
+            get
+            {
+                return _overzichtViewModel;
+            }
+        }
+        
     }
 }

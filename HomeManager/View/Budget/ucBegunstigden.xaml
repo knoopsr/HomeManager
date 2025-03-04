@@ -1,5 +1,5 @@
 ﻿<UserControl
-    x:Class="HomeManager.View.ucCategorie"
+    x:Class="HomeManager.View.ucBegunstigden"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:Helpers="clr-namespace:HomeManager.Helpers"
@@ -11,7 +11,7 @@
     d:DesignWidth="800"
     Background="{StaticResource myBackground}"
     mc:Ignorable="d">
-    <Grid DataContext="{Binding Source={StaticResource VML}, Path=CategorieViewModel}">
+    <Grid DataContext="{Binding Source={StaticResource VML}, Path=BegunstigdenViewModel}">
         <Grid.RowDefinitions>
             <RowDefinition Height="50" />
             <RowDefinition Height="*" />
@@ -40,7 +40,8 @@
                         VerticalAlignment="Center"
                         FontSize="20"
                         Foreground="White"
-                        Text="Categorie" />
+                        Text="Begunstigde" />
+
                 </StackPanel>
                 <uc:ucWerkBalk HorizontalAlignment="Right" VerticalAlignment="Top" />
 
@@ -72,6 +73,7 @@
                     <RowDefinition Height="*" />
 
                 </Grid.RowDefinitions>
+
                 <StackPanel
                     Grid.Row="1"
                     Grid.Column="1"
@@ -102,7 +104,7 @@
                 </StackPanel>
 
                 <ListBox
-                    Name="BudgetCategorieListView"
+                    Name="BegunstigdeListView"
                     Grid.Row="2"
                     Grid.RowSpan="5"
                     Grid.Column="1"
@@ -116,60 +118,40 @@
                 <Label
                     Grid.Row="2"
                     Grid.Column="3"
+                    HorizontalAlignment="Right"
                     HorizontalContentAlignment="Right"
-                    Content="Categorie"
+                    Content="Begunstigde"
                     Foreground="#024f87" />
                 <TextBox
-                    x:Name="txtBudgetCategorie"
+                    x:Name="txtBegunstigde"
                     Grid.Row="2"
                     Grid.Column="4"
                     Width="200"
                     Margin="5"
                     Background="White"
                     Foreground="#024f87"
-                    Text="{Binding MijnSelectedItem.BudgetCategorie, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" />
+                    Text="{Binding MijnSelectedItem.Begunstigde, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" />
+                <Label
+                    x:Name="Opmerking"
+                    Grid.Row="3"
+                    Grid.Column="3"
+                    HorizontalContentAlignment="Right"
+                    Content="Opmerking"
+                    Foreground="#024f87" />
+                <TextBox
+                    Grid.Row="3"
+                    Grid.Column="4"
+                    Width="200"
+                    Height="100"
+                    Margin="5"
+                    VerticalAlignment="Center"
+                    Background="White"
+                    Foreground="#024f87"
+                    Text="{Binding MijnSelectedItem.Opmerking, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" />
 
 
             </Grid>
         </Border>
-
-        <Grid Grid.Row="1" >
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="100" />
-                <ColumnDefinition Width="auto" />
-                <ColumnDefinition Width="200" />
-                <ColumnDefinition Width="auto" />
-                <ColumnDefinition Width="auto" />
-            </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="50" />
-                <RowDefinition Height="25" />
-                <RowDefinition Height="25" />
-                <RowDefinition Height="250" />
-                <RowDefinition Height="50" />
-
-            </Grid.RowDefinitions>
-
-            <Label
-                Grid.Row="1"
-                Grid.Column="1"
-                Content="Budget Categorie" />
-            <TextBox
-                Grid.Row="1"
-                Grid.Column="2"
-                Grid.ColumnSpan="2"
-                Width="200"
-                Text="{Binding MijnSelectedItem.BudgetCategorie, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
-                Background="White" />
-            <ListBox
-                Grid.Row="3"
-                Grid.Column="2"               
-                ItemsSource="{Binding MijnCollectie}"
-                SelectedIndex="{Binding MijnSelectedItem.MijnSelectedIndex, Mode=Twoway}"
-                SelectedItem="{Binding MijnSelectedItem, UpdateSourceTrigger=PropertyChanged}"
-                />
-
-        </Grid>
 
     </Grid>
 </UserControl>
