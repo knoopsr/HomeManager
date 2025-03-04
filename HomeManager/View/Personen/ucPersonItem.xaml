@@ -4,7 +4,8 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:HomeManager.View.Personen"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:uc="clr-namespace:HomeManager.View"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:uc="clr-namespace:HomeManager.View"
     MinWidth="150"
     MinHeight="100"
     d:DesignHeight="100"
@@ -78,7 +79,10 @@
                 <Button Style="{StaticResource EditPersonImage}" ToolTip="Edit" />
                 <Button Style="{StaticResource DeletePersonImage}" ToolTip="Delete" />-->
 
-                <uc:ucWerkBalk HorizontalAlignment="Right" VerticalAlignment="Top" Loaded="ucWerkBalk_Loaded" />
+                <uc:ucWerkBalk
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Top"
+                    Loaded="ucWerkBalk_Loaded" />
             </StackPanel>
 
 

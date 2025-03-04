@@ -43,7 +43,7 @@
                         Command="{Binding cmdBackup}"
                         CommandParameter="{Binding}"
                         Header="Back-up maken" />
-                    <MenuItem 
+                    <MenuItem
                         Command="{Binding cmdLogs}"
                         CommandParameter="{Binding}"
                         Header="Logs raadplegen" />

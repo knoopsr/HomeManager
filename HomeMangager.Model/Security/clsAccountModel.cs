@@ -157,6 +157,24 @@ namespace HomeManager.Model.Security
             }
         }
 
+        private string? _accountName;
+        public string? AccountName
+        {
+            get { return _accountName; }
+            set
+            {
+                if (_accountName != value)
+                {
+                    if (_accountName != null)
+                    {
+                        IsDirty = true;
+                    }
+                }
+                _accountName = value;
+                OnPropertyChanged();
+            }
+        }
+
         private bool _isNew;
         public bool IsNew
         {
