@@ -2,6 +2,7 @@
     x:Class="HomeManager.App"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:Converter="clr-namespace:HomeManager.Converter"
     xmlns:Helpers="clr-namespace:HomeManager.Helpers"
     xmlns:VM="clr-namespace:HomeManager.ViewModel"
     xmlns:local="clr-namespace:HomeManager"
@@ -22,6 +23,9 @@
             <VM:clsVMLocator x:Key="VML" />
             <Helpers:clsIntVisibilityConverter x:Key="VisibilityConvertor" />
             <Helpers:clsFocusExtension x:Key="FocusExtension" />
+            <Helpers:clsMouseEventArgsToPointConverter x:Key="clsMouseEventArgsToPointConverter" />
+
+
 
 
 

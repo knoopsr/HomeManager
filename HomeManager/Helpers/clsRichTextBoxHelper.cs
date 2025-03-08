@@ -1,8 +1,9 @@
-﻿using System.IO;
+using System.IO;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
+
 
 namespace HomeManager.Helpers
 {
@@ -137,5 +138,5 @@ namespace HomeManager.Helpers
                 }
             }
         }
-    }
+    }  
 }

@@ -152,8 +152,15 @@ namespace HomeManager.Model.Security
             }
         }
 
-
+        private int _errorCode;
+        public int ErrorCode
+        {
+            get { return _errorCode; }
+            set
+            {
+                _errorCode = value;
+                OnPropertyChanged();
+            }
+        }
     }
-
-
 }

@@ -2,6 +2,7 @@
 
 
 
+
     <Style x:Key="AddPersonImage" TargetType="ContentControl">
         <Setter Property="Cursor" Value="Hand" />
         <Setter Property="Height" Value="10" />
@@ -31,10 +32,10 @@
                         <ControlTemplate TargetType="ContentControl">
                             <Border Background="{StaticResource myBackground}">
                                 <Path
-                                Data="{StaticResource myDeleteButton}"
-                                Fill="DarkGray"
-                                RenderTransformOrigin="0.5,0.5"
-                                Stretch="Uniform" />
+                                    Data="{StaticResource myDeleteButton}"
+                                    Fill="DarkGray"
+                                    RenderTransformOrigin="0.5,0.5"
+                                    Stretch="Uniform" />
                             </Border>
                         </ControlTemplate>
                     </Setter.Value>
@@ -46,10 +47,10 @@
                         <ControlTemplate TargetType="ContentControl">
                             <Border Background="{StaticResource myBackground}">
                                 <Path
-                                Data="{StaticResource myDeleteButton}"
-                                Fill="{StaticResource myWerkBalkDisable}"
-                                RenderTransformOrigin="0.5,0.5"
-                                Stretch="Uniform" />
+                                    Data="{StaticResource myDeleteButton}"
+                                    Fill="{StaticResource myWerkBalkDisable}"
+                                    RenderTransformOrigin="0.5,0.5"
+                                    Stretch="Uniform" />
                             </Border>
                         </ControlTemplate>
                     </Setter.Value>
@@ -577,7 +578,6 @@
         <Setter Property="Cursor" Value="Hand" />
         <Setter Property="Height" Value="31" />
         <Setter Property="Width" Value="31" />
-        <Setter Property="Margin" Value="20,0,0,0" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="ContentControl">
@@ -600,11 +600,36 @@
         </Setter>
     </Style>
 
+
+    <Style x:Key="OpenUCButton" TargetType="ContentControl">
+        <Setter Property="Cursor" Value="Hand" />
+        <Setter Property="Margin" Value="0,0,0,0" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ContentControl">
+                    <Path
+                        Width="15"
+                        Height="15"
+                        Data="{StaticResource myOpenUCButton}"
+                        Fill="{StaticResource myTitleBar}"
+                        Stretch="Fill" />
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="Showfile" TargetType="ContentControl">
+        <Setter Property="Cursor" Value="Hand" />
+        <Setter Property="Height" Value="31" />
+        <Setter Property="Width" Value="31" />
+    </Style>
+
     <Style x:Key="UploadVlagButton" TargetType="ContentControl">
         <Setter Property="Cursor" Value="Hand" />
         <Setter Property="Height" Value="31" />
         <Setter Property="Width" Value="31" />
         <Setter Property="Margin" Value="20,0,0,0" />
+
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="ContentControl">
@@ -626,14 +651,176 @@
             </Setter.Value>
         </Setter>
     </Style>
-    
-    
-    <!--Thomas personen style-->
+
+
+    <Style x:Key="Deletefile" TargetType="ContentControl">
+        <Setter Property="Cursor" Value="Hand" />
+        <Setter Property="Height" Value="31" />
+        <Setter Property="Width" Value="31" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ContentControl">
+                    <Border
+                        Width="30"
+                        Height="30"
+                        Background="{StaticResource myBackground}"
+                        BorderBrush="{StaticResource myTitleBar}"
+                        BorderThickness="1"
+                        CornerRadius="15">
+
+                        <Path
+                            Width="15"
+                            Height="15"
+                            Data="{StaticResource myDeleteButton}"
+                            Fill="{StaticResource myTitleBar}"
+                            Stretch="Fill" />
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+
+    <Style x:Key="myRibbonButton" TargetType="RibbonButton">
+        <Setter Property="Width" Value="25" />
+        <Setter Property="Height" Value="25" />
+        <Setter Property="Margin" Value="5" />
+        <Setter Property="Padding" Value="1" />
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="RibbonButton">
+                    <Border
+                        Background="{TemplateBinding Background}"
+                        BorderBrush="{StaticResource myDagboekButtonIconColor}"
+                        BorderThickness="{TemplateBinding BorderThickness}">
+                        <Path
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            Data="{Binding Path=Content, RelativeSource={RelativeSource TemplatedParent}}"
+                            Fill="{StaticResource myDagboekButtonIconColor}"
+                            Stretch="Uniform" />
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="DeepSkyBlue" />
+                <Setter Property="BorderThickness" Value="1" />
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+
+
+    <Style x:Key="Excel" TargetType="ContentControl">
+        <Setter Property="Cursor" Value="Hand" />
+        <Setter Property="Height" Value="31" />
+        <Setter Property="Width" Value="31" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ContentControl">
+                    <Border
+                        Width="30"
+                        Height="30"
+                        Background="{StaticResource myBackground}"
+                        BorderBrush="{StaticResource myTitleBar}"
+                        BorderThickness="1"
+                        CornerRadius="15">
+
+                        <Path
+                            Width="15"
+                            Height="15"
+                            Data="{StaticResource myExcel}"
+                            Fill="{StaticResource myTitleBar}"
+                            Stretch="Fill" />
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!--  TEXTBLOCK  -->
+
+    <Style TargetType="TextBlock">
+        <Setter Property="Foreground" Value="#024f87" />
+    </Style>
+
+    <!--  LISTVIEW  -->
+
+    <Style TargetType="ListView">
+        <Setter Property="Foreground" Value="#024f87" />
+    </Style>
+
+    <!--  LISTBOX  -->
+    <Style TargetType="ListBox">
+        <Setter Property="Foreground" Value="#024f87" />
+    </Style>
+
+    <!--  LABEL  -->
+    <Style TargetType="Label">
+        <Setter Property="Foreground" Value="#024f87" />
+    </Style>
+
+    <!--  TEXTBOX  -->
+    <Style TargetType="TextBox">
+        <Setter Property="Foreground" Value="#024f87" />
+    </Style>
+
+    <!--  DATEPICKER  -->
+    <Style TargetType="DatePicker">
+        <Setter Property="Foreground" Value="#024f87" />
+    </Style>
+
+    <!--  COMBOBOX  -->
+    <Style TargetType="ComboBox">
+        <Setter Property="Foreground" Value="#024f87" />
+    </Style>
+
+    <!--  BUTTON  -->
+    <Style TargetType="Button">
+        <Setter Property="Foreground" Value="#024f87" />
+    </Style>
+
+    <!--  GRIDCOLUMN  -->
+    <Style TargetType="DataGridCell">
+        <Setter Property="Foreground" Value="#024f87" />
+    </Style>
+
+
+
+
+
+    <!--  dagboekkleurbutton werkt nog niet  -->
+    <Style x:Key="myFontColorButton" TargetType="Button">
+        <Setter Property="Margin" Value="1" />
+        <Setter Property="Width" Value="15" />
+        <Setter Property="Height" Value="15" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border
+                        Background="{TemplateBinding Background}"
+                        BorderBrush="Black"
+                        BorderThickness="1" />
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Style.Triggers>
+            <Trigger Property="IsPressed" Value="true">
+                <Setter Property="Background" Value="White" />
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <!--  Thomas personen style  -->
     <Style x:Key="TitleBarText" TargetType="TextBlock">
-        <Setter Property="Margin" Value="10,0,0,0"/>
-        <Setter Property="VerticalAlignment" Value="Center"/>
-        <Setter Property="FontSize" Value="20"/>
-        <Setter Property="Foreground" Value="White"/>
+        <Setter Property="Margin" Value="10,0,0,0" />
+        <Setter Property="VerticalAlignment" Value="Center" />
+        <Setter Property="FontSize" Value="20" />
+        <Setter Property="Foreground" Value="White" />
     </Style>
 
 </ResourceDictionary>

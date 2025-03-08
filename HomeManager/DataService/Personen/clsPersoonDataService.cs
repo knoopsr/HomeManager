@@ -12,20 +12,25 @@ namespace HomeManager.DataService.Personen
     public class clsPersoonDataService : IPersoonDataService
     {
         IPersoonRepository Repo = new clsPersoonRepository();
+
         public bool Delete(clsPersoonModel entity)
         {
             return Repo.Delete(entity);
         }
 
         public clsPersoonModel Find()
-
         {
-            return Repo.Find();
+            return Repo.GetFirst();
         }
 
         public ObservableCollection<clsPersoonModel> GetAll()
         {
             return Repo.GetAll();
+        }
+
+        public ObservableCollection<clsPersoonModel> GetAllApplicationUser()
+        {
+            return Repo.GetAllApplicationUser();
         }
 
         public clsPersoonModel GetById(int id)

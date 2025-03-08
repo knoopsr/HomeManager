@@ -204,6 +204,66 @@
   <data name="U_BudgetCategorie" xml:space="preserve">
     <value>U_BudgetCategorie</value>
   </data>
+  <data name="D_Frequentie" xml:space="preserve">
+    <value>D_Frequentie</value>
+  </data>
+  <data name="I_Frequentie" xml:space="preserve">
+    <value>I_Frequentie</value>
+  </data>
+  <data name="S_Frequentie" xml:space="preserve">
+    <value>S_Frequentie</value>
+  </data>
+  <data name="U_Frequentie" xml:space="preserve">
+    <value>U_Frequentie</value>
+  </data>
+  <data name="D_Begunstigden" xml:space="preserve">
+    <value>D_Begunstigden</value>
+  </data>
+  <data name="I_Begunstigden" xml:space="preserve">
+    <value>I_Begunstigden</value>
+  </data>
+  <data name="S_Begunstigden" xml:space="preserve">
+    <value>S_Begunstigden</value>
+  </data>
+  <data name="U_Begunstigden" xml:space="preserve">
+    <value>U_Begunstigden</value>
+  </data>
+  <data name="D_Domiciliering" xml:space="preserve">
+    <value>D_Domiciliering</value>
+  </data>
+  <data name="I_Domiciliering" xml:space="preserve">
+    <value>I_Domiciliering</value>
+  </data>
+  <data name="S_Domiciliering" xml:space="preserve">
+    <value>S_Domiciliering</value>
+  </data>
+  <data name="U_Domiciliering" xml:space="preserve">
+    <value>U_Domiciliering</value>
+  </data>
+  <data name="D_BudgetTransaction" xml:space="preserve">
+    <value>D_BudgetTransaction</value>
+  </data>
+  <data name="I_BudgetTransaction" xml:space="preserve">
+    <value>I_BudgetTransaction</value>
+  </data>
+  <data name="S_BudgetTransaction" xml:space="preserve">
+    <value>S_BudgetTransaction</value>
+  </data>
+  <data name="U_BudgetTransaction" xml:space="preserve">
+    <value>U_BudgetTransaction</value>
+  </data>
+  <data name="S_BudgetOverzichtInkomsten" xml:space="preserve">
+    <value>S_BudgetOverzichtInkomsten</value>
+  </data>
+  <data name="S_BudgetOverzichtUitgaven" xml:space="preserve">
+    <value>S_BudgetOverzichtUitgaven</value>
+  </data>
+  <data name="S_BudgetBijlageByBudgetTransactionID" xml:space="preserve">
+    <value>S_BudgetBijlageByBudgetTransactionID</value>
+  </data>
+  <data name="I_BudgetBijlage" xml:space="preserve">
+    <value>I_BudgetBijlage</value>
+  </data>
   <data name="D_Functies" xml:space="preserve">
     <value>D_Functies</value>
   </data>
@@ -276,9 +336,6 @@
   <data name="U_Gemeente" xml:space="preserve">
     <value>U_Gemeente</value>
   </data>
-  <data name="D_EmailAdressen" xml:space="preserve">
-    <value>D_EmailAdressen</value>
-  </data>
   <data name="I_EmailAdressen" xml:space="preserve">
     <value>I_EmailAdressen</value>
   </data>
@@ -288,11 +345,17 @@
   <data name="U_EmailAdressen" xml:space="preserve">
     <value>U_EmailAdressen</value>
   </data>
-  <data name="D_Adressen" xml:space="preserve">
-    <value>D_Adressen</value>
+  <data name="S_LockedUsers" xml:space="preserve">
+    <value>S_LockedUsers</value>
   </data>
-  <data name="I_Adressen" xml:space="preserve">
-    <value>I_Adressen</value>
+  <data name="U_LockedUsers" xml:space="preserve">
+    <value>U_LockedUsers</value>
+  </data>
+  <data name="S_EmailAdressenByRolName" xml:space="preserve">
+    <value>S_EmailAdressenByRolName</value>
+  </data>
+  <data name="S_EmailAdressenByID" xml:space="preserve">
+    <value>S_EmailAdressenByID</value>
   </data>
   <data name="S_Adressen" xml:space="preserve">
     <value>S_Adressen</value>
@@ -300,43 +363,76 @@
   <data name="U_Adressen" xml:space="preserve">
     <value>U_Adressen</value>
   </data>
-  <data name="D_TelefoonNummers" xml:space="preserve">
-    <value>D_TelefoonNummers</value>
-  </data>
-  <data name="I_TelefoonNummers" xml:space="preserve">
-    <value>I_TelefoonNummers</value>
-  </data>
-  <data name="S_TelefoonNummers" xml:space="preserve">
-    <value>S_TelefoonNummers</value>
+  <data name="S_AdressenByID" xml:space="preserve">
+    <value>S_AdressenByID</value>
   </data>
   <data name="U_TelefoonNummers" xml:space="preserve">
     <value>U_TelefoonNummers</value>
   </data>
+  <data name="I_TelefoonNummers" xml:space="preserve">
+    <value>I_TelefoonNummers</value>
+  </data>
   <data name="D_Notities" xml:space="preserve">
     <value>D_Notities</value>
-  </data>
-  <data name="I_Notities" xml:space="preserve">
-    <value>I_Notities</value>
   </data>
   <data name="S_Notities" xml:space="preserve">
     <value>S_Notities</value>
   </data>
-  <data name="U_Notities" xml:space="preserve">
-    <value>U_Notities</value>
-  </data>
-  <data name="S_EmailAdressenByID" xml:space="preserve">
-    <value>S_EmailAdressenByID</value>
-  </data>
-  <data name="S_AdressenByID" xml:space="preserve">
-    <value>S_AdressenByID</value>
-  </data>
-  <data name="S_TelefoonNummerByID" xml:space="preserve">
-    <value>S_TelefoonNummerByID</value>
+  <data name="I_Notities" xml:space="preserve">
+    <value>I_Notities</value>
   </data>
   <data name="S_NotitiesByID" xml:space="preserve">
     <value>S_NotitiesByID</value>
   </data>
-  <data name="I_GetAdresMetGemeente" xml:space="preserve">
-    <value>I_GetAdresMetGemeente</value>
+  <data name="S_TelefoonNummerByID" xml:space="preserve">
+    <value>S_TelefoonNummerByID</value>
+  </data>
+  <data name="S_TelefoonNummers" xml:space="preserve">
+    <value>S_TelefoonNummers</value>
+  </data>
+  <data name="D_TelefoonNummers" xml:space="preserve">
+    <value>D_TelefoonNummers</value>
+  </data>
+  <data name="U_Notities" xml:space="preserve">
+    <value>U_Notities</value>
+  </data>
+  <data name="I_Adressen" xml:space="preserve">
+    <value>I_Adressen</value>
+  </data>
+  <data name="S_Dagboek" xml:space="preserve">
+    <value>S_Dagboek</value>
+  </data>
+  <data name="D_Dagboek" xml:space="preserve">
+    <value>D_Dagboek</value>
+  </data>
+  <data name="I_Dagboek" xml:space="preserve">
+    <value>I_Dagboek</value>
+  </data>
+  <data name="U_Dagboek" xml:space="preserve">
+    <value>U_Dagboek</value>
+  </data>
+  <data name="I_ButtonLog" xml:space="preserve">
+    <value>I_ButtonLog</value>
+  </data>
+  <data name="S_ButtonLogsByAccountId" xml:space="preserve">
+    <value>S_ButtonLogsByAccountId</value>
+  </data>
+  <data name="S_ButtonLogsByActionName" xml:space="preserve">
+    <value>S_ButtonLogsByActionName</value>
+  </data>
+  <data name="S_ButtonLogsByActionTarget" xml:space="preserve">
+    <value>S_ButtonLogsByActionTarget</value>
+  </data>
+  <data name="S_ButtonLogsByDate" xml:space="preserve">
+    <value>S_ButtonLogsByDate</value>
+  </data>
+  <data name="S_ButtonLogsFirst1000" xml:space="preserve">
+    <value>S_ButtonLogsFirst1000</value>
+  </data>
+  <data name="D_Adressen" xml:space="preserve">
+    <value>D_Adressen</value>
+  </data>
+  <data name="D_EmailAdressen" xml:space="preserve">
+    <value>D_EmailAdressen</value>
   </data>
 </root>

@@ -11,6 +11,8 @@ using HomeManager.Common;
 using HomeManager.Helpers;
 using HomeManager.Model.Budget;
 using HomeManager.DataService.Budget;
+using HomeManager.Messages;
+
 
 
 namespace HomeManager.ViewModel
@@ -19,12 +21,16 @@ namespace HomeManager.ViewModel
     {
         
         clsCategorieDataService MijnService;
+
         private bool NewStatus = false;
         public ICommand cmdDelete { get; set; }
         public ICommand cmdNew { get; set; }
         public ICommand cmdCancel { get; set; }
         public ICommand cmdClose { get; set; }
         public ICommand cmdSave { get; set; }
+        public ICommand cmdFilter { get; set; }
+
+
 
         private ObservableCollection<clsCategorieModel> _MijnCollectie;
         public ObservableCollection<clsCategorieModel> MijnCollectie
@@ -53,7 +59,8 @@ namespace HomeManager.ViewModel
                 {
                     if (_MijnSelectedItem != null && _MijnSelectedItem.IsDirty)
                     {
-                        if (MessageBox.Show("wil je " + _MijnSelectedItem + "Opslaan ? ", "Opslaan", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+                        if (MessageBox.Show("wil je " + _MijnSelectedItem + " Opslaan? ", "Opslaan", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+
                         {
                             OpslaanCommando();
                             LoadData();
@@ -112,6 +119,9 @@ namespace HomeManager.ViewModel
         private void LoadData()
         {
             MijnCollectie = MijnService.GetAll();
+            GefilterdeCollectie = new ObservableCollection<clsCategorieModel>(MijnCollectie);
+
+
         }
 
 
@@ -124,11 +134,17 @@ namespace HomeManager.ViewModel
             cmdNew = new clsCustomCommand(Execute_NewCommand, CanExecute_NewCommand);
             cmdCancel = new clsCustomCommand(Execute_CancelCommand, CanExecute_CancelCommand);
             cmdClose = new clsCustomCommand(Execute_CloseCommand, CanExecute_CloseCommand);
+            cmdFilter = new clsCustomCommand(Execute_FilterCommand, CanExecute_FilterCommand);
+            clsMessenger.Default.Register<clsCategorieModel>(this, OnCategorieReceived);
+
 
             LoadData();
             MijnSelectedItem = MijnService.GetFirst();
         }
 
+
+
+        #region Save - Delete - Cancel - Close
 
 
         private bool CanExecute_CloseCommand(object obj)
@@ -155,6 +171,10 @@ namespace HomeManager.ViewModel
                 clsHomeVM vm = (clsHomeVM)HomeWindow.DataContext;
                 vm.CurrentViewModel = null;
             }
+
+
+            clsMessenger.Default.Send<clsUpdateListMessages>(new clsUpdateListMessages());
+
         }
 
 
@@ -253,5 +273,74 @@ namespace HomeManager.ViewModel
             OpslaanCommando();
 
         }
+
+
+        private void OnCategorieReceived(clsCategorieModel obj)
+        {
+            _MijnSelectedItem = obj;
+        }
+
+        #endregion
+
+        #region Filter_Categorie
+
+        private string _filterTekst;
+
+        public string FilterTekst
+        {
+            get
+            {
+                return _filterTekst;
+            }
+            set
+            {
+                _filterTekst = value;
+                OnPropertyChanged(nameof(FilterTekst));
+            }
+        }
+
+        private ObservableCollection<clsCategorieModel> _gefilterdeCollectie;
+
+        public ObservableCollection<clsCategorieModel> GefilterdeCollectie
+        {
+            get
+            {
+                return _gefilterdeCollectie;
+            }
+            set
+            {
+                _gefilterdeCollectie = value;
+                OnPropertyChanged(nameof(GefilterdeCollectie));
+            }
+        }
+
+        private bool CanExecute_FilterCommand(object obj)
+        {
+            return true;
+        }
+
+        private void Execute_FilterCommand(object obj)
+        {
+            if (string.IsNullOrWhiteSpace(FilterTekst))
+            {
+                // Als er geen filtertekst is, toon alles
+                GefilterdeCollectie = new ObservableCollection<clsCategorieModel>(MijnCollectie);
+            }
+            else
+            {
+                // Filter de collectie op basis van FilterTekst
+                var GefilterdeItems = MijnCollectie
+                    .Where(item =>
+
+                        
+                        (item.BudgetCategorie.IndexOf(FilterTekst, StringComparison.OrdinalIgnoreCase) >= 0)                        
+                        )
+                    .ToList();
+
+                //update de gefilterde collectie
+                GefilterdeCollectie = new ObservableCollection<clsCategorieModel>(GefilterdeItems);
+            }
+        }
+        #endregion
     }
 }

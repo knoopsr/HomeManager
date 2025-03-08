@@ -49,9 +49,9 @@ namespace HomeManager.Mail
 
                 // Verzend de e-mail zonder een template renderer
                 var email = await Email
-                    .From("noreply@homemanager.be")
+                    .From(MailModel.MailFromEmail)
                     .To(MailModel.MailToEmail, MailModel.MailToName)
-                    .Subject(MailModel.Subject)
+                    .Subject(MailModel.Subject)                 
                     .Body(htmlBody.ToString(), isHtml: true)
                     .SendAsync();
 

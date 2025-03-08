@@ -70,7 +70,25 @@ namespace HomeManager.Helpers
             { "clsRechtenViewModel", "200" },
             { "clsCredentialManagementViewModel", "200" },
             { "clsCredentialGroupViewModel", "200" },
-            { "clsAccountViewModel", "200" }
+            { "clsAccountViewModel", "200" },
+
+            { "clsFrequentieViewModel", "440" },
+            { "clsDomicilieringViewModel", "420" },
+            { "clsCategorieViewModel", "450" },
+            { "clsBegunstigdenViewModel", "430" },
+            { "clsTransactieViewModel", "410" },
+            { "clsOverzichtViewModel", "410" },
+           
+
+
+
+
+            {"clsDagboekViewModel", "300" },
+
+
+            {"clsUnLockViewModel","711"},
+            {"clsButtonLoggingViewModel","712"}
+
         };
 
 

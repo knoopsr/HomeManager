@@ -1,50 +1,53 @@
-﻿using System.Windows;
-using System.Windows.Controls;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Collections;
+using System.Windows;
 using System.Windows.Input;
+using Microsoft.Xaml.Behaviors;
+using HomeManager.Helpers;
 
 namespace HomeManager.Behaviors
 {
-    public class clsDragDropBehavior
+    public class clsDragDropBehavior : Behavior<UIElement>
     {
         public static readonly DependencyProperty DropCommandProperty =
-            DependencyProperty.RegisterAttached("DropCommand", typeof(ICommand), typeof(clsDragDropBehavior), new PropertyMetadata(null, OnDropCommandChanged));
+            DependencyProperty.Register(nameof(DropCommand), typeof(ICommand), typeof(clsDragDropBehavior));
 
-        public static ICommand GetDropCommand(DependencyObject obj)
+        public ICommand DropCommand
         {
-            return (ICommand)obj.GetValue(DropCommandProperty);
+            get => (ICommand)GetValue(DropCommandProperty);
+            set => SetValue(DropCommandProperty, value);
         }
 
-        public static void SetDropCommand(DependencyObject obj, ICommand value)
+        protected override void OnAttached()
         {
-            obj.SetValue(DropCommandProperty, value);
+            AssociatedObject.AllowDrop = true;
+            AssociatedObject.Drop += OnDrop;
+            AssociatedObject.DragOver += OnDragOver;
         }
 
-        private static void OnDropCommandChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        protected override void OnDetaching()
         {
-            if (d is UIElement element)
+            AssociatedObject.Drop -= OnDrop;
+            AssociatedObject.DragOver -= OnDragOver;
+        }
+
+        private void OnDrop(object sender, DragEventArgs e)
+        {
+            if (DropCommand != null && DropCommand.CanExecute(e.Data))
             {
-                if (e.NewValue != null)
-                {
-                    element.Drop += Element_Drop;
-                }
-                else
-                {
-                    element.Drop -= Element_Drop;
-                }
+                DropCommand.Execute(e.Data);
             }
+            e.Handled = true;
         }
 
-        private static void Element_Drop(object sender, DragEventArgs e)
+        private void OnDragOver(object sender, DragEventArgs e)
         {
-            if (e.Data.GetDataPresent(DataFormats.FileDrop))
-            {
-                string[] files = (string[])e.Data.GetData(DataFormats.FileDrop);
-                var command = GetDropCommand(sender as DependencyObject);
-                if (command != null && command.CanExecute(files))
-                {
-                    command.Execute(files);
-                }
-            }
+            e.Effects = DragDropEffects.Copy;
+            e.Handled = true;
         }
     }
 }

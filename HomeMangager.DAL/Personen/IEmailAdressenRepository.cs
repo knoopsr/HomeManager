@@ -12,5 +12,7 @@ namespace HomeManager.DAL.Personen
     public interface IEmailAdressenRepository : IRepository<clsEmailAdressenModel>
     {
         ObservableCollection<clsEmailAdressenModel> GetByPersoonID(int id);
+
+        ObservableCollection<clsEmailAdressenModel> GetAllbyRollName(string rolName);
     }
 }
