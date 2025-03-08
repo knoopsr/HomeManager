@@ -166,14 +166,9 @@
                         <StackPanel x:Name="stckPerson">
                             <Button
                                 Command="{Binding NavCommand}"
-                                CommandParameter="clsPersonenViewModel"
-                                Content="Personen"
-                                Style="{StaticResource myMenuTandwiel}" />
-                            <Button
-                                Command="{Binding NavCommand}"
                                 CommandParameter="clsPersoonViewModel"
                                 Content="Persoon"
-                                Style="{StaticResource myExpanderPerson}" />
+                                Style="{StaticResource myMenuPersoon}" />
                             <Button
                                 Command="{Binding NavCommand}"
                                 CommandParameter="clsEmailTypeViewModel"
@@ -203,7 +198,7 @@
                                 Command="{Binding NavCommand}"
                                 CommandParameter="clsFunctieViewModel"
                                 Content="Functies"
-                                Style="{StaticResource myExpanderPerson}" /> 
+                                Style="{StaticResource myMenuTandwiel}" /> 
                         </StackPanel>
                     </Expander>
 
@@ -305,7 +300,7 @@
 
                     <Expander IsExpanded="{Binding IsStickyNotesExpanderMenu, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource myHamburgerStickyNotes}">
                         <StackPanel x:Name="stckStickynotes">
-                            <Button Content="Sticky notes colors" Style="{StaticResource myExpanderStickyNoteColors}" />
+                            <Button Content="Sticky notes colors" Style="{StaticResource myMenuStickyNoteColor}" />
                         </StackPanel>
 
                     </Expander>
