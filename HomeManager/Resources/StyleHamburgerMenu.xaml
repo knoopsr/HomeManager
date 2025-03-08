@@ -236,7 +236,7 @@
             </Setter.Value>
         </Setter>
     </Style>
-    
+
 
     <Style x:Key="myExpanderDagboek" TargetType="Button">
         <Setter Property="Margin" Value="19,3,0,3" />
@@ -253,12 +253,15 @@
                                 <ColumnDefinition Width="*" />
                             </Grid.ColumnDefinitions>
                             <Path Data="{StaticResource myPathBook}" Style="{StaticResource MenuIcon}" />
-                            <ContentPresenter x:Name="ContentPresenter" Grid.Column="1" RecognizesAccessKey="True">
+                            <ContentPresenter
+                                x:Name="ContentPresenter"
+                                Grid.Column="1"
+                                RecognizesAccessKey="True">
                                 <ContentPresenter.Content>
                                     <TextBlock
-                            Margin="5,1,0,0"
-                            Foreground="{StaticResource MenuColorText}"
-                            Text="{TemplateBinding Content}" />
+                                        Margin="5,1,0,0"
+                                        Foreground="{StaticResource MenuColorText}"
+                                        Text="{TemplateBinding Content}" />
                                 </ContentPresenter.Content>
                             </ContentPresenter>
                         </Grid>
@@ -576,14 +579,13 @@
                             IsHitTestVisible="False"
                             Stretch="Uniform" />
                         <TextBlock
-    Grid.Column="1"
-Margin="15,0,0,0"
+                            Grid.Column="1"
+                            Margin="15,0,0,0"
+                            VerticalAlignment="Center"
                             FontSize="16"
-    VerticalAlignment="Center"
-    Text="Home Manager"
-    Foreground="{StaticResource MenuColorText}"
-    IsHitTestVisible="False" />
-
+                            Foreground="{StaticResource MenuColorText}"
+                            IsHitTestVisible="False"
+                            Text="Home Manager" />
                     </Grid>
                 </ControlTemplate>
             </Setter.Value>
