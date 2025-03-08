@@ -188,18 +188,18 @@
 
 
     <!--  Style For contentpresenter  -->
-<Style x:Key="MenuPresenter" TargetType="ContentPresenter">
-    <Setter Property="Margin" Value="6,0,0,0" />
-    <Setter Property="HorizontalAlignment" Value="Left" />
-    <Setter Property="VerticalAlignment" Value="Center" />
-    <Setter Property="ContentTemplate">
-        <Setter.Value>
-            <DataTemplate>
-                <TextBlock Text="{Binding}" Foreground="White"/>
-            </DataTemplate>
-        </Setter.Value>
-    </Setter>
-</Style>
+    <Style x:Key="MenuPresenter" TargetType="ContentPresenter">
+        <Setter Property="Margin" Value="6,0,0,0" />
+        <Setter Property="HorizontalAlignment" Value="Left" />
+        <Setter Property="VerticalAlignment" Value="Center" />
+        <Setter Property="ContentTemplate">
+            <Setter.Value>
+                <DataTemplate>
+                    <TextBlock Foreground="White" Text="{Binding}" />
+                </DataTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
 
 
 
@@ -215,7 +215,7 @@
                                 <ColumnDefinition Width="auto" />
                                 <ColumnDefinition Width="*" />
                             </Grid.ColumnDefinitions>
-                            <Path Data="{StaticResource myPathPerson}" Style="{StaticResource MenuIcon}" />
+                            <Path Data="{StaticResource myPathPeople}" Style="{StaticResource MenuIcon}" />
                             <ContentPresenter
                                 x:Name="ContentPresenter"
                                 Grid.Column="1"
@@ -235,9 +235,8 @@
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
-
-
     </Style>
+    
 
     <Style x:Key="myExpanderDagboek" TargetType="Button">
         <Setter Property="Margin" Value="19,3,0,3" />
@@ -254,10 +253,14 @@
                                 <ColumnDefinition Width="*" />
                             </Grid.ColumnDefinitions>
                             <Path Data="{StaticResource myPathBook}" Style="{StaticResource MenuIcon}" />
-                            <ContentPresenter
-                                x:Name="ContentPresenter"
-                                Grid.Column="1"
-                                Style="{StaticResource MenuPresenter}" />
+                            <ContentPresenter x:Name="ContentPresenter" Grid.Column="1" RecognizesAccessKey="True">
+                                <ContentPresenter.Content>
+                                    <TextBlock
+                            Margin="5,1,0,0"
+                            Foreground="{StaticResource MenuColorText}"
+                            Text="{TemplateBinding Content}" />
+                                </ContentPresenter.Content>
+                            </ContentPresenter>
                         </Grid>
                     </Border>
                     <ControlTemplate.Triggers>
@@ -390,7 +393,7 @@
     </Style>
 
 
-    <Style x:Key="myExpanderStickyNoteColors" TargetType="Button">
+    <Style x:Key="myExpanderStickyNote" TargetType="Button">
         <Setter Property="Margin" Value="35,5,0,5" />
         <Setter Property="Foreground" Value="{StaticResource myWerkBalk}" />
         <Setter Property="Template">
@@ -426,7 +429,7 @@
     </Style>
 
 
-    <!-- Stijl voor de knop -->
+    <!--  Stijl voor de knop  -->
     <Style x:Key="myMenuTandwiel" TargetType="Button">
         <Setter Property="Margin" Value="35,5,0,5" />
         <Setter Property="Foreground" Value="{StaticResource myWerkBalk}" />
@@ -439,17 +442,20 @@
                                 <ColumnDefinition Width="20" />
                                 <ColumnDefinition Width="*" />
                             </Grid.ColumnDefinitions>
-                            <!-- Icon -->
+                            <!--  Icon  -->
                             <Path Data="{StaticResource myPathSetting}" Style="{StaticResource MenuIcon}" />
-                            <!-- ContentPresenter met een ingesloten TextBlock -->
+                            <!--  ContentPresenter met een ingesloten TextBlock  -->
                             <ContentPresenter Grid.Column="1" RecognizesAccessKey="True">
                                 <ContentPresenter.Content>
-                                    <TextBlock Text="{TemplateBinding Content}" Foreground="{StaticResource MenuColorText}"/>
+                                    <TextBlock
+                                        Margin="5,0,0,0"
+                                        Foreground="{StaticResource MenuColorText}"
+                                        Text="{TemplateBinding Content}" />
                                 </ContentPresenter.Content>
                             </ContentPresenter>
                         </Grid>
                     </Border>
-                    <!-- Mouse-over effecten -->
+                    <!--  Mouse-over effecten  -->
                     <ControlTemplate.Triggers>
                         <Trigger SourceName="HeaderBorder" Property="IsMouseOver" Value="True">
                             <Setter Property="Cursor" Value="Hand" />
@@ -462,6 +468,86 @@
         </Setter>
     </Style>
 
+
+
+    <Style x:Key="myMenuPersoon" TargetType="Button">
+        <Setter Property="Margin" Value="35,5,0,5" />
+        <Setter Property="Foreground" Value="{StaticResource myWerkBalk}" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border Name="HeaderBorder" Background="Transparent">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="20" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <!--  Icon  -->
+                            <Path Data="{StaticResource myPathPerson}" Style="{StaticResource MenuIcon}" />
+                            <!--  ContentPresenter met een ingesloten TextBlock  -->
+                            <ContentPresenter Grid.Column="1" RecognizesAccessKey="True">
+                                <ContentPresenter.Content>
+                                    <TextBlock
+                                        Margin="5,2,0,0"
+                                        Foreground="{StaticResource MenuColorText}"
+                                        Text="{TemplateBinding Content}" />
+                                </ContentPresenter.Content>
+                            </ContentPresenter>
+                        </Grid>
+                    </Border>
+                    <!--  Mouse-over effecten  -->
+                    <ControlTemplate.Triggers>
+                        <Trigger SourceName="HeaderBorder" Property="IsMouseOver" Value="True">
+                            <Setter Property="Cursor" Value="Hand" />
+                            <Setter TargetName="HeaderBorder" Property="Background" Value="LightBlue" />
+                            <Setter TargetName="HeaderBorder" Property="CornerRadius" Value="1" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+
+
+
+    <Style x:Key="myMenuStickyNoteColor" TargetType="Button">
+        <Setter Property="Margin" Value="35,5,0,5" />
+        <Setter Property="Foreground" Value="{StaticResource myWerkBalk}" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border Name="HeaderBorder" Background="Transparent">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="20" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <!--  Icon  -->
+                            <Path Data="{StaticResource myPathSetting}" Style="{StaticResource MenuIcon}" />
+                            <!--  ContentPresenter met een ingesloten TextBlock  -->
+                            <ContentPresenter Grid.Column="1" RecognizesAccessKey="True">
+                                <ContentPresenter.Content>
+                                    <TextBlock
+                                        Margin="5,0,0,0"
+                                        Foreground="{StaticResource MenuColorText}"
+                                        Text="{TemplateBinding Content}" />
+                                </ContentPresenter.Content>
+                            </ContentPresenter>
+                        </Grid>
+                    </Border>
+                    <!--  Mouse-over effecten  -->
+                    <ControlTemplate.Triggers>
+                        <Trigger SourceName="HeaderBorder" Property="IsMouseOver" Value="True">
+                            <Setter Property="Cursor" Value="Hand" />
+                            <Setter TargetName="HeaderBorder" Property="Background" Value="LightBlue" />
+                            <Setter TargetName="HeaderBorder" Property="CornerRadius" Value="1" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
 
 
 
@@ -486,16 +572,18 @@
                             HorizontalAlignment="Center"
                             VerticalAlignment="Center"
                             Data="{StaticResource myPathMenu}"
-                            Fill="White"
+                            Fill="{StaticResource MenuColorText}"
                             IsHitTestVisible="False"
                             Stretch="Uniform" />
-                        <Label
-                            Grid.Column="1"
-                            HorizontalAlignment="Center"
-                            VerticalAlignment="Center"
-                            Content="Home Manager"
-                            Foreground="White"
-                            IsHitTestVisible="False" />
+                        <TextBlock
+    Grid.Column="1"
+Margin="15,0,0,0"
+                            FontSize="16"
+    VerticalAlignment="Center"
+    Text="Home Manager"
+    Foreground="{StaticResource MenuColorText}"
+    IsHitTestVisible="False" />
+
                     </Grid>
                 </ControlTemplate>
             </Setter.Value>
@@ -555,10 +643,10 @@
                                 <Button
                                     Margin="10,0,0,0"
                                     Command="{Binding NavCommand}"
-                                    CommandParameter="clsPersonenViewModel"                     
+                                    CommandParameter="clsPersonenViewModel"
                                     Style="{StaticResource myExpanderPerson}">
                                     <Button.Content>
-                                        <TextBlock Text="Personen" Foreground="{StaticResource MenuColorText}"/>
+                                        <TextBlock Foreground="{StaticResource MenuColorText}" Text="Personen" />
                                     </Button.Content>
                                 </Button>
                             </StackPanel>
@@ -633,10 +721,10 @@
                                 <Button
                                     Margin="10,0,0,0"
                                     Command="{Binding NavCommand}"
-                                    CommandParameter="clsOverzichtViewModel"                             
+                                    CommandParameter="clsOverzichtViewModel"
                                     Style="{StaticResource myExpanderBudget}">
                                     <Button.Content>
-                                    <TextBlock Text="Budget" Foreground="{StaticResource MenuColorText}"/>
+                                        <TextBlock Foreground="{StaticResource MenuColorText}" Text="Budget" />
                                     </Button.Content>
                                 </Button>
                             </StackPanel>
@@ -664,9 +752,9 @@
             <Setter.Value>
                 <ControlTemplate TargetType="Expander">
                     <Border
-                    Background="Transparent"
-                    BorderBrush="{TemplateBinding BorderBrush}"
-                    BorderThickness="{TemplateBinding BorderThickness}">
+                        Background="Transparent"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="{TemplateBinding BorderThickness}">
                         <Grid>
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto" />
@@ -677,15 +765,15 @@
                                 <ColumnDefinition Width="auto" />
                             </Grid.ColumnDefinitions>
                             <StackPanel
-                            Grid.Row="0"
-                            Grid.Column="0"
-                            Grid.ColumnSpan="2"
-                            Orientation="Horizontal">
+                                Grid.Row="0"
+                                Grid.Column="0"
+                                Grid.ColumnSpan="2"
+                                Orientation="Horizontal">
                                 <ToggleButton
-                                x:Name="ExpanderToggleButton"
-                                Background="Transparent"
-                                BorderThickness="0"
-                                IsChecked="{Binding IsExpanded, RelativeSource={RelativeSource TemplatedParent}}">
+                                    x:Name="ExpanderToggleButton"
+                                    Background="Transparent"
+                                    BorderThickness="0"
+                                    IsChecked="{Binding IsExpanded, RelativeSource={RelativeSource TemplatedParent}}">
                                     <ToggleButton.Template>
                                         <ControlTemplate TargetType="ToggleButton">
                                             <StackPanel Orientation="Horizontal">
@@ -707,23 +795,23 @@
                                         </ControlTemplate>
                                     </ToggleButton.Template>
                                 </ToggleButton>
-                                <!-- Button met wit gemaakte tekst -->
+                                <!--  Button met wit gemaakte tekst  -->
                                 <Button
-                                Margin="10,0,0,0"
-                                Command="{Binding NavCommand}"
-                                CommandParameter="clsCategorieViewModel"
-                                Style="{StaticResource myExpanderTodo}">
+                                    Margin="10,0,0,0"
+                                    Command="{Binding NavCommand}"
+                                    CommandParameter="clsCategorieViewModel"
+                                    Style="{StaticResource myExpanderTodo}">
                                     <Button.Content>
-                                        <TextBlock Text="ToDo" Foreground="{StaticResource MenuColorText}"/>
+                                        <TextBlock Foreground="{StaticResource MenuColorText}" Text="ToDo" />
                                     </Button.Content>
                                 </Button>
                             </StackPanel>
 
                             <ContentPresenter
-                            x:Name="ExpanderContent"
-                            Grid.Row="1"
-                            Grid.ColumnSpan="2"
-                            Visibility="Collapsed" />
+                                x:Name="ExpanderContent"
+                                Grid.Row="1"
+                                Grid.ColumnSpan="2"
+                                Visibility="Collapsed" />
                         </Grid>
                     </Border>
                     <ControlTemplate.Triggers>
@@ -789,10 +877,10 @@
                                 <Button
                                     Margin="10,0,0,0"
                                     Command="{Binding NavCommand}"
-                                    CommandParameter="clsCredentialManagementViewModel"                        
+                                    CommandParameter="clsCredentialManagementViewModel"
                                     Style="{StaticResource myExpanderSecurity}">
                                     <Button.Content>
-                                        <TextBlock Text="Security" Foreground="{StaticResource MenuColorText}"/>
+                                        <TextBlock Foreground="{StaticResource MenuColorText}" Text="Security" />
                                     </Button.Content>
                                 </Button>
                             </StackPanel>
@@ -867,8 +955,11 @@
                                     Margin="10,0,0,0"
                                     Command="{Binding NavCommand}"
                                     CommandParameter="clsPersoonViewModel"
-                                    Content="StickyNotes"
-                                    Style="{StaticResource myExpanderStickyNoteColors}" />
+                                    Style="{StaticResource myExpanderStickyNote}">
+                                    <Button.Content>
+                                        <TextBlock Foreground="{StaticResource MenuColorText}" Text="StickyNotes" />
+                                    </Button.Content>
+                                </Button>
                             </StackPanel>
 
                             <ContentPresenter
