@@ -220,7 +220,14 @@ namespace HomeManager.ViewModel
         public clsKleurenVM KleurenViewModel => new clsKleurenVM();
         #endregion
 
-       
+       public clsButtonLoggingViewModel ButtonLoggingViewModel
+        {
+            get
+            {
+                return new clsButtonLoggingViewModel();
+            }
+        }
+
         public clsUnLockViewModel UnLockViewModel
         {
             get

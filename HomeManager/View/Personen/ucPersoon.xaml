@@ -47,7 +47,7 @@
                         Text="Persoon" />
 
                 </StackPanel>
-                <uc:ucWerkBalk HorizontalAlignment="Right" VerticalAlignment="Top" Loaded="ucWerkBalk_Loaded" />
+                <uc:ucWerkBalk HorizontalAlignment="Right" VerticalAlignment="Top" />
             </Grid>
         </Border>
 
@@ -173,12 +173,14 @@
                         HorizontalAlignment="Left"
                         BorderBrush="Gray"
                         BorderThickness="1"
-                        AllowDrop="True"
-                        behaviors:clsDragDropBehavior.DropCommand="{Binding cmdDropPicture}"
+                        AllowDrop="True"                   
                         CornerRadius="35">
                         <Border.Background>
                             <ImageBrush ImageSource="{Binding MijnSelectedItem.Foto, TargetNullValue={x:Null}}" Stretch="UniformToFill" />
                         </Border.Background>
+                        <i:Interaction.Behaviors>
+                            <behaviors:clsDragDropBehavior DropCommand="{Binding cmdDropPicture}"/>
+                        </i:Interaction.Behaviors>
                     </Border>
                     <Button x:Name="btnUploadPicture" Command="{Binding cmdUploadPicture}" Style="{StaticResource UploadPersoonButton}" />
                 </StackPanel>

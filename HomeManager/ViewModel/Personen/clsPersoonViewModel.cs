@@ -15,6 +15,7 @@ using System.IO;
 using System.Windows.Media.Imaging;
 using HomeManager.Messages;
 using System.Reflection.Metadata;
+using HomeManager.Model.Budget;
 
 namespace HomeManager.ViewModel
 {
@@ -150,6 +151,7 @@ namespace HomeManager.ViewModel
             cmdClose = new clsCustomCommand(Execute_Close_Command, CanExecute_Close_Command);
             cmdUploadPicture = new clsCustomCommand(Execute_UploadPicture_Command, CanExecute_UploadPicture_Command);
             cmdDropPicture = new clsCustomCommand(Execute_DropPicture_Command, CanExecute_DropPicture_Command);
+
             //clsMessenger.Default.Register<clsNewPersoonMessage>(this, OnNewPersonenReceive);
             clsMessenger.Default.Register<clsPersoonModel>(this, OnPersoonReceived);
 
@@ -226,23 +228,35 @@ namespace HomeManager.ViewModel
         }
 
         //Voor Drag & Drop
-        private bool CanExecute_DropPicture_Command(object parameter)
+        private bool CanExecute_DropPicture_Command(object? parameter)
         {
             return true;
         }
 
-        private void Execute_DropPicture_Command(object parameter)
+        private void Execute_DropPicture_Command(object? obj)
         {
-            if (parameter is string[] files && files.Length > 0)
+
+            if (obj is DataObject dataObject && dataObject.GetDataPresent(DataFormats.FileDrop))
             {
-                string filePath = files[0];
-                if (File.Exists(filePath))
+                var files = (string[])dataObject.GetData(DataFormats.FileDrop);
+                if (files.Length > 0)
                 {
-                    MijnSelectedItem.Foto = DocumentContent(filePath);
-                    MijnSelectedItem.IsDirty = true;
+                    foreach (var file in files)
+                    {
+                        MijnSelectedItem.Foto = File.ReadAllBytes(file);
+                        MijnSelectedItem.IsDirty = true;
+
+                    }
+
+
                 }
             }
         }
+
+
+
+
+        
 
         private void Execute_Save_Command(object? obj)
         {
