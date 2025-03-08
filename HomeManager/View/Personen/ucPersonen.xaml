@@ -284,7 +284,11 @@
                                             CommandParameter="{Binding}"
                                             Style="{StaticResource DeleteEmail}" />
                                         <!--  Send-knop  -->
-                                        <Button Style="{StaticResource SendEmail}" />
+                                        <Button 
+                                            Command="{Binding DataContext.cmdSendEmail, RelativeSource={RelativeSource AncestorType=ListBox}}"
+                                            CommandParameter="{Binding}"
+                                            Content="Send Email"
+                                            Style="{StaticResource SendEmail}" />
                                     </StackPanel>
                                 </Grid>
                             </DataTemplate>

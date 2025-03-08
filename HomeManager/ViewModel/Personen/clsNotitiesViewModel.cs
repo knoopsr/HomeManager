@@ -1,16 +1,16 @@
 ﻿using HomeManager.Helpers;
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
 using System.Windows;
 using HomeManager.Common;
 using HomeManager.DataService.Personen;
 using HomeManager.Model.Personen;
 using HomeManager.Messages;
+using System.Windows.Documents;
+using System.Windows.Controls;
+using System.IO;
+using HomeManager.Behaviors;
 
 namespace HomeManager.ViewModel
 {
@@ -25,6 +25,16 @@ namespace HomeManager.ViewModel
         public ICommand cmdCancel { get; set; }
         public ICommand cmdClose { get; set; }
         public ICommand cmdSave { get; set; }
+
+       
+        public ICommand BoldCommand { get; }
+        public ICommand ItalicCommand { get; }
+        public ICommand BulletCommand { get; }
+        public ICommand NumberedCommand { get; }
+        public ICommand UnderlineCommand { get; }
+
+
+
 
         private ObservableCollection<clsNotitiesModel> mijnCollectie;
 
@@ -90,9 +100,9 @@ namespace HomeManager.ViewModel
             if (MijnSelectedItem != null)
             {
                 if (NewStatus)
-                {
+                {            
                     if (MijnService.Insert(MijnSelectedItem))
-                    {
+                    {                      
                         MijnSelectedItem.IsDirty = false;
                         MijnSelectedItem.MijnSelectedIndex = 0;
                         MijnSelectedItem.MyVisibility = (int)Visibility.Visible;
@@ -108,6 +118,7 @@ namespace HomeManager.ViewModel
                 {
                     if (MijnService.Update(MijnSelectedItem))
                     {
+                        Console.WriteLine("Update gelukt!");
                         MijnSelectedItem.IsDirty = false;
                         MijnSelectedItem.MijnSelectedIndex = 0;
                         NewStatus = false;
@@ -119,7 +130,40 @@ namespace HomeManager.ViewModel
                     }
                 }
             }
+
+
+            //if (MijnSelectedItem != null)
+            //{
+            //    if (NewStatus)
+            //    {
+            //        if (MijnService.Insert(MijnSelectedItem))
+            //        {
+            //            MijnSelectedItem.IsDirty = false;
+            //            NewStatus = false;
+            //            LoadData();
+            //        }
+            //        else
+            //        {
+            //            MessageBox.Show(MijnSelectedItem.ErrorBoodschap, "Opslaan mislukt");
+            //        }
+            //    }
+            //    else
+            //    {
+            //        if (MijnService.Update(MijnSelectedItem))
+            //        {
+            //            MijnSelectedItem.IsDirty = false;
+            //            NewStatus = false;
+            //            LoadData();
+            //        }
+            //        else
+            //        {
+            //            MessageBox.Show(MijnSelectedItem.ErrorBoodschap, "Opslaan mislukt");
+            //        }
+            //    }
+            //}
         }
+
+
 
 
         public clsNotitiesViewModel()
@@ -131,12 +175,108 @@ namespace HomeManager.ViewModel
             cmdSave = new clsCustomCommand(Execute_SaveCommand, CanExecute_SaveCommand);
             cmdClose = new clsCustomCommand(Execute_CloseCommand, CanExecute_CloseCommand);
             cmdCancel = new clsCustomCommand(Execute_CancelCommand, CanExecute_CancelCommand);
+
+            //test
+            BoldCommand = new RelayCommando<RichTextBox>(ToggleBold);
+            ItalicCommand = new RelayCommando<RichTextBox>(ToggleItalic);
+            BulletCommand = new RelayCommando<RichTextBox>(AddBullets);
+            NumberedCommand = new RelayCommando<RichTextBox>(AddNumbering);
+            UnderlineCommand = new RelayCommando<RichTextBox>(ApplyUnderline);
+
             clsMessenger.Default.Register<clsNotitiesModel>(this, OnNotitiesReceived);
 
             LoadData();
             MijnSelectedItem = MijnService.GetFirst();
             //MijnSelectedItem.MijnSelectedIndex = 0;
         }
+
+
+
+        //Test Notities
+        private void ToggleBold(RichTextBox richTextBox)
+        {
+            if (richTextBox != null && !richTextBox.Selection.IsEmpty)
+            {
+                var selection = richTextBox.Selection;
+                var weight = selection.GetPropertyValue(TextElement.FontWeightProperty);
+
+                // Wissel tussen vet en normaal
+                selection.ApplyPropertyValue(TextElement.FontWeightProperty,
+                    weight.Equals(FontWeights.Bold) ? FontWeights.Normal : FontWeights.Bold);
+
+                // Zorg ervoor dat de wijzigingen worden opgeslagen
+                var textRange = new TextRange(richTextBox.Document.ContentStart, richTextBox.Document.ContentEnd);
+                using (var stream = new MemoryStream())
+                {
+                    textRange.Save(stream, DataFormats.Rtf);
+                    clsRichTextBoxHelper.SetRtfText(richTextBox, Encoding.Default.GetString(stream.ToArray())); // Zorg ervoor dat je de helper aanroept
+                }
+            }
+        }
+
+        private void ToggleItalic(RichTextBox richTextBox)
+        {
+            if (richTextBox != null && !richTextBox.Selection.IsEmpty)
+            {
+                var selection = richTextBox.Selection;
+                var style = selection.GetPropertyValue(TextElement.FontStyleProperty);
+                selection.ApplyPropertyValue(TextElement.FontStyleProperty,
+                    style.Equals(FontStyles.Italic) ? FontStyles.Normal : FontStyles.Italic);
+            }
+        }
+
+        private void AddBullets(RichTextBox richTextBox)
+        {
+            if (richTextBox != null)
+            {
+                var selection = richTextBox.Selection;
+                var paragraph = selection.Start.Paragraph;
+                if (paragraph != null)
+                {
+                    var list = new List { MarkerStyle = TextMarkerStyle.Disc };
+                    list.ListItems.Add(new ListItem(paragraph));
+                    richTextBox.Document.Blocks.Add(list);
+                }
+            }
+        }
+
+        private void AddNumbering(RichTextBox richTextBox)
+        {
+            if (richTextBox != null)
+            {
+                var selection = richTextBox.Selection;
+                var paragraph = selection.Start.Paragraph;
+                if (paragraph != null)
+                {
+                    var list = new List { MarkerStyle = TextMarkerStyle.Decimal };
+                    list.ListItems.Add(new ListItem(paragraph));
+                    richTextBox.Document.Blocks.Add(list);
+                }
+            }
+        }
+        private void ApplyUnderline(RichTextBox richTextBox)
+        {
+            if (richTextBox == null) return;
+
+            TextRange selection = new TextRange(richTextBox.Selection.Start, richTextBox.Selection.End);
+            if (!selection.IsEmpty)
+            {
+                var currentDecorations = selection.GetPropertyValue(Inline.TextDecorationsProperty) as TextDecorationCollection;
+
+                // Toggle underline
+                if (currentDecorations == null || currentDecorations.Count == 0)
+                {
+                    selection.ApplyPropertyValue(Inline.TextDecorationsProperty, TextDecorations.Underline);
+                }
+                else
+                {
+                    selection.ApplyPropertyValue(Inline.TextDecorationsProperty, null);
+                }
+            }
+        }
+
+
+
 
         private void OnNotitiesReceived(clsNotitiesModel obj)
         {
@@ -150,6 +290,8 @@ namespace HomeManager.ViewModel
                     NewStatus = true;
                 }
             }
+
+
         }
 
         private bool CanExecute_NewCommand(object? obj)
@@ -273,39 +415,6 @@ namespace HomeManager.ViewModel
         private void Execute_SaveCommand(object obj)
         {
             OpslaanCommando();
-
-            //if (MijnSelectedItem != null)
-            //{
-            //    if (NewStatus)
-            //    {
-            //        if (MijnService.Insert(MijnSelectedItem))
-            //        {
-            //            MijnSelectedItem.IsDirty = false;
-            //            MijnSelectedItem.MijnSelectedIndex = 0;
-            //            MijnSelectedItem.MyVisibility = (int)Visibility.Visible;
-            //            NewStatus = false;
-            //            LoadData();
-            //        }
-            //        else
-            //        {
-            //            MessageBox.Show(MijnSelectedItem.ErrorBoodschap, "Error?");
-            //        }
-            //    }
-            //    else
-            //    {
-            //        if (MijnService.Update(MijnSelectedItem))
-            //        {
-            //            MijnSelectedItem.IsDirty = false;
-            //            MijnSelectedItem.MijnSelectedIndex = 0;
-            //            NewStatus = false;
-            //            LoadData();
-            //        }
-            //        else
-            //        {
-            //            MessageBox.Show(MijnSelectedItem.ErrorBoodschap, "Error?");
-            //        }
-            //    }
-            //}
         }
     }
 }

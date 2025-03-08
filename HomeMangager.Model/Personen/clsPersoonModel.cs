@@ -217,6 +217,24 @@ namespace HomeManager.Model.Personen
                         }
                         return error;
 
+                    case nameof(Geboortedatum):
+                        if (IsApplicationUser == null)
+                        {
+                            error = "Geboortedatum is een verplicht veld.";
+                            if (ErrorList.Contains(nameof(Geboortedatum)) == false)
+                            {
+                                ErrorList.Add(nameof(Geboortedatum));
+                            }
+                        }
+                        else
+                        {
+                            if (ErrorList.Contains(nameof(Geboortedatum)))
+                            {
+                                ErrorList.Remove(nameof(Geboortedatum));
+                            }
+                        }
+                        return error;
+
 
 
                     default:

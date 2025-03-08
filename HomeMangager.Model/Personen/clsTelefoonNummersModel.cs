@@ -143,6 +143,24 @@ namespace HomeManager.Model.Personen
                             }
                         }
                         return error;
+                    case nameof(TelefoonTypeID):
+                        if (TelefoonTypeID == 0)
+                        {
+                            error = "TelefoonType is een verplicht veld.";
+                            if (ErrorList.Contains(nameof(TelefoonTypeID)) == false)
+                            {
+                                ErrorList.Add(nameof(TelefoonTypeID));
+                            }
+                        }
+
+                        else
+                        {
+                            if (ErrorList.Contains(nameof(TelefoonTypeID)))
+                            {
+                                ErrorList.Remove(nameof(TelefoonTypeID));
+                            }
+                        }
+                        return error;
                     default:
                         error = null;
                         return error;

@@ -105,9 +105,9 @@ namespace HomeManager.Model.Personen
                         if (string.IsNullOrWhiteSpace(Land))
                         {
                             error = "Land is een verplicht veld.";
-                            if (ErrorList.Contains("Land") == false)
+                            if (ErrorList.Contains(nameof(Land)) == false)
                             {
-                                ErrorList.Add("Land");
+                                ErrorList.Add(nameof(Land));
                             }
                         }
                         else if (Land.Length > 50)
