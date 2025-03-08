@@ -215,7 +215,7 @@
                                 <ColumnDefinition Width="auto" />
                                 <ColumnDefinition Width="*" />
                             </Grid.ColumnDefinitions>
-                            <Path Data="{StaticResource myPathPerson}" Style="{StaticResource MenuIcon}" />
+                            <Path Data="{StaticResource myPathPeople}" Style="{StaticResource MenuIcon}" />
                             <ContentPresenter
                                 x:Name="ContentPresenter"
                                 Grid.Column="1"
@@ -235,9 +235,8 @@
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
-
-
     </Style>
+
 
     <Style x:Key="myExpanderDagboek" TargetType="Button">
         <Setter Property="Margin" Value="19,3,0,3" />
@@ -257,7 +256,14 @@
                             <ContentPresenter
                                 x:Name="ContentPresenter"
                                 Grid.Column="1"
-                                Style="{StaticResource MenuPresenter}" />
+                                RecognizesAccessKey="True">
+                                <ContentPresenter.Content>
+                                    <TextBlock
+                                        Margin="5,1,0,0"
+                                        Foreground="{StaticResource MenuColorText}"
+                                        Text="{TemplateBinding Content}" />
+                                </ContentPresenter.Content>
+                            </ContentPresenter>
                         </Grid>
                     </Border>
                     <ControlTemplate.Triggers>
@@ -390,7 +396,7 @@
     </Style>
 
 
-    <Style x:Key="myExpanderStickyNoteColors" TargetType="Button">
+    <Style x:Key="myExpanderStickyNote" TargetType="Button">
         <Setter Property="Margin" Value="35,5,0,5" />
         <Setter Property="Foreground" Value="{StaticResource myWerkBalk}" />
         <Setter Property="Template">
@@ -444,7 +450,10 @@
                             <!--  ContentPresenter met een ingesloten TextBlock  -->
                             <ContentPresenter Grid.Column="1" RecognizesAccessKey="True">
                                 <ContentPresenter.Content>
-                                    <TextBlock Foreground="{StaticResource MenuColorText}" Text="{TemplateBinding Content}" />
+                                    <TextBlock
+                                        Margin="5,0,0,0"
+                                        Foreground="{StaticResource MenuColorText}"
+                                        Text="{TemplateBinding Content}" />
                                 </ContentPresenter.Content>
                             </ContentPresenter>
                         </Grid>
@@ -462,6 +471,86 @@
         </Setter>
     </Style>
 
+
+
+    <Style x:Key="myMenuPersoon" TargetType="Button">
+        <Setter Property="Margin" Value="35,5,0,5" />
+        <Setter Property="Foreground" Value="{StaticResource myWerkBalk}" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border Name="HeaderBorder" Background="Transparent">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="20" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <!--  Icon  -->
+                            <Path Data="{StaticResource myPathPerson}" Style="{StaticResource MenuIcon}" />
+                            <!--  ContentPresenter met een ingesloten TextBlock  -->
+                            <ContentPresenter Grid.Column="1" RecognizesAccessKey="True">
+                                <ContentPresenter.Content>
+                                    <TextBlock
+                                        Margin="5,2,0,0"
+                                        Foreground="{StaticResource MenuColorText}"
+                                        Text="{TemplateBinding Content}" />
+                                </ContentPresenter.Content>
+                            </ContentPresenter>
+                        </Grid>
+                    </Border>
+                    <!--  Mouse-over effecten  -->
+                    <ControlTemplate.Triggers>
+                        <Trigger SourceName="HeaderBorder" Property="IsMouseOver" Value="True">
+                            <Setter Property="Cursor" Value="Hand" />
+                            <Setter TargetName="HeaderBorder" Property="Background" Value="LightBlue" />
+                            <Setter TargetName="HeaderBorder" Property="CornerRadius" Value="1" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+
+
+
+    <Style x:Key="myMenuStickyNoteColor" TargetType="Button">
+        <Setter Property="Margin" Value="35,5,0,5" />
+        <Setter Property="Foreground" Value="{StaticResource myWerkBalk}" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border Name="HeaderBorder" Background="Transparent">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="20" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <!--  Icon  -->
+                            <Path Data="{StaticResource myPathSetting}" Style="{StaticResource MenuIcon}" />
+                            <!--  ContentPresenter met een ingesloten TextBlock  -->
+                            <ContentPresenter Grid.Column="1" RecognizesAccessKey="True">
+                                <ContentPresenter.Content>
+                                    <TextBlock
+                                        Margin="5,0,0,0"
+                                        Foreground="{StaticResource MenuColorText}"
+                                        Text="{TemplateBinding Content}" />
+                                </ContentPresenter.Content>
+                            </ContentPresenter>
+                        </Grid>
+                    </Border>
+                    <!--  Mouse-over effecten  -->
+                    <ControlTemplate.Triggers>
+                        <Trigger SourceName="HeaderBorder" Property="IsMouseOver" Value="True">
+                            <Setter Property="Cursor" Value="Hand" />
+                            <Setter TargetName="HeaderBorder" Property="Background" Value="LightBlue" />
+                            <Setter TargetName="HeaderBorder" Property="CornerRadius" Value="1" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
 
 
 
@@ -486,16 +575,17 @@
                             HorizontalAlignment="Center"
                             VerticalAlignment="Center"
                             Data="{StaticResource myPathMenu}"
-                            Fill="White"
+                            Fill="{StaticResource MenuColorText}"
                             IsHitTestVisible="False"
                             Stretch="Uniform" />
-                        <Label
+                        <TextBlock
                             Grid.Column="1"
-                            HorizontalAlignment="Center"
+                            Margin="15,0,0,0"
                             VerticalAlignment="Center"
-                            Content="Home Manager"
-                            Foreground="White"
-                            IsHitTestVisible="False" />
+                            FontSize="16"
+                            Foreground="{StaticResource MenuColorText}"
+                            IsHitTestVisible="False"
+                            Text="Home Manager" />
                     </Grid>
                 </ControlTemplate>
             </Setter.Value>
@@ -867,8 +957,11 @@
                                     Margin="10,0,0,0"
                                     Command="{Binding NavCommand}"
                                     CommandParameter="clsPersoonViewModel"
-                                    Content="StickyNotes"
-                                    Style="{StaticResource myExpanderStickyNoteColors}" />
+                                    Style="{StaticResource myExpanderStickyNote}">
+                                    <Button.Content>
+                                        <TextBlock Foreground="{StaticResource MenuColorText}" Text="StickyNotes" />
+                                    </Button.Content>
+                                </Button>
                             </StackPanel>
 
                             <ContentPresenter

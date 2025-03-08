@@ -127,6 +127,24 @@ namespace HomeManager.Model.Personen
                             }
                         }
                         return error;
+                    case nameof(LandID):
+                        if (LandID == 0)
+                        {
+                            error = "Land is een verplicht veld.";
+                            if (ErrorList.Contains(nameof(LandID)) == false)
+                            {
+                                ErrorList.Add(nameof(LandID));
+                            }
+                        }
+
+                        else
+                        {
+                            if (ErrorList.Contains(nameof(LandID)))
+                            {
+                                ErrorList.Remove(nameof(LandID));
+                            }
+                        }
+                        return error;
                     default:
                         error = null;
                         return error;
