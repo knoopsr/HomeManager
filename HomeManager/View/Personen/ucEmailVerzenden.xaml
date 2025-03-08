@@ -100,7 +100,8 @@
                     x:Name="txtOnderwerp"
                     Grid.Row="3"
                     Grid.Column="3"
-                    Margin="5" />
+                    Margin="5"
+                    Text="{Binding Onderwerp, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                 <TextBlock
                     x:Name="Body"
                     Grid.Row="4"
@@ -113,7 +114,8 @@
                     Grid.Row="4"
                     Grid.Column="3"
                     Height="250"
-                    Margin="5" />
+                    Margin="5"
+                    Text="{Binding Body, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 
                 <Button
                     x:Name="btnSubmit"
@@ -121,7 +123,8 @@
                     Grid.Column="3"
                     Margin="5"
                     Padding="5"
-                    Content="Submit" />
+                    Content="Submit"
+                    Command="{Binding SubmitCommand}" />
             </Grid>
         </Border>
     </Grid>
