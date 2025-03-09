@@ -67,6 +67,7 @@
 
                 <StackPanel
                     Grid.Row="1"
+                 Margin="5,5,0,0"
                     Grid.Column="1"
                     Orientation="Horizontal">
                     <ComboBox
@@ -74,7 +75,23 @@
                         DisplayMemberPath="AccountName"
                         ItemsSource="{Binding MijnAccounten}"
                         SelectedItem="{Binding SelectedAccount, Mode=TwoWay}"
-                        SelectedValuePath="AccountId" />
+                        SelectedValuePath="AccountID" />
+                    <ComboBox
+                        Margin="5,0,0,0"
+                        Width="200"                     
+                        ItemsSource="{Binding MijnActies}"
+                        SelectedItem="{Binding SelectedActies, Mode=TwoWay}"
+                        />
+
+                    <ComboBox
+                        Margin="5,0,0,0"
+                        Width="200"                   
+                        ItemsSource="{Binding MijnActieTargets}"
+                        SelectedItem="{Binding SelectedActieTargets, Mode=TwoWay}"
+                   />
+
+
+
                 </StackPanel>
 
                 <DataGrid
@@ -85,7 +102,7 @@
                     AutoGenerateColumns="False"
                     ColumnWidth="*"
                     IsReadOnly="True"
-                    ItemsSource="{Binding MijnCollectie}">
+                    ItemsSource="{Binding MijnGefilterdeCollectie}">
                     <DataGrid.Columns>
                         <DataGridTextColumn
                             Width="auto"

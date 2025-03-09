@@ -53,7 +53,6 @@ namespace HomeManager.ViewModel.Logging
         }
 
 
-
         private clsAccountModel _selectedAccount;
         public clsAccountModel SelectedAccount
         {
@@ -62,10 +61,60 @@ namespace HomeManager.ViewModel.Logging
             {
                 _selectedAccount = value;
                 OnPropertyChanged();
-
                 FilterData();
             }
         }
+
+
+        private ObservableCollection<string> _mijnActies;
+        public ObservableCollection<string> MijnActies
+        {
+            get { return _mijnActies; }
+            set
+            {
+                _mijnActies = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private string _selectedActies;
+        public string SelectedActies
+        {
+            get => _selectedActies;
+            set
+            {
+                _selectedActies = value;
+                OnPropertyChanged();
+                FilterData();
+            }
+        }
+
+        private ObservableCollection<string> _mijnActieTargets;
+        public ObservableCollection<string> MijnActieTargets
+        {
+            get { return _mijnActieTargets; }
+            set
+            {
+                _mijnActieTargets = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private string _selectedActieTargets;
+        public string SelectedActieTargets
+        {
+            get => _selectedActieTargets;
+            set
+            {
+                _selectedActieTargets = value;
+                OnPropertyChanged();
+                FilterData();
+            }
+        }
+
+
+
+
 
 
 
@@ -90,39 +139,81 @@ namespace HomeManager.ViewModel.Logging
         {
             MijnCollectie = MijnService.GetAll();
 
-            // Unieke accounts ophalen
+           
             var uniekeAccounts = MijnCollectie
                 .Select(x => new clsAccountModel { AccountID = x.AccountId, AccountName = x.AccountName })
                 .DistinctBy(x => x.AccountID) // Alleen unieke AccountID's
                 .ToList();
 
-            // ❗ Voeg een speciale "Alle Accounts" optie toe
+            var uniekeActies = MijnCollectie
+                .Select(x => x.ActionName)
+                .Distinct()
+                .OrderBy(x => x) // Sorteer alfabetisch
+                .ToList();
+
+            var uniekeActieTargets = MijnCollectie
+                .Select(x => x.ActionTarget)
+                .Distinct()
+                .OrderBy(x => x) // Sorteer alfabetisch
+                .ToList();
+
+            var uniekeActiesOptie = new string ("-- Alle Acties --");
+            uniekeActies.Insert(0, uniekeActiesOptie);
+            var uniekeActieTargetsOptie = new string("-- Alle ActieTargets --");       
+            uniekeActieTargets.Insert(0, uniekeActieTargetsOptie);
+
             var alleAccountsOptie = new clsAccountModel { AccountID = 0, AccountName = "-- Alle Accounts --" };
             uniekeAccounts.Insert(0, alleAccountsOptie);
 
             // Koppel de lijst aan de ObservableCollection
             MijnAccounten = new ObservableCollection<clsAccountModel>(uniekeAccounts);
+            MijnActies = new ObservableCollection<string>(uniekeActies);
+            MijnActieTargets = new ObservableCollection<string>(uniekeActieTargets);
+
 
             // ❗ Standaard "-- Alle Accounts --" selecteren
             SelectedAccount = alleAccountsOptie;
+            SelectedActies = uniekeActiesOptie;
+            SelectedActieTargets = uniekeActieTargetsOptie;
         }
 
 
 
         private void FilterData()
         {
-            if (SelectedAccount != null)
+            if (MijnCollectie == null || !MijnCollectie.Any())
+                return;
+
+            var gefilterdeCollectie = MijnCollectie.ToList();
+
+            // Filter op AccountID (indien niet "-- Alle Accounts --")
+            if (SelectedAccount != null && SelectedAccount.AccountID != 0)
             {
-                if (SelectedAccount.AccountID == 0) // ❗ Controleer op AccountID = 0
-                {
-                    MijnCollectie = MijnService.GetAll();
-                }
-                else
-                {
-                    MijnCollectie = MijnService.GetAllByAccountId(SelectedAccount.AccountID);
-                }
+                gefilterdeCollectie = gefilterdeCollectie
+                    .Where(x => x.AccountId == SelectedAccount.AccountID)
+                    .ToList();
             }
+
+            // Filter op Actie (indien niet "-- Alle Acties --")
+            if (!string.IsNullOrEmpty(SelectedActies) && SelectedActies != "-- Alle Acties --")
+            {
+                gefilterdeCollectie = gefilterdeCollectie
+                    .Where(x => x.ActionName == SelectedActies)
+                    .ToList();
+            }
+
+            // Filter op ActieTarget (indien niet "-- Alle ActieTargets --")
+            if (!string.IsNullOrEmpty(SelectedActieTargets) && SelectedActieTargets != "-- Alle ActieTargets --")
+            {
+                gefilterdeCollectie = gefilterdeCollectie
+                    .Where(x => x.ActionTarget == SelectedActieTargets)
+                    .ToList();
+            }
+
+            // Update de gefilterde collectie
+            MijnGefilterdeCollectie = new ObservableCollection<clsButtonLoggingModel>(gefilterdeCollectie);
         }
+
 
 
 
