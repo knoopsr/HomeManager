@@ -32,11 +32,11 @@
 
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="\Resources\ErrorTemplateDictionary.xaml" />
-                <ResourceDictionary Source="\Resources\StaticStyleDictionary.xaml" />
                 <ResourceDictionary Source="\Resources\BrushesDictionary.xaml" />
                 <ResourceDictionary Source="\Resources\GeometryDrawingDictionary.xaml" />
                 <ResourceDictionary Source="\Resources\StyleHamburgerMenu.xaml" />
                 <ResourceDictionary Source="\Resources\StylesDictionary.xaml" />
+                <ResourceDictionary Source="\Resources\StaticStyleDictionary.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
 
