@@ -10,6 +10,7 @@ using System.Globalization;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Timers;
 
 namespace HomeManager.ViewModel
 {
@@ -19,6 +20,7 @@ namespace HomeManager.ViewModel
         clsTodoPopupDataService MijnServiceTodoPopup;
         clsTodoDetailsDataService MijnServiceTodoDetails;
         clsCollectiesVM CollectiesVM;
+        public ICommand RefreshCommand { get; }
 
         public clsTodoVM()
         {
@@ -49,8 +51,28 @@ namespace HomeManager.ViewModel
             IsKlaarCommand = new clsRelayCommand<object>(param => OnIsKlaarClicked(param as clsTodoPopupM));
             IsKlaarTodoDetailCommand = new clsRelayCommand<object>(param => OnIsKlaarTodoDetailClicked(param as clsTodoDetailsM));
 
+            RefreshCommand = new clsRelayCommand<object>(param => RefreshData());
+
             // Registreer om berichten te ontvangen
             //clsMessenger.Default.Register<clsCollectieAangemaaktMessage>(this, OnCollectieAangemaakt);
+        }
+
+        private void RefreshData()
+        {
+            // Laad de gegevens opnieuw
+            MijnCollectie = MijnService.GetAll();
+            MijnCollectieTodoPopup = MijnServiceTodoPopup.GetAll();
+            MijnTodoDetails = MijnServiceTodoDetails.GetAll();
+
+            // Update de gefilterde lijsten
+            if (MijnSelectedCollectieItem != null)
+            {
+                UpdateFilteredTodoItems(MijnSelectedCollectieItem.ToDoCollectieID);
+            }
+            if (MijnSelectedItemTodoPopup != null)
+            {
+                UpdateFilteredTodoDetails(MijnSelectedItemTodoPopup.TodoID);
+            }
         }
 
         //private void OnCollectieAangemaakt(clsCollectieAangemaaktMessage message)
