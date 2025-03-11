@@ -42,9 +42,7 @@
                         Data="{StaticResource myPathPeople}"
                         Fill="White"
                         Stretch="Fill" />
-                    <TextBlock
-                        Style="{StaticResource TitleBarText}"
-                        Text="Persoon" />
+                    <TextBlock Style="{StaticResource TitleBarText}" Text="Persoon" />
 
                 </StackPanel>
                 <uc:ucWerkBalk HorizontalAlignment="Right" VerticalAlignment="Top" />
@@ -171,18 +169,21 @@
                         Height="75"
                         Margin="3,0,0,0"
                         HorizontalAlignment="Left"
+                        AllowDrop="True"
                         BorderBrush="Gray"
                         BorderThickness="1"
-                        AllowDrop="True"                   
                         CornerRadius="35">
                         <Border.Background>
                             <ImageBrush ImageSource="{Binding MijnSelectedItem.Foto, TargetNullValue={x:Null}}" Stretch="UniformToFill" />
                         </Border.Background>
                         <i:Interaction.Behaviors>
-                            <behaviors:clsDragDropBehavior DropCommand="{Binding cmdDropPicture}"/>
+                            <behaviors:clsDragDropBehavior DropCommand="{Binding cmdDropPicture}" />
                         </i:Interaction.Behaviors>
                     </Border>
-                    <Button x:Name="btnUploadPicture" Command="{Binding cmdUploadPicture}" Style="{StaticResource UploadPersoonButton}" />
+                    <Button
+                        x:Name="btnUploadPicture"
+                        Command="{Binding cmdUploadPicture}"
+                        Style="{StaticResource UploadPersoonButton}" />
                 </StackPanel>
 
 

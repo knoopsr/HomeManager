@@ -202,14 +202,14 @@
                                 Command="{Binding NavCommand}"
                                 CommandParameter="clsFunctieViewModel"
                                 Content="Functies"
-                                Style="{StaticResource myMenuTandwiel}" /> 
+                                Style="{StaticResource myMenuTandwiel}" />
                         </StackPanel>
                     </Expander>
 
-                    <Button 
+                    <Button
                         Command="{Binding NavCommand}"
                         CommandParameter="clsDagboekViewModel"
-                        Content="Dagboek" 
+                        Content="Dagboek"
                         Style="{StaticResource myExpanderDagboek}" />
 
                     <Expander IsExpanded="{Binding IsBudgetExpanderMenu, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource myHamburgerBudget}">
@@ -242,17 +242,16 @@
                             <Button
                                 Command="{Binding NavCommand}"
                                 CommandParameter="clsCategorieViewModel"
-                                  Style="{StaticResource myMenuTandwiel}"
-                                Content="Categorie"/>
+                                Content="Categorie"
+                                Style="{StaticResource myMenuTandwiel}" />
 
                             <Button Content="Domiciliëring" Style="{StaticResource myMenuTandwiel}" />
                             <Button Content="Begunstigden" Style="{StaticResource myMenuTandwiel}" />
-                            <Button  Content="Frequentie"  Style="{StaticResource myMenuTandwiel}" />
+                            <Button Content="Frequentie" Style="{StaticResource myMenuTandwiel}" />
                             <Button
                                 Command="{Binding NavCommand}"
                                 CommandParameter="clsCategorieViewModel"
                                 Content="Budget Categorie"
-
                                 Style="{StaticResource myMenuTandwiel}" />
                         </StackPanel>
                     </Expander>
