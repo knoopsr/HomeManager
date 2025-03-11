@@ -15,8 +15,8 @@
             in de resource kan maar 1 dictionary staan dus we mergen al de resources.
             Aangezien ze in de app file staan zijn de key's van de resources over heel het project aanspreekbaar
         -->
-        
-       
+
+
 
         <ResourceDictionary>
 

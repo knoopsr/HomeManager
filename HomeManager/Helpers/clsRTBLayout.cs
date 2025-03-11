@@ -679,6 +679,10 @@ namespace HomeManager.Helpers
 			else
 			{
 				var myParagraph = range.Start.Paragraph;
+				if (myParagraph == null)
+				{
+					return TextAlignment.Left;
+				}
 				return myParagraph.TextAlignment;
 			}
 		}
