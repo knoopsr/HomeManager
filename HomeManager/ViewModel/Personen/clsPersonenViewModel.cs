@@ -5,6 +5,7 @@ using HomeManager.Messages;
 using HomeManager.Model.Personen;
 using HomeManager.Services;
 using HomeManager.View;
+using HomeManager.View.Personen;
 using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Input;
@@ -39,6 +40,8 @@ namespace HomeManager.ViewModel
         public ICommand cmdDeleteTelefoonNummer { get; set; }
         public ICommand cmdEditAdres { get; set; }
         public ICommand cmdDeleteNotitie { get; set; }
+        public ICommand cmdSendEmail { get; set; }
+
         
 
 
@@ -224,6 +227,9 @@ namespace HomeManager.ViewModel
             cmdEditPersoon = new clsRelayCommand<object>(Edit_Persoon);
             cmdEditNotities = new clsRelayCommand<object>(Edit_Notities);
             cmdEditTelefoonNummers = new clsRelayCommand<object>(Edit_TelefoonNummers);
+
+            cmdSendEmail = new clsRelayCommand<object>(Edit_SendEmail);
+
             cmdDeleteEmailAdressen = new clsCustomCommand(Delete_EmailAdres, CanExecute_Delete_EmailAdres);
             cmdDeletePersoon = new clsCustomCommand(Delete_Persoon, CanExecute_Delete_Persoon);
             cmdDeleteAdres = new clsCustomCommand(Delete_Adres, CanExecute_Delete_Adres);
@@ -250,6 +256,13 @@ namespace HomeManager.ViewModel
 
             //collectie voor de filter
             FilteredCollectie = new ObservableCollection<clsPersoonModel>(MijnCollectie);
+        }
+
+        private void OnUpdateListMessageReceived(clsUpdateListMessages obj)
+        {
+            //refresh
+            LoadData();
+            _DialogService.CloseDialog();
         }
 
         private void OpslaanCommando()
@@ -372,13 +385,6 @@ namespace HomeManager.ViewModel
             _DialogService.ShowDialog(new ucAdressen(), "Adressen");
         }
 
-        private void OnUpdateListMessageReceived(clsUpdateListMessages obj)
-        {
-            //refresh
-            LoadData();
-            _DialogService.CloseDialog();
-        }
-
 
         private void Edit_Persoon(object? obj)
         {
@@ -417,6 +423,34 @@ namespace HomeManager.ViewModel
                 }
             }
             _DialogService.ShowDialog(new ucEmailAdressen(), "EmailAdressen");
+        }
+
+
+        private void Edit_SendEmail(object obj)
+        {
+            if (obj == null)
+            {
+                clsEmailAdressenModel sendemail = new clsEmailAdressenModel()
+                {
+                    PersoonID = MijnSelectedItem.PersoonID,
+                    EmailAdresID = 0,
+                    Emailadres = string.Empty,
+                    EmailTypeID = 0
+                };
+                clsMessenger.Default.Send<clsEmailAdressenModel>(sendemail);
+            }
+            else
+            {
+                if (MijnSelectedItem != null)
+                {
+                    if (obj is clsEmailAdressenModel)
+                    {
+                        clsEmailAdressenModel sendemail = obj as clsEmailAdressenModel;
+                        clsMessenger.Default.Send<clsEmailAdressenModel>(sendemail);
+                    }
+                }
+            }
+            _DialogService.ShowDialog(new ucEmailVerzenden(), "Email Verzenden");
         }
 
         private void Execute_Save_Command(object? obj)
@@ -697,11 +731,17 @@ namespace HomeManager.ViewModel
         {
             private readonly Action _execute;
             private readonly Func<bool> _canExecute;
+            private Action<object> executeBold;
 
             public RelayCommand(Action execute, Func<bool> canExecute = null)
             {
                 _execute = execute ?? throw new ArgumentNullException(nameof(execute));
                 _canExecute = canExecute;
+            }
+
+            public RelayCommand(Action<object> executeBold)
+            {
+                this.executeBold = executeBold;
             }
 
             public bool CanExecute(object parameter) => _canExecute == null || _canExecute();

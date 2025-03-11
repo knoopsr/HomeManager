@@ -14,6 +14,8 @@ using HomeManager.Model.Personen;
 using System.IO;
 using System.Windows.Media.Imaging;
 using HomeManager.Messages;
+using System.Reflection.Metadata;
+using HomeManager.Model.Budget;
 
 namespace HomeManager.ViewModel
 {
@@ -29,6 +31,9 @@ namespace HomeManager.ViewModel
         public ICommand cmdClose { get; set; }
 
         public ICommand cmdUploadPicture { get; set; }
+        public ICommand cmdDropPicture { get; set; }
+
+
 
         private ObservableCollection<clsPersoonModel> _mijnCollectie;
         public ObservableCollection<clsPersoonModel> MijnCollectie
@@ -145,12 +150,16 @@ namespace HomeManager.ViewModel
             cmdCancel = new clsCustomCommand(Execute_Cancel_Command, CanExecute_Cancel_Command);
             cmdClose = new clsCustomCommand(Execute_Close_Command, CanExecute_Close_Command);
             cmdUploadPicture = new clsCustomCommand(Execute_UploadPicture_Command, CanExecute_UploadPicture_Command);
+            cmdDropPicture = new clsCustomCommand(Execute_DropPicture_Command, CanExecute_DropPicture_Command);
+
             //clsMessenger.Default.Register<clsNewPersoonMessage>(this, OnNewPersonenReceive);
             clsMessenger.Default.Register<clsPersoonModel>(this, OnPersoonReceived);
 
             LoadData();
             MijnSelectedItem = MijnService.GetFirst();
         }
+
+
 
         private void OnPersoonReceived(clsPersoonModel obj)
         {
@@ -217,6 +226,37 @@ namespace HomeManager.ViewModel
         {
             return true;
         }
+
+        //Voor Drag & Drop
+        private bool CanExecute_DropPicture_Command(object? parameter)
+        {
+            return true;
+        }
+
+        private void Execute_DropPicture_Command(object? obj)
+        {
+
+            if (obj is DataObject dataObject && dataObject.GetDataPresent(DataFormats.FileDrop))
+            {
+                var files = (string[])dataObject.GetData(DataFormats.FileDrop);
+                if (files.Length > 0)
+                {
+                    foreach (var file in files)
+                    {
+                        MijnSelectedItem.Foto = File.ReadAllBytes(file);
+                        MijnSelectedItem.IsDirty = true;
+
+                    }
+
+
+                }
+            }
+        }
+
+
+
+
+        
 
         private void Execute_Save_Command(object? obj)
         {

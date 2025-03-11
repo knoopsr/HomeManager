@@ -1,5 +1,6 @@
 using HomeManager.Model.Personen;
 using HomeManager.ViewModel;
+using HomeManager.ViewModel.Personen;
 using HomeManager.ViewModel.Logging;
 using HomeManager.ViewModel.Security;
 using System;
@@ -124,6 +125,16 @@ namespace HomeManager.ViewModel
                 //return new clsNotitiesViewModel();
             }
         }
+      
+        private static clsEmailVerzendenViewModel _EmailVerzenden = new clsEmailVerzendenViewModel();
+        public clsEmailVerzendenViewModel EmailVerzendenViewModel
+        {
+            get
+            {
+                return _EmailVerzenden;
+
+            }
+        }
 
 #endregion
 
@@ -139,7 +150,6 @@ namespace HomeManager.ViewModel
         }
 
         #endregion
-
 
         #region Security
 
@@ -210,7 +220,14 @@ namespace HomeManager.ViewModel
         public clsKleurenVM KleurenViewModel => new clsKleurenVM();
         #endregion
 
-       
+       public clsButtonLoggingViewModel ButtonLoggingViewModel
+        {
+            get
+            {
+                return new clsButtonLoggingViewModel();
+            }
+        }
+
         public clsUnLockViewModel UnLockViewModel
         {
             get

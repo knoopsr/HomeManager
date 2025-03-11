@@ -213,6 +213,24 @@ namespace HomeManager.Model.Personen
                             ErrorList.Remove(nameof(Nummer));
                         }
                         return error;
+                    case nameof(GemeenteID):
+                        if (GemeenteID == 0)
+                        {
+                            error = "Gemeente is een verplicht veld.";
+                            if (ErrorList.Contains(nameof(GemeenteID)) == false)
+                            {
+                                ErrorList.Add(nameof(GemeenteID));
+                            }
+                        }
+
+                        else
+                        {
+                            if (ErrorList.Contains(nameof(GemeenteID)))
+                            {
+                                ErrorList.Remove(nameof(GemeenteID));
+                            }
+                        }
+                        return error;
 
                     default:
                         return null;
