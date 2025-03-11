@@ -54,6 +54,10 @@
             <V:ucNotities />
         </DataTemplate>
 
+        <DataTemplate DataType="{x:Type VM:clsDagboekViewModel}">
+            <V:ucDagboek />
+        </DataTemplate>
+
         <DataTemplate DataType="{x:Type VM:clsRechtenViewModel}">
             <V:ucRoles />
         </DataTemplate>
@@ -202,7 +206,11 @@
                         </StackPanel>
                     </Expander>
 
-                    <Button Content="Dagboek" Style="{StaticResource myExpanderDagboek}" />
+                    <Button 
+                        Command="{Binding NavCommand}"
+                        CommandParameter="clsDagboekViewModel"
+                        Content="Dagboek" 
+                        Style="{StaticResource myExpanderDagboek}" />
 
                     <Expander IsExpanded="{Binding IsBudgetExpanderMenu, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource myHamburgerBudget}">
                         <StackPanel x:Name="stckBudget">
