@@ -110,6 +110,7 @@
                         Height="30"
                         Margin="5"
                         HorizontalAlignment="Right"
+                        CommandParameter="{Binding}"
                         Command="{Binding cmdExportToExcel}"
                         Style="{StaticResource Excel}" />
 
