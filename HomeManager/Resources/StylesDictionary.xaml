@@ -126,9 +126,9 @@
                 <ControlTemplate TargetType="ContentControl">
                     <Border Background="Transparent">
                         <Path
-                        Data="{StaticResource myRefreshButton}"
-                        Fill="LightSteelBlue"
-                        Stretch="Fill" />
+                            Data="{StaticResource myRefreshButton}"
+                            Fill="LightSteelBlue"
+                            Stretch="Fill" />
                     </Border>
                 </ControlTemplate>
             </Setter.Value>
