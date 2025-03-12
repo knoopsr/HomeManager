@@ -306,18 +306,17 @@
 
                 </StackPanel>
 
-           
 
 
-                    <Button
-                        Grid.Row="2"
-                        Width="10"
-                        Height="10"
-                     
-                        Style="{StaticResource MenuPowerIcon}"
-                        Command="{Binding cmdClose}"
-                         />
-      
+
+                <Button
+                    Grid.Row="2"
+                    Width="12"
+                    Height="12"
+                    Command="{Binding cmdCloseAplication}"
+                    CommandParameter="{Binding}"
+                    Style="{StaticResource MenuPowerIcon}" />
+
             </Grid>
         </Border>
 
