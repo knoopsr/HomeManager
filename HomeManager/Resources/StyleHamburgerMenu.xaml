@@ -57,6 +57,8 @@
     </Storyboard>
 
 
+
+
     <Storyboard x:Key="AnimateIconShow">
         <DoubleAnimation
             Storyboard.TargetProperty="Width"
@@ -981,7 +983,35 @@
         </Setter>
     </Style>
 
+    <Storyboard x:Key="AnimatieMarginPowerButtonShow">
+        <ThicknessAnimation
+            Storyboard.TargetProperty="Margin"
+            From="30,0,0,0"
+            To="120,0,0,0"
+            Duration="0:0:0.3" />
+    </Storyboard>
+    <Storyboard x:Key="AnimatieMarginPowerButtonHide">
+        <ThicknessAnimation
+            Storyboard.TargetProperty="Margin"
+            From="30,0,0,0"
+            To="120,0,0,0"
+            Duration="0:0:0.3" />
+    </Storyboard>
 
+
+    <Style x:Key="MenuPowerIcon" TargetType="Button">
+        <Setter Property="IsHitTestVisible" Value="False" />
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding IsMenuVisible}" Value="true">
+                <DataTrigger.EnterActions>
+                    <BeginStoryboard Storyboard="{StaticResource AnimatieMarginPowerButtonShow}" />
+                </DataTrigger.EnterActions>
+                <DataTrigger.ExitActions>
+                    <BeginStoryboard Storyboard="{StaticResource AnimatieMarginPowerButtonHide}" />
+                </DataTrigger.ExitActions>
+            </DataTrigger>
+        </Style.Triggers>
+    </Style>
 
 
 
