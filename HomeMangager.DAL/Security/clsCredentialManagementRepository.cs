@@ -14,6 +14,7 @@ namespace HomeManager.DAL.Security
     {
         private ObservableCollection<clsCredentialManagementModel> _mijnCollectie;
         int nr = 0;
+       
 
         public clsCredentialManagementRepository()
         {
@@ -93,6 +94,7 @@ namespace HomeManager.DAL.Security
         {
             (DataTable DT, bool Ok, string Boodschap) =
                 clsDAL.ExecuteDataTable(Properties.Resources.I_Wachtwoord,
+                  clsDAL.Parameter("AccountID", clsLoginModel.Instance.AccountID),
                 clsDAL.Parameter("WachtwoordGroepID", entity.WachtwoordGroepID),
                 clsDAL.Parameter("WachtwoordNaam", entity.WachtwoordNaam),
                 clsDAL.Parameter("WachtwoordOmschrijving", entity.WachtwoordOmschrijving),
