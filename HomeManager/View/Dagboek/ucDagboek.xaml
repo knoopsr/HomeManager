@@ -15,17 +15,27 @@
 
     <DockPanel DataContext="{Binding Source={StaticResource VML}, Path=DagboekViewModel}">
         <Border
-            BorderBrush="White"
-            BorderThickness="2"
-            DockPanel.Dock="Top">
-            <StackPanel Background="{StaticResource myTitleBar}" Orientation="Horizontal">
-                <Path
-                    Margin="5"
-                    Data="{StaticResource myPathBook}"
-                    Fill="White"
-                    Stroke="{StaticResource myTitleBar}" />
-                <Label FontSize="20" Foreground="White">Dagboek</Label>
-            </StackPanel>
+            DockPanel.Dock="Top"
+            Background="{StaticResource myTitleBar}"
+            BorderBrush="LightBlue"
+            BorderThickness="2">
+           
+                <StackPanel
+                    Margin="10,0,0,0"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Center"
+                    Orientation="Horizontal">
+                    <Path
+                        Width="20"
+                        Height="20"
+                        Data="{StaticResource myPathBook}"
+                        Fill="White"
+                        Stretch="Fill" />
+                    <TextBlock
+                        Style="{StaticResource TitleBarText}"
+                        Text="Persoon" />
+
+                </StackPanel>
         </Border>
 
         <Border
@@ -58,6 +68,7 @@
 
                                 <RibbonButton
                                     Command="{Binding cmdNew}"
+                                    CommandParameter="{Binding}"
                                     Content="{StaticResource NewFile}"
                                     Style="{StaticResource myRibbonButton}" />
 
@@ -75,6 +86,7 @@
                                 <RibbonButton
                                     Grid.Column="2"
                                     Command="{Binding cmdDelete}"
+                                    CommandParameter="{Binding}"
                                     Content="{StaticResource myDeleteButton}"
                                     Style="{StaticResource myRibbonButton}" />
 
@@ -327,6 +339,7 @@
                                     Content="{StaticResource IncreaseLetterSize}"
                                     Style="{StaticResource myRibbonButton}"
                                     Command="{Binding cmdIncreaseTextSize}"
+                                    CommandParameter="{Binding}"
                                     Grid.Column="2"
                                     Grid.Row="1"/>
 
@@ -334,6 +347,7 @@
                                     Content="{StaticResource DecreaseLetterSize}"
                                     Style="{StaticResource myRibbonButton}"
                                     Command="{Binding cmdDecreaseTextSize}"
+                                    CommandParameter="{Binding}"
                                     Grid.Column="3"
                                     Grid.Row="1"/>
 
