@@ -25,6 +25,11 @@ namespace HomeManager.Helpers
 			set { _myColor = value; }
 		}
 
+		//bush is needed for ui
+		public SolidColorBrush MyBrush => new SolidColorBrush(MyColor);
+
+
+
         public override string ToString()
         {
             return ColorName;
