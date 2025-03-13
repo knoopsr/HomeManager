@@ -1,9 +1,13 @@
-﻿using HomeManager.Common;
+﻿using ClosedXML.Excel;
+using DocumentFormat.OpenXml.Wordprocessing;
+using HomeManager.Common;
 using HomeManager.DataService.Logging;
 using HomeManager.Helpers;
 using HomeManager.Model.Logging;
 using HomeManager.Model.Security;
+using Microsoft.Win32;
 using System.Collections.ObjectModel;
+using System.Windows;
 using System.Windows.Input;
 
 namespace HomeManager.ViewModel.Logging
@@ -17,6 +21,7 @@ namespace HomeManager.ViewModel.Logging
         public ICommand cmdSave { get; set; }
         public ICommand cmdCancel { get; set; }
         public ICommand cmdClose { get; set; }
+        public ICommand cmdExport { get; set; }
 
 
         private ObservableCollection<clsButtonLoggingModel> _mijnCollectie;
@@ -112,6 +117,29 @@ namespace HomeManager.ViewModel.Logging
             }
         }
 
+        private DateTime? _startDate;
+        public DateTime? StartDate
+        {
+            get => _startDate;
+            set
+            {
+                _startDate = value;
+                OnPropertyChanged();
+                FilterData(); 
+            }
+        }
+
+        private DateTime? _endDate;
+        public DateTime? EndDate
+        {
+            get => _endDate;
+            set
+            {
+                _endDate = value;
+                OnPropertyChanged();
+                FilterData();
+            }
+        }
 
 
 
@@ -131,8 +159,73 @@ namespace HomeManager.ViewModel.Logging
             cmdNew = new clsCustomCommand(Execute_New_Command, CanExecute_New_Command);
             cmdCancel = new clsCustomCommand(Execute_Cancel_Command, CanExecute_Cancel_Command);
             cmdClose = new clsCustomCommand(Execute_Close_Command, CanExecute_Close_Command);
+            cmdExport = new clsCustomCommand(Execute_Export_Command, CanExecute_Export_Command);
 
             LoadData();
+        }
+
+
+
+private void Execute_Export_Command(object? obj)
+    {
+        if (MijnGefilterdeCollectie == null || !MijnGefilterdeCollectie.Any())
+        {
+            MessageBox.Show("Geen gegevens om te exporteren!", "Exporteren", MessageBoxButton.OK, MessageBoxImage.Warning);
+            return;
+        }
+
+        // Laat de gebruiker een bestandslocatie kiezen
+        SaveFileDialog saveFileDialog = new SaveFileDialog
+        {
+            Filter = "Excel bestanden (*.xlsx)|*.xlsx",
+            Title = "Exporteer naar Excel",
+            FileName = "Export.xlsx"
+        };
+
+        if (saveFileDialog.ShowDialog() != true)
+            return;
+
+        try
+        {
+            using (var workbook = new XLWorkbook())
+            {
+                var worksheet = workbook.Worksheets.Add("Logging Data");
+
+                // Kolomheaders toevoegen
+                worksheet.Cell(1, 1).Value = "Account";
+                worksheet.Cell(1, 2).Value = "Action";
+                worksheet.Cell(1, 3).Value = "Target";
+                worksheet.Cell(1, 4).Value = "Datum Tijd";
+
+                // Data invullen
+                int row = 2;
+                foreach (var item in MijnGefilterdeCollectie)
+                {
+                    worksheet.Cell(row, 1).Value = item.AccountName;
+                    worksheet.Cell(row, 2).Value = item.ActionName;
+                    worksheet.Cell(row, 3).Value = item.ActionTarget;
+                    worksheet.Cell(row, 4).Value = item.LogTime.ToString("yyyy-MM-dd HH:mm:ss");
+                    row++;
+                }
+
+                // Autofit kolommen
+                worksheet.Columns().AdjustToContents();
+
+                // Bestand opslaan
+                workbook.SaveAs(saveFileDialog.FileName);
+
+                MessageBox.Show("Export succesvol!", "Exporteren", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+        }
+        catch (Exception ex)
+        {
+            MessageBox.Show($"Er is een fout opgetreden: {ex.Message}", "Fout", MessageBoxButton.OK, MessageBoxImage.Error);
+        }
+    }
+
+
+    private bool CanExecute_Export_Command(object? obj)
+        {return true; 
         }
 
         private void LoadData()
@@ -210,9 +303,33 @@ namespace HomeManager.ViewModel.Logging
                     .ToList();
             }
 
+            // Filter op StartDate en EndDate
+            if (StartDate.HasValue && EndDate.HasValue)
+            {
+                // Beide datums ingevuld -> filter tussen deze datums
+                gefilterdeCollectie = gefilterdeCollectie
+                    .Where(x => x.LogTime >= StartDate.Value && x.LogTime <= EndDate.Value)
+                    .ToList();
+            }
+            else if (StartDate.HasValue)
+            {
+                // Alleen StartDate ingevuld -> toon vanaf deze datum
+                gefilterdeCollectie = gefilterdeCollectie
+                    .Where(x => x.LogTime >= StartDate.Value)
+                    .ToList();
+            }
+            else if (EndDate.HasValue)
+            {
+                // Alleen EndDate ingevuld -> toon tot deze datum
+                gefilterdeCollectie = gefilterdeCollectie
+                    .Where(x => x.LogTime <= EndDate.Value)
+                    .ToList();
+            }
+
             // Update de gefilterde collectie
             MijnGefilterdeCollectie = new ObservableCollection<clsButtonLoggingModel>(gefilterdeCollectie);
         }
+
 
 
 
@@ -226,13 +343,12 @@ namespace HomeManager.ViewModel.Logging
 
         private void Execute_Close_Command(object? obj)
         {
-            MainWindow HomeWindow = obj as MainWindow;
-            if (HomeWindow != null)
+            if (obj is Window window)
             {
-                clsHomeVM vm = (clsHomeVM)HomeWindow.DataContext;
-                vm.CurrentViewModel = null;
+                window.Close();
             }
         }
+
 
         private bool CanExecute_Cancel_Command(object? obj)
         {
@@ -241,7 +357,11 @@ namespace HomeManager.ViewModel.Logging
 
         private void Execute_Cancel_Command(object? obj)
         {
-            throw new NotImplementedException();
+            StartDate = null;  // Datumvelden resetten
+            EndDate = null;
+            SelectedActies = "-- Alle Acties --";
+            SelectedAccount = MijnAccounten.FirstOrDefault(a => a.AccountID == 0);
+            SelectedActieTargets = "-- Alle ActieTargets --";
         }
 
         private bool CanExecute_New_Command(object? obj)
