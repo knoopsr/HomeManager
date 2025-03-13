@@ -13,6 +13,7 @@ namespace HomeManager.ViewModel
     {
 
         public ICommand cmdMenu { get; }
+        public ICommand cmdCloseAplication { get; }
         clsButtonLoggingDataService MijnLoggingService;
 
 
@@ -126,10 +127,26 @@ namespace HomeManager.ViewModel
         {
             NavCommand = new clsRelayCommand<string>(OnNav);
             cmdMenu = new clsCustomCommand(Execute_cmdMenu_Command, CanExecute_cmdMenu_Command);
+            cmdCloseAplication = new clsCustomCommand(Execute_cmdCloseAplication_Command, CanExecute_cmdCloseAplication_Command);
 
             MijnLoggingService = new clsButtonLoggingDataService();
 
             clsMessenger.Default.Register<clsPersoonModel>(this, OnNewPersonenReceive);
+        }
+
+        private void Execute_cmdCloseAplication_Command(object? obj)
+        {
+            var result = MessageBox.Show("Wilt u de applicatie sluiten?", "Bevestiging", MessageBoxButton.YesNo, MessageBoxImage.Question);
+
+            if (result == MessageBoxResult.Yes)
+            {
+                Application.Current.Shutdown();
+            }
+        }
+
+        private bool CanExecute_cmdCloseAplication_Command(object? obj)
+        {
+            return true;
         }
 
         private void OnNewPersonenReceive(clsPersoonModel persoon)
