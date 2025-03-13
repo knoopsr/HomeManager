@@ -983,6 +983,43 @@
 
 
 
+    <Style x:Key="MenuPowerIcon" TargetType="Button">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border Name="HeaderBorder" Background="Transparent">
+                        <Path
+                            Width="10"
+                            Height="10"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            Data="{StaticResource myPathPower}"
+                            Fill="{StaticResource MenuColorText}"
+                            IsHitTestVisible="False"
+                            Stretch="Uniform" />
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger SourceName="HeaderBorder" Property="IsMouseOver" Value="True">
+                            <Setter Property="Cursor" Value="Hand" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+
+
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding IsMenuVisible}" Value="true">
+                <DataTrigger.EnterActions>
+                    <BeginStoryboard Storyboard="{StaticResource AnimatieMarginPowerButtonShow}" />
+                </DataTrigger.EnterActions>
+                <DataTrigger.ExitActions>
+                    <BeginStoryboard Storyboard="{StaticResource AnimatieMarginPowerButtonHide}" />
+                </DataTrigger.ExitActions>
+            </DataTrigger>
+        </Style.Triggers>
+    </Style>
+
 
 
 </ResourceDictionary>
