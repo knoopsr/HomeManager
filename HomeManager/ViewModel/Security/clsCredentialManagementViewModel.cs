@@ -76,6 +76,7 @@ namespace HomeManager.ViewModel
         {
             MijnCollectie = MijnService.GetAll();            
             MijnWachtwoordGroepCollectie = MijnWachtwoordenGroepService.GetAll();
+            LaadFilter();
         }
 
         private void OpslaanCommando()
@@ -181,14 +182,8 @@ namespace HomeManager.ViewModel
                 OnPropertyChanged(nameof(GefilterdeCollectie));
             }
         }
-
-
-
-
-
-        private void Execute_Filter_Command(object? obj)
+        private void LaadFilter()
         {
-           
             if (string.IsNullOrWhiteSpace(FilterTekst))
             {
                 // Als er geen filtertekst is, toon alles
@@ -206,6 +201,15 @@ namespace HomeManager.ViewModel
                 // Update de gefilterde collectie
                 GefilterdeCollectie = new ObservableCollection<clsCredentialManagementModel>(gefilterdeItems);
             }
+        }
+
+
+
+
+        private void Execute_Filter_Command(object? obj)
+        {
+            LaadFilter();
+
         }
 
         private bool CanExecute_Filter_Command(object? obj)
