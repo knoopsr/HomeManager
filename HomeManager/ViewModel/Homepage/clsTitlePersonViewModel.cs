@@ -5,6 +5,7 @@ using HomeManager.Mail;
 using HomeManager.Model.Homepage;
 using HomeManager.Model.Security;
 using HomeManager.Services;
+using HomeManager.View;
 using HomeManager.View.Security;
 using System.Collections.ObjectModel;
 using System.Windows;
@@ -25,6 +26,7 @@ namespace HomeManager.ViewModel
         public ICommand cmdAfmelden { get; set; }
         public ICommand cmdBackup { get; set; }
         public ICommand cmdUnLockUser { get; set; }
+        public ICommand cmdLogs { get; set; }
 
         // Public property die toegankelijk is voor binding
         public clsLoginModel LoginModel
@@ -39,6 +41,8 @@ namespace HomeManager.ViewModel
                 }
             }
         }
+
+
 
         private ObservableCollection<clsBackupModel> _mijnBackupCollectie;
         public ObservableCollection<clsBackupModel> MijnBackupCollectie
@@ -63,12 +67,24 @@ namespace HomeManager.ViewModel
             cmdAfmelden = new clsCustomCommand(ExecuteAfmelden, CanExecuteAfmelden);
             cmdBackup = new clsCustomCommand(ExecuteBackup, CanExecuteBackup);
             cmdUnLockUser = new clsCustomCommand(ExecuteUnLockUser, CanExecuteUnLockUser);
+            cmdLogs = new clsCustomCommand(ExecuteLogs, CanExecuteLogs);
+        }
+
+        private bool CanExecuteLogs(object? obj)
+        {
+            clsPermissionChecker _permissionChecker = new clsPermissionChecker();
+            return _permissionChecker.HasPermission("711");
+        }
+
+        private void ExecuteLogs(object? obj)
+        {
+            _DialogService.ShowDialog(new ucButtonLogging(), "Overzicht Button Logging");
         }
 
         private bool CanExecuteUnLockUser(object? obj)
         {
             clsPermissionChecker _permissionChecker = new clsPermissionChecker();
-            return _permissionChecker.HasPermission("711");
+            return _permissionChecker.HasPermission("712");
         }
 
         private void ExecuteUnLockUser(object? obj)
@@ -144,7 +160,7 @@ namespace HomeManager.ViewModel
 
             winLogin _winLogin = new winLogin();
             _winLogin.WindowStartupLocation = WindowStartupLocation.CenterScreen;
-            _winLogin.txtWachtwoord.Text = string.Empty;
+           _winLogin.txtWachtwoord.Password = "";
             _winLogin.Show();
 
 

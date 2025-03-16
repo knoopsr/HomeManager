@@ -14,6 +14,7 @@ namespace HomeManager.DAL.Security
     {
         private ObservableCollection<clsCredentialManagementModel> _mijnCollectie;
         int nr = 0;
+       
 
         public clsCredentialManagementRepository()
         {
@@ -21,7 +22,9 @@ namespace HomeManager.DAL.Security
 
         private void GenerateCollection()
         {
-            SqlDataReader MijnDataReader = clsDAL.GetData(Properties.Resources.S_Wachtwoord);
+            // Roep de GetData-methode aan met de stored procedure en de parameter
+            SqlDataReader MijnDataReader = clsDAL.GetData(Properties.Resources.S_Wachtwoord,
+               clsDAL.Parameter("@AccountID", clsLoginModel.Instance.AccountID));
             _mijnCollectie = new ObservableCollection<clsCredentialManagementModel>();
 
             while (MijnDataReader.Read())
@@ -91,6 +94,7 @@ namespace HomeManager.DAL.Security
         {
             (DataTable DT, bool Ok, string Boodschap) =
                 clsDAL.ExecuteDataTable(Properties.Resources.I_Wachtwoord,
+                  clsDAL.Parameter("AccountID", clsLoginModel.Instance.AccountID),
                 clsDAL.Parameter("WachtwoordGroepID", entity.WachtwoordGroepID),
                 clsDAL.Parameter("WachtwoordNaam", entity.WachtwoordNaam),
                 clsDAL.Parameter("WachtwoordOmschrijving", entity.WachtwoordOmschrijving),

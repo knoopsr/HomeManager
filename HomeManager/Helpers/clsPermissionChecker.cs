@@ -77,6 +77,23 @@ namespace HomeManager.Helpers
             { "clsKleurenVM", "500" },
             { "clsTodoVM", "500" },
             {"clsDagboekViewModel", "300" }
+            { "clsFrequentieViewModel", "440" },
+            { "clsDomicilieringViewModel", "420" },
+            { "clsCategorieViewModel", "450" },
+            { "clsBegunstigdenViewModel", "430" },
+            { "clsTransactieViewModel", "410" },
+            { "clsOverzichtViewModel", "410" },
+           
+
+
+
+
+            {"clsDagboekViewModel", "300" },
+
+
+            {"clsUnLockViewModel","711"},
+            {"clsButtonLoggingViewModel","712"}
+
         };
 
 

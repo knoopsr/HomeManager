@@ -1,12 +1,9 @@
 using HomeManager.Common;
+using HomeManager.DataService.Logging;
 using HomeManager.Helpers;
-using HomeManager.Messages;
+using HomeManager.Model.Logging;
 using HomeManager.Model.Personen;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using HomeManager.Model.Security;
 using System.Windows;
 using System.Windows.Input;
 
@@ -16,6 +13,10 @@ namespace HomeManager.ViewModel
     {
 
         public ICommand cmdMenu { get; }
+        public ICommand cmdCloseAplication { get; }
+        clsButtonLoggingDataService MijnLoggingService;
+
+
 
 
         private clsBindableBase _currentViewModel;
@@ -27,6 +28,7 @@ namespace HomeManager.ViewModel
             }
             set
             {
+
                 SetProperty(ref _currentViewModel, value);
             }
         }
@@ -124,9 +126,27 @@ namespace HomeManager.ViewModel
         public clsHomeVM()
         {
             NavCommand = new clsRelayCommand<string>(OnNav);
-                    cmdMenu = new clsCustomCommand(Execute_cmdMenu_Command, CanExecute_cmdMenu_Command);
+            cmdMenu = new clsCustomCommand(Execute_cmdMenu_Command, CanExecute_cmdMenu_Command);
+            cmdCloseAplication = new clsCustomCommand(Execute_cmdCloseAplication_Command, CanExecute_cmdCloseAplication_Command);
+
+            MijnLoggingService = new clsButtonLoggingDataService();
 
             clsMessenger.Default.Register<clsPersoonModel>(this, OnNewPersonenReceive);
+        }
+
+        private void Execute_cmdCloseAplication_Command(object? obj)
+        {
+            var result = MessageBox.Show("Wilt u de applicatie sluiten?", "Bevestiging", MessageBoxButton.YesNo, MessageBoxImage.Question);
+
+            if (result == MessageBoxResult.Yes)
+            {
+                Application.Current.Shutdown();
+            }
+        }
+
+        private bool CanExecute_cmdCloseAplication_Command(object? obj)
+        {
+            return true;
         }
 
         private void OnNewPersonenReceive(clsPersoonModel persoon)
@@ -139,7 +159,7 @@ namespace HomeManager.ViewModel
                 }
             }
 
-    
+
         }
 
         private void Execute_cmdMenu_Command(object? obj)
@@ -153,17 +173,27 @@ namespace HomeManager.ViewModel
                 IsTodoExpanderMenu = false;
                 IsSecurityExpanderMenu = false;
                 IsStickyNotesExpanderMenu = false;
-            }    
+            }
         }
 
         private bool CanExecute_cmdMenu_Command(object? obj)
         {
-            return true;    
+            return true;
 
         }
 
         private void OnNav(string destination)
         {
+            //Logging van de buttonklik
+
+            MijnLoggingService.Insert(new clsButtonLoggingModel()
+            {
+                AccountId = clsLoginModel.Instance.AccountID,
+                ActionName = "MenuKnop",
+                ActionTarget = destination
+            });
+
+
             clsPermissionChecker permissionChecker = new clsPermissionChecker();
 
             if (permissionChecker.PermissionViewmodel(destination))

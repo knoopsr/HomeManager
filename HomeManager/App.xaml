@@ -17,6 +17,7 @@
         -->
 
 
+
         <ResourceDictionary>
 
             <VM:clsVMLocator x:Key="VML" />
@@ -30,6 +31,8 @@
 
 
             <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="\Resources\ErrorTemplateDictionary.xaml" />
+                <ResourceDictionary Source="\Resources\StaticStyleDictionary.xaml" />
                 <ResourceDictionary Source="\Resources\BrushesDictionary.xaml" />
                 <ResourceDictionary Source="\Resources\GeometryDrawingDictionary.xaml" />
                 <ResourceDictionary Source="\Resources\StyleHamburgerMenu.xaml" />

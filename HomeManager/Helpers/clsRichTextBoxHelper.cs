@@ -1,72 +1,142 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+using System.IO;
 using System.Text;
-using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
-using System.Windows;
+
 
 namespace HomeManager.Helpers
 {
     public static class clsRichTextBoxHelper
     {
-        public static readonly DependencyProperty BoundDocumentProperty =
+        public static readonly DependencyProperty RtfTextProperty =
             DependencyProperty.RegisterAttached(
-                "BoundDocument",
+                "RtfText",
                 typeof(string),
                 typeof(clsRichTextBoxHelper),
-                new FrameworkPropertyMetadata(string.Empty, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault, OnBoundDocumentChanged));
+                new FrameworkPropertyMetadata(string.Empty, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault, OnRtfTextChanged));
 
-        public static string GetBoundDocument(DependencyObject obj) =>
-            (string)obj.GetValue(BoundDocumentProperty);
-
-        public static void SetBoundDocument(DependencyObject obj, string value) =>
-            obj.SetValue(BoundDocumentProperty, value);
-
-        private static void OnBoundDocumentChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        public static string GetRtfText(DependencyObject obj)
         {
-            if (d is RichTextBox richTextBox)
+            return (string)obj.GetValue(RtfTextProperty);
+        }
+
+        public static void SetRtfText(DependencyObject obj, string value)
+        {
+            obj.SetValue(RtfTextProperty, value);
+        }
+
+        //private static void OnRtfTextChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        //{
+        //    if (d is RichTextBox rtb && e.NewValue is string newRtf)
+        //    {
+        //        // 🔹 Voorkom oneindige lus door alleen te laden als de waarde echt verandert
+        //        if (GetCurrentRtfText(rtb) != newRtf)
+        //        {
+        //            var textRange = new TextRange(rtb.Document.ContentStart, rtb.Document.ContentEnd);
+
+        //            // 🔹 Eerst inhoud wissen om refresh te forceren
+        //            rtb.Document.Blocks.Clear();
+
+        //            using (var stream = new MemoryStream(Encoding.Default.GetBytes(newRtf))) // 🔹 Gebruik ASCII encoding
+        //            {
+        //                try
+        //                {
+        //                    textRange.Load(stream, DataFormats.Rtf);
+        //                }
+        //                catch
+        //                {
+        //                    // Als laden mislukt, leeg document instellen
+        //                    rtb.Document.Blocks.Clear();
+        //                }
+        //            }
+        //        }
+        //    }
+        //}
+
+        private static void OnRtfTextChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            if (d is RichTextBox rtb && e.NewValue is string newRtf)
             {
-                // Remove event handler to prevent recursion
-                richTextBox.TextChanged -= RichTextBox_TextChanged;
-
-                // Preserve caret position before updating the document content
-                var caretPosition = richTextBox.CaretPosition;
-
-                // Update RichTextBox.Document content from the bound property
-                if (e.NewValue is string newText)
+                // Voorkom oneindige lus door alleen te laden als de waarde echt verandert
+                if (GetCurrentRtfText(rtb) != newRtf)
                 {
-                    var range = new TextRange(richTextBox.Document.ContentStart, richTextBox.Document.ContentEnd);
+                    var textRange = new TextRange(rtb.Document.ContentStart, rtb.Document.ContentEnd);
 
-                    // Update only if the text is different to avoid unnecessary changes
-                    if (range.Text != newText)
+                    // Eerst inhoud wissen om refresh te forceren
+                    rtb.Document.Blocks.Clear();
+
+                    using (var stream = new MemoryStream(Encoding.Default.GetBytes(newRtf)))
                     {
-                        range.Text = newText;
+                        try
+                        {
+                            textRange.Load(stream, DataFormats.Rtf);
+                        }
+                        catch
+                        {
+                            // Als laden mislukt, leeg document instellen
+                            rtb.Document.Blocks.Clear();
+                        }
                     }
                 }
-
-                // Restore caret position after updating the document
-                richTextBox.CaretPosition = caretPosition;
-                richTextBox.Focus();  // Ensure RichTextBox regains focus
-
-                // Reattach event handler
-                richTextBox.TextChanged += RichTextBox_TextChanged;
             }
         }
 
-        private static void RichTextBox_TextChanged(object sender, TextChangedEventArgs e)
+        public static readonly DependencyProperty BindBackProperty =
+            DependencyProperty.RegisterAttached(
+                "BindBack",
+                typeof(bool),
+                typeof(clsRichTextBoxHelper),
+                new PropertyMetadata(false, OnBindBackChanged));
+
+        public static bool GetBindBack(DependencyObject obj)
         {
-            if (sender is RichTextBox richTextBox)
-            {
-                // Get the current content of the RichTextBox
-                var range = new TextRange(richTextBox.Document.ContentStart, richTextBox.Document.ContentEnd);
-                string newText = range.Text;
+            return (bool)obj.GetValue(BindBackProperty);
+        }
 
-                // Update the bound property
-                SetBoundDocument(richTextBox, newText);
+        public static void SetBindBack(DependencyObject obj, bool value)
+        {
+            obj.SetValue(BindBackProperty, value);
+        }
+
+        private static void OnBindBackChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            if (d is RichTextBox rtb && (bool)e.NewValue)
+            {
+                rtb.LostFocus += (s, args) =>
+                {
+                    var textRange = new TextRange(rtb.Document.ContentStart, rtb.Document.ContentEnd);
+                    using (var stream = new MemoryStream())
+                    {
+                        try
+                        {
+                            textRange.Save(stream, DataFormats.Rtf);
+                            SetRtfText(rtb, Encoding.Default.GetString(stream.ToArray())); // 🔹 Gebruik ASCII encoding
+                        }
+                        catch
+                        {
+                            SetRtfText(rtb, string.Empty);
+                        }
+                    }
+                };
             }
         }
-    }
 
+        private static string GetCurrentRtfText(RichTextBox rtb)
+        {
+            var textRange = new TextRange(rtb.Document.ContentStart, rtb.Document.ContentEnd);
+            using (var stream = new MemoryStream())
+            {
+                try
+                {
+                    textRange.Save(stream, DataFormats.Rtf);
+                    return Encoding.Default.GetString(stream.ToArray()); // 🔹 Gebruik ASCII encoding
+                }
+                catch
+                {
+                    return string.Empty;
+                }
+            }
+        }
+    }  
 }

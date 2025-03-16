@@ -29,20 +29,18 @@
                     <ColumnDefinition Width="auto" />
                 </Grid.ColumnDefinitions>
                 <StackPanel
+                    Grid.Column="0"
                     Margin="10,0,0,0"
                     HorizontalAlignment="Left"
                     VerticalAlignment="Center"
-                    Orientation="Horizontal"
-                    Grid.Column="0">
+                    Orientation="Horizontal">
                     <Path
                         Width="20"
                         Height="20"
                         Data="{StaticResource myPathSetting}"
                         Fill="White"
                         Stretch="Fill" />
-                    <TextBlock
-                        Style="{StaticResource TitleBarText}"
-                        Text="Adressen" />
+                    <TextBlock Style="{StaticResource TitleBarText}" Text="Adressen" />
                 </StackPanel>
                 <uc:ucWerkBalk
                     Grid.Column="1"
@@ -60,11 +58,11 @@
             CornerRadius="5">
             <Grid>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="200" />
                     <ColumnDefinition Width="auto" />
                     <ColumnDefinition Width="auto" />
                     <ColumnDefinition Width="150" />
-                    <ColumnDefinition Width="150" />
+                    <ColumnDefinition Width="250" />
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="35" />
@@ -136,7 +134,7 @@
                     DataContext="{Binding Source={StaticResource VML}, Path=GemeenteViewModel}"
                     DisplayMemberPath="GemeenteDisplayName"
                     ItemsSource="{Binding MijnCollectie}"
-                    SelectedValue="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Grid}}, Path=DataContext.MijnSelectedItem.GemeenteID, Mode=TwoWay}"
+                    SelectedValue="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Grid}}, Path=DataContext.MijnSelectedItem.GemeenteID, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
                     SelectedValuePath="GemeenteID" />
                 <TextBlock
                     x:Name="Functie"

@@ -112,7 +112,7 @@
                     DataContext="{Binding Source={StaticResource VML}, Path=LandViewModel}"
                     DisplayMemberPath="LandDisplayName"
                     ItemsSource="{Binding MijnCollectie}"
-                    SelectedValue="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Grid}}, Path=DataContext.MijnSelectedItem.LandID, Mode=TwoWay}"
+                    SelectedValue="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Grid}}, Path=DataContext.MijnSelectedItem.LandID, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
                     SelectedValuePath="LandID" />
             </Grid>
         </Border>

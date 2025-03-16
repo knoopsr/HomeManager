@@ -115,14 +115,14 @@
                     Text="Provincie"
                     TextAlignment="Right" />
                 <ComboBox
-                    x:Name="cboLand"
+                    x:Name="cboProvincie"
                     Grid.Row="4"
                     Grid.Column="3"
                     Margin="5"
                     DataContext="{Binding Source={StaticResource VML}, Path=ProvincieViewModel}"
                     DisplayMemberPath="ProvincieDisplayName"
                     ItemsSource="{Binding MijnCollectie}"
-                    SelectedValue="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Grid}}, Path=DataContext.MijnSelectedItem.ProvincieID, Mode=TwoWay}"
+                    SelectedValue="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Grid}}, Path=DataContext.MijnSelectedItem.ProvincieID, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
                     SelectedValuePath="ProvincieID" />
             </Grid>
         </Border>
