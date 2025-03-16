@@ -55,7 +55,7 @@ public class clsCategorieënM : clsCommonModelPropertiesBase, IDataErrorInfo
                 case nameof(ToDoCategorie):
                     if (string.IsNullOrWhiteSpace(_toDoCategorieën))
                     {
-                        error = "Budget Categorie is een verplicht veld.";
+                        error = "Categorie is een verplicht veld.";
                         if (ErrorList.Contains(nameof(ToDoCategorie)) == false)
                         {
                             ErrorList.Add(nameof(ToDoCategorie));

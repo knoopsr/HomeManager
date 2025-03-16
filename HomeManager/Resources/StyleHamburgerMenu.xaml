@@ -804,9 +804,6 @@
                                     Margin="10,0,0,0"
                                     Command="{Binding NavCommand}"
                                     CommandParameter="clsTodoVM"
-                                    Content="ToDo"
-                                    Style="{StaticResource myExpanderTodo}" />
-                                    CommandParameter="clsCategorieViewModel"
                                     Style="{StaticResource myExpanderTodo}">
                                     <Button.Content>
                                         <TextBlock Foreground="{StaticResource MenuColorText}" Text="ToDo" />

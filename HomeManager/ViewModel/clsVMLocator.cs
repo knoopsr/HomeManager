@@ -284,14 +284,6 @@ namespace HomeManager.ViewModel
             }
         }
 
-        public clsCategorieViewModel CategorieViewModel
-        {
-            get
-            {
-                return _categorieViewModel; 
-            }
-        }
-
         private static clsFrequentieViewModel _frequentieViewModel = new clsFrequentieViewModel();
         public clsFrequentieViewModel FrequentieViewModel
         {

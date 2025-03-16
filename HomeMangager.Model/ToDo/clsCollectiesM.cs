@@ -54,7 +54,7 @@ public class clsCollectiesM : clsCommonModelPropertiesBase, IDataErrorInfo
                 case nameof(ToDoCollectie):
                     if (string.IsNullOrWhiteSpace(_toDoCollectie))
                     {
-                        error = "Budget Categorie is een verplicht veld.";
+                        error = "Collectie is een verplicht veld.";
                         if (ErrorList.Contains(nameof(ToDoCollectie)) == false)
                         {
                             ErrorList.Add(nameof(ToDoCollectie));
@@ -62,7 +62,7 @@ public class clsCollectiesM : clsCommonModelPropertiesBase, IDataErrorInfo
                     }
                     else if (_toDoCollectie.Length > 50)
                     {
-                        error = "De voorgestelde categorie is te lang!!!";
+                        error = "De voorgestelde collectie is te lang!!!";
                         if (ErrorList.Contains(nameof(ToDoCollectie)) == false)
                         {
                             ErrorList.Add(nameof(ToDoCollectie));
