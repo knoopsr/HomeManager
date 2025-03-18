@@ -33,5 +33,16 @@ namespace HomeManager.View
             clsMessenger.Default.Send(todoCollectieItem);
             viewModel.SetDefaultCollectieItem(todoCollectieItem);
         }
+
+        public ucTodoPopup(clsTodoPopupM todoItem)
+        {
+            InitializeComponent();
+
+            var viewModel = new clsTodoPopupVM();
+            DataContext = viewModel;
+
+            // Stel de geselecteerde item in de TodoPopupViewModel in
+            viewModel.MijnSelectedItem = todoItem;
+        }
     }
 }

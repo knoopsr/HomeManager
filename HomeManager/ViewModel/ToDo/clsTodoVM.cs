@@ -288,7 +288,7 @@ namespace HomeManager.ViewModel
 
             var todoPopupWindow = new Window
             {
-                Content = new ucTodoPopup(MijnSelectedCollectieItem), //TODO: Constructor aanpassen dat hij de juiste todotem edit
+                Content = new ucTodoPopup(todoItem), // Pas de constructor aan om het juiste todoItem te gebruiken
                 Title = "Edit Todo",
                 Width = 800,
                 Height = 450
@@ -302,6 +302,7 @@ namespace HomeManager.ViewModel
 
             todoPopupWindow.ShowDialog();
         }
+
 
         public ICommand DeleteTodoCommand { get; }
         private bool CanDeleteTodoItem(clsTodoPopupM todoItem)
