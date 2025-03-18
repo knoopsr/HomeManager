@@ -72,7 +72,8 @@
                     Grid.Column="3"
                     Margin="5"
                     ItemsSource="{Binding MijnVerzenderEmailAdres}"
-                    SelectedValue="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Grid}}, Path=DataContext.MijnSelectedItem.PersoonID, Mode=TwoWay}"
+                    SelectedIndex="{Binding MijnSelectedItem.MijnSelectedIndex}"
+                    SelectedValue="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Grid}}, Path=DataContext.MijnSelectedItem, Mode=TwoWay}"
                     SelectedValuePath="PersoonID" />
                 <TextBlock
                     x:Name="Ontvanger"
@@ -83,11 +84,11 @@
                     Text="Ontvanger"
                     TextAlignment="Right" />
                 <TextBox
-                    x:Name="txtAfzender"
+                    x:Name="txtOntvanger"
                     Grid.Row="2"
                     Grid.Column="3"
                     Margin="5"
-                    Text="{Binding MijnSelectedItem.Emailadres, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnValidationError=true, ValidatesOnExceptions=True}" />
+                    Text="{Binding Ontvanger, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnValidationError=true, ValidatesOnExceptions=True}" />
 
                 <TextBlock
                     x:Name="Onderwerp"
@@ -103,19 +104,19 @@
                     Margin="5"
                     Text="{Binding Onderwerp, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                 <TextBlock
-                    x:Name="Body"
+                    x:Name="Bericht"
                     Grid.Row="4"
                     Grid.Column="2"
                     Margin="5"
-                    Text="Body"
+                    Text="Bericht"
                     TextAlignment="Right" />
                 <TextBox
-                    x:Name="txtBody"
+                    x:Name="txtBericht"
                     Grid.Row="4"
                     Grid.Column="3"
                     Height="250"
                     Margin="5"
-                    Text="{Binding Body, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                    Text="{Binding Bericht, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 
                 <Button
                     x:Name="btnSubmit"
@@ -123,8 +124,8 @@
                     Grid.Column="3"
                     Margin="5"
                     Padding="5"
-                    Content="Submit"
-                    Command="{Binding SubmitCommand}" />
+                    Command="{Binding SubmitCommand}"
+                    Content="Submit" />
             </Grid>
         </Border>
     </Grid>
