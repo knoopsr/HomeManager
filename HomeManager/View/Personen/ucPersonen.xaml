@@ -284,7 +284,7 @@
                                             CommandParameter="{Binding}"
                                             Style="{StaticResource DeleteEmail}" />
                                         <!--  Send-knop  -->
-                                        <Button 
+                                        <Button
                                             Command="{Binding DataContext.cmdSendEmail, RelativeSource={RelativeSource AncestorType=ListBox}}"
                                             CommandParameter="{Binding}"
                                             Content="Send Email"
