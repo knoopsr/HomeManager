@@ -45,7 +45,7 @@
             CornerRadius="5">
             <DockPanel LastChildFill="True">
                 <Ribbon DockPanel.Dock="Top">
-                    <RibbonTab IsEnabled="True">
+                    <RibbonTab IsEnabled="True" IsSelected="True">
                         <RibbonTab.Header>
                             <TextBlock>
                                 <Run FontWeight="Bold" Text="Options" />
@@ -55,6 +55,7 @@
                         <RibbonGroup Header="Options">
                             <Grid>
                                 <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
                                     <ColumnDefinition Width="*" />
                                     <ColumnDefinition Width="*" />
                                     <ColumnDefinition Width="*" />
@@ -89,6 +90,15 @@
                                     Style="{StaticResource myRibbonButton}" />
 
                                 <Label Grid.Row="1" Grid.Column="2">Delete File</Label>
+
+                                <RibbonButton
+                                    Grid.Column="3"
+                                    Command="{Binding cmdPrint}"
+                                    CommandParameter="{Binding ElementName=MyRTB}"
+                                    Content="{StaticResource Printer}"
+                                    Style="{StaticResource myRibbonButton}" />
+
+                                <Label Grid.Row="1" Grid.Column="3">Print File</Label>
 
                             </Grid>
                         </RibbonGroup>
@@ -177,7 +187,7 @@
 
                         <RibbonGroup />
                     </RibbonTab>
-                    <RibbonTab IsSelected="True">
+                    <RibbonTab >
                         <RibbonTab.Header>
                             <TextBlock>
                                 <Run FontWeight="Bold" Text="Text Format" />

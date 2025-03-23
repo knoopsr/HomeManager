@@ -89,6 +89,7 @@ namespace HomeManager.ViewModel
             UpdateRichTextBoxCommand = new clsCustomCommand(UpdateRichTextBox, CanExecute_UpdateRTB);
             cmdDecreaseTextSize = new clsCustomCommand(DecreaseTextSize, CanDecreaseTextSize);
             cmdIncreaseTextSize = new clsCustomCommand(IncreaseTextSize, CanIncreaseTextSize);
+            cmdPrint = new clsRelayCommand(PrintMyFlowDocument);
 
             //relaycommands for the layout
             cmdSetFontWeight = new clsRelayCommand(SetFontWeight);
@@ -145,6 +146,21 @@ namespace HomeManager.ViewModel
                 
             }
 
+        }
+
+        private void PrintMyFlowDocument(object? obj)
+        {
+            if (obj is RichTextBox rtb)
+            {
+                FlowDocument document = rtb.Document;
+
+                PrintDialog printDialog = new PrintDialog();
+
+                if (printDialog.ShowDialog() == true)
+                {
+                    printDialog.PrintDocument(((IDocumentPaginatorSource)document).DocumentPaginator, "Print");
+                }
+            }
         }
 
         private void DecreaseTextIndent(object? obj)
@@ -429,6 +445,7 @@ namespace HomeManager.ViewModel
         public ICommand UpdateRichTextBoxCommand { get; }
         public ICommand cmdIncreaseTextSize {  get; set; }
         public ICommand cmdDecreaseTextSize { get; set; }
+        public ICommand cmdPrint {  get; set; }
 
         //relaycommands
         public ICommand cmdSetFontWeight {  get; set; }
