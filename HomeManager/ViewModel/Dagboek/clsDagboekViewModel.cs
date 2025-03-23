@@ -388,7 +388,7 @@ namespace HomeManager.ViewModel
         }
 
 
-        //testing
+        //converting to rtb
         public string ConvertRichTextBoxToRtf(RichTextBox richTextBox)
         {
             if (richTextBox == null) throw new ArgumentNullException(nameof(richTextBox));
@@ -398,6 +398,17 @@ namespace HomeManager.ViewModel
                 var range = new TextRange(richTextBox.Document.ContentStart, richTextBox.Document.ContentEnd);
                 range.Save(memoryStream, DataFormats.Rtf);
                 return System.Text.Encoding.UTF8.GetString(memoryStream.ToArray());
+            }
+        }
+
+        //converting to byte[]
+        private byte[] ConvertRichTextBoxToByteArray(RichTextBox richTextBox)
+        {
+            using (var stream = new System.IO.MemoryStream())
+            {
+                TextRange textRange = new TextRange(richTextBox.Document.ContentStart, richTextBox.Document.ContentEnd);
+                textRange.Save(stream, DataFormats.Xaml);
+                return stream.ToArray();
             }
         }
 
@@ -562,8 +573,8 @@ namespace HomeManager.ViewModel
             RichTextBox richTextBox = obj as RichTextBox;
             if (richTextBox != null)
             {
-                MySelectedItem.MyRTFString = ConvertRichTextBoxToRtf(richTextBox);
-                MessageBox.Show(MySelectedItem.MyRTFString.ToString());
+                MySelectedItem.MyFlowDocument = ConvertRichTextBoxToByteArray(richTextBox);
+                //MessageBox.Show(MySelectedItem.MyRTFString.ToString());
 
                 if (isNew)
                 {

@@ -1,4 +1,5 @@
-﻿using HomeManager.Model.Dagboek;
+﻿using ClosedXML.Excel;
+using HomeManager.Model.Dagboek;
 using Microsoft.Xaml.Behaviors;
 using System;
 using System.Collections.Generic;
@@ -48,13 +49,15 @@ namespace HomeManager.Behaviors
 
                 if (selectedItem != null)
                 {
-                    var rtfString = selectedItem.MyRTFString;
+                    var xamlBytes = selectedItem.MyFlowDocument;  // Assuming MyFlowDocument holds the byte array for XAML
 
-                    if (!string.IsNullOrEmpty(rtfString))
+                    if (xamlBytes != null && xamlBytes.Length > 0)
                     {
-                        using (var stream = new System.IO.MemoryStream(System.Text.Encoding.UTF8.GetBytes(rtfString)))
+                        using (var stream = new System.IO.MemoryStream(xamlBytes))
                         {
-                            TargetRichTextBox.Selection.Load(stream, DataFormats.Rtf);
+                            // Load the FlowDocument from the XAML byte array
+                            TextRange textRange = new TextRange(TargetRichTextBox.Document.ContentStart, TargetRichTextBox.Document.ContentEnd);
+                            textRange.Load(stream, DataFormats.Xaml);  // Load the XAML
                         }
                     }
                 }
