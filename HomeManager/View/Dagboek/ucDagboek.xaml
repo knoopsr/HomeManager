@@ -59,6 +59,7 @@
                                     <ColumnDefinition Width="*" />
                                     <ColumnDefinition Width="*" />
                                     <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="*" />
                                 </Grid.ColumnDefinitions>
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="*" />
@@ -99,6 +100,15 @@
                                     Style="{StaticResource myRibbonButton}" />
 
                                 <Label Grid.Row="1" Grid.Column="3">Print File</Label>
+
+                                <RibbonButton
+                                    Grid.Column="4"
+                                    Command="{Binding cmdClose}"
+                                    CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=Window}}"
+                                    Content="{StaticResource myCloseButton}"
+                                    Style="{StaticResource myRibbonButton}" />      
+
+                                <Label Grid.Row="1" Grid.Column="4">close dagboek</Label>
 
                             </Grid>
                         </RibbonGroup>
@@ -185,7 +195,28 @@
                         </RibbonGroup>
 
 
-                        <RibbonGroup />
+                        <RibbonGroup>
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="auto"/>
+                                </Grid.RowDefinitions>
+
+                                <RibbonButton
+                                    Command=""
+                                    CommandParameter="{Binding}"
+                                    Content="{StaticResource HyperlinkIcon}"
+                                    Style="{StaticResource myRibbonButton}"/>
+
+                                <Label
+                                    Padding="1"
+                                    Grid.Row="1"
+                                    Content="Search Hyperlinks"/>
+
+                            </Grid>
+                            
+                            
+                        </RibbonGroup>
                     </RibbonTab>
                     <RibbonTab >
                         <RibbonTab.Header>
@@ -539,7 +570,10 @@
                         Width="20"
                         Height="150"
                         Command="{Binding cmdTest}"
+                        CommandParameter="{Binding ElementName=MyRTB}"
+                        Visibility="Visible"
                         Content="test" />
+                    
 
                 </Grid>
 

@@ -400,7 +400,14 @@ namespace HomeManager.ViewModel
 
         private void Execute_Test(object? obj)
         {
-            MessageBox.Show(MyRTBLayout.SelectedTextColor.ColorName);
+            RichTextBox myRichTextBox = obj as RichTextBox;
+
+            if (myRichTextBox != null)
+            {
+                string xamlString = Encoding.UTF8.GetString(ConvertRichTextBoxToByteArray(myRichTextBox));
+                MessageBox.Show(xamlString);
+            }
+
         }
 
 
@@ -487,7 +494,7 @@ namespace HomeManager.ViewModel
 
         private bool CanExecute_Close_Command(object? obj)
         {
-            throw new NotImplementedException();
+            return true;
         }
 
         private bool CanExecute_Cancel_Command(object? obj)
@@ -537,7 +544,13 @@ namespace HomeManager.ViewModel
 
         private void Execute_Close_Command(object? obj)
         {
-            throw new NotImplementedException();
+            MainWindow HomeWindow = obj as MainWindow;
+            if (HomeWindow != null)
+            {
+
+                clsHomeVM vm = (clsHomeVM)HomeWindow.DataContext;
+                vm.CurrentViewModel = null;
+            }
         }
 
         private void Execute_Cancel_Command(object? obj)

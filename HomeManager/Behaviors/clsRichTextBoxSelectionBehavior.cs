@@ -48,6 +48,7 @@ namespace HomeManager.Behaviors
                 return;
             }
 
+            //dit is om images te scalen
             if (sender is RichTextBox rtb)
             {
                 TextPointer caretPosition = rtb.Selection.Start;
