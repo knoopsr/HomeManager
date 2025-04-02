@@ -54,6 +54,10 @@
             <V:ucNotities />
         </DataTemplate>
 
+        <DataTemplate DataType="{x:Type VM:clsDagboekViewModel}">
+            <V:ucDagboek />
+        </DataTemplate>
+
         <DataTemplate DataType="{x:Type VM:clsRechtenViewModel}">
             <V:ucRoles />
         </DataTemplate>
@@ -202,7 +206,11 @@
                         </StackPanel>
                     </Expander>
 
-                    <Button Content="Dagboek" Style="{StaticResource myExpanderDagboek}" />
+                    <Button
+                        Command="{Binding NavCommand}"
+                        CommandParameter="clsDagboekViewModel"
+                        Content="Dagboek"
+                        Style="{StaticResource myExpanderDagboek}" />
 
                     <Expander IsExpanded="{Binding IsBudgetExpanderMenu, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource myHamburgerBudget}">
                         <StackPanel x:Name="stckBudget">
@@ -230,6 +238,15 @@
                                 Command="{Binding NavCommand}"
                                 CommandParameter="clsCategorieViewModel"
                                 Content="Categorie"
+                                Style="{StaticResource myMenuTandwiel}" />
+
+                            <Button Content="Domiciliëring" Style="{StaticResource myMenuTandwiel}" />
+                            <Button Content="Begunstigden" Style="{StaticResource myMenuTandwiel}" />
+                            <Button Content="Frequentie" Style="{StaticResource myMenuTandwiel}" />
+                            <Button
+                                Command="{Binding NavCommand}"
+                                CommandParameter="clsCategorieViewModel"
+                                Content="Budget Categorie"
                                 Style="{StaticResource myMenuTandwiel}" />
                         </StackPanel>
                     </Expander>
@@ -292,15 +309,17 @@
 
                 </StackPanel>
 
-                <Path
+
+
+
+                <Button
                     Grid.Row="2"
-                    Width="10"
-                    Height="10"
-                    Margin="0,0,5,0"
-                    HorizontalAlignment="Right"
-                    Data="{StaticResource myPathPower}"
-                    Fill="White"
-                    Stretch="Fill" />
+                    Width="12"
+                    Height="12"
+                    Command="{Binding cmdCloseAplication}"
+                    CommandParameter="{Binding}"
+                    Style="{StaticResource MenuPowerIcon}" />
+
             </Grid>
         </Border>
 

@@ -15,16 +15,24 @@
 
     <DockPanel DataContext="{Binding Source={StaticResource VML}, Path=DagboekViewModel}">
         <Border
-            BorderBrush="White"
+            Background="{StaticResource myTitleBar}"
+            BorderBrush="LightBlue"
             BorderThickness="2"
             DockPanel.Dock="Top">
-            <StackPanel Background="{StaticResource myTitleBar}" Orientation="Horizontal">
+
+            <StackPanel
+                Margin="10,0,0,0"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Center"
+                Orientation="Horizontal">
                 <Path
-                    Margin="5"
+                    Width="20"
+                    Height="20"
                     Data="{StaticResource myPathBook}"
                     Fill="White"
-                    Stroke="{StaticResource myTitleBar}" />
-                <Label FontSize="20" Foreground="White">Dagboek</Label>
+                    Stretch="Fill" />
+                <TextBlock Style="{StaticResource TitleBarText}" Text="Dagboek" />
+
             </StackPanel>
         </Border>
 
@@ -58,6 +66,7 @@
 
                                 <RibbonButton
                                     Command="{Binding cmdNew}"
+                                    CommandParameter="{Binding}"
                                     Content="{StaticResource NewFile}"
                                     Style="{StaticResource myRibbonButton}" />
 
@@ -75,6 +84,7 @@
                                 <RibbonButton
                                     Grid.Column="2"
                                     Command="{Binding cmdDelete}"
+                                    CommandParameter="{Binding}"
                                     Content="{StaticResource myDeleteButton}"
                                     Style="{StaticResource myRibbonButton}" />
 
@@ -249,16 +259,43 @@
                                         Style="{StaticResource myRibbonButton}" />
                                     <ComboBox
                                         x:Name="cboMyColors"
+                                        Width="150"
+                                        Margin="2"
                                         ItemsSource="{Binding MyRTBLayout.ColorsCollection}"
-                                        SelectedItem="{Binding MyRTBLayout.SelectedTextColor, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                        SelectedItem="{Binding MyRTBLayout.SelectedTextColor, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+
+                                        <ComboBox.ItemTemplate>
+                                            <DataTemplate>
+                                                <StackPanel Orientation="Horizontal">
+                                                    <TextBlock VerticalAlignment="Center" Text="{Binding ColorName}" Foreground="{Binding MyBrush}" />
+                                                </StackPanel>
+                                            </DataTemplate>
+                                        </ComboBox.ItemTemplate>
+                                    </ComboBox>
+                                    
                                 </StackPanel>
                                 <StackPanel Grid.Row="1" Orientation="Horizontal">
                                     <RibbonButton
                                         Command="{Binding cmdSetBackgroundToText}"
                                         CommandParameter="{Binding ElementName=MyRTB}"
                                         Content="{StaticResource PaintBucked}"
-                                        Style="{StaticResource myRibbonButton}" />
-                                    <ComboBox ItemsSource="{Binding MyRTBLayout.ColorsCollection}" SelectedItem="{Binding MyRTBLayout.SelectedTextBackgroundColor, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                        Style="{StaticResource myRibbonButton}"
+                                        />
+                                    <ComboBox 
+                                        Width="150"
+                                        Margin="2"
+                                        ItemsSource="{Binding MyRTBLayout.ColorsCollection}" 
+                                        SelectedItem="{Binding MyRTBLayout.SelectedTextBackgroundColor, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+
+                                        <ComboBox.ItemTemplate>
+                                            <DataTemplate>
+                                                <StackPanel Orientation="Horizontal">
+                                                    <TextBlock VerticalAlignment="Center" Text="{Binding ColorName}" Foreground="{Binding MyBrush}" />
+                                                </StackPanel>
+                                            </DataTemplate>
+                                        </ComboBox.ItemTemplate>
+                                    </ComboBox>
+
                                 </StackPanel>
 
                             </Grid>
@@ -279,63 +316,77 @@
                                     <RowDefinition Height="*" />
                                 </Grid.RowDefinitions>
 
-                                <Label FontFamily="{Binding MyRTBLayout.SelectedFond, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">Letter fond</Label>
+                                <Label VerticalAlignment="Center" FontSize="8">Letter fond</Label>
 
                                 <ComboBox
                                     x:Name="cboMyFonds"
                                     Grid.Column="1"
+                                    Width="75"
+                                    Margin="2"
                                     DisplayMemberPath="Source"
                                     ItemsSource="{Binding MyRTBLayout.MyFonds}"
                                     SelectedItem="{Binding MyRTBLayout.SelectedFond, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+
+                                    <ComboBox.ItemContainerStyle>
+                                        
+                                        <Style TargetType="ComboBoxItem">
+                                            <Setter Property="FontFamily" Value="{Binding}" />
+                                        </Style>
+                                    </ComboBox.ItemContainerStyle>
+
                                     <i:Interaction.Triggers>
                                         <i:EventTrigger EventName="SelectionChanged">
-                                            <i:InvokeCommandAction Command="{Binding cmdSetFondFamily}" CommandParameter="{Binding ElementName=MyRTB}"/>
+                                            <i:InvokeCommandAction Command="{Binding cmdSetFondFamily}" CommandParameter="{Binding ElementName=MyRTB}" />
                                         </i:EventTrigger>
                                     </i:Interaction.Triggers>
                                 </ComboBox>
 
-                                <Label Grid.Row="1">Letter Grootte</Label>
+                                <Label FontSize="8" VerticalAlignment="Center" Grid.Row="1">Letter Grootte</Label>
 
                                 <ComboBox
                                     x:Name="cboMyFondSizes"
                                     Grid.Row="1"
                                     Grid.Column="1"
+                                    Width="75"
+                                    Margin="2"
                                     ItemsSource="{Binding MyRTBLayout.FondSizes}"
                                     SelectedItem="{Binding MyRTBLayout.MyFondSize, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
                                     <i:Interaction.Triggers>
                                         <i:EventTrigger EventName="SelectionChanged">
-                                            <i:InvokeCommandAction Command="{Binding cmdSetFondSize}" CommandParameter="{Binding ElementName=MyRTB}"/>
+                                            <i:InvokeCommandAction Command="{Binding cmdSetFondSize}" CommandParameter="{Binding ElementName=MyRTB}" />
                                         </i:EventTrigger>
                                     </i:Interaction.Triggers>
                                 </ComboBox>
 
-                                <RibbonButton 
-                                    Content="{StaticResource SuperScript}"
+                                <RibbonButton
+                                    Grid.Column="2"
                                     Command="{Binding cmdSetSuperScript}"
                                     CommandParameter="{Binding ElementName=MyRTB}"
-                                    Style="{StaticResource myRibbonButton}"
-                                    Grid.Column="2"/>
+                                    Content="{StaticResource SuperScript}"
+                                    Style="{StaticResource myRibbonButton}" />
 
-                                <RibbonButton 
-                                    Content="{StaticResource SubScript}"
+                                <RibbonButton
+                                    Grid.Column="3"
                                     Command="{Binding cmdSetSubScript}"
                                     CommandParameter="{Binding ElementName=MyRTB}"
-                                    Style="{StaticResource myRibbonButton}"
-                                    Grid.Column="3"/>
+                                    Content="{StaticResource SubScript}"
+                                    Style="{StaticResource myRibbonButton}" />
 
-                                <RibbonButton 
-                                    Content="{StaticResource IncreaseLetterSize}"
-                                    Style="{StaticResource myRibbonButton}"
-                                    Command="{Binding cmdIncreaseTextSize}"
+                                <RibbonButton
+                                    Grid.Row="1"
                                     Grid.Column="2"
-                                    Grid.Row="1"/>
+                                    Command="{Binding cmdIncreaseTextSize}"
+                                    CommandParameter="{Binding}"
+                                    Content="{StaticResource IncreaseLetterSize}"
+                                    Style="{StaticResource myRibbonButton}" />
 
-                                <RibbonButton 
-                                    Content="{StaticResource DecreaseLetterSize}"
-                                    Style="{StaticResource myRibbonButton}"
-                                    Command="{Binding cmdDecreaseTextSize}"
+                                <RibbonButton
+                                    Grid.Row="1"
                                     Grid.Column="3"
-                                    Grid.Row="1"/>
+                                    Command="{Binding cmdDecreaseTextSize}"
+                                    CommandParameter="{Binding}"
+                                    Content="{StaticResource DecreaseLetterSize}"
+                                    Style="{StaticResource myRibbonButton}" />
 
                             </Grid>
                         </RibbonGroup>
@@ -358,47 +409,51 @@
                                 <RibbonToggleButton
                                     Grid.Row="0"
                                     Grid.Column="0"
-                                    Content="{StaticResource TextAlignLeft}"
                                     Command="{Binding cmdSetTextAlignmentLeft}"
                                     CommandParameter="{Binding ElementName=MyRTB}"
+                                    Content="{StaticResource TextAlignLeft}"
                                     IsChecked="{Binding MyRTBLayout.IsLeftTextAlignment, Mode=OneWay}"
                                     Style="{StaticResource myToggleButton}" />
-                                
+
                                 <RibbonToggleButton
                                     Grid.Row="0"
                                     Grid.Column="1"
-                                    Content="{StaticResource TextAlignCenter}"
                                     Command="{Binding cmdSetTextAlignmentCenter}"
                                     CommandParameter="{Binding ElementName=MyRTB}"
+                                    Content="{StaticResource TextAlignCenter}"
                                     IsChecked="{Binding MyRTBLayout.IsCenterTextAlignment, Mode=OneWay}"
                                     Style="{StaticResource myToggleButton}" />
-                                
+
                                 <RibbonToggleButton
                                     Grid.Row="0"
                                     Grid.Column="2"
-                                    Content="{StaticResource TextAlignRight}"
                                     Command="{Binding cmdSetTextAlignmentRight}"
                                     CommandParameter="{Binding ElementName=MyRTB}"
+                                    Content="{StaticResource TextAlignRight}"
                                     IsChecked="{Binding MyRTBLayout.IsRightTextAlignment, Mode=OneWay}"
                                     Style="{StaticResource myToggleButton}" />
                                 <RibbonToggleButton
                                     Grid.Row="0"
                                     Grid.Column="3"
-                                    Content="{StaticResource TextAlignFill}"
                                     Command="{Binding cmdSetTextAlignmentJustify}"
                                     CommandParameter="{Binding ElementName=MyRTB}"
+                                    Content="{StaticResource TextAlignFill}"
                                     IsChecked="{Binding MyRTBLayout.IsJustifyTextAlignment, Mode=OneWay}"
                                     Style="{StaticResource myToggleButton}" />
-                                <RibbonToggleButton
+                                <RibbonButton
                                     Grid.Row="1"
                                     Grid.Column="0"
                                     Content="{StaticResource InspringenIncrease}"
-                                    Style="{StaticResource myToggleButton}" />
-                                <RibbonToggleButton
+                                    Style="{StaticResource myRibbonButton}"
+                                    Command="{Binding cmdIncreaseTextIndent}"
+                                    CommandParameter="{Binding ElementName=MyRTB}"/>
+                                <RibbonButton
                                     Grid.Row="1"
                                     Grid.Column="1"
                                     Content="{StaticResource InspringenDecrease}"
-                                    Style="{StaticResource myToggleButton}" />
+                                    Style="{StaticResource myRibbonButton}" 
+                                    Command="{Binding cmdDecreaseTextIndent}"
+                                    CommandParameter="{Binding ElementName=MyRTB}"/>
                                 <RibbonToggleButton
                                     Grid.Row="1"
                                     Grid.Column="2"
@@ -413,15 +468,16 @@
 
                         <!--  groep5  -->
                         <RibbonGroup Header="hoofding">
-                            <RibbonButton Content="{StaticResource ListIcon_Squares}" 
-                                          Style="{StaticResource myRibbonButton}" 
-                                          Command="{Binding cmdCreateBullets}"
-                                          CommandParameter="{Binding ElementName=MyRTB}"
-                                                />
-                            <RibbonButton Content="{StaticResource ListIcon_Numbers}" 
-                                          Command="{Binding cmdCreateNumbering}"
-                                          CommandParameter="{Binding ElementName=MyRTB}"
-                                          Style="{StaticResource myRibbonButton}" />
+                            <RibbonButton
+                                Command="{Binding cmdCreateBullets}"
+                                CommandParameter="{Binding ElementName=MyRTB}"
+                                Content="{StaticResource ListIcon_Squares}"
+                                Style="{StaticResource myRibbonButton}" />
+                            <RibbonButton
+                                Command="{Binding cmdCreateNumbering}"
+                                CommandParameter="{Binding ElementName=MyRTB}"
+                                Content="{StaticResource ListIcon_Numbers}"
+                                Style="{StaticResource myRibbonButton}" />
 
                         </RibbonGroup>
 
@@ -440,8 +496,8 @@
                         Margin="2"
                         Background="LightGray"
                         ItemsSource="{Binding MijnCollectie}"
-                        SelectedItem="{Binding MySelectedItem, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                        SelectedIndex="-1">
+                        SelectedIndex="-1"
+                        SelectedItem="{Binding MySelectedItem, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
                         <i:Interaction.Behaviors>
                             <behaviors:clsDagboekListboxSelectionChangedBehavior TargetRichTextBox="{Binding ElementName=MyRTB}" />
                         </i:Interaction.Behaviors>
@@ -450,8 +506,10 @@
                     <RichTextBox
                         x:Name="MyRTB"
                         Grid.Column="1"
-                        Margin="2">
-                        
+                        Margin="2"
+                        AcceptsTab="True"
+                        AcceptsReturn="True">
+
                         <i:Interaction.Behaviors>
                             <behaviors:clsRichTextBoxSelectionBehavior Layout="{Binding MyRTBLayout}" />
                         </i:Interaction.Behaviors>

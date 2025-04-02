@@ -366,6 +366,7 @@ namespace HomeManager.ViewModel
         private void EditBegunstigde(object obj)
         {
             _DialogService.ShowDialog(new ucBegunstigden(), "Begunstigde");
+
         }
 
 

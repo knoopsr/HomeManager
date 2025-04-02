@@ -60,6 +60,7 @@
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*" />
                     <RowDefinition Height="30" />
+                    <RowDefinition Height="40" />
                     <RowDefinition Height="10" />
                     <RowDefinition Height="300" />
                     <RowDefinition Height="*" />
@@ -68,24 +69,69 @@
                 <StackPanel
                     Grid.Row="1"
                     Grid.Column="1"
+                    Margin="10,10,10,0"
+                    VerticalAlignment="Center"
                     Orientation="Horizontal">
                     <ComboBox
                         Width="200"
                         DisplayMemberPath="AccountName"
                         ItemsSource="{Binding MijnAccounten}"
-                        SelectedItem="{Binding SelectedAccount, Mode=TwoWay}"
-                        SelectedValuePath="AccountId" />
+                        SelectedItem="{Binding SelectedAccount, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                        SelectedValuePath="AccountID" />
+                    <ComboBox
+                        Width="200"
+                        Margin="5,0,0,0"
+                        ItemsSource="{Binding MijnActies}"
+                        SelectedItem="{Binding SelectedActies, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" />
+
+                    <ComboBox
+                        Width="200"
+                        Margin="5,0,0,0"
+                        ItemsSource="{Binding MijnActieTargets}"
+                        SelectedItem="{Binding SelectedActieTargets, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" />
                 </StackPanel>
 
+                <StackPanel
+                    Grid.Row="2"
+                    Grid.Column="1"
+                    Margin="10,5,10,0"
+                    VerticalAlignment="Center"
+                    Orientation="Horizontal">
+                    <Label
+                        VerticalAlignment="Center"
+                        Content="Vanaf:"
+                        FontSize="14"
+                        Foreground="Black" />
+                    <DatePicker Width="200" SelectedDate="{Binding StartDate, Mode=TwoWay}" />
+                    <Label
+                        Margin="10,0,0,0"
+                        VerticalAlignment="Center"
+                        Content="Tot:"
+                        FontSize="14"
+                        Foreground="Black" />
+                    <DatePicker Width="200" SelectedDate="{Binding EndDate, Mode=TwoWay}" />
+
+
+                    <Button
+                        Margin="10,0,0,0"
+                        Width="30"
+                        Height="30"
+                       
+                        Style="{StaticResource Excel}"
+                        CommandParameter="{Binding}"
+                        Command="{Binding cmdExport}" />
+                </StackPanel>
+
+
                 <DataGrid
-                    x:Name="BudgetDataInkomsten"
-                    Grid.Row="3"
+                    Grid.Row="4"
                     Grid.Column="1"
                     MaxHeight="300"
+                    Margin="10,0,10,10"
                     AutoGenerateColumns="False"
                     ColumnWidth="*"
                     IsReadOnly="True"
-                    ItemsSource="{Binding MijnCollectie}">
+                    ItemsSource="{Binding MijnGefilterdeCollectie}">
                     <DataGrid.Columns>
                         <DataGridTextColumn
                             Width="auto"
@@ -100,8 +146,8 @@
                             Binding="{Binding ActionTarget}"
                             Header="Target" />
                         <DataGridTextColumn
-                            Width="auto"
-                            Binding="{Binding LogTime}"
+                            Width="Auto"
+                            Binding="{Binding LogTime, StringFormat={}{0:dd/MM/yyyy HH:mm:ss}}"
                             Header="Datum Tijd" />
                     </DataGrid.Columns>
                     <DataGrid.Resources>
@@ -110,6 +156,18 @@
                             <Setter Property="VerticalScrollBarVisibility" Value="Auto" />
                         </Style>
                     </DataGrid.Resources>
+                    <DataGrid.CellStyle>
+                        <Style TargetType="DataGridCell">
+                            <Style.Triggers>
+                                <Trigger Property="IsSelected" Value="True">
+                                    <Setter Property="Background" Value="LightBlue" />
+                                    <Setter Property="Foreground" Value="Black" />
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </DataGrid.CellStyle>
+
+
                 </DataGrid>
 
             </Grid>
