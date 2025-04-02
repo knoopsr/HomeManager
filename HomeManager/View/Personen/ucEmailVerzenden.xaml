@@ -75,6 +75,15 @@
                     SelectedItem="{Binding MijnSelectedItem, Mode=TwoWay}"
                     SelectedValue="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Grid}}, Path=DataContext.MijnSelectedItem, Mode=TwoWay}"
                     SelectedValuePath="PersoonID" />-->
+                <TextBlock
+                    x:Name="Afzender"
+                    Grid.Row="0"
+                    Grid.Column="2"
+                    Height="100"
+                    Margin="5"
+                    Text="Afzender"
+                    TextAlignment="Right" />
+
                 <ComboBox
                     x:Name="cboPersoon"
                     Grid.Row="0"
@@ -83,7 +92,7 @@
                     ItemsSource="{Binding MijnVerzenderEmailAdres}"
                     SelectedItem="{Binding MijnSelectedItem, Mode=TwoWay}" />
                 <TextBlock
-                    x:Name="Ontvanger"
+                    x:Name="tbOntvanger"
                     Grid.Row="2"
                     Grid.Column="2"
                     Height="100"
