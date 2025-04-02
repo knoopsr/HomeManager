@@ -139,9 +139,7 @@ namespace HomeManager.DAL.Budget
                 clsDAL.Parameter("Datum", entity.Datum),
                 clsDAL.Parameter("Onderwerp", entity.Onderwerp),
                 clsDAL.Parameter("BegunstigdenID", entity.BegunstigdeID),
-                clsDAL.Parameter("BudgetCategorieID", entity.BudgetCategorieID),
-                clsDAL.Parameter("BijlageNaam", entity.BijlageNaam),
-                clsDAL.Parameter("Bijlage", entity.Bijlage),
+                clsDAL.Parameter("BudgetCategorieID", entity.BudgetCategorieID),    
                 clsDAL.Parameter("ControlField", entity.ControlField),
                 clsDAL.Parameter("@ReturnValue", 0));
 
