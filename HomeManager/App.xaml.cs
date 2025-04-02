@@ -9,6 +9,7 @@ namespace HomeManager
     /// </summary>
     public partial class App : Application
     {
+
     }
 
 }
