@@ -196,6 +196,16 @@
                             <Setter Property="VerticalScrollBarVisibility" Value="Auto" />
                         </Style>
                     </DataGrid.Resources>
+                    <DataGrid.CellStyle>
+                        <Style TargetType="DataGridCell">
+                            <Style.Triggers>
+                                <Trigger Property="IsSelected" Value="True">
+                                    <Setter Property="Background" Value="LightBlue" />
+                                    <Setter Property="Foreground" Value="Black" />
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </DataGrid.CellStyle>
                 </DataGrid>
 
 
@@ -293,6 +303,22 @@
                         <DataGridTextColumn Binding="{Binding Bedrag, StringFormat=N2}" Header="Bedrag" />
                         <DataGridTextColumn Binding="{Binding Onderwerp}" Header="Onderwerp" />
                     </DataGrid.Columns>
+                    <DataGrid.Resources>
+                        <Style TargetType="ScrollViewer">
+                            <Setter Property="HorizontalScrollBarVisibility" Value="Auto" />
+                            <Setter Property="VerticalScrollBarVisibility" Value="Auto" />
+                        </Style>
+                    </DataGrid.Resources>
+                    <DataGrid.CellStyle>
+                        <Style TargetType="DataGridCell">
+                            <Style.Triggers>
+                                <Trigger Property="IsSelected" Value="True">
+                                    <Setter Property="Background" Value="LightBlue" />
+                                    <Setter Property="Foreground" Value="Black" />
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </DataGrid.CellStyle>
                 </DataGrid>
 
 
