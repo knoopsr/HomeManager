@@ -3,6 +3,7 @@ using HomeManager.Helpers;
 using HomeManager.Mail;
 using HomeManager.MailService;
 using HomeManager.Messages;
+using HomeManager.Model.Mail;
 using HomeManager.Model.Personen;
 using HomeManager.Model.Security;
 using System;
@@ -54,7 +55,7 @@ namespace HomeManager.ViewModel.Personen
             ////Messenger
             //clsMessenger.Default.Register<clsEmailVerzendenModel>(this, OnUpdateListMessageReceived);
             VerzendenService = new clsEmailAdressenDataService();
-            MijnVerzenderEmailAdres = VerzendenService.GetByPersoonID(clsLoginModel.Instance.PersoonID);
+            MijnVerzenderEmailAdres = new ObservableCollection<clsEmailAdressenModel>();
 
             // Initialiseer MijnSelectedItem met het eerste item in de lijst, als deze niet leeg is
             if (MijnVerzenderEmailAdres.Count > 0)
@@ -72,6 +73,7 @@ namespace HomeManager.ViewModel.Personen
         private void OnUpdateListMessageReceived(clsEmailVerzendenModel obj)
         {
             Ontvanger = obj.Ontvanger;
+            MijnVerzenderEmailAdres = VerzendenService.GetByPersoonID(clsLoginModel.Instance.PersoonID);
         }
 
         private bool CanExecuteSubmit()
@@ -104,7 +106,7 @@ namespace HomeManager.ViewModel.Personen
 
             clsMailModel mailModel = new clsMailModel
             {
-                MailFromEmail = MijnSelectedItem.PersoonID.ToString(), // Zorg ervoor dat je hier het juiste e-mailadres gebruikt
+                MailFromEmail = MijnSelectedItem.ToString(), // Zorg ervoor dat je hier het juiste e-mailadres gebruikt
                 MailToEmail = Ontvanger,
                 Subject = Onderwerp,
                 Body = Bericht

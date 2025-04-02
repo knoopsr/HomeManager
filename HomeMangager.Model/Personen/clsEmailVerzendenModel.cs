@@ -101,5 +101,7 @@ namespace HomeManager.Model.Personen
                 OnPropertyChanged();
             }
         }
+
+    
     }
 }
