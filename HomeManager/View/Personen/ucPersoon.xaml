@@ -84,16 +84,74 @@
                     Width="250"
                     ItemsSource="{Binding MijnCollectie}"
                     SelectedItem="{Binding MijnSelectedItem, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                    <ListBox.ItemContainerStyle>
+                        <Style TargetType="ListBoxItem">
+                            <!--  Standaardachtergrond en rand verwijderen  -->
+                            <Setter Property="Background" Value="Transparent" />
+                            <Setter Property="BorderBrush" Value="Transparent" />
+                            <Setter Property="BorderThickness" Value="0" />
+                            <Setter Property="Margin" Value="0,2,0,2" />
+                            <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+
+                            <!--  Aangepaste ControlTemplate  -->
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="ListBoxItem">
+                                        <Border
+                                            Name="Border"
+                                            Background="Transparent"
+                                            BorderBrush="Transparent"
+                                            BorderThickness="0">
+                                            <ContentPresenter />
+                                        </Border>
+                                        <ControlTemplate.Triggers>
+                                            <!--  Geselecteerd item  -->
+                                            <Trigger Property="IsSelected" Value="True">
+                                                <Setter TargetName="Border" Property="Background" Value="{x:Null}" />
+                                                <Setter TargetName="Border" Property="BorderBrush" Value="{x:Null}" />
+                                            </Trigger>
+                                            <!--  MouseOver  -->
+                                            <Trigger Property="IsMouseOver" Value="True">
+                                                <Setter TargetName="Border" Property="Background" Value="Transparent" />
+                                                <Setter TargetName="Border" Property="BorderBrush" Value="Transparent" />
+                                            </Trigger>
+                                        </ControlTemplate.Triggers>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+
+                            <Setter Property="IsSelected" Value="{Binding IsSelected, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                        </Style>
+                    </ListBox.ItemContainerStyle>
                     <ListBox.ItemTemplate>
                         <DataTemplate>
                             <Border
                                 Width="205"
                                 Margin="5"
                                 Padding="2"
-                                Background="LightGray"
                                 BorderBrush="Gray"
                                 BorderThickness="1"
                                 CornerRadius="8">
+                                <Border.Style>
+                                    <Style TargetType="Border">
+                                        <Setter Property="Background" Value="White" />
+                                        <Setter Property="BorderBrush" Value="Black" />
+                                        <Style.Triggers>
+                                            <!--  Geselecteerd item  -->
+                                            <DataTrigger Binding="{Binding RelativeSource={RelativeSource AncestorType=ListBoxItem}, Path=IsSelected}" Value="True">
+                                                <Setter Property="Background" Value="LightBlue" />
+                                                <Setter Property="BorderBrush" Value="DarkBlue" />
+                                                <Setter Property="BorderThickness" Value="2" />
+                                            </DataTrigger>
+                                            <!--  MouseOver  -->
+                                            <DataTrigger Binding="{Binding RelativeSource={RelativeSource AncestorType=ListBoxItem}, Path=IsMouseOver}" Value="True">
+                                                <Setter Property="Background" Value="LightBlue" />
+                                                <Setter Property="BorderBrush" Value="DarkBlue" />
+                                                <Setter Property="BorderThickness" Value="2" />
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Border.Style>
                                 <StackPanel Orientation="Horizontal">
 
                                     <Border
