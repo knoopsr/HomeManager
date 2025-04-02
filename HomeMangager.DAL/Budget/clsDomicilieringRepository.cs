@@ -118,7 +118,7 @@ namespace HomeManager.DAL.Budget
         public bool Update(clsDomicilieringModel entity)
         {
             (DataTable DT, bool OK, string Boodschap) =
-                clsDAL.ExecuteDataTable(Properties.Resources.U_Domiciliering,
+                clsDAL.ExecuteDataTable(Properties.Resources.U_UpdateDomicilieringMetTransacties,
                 clsDAL.Parameter("DomicilieringID", entity.DomicilieringID),
                 clsDAL.Parameter("FrequentieID", entity.FrequentieID),
                 clsDAL.Parameter("BegunstigdenID", entity.BegunstigdeID),

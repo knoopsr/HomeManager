@@ -441,4 +441,10 @@
   <data name="I_DomicilieringMetTransacties" xml:space="preserve">
     <value>I_DomicilieringMetTransacties</value>
   </data>
+  <data name="U_UpdateDomicilieringMetTransacties" xml:space="preserve">
+    <value>U_UpdateDomicilieringMetTransacties</value>
+  </data>
+  <data name="S_BudgetOverzichtInkomstenV1" xml:space="preserve">
+    <value>S_BudgetOverzichtInkomstenV1</value>
+  </data>
 </root>

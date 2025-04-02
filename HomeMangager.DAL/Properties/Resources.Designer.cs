@@ -547,6 +547,15 @@ namespace HomeManager.DAL.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to S_BudgetOverzichtInkomstenV1.
+        /// </summary>
+        internal static string S_BudgetOverzichtInkomstenV1 {
+            get {
+                return ResourceManager.GetString("S_BudgetOverzichtInkomstenV1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to S_BudgetOverzichtUitgaven.
         /// </summary>
         internal static string S_BudgetOverzichtUitgaven {
@@ -1011,6 +1020,15 @@ namespace HomeManager.DAL.Properties {
         internal static string U_TelefoonType {
             get {
                 return ResourceManager.GetString("U_TelefoonType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to U_UpdateDomicilieringMetTransacties.
+        /// </summary>
+        internal static string U_UpdateDomicilieringMetTransacties {
+            get {
+                return ResourceManager.GetString("U_UpdateDomicilieringMetTransacties", resourceCulture);
             }
         }
         

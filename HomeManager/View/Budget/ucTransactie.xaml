@@ -54,10 +54,10 @@
                         VerticalAlignment="Center"
                         FontSize="20"
                         Foreground="White"
-                        Text="Transactie" />
+                        Text="Transacties" />
 
                 </StackPanel>
-                
+
                 <uc:ucWerkBalk HorizontalAlignment="Right" VerticalAlignment="Top" />
 
             </Grid>
@@ -132,11 +132,10 @@
                     Grid.Row="2"
                     Grid.RowSpan="11"
                     Grid.Column="1"
-                    Width="230"
+                    Width="245"
                     Margin="5"
-                  
                     ItemsSource="{Binding GefilterdeCollectie}"
-                    SelectedItem="{Binding MijnSelectedItem, Mode=TwoWay ,UpdateSourceTrigger=PropertyChanged}">
+                    SelectedItem="{Binding MijnSelectedItem, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
 
                     <ListBox.ItemTemplate>
                         <DataTemplate>
@@ -152,10 +151,10 @@
                                         <Setter Property="BorderBrush" Value="Gray" />
                                         <Style.Triggers>
                                             <DataTrigger Binding="{Binding IsUitgaven}" Value="true">
-                                                <Setter Property="BorderBrush" Value="Red" />
+                                                <Setter Property="BorderBrush" Value="IndianRed" />
                                             </DataTrigger>
                                             <DataTrigger Binding="{Binding IsUitgaven}" Value="false">
-                                                <Setter Property="BorderBrush" Value="LightGreen" />
+                                                <Setter Property="BorderBrush" Value="Green" />
                                             </DataTrigger>
                                         </Style.Triggers>
                                     </Style>
@@ -185,35 +184,33 @@
                     Grid.Row="1"
                     Grid.Column="3"
                     HorizontalContentAlignment="Right"
-                    Content="Uitgave"
-                     />
+                    Content="Uitgave" />
                 <CheckBox
                     x:Name="IsUitgave"
                     Grid.Row="1"
                     Grid.Column="4"
                     Margin="5"
+                    HorizontalAlignment="Left"
                     IsChecked="{Binding MijnSelectedItem.IsUitgaven, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnValidationError=true, ValidatesOnExceptions=True}" />
                 <Label
                     Grid.Row="2"
                     Grid.Column="3"
                     HorizontalContentAlignment="Right"
-                    Content="Bedrag"
-                     />
+                    Content="Bedrag" />
                 <TextBox
                     Grid.Row="2"
                     Grid.Column="4"
                     Width="200"
                     Margin="5"
+                    HorizontalAlignment="Left"
                     Helpers:clsFocusExtension.IsFocused="{Binding IsFocusedAfterNew, Mode=TwoWay}"
                     Background="White"
-                    
                     Text="{Binding MijnSelectedItem.Bedrag, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, TargetNullValue=' '}" />
                 <Label
                     Grid.Row="3"
                     Grid.Column="3"
                     HorizontalContentAlignment="Right"
-                    Content="Datum"
-                    />
+                    Content="Datum" />
 
                 <DatePicker
                     x:Name="dpDatum"
@@ -221,7 +218,7 @@
                     Grid.Column="4"
                     Width="200"
                     Margin="5"
-                   
+                    HorizontalAlignment="Left"
                     SelectedDate="{Binding MijnSelectedItem.Datum, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, ValidatesOnExceptions=True, Converter={StaticResource DateOnlyToDateTimeConverter}}"
                     SelectedDateFormat="Short" />
 
@@ -229,17 +226,16 @@
                     Grid.Row="5"
                     Grid.Column="3"
                     HorizontalContentAlignment="Right"
-                    Content="Onderwerp"
-                     />
+                    Content="Onderwerp" />
                 <TextBox
                     Grid.Row="5"
                     Grid.Column="4"
                     Width="200"
                     Height="90"
                     Margin="5"
+                    HorizontalAlignment="Left"
                     VerticalAlignment="Center"
                     Background="White"
-                   
                     Text="{Binding MijnSelectedItem.Onderwerp, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
                     TextWrapping="Wrap" />
 
@@ -248,12 +244,11 @@
                     Grid.Row="7"
                     Grid.Column="3"
                     HorizontalContentAlignment="Right"
-                    Content="Begunstigde"
-                     />
+                    Content="Begunstigde" />
                 <StackPanel
                     Grid.Row="7"
                     Grid.Column="4"
-                    HorizontalAlignment="Center"
+                    HorizontalAlignment="Left"
                     Orientation="Horizontal">
 
                     <ComboBox
@@ -283,7 +278,7 @@
                 <StackPanel
                     Grid.Row="8"
                     Grid.Column="4"
-                    HorizontalAlignment="Center"
+                    HorizontalAlignment="Left"
                     Orientation="Horizontal">
 
                     <ComboBox
@@ -291,7 +286,6 @@
                         Width="170"
                         Margin="5"
                         DataContext="{Binding Source={StaticResource VML}, Path=CategorieViewModel}"
-                        
                         ItemsSource="{Binding MijnCollectie}"
                         SelectedValue="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Grid}}, Path=DataContext.MijnSelectedItem.BudgetCategorieID, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
                         SelectedValuePath="BudgetCategorieID" />
@@ -308,25 +302,38 @@
                     Grid.Row="9"
                     Grid.Column="3"
                     HorizontalContentAlignment="Right"
-                    Content="Bijlage"
-                    />
+                    Content="Bijlage" />
                 <ListBox
                     x:Name="ListViewBijlage"
                     Grid.Row="9"
                     Grid.Column="4"
-                    Margin="0"
+                    Width="200"
+                    Margin="5"
+                    HorizontalAlignment="Left"
                     ItemsSource="{Binding MijnCollectieBijlage}"
                     SelectedItem="{Binding MijnSelectedBijlage, UpdateSourceTrigger=PropertyChanged}"
                     SelectedValuePath="BudgetBijlageID" />
                 <StackPanel
                     Grid.Row="9"
+                    Grid.RowSpan="2"
                     Grid.Column="5"
+                    Grid.ColumnSpan="5"
+                    Margin="15,0,0,150"
                     HorizontalAlignment="Left"
-                    Orientation="Vertical" Grid.ColumnSpan="5" Margin="15,0,0,150" Grid.RowSpan="2">
+                    Orientation="Vertical">
 
-                    <Button Command="{Binding cmdUploadBijlage}" Style="{StaticResource UploadPersoonButton}" />
-                    <Button Command="{Binding cmdShowBijlage}" Style="{StaticResource Showfile}" />
-                    <Button Command="{Binding cmdDeleteBijlage}" Style="{StaticResource Deletefile}" />
+                    <Button
+                        Margin="5"
+                        Command="{Binding cmdUploadBijlage}"
+                        Style="{StaticResource UploadPersoonButton}" />
+                    <Button
+                        Margin="5"
+                        Command="{Binding cmdShowBijlage}"
+                        Style="{StaticResource Showfile}" />
+                    <Button
+                        Margin="5"
+                        Command="{Binding cmdDeleteBijlage}"
+                        Style="{StaticResource Deletefile}" />
 
 
                 </StackPanel>
@@ -344,6 +351,7 @@
                     Grid.Column="4"
                     Width="200"
                     Height="100"
+                    HorizontalAlignment="Center"
                     Fill="#bbeeeeee"
                     RadiusX="8"
                     RadiusY="8"

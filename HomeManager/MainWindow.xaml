@@ -198,7 +198,7 @@
                                 Command="{Binding NavCommand}"
                                 CommandParameter="clsFunctieViewModel"
                                 Content="Functies"
-                                Style="{StaticResource myMenuTandwiel}" /> 
+                                Style="{StaticResource myMenuTandwiel}" />
                         </StackPanel>
                     </Expander>
 
@@ -206,11 +206,6 @@
 
                     <Expander IsExpanded="{Binding IsBudgetExpanderMenu, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource myHamburgerBudget}">
                         <StackPanel x:Name="stckBudget">
-                            <Button
-                                Command="{Binding NavCommand}"
-                                CommandParameter="clsOverzichtViewModel"
-                                Content="Overzicht"
-                                Style="{StaticResource myMenuTandwiel}" />
                             <Button
                                 Command="{Binding NavCommand}"
                                 CommandParameter="clsTransactieViewModel"
@@ -235,15 +230,6 @@
                                 Command="{Binding NavCommand}"
                                 CommandParameter="clsCategorieViewModel"
                                 Content="Categorie"
-                                Style="{StaticResource myMenuTandwiel}" />
-
-                            <Button Content="Domiciliëring" Style="{StaticResource myMenuTandwiel}" />
-                            <Button Content="Begunstigden" Style="{StaticResource myMenuTandwiel}" />
-                            <Button Content="Frequentie" Style="{StaticResource myMenuTandwiel}" />
-                            <Button
-                                Command="{Binding NavCommand}"
-                                CommandParameter="clsCategorieViewModel"
-                                Content="Budget Categorie"
                                 Style="{StaticResource myMenuTandwiel}" />
                         </StackPanel>
                     </Expander>
