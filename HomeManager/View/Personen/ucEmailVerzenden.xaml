@@ -6,7 +6,7 @@
     xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:uc="clr-namespace:HomeManager.View"
-    d:DesignHeight="550"
+    d:DesignHeight="570"
     d:DesignWidth="600"
     Background="{StaticResource myBackground}"
     mc:Ignorable="d">
@@ -55,10 +55,11 @@
                     <ColumnDefinition Width="auto" />
                     <ColumnDefinition Width="auto" />
                     <ColumnDefinition Width="200" />
-                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="175" />
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="35" />
+                    <RowDefinition Height="auto" />
                     <RowDefinition Height="auto" />
                     <RowDefinition Height="auto" />
                     <RowDefinition Height="auto" />
@@ -134,9 +135,28 @@
                     Margin="5"
                     Text="{Binding Bericht, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 
+                <TextBox
+                    x:Name="tbBijlage"
+                    Grid.Row="5"
+                    Grid.Column="3"
+                    Height="50"
+                    Margin="5"
+                    VerticalAlignment="Center"
+                    Text="{Binding BijlagePad, Mode=OneWay}" />
+
+                <Button
+                    x:Name="btnKiesBijlage"
+                    Grid.Row="5"
+                    Grid.Column="2"
+                    Margin="5"
+                    Padding="5"
+                    Command="{Binding KiesBijlageCommand}"
+                    Content="Kies Bijlage" />
+
+
                 <Button
                     x:Name="btnSubmit"
-                    Grid.Row="5"
+                    Grid.Row="6"
                     Grid.Column="3"
                     Margin="5"
                     Padding="5"
