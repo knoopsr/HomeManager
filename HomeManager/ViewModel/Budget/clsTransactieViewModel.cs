@@ -81,6 +81,23 @@ namespace HomeManager.ViewModel
         }
 
 
+        private ObservableCollection<clsBijlageModel> _mijnTijdelijkeBijlage;
+        public ObservableCollection<clsBijlageModel> MijnTijdelijkeBijlage
+        {
+            get
+            {
+                return _mijnTijdelijkeBijlage;
+            }
+            set
+            {
+                _mijnTijdelijkeBijlage = value;
+                OnPropertyChanged();
+            }
+        }
+
+
+
+
         private clsBijlageModel _MijnSelectedBijlage;
         public clsBijlageModel MijnSelectedBijlage
         {
@@ -117,6 +134,7 @@ namespace HomeManager.ViewModel
                         }
 
                     }
+                    MijnTijdelijkeBijlage = BijlageService.GetAll(value.BudgetTransactionID);
                     MijnCollectieBijlage = BijlageService.GetAll(value.BudgetTransactionID);
                 }
                 _MijnSelectedItem = value;
@@ -139,10 +157,14 @@ namespace HomeManager.ViewModel
 
                     if (_newTransaction != null)
                     {
-                        foreach (clsBijlageModel _bijlage in MijnCollectieBijlage)
+                        foreach (clsBijlageModel _bijlage in MijnTijdelijkeBijlage)
                         {       
-                            _bijlage.BudgetTransactionID = _newTransaction.BudgetTransactionID;                            
-                            BijlageService.Insert(_bijlage);
+                            if (_bijlage.IsNew)
+                            {
+                                _bijlage.BudgetTransactionID = _newTransaction.BudgetTransactionID;
+                                BijlageService.Insert(_bijlage);
+                            }
+
                         }
 
                         MijnSelectedItem.IsDirty = false;
@@ -161,6 +183,22 @@ namespace HomeManager.ViewModel
                 {
                     if (MijnService.Update(MijnSelectedItem))
                     {
+                        foreach (clsBijlageModel _bijlage in MijnTijdelijkeBijlage)
+                        {
+                            if (_bijlage.IsNew)
+                            {
+                                _bijlage.BudgetTransactionID = MijnSelectedItem.BudgetTransactionID;
+                                BijlageService.Insert(_bijlage);
+                            }
+              
+                        }
+                        foreach (clsBijlageModel _bijlage in MijnCollectieBijlage)
+                        {
+                            if (_bijlage.IsDeleted)
+                            {
+                                BijlageService.Delete(_bijlage);
+                            }
+                        }
 
                         MijnSelectedItem.IsDirty = false;
                         MijnSelectedItem.MijnSelectedIndex = 0;
@@ -180,6 +218,7 @@ namespace HomeManager.ViewModel
         {
             MijnCollectie = MijnService.GetAll();
             MijnCollectieBijlage = new ObservableCollection<clsBijlageModel>();
+            MijnTijdelijkeBijlage = new ObservableCollection<clsBijlageModel>();
             GefilterdeCollectie = new ObservableCollection<clsTransactieModel>(MijnCollectie);
 
 
@@ -407,19 +446,20 @@ namespace HomeManager.ViewModel
                     string fileName = Path.GetFileName(filePath);
 
                     // Controleer of er al een bijlage met dezelfde naam bestaat
-                    if (MijnCollectieBijlage.Any(b => b.BijlageNaam.Equals(fileName, StringComparison.OrdinalIgnoreCase)))
+                    if (MijnTijdelijkeBijlage.Any(b => b.BijlageNaam.Equals(fileName, StringComparison.OrdinalIgnoreCase)))
                     {
                         // Toon een waarschuwing aan de gebruiker
                         MessageBox.Show($"Er bestaat al een bijlage met de naam '{fileName}'.", "Duplicaat bijlage", MessageBoxButton.OK, MessageBoxImage.Warning);
                     }
                     else
                     {
-                        MijnCollectieBijlage.Add(new clsBijlageModel
+                        MijnTijdelijkeBijlage.Add(new clsBijlageModel
                         {
                             BijlageNaam = Path.GetFileName(filePath),
+                            IsNew = true,
                             Bijlage = File.ReadAllBytes(filePath)
                         });
-
+                        MijnSelectedItem.IsDirty = true;
                         // Sla de bijlage tijdelijk op de schijf op
                         string tempFilePath = Path.Combine(Path.GetTempPath(), fileName);
                         File.WriteAllBytes(tempFilePath, File.ReadAllBytes(filePath));
@@ -514,20 +554,25 @@ namespace HomeManager.ViewModel
 
         private void Execute_DeleteBijlage(object obj)
         {
-            // Probeer het object te casten naar clsBijlageModel
             if (MijnSelectedBijlage is clsBijlageModel bijlage)
             {
-                // Controleer of de bijlage in de collectie voorkomt
-                if (MijnCollectieBijlage.Contains(bijlage))
+                // Check of de bijlage in de tijdelijke collectie zit
+                if (MijnTijdelijkeBijlage.Contains(bijlage))
                 {
-                    // Verwijder de bijlage uit de collectie
-                    MijnCollectieBijlage.Remove(bijlage);
+                    // Zoek dezelfde bijlage in MijnCollectieBijlage en markeer als verwijderd
+                    var bestaandeBijlage = MijnCollectieBijlage
+                        .FirstOrDefault(b => b.BudgetBijlageID == bijlage.BudgetBijlageID);
 
-                    
+                    if (bestaandeBijlage != null)
+                    {
+                        bestaandeBijlage.IsDeleted = true;
+                    }
 
+                    // Verwijder bijlage uit tijdelijke collectie
+                    MijnTijdelijkeBijlage.Remove(bijlage);
+                    MijnSelectedItem.IsDirty = true;
 
-
-                    // Optioneel: Verwijder het tijdelijke bestand van de schijf
+                    // Verwijder tijdelijk bestand indien aanwezig
                     string tempFilePath = Path.Combine(Path.GetTempPath(), bijlage.BijlageNaam);
                     if (File.Exists(tempFilePath))
                     {
@@ -537,10 +582,10 @@ namespace HomeManager.ViewModel
             }
             else
             {
-                // Toon een foutmelding als het object niet van het verwachte type is
                 MessageBox.Show("Het geselecteerde item is geen geldige bijlage.", "Fout", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
+
 
 
 

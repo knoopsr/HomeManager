@@ -150,10 +150,10 @@
                                 <Setter.Value>
                                     <ControlTemplate TargetType="ListBoxItem">
                                         <Border
-                           Name="Border"
-                           Background="Transparent"
-                           BorderBrush="Transparent"
-                           BorderThickness="0">
+                                            Name="Border"
+                                            Background="Transparent"
+                                            BorderBrush="Transparent"
+                                            BorderThickness="0">
                                             <ContentPresenter />
                                         </Border>
                                         <ControlTemplate.Triggers>
@@ -183,7 +183,7 @@
                                 Padding="2"
                                 BorderThickness="2"
                                 CornerRadius="8">
-                                
+
                                 <Border.Style>
                                     <Style TargetType="Border">
                                         <Setter Property="BorderBrush" Value="Gray" />
@@ -197,13 +197,13 @@
                                             <!--  Geselecteerd item  -->
                                             <DataTrigger Binding="{Binding RelativeSource={RelativeSource AncestorType=ListBoxItem}, Path=IsSelected}" Value="True">
                                                 <Setter Property="Background" Value="LightBlue" />
-                                                
+
                                                 <Setter Property="BorderThickness" Value="2" />
                                             </DataTrigger>
                                             <!--  MouseOver  -->
                                             <DataTrigger Binding="{Binding RelativeSource={RelativeSource AncestorType=ListBoxItem}, Path=IsMouseOver}" Value="True">
                                                 <Setter Property="Background" Value="LightBlue" />
-                                                
+
                                                 <Setter Property="BorderThickness" Value="2" />
                                             </DataTrigger>
                                         </Style.Triggers>
@@ -219,8 +219,7 @@
                                     </StackPanel>
                                     <StackPanel Margin="2" Orientation="Horizontal">
                                         <TextBlock Margin="1" Text="Van: " />
-                                        <TextBlock Margin="1" Text="{Binding Datum, Converter={StaticResource DateFormatConverter}}"
-                                                   />
+                                        <TextBlock Margin="1" Text="{Binding Datum, Converter={StaticResource DateFormatConverter}}" />
 
                                     </StackPanel>
                                 </StackPanel>
@@ -316,6 +315,7 @@
                         Height="29"
                         Margin="5"
                         Command="{Binding cmdEditBegunstigden}"
+                        CommandParameter="{Binding}"
                         Style="{StaticResource OpenUCButton}" />
                 </StackPanel>
 
@@ -346,6 +346,7 @@
                         Height="29"
                         Margin="5"
                         Command="{Binding cmdEditCategorie}"
+                        CommandParameter="{Binding}"
                         Style="{StaticResource OpenUCButton}" />
                 </StackPanel>
 
@@ -361,7 +362,7 @@
                     Width="200"
                     Margin="5"
                     HorizontalAlignment="Left"
-                    ItemsSource="{Binding MijnCollectieBijlage}"
+                    ItemsSource="{Binding MijnTijdelijkeBijlage}"
                     SelectedItem="{Binding MijnSelectedBijlage, UpdateSourceTrigger=PropertyChanged}"
                     SelectedValuePath="BudgetBijlageID" />
                 <StackPanel
@@ -376,14 +377,17 @@
                     <Button
                         Margin="5"
                         Command="{Binding cmdUploadBijlage}"
+                        CommandParameter="{Binding}"
                         Style="{StaticResource UploadPersoonButton}" />
                     <Button
                         Margin="5"
                         Command="{Binding cmdShowBijlage}"
+                        CommandParameter="{Binding}"
                         Style="{StaticResource Showfile}" />
                     <Button
                         Margin="5"
                         Command="{Binding cmdDeleteBijlage}"
+                        CommandParameter="{Binding}"
                         Style="{StaticResource Deletefile}" />
 
 

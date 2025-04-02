@@ -97,6 +97,15 @@ namespace HomeManager.DAL.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to D_BudgetBijlage.
+        /// </summary>
+        internal static string D_BudgetBijlage {
+            get {
+                return ResourceManager.GetString("D_BudgetBijlage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to D_BudgetCategorie.
         /// </summary>
         internal static string D_BudgetCategorie {
