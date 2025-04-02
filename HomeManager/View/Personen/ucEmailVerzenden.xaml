@@ -66,15 +66,22 @@
                     <RowDefinition Height="35" />
                 </Grid.RowDefinitions>
 
+                <!--<ComboBox
+                    x:Name="cboPersoon"
+                    Grid.Row="0"
+                    Grid.Column="3"
+                    Margin="5"
+                    ItemsSource="{Binding MijnVerzenderEmailAdres}"
+                    SelectedItem="{Binding MijnSelectedItem, Mode=TwoWay}"
+                    SelectedValue="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Grid}}, Path=DataContext.MijnSelectedItem, Mode=TwoWay}"
+                    SelectedValuePath="PersoonID" />-->
                 <ComboBox
                     x:Name="cboPersoon"
                     Grid.Row="0"
                     Grid.Column="3"
                     Margin="5"
                     ItemsSource="{Binding MijnVerzenderEmailAdres}"
-                    SelectedIndex="{Binding MijnSelectedItem.MijnSelectedIndex}"
-                    SelectedValue="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Grid}}, Path=DataContext.MijnSelectedItem, Mode=TwoWay}"
-                    SelectedValuePath="PersoonID" />
+                    SelectedItem="{Binding MijnSelectedItem, Mode=TwoWay}" />
                 <TextBlock
                     x:Name="Ontvanger"
                     Grid.Row="2"

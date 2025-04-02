@@ -11,7 +11,6 @@
     <Folder Include="Homepage\" />
     <Folder Include="Dagboek\" />
     <Folder Include="Todo\" />
-    <Folder Include="Personen\" />
     <Folder Include="Security\" />
     <Folder Include="StickyNotes\" />
   </ItemGroup>
