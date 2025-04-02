@@ -106,7 +106,9 @@ namespace HomeManager.ViewModel
             cmdSetTextAlignmentCenter = new clsRelayCommand(SetTextAlignmentCenter);
             cmdSetTextAlignmentJustify = new clsRelayCommand(SetTextAlignmentJustify);
             cmdCreateBullets = new clsRelayCommand(CreateBullets);
-            cmdCreateNumbering = new clsRelayCommand(CreateNumbering); //moet ik deze meegeven aan database?
+            cmdCreateNumbering = new clsRelayCommand(CreateNumbering);
+            cmdIncreaseTextIndent = new clsRelayCommand(IncreaseTextIndent);
+            cmdDecreaseTextIndent = new clsRelayCommand(DecreaseTextIndent);
 
             //AplicationCommands
             cmdCut = ApplicationCommands.Cut;
@@ -145,8 +147,24 @@ namespace HomeManager.ViewModel
 
         }
 
-        //dit gaat nooit niet goedkomen.als iemand een nummer verwijderd kan ik heel moeilijk zoeken achter welk nummer weg is en hoe ik al
-        //de nummers moet corrigeren...
+        private void DecreaseTextIndent(object? obj)
+        {
+            if (obj is RichTextBox rtb)
+            {
+                var paragraphs = GetSelectedParagraphs(rtb.Selection);
+                MyRTBLayout.DecreaseTextIndentation(paragraphs);
+            }
+        }
+
+        private void IncreaseTextIndent(object? obj)
+        {
+            if (obj is RichTextBox rtb)
+            {
+                var paragraphs = GetSelectedParagraphs(rtb.Selection);
+                MyRTBLayout.IncreaseTextIndentation(paragraphs);
+            }
+        }
+
         private void CreateNumbering(object? obj)
         {
             RichTextBox rtb = obj as RichTextBox;
@@ -419,6 +437,8 @@ namespace HomeManager.ViewModel
         public ICommand cmdSetTextAlignmentJustify { get; set; }
         public ICommand cmdCreateBullets { get; set; }
         public ICommand cmdCreateNumbering { get; set; }
+        public ICommand cmdIncreaseTextIndent { get; set; }
+        public ICommand cmdDecreaseTextIndent { get; set; }
 
         //aplicationCommands
         public ICommand cmdCut { get; set; }
@@ -575,6 +595,36 @@ namespace HomeManager.ViewModel
         }
         #endregion
         #endregion
+
+        //om een alinea te indenteren moet ik een paragraaf doorsturen niet gewoon een selectie
+        private IEnumerable<Paragraph> GetSelectedParagraphs(TextSelection selection)
+        {
+            HashSet<Paragraph> paragraphs = new HashSet<Paragraph>(); // Avoid duplicates
+            TextPointer current = selection.Start;
+
+            while (current != null && current.CompareTo(selection.End) <= 0)
+            {
+                // Move up the tree to find the nearest paragraph
+                DependencyObject parent = current.Parent;
+                while (parent != null && !(parent is Paragraph))
+                {
+                    parent = LogicalTreeHelper.GetParent(parent);
+                }
+
+                if (parent is Paragraph paragraph)
+                {
+                    paragraphs.Add(paragraph); // Add the full paragraph
+                }
+
+                current = current.GetNextContextPosition(LogicalDirection.Forward);
+            }
+
+            return paragraphs;
+        }
+
+
+
+
 
         private void safetySave()
         {

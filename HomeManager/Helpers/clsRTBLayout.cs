@@ -288,10 +288,11 @@ namespace HomeManager.Helpers
 		{
 			get
 			{
-				if (_colorsCollection.IsNullOrEmpty())
+				if (_colorsCollection.IsNullOrEmpty() || !_colorsCollection.Any())
 				{
 					_colorsCollection = new ObservableCollection<clsDagboekCustomColor>();
 					PopulateColors();
+					OnPropertyChange(nameof(ColorsCollection));
 				}
 				return _colorsCollection;
 			}
@@ -299,6 +300,8 @@ namespace HomeManager.Helpers
 
 		private void PopulateColors()
 		{
+			if (_colorsCollection.Any()) return; // Prevent duplicate additions
+
 			// Get all properties of the Colors class
 			var colorProperties = typeof(Colors).GetProperties(BindingFlags.Public | BindingFlags.Static);
 
@@ -386,7 +389,7 @@ namespace HomeManager.Helpers
 		{
 			get
 			{
-				if (_selectedFond == null)
+				if (_selectedFond == null && MyFonds.Any())
 				{
 					_selectedFond = MyFonds.FirstOrDefault();
 				}
@@ -405,9 +408,10 @@ namespace HomeManager.Helpers
 		{
 			get
 			{
-				if (_myFonds.IsNullOrEmpty())
+				if (_myFonds.IsNullOrEmpty() || !_myFonds.Any())
 				{
 					_myFonds = new ObservableCollection<FontFamily>(Fonts.SystemFontFamilies);
+					OnPropertyChange(nameof(MyFonds));
 				}
 				return _myFonds;
 			}
@@ -447,12 +451,12 @@ namespace HomeManager.Helpers
 		{
 			get
 			{
-                if (_myFondSize == FondSizes[FondSizes.Length - 1])
-                {
-                    return true;
-                }
-                return false;
-            }
+				if (_myFondSize == FondSizes[FondSizes.Length - 1])
+				{
+					return true;
+				}
+				return false;
+			}
 		}
 			
 		public double[] FondSizes { get; } = new double[] { 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27 };
@@ -462,8 +466,8 @@ namespace HomeManager.Helpers
 			object selection = range.GetPropertyValue(TextElement.FontSizeProperty);
 			if (selection is double size)
 			{
-                return size;
-            }
+				return size;
+			}
 			return _myFondSize;
 		}
 
@@ -487,43 +491,43 @@ namespace HomeManager.Helpers
 			range.ApplyPropertyValue(TextElement.FontFamilyProperty, SelectedFond);
 		}
 
-        #endregion
+		#endregion
 
-        #region SubScript & SupperScript
-        //private BaselineAlignment _currentBaseline = BaselineAlignment.Baseline;
+		#region SubScript & SupperScript
+		//private BaselineAlignment _currentBaseline = BaselineAlignment.Baseline;
 
-        //public void UpdateTypographyFromSelection(TextRange range)
-        //{
-        //    object safetyObject = range.GetPropertyValue(Inline.BaselineAlignmentProperty);
-        //    if (safetyObject is BaselineAlignment alignment)
-        //    {
-        //        _currentBaseline = alignment;
-        //    }
-        //    else
-        //    {
-        //        _currentBaseline = BaselineAlignment.Baseline; // Default to normal
-        //    }
+		//public void UpdateTypographyFromSelection(TextRange range)
+		//{
+		//    object safetyObject = range.GetPropertyValue(Inline.BaselineAlignmentProperty);
+		//    if (safetyObject is BaselineAlignment alignment)
+		//    {
+		//        _currentBaseline = alignment;
+		//    }
+		//    else
+		//    {
+		//        _currentBaseline = BaselineAlignment.Baseline; // Default to normal
+		//    }
 
-        //    // Notify UI that the buttons need to be updated
-        //    OnPropertyChanged(nameof(IsSubscript));
-        //    OnPropertyChanged(nameof(IsSuperscript));
-        //}
+		//    // Notify UI that the buttons need to be updated
+		//    OnPropertyChanged(nameof(IsSubscript));
+		//    OnPropertyChanged(nameof(IsSuperscript));
+		//}
 
-        //public bool IsSubscript
-        //{
-        //    get
-        //    {
-        //        return _currentBaseline == BaselineAlignment.Subscript;
-        //    }
-        //}
+		//public bool IsSubscript
+		//{
+		//    get
+		//    {
+		//        return _currentBaseline == BaselineAlignment.Subscript;
+		//    }
+		//}
 
-        //public bool IsSuperscript
-        //{
-        //    get
-        //    {
-        //        return _currentBaseline == BaselineAlignment.Superscript;
-        //    }
-        //}
+		//public bool IsSuperscript
+		//{
+		//    get
+		//    {
+		//        return _currentBaseline == BaselineAlignment.Superscript;
+		//    }
+		//}
 
   //      public FontVariants GetTypographyFromSelection (TextRange range)
 		//{
@@ -563,45 +567,45 @@ namespace HomeManager.Helpers
 		//	MyTypographyVariant = GetTypographyFromSelection(range);
 		//}
 
-        public void SetSelectionToSubscript(TextRange range)
-        {
-            if (range.IsEmpty) return; // Don't apply formatting to an empty selection
+		public void SetSelectionToSubscript(TextRange range)
+		{
+			if (range.IsEmpty) return; // Don't apply formatting to an empty selection
 
-            object currentBaseline = range.GetPropertyValue(Inline.BaselineAlignmentProperty);
+			object currentBaseline = range.GetPropertyValue(Inline.BaselineAlignmentProperty);
 
-            if (currentBaseline is BaselineAlignment alignment && alignment == BaselineAlignment.Subscript)
-            {
-                // Reset to normal text
-                range.ApplyPropertyValue(Inline.BaselineAlignmentProperty, BaselineAlignment.Baseline);
-                range.ApplyPropertyValue(TextElement.FontSizeProperty, MyFondSize); // Reset font size
-            }
-            else
-            {
-                // Apply subscript formatting
-                range.ApplyPropertyValue(Inline.BaselineAlignmentProperty, BaselineAlignment.Subscript);
-                range.ApplyPropertyValue(TextElement.FontSizeProperty, MyFondSize - 2); // Adjust font size for subscript effect
-            }
-        }
+			if (currentBaseline is BaselineAlignment alignment && alignment == BaselineAlignment.Subscript)
+			{
+				// Reset to normal text
+				range.ApplyPropertyValue(Inline.BaselineAlignmentProperty, BaselineAlignment.Baseline);
+				range.ApplyPropertyValue(TextElement.FontSizeProperty, MyFondSize); // Reset font size
+			}
+			else
+			{
+				// Apply subscript formatting
+				range.ApplyPropertyValue(Inline.BaselineAlignmentProperty, BaselineAlignment.Subscript);
+				range.ApplyPropertyValue(TextElement.FontSizeProperty, MyFondSize - 2); // Adjust font size for subscript effect
+			}
+		}
 
-        public void SetSelectionToSuperscript(TextRange range)
-        {
-            if (range.IsEmpty) return; // Don't apply formatting to an empty selection
+		public void SetSelectionToSuperscript(TextRange range)
+		{
+			if (range.IsEmpty) return; // Don't apply formatting to an empty selection
 
-            object currentBaseline = range.GetPropertyValue(Inline.BaselineAlignmentProperty);
+			object currentBaseline = range.GetPropertyValue(Inline.BaselineAlignmentProperty);
 
-            if (currentBaseline is BaselineAlignment alignment && alignment == BaselineAlignment.Superscript)
-            {
-                // Reset to normal text (Baseline)
-                range.ApplyPropertyValue(Inline.BaselineAlignmentProperty, BaselineAlignment.Baseline);
-                range.ApplyPropertyValue(TextElement.FontSizeProperty, MyFondSize); // Reset font size
-            }
-            else
-            {
-                // Apply superscript formatting
-                range.ApplyPropertyValue(Inline.BaselineAlignmentProperty, BaselineAlignment.Superscript);
-                range.ApplyPropertyValue(TextElement.FontSizeProperty, MyFondSize - 2); // Adjust font size for superscript effect
-            }
-        }
+			if (currentBaseline is BaselineAlignment alignment && alignment == BaselineAlignment.Superscript)
+			{
+				// Reset to normal text (Baseline)
+				range.ApplyPropertyValue(Inline.BaselineAlignmentProperty, BaselineAlignment.Baseline);
+				range.ApplyPropertyValue(TextElement.FontSizeProperty, MyFondSize); // Reset font size
+			}
+			else
+			{
+				// Apply superscript formatting
+				range.ApplyPropertyValue(Inline.BaselineAlignmentProperty, BaselineAlignment.Superscript);
+				range.ApplyPropertyValue(TextElement.FontSizeProperty, MyFondSize - 2); // Adjust font size for superscript effect
+			}
+		}
 
 		#endregion
 
@@ -679,16 +683,20 @@ namespace HomeManager.Helpers
 			else
 			{
 				var myParagraph = range.Start.Paragraph;
+				if (myParagraph == null)
+				{
+					return TextAlignment.Left;
+				}
 				return myParagraph.TextAlignment;
 			}
 		}
 
 		public void SetTextAlignmentToSelection(TextRange range, TextAlignment alignment)
 		{
-            var paragraph = range.Start.Paragraph;
+			var paragraph = range.Start.Paragraph;
 			if (paragraph == null) return;
 
-            switch (alignment)
+			switch (alignment)
 			{
 				case TextAlignment.Right:
 					MyTextAlignment = TextAlignment.Right;
@@ -697,19 +705,19 @@ namespace HomeManager.Helpers
 
 				case TextAlignment.Center:
 					MyTextAlignment = TextAlignment.Center;
-                    paragraph.TextAlignment = (TextAlignment)MyTextAlignment;
-                    break;
+					paragraph.TextAlignment = (TextAlignment)MyTextAlignment;
+					break;
 
 				case TextAlignment.Justify:
 					MyTextAlignment = TextAlignment.Justify;
-                    paragraph.TextAlignment = (TextAlignment)MyTextAlignment;
+					paragraph.TextAlignment = (TextAlignment)MyTextAlignment;
 					paragraph.Inlines.Add(new LineBreak()); //justify werkt aleen met meerdere regels.
-                    break;
+					break;
 
 				default:
 					MyTextAlignment = TextAlignment.Left;
-                    paragraph.TextAlignment = (TextAlignment)MyTextAlignment;
-                    break;
+					paragraph.TextAlignment = (TextAlignment)MyTextAlignment;
+					break;
 
 			}
 		}
@@ -719,7 +727,7 @@ namespace HomeManager.Helpers
 
 		public double MyTextIndentation
 		{
-			get { return _myTextIndentation = 0; }
+			get { return _myTextIndentation; }
 			set 
 			{ 
 				_myTextIndentation = value;
@@ -727,12 +735,32 @@ namespace HomeManager.Helpers
 			}
 		}
 
+		public void IncreaseTextIndentation(IEnumerable<Paragraph> paragraphs)
+		{
+            foreach (Paragraph paragraph in paragraphs)
+            {
+                paragraph.TextIndent += 20;
+            }
+
+            MyTextIndentation += 20;
+        }
+
+		public void DecreaseTextIndentation(IEnumerable<Paragraph> paragraphs)
+		{
+            if (MyTextIndentation == 0) return;
+
+            foreach (Paragraph paragraph in paragraphs)
+            {
+                if (paragraph.TextIndent >= 20)
+                {
+                    paragraph.TextIndent -= 20;
+                }
+            }
+
+            MyTextIndentation -= 20;
+        }
+
 		#endregion
 
-		#region Opsommingen
-		#endregion
-
-
-
-	}
+        }
 }

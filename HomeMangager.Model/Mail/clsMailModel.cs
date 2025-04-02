@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HomeManager.Model.Security
+namespace HomeManager.Model.Mail
 {
     public class clsMailModel : clsCommonModelPropertiesBase
     {
@@ -63,6 +63,9 @@ namespace HomeManager.Model.Security
                 OnPropertyChanged();
             }
         }
+
+        // **Lijst van bijlagen**
+        public List<clsAttachmentModel> Attachments { get; set; } = new List<clsAttachmentModel>();
 
     }
 }

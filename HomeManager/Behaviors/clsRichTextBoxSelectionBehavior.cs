@@ -15,7 +15,10 @@ namespace HomeManager.Behaviors
     {
         // Register a DependencyProperty for the Layout property
         public static readonly DependencyProperty LayoutProperty =
-            DependencyProperty.Register("Layout", typeof(clsRTBLayout), typeof(clsRichTextBoxSelectionBehavior), new PropertyMetadata(null));
+            DependencyProperty.Register("Layout", 
+                                        typeof(clsRTBLayout), 
+                                        typeof(clsRichTextBoxSelectionBehavior), 
+                                        new PropertyMetadata(null));
 
         public clsRTBLayout Layout
         {

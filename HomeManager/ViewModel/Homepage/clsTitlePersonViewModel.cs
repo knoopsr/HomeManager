@@ -3,6 +3,7 @@ using HomeManager.DataService.Homepage;
 using HomeManager.Helpers;
 using HomeManager.Mail;
 using HomeManager.Model.Homepage;
+using HomeManager.Model.Mail;
 using HomeManager.Model.Security;
 using HomeManager.Services;
 using HomeManager.View;

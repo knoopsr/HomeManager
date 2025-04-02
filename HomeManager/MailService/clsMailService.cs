@@ -1,5 +1,6 @@
 ﻿using HomeManager.DataService.Personen;
 using HomeManager.Mail;
+using HomeManager.Model.Mail;
 using HomeManager.Model.Personen;
 using HomeManager.Model.Security;
 using System;

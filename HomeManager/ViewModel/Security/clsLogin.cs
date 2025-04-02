@@ -4,6 +4,7 @@ using HomeManager.DataService.Security;
 using HomeManager.Helpers;
 using HomeManager.Mail;
 using HomeManager.Messages;
+using HomeManager.Model.Mail;
 using HomeManager.Model.Personen;
 using HomeManager.Model.Security;
 using HomeManager.Services.Security;
