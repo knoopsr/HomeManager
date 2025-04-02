@@ -282,14 +282,13 @@ namespace HomeManager.ViewModel
             }
         }
         
-        private static clsOverzichtViewModel _overzichtViewModel = new clsOverzichtViewModel();
+        
         public clsOverzichtViewModel OverzichtViewModel
         {
             get
             {
-                return _overzichtViewModel;
+                return new clsOverzichtViewModel();
             }
         }
-        
     }
 }

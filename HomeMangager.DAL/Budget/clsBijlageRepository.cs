@@ -25,8 +25,16 @@ namespace HomeManager.DAL.Budget
 
         public bool Delete(clsBijlageModel entity)
         {
-            //Het deleten van de bijlages gebeurd door de FK cascade in SQL = NO D_BudgetBijlage
-            throw new NotImplementedException();
+            (DataTable DT, bool OK, string Boodschap) = clsDAL.ExecuteDataTable(Properties.Resources.D_BudgetBijlage,
+                clsDAL.Parameter("BudgetBijlageID", entity.BudgetBijlageID),
+                clsDAL.Parameter("ControlField", entity.ControlField),
+                clsDAL.Parameter("@ReturnValue", 0));
+            if (OK)
+            {
+                entity.ErrorBoodschap = Boodschap;
+            }
+            return OK;
+
 
         }
 
@@ -53,6 +61,7 @@ namespace HomeManager.DAL.Budget
                     BudgetTransactionID = (int)MijnDataReader["BudgetTransactionID"],
                     BijlageNaam = MijnDataReader["BijlageNaam"].ToString(),
                     Bijlage = MijnDataReader["Bijlage"] != DBNull.Value ? (byte[])MijnDataReader["Bijlage"] : null,
+                    ControlField = MijnDataReader["ControlField"]
                 };
                 MijnCollectie.Add(m);
             }
@@ -81,22 +90,18 @@ namespace HomeManager.DAL.Budget
 
         public bool Insert(clsBijlageModel entity)
         {
-            SqlDataReader MijnDataReader = clsDAL.GetData(Properties.Resources.I_BudgetBijlage);
-               
-            MijnCollectie = new ObservableCollection<clsBijlageModel>();
-            while (MijnDataReader.Read())
+            (DataTable DT, bool OK, string Boodschap) = clsDAL.ExecuteDataTable(Properties.Resources.I_BudgetBijlage,
+                    clsDAL.Parameter("BudgetTransactionID", entity.BudgetTransactionID),
+                    clsDAL.Parameter("BijlageNaam", entity.BijlageNaam),
+                    clsDAL.Parameter("Bijlage", entity.Bijlage),    
+                    clsDAL.Parameter("@ReturnValue", 0)
+                );
+
+            if (!OK)
             {
-                clsBijlageModel m = new clsBijlageModel()
-                {
-                    BudgetBijlageID = (int)MijnDataReader["BudgetBijlageID"],
-                    BudgetTransactionID = (int)MijnDataReader["BudgetTransactionID"],
-                    BijlageNaam = MijnDataReader["BijlageNaam"].ToString(),
-                    Bijlage = MijnDataReader["Bijlage"] != DBNull.Value ? (byte[])MijnDataReader["Bijlage"] : null,
-                };
-                MijnCollectie.Add(m);
+                entity.ErrorBoodschap = Boodschap;
             }
-            MijnDataReader.Close();
-            return true;
+            return OK;
         }
 
         public bool Update(clsBijlageModel entity)
