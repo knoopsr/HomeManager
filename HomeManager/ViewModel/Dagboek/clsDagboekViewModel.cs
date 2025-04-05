@@ -16,6 +16,8 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Reflection;
 using Microsoft.IdentityModel.Tokens;
+using System.Diagnostics;
+using System.Text.RegularExpressions;
 
 namespace HomeManager.ViewModel
 {
@@ -110,6 +112,7 @@ namespace HomeManager.ViewModel
             cmdCreateNumbering = new clsRelayCommand(CreateNumbering);
             cmdIncreaseTextIndent = new clsRelayCommand(IncreaseTextIndent);
             cmdDecreaseTextIndent = new clsRelayCommand(DecreaseTextIndent);
+            cmdFindHyperlinks = new clsRelayCommand(FindHyperlinks);
 
             //AplicationCommands
             cmdCut = ApplicationCommands.Cut;
@@ -146,6 +149,72 @@ namespace HomeManager.ViewModel
                 
             }
 
+        }
+
+        private void FindHyperlinks(object? obj)
+        {
+            if (obj is RichTextBox rtb)
+            {
+                FlowDocument document = rtb.Document;
+                
+                foreach (var block in document.Blocks.ToList()) // Make a copy since we might replace blocks
+                {
+                    if (block is Paragraph paragraph)
+                    {
+                        var inlines = paragraph.Inlines.ToList(); // Again, work on a copy
+                        paragraph.Inlines.Clear();
+
+                        foreach (var inline in inlines)
+                        {
+                            if (inline is Run run && !(run.Parent is Hyperlink))
+                            {
+                                string text = run.Text;
+                                var regex = new Regex(@"https:\/\/[^\s]+");
+                                int lastIndex = 0;
+
+                                foreach (Match match in regex.Matches(text))
+                                {
+                                    // Add text before the match
+                                    if (match.Index > lastIndex)
+                                    {
+                                        string before = text.Substring(lastIndex, match.Index - lastIndex);
+                                        paragraph.Inlines.Add(new Run(before));
+                                    }
+
+                                    // Add hyperlink
+                                    string url = match.Value;
+                                    var link = new Hyperlink(new Run(url))
+                                    {
+                                        NavigateUri = new Uri(url)
+                                    };
+                                    link.RequestNavigate += (s, e) =>
+                                    {
+                                        System.Diagnostics.Process.Start(new ProcessStartInfo(e.Uri.AbsoluteUri)
+                                        {
+                                            UseShellExecute = true
+                                        });
+                                        e.Handled = true;
+                                    };
+                                    paragraph.Inlines.Add(link);
+
+                                    lastIndex = match.Index + match.Length;
+                                }
+
+                                // Add remaining text
+                                if (lastIndex < text.Length)
+                                {
+                                    string after = text.Substring(lastIndex);
+                                    paragraph.Inlines.Add(new Run(after));
+                                }
+                            }
+                            else
+                            {
+                                paragraph.Inlines.Add(inline); // Keep non-Run inlines untouched
+                            }
+                        }
+                    }
+                }
+            }
         }
 
         private void PrintMyFlowDocument(object? obj)
@@ -430,7 +499,7 @@ namespace HomeManager.ViewModel
             using (var stream = new System.IO.MemoryStream())
             {
                 TextRange textRange = new TextRange(richTextBox.Document.ContentStart, richTextBox.Document.ContentEnd);
-                textRange.Save(stream, DataFormats.Xaml);
+                textRange.Save(stream, DataFormats.XamlPackage);
                 return stream.ToArray();
             }
         }
@@ -474,6 +543,7 @@ namespace HomeManager.ViewModel
         public ICommand cmdCreateNumbering { get; set; }
         public ICommand cmdIncreaseTextIndent { get; set; }
         public ICommand cmdDecreaseTextIndent { get; set; }
+        public ICommand cmdFindHyperlinks { get; set; }
 
         //aplicationCommands
         public ICommand cmdCut { get; set; }

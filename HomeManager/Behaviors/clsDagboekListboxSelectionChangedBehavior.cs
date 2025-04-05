@@ -57,7 +57,7 @@ namespace HomeManager.Behaviors
                         {
                             // Load the FlowDocument from the XAML byte array
                             TextRange textRange = new TextRange(TargetRichTextBox.Document.ContentStart, TargetRichTextBox.Document.ContentEnd);
-                            textRange.Load(stream, DataFormats.Xaml);  // Load the XAML
+                            textRange.Load(stream, DataFormats.XamlPackage);  // Load the XAML
                         }
                     }
                 }

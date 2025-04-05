@@ -203,8 +203,8 @@
                                 </Grid.RowDefinitions>
 
                                 <RibbonButton
-                                    Command=""
-                                    CommandParameter="{Binding}"
+                                    Command="{Binding cmdFindHyperlinks}"
+                                    CommandParameter="{Binding ElementName=MyRTB}"
                                     Content="{StaticResource HyperlinkIcon}"
                                     Style="{StaticResource myRibbonButton}"/>
 
