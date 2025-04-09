@@ -1,5 +1,6 @@
 ﻿using FluentEmail.Core;
 using FluentEmail.Smtp;
+using FluentEmail.Core.Interfaces; // <- nodig voor ISender
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Net.Mail;
@@ -47,12 +48,14 @@ namespace HomeManager.Mail
 
                 Email.DefaultSender = sender;
 
-                // **Maak de e-mail aan**
                 var email = Email
                     .From(MailModel.MailFromEmail)
                     .To(MailModel.MailToEmail, MailModel.MailToName)
                     .Subject(MailModel.Subject)
                     .Body(htmlBody.ToString(), isHtml: true);
+
+
+
 
                 // **Bijlagen toevoegen vóór het verzenden**
                 if (MailModel.Attachments != null && MailModel.Attachments.Count > 0)
@@ -69,6 +72,7 @@ namespace HomeManager.Mail
                     }
                 }
 
+
                 // **Verstuur de e-mail**
                 var result = await email.SendAsync();
 
@@ -78,6 +82,7 @@ namespace HomeManager.Mail
                 }
                 else
                 {
+                    
                     Console.WriteLine("Fouten bij het versturen van de e-mail: " + string.Join(", ", result.ErrorMessages));
                     return false;
                 }
