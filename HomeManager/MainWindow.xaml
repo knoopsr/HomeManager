@@ -9,7 +9,7 @@
     xmlns:local="clr-namespace:HomeManager"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     x:Name="MainWIN"
-    Title="MainWindow"
+    Title="Home Manager"
     Width="1000"
     Height="900"
     Background="{StaticResource myTitleBar}"

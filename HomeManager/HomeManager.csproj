@@ -6,15 +6,24 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <UseWPF>true</UseWPF>
+    <ApplicationIcon>HomeManagerIcon.ico</ApplicationIcon>
   </PropertyGroup>
 
   <ItemGroup>
     <None Remove="Images\Background.jpg" />
+    <None Remove="Images\HomeManagerIcon.ico" />
     <None Remove="Images\person1.jpg" />
   </ItemGroup>
 
   <ItemGroup>
+    <Content Include="HomeManagerIcon.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Resource Include="Images\Background.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\HomeManagerIcon.ico">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Images\person1.jpg">
