@@ -26,11 +26,19 @@ namespace HomeManager.Services
             // Maak een nieuw venster
             _dialogWindow = new Window
             {
+                //Title = title,
+                //Content = content, // Stel de UserControl in als inhoud
+                //SizeToContent = SizeToContent.WidthAndHeight, // Pas de grootte aan inhoud aan
+                //WindowStartupLocation = WindowStartupLocation.CenterScreen, // Centreren
+                //ResizeMode = ResizeMode.NoResize // Optioneel: voorkomen dat de gebruiker het venster kan schalen
+
+                //AANPASSING THOMAS ZODAT HET SCHERM ALTIJD BETER PAST OOK MET DE ERRORHANDLING
                 Title = title,
-                Content = content, // Stel de UserControl in als inhoud
-                SizeToContent = SizeToContent.WidthAndHeight, // Pas de grootte aan inhoud aan
-                WindowStartupLocation = WindowStartupLocation.CenterScreen, // Centreren
-                ResizeMode = ResizeMode.NoResize // Optioneel: voorkomen dat de gebruiker het venster kan schalen
+                Content = content,
+                Width = 1000, // Stel een specifieke breedte in
+                Height = 600, // Stel een specifieke hoogte in
+                WindowStartupLocation = WindowStartupLocation.CenterScreen,
+                ResizeMode = ResizeMode.NoResize
             };
 
             // Toon het venster als een modaal dialoogvenster

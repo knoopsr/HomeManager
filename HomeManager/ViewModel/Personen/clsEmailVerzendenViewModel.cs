@@ -289,9 +289,13 @@ namespace HomeManager.ViewModel.Personen
 
             bool emailVerzonden = await clsMail.SendEmail(mailModel);
 
-            if (!emailVerzonden)
+            if (emailVerzonden)
             {
-                MessageBox.Show("Er is een fout opgetreden bij het versturen van de e-mail.");
+                MessageBox.Show("De mail is verzonden.", "Verzonden", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+            else
+            {
+                MessageBox.Show("Er is een fout opgetreden bij het versturen van de e-mail.", "Fout", MessageBoxButton.OK, MessageBoxImage.Error);
             }
 
         }
