@@ -68,7 +68,6 @@ namespace HomeManager.Mail
                             ContentType = attachment.ContentType,
                             Filename = attachment.FileName
                         });
-
                     }
                 }
 

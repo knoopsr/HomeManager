@@ -62,21 +62,6 @@
                         <RowDefinition Height="20" />
                         <RowDefinition Height="*" />
                     </Grid.RowDefinitions>
-                    <!--<StackPanel
-                        Margin="2"
-                        HorizontalAlignment="Left"
-                        Orientation="Horizontal">
-                        <TextBox
-                            x:Name="txtSearchbar"
-                            Width="200"
-                            Height="20" />
-                        <Button
-                            x:Name="btnSearch"
-                            Width="15"
-                            Height="15"
-                            Margin="5,0,0,0"
-                            Style="{StaticResource FilterImage}" />
-                    </StackPanel>-->
                     <StackPanel
                         Margin="2"
                         HorizontalAlignment="Left"

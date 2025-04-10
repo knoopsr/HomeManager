@@ -16,6 +16,7 @@ using System.Windows.Media.Imaging;
 using HomeManager.Messages;
 using System.Reflection.Metadata;
 using HomeManager.Model.Budget;
+using System.Windows.Media;
 
 namespace HomeManager.ViewModel
 {
@@ -177,7 +178,7 @@ namespace HomeManager.ViewModel
         //    clsMessenger.Default.Unregister(this);
         //}
 
-        private void Execute_UploadPicture_Command(object? obj)
+        private async void Execute_UploadPicture_Command(object? obj)
         {
             Microsoft.Win32.OpenFileDialog _OpenFileDialog = new Microsoft.Win32.OpenFileDialog();
             string myFileName = string.Empty;
@@ -222,6 +223,7 @@ namespace HomeManager.ViewModel
             return image;
         }
 
+
         private bool CanExecute_UploadPicture_Command(object? obj)
         {
             return true;
@@ -252,11 +254,6 @@ namespace HomeManager.ViewModel
                 }
             }
         }
-
-
-
-
-        
 
         private void Execute_Save_Command(object? obj)
         {
