@@ -26,12 +26,24 @@ namespace HomeManager.DAL.Dagboek
             {
                 foreach (DataRow row in DT.Rows)
                 {
+                    //debug
+                    //object flowDocRaw = row[3];
+                    //if (flowDocRaw == DBNull.Value)
+                    //{
+                    //    Console.WriteLine("MyFlowDocument is NULL in the database");
+                    //}
+                    //else
+                    //{
+                    //    Console.WriteLine($"MyFlowDocument length: {((byte[])flowDocRaw).Length}");
+                    //}
+
+
                     clsDagboekModel obj = new clsDagboekModel()
                     {
                         DagboekId = (int)row[0],
                         PersoonID = (int)row[1],
                         DateCreated = (DateTime)row[2],
-                        MyRTFString = (string)row[3],
+                        MyFlowDocument = row[3] != DBNull.Value ? (byte[])row[3] : new byte[0],
                         ControlField = row[4] as object
                     };
                     
@@ -73,7 +85,7 @@ namespace HomeManager.DAL.Dagboek
         {
             (DataTable? DT, bool ok, string boodschap) = clsDAL.ExecuteDataTable(Properties.Resources.I_Dagboek,
                                                                                  clsDAL.Parameter("@PersoonID", entity.PersoonID),
-                                                                                 clsDAL.Parameter("@DagboekNotitie", entity.MyRTFString),
+                                                                                 clsDAL.Parameter("@DagboekNotitie", entity.MyFlowDocument),
                                                                                  clsDAL.Parameter("@User", Environment.UserName),
                                                                                  clsDAL.Parameter("ReturnValue", 0)
                                                                                  );
@@ -85,7 +97,7 @@ namespace HomeManager.DAL.Dagboek
         {
             (DataTable? DT, bool ok, string boodschap) = clsDAL.ExecuteDataTable(Properties.Resources.U_Dagboek,
                                                                                  clsDAL.Parameter("@DagboekID", entity.DagboekId),
-                                                                                 clsDAL.Parameter("@DagboekNotitie", entity.MyRTFString),
+                                                                                 clsDAL.Parameter("@DagboekNotitie", entity.MyFlowDocument),
                                                                                  clsDAL.Parameter("@User", Environment.UserName),
                                                                                  clsDAL.Parameter("@ControlField", entity.ControlField),
                                                                                  clsDAL.Parameter("ReturnValue", 0)

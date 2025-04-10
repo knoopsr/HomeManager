@@ -16,6 +16,8 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Reflection;
 using Microsoft.IdentityModel.Tokens;
+using System.Diagnostics;
+using System.Text.RegularExpressions;
 
 namespace HomeManager.ViewModel
 {
@@ -89,6 +91,7 @@ namespace HomeManager.ViewModel
             UpdateRichTextBoxCommand = new clsCustomCommand(UpdateRichTextBox, CanExecute_UpdateRTB);
             cmdDecreaseTextSize = new clsCustomCommand(DecreaseTextSize, CanDecreaseTextSize);
             cmdIncreaseTextSize = new clsCustomCommand(IncreaseTextSize, CanIncreaseTextSize);
+            cmdPrint = new clsRelayCommand(PrintMyFlowDocument);
 
             //relaycommands for the layout
             cmdSetFontWeight = new clsRelayCommand(SetFontWeight);
@@ -109,6 +112,7 @@ namespace HomeManager.ViewModel
             cmdCreateNumbering = new clsRelayCommand(CreateNumbering);
             cmdIncreaseTextIndent = new clsRelayCommand(IncreaseTextIndent);
             cmdDecreaseTextIndent = new clsRelayCommand(DecreaseTextIndent);
+            cmdFindHyperlinks = new clsRelayCommand(FindHyperlinks);
 
             //AplicationCommands
             cmdCut = ApplicationCommands.Cut;
@@ -145,6 +149,87 @@ namespace HomeManager.ViewModel
                 
             }
 
+        }
+
+        private void FindHyperlinks(object? obj)
+        {
+            if (obj is RichTextBox rtb)
+            {
+                FlowDocument document = rtb.Document;
+                
+                foreach (var block in document.Blocks.ToList()) // Make a copy since we might replace blocks
+                {
+                    if (block is Paragraph paragraph)
+                    {
+                        var inlines = paragraph.Inlines.ToList(); // Again, work on a copy
+                        paragraph.Inlines.Clear();
+
+                        foreach (var inline in inlines)
+                        {
+                            if (inline is Run run && !(run.Parent is Hyperlink))
+                            {
+                                string text = run.Text;
+                                var regex = new Regex(@"https:\/\/[^\s]+");
+                                int lastIndex = 0;
+
+                                foreach (Match match in regex.Matches(text))
+                                {
+                                    // Add text before the match
+                                    if (match.Index > lastIndex)
+                                    {
+                                        string before = text.Substring(lastIndex, match.Index - lastIndex);
+                                        paragraph.Inlines.Add(new Run(before));
+                                    }
+
+                                    // Add hyperlink
+                                    string url = match.Value;
+                                    var link = new Hyperlink(new Run(url))
+                                    {
+                                        NavigateUri = new Uri(url)
+                                    };
+                                    link.RequestNavigate += (s, e) =>
+                                    {
+                                        System.Diagnostics.Process.Start(new ProcessStartInfo(e.Uri.AbsoluteUri)
+                                        {
+                                            UseShellExecute = true
+                                        });
+                                        e.Handled = true;
+                                    };
+                                    paragraph.Inlines.Add(link);
+
+                                    lastIndex = match.Index + match.Length;
+                                }
+
+                                // Add remaining text
+                                if (lastIndex < text.Length)
+                                {
+                                    string after = text.Substring(lastIndex);
+                                    paragraph.Inlines.Add(new Run(after));
+                                }
+                            }
+                            else
+                            {
+                                paragraph.Inlines.Add(inline); // Keep non-Run inlines untouched
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        private void PrintMyFlowDocument(object? obj)
+        {
+            if (obj is RichTextBox rtb)
+            {
+                FlowDocument document = rtb.Document;
+
+                PrintDialog printDialog = new PrintDialog();
+
+                if (printDialog.ShowDialog() == true)
+                {
+                    printDialog.PrintDocument(((IDocumentPaginatorSource)document).DocumentPaginator, "Print");
+                }
+            }
         }
 
         private void DecreaseTextIndent(object? obj)
@@ -384,11 +469,18 @@ namespace HomeManager.ViewModel
 
         private void Execute_Test(object? obj)
         {
-            MessageBox.Show(MyRTBLayout.SelectedTextColor.ColorName);
+            RichTextBox myRichTextBox = obj as RichTextBox;
+
+            if (myRichTextBox != null)
+            {
+                string xamlString = Encoding.UTF8.GetString(ConvertRichTextBoxToByteArray(myRichTextBox));
+                MessageBox.Show(xamlString);
+            }
+
         }
 
 
-        //testing
+        //converting to rtb
         public string ConvertRichTextBoxToRtf(RichTextBox richTextBox)
         {
             if (richTextBox == null) throw new ArgumentNullException(nameof(richTextBox));
@@ -398,6 +490,17 @@ namespace HomeManager.ViewModel
                 var range = new TextRange(richTextBox.Document.ContentStart, richTextBox.Document.ContentEnd);
                 range.Save(memoryStream, DataFormats.Rtf);
                 return System.Text.Encoding.UTF8.GetString(memoryStream.ToArray());
+            }
+        }
+
+        //converting to byte[]
+        private byte[] ConvertRichTextBoxToByteArray(RichTextBox richTextBox)
+        {
+            using (var stream = new System.IO.MemoryStream())
+            {
+                TextRange textRange = new TextRange(richTextBox.Document.ContentStart, richTextBox.Document.ContentEnd);
+                textRange.Save(stream, DataFormats.XamlPackage);
+                return stream.ToArray();
             }
         }
 
@@ -418,6 +521,7 @@ namespace HomeManager.ViewModel
         public ICommand UpdateRichTextBoxCommand { get; }
         public ICommand cmdIncreaseTextSize {  get; set; }
         public ICommand cmdDecreaseTextSize { get; set; }
+        public ICommand cmdPrint {  get; set; }
 
         //relaycommands
         public ICommand cmdSetFontWeight {  get; set; }
@@ -439,6 +543,7 @@ namespace HomeManager.ViewModel
         public ICommand cmdCreateNumbering { get; set; }
         public ICommand cmdIncreaseTextIndent { get; set; }
         public ICommand cmdDecreaseTextIndent { get; set; }
+        public ICommand cmdFindHyperlinks { get; set; }
 
         //aplicationCommands
         public ICommand cmdCut { get; set; }
@@ -459,7 +564,7 @@ namespace HomeManager.ViewModel
 
         private bool CanExecute_Close_Command(object? obj)
         {
-            throw new NotImplementedException();
+            return true;
         }
 
         private bool CanExecute_Cancel_Command(object? obj)
@@ -509,7 +614,13 @@ namespace HomeManager.ViewModel
 
         private void Execute_Close_Command(object? obj)
         {
-            throw new NotImplementedException();
+            MainWindow HomeWindow = obj as MainWindow;
+            if (HomeWindow != null)
+            {
+
+                clsHomeVM vm = (clsHomeVM)HomeWindow.DataContext;
+                vm.CurrentViewModel = null;
+            }
         }
 
         private void Execute_Cancel_Command(object? obj)
@@ -562,8 +673,8 @@ namespace HomeManager.ViewModel
             RichTextBox richTextBox = obj as RichTextBox;
             if (richTextBox != null)
             {
-                MySelectedItem.MyRTFString = ConvertRichTextBoxToRtf(richTextBox);
-                MessageBox.Show(MySelectedItem.MyRTFString.ToString());
+                MySelectedItem.MyFlowDocument = ConvertRichTextBoxToByteArray(richTextBox);
+                //MessageBox.Show(MySelectedItem.MyRTFString.ToString());
 
                 if (isNew)
                 {
