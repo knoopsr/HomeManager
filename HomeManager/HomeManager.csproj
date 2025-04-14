@@ -35,11 +35,9 @@
     <Folder Include="Utilities\" />
     <Folder Include="ViewModel\Dagboek\" />
     <Folder Include="ViewModel\Homepage\" />
-    <Folder Include="ViewModel\StickyNotes\" />
     <Folder Include="ViewModel\Todo\" />
     <Folder Include="View\Dagboek\" />
     <Folder Include="View\Homepage\" />
-    <Folder Include="View\StickyNotes\" />
     <Folder Include="View\Todo\" />
   </ItemGroup>
 

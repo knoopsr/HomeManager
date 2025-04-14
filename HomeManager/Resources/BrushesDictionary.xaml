@@ -1,7 +1,13 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
-    <!--#region SolidColorBrushes-->
+    <!--#region Colors & Brushes-->
 
+    <Color x:Key="menuColor">#00223e</Color>
+    <Color x:Key="titleColor">#024f87</Color>
+    <Color x:Key="toolbarColor">White</Color>
+    <Color x:Key="toolbarDisabledColor">Gray</Color>
+    <Color x:Key="backgroundColor">LightGray</Color>
+    <Color x:Key="iconColor">Steelblue</Color>
     <SolidColorBrush x:Key="myMenuIconBrush" Color="#00223e" />
 
     <SolidColorBrush x:Key="myTitleBar" Color="#024f87" />
@@ -11,8 +17,18 @@
     <SolidColorBrush x:Key="myBackground" Color="LightGray" />
     <SolidColorBrush x:Key="myDagboekButtonIconColor" Color="SteelBlue" />
 
+    <SolidColorBrush x:Key="menuBrush" Color="{DynamicResource menuColor}" />
+    <SolidColorBrush x:Key="titleBrush" Color="{DynamicResource titleColor}" />
+    <SolidColorBrush x:Key="toolbarBrush" Color="{DynamicResource toolbarColor}" />
+    <SolidColorBrush x:Key="toolbarDisabledBrush" Color="{DynamicResource toolbarDisabledColor}" />
+    <SolidColorBrush x:Key="backgroundBrush" Color="{DynamicResource backgroundColor}" />
+    <SolidColorBrush x:Key="iconBrush" Color="{DynamicResource iconColor}" />
+
+    <LinearGradientBrush x:Key="gradientBrush" StartPoint="0,0" EndPoint="0,3">
+        <GradientStop Offset="0.0" Color="{DynamicResource iconColor}" />
+        <GradientStop Offset="0.70" Color="{DynamicResource titleColor}" />
+        <GradientStop Offset="1.0" Color="{DynamicResource menuColor}" />
+    </LinearGradientBrush>
+
     <!--#endregion-->
-
-
-
 </ResourceDictionary>

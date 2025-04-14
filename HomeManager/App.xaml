@@ -25,11 +25,6 @@
             <Helpers:clsFocusExtension x:Key="FocusExtension" />
             <Helpers:clsMouseEventArgsToPointConverter x:Key="clsMouseEventArgsToPointConverter" />
 
-
-
-
-
-
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="\Resources\ErrorTemplateDictionary.xaml" />
                 <ResourceDictionary Source="\Resources\BrushesDictionary.xaml" />
