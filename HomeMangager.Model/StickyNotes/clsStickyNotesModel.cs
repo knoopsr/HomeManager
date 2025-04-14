@@ -23,10 +23,14 @@ namespace HomeManager.Model.StickyNotes
         {
             "titleBrush",
             "menuBrush",
-            "toolbarBrush",
             "toolbarDisabledBrush",
             "backgroundBrush",
-            "iconBrush"
+            "iconBrush",
+            "redBrush",
+            "greenBrush",
+            "blueBrush",
+            "yellowBrush",
+            "orangeBrush"
         };
         #endregion
 

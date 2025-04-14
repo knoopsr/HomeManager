@@ -4,6 +4,7 @@ using HomeManager.Helpers;
 using HomeManager.Model.Logging;
 using HomeManager.Model.Personen;
 using HomeManager.Model.Security;
+using HomeManager.View.StickyNotes;
 using System.Windows;
 using System.Windows.Input;
 
@@ -15,9 +16,7 @@ namespace HomeManager.ViewModel
         public ICommand cmdMenu { get; }
         public ICommand cmdCloseAplication { get; }
         clsButtonLoggingDataService MijnLoggingService;
-
-
-
+        private static StickyNotesView stickyNotesView;
 
         private clsBindableBase _currentViewModel;
         public clsBindableBase CurrentViewModel
@@ -185,7 +184,6 @@ namespace HomeManager.ViewModel
         private void OnNav(string destination)
         {
             //Logging van de buttonklik
-
             MijnLoggingService.Insert(new clsButtonLoggingModel()
             {
                 AccountId = clsLoginModel.Instance.AccountID,
@@ -193,9 +191,7 @@ namespace HomeManager.ViewModel
                 ActionTarget = destination
             });
 
-
             clsPermissionChecker permissionChecker = new clsPermissionChecker();
-
             if (permissionChecker.PermissionViewmodel(destination))
             {
                 var type = this.GetType();
@@ -213,7 +209,4 @@ namespace HomeManager.ViewModel
             }
         }
     }
-
-
-
 }

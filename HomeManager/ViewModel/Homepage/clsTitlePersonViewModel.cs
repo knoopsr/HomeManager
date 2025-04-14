@@ -8,6 +8,7 @@ using HomeManager.Model.Security;
 using HomeManager.Services;
 using HomeManager.View;
 using HomeManager.View.Security;
+using HomeManager.View.StickyNotes;
 using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Input;
@@ -147,6 +148,7 @@ namespace HomeManager.ViewModel
                 CanBackup = true;
             }
         }
+
         private bool CanExecuteAfmelden(object? obj)
         {
             return true;
@@ -156,6 +158,7 @@ namespace HomeManager.ViewModel
         {
             OpenLoginWindow(obj);
         }
+
         private void OpenLoginWindow(object? obj)
         {
 
@@ -164,27 +167,19 @@ namespace HomeManager.ViewModel
            _winLogin.txtWachtwoord.Password = "";
             _winLogin.Show();
 
-
-
-
             foreach (Window window in Application.Current.Windows)
             {
-                if (window.GetType() == typeof(MainWindow))
+                if (window.GetType() == typeof(MainWindow) || window.GetType() == typeof(StickyNotesView))
                 {
                     window.Close();
                 }
             }
-
-
-
         }
-
 
         private void OnUpdateTitlePersonReceived(clsLoginModel model)
         {
             LoginModel = clsLoginModel.Instance;
 
         }
-
     }
 }
