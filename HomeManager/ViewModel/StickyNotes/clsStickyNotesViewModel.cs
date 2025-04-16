@@ -22,6 +22,7 @@ using HomeManager.DataService.StickyNotes;
 using HomeManager.Helpers;
 using HomeManager.MailService;
 using HomeManager.Model;
+using HomeManager.Model.Security;
 using HomeManager.Model.StickyNotes;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.VisualBasic;
@@ -42,6 +43,11 @@ namespace HomeManager.ViewModel.StickyNotes
         private bool _isFocused = false;
         private bool _isFocusedAfterNew = false;
         private bool _newStatus = false; //Fix convention
+
+        private int PersoonID
+        {
+            get { return clsLoginModel.Instance.AccountID; }
+        }
 
         public ICommand CreateNoteCommand { get; set; }
         public ICommand RemoveNoteCommand { get; set; }
@@ -136,6 +142,7 @@ namespace HomeManager.ViewModel.StickyNotes
                 for (int i = 0; i < MyCollection.Count; i++)
                 {
                     MyCollection[i].Position = i;
+                    item.UserID = PersoonID;
                 }
 
                 if (!_newStatus)
@@ -244,7 +251,8 @@ namespace HomeManager.ViewModel.StickyNotes
 }",
                 ThumbnailName = string.Empty,
                 Date = DateTime.Now,
-                SelectedBrush = "titleBrush"
+                SelectedBrush = "titleBrush",
+                UserID = PersoonID
             };
 
             if (MyCollection.IsNullOrEmpty()) newItem.Position = 0;
