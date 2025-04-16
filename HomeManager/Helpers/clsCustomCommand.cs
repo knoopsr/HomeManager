@@ -43,7 +43,7 @@ namespace HomeManager.Helpers
             //Er is geen CommandParameter meegestuurd.
             if (parameter == null)
             {
-                MessageBox.Show("Geen Logging. Er word geen gebruik gemaakt van CommandParameter in de xamll.");
+                MessageBox.Show("Geen Logging. Er word geen gebruik gemaakt van CommandParameter in de Xaml.");
                 return;
             }
   

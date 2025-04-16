@@ -2,25 +2,31 @@
     x:Class="HomeManager.View.StickyNotes.StickyNotesView"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:Behaviors="clr-namespace:HomeManager.Behaviors"
     xmlns:Converters="clr-namespace:HomeManager.Converter"
     xmlns:Helpers="clr-namespace:HomeManager.Helpers"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
     xmlns:local="clr-namespace:HomeManager.View.StickyNotes"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     Title="Sticky Notes"
     AllowsTransparency="True"
     Background="Transparent"
     DataContext="{Binding Source={StaticResource VML}, Path=StickyNotesViewModel}"
-    Icon="https://upload.wikimedia.org/wikipedia/commons/2/2d/Microsoft_Sticky_Notes_icon.png"
     ResizeMode="NoResize"
+    ShowInTaskbar="False"
     Topmost="True"
     WindowStyle="None"
     mc:Ignorable="d">
 
-    <!--  Type / Data Converters  -->
+    <!--  Icon="https://upload.wikimedia.org/wikipedia/commons/2/2d/Microsoft_Sticky_Notes_icon.png"  -->
+    <!--  Helpers, Converters, Styles, etc.  -->
     <Window.Resources>
         <Converters:clsDateToForegroundConverter x:Key="DateToForegroundConverter" />
         <Converters:clsStringToBrushConverter x:Key="StringToBrushConverter" />
+        <Style TargetType="TextBlock">
+            <Setter Property="Foreground" Value="{Binding ElementName=rtbInput, Path=Background}" />
+        </Style>
     </Window.Resources>
 
     <!--  Window Animations  -->
@@ -64,7 +70,17 @@
             Margin="2.5"
             HorizontalAlignment="Left"
             Command="{Binding CreateNoteCommand}"
+            CommandParameter="{Binding}"
             Content="Create"
+            Style="{StaticResource StickyNoteButton}" />
+        <Button
+            Width="75"
+            Height="30"
+            Margin="2.5"
+            HorizontalAlignment="Center"
+            Command="{Binding SaveNotesCommand}"
+            CommandParameter="{Binding}"
+            Content="Save All"
             Style="{StaticResource StickyNoteButton}" />
         <Button
             Width="75"
@@ -72,6 +88,7 @@
             Margin="2.5"
             HorizontalAlignment="Right"
             Command="{Binding RemoveNoteCommand}"
+            CommandParameter="{Binding}"
             Content="Remove"
             Style="{StaticResource StickyNoteButton}" />
 
@@ -83,12 +100,11 @@
             HorizontalContentAlignment="Stretch"
             AllowDrop="True"
             Drop="StickyNotesListView_Drop"
-            ItemsSource="{Binding MyCollection}"
+            ItemsSource="{Binding MyCollection, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
             ScrollViewer.CanContentScroll="False"
             ScrollViewer.VerticalScrollBarVisibility="Auto"
             SelectedItem="{Binding MySelectedItem, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-            Style="{StaticResource StickyNoteListView}"
-            VirtualizingStackPanel.IsVirtualizing="False">
+            Style="{StaticResource StickyNoteListView}">
             <ListView.ItemContainerStyle>
                 <Style BasedOn="{StaticResource StickyNoteListViewItem}" TargetType="ListViewItem">
                     <EventSetter Event="DragOver" Handler="ListViewItem_DragOver" />
@@ -126,6 +142,7 @@
                                 VerticalAlignment="Center"
                                 Background="Transparent"
                                 Command="{Binding Source={StaticResource VML}, Path=StickyNotesViewModel.HandleImageCommand}"
+                                CommandParameter="{Binding}"
                                 Style="{StaticResource StickyNoteButton}"
                                 Tag="{Binding ThumbnailName}"
                                 ToolTip="Upload or view an image here.">
@@ -149,14 +166,13 @@
                             <DatePicker
                                 x:Name="dprDatePicker"
                                 Grid.Column="2"
-                                HorizontalAlignment="Center"
-                                VerticalAlignment="Center"
                                 SelectedDate="{Binding Date, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                 Style="{StaticResource StickyNoteDatePicker}"
                                 ToolTip="Pick a date here.">
                                 <DatePicker.Resources>
                                     <!--  Apply the converter to the DatePicker's TextBox  -->
                                     <Style TargetType="DatePickerTextBox">
+                                        <Setter Property="Margin" Value="15,0,0,0" />
                                         <Setter Property="Background">
                                             <Setter.Value>
                                                 <Binding
@@ -171,9 +187,6 @@
                             <ComboBox
                                 x:Name="cboColorPicker"
                                 Grid.Column="3"
-                                Width="auto"
-                                HorizontalAlignment="Center"
-                                VerticalAlignment="Center"
                                 ItemContainerStyle="{StaticResource StickyNoteComboBoxItem}"
                                 ItemsSource="{Binding BrushCollection}"
                                 SelectedItem="{Binding SelectedBrush, UpdateSourceTrigger=PropertyChanged}"
@@ -182,12 +195,14 @@
                                 <ComboBox.ItemTemplate>
                                     <DataTemplate>
                                         <Border
-                                            Width="15"
-                                            Height="15"
+                                            Width="15.5"
+                                            Height="15.5"
                                             HorizontalAlignment="Center"
                                             VerticalAlignment="Center"
                                             Background="{Binding Converter={StaticResource StringToBrushConverter}}"
-                                            CornerRadius="20" />
+                                            BorderBrush="Black"
+                                            BorderThickness="1"
+                                            CornerRadius="10" />
                                     </DataTemplate>
                                 </ComboBox.ItemTemplate>
                             </ComboBox>
@@ -213,8 +228,9 @@
                                     Grid.Column="0"
                                     Margin="0"
                                     Padding="5"
-                                    Style="{StaticResource StickyNoteRichTextBox}"
-                                    ToolTip="Type text here." />
+                                    Helpers:clsRichTextBoxHelper.RtfText="{Binding Content, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                    AcceptsReturn="True"
+                                    AcceptsTab="True" />
                                 <StackPanel
                                     Grid.Row="1"
                                     Grid.Column="0"
@@ -225,27 +241,29 @@
                                         Background="{Binding SelectedBrush, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource StringToBrushConverter}}"
                                         Command="EditingCommands.ToggleBold"
                                         CommandTarget="{Binding ElementName=rtbInput}"
-                                        Content="B"
                                         FontWeight="Bold"
                                         Foreground="{Binding ElementName=rtbInput, Path=Background}"
-                                        Style="{StaticResource StickyNoteRichtTextboxButton}" />
+                                        Style="{StaticResource StickyNoteRichTextboxButton}">
+                                        <TextBlock Foreground="{Binding ElementName=rtbInput, Path=Background}" Text="B" />
+                                    </Button>
                                     <Button
                                         x:Name="btnItalic"
                                         Background="{Binding SelectedBrush, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource StringToBrushConverter}}"
                                         Command="EditingCommands.ToggleItalic"
                                         CommandTarget="{Binding ElementName=rtbInput}"
-                                        Content="I"
                                         FontStyle="Italic"
                                         Foreground="{Binding ElementName=rtbInput, Path=Background}"
-                                        Style="{StaticResource StickyNoteRichtTextboxButton}" />
+                                        Style="{StaticResource StickyNoteRichTextboxButton}">
+                                        <TextBlock Foreground="{Binding ElementName=rtbInput, Path=Background}" Text="I" />
+                                    </Button>
                                     <Button
                                         x:Name="btnUnderline"
                                         Background="{Binding SelectedBrush, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource StringToBrushConverter}}"
                                         Command="EditingCommands.ToggleUnderline"
                                         CommandTarget="{Binding ElementName=rtbInput}"
-                                        Content="U̲"
-                                        Foreground="{Binding ElementName=rtbInput, Path=Background}"
-                                        Style="{StaticResource StickyNoteRichtTextboxButton}" />
+                                        Style="{StaticResource StickyNoteRichTextboxButton}">
+                                        <TextBlock Foreground="{Binding ElementName=rtbInput, Path=Background}" Text="U̲" />
+                                    </Button>
                                 </StackPanel>
                             </Grid>
                         </Grid>

@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using System.Diagnostics;
+using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -9,6 +10,10 @@ using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using DocumentFormat.OpenXml.Wordprocessing;
+using HomeManager.DataService.Logging;
+using HomeManager.Model.Logging;
+using HomeManager.Model.Security;
 using HomeManager.View.Personen;
 using HomeManager.View.StickyNotes;
 
@@ -50,6 +55,14 @@ namespace HomeManager
                 stickyNotesView = new StickyNotesView();
                 UpdateOverlayPosition(stickyNotesView, this);
                 stickyNotesView.Show();
+
+                clsButtonLoggingDataService MijnLoggingService = new clsButtonLoggingDataService();
+                MijnLoggingService.Insert(new clsButtonLoggingModel()
+                {
+                    AccountId = clsLoginModel.Instance.AccountID,
+                    ActionName = "MenuKnop",
+                    ActionTarget = "Sticky Notes Window"
+                });
             }
         }
 

@@ -12,12 +12,15 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Media.Media3D;
 using HomeManager.Common;
+using HomeManager.DataService.StickyNotes;
 using HomeManager.Helpers;
+using HomeManager.MailService;
 using HomeManager.Model;
 using HomeManager.Model.StickyNotes;
 using Microsoft.Win32;
@@ -28,22 +31,27 @@ namespace HomeManager.ViewModel.StickyNotes
     public class clsStickyNotesViewModel : clsCommonModelPropertiesBase
     {
         #region FIELDS
-        //private clsStickyNotesDataService _myService;
+        public clsRTBLayout MyRTBLayout { get; set; }
+
+        private clsStickyNotesDataService _myService;
         private ObservableCollection<clsStickyNotesModel> _myCollection;
         private clsStickyNotesModel _mySelectedItem;
         private clsStickyNotesModel _previousSelectedItem;
         private bool _isFocused = false;
         private bool _isFocusedAfterNew = false;
-        private bool NewStatus = false; //Fix convention
+        private bool _newStatus = false; //Fix convention
 
         public ICommand CreateNoteCommand { get; set; }
         public ICommand RemoveNoteCommand { get; set; }
         public ICommand HandleImageCommand { get; set; }
+        public ICommand SaveNotesCommand { get; set; }
         public ICommand ItemReceivedCommand { get; set; }
-
         #endregion
 
         #region PROPERTIES
+        /// <summary>
+        /// Fix width gimmick
+        /// </summary>
         public ObservableCollection<clsStickyNotesModel> MyCollection
         {
             get
@@ -69,6 +77,18 @@ namespace HomeManager.ViewModel.StickyNotes
             get { return _mySelectedItem; }
             set
             {
+                if (value != null)
+                {
+                    if (_mySelectedItem != null && _mySelectedItem.IsDirty)
+                    {
+                        if (MessageBox.Show("Do you want to save:" + _mySelectedItem + " ?", "SAVE STICKYNOTE",
+                            MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+                        {
+                            SaveCommand();
+                            LoadData();
+                        }
+                    }
+                }
                 _mySelectedItem = value;
                 IncreaseSelectedNoteSize();
                 OnPropertyChanged();
@@ -105,30 +125,56 @@ namespace HomeManager.ViewModel.StickyNotes
         #region CONSTRUCTOR
         public clsStickyNotesViewModel()
         {
-            // Init collection
-            MyCollection = new ObservableCollection<clsStickyNotesModel>();
-
-            // Add an empty stickynote for testing
-            MyCollection.Add(new clsStickyNotesModel
-            {
-                SelectedBrush = "titleBrush",
-                Date = DateTime.Now,
-                Title = "Add a title",
-                Content = "Hello, world!",
-                ThumbnailName = string.Empty
-            });
-
-            // Select the empty note
-            MySelectedItem = MyCollection[0];
+            _myService = new clsStickyNotesDataService();
 
             CreateNoteCommand = new clsCustomCommand(Execute_CreateNoteCommand, CanExecute_CreateNoteCommand);
             RemoveNoteCommand = new clsCustomCommand(Execute_RemoveNoteCommand, CanExecute_RemoveNoteCommand);
             HandleImageCommand = new clsCustomCommand(Execute_HandleImageCommand, CanExecute_HandleImageCommand);
+            SaveNotesCommand = new clsCustomCommand(Execute_SaveNotesCommand, CanExecute_SaveNotesCommand);
             ItemReceivedCommand = new clsStickyNotesReceivedCommand(this);
+
+            LoadData();
+            MySelectedItem = _myService.GetFirst();
         }
         #endregion
 
         #region METHODS
+        private async void SaveCommand(object? parameter = null)
+        {
+            if (_mySelectedItem != null)
+            {
+                if (_newStatus)
+                {
+                    if (_myService.Insert(_mySelectedItem))
+                    {
+                        _mySelectedItem.IsDirty = false;
+                        _mySelectedItem.MijnSelectedIndex = 0;
+                        _mySelectedItem.MyVisibility = (int)Visibility.Visible;
+                        _newStatus = false;
+                        LoadData();
+                    }
+                    else
+                    {
+                        MessageBox.Show(_mySelectedItem.ErrorBoodschap, "SaveCommand: Error?");
+                    }
+                }
+                else
+                {
+                    if (_myService.Update(_mySelectedItem))
+                    {
+                        _mySelectedItem.IsDirty = false;
+                        _mySelectedItem.MijnSelectedIndex = 0;
+                        _newStatus = false;
+                        LoadData();
+                    }
+                    else
+                    {
+                        MessageBox.Show(_mySelectedItem.ErrorBoodschap, "SaveCommand: Error?");
+                    }
+                }
+            }
+        }
+
         private void IncreaseSelectedNoteSize()
         {
             if (_previousSelectedItem != null)
@@ -151,7 +197,7 @@ namespace HomeManager.ViewModel.StickyNotes
 
         private void LoadData()
         {
-            // MyCollection = _myService.GetAll();
+            MyCollection = _myService.GetAll();
         }
 
         #region IMAGEHANDLER
@@ -166,8 +212,10 @@ namespace HomeManager.ViewModel.StickyNotes
                 // Convert the selected image to a byte array and update the Thumbnail property
                 MySelectedItem.Thumbnail = File.ReadAllBytes(openFileDialog.FileName);
                 MySelectedItem.ThumbnailName = openFileDialog.FileName;
+                MySelectedItem.IsDirty = true;
             }
         }
+
         private void ViewImage()
         {
             try
@@ -187,9 +235,64 @@ namespace HomeManager.ViewModel.StickyNotes
             }
         }
         #endregion
+
+        public string ConvertRichTextBoxToRtf(RichTextBox richTextBox)
+        {
+            if (richTextBox == null) throw new ArgumentNullException(nameof(richTextBox));
+
+            using (var memoryStream = new System.IO.MemoryStream())
+            {
+                var range = new TextRange(richTextBox.Document.ContentStart, richTextBox.Document.ContentEnd);
+                range.Save(memoryStream, DataFormats.Rtf);
+                return System.Text.Encoding.UTF8.GetString(memoryStream.ToArray());
+            }
+        }
         #endregion
 
         #region COMMANDS
+        private bool CanExecute_CreateNoteCommand(object obj) { return true; }
+        private void Execute_CreateNoteCommand(object obj)
+        {
+            clsStickyNotesModel newItem = new clsStickyNotesModel
+            {
+                Title = "Add a title!",
+                Content = "Hello, world!",
+                ThumbnailName = string.Empty,
+                Date = DateTime.Now,
+                SelectedBrush = "titleBrush"
+            };
+
+            MyCollection.Add(newItem);
+            MySelectedItem = newItem;
+            MySelectedItem.MyVisibility = (int)Visibility.Hidden;
+            _newStatus = true;
+            IsFocusedAfterNew = true;
+        }
+
+        private bool CanExecute_RemoveNoteCommand(object obj) { return true; }
+        private void Execute_RemoveNoteCommand(object obj)
+        {
+            if (MySelectedItem != null)
+            {
+                if (MessageBox.Show("Are you sure you want to delete your sticky note?", "DELETE STICKYNOTE", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.Yes)
+                {
+                    if (_myService.Delete(MySelectedItem))
+                    {
+                        _newStatus = false;   
+                        LoadData();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Error while deleting the selected item:", MySelectedItem.ErrorBoodschap);
+                    }
+                }
+            }
+            else
+            {
+                MessageBox.Show("Please select a sticky note to delete.", "SELECT STICKYNOTE", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+        }
+
         private bool CanExecute_HandleImageCommand(object obj) { return true; }
         private void Execute_HandleImageCommand(object obj)
         {
@@ -219,35 +322,22 @@ namespace HomeManager.ViewModel.StickyNotes
             else return;
         }
 
-        private bool CanExecute_CreateNoteCommand(object obj) { return true; }
-        private void Execute_CreateNoteCommand(object obj)
+        private bool CanExecute_SaveNotesCommand(object obj)
         {
-            clsStickyNotesModel newModel = new clsStickyNotesModel
-            {
-                SelectedBrush = "titleBrush",
-                Date = DateTime.Now,
-                Title = "Add a title",
-                Content = "Hello, world!",
-                ThumbnailName = string.Empty
-            };
-
-            MyCollection.Add(newModel);
+            //if (MySelectedItem != null &&
+            //    MySelectedItem.Error == null &&
+            //    MySelectedItem.IsDirty == true)
+            //{
+                return true;
+            //}
+            //else
+            //{
+            //    return false;
+            //}
         }
-
-        private bool CanExecute_RemoveNoteCommand(object obj) { return true; }
-        private void Execute_RemoveNoteCommand(object obj)
+        private void Execute_SaveNotesCommand(object obj)
         {
-            if (MySelectedItem != null)
-            {
-                if (MessageBox.Show("Are you sure you want to remove your sticky note?", "REMOVE STICKYNOTE", MessageBoxButton.YesNo, MessageBoxImage.Hand) == MessageBoxResult.Yes)
-                {
-                    MyCollection.Remove(MySelectedItem);
-                }
-            }
-            else
-            {
-                MessageBox.Show("Please select a sticky note to remove.", "SELECT STICKYNOTE", MessageBoxButton.OK, MessageBoxImage.Information);
-            }
+            SaveCommand();
         }
         #endregion
     }

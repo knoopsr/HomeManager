@@ -9,24 +9,29 @@ namespace HomeManager.Model.StickyNotes
     public class clsStickyNotesModel : clsCommonModelPropertiesBase, IDataErrorInfo
     {
         #region FIELDS
-        private string _selectedBrush;
-        private DateTime _date;
         private int _userID;
         private int _stickyNoteID;
         private string _title;
         private string _content;
+        private byte[] _thumbnail; 
         private string _thumbnailName;
-        private byte[] _thumbnail;
+        private DateTime _date;
+        private string _selectedBrush;
+        private int _position;
         private double _width = 225; // Default smaller size
         private double _height = 175;
         private static readonly ObservableCollection<string> _brushCollection = new()
         {
             "titleBrush",
             "menuBrush",
-            "toolbarBrush",
             "toolbarDisabledBrush",
             "backgroundBrush",
-            "iconBrush"
+            "iconBrush",
+            "redBrush",
+            "greenBrush",
+            "blueBrush",
+            "yellowBrush",
+            "orangeBrush"
         };
         #endregion
 
@@ -39,6 +44,19 @@ namespace HomeManager.Model.StickyNotes
          * dan wordt de note weergegeven in de helft van de grootte bij he initializeren van de app. Een bug dus lijkt me.
          * Los daarvan worden ook alle background ingekort waardoor je de mooie DarkSlateGray Background met Opacity niet tegoei kan weergeven.
         */
+
+        public int Position
+        {
+            get => _position;
+            set
+            {
+                if (_position != value)
+                {
+                    _position = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
 
         public double Width
         {
