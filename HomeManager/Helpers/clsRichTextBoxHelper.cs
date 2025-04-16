@@ -16,15 +16,11 @@ namespace HomeManager.Helpers
                 typeof(clsRichTextBoxHelper),
                 new FrameworkPropertyMetadata(string.Empty, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault, OnRtfTextChanged));
 
-        public static string GetRtfText(DependencyObject obj)
-        {
-            return (string)obj.GetValue(RtfTextProperty);
-        }
+        public static string GetRtfText(DependencyObject obj) => 
+            (string)obj.GetValue(RtfTextProperty);
 
-        public static void SetRtfText(DependencyObject obj, string value)
-        {
+        public static void SetRtfText(DependencyObject obj, string value) => 
             obj.SetValue(RtfTextProperty, value);
-        }
 
         //private static void OnRtfTextChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         //{

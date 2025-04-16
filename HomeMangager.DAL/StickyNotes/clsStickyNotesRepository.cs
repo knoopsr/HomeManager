@@ -1,14 +1,16 @@
 ﻿using HomeManager.Model.StickyNotes;
+using Microsoft.Data.SqlClient;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace HomeManager.DAL.StickyNotes
 {
-    class clsStickyNotesRepository : IStickyNotesRepository
+    public class clsStickyNotesRepository : IStickyNotesRepository
     {
         private ObservableCollection<clsStickyNotesModel> StickyNotesCollection;
 
@@ -27,19 +29,27 @@ namespace HomeManager.DAL.StickyNotes
 
         private void GenerateCollection()
         {
-            //SqlDataReader MijnDataReader = DAL.GetData(Properties.Resources.S_Taal);
-            //MijnCollectie = new ObservableCollection<clsLanguageM>();
-            //while (MijnDataReader.Read())
-            //{
-            //    clsLanguageM m = new clsLanguageM()
-            //    {
-            //        TaalID = (int)MijnDataReader["TaalID"],
-            //        Taal = MijnDataReader["Taal"].ToString(),
-            //        ControlField = MijnDataReader["ControlField"]
-            //    };
-            //    MijnCollectie.Add(m);
-            //}
-            //MijnDataReader.Close();
+            SqlDataReader MijnDataReader = clsDAL.GetData(Properties.Resources.S_Notities);
+            StickyNotesCollection = new ObservableCollection<clsStickyNotesModel>();
+            
+            while (MijnDataReader.Read())
+            {
+                clsStickyNotesModel item = new clsStickyNotesModel()
+                {
+                    StickyNoteID = (int)MijnDataReader[0],
+                    UserID = (int)MijnDataReader[1],
+                    Title = MijnDataReader["Title"].ToString(),
+                    Content = MijnDataReader["Note"].ToString(),
+                    // Controle op DBNull voordat je het cast
+                    Thumbnail = MijnDataReader["Thumbnail"] != DBNull.Value ? (byte[])MijnDataReader["Thumbnail"] : null,
+                    ThumbnailName = MijnDataReader["ThumbnailName"].ToString(),
+                    Date = (DateTime)MijnDataReader["SelectedDate"],
+                    SelectedBrush = MijnDataReader["SelectedBrush"].ToString(),
+                    ControlField = MijnDataReader["ControlField"]
+                };
+                StickyNotesCollection.Add(item);
+            }
+            MijnDataReader.Close();
         }
 
         public clsStickyNotesModel GetByID(int id)
@@ -52,6 +62,15 @@ namespace HomeManager.DAL.StickyNotes
             return StickyNotesCollection.Where(note => note.StickyNoteID == id).FirstOrDefault();
         }
 
+        public clsStickyNotesModel GetByUserID(int id)
+        {
+            if (StickyNotesCollection == null)
+            {
+                GenerateCollection();
+            }
+            return StickyNotesCollection.Where(note => note.UserID == id).FirstOrDefault();
+        }
+
         public clsStickyNotesModel GetFirst()
         {
             if (StickyNotesCollection == null)
@@ -61,24 +80,69 @@ namespace HomeManager.DAL.StickyNotes
             return StickyNotesCollection.FirstOrDefault();
         }
 
-        public bool Delete(clsStickyNotesModel entity)
-        {
-            throw new NotImplementedException();
-        }
-
         public bool Insert(clsStickyNotesModel entity)
         {
-            throw new NotImplementedException();
+            (DataTable DT, bool OK, string Boodschap) =
+                clsDAL.ExecuteDataTable(Properties.Resources.I_Notities,
+                clsDAL.Parameter("PersoonID", entity.UserID),
+                clsDAL.Parameter("Title", entity.Title),
+                clsDAL.Parameter("Note", entity.Content),
+                clsDAL.Parameter("Thumbnail", entity.Thumbnail != null ? (object)entity.Thumbnail : DBNull.Value, SqlDbType.VarBinary),
+                clsDAL.Parameter("ThumbnailName", entity.ThumbnailName),
+                clsDAL.Parameter("SelectedDate", entity.Date),
+                clsDAL.Parameter("SelectedBrush", entity.SelectedBrush),
+                clsDAL.Parameter("@ReturnValue", 0)
+                );
+            if (!OK)
+            {
+                entity.ErrorBoodschap = Boodschap;
+            }
+            return OK;
         }
 
         public bool Update(clsStickyNotesModel entity)
         {
-            throw new NotImplementedException();
+            (DataTable DT, bool OK, string Boodschap) =
+                clsDAL.ExecuteDataTable(Properties.Resources.U_Notities,
+                clsDAL.Parameter("StickyNoteID", entity.StickyNoteID),
+                clsDAL.Parameter("PersoonID", entity.UserID),
+                clsDAL.Parameter("Title", entity.Title),
+                clsDAL.Parameter("Note", entity.Content),
+                clsDAL.Parameter("Thumbnail", entity.Thumbnail != null ? (object)entity.Thumbnail : DBNull.Value, SqlDbType.VarBinary),
+                clsDAL.Parameter("ThumbnailName", entity.ThumbnailName),
+                clsDAL.Parameter("SelectedDate", entity.Date),
+                clsDAL.Parameter("SelectedBrush", entity.SelectedBrush),
+                clsDAL.Parameter("ControlField", entity.ControlField),
+                clsDAL.Parameter("@ReturnValue", 0)
+                );
+            if (!OK)
+            {
+                entity.ErrorBoodschap = Boodschap;
+            }
+            return OK;
+        }
+
+        public bool Delete(clsStickyNotesModel entity)
+        {
+            (DataTable DT, bool OK, string Boodschap) =
+                clsDAL.ExecuteDataTable(Properties.Resources.D_Notities,
+                clsDAL.Parameter("StickyNoteID", entity.StickyNoteID),
+                clsDAL.Parameter("ControlField", entity.ControlField),
+                clsDAL.Parameter("@ReturnValue", 0));
+            if (!OK)
+            {
+                entity.ErrorBoodschap = Boodschap;
+            }
+            return OK;
         }
 
         public clsStickyNotesModel GetById(int id)
         {
-            throw new NotImplementedException();
+            if (StickyNotesCollection == null)
+            {
+                GenerateCollection();
+            }
+            return StickyNotesCollection.Where(stickyNote => stickyNote.StickyNoteID == id).FirstOrDefault();
         }
     }
 }

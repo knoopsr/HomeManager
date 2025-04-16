@@ -6,9 +6,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HomeManager.DAL.StickyNotes
+namespace HomeManager.DataService.StickyNotes
 {
-    public interface IStickyNotesRepository : IRepository<clsStickyNotesModel>
+    public interface IStickyNotesDateService : IDataService<clsStickyNotesModel>
     {
     }
 }
