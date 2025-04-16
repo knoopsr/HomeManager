@@ -40,7 +40,6 @@ namespace HomeManager.DAL.StickyNotes
                     UserID = (int)MijnDataReader[1],
                     Title = MijnDataReader["Title"].ToString(),
                     Content = MijnDataReader["Note"].ToString(),
-                    // Controle op DBNull voordat je het cast
                     Thumbnail = MijnDataReader["Thumbnail"] != DBNull.Value ? (byte[])MijnDataReader["Thumbnail"] : null,
                     ThumbnailName = MijnDataReader["ThumbnailName"].ToString(),
                     Date = (DateTime)MijnDataReader["SelectedDate"],
@@ -91,6 +90,7 @@ namespace HomeManager.DAL.StickyNotes
                 clsDAL.Parameter("ThumbnailName", entity.ThumbnailName),
                 clsDAL.Parameter("SelectedDate", entity.Date),
                 clsDAL.Parameter("SelectedBrush", entity.SelectedBrush),
+                clsDAL.Parameter("Position", entity.Position),
                 clsDAL.Parameter("@ReturnValue", 0)
                 );
             if (!OK)

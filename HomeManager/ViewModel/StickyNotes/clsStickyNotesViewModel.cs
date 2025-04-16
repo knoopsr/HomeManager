@@ -23,6 +23,7 @@ using HomeManager.Helpers;
 using HomeManager.MailService;
 using HomeManager.Model;
 using HomeManager.Model.StickyNotes;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.VisualBasic;
 using Microsoft.Win32;
 
@@ -132,22 +133,12 @@ namespace HomeManager.ViewModel.StickyNotes
         {
             foreach (clsStickyNotesModel item in MyCollection)
             {
-                if (_newStatus)
+                for (int i = 0; i < MyCollection.Count; i++)
                 {
-                    if (_myService.Insert(item))
-                    {
-                        item.IsDirty = false;
-                        item.MijnSelectedIndex = 0;
-                        item.MyVisibility = (int)Visibility.Visible;
-                        _newStatus = false;
-                        LoadData();
-                    }
-                    else
-                    {
-                        MessageBox.Show(item.ErrorBoodschap, "SaveCommand: Error?");
-                    }
+                    MyCollection[i].Position = i;
                 }
-                else
+
+                if (!_newStatus)
                 {
                     if (_myService.Update(item))
                     {
@@ -158,8 +149,12 @@ namespace HomeManager.ViewModel.StickyNotes
                     }
                     else
                     {
-                        MessageBox.Show(item.ErrorBoodschap, "SaveCommand: Error?");
+                        MessageBox.Show(item.ErrorBoodschap, "SaveCommand: Update error?");
                     }
+                }
+                else
+                {
+                    MessageBox.Show(item.ErrorBoodschap, "SaveCommand: NEWSTATUS error?");
                 }
             }
         }
@@ -224,18 +219,6 @@ namespace HomeManager.ViewModel.StickyNotes
             }
         }
         #endregion
-
-        public string ConvertRichTextBoxToRtf(RichTextBox richTextBox)
-        {
-            if (richTextBox == null) throw new ArgumentNullException(nameof(richTextBox));
-
-            using (var memoryStream = new System.IO.MemoryStream())
-            {
-                var range = new TextRange(richTextBox.Document.ContentStart, richTextBox.Document.ContentEnd);
-                range.Save(memoryStream, DataFormats.Rtf);
-                return System.Text.Encoding.UTF8.GetString(memoryStream.ToArray());
-            }
-        }
         #endregion
 
         #region COMMANDS
@@ -244,18 +227,44 @@ namespace HomeManager.ViewModel.StickyNotes
         {
             clsStickyNotesModel newItem = new clsStickyNotesModel
             {
-                Title = "Add a title!",
-                Content = "Hello, world!",
+                Title = "Hello, world!",
+                Content = @"{\rtf1\ansi\ansicpg1252\uc1\htmautsp\deff2{\fonttbl{\f0\fcharset0 Times New Roman;}{\f2\fcharset0 Segoe UI;}}{\colortbl\red0\green0\blue0;\red255\green255\blue255;}\loch\hich\dbch\pard\plain\ltrpar\itap0{\lang1033\fs24\f2\cf0 \cf0\ql{\f2 {\b\ltrch WELCOME TO STICKY NOTES}{\ltrch , }{\i\ltrch The }{\i\ul\ltrch features }{\i\ltrch are}{\ltrch :}\li0\ri0\sa0\sb0\fi0\ql\par}
+{\f2 {\ltrch 1. Use the Window's buttons: }{\b\ltrch Create}{\ltrch , }{\b\ltrch Save All}{\ltrch  and }{\b\ltrch Remove }{\ltrch to manage your sticky notes.}\li0\ri0\sa0\sb0\fi0\ql\par}
+{\f2 {\ltrch 2. While Selected:}\li0\ri0\sa0\sb0\fi0\ql\par}
+{\f2 {\ltrch - Use }{\b\ltrch CTRL+B }{\ltrch for Bold Text}\li0\ri0\sa0\sb0\fi300\ql\par}
+{\f2 {\ltrch - Use }{\i\ltrch CTRL+I }{\ltrch for Italic Text}\li0\ri0\sa0\sb0\fi300\ql\par}
+{\f2 {\ltrch - Use }{\ul\ltrch CTRL+U }{\ltrch for Underlined Text}\li0\ri0\sa0\sb0\fi300\ql\par}
+{\f2 {\ltrch 3. Scroll while hovering the note }{\b\ltrch scrolls }{\ltrch downward, if enough text is visible.}\li0\ri0\sa0\sb0\fi0\ql\par}
+{\f2 {\ltrch 4. Hover, Click, }{\b\ltrch Drag and Drop }{\ltrch a sticky note in between two others or onto another to change it's position.}\li0\ri0\sa0\sb0\fi0\ql\par}
+{\f2 {\ltrch 5. Upload a }{\b\ltrch thumbnail}{\ltrch , click it again and use the prompt to manage it.}\li0\ri0\sa0\sb0\fi0\ql\par}
+{\f2 {\ltrch 6. Enter a }{\b\ltrch title }{\ltrch in between the thumbnail and date.}\li0\ri0\sa0\sb0\fi0\ql\par}
+{\f2 {\ltrch 7. Select a }{\b\ltrch date}{\ltrch , past dates are red, future ones are green.}\li0\ri0\sa0\sb0\fi0\ql\par}
+{\f2 {\ltrch 8. Use the combobox and select a }{\b\ltrch color }{\ltrch from it's dropdown menu to change the border color of a note.}\li0\ri0\sa0\sb0\fi0\ql\par}
+}
+}",
                 ThumbnailName = string.Empty,
                 Date = DateTime.Now,
                 SelectedBrush = "titleBrush"
             };
 
-            MyCollection.Add(newItem);
-            MySelectedItem = newItem;
-            MySelectedItem.MyVisibility = (int)Visibility.Hidden;
+            if (MyCollection.IsNullOrEmpty()) newItem.Position = 0;
+            else newItem.Position = MyCollection.Count;
+
             _newStatus = true;
-            IsFocusedAfterNew = true;
+
+            if (_myService.Insert(newItem))
+            {
+                newItem.IsDirty = false;
+                newItem.MijnSelectedIndex = 0;
+                newItem.MyVisibility = (int)Visibility.Visible;
+                _newStatus = false;
+                LoadData();
+                MySelectedItem = newItem;
+            }
+            else
+            {
+                MessageBox.Show(newItem.ErrorBoodschap, "CreateCommand: Error?");
+            }
         }
 
         private bool CanExecute_RemoveNoteCommand(object obj) { return true; }
