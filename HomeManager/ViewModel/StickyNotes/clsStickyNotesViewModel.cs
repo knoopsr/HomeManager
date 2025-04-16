@@ -23,6 +23,7 @@ using HomeManager.Helpers;
 using HomeManager.MailService;
 using HomeManager.Model;
 using HomeManager.Model.StickyNotes;
+using Microsoft.VisualBasic;
 using Microsoft.Win32;
 
 
@@ -77,18 +78,6 @@ namespace HomeManager.ViewModel.StickyNotes
             get { return _mySelectedItem; }
             set
             {
-                if (value != null)
-                {
-                    if (_mySelectedItem != null && _mySelectedItem.IsDirty)
-                    {
-                        if (MessageBox.Show("Do you want to save:" + _mySelectedItem + " ?", "SAVE STICKYNOTE",
-                            MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
-                        {
-                            SaveCommand();
-                            LoadData();
-                        }
-                    }
-                }
                 _mySelectedItem = value;
                 IncreaseSelectedNoteSize();
                 OnPropertyChanged();
@@ -141,35 +130,35 @@ namespace HomeManager.ViewModel.StickyNotes
         #region METHODS
         private async void SaveCommand(object? parameter = null)
         {
-            if (_mySelectedItem != null)
+            foreach (clsStickyNotesModel item in MyCollection)
             {
                 if (_newStatus)
                 {
-                    if (_myService.Insert(_mySelectedItem))
+                    if (_myService.Insert(item))
                     {
-                        _mySelectedItem.IsDirty = false;
-                        _mySelectedItem.MijnSelectedIndex = 0;
-                        _mySelectedItem.MyVisibility = (int)Visibility.Visible;
+                        item.IsDirty = false;
+                        item.MijnSelectedIndex = 0;
+                        item.MyVisibility = (int)Visibility.Visible;
                         _newStatus = false;
                         LoadData();
                     }
                     else
                     {
-                        MessageBox.Show(_mySelectedItem.ErrorBoodschap, "SaveCommand: Error?");
+                        MessageBox.Show(item.ErrorBoodschap, "SaveCommand: Error?");
                     }
                 }
                 else
                 {
-                    if (_myService.Update(_mySelectedItem))
+                    if (_myService.Update(item))
                     {
-                        _mySelectedItem.IsDirty = false;
-                        _mySelectedItem.MijnSelectedIndex = 0;
+                        item.IsDirty = false;
+                        item.MijnSelectedIndex = 0;
                         _newStatus = false;
                         LoadData();
                     }
                     else
                     {
-                        MessageBox.Show(_mySelectedItem.ErrorBoodschap, "SaveCommand: Error?");
+                        MessageBox.Show(item.ErrorBoodschap, "SaveCommand: Error?");
                     }
                 }
             }

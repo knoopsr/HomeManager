@@ -13,6 +13,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using HomeManager.DataService.StickyNotes;
 using HomeManager.Model;
 using HomeManager.Model.StickyNotes;
 
@@ -55,35 +56,25 @@ namespace HomeManager.View.StickyNotes
         /// <param name="e"></param>
         private void StickyNotesListView_Drop(object sender, DragEventArgs e)
         {
-            Debug.WriteLine("Drop event triggered");
-
-            if (_draggedItem == null)
-            {
-                Debug.WriteLine("Dragged item is null");
-                return;
-            }
+            if (_draggedItem == null) return;
 
             var collection = StickyNotesListView.ItemsSource as ObservableCollection<clsStickyNotesModel>;
-            if (collection == null)
-            {
-                Debug.WriteLine("ItemsSource is not an ObservableCollection<clsStickyNotesModel>");
-                return;
-            }
+            if (collection == null) return;
 
             var targetItem = ((FrameworkElement)e.OriginalSource).DataContext as clsStickyNotesModel;
-            if (targetItem == null || targetItem == _draggedItem)
-            {
-                Debug.WriteLine("Target item is null or same as dragged item");
-                return;
-            }
+            if (targetItem == null || targetItem == _draggedItem) return;
 
             int oldIndex = collection.IndexOf((clsStickyNotesModel)_draggedItem);
             int newIndex = collection.IndexOf(targetItem);
 
             if (oldIndex >= 0 && newIndex >= 0 && oldIndex != newIndex)
             {
-                Debug.WriteLine($"Moving item from index {oldIndex} to {newIndex}");
                 collection.Move(oldIndex, newIndex);
+
+                for (int i = 0; i < collection.Count; i++)
+                {
+                    collection[i].Position = i;
+                }
             }
 
             _draggedItem = null;

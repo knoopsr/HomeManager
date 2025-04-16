@@ -112,6 +112,7 @@ namespace HomeManager.DAL.StickyNotes
                 clsDAL.Parameter("ThumbnailName", entity.ThumbnailName),
                 clsDAL.Parameter("SelectedDate", entity.Date),
                 clsDAL.Parameter("SelectedBrush", entity.SelectedBrush),
+                clsDAL.Parameter("Position", entity.Position),
                 clsDAL.Parameter("ControlField", entity.ControlField),
                 clsDAL.Parameter("@ReturnValue", 0)
                 );
