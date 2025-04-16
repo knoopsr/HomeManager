@@ -104,8 +104,7 @@
             ScrollViewer.CanContentScroll="False"
             ScrollViewer.VerticalScrollBarVisibility="Auto"
             SelectedItem="{Binding MySelectedItem, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-            Style="{StaticResource StickyNoteListView}"
-            VirtualizingStackPanel.IsVirtualizing="False">
+            Style="{StaticResource StickyNoteListView}">
             <ListView.ItemContainerStyle>
                 <Style BasedOn="{StaticResource StickyNoteListViewItem}" TargetType="ListViewItem">
                     <EventSetter Event="DragOver" Handler="ListViewItem_DragOver" />
@@ -229,10 +228,9 @@
                                     Grid.Column="0"
                                     Margin="0"
                                     Padding="5"
-                                    Helpers:clsRichTextBoxHelper.RtfText="{Binding Content, Mode=TwoWay}"
+                                    Helpers:clsRichTextBoxHelper.RtfText="{Binding Content, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                     AcceptsReturn="True"
-                                    AcceptsTab="True"
-                                    Style="{StaticResource StickyNoteRichTextBox}" />
+                                    AcceptsTab="True" />
                                 <StackPanel
                                     Grid.Row="1"
                                     Grid.Column="0"
