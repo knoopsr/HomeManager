@@ -229,6 +229,8 @@ namespace HomeManager.ViewModel
             }
         }
 
+        public clsExceptionsViewModel ExceptionsViewModel { get => new clsExceptionsViewModel(); } 
+
         public clsUnLockViewModel UnLockViewModel
         {
             get

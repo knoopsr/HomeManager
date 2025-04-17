@@ -394,6 +394,15 @@ namespace HomeManager.DAL.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to I_ExceptionLog.
+        /// </summary>
+        internal static string I_ExceptionLog {
+            get {
+                return ResourceManager.GetString("I_ExceptionLog", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to I_Frequentie.
         /// </summary>
         internal static string I_Frequentie {
@@ -696,6 +705,51 @@ namespace HomeManager.DAL.Properties {
         internal static string S_EmailType {
             get {
                 return ResourceManager.GetString("S_EmailType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to S_ExceptionsByAccountID.
+        /// </summary>
+        internal static string S_ExceptionsByAccountID {
+            get {
+                return ResourceManager.GetString("S_ExceptionsByAccountID", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to S_ExceptionsByDate.
+        /// </summary>
+        internal static string S_ExceptionsByDate {
+            get {
+                return ResourceManager.GetString("S_ExceptionsByDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to S_ExceptionsByExceptionName.
+        /// </summary>
+        internal static string S_ExceptionsByExceptionName {
+            get {
+                return ResourceManager.GetString("S_ExceptionsByExceptionName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to S_ExceptionsByTargetSite.
+        /// </summary>
+        internal static string S_ExceptionsByTargetSite {
+            get {
+                return ResourceManager.GetString("S_ExceptionsByTargetSite", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to S_ExceptionsFirst1000.
+        /// </summary>
+        internal static string S_ExceptionsFirst1000 {
+            get {
+                return ResourceManager.GetString("S_ExceptionsFirst1000", resourceCulture);
             }
         }
         
