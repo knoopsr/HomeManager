@@ -241,6 +241,15 @@ namespace HomeManager.DAL.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to D_StickyNotes.
+        /// </summary>
+        internal static string D_StickyNotes {
+            get {
+                return ResourceManager.GetString("D_StickyNotes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to D_TelefoonNummers.
         /// </summary>
         internal static string D_TelefoonNummers {
@@ -453,6 +462,15 @@ namespace HomeManager.DAL.Properties {
         internal static string I_Rollen {
             get {
                 return ResourceManager.GetString("I_Rollen", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to I_StickyNotes.
+        /// </summary>
+        internal static string I_StickyNotes {
+            get {
+                return ResourceManager.GetString("I_StickyNotes", resourceCulture);
             }
         }
         
@@ -799,6 +817,24 @@ namespace HomeManager.DAL.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to S_StickyNotes.
+        /// </summary>
+        internal static string S_StickyNotes {
+            get {
+                return ResourceManager.GetString("S_StickyNotes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to S_StickyNotesByID.
+        /// </summary>
+        internal static string S_StickyNotesByID {
+            get {
+                return ResourceManager.GetString("S_StickyNotesByID", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to S_TelefoonNummerByID.
         /// </summary>
         internal static string S_TelefoonNummerByID {
@@ -1011,6 +1047,15 @@ namespace HomeManager.DAL.Properties {
         internal static string U_Rollen {
             get {
                 return ResourceManager.GetString("U_Rollen", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to U_StickyNotes.
+        /// </summary>
+        internal static string U_StickyNotes {
+            get {
+                return ResourceManager.GetString("U_StickyNotes", resourceCulture);
             }
         }
         

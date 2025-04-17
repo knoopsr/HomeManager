@@ -29,7 +29,7 @@ namespace HomeManager.DAL.StickyNotes
 
         private void GenerateCollection()
         {
-            SqlDataReader MijnDataReader = clsDAL.GetData(Properties.Resources.S_Notities);
+            SqlDataReader MijnDataReader = clsDAL.GetData(Properties.Resources.S_StickyNotes);
             StickyNotesCollection = new ObservableCollection<clsStickyNotesModel>();
             
             while (MijnDataReader.Read())
@@ -82,7 +82,7 @@ namespace HomeManager.DAL.StickyNotes
         public bool Insert(clsStickyNotesModel entity)
         {
             (DataTable DT, bool OK, string Boodschap) =
-                clsDAL.ExecuteDataTable(Properties.Resources.I_Notities,
+                clsDAL.ExecuteDataTable(Properties.Resources.I_StickyNotes,
                 clsDAL.Parameter("PersoonID", entity.UserID),
                 clsDAL.Parameter("Title", entity.Title),
                 clsDAL.Parameter("Note", entity.Content),
@@ -103,7 +103,7 @@ namespace HomeManager.DAL.StickyNotes
         public bool Update(clsStickyNotesModel entity)
         {
             (DataTable DT, bool OK, string Boodschap) =
-                clsDAL.ExecuteDataTable(Properties.Resources.U_Notities,
+                clsDAL.ExecuteDataTable(Properties.Resources.U_StickyNotes,
                 clsDAL.Parameter("StickyNoteID", entity.StickyNoteID),
                 clsDAL.Parameter("PersoonID", entity.UserID),
                 clsDAL.Parameter("Title", entity.Title),
@@ -126,7 +126,7 @@ namespace HomeManager.DAL.StickyNotes
         public bool Delete(clsStickyNotesModel entity)
         {
             (DataTable DT, bool OK, string Boodschap) =
-                clsDAL.ExecuteDataTable(Properties.Resources.D_Notities,
+                clsDAL.ExecuteDataTable(Properties.Resources.D_StickyNotes,
                 clsDAL.Parameter("StickyNoteID", entity.StickyNoteID),
                 clsDAL.Parameter("ControlField", entity.ControlField),
                 clsDAL.Parameter("@ReturnValue", 0));
