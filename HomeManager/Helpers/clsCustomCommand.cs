@@ -3,6 +3,7 @@ using HomeManager.DataService.Logging;
 using HomeManager.Model.Exceptions;
 using HomeManager.Model.Logging;
 using HomeManager.Model.Security;
+using HomeManager.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,9 +17,7 @@ namespace HomeManager.Helpers
 {
     public class clsCustomCommand : ICommand
     {
-
         clsButtonLoggingDataService MijnLoggingService;
-        clsExceptionsDataService ExceptionsDataService;
 
         private Action<object?> _execute;
         private Predicate<object?> _canExecute;
@@ -29,7 +28,6 @@ namespace HomeManager.Helpers
             this._canExecute = canExecute;
 
             MijnLoggingService = new clsButtonLoggingDataService();
-            ExceptionsDataService = new clsExceptionsDataService();
         }
 
         public bool CanExecute(object? parameter)
@@ -68,18 +66,7 @@ namespace HomeManager.Helpers
             }
             catch(Exception ex)
             {
-                ExceptionsDataService.Insert(new clsExceptionsModel()
-                {
-                    AccountID = clsLoginModel.Instance.AccountID,
-                    ExceptionName = ex.GetType().FullName ?? "Unknown GetType().FullName",
-                    Module = ex.GetType().Module.Name ?? "Unknown Module.Name",
-                    Source = ex.Source ?? "Unknown Source",
-                    TargetSite = ex.TargetSite?.Name ?? "Unknown TargetSite",
-                    ExceptionMessage = ex.Message ?? "Unknown Message",
-                    InnerExceptionMessage = ex.InnerException?.Message ?? "Unknown InnerException.Message",
-                    StackTrace = ex.StackTrace ?? "Unknown StackTrace",
-                    DotNetAssembly = ex.GetType().Assembly.FullName ?? "Unknown Assembly"
-                });
+                clsExceptionService.InsertException(ex);
             }
         }
 
