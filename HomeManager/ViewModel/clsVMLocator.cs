@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 using HomeManager.Model.Budget;
 using HomeManager.Model.Todo;
-using HomeManager.ViewModel;
+using HomeManager.ViewModel.Exceptions;
 using HomeManager.ViewModel.StickyNotes;
 
 

@@ -2,30 +2,41 @@
 using DocumentFormat.OpenXml.Wordprocessing;
 using HomeManager.Common;
 using HomeManager.DataService.Exceptions;
-using HomeManager.DataService.Logging;
 using HomeManager.Helpers;
 using HomeManager.Model.Exceptions;
-using HomeManager.Model.Logging;
 using HomeManager.Model.Security;
 using Microsoft.Win32;
 using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Input;
 
-namespace HomeManager.ViewModel.Logging
+namespace HomeManager.ViewModel.Exceptions
 {
     public class clsExceptionsViewModel : clsCommonModelPropertiesBase
     {
-        clsExceptionsDataService MijnService;
+        #region FIELDS
+        private ObservableCollection<clsExceptionsModel> _mijnCollectie;
+        private ObservableCollection<clsExceptionsModel> _mijnGefilterdeCollectie;
+        private ObservableCollection<clsAccountModel> _mijnAccounten;
+        private clsAccountModel _selectedAccount;
+        private ObservableCollection<string> _mijnExceptions;
+        private string _selectedExceptions;
+        private ObservableCollection<string> _mijnTargetSites;
+        private string _selectedTargetSites;
+        private DateTime? _startDate;
+        private DateTime? _endDate;
 
+        clsExceptionsDataService MijnService;
+        #endregion
+
+        #region PROPERTIES
         public ICommand cmdDelete { get; set; }
         public ICommand cmdNew { get; set; }
         public ICommand cmdSave { get; set; }
         public ICommand cmdCancel { get; set; }
         public ICommand cmdClose { get; set; }
         public ICommand cmdExport { get; set; }
-        
-        private ObservableCollection<clsExceptionsModel> _mijnCollectie;
+
         public ObservableCollection<clsExceptionsModel> MijnCollectie
         {
             get { return _mijnCollectie; }
@@ -36,7 +47,6 @@ namespace HomeManager.ViewModel.Logging
             }
         }
 
-        private ObservableCollection<clsExceptionsModel> _mijnGefilterdeCollectie;
         public ObservableCollection<clsExceptionsModel> MijnGefilterdeCollectie
         {
             get { return _mijnGefilterdeCollectie; }
@@ -47,7 +57,6 @@ namespace HomeManager.ViewModel.Logging
             }
         }
 
-        private ObservableCollection<clsAccountModel> _mijnAccounten;
         public ObservableCollection<clsAccountModel> MijnAccounten
         {
             get { return _mijnAccounten; }
@@ -58,7 +67,6 @@ namespace HomeManager.ViewModel.Logging
             }
         }
 
-        private clsAccountModel _selectedAccount;
         public clsAccountModel SelectedAccount
         {
             get => _selectedAccount;
@@ -70,7 +78,6 @@ namespace HomeManager.ViewModel.Logging
             }
         }
 
-        private ObservableCollection<string> _mijnExceptions;
         public ObservableCollection<string> MijnExceptions
         {
             get { return _mijnExceptions; }
@@ -81,7 +88,6 @@ namespace HomeManager.ViewModel.Logging
             }
         }
 
-        private string _selectedExceptions;
         public string SelectedExceptions
         {
             get => _selectedExceptions;
@@ -93,7 +99,6 @@ namespace HomeManager.ViewModel.Logging
             }
         }
 
-        private ObservableCollection<string> _mijnTargetSites;
         public ObservableCollection<string> MijnTargetSites
         {
             get { return _mijnTargetSites; }
@@ -104,7 +109,6 @@ namespace HomeManager.ViewModel.Logging
             }
         }
 
-        private string _selectedTargetSites;
         public string SelectedTargetSites
         {
             get => _selectedTargetSites;
@@ -116,7 +120,6 @@ namespace HomeManager.ViewModel.Logging
             }
         }
 
-        private DateTime? _startDate;
         public DateTime? StartDate
         {
             get => _startDate;
@@ -128,7 +131,6 @@ namespace HomeManager.ViewModel.Logging
             }
         }
 
-        private DateTime? _endDate;
         public DateTime? EndDate
         {
             get => _endDate;
@@ -139,7 +141,9 @@ namespace HomeManager.ViewModel.Logging
                 FilterData();
             }
         }
+        #endregion
 
+        #region CONSTRUCTOR
         public clsExceptionsViewModel()
         {
             MijnService = new clsExceptionsDataService();
@@ -153,8 +157,118 @@ namespace HomeManager.ViewModel.Logging
 
             LoadData();
         }
+        #endregion
 
+        #region METHODS
+        private void LoadData()
+        {
+            MijnCollectie = MijnService.GetAll();
+
+
+            var uniekeAccounts = MijnCollectie
+                .Select(x => new clsAccountModel { AccountID = x.AccountID, AccountName = x.AccountName })
+                .DistinctBy(x => x.AccountID) // Alleen unieke AccountID's
+                .ToList();
+
+            var uniekeExceptions = MijnCollectie
+                .Select(x => x.ExceptionName)
+                .Distinct()
+                .OrderBy(x => x) // Sorteer alfabetisch
+                .ToList();
+
+            var uniekeTargetSites = MijnCollectie
+                .Select(x => x.TargetSite)
+                .Distinct()
+                .OrderBy(x => x) // Sorteer alfabetisch
+                .ToList();
+
+            var uniekeExceptionsOptie = new string("-- Alle Exceptions --");
+            uniekeExceptions.Insert(0, uniekeExceptionsOptie);
+
+            var uniekeTargetSitesOptie = new string("-- Alle TargetSites --");
+            uniekeTargetSites.Insert(0, uniekeTargetSitesOptie);
+
+            var alleAccountsOptie = new clsAccountModel { AccountID = 0, AccountName = "-- Alle Accounts --" };
+            uniekeAccounts.Insert(0, alleAccountsOptie);
+
+            // Koppel de lijst aan de ObservableCollection
+            MijnAccounten = new ObservableCollection<clsAccountModel>(uniekeAccounts);
+            MijnExceptions = new ObservableCollection<string>(uniekeExceptions);
+            MijnTargetSites = new ObservableCollection<string>(uniekeTargetSites);
+
+            // ❗ Standaard "-- Alle Accounts --" selecteren
+            SelectedAccount = alleAccountsOptie;
+            SelectedExceptions = uniekeExceptionsOptie;
+            SelectedTargetSites = uniekeTargetSitesOptie;
+        }
+
+        private void FilterData()
+        {
+            if (MijnCollectie == null || !MijnCollectie.Any()) return;
+
+            var gefilterdeCollectie = MijnCollectie.ToList();
+
+            // Filter op AccountID (indien niet "-- Alle Accounts --")
+            if (SelectedAccount != null && SelectedAccount.AccountID != 0)
+            {
+                gefilterdeCollectie = gefilterdeCollectie
+                    .Where(x => x.AccountID == SelectedAccount.AccountID)
+                    .ToList();
+            }
+
+            // Filter op Actie (indien niet "-- Alle Acties --")
+            if (!string.IsNullOrEmpty(SelectedExceptions) && SelectedExceptions != "-- Alle Exceptions --")
+            {
+                gefilterdeCollectie = gefilterdeCollectie
+                    .Where(x => x.ExceptionName == SelectedExceptions)
+                    .ToList();
+            }
+
+            // Filter op ActieTarget (indien niet "-- Alle ActieTargets --")
+            if (!string.IsNullOrEmpty(SelectedTargetSites) && SelectedTargetSites != "-- Alle TargetSites --")
+            {
+                gefilterdeCollectie = gefilterdeCollectie
+                    .Where(x => x.TargetSite == SelectedTargetSites)
+                    .ToList();
+            }
+
+            // Filter op StartDate en EndDate
+            if (StartDate.HasValue && EndDate.HasValue)
+            {
+                // Beide datums ingevuld -> filter tussen deze datums
+                gefilterdeCollectie = gefilterdeCollectie
+                    .Where(x => x.CreatedOn >= StartDate.Value && x.CreatedOn <= EndDate.Value)
+                    .ToList();
+            }
+            else if (StartDate.HasValue)
+            {
+                // Alleen StartDate ingevuld -> toon vanaf deze datum
+                gefilterdeCollectie = gefilterdeCollectie
+                    .Where(x => x.CreatedOn >= StartDate.Value)
+                    .ToList();
+            }
+            else if (EndDate.HasValue)
+            {
+                // Alleen EndDate ingevuld -> toon tot deze datum
+                gefilterdeCollectie = gefilterdeCollectie
+                    .Where(x => x.CreatedOn <= EndDate.Value)
+                    .ToList();
+            }
+
+            // Update de gefilterde collectie
+            MijnGefilterdeCollectie = new ObservableCollection<clsExceptionsModel>(gefilterdeCollectie);
+        }
+        #endregion
+
+        #region COMMANDS
         private bool CanExecute_Export_Command(object? obj) => true;
+        private bool CanExecute_Close_Command(object? obj) => true;
+        private bool CanExecute_Cancel_Command(object? obj) => true;
+        private bool CanExecute_New_Command(object? obj) => false;
+        private bool CanExecute_Save_Command(object? obj) => false;
+        private bool CanExecute_Delete_Command(object? obj) => false;
+
+
         private void Execute_Export_Command(object? obj)
         {
             if (MijnGefilterdeCollectie == null || !MijnGefilterdeCollectie.Any())
@@ -223,122 +337,12 @@ namespace HomeManager.ViewModel.Logging
             }
         }
 
-        private void LoadData()
-        {
-            MijnCollectie = MijnService.GetAll();
-
-           
-            var uniekeAccounts = MijnCollectie
-                .Select(x => new clsAccountModel { AccountID = x.AccountID, AccountName = x.AccountName })
-                .DistinctBy(x => x.AccountID) // Alleen unieke AccountID's
-                .ToList();
-
-            var uniekeExceptions = MijnCollectie
-                .Select(x => x.ExceptionName)
-                .Distinct()
-                .OrderBy(x => x) // Sorteer alfabetisch
-                .ToList();
-
-            var uniekeTargetSites = MijnCollectie
-                .Select(x => x.TargetSite)
-                .Distinct()
-                .OrderBy(x => x) // Sorteer alfabetisch
-                .ToList();
-
-            var uniekeExceptionsOptie = new string ("-- Alle Exceptions --");
-            uniekeExceptions.Insert(0, uniekeExceptionsOptie);
-            var uniekeTargetSitesOptie = new string("-- Alle TargetSites --");       
-            uniekeTargetSites.Insert(0, uniekeTargetSitesOptie);
-
-            var alleAccountsOptie = new clsAccountModel { AccountID = 0, AccountName = "-- Alle Accounts --" };
-            uniekeAccounts.Insert(0, alleAccountsOptie);
-
-            // Koppel de lijst aan de ObservableCollection
-            MijnAccounten = new ObservableCollection<clsAccountModel>(uniekeAccounts);
-            MijnExceptions = new ObservableCollection<string>(uniekeExceptions);
-            MijnTargetSites = new ObservableCollection<string>(uniekeTargetSites);
-
-            // ❗ Standaard "-- Alle Accounts --" selecteren
-            SelectedAccount = alleAccountsOptie;
-            SelectedExceptions = uniekeExceptionsOptie;
-            SelectedTargetSites = uniekeTargetSitesOptie;
-        }
-
-        private void FilterData()
-        {
-            if (MijnCollectie == null || !MijnCollectie.Any())
-                return;
-
-            var gefilterdeCollectie = MijnCollectie.ToList();
-
-            // Filter op AccountID (indien niet "-- Alle Accounts --")
-            if (SelectedAccount != null && SelectedAccount.AccountID != 0)
-            {
-                gefilterdeCollectie = gefilterdeCollectie
-                    .Where(x => x.AccountID == SelectedAccount.AccountID)
-                    .ToList();
-            }
-
-            // Filter op Actie (indien niet "-- Alle Acties --")
-            if (!string.IsNullOrEmpty(SelectedExceptions) && SelectedExceptions != "-- Alle Exceptions --")
-            {
-                gefilterdeCollectie = gefilterdeCollectie
-                    .Where(x => x.ExceptionName == SelectedExceptions)
-                    .ToList();
-            }
-
-            // Filter op ActieTarget (indien niet "-- Alle ActieTargets --")
-            if (!string.IsNullOrEmpty(SelectedTargetSites) && SelectedTargetSites != "-- Alle SelectedTargets --")
-            {
-                gefilterdeCollectie = gefilterdeCollectie
-                    .Where(x => x.TargetSite == SelectedTargetSites)
-                    .ToList();
-            }
-
-            // Filter op StartDate en EndDate
-            if (StartDate.HasValue && EndDate.HasValue)
-            {
-                // Beide datums ingevuld -> filter tussen deze datums
-                gefilterdeCollectie = gefilterdeCollectie
-                    .Where(x => x.CreatedOn >= StartDate.Value && x.CreatedOn <= EndDate.Value)
-                    .ToList();
-            }
-            else if (StartDate.HasValue)
-            {
-                // Alleen StartDate ingevuld -> toon vanaf deze datum
-                gefilterdeCollectie = gefilterdeCollectie
-                    .Where(x => x.CreatedOn >= StartDate.Value)
-                    .ToList();
-            }
-            else if (EndDate.HasValue)
-            {
-                // Alleen EndDate ingevuld -> toon tot deze datum
-                gefilterdeCollectie = gefilterdeCollectie
-                    .Where(x => x.CreatedOn <= EndDate.Value)
-                    .ToList();
-            }
-
-            // Update de gefilterde collectie
-            MijnGefilterdeCollectie = new ObservableCollection<clsExceptionsModel>(gefilterdeCollectie);
-        }
-        #region Command Methods
-
-        private bool CanExecute_Close_Command(object? obj)
-        {
-            return true;
-        }
-
         private void Execute_Close_Command(object? obj)
         {
             if (obj is Window window)
             {
                 window.Close();
             }
-        }
-
-        private bool CanExecute_Cancel_Command(object? obj)
-        {
-            return true;
         }
 
         private void Execute_Cancel_Command(object? obj)
@@ -350,35 +354,12 @@ namespace HomeManager.ViewModel.Logging
             SelectedTargetSites = "-- Alle TargetSites --";
         }
 
-        private bool CanExecute_New_Command(object? obj)
-        {
-            return false;
-        }
 
-        private void Execute_New_Command(object? obj)
-        {
-            throw new NotImplementedException();
-        }
+        private void Execute_New_Command(object? obj) { throw new NotImplementedException(); }
 
-        private bool CanExecute_Delete_Command(object? obj)
-        {
-            return false;
-        }
+        private void Execute_Delete_Command(object? obj) { throw new NotImplementedException(); }
 
-        private void Execute_Delete_Command(object? obj)
-        {
-            throw new NotImplementedException();
-        }
-
-        private bool CanExecute_Save_Command(object? obj)
-        {
-            return false;
-        }
-
-        private void Execute_Save_Command(object? obj)
-        {
-            throw new NotImplementedException();
-        }
+        private void Execute_Save_Command(object? obj) { throw new NotImplementedException(); }
         #endregion
     }
 }

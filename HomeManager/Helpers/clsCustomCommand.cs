@@ -1,4 +1,6 @@
-﻿using HomeManager.DataService.Logging;
+﻿using HomeManager.DataService.Exceptions;
+using HomeManager.DataService.Logging;
+using HomeManager.Model.Exceptions;
 using HomeManager.Model.Logging;
 using HomeManager.Model.Security;
 using System;
@@ -16,6 +18,7 @@ namespace HomeManager.Helpers
     {
 
         clsButtonLoggingDataService MijnLoggingService;
+        clsExceptionsDataService ExceptionsDataService;
 
         private Action<object?> _execute;
         private Predicate<object?> _canExecute;
@@ -26,6 +29,7 @@ namespace HomeManager.Helpers
             this._canExecute = canExecute;
 
             MijnLoggingService = new clsButtonLoggingDataService();
+            ExceptionsDataService = new clsExceptionsDataService();
         }
 
         public bool CanExecute(object? parameter)
@@ -36,33 +40,47 @@ namespace HomeManager.Helpers
 
         public void Execute(object? parameter)
         {
-            _execute(parameter);
-
-
-            //Hier word geen logging gedaan.
-            //Er is geen CommandParameter meegestuurd.
-            if (parameter == null)
+            try
             {
-                MessageBox.Show("Geen Logging. Er word geen gebruik gemaakt van CommandParameter in de Xaml.");
-                return;
-            }
-  
+                _execute(parameter);
 
-
-            if (_execute is Delegate del)
-            {
-                string targetName = del.Target?.GetType().Name ?? "null";
-                string methodName = del.Method.Name;
-
-        
-                MijnLoggingService.Insert(new clsButtonLoggingModel()
+                //Hier word geen logging gedaan.
+                //Er is geen CommandParameter meegestuurd.
+                if (parameter == null)
                 {
-                    AccountId = clsLoginModel.Instance.AccountID,
-                    ActionName = methodName,
-                    ActionTarget = targetName
-                });
-            }       
+                    MessageBox.Show("Geen Logging. Er word geen gebruik gemaakt van CommandParameter in de Xaml.");
+                    return;
+                }
 
+                if (_execute is Delegate del)
+                {
+                    string targetName = del.Target?.GetType().Name ?? "null";
+                    string methodName = del.Method.Name;
+
+
+                    MijnLoggingService.Insert(new clsButtonLoggingModel()
+                    {
+                        AccountId = clsLoginModel.Instance.AccountID,
+                        ActionName = methodName,
+                        ActionTarget = targetName
+                    });
+                }
+            }
+            catch(Exception ex)
+            {
+                ExceptionsDataService.Insert(new clsExceptionsModel()
+                {
+                    AccountID = clsLoginModel.Instance.AccountID,
+                    ExceptionName = ex.GetType().FullName ?? "Unknown GetType().FullName",
+                    Module = ex.GetType().Module.Name ?? "Unknown Module.Name",
+                    Source = ex.Source ?? "Unknown Source",
+                    TargetSite = ex.TargetSite?.Name ?? "Unknown TargetSite",
+                    ExceptionMessage = ex.Message ?? "Unknown Message",
+                    InnerExceptionMessage = ex.InnerException?.Message ?? "Unknown InnerException.Message",
+                    StackTrace = ex.StackTrace ?? "Unknown StackTrace",
+                    DotNetAssembly = ex.GetType().Assembly.FullName ?? "Unknown Assembly"
+                });
+            }
         }
 
         public event EventHandler? CanExecuteChanged
@@ -75,9 +93,6 @@ namespace HomeManager.Helpers
             {
                 CommandManager.RequerySuggested -= value;
             }
-
         }
-
     }
-
 }

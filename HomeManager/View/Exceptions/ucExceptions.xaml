@@ -134,8 +134,32 @@
                             Header="Exception" />
                         <DataGridTextColumn
                             Width="auto"
+                            Binding="{Binding Module}"
+                            Header="Module" />
+                        <DataGridTextColumn
+                            Width="auto"
+                            Binding="{Binding Source}"
+                            Header="Source" />
+                        <DataGridTextColumn
+                            Width="auto"
                             Binding="{Binding TargetSite}"
                             Header="TargetSite" />
+                        <DataGridTextColumn
+                            Width="auto"
+                            Binding="{Binding ExceptionMessage}"
+                            Header="ExceptionMessage" />
+                        <DataGridTextColumn
+                            Width="auto"
+                            Binding="{Binding InnerExceptionMessage}"
+                            Header="InnerExceptionMessage" />
+                        <DataGridTextColumn
+                            Width="auto"
+                            Binding="{Binding StackTrace}"
+                            Header="StackTrace" />
+                        <DataGridTextColumn
+                            Width="auto"
+                            Binding="{Binding DotNetAssembly}"
+                            Header="DotNetAssembly" />
                         <DataGridTextColumn
                             Width="Auto"
                             Binding="{Binding CreatedOn, StringFormat={}{0:dd/MM/yyyy HH:mm:ss}}"

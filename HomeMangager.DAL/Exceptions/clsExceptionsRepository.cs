@@ -22,6 +22,7 @@ namespace HomeManager.DAL.Exceptions
                                                                                 clsDAL.Parameter("@ExceptionName", entity.ExceptionName),
                                                                                 clsDAL.Parameter("@Module", entity.Module),
                                                                                 clsDAL.Parameter("@Source", entity.Source),
+                                                                                clsDAL.Parameter("@TargetSite", entity.TargetSite),
                                                                                 clsDAL.Parameter("@ExceptionMessage", entity.ExceptionMessage),
                                                                                 clsDAL.Parameter("@InnerExceptionMessage", entity.InnerExceptionMessage),
                                                                                 clsDAL.Parameter("@StackTrace", entity.StackTrace),
