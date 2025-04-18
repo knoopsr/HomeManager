@@ -18,19 +18,21 @@ namespace HomeManager.ViewModel
 {
     public class clsTitlePersonViewModel : clsCommonModelPropertiesBase
     {
-
+        #region FIELDS
         clsBackupDataService MijnBackupService;
-
         private clsLoginModel _loginModel;
-
         private bool CanBackup = true;
         private clsDialogService _DialogService;
+        private ObservableCollection<clsBackupModel> _mijnBackupCollectie;
+        #endregion
 
+        #region PROPERTIES
         public ICommand cmdAfmelden { get; set; }
         public ICommand cmdBackup { get; set; }
         public ICommand cmdUnLockUser { get; set; }
         public ICommand cmdLogs { get; set; }
         public ICommand cmdExceptions { get; set; }
+        public ICommand cmdExceptionsMail { get; set; }
 
         // Public property die toegankelijk is voor binding
         public clsLoginModel LoginModel
@@ -46,7 +48,6 @@ namespace HomeManager.ViewModel
             }
         }
 
-        private ObservableCollection<clsBackupModel> _mijnBackupCollectie;
         public ObservableCollection<clsBackupModel> MijnBackupCollectie
         {
             get { return _mijnBackupCollectie; }
@@ -56,7 +57,9 @@ namespace HomeManager.ViewModel
                 OnPropertyChanged();
             }
         }
+        #endregion
 
+        #region CONSTRUCTOR
         public clsTitlePersonViewModel()
         {
             _DialogService = new clsDialogService();
@@ -68,64 +71,36 @@ namespace HomeManager.ViewModel
             cmdUnLockUser = new clsCustomCommand(ExecuteUnLockUser, CanExecuteUnLockUser);
             cmdLogs = new clsCustomCommand(ExecuteLogs, CanExecuteLogs);
             cmdExceptions = new clsCustomCommand(ExecuteExceptions, CanExecuteExceptions);
+            cmdExceptionsMail = new clsCustomCommand(ExecuteExceptionsMail, CanExecuteExceptionsMail);
         }
+        #endregion
 
-        private bool CanExecuteExceptions(object? obj)
+        #region METHODS
+        private bool HasPermission(string permissionCode)
         {
+            //710 RechtenCode: "??"
+            //711 RechtenCode: "Ontgrendel computer?"
+            //712 RechtenCode: "??"
+
             clsPermissionChecker _permissionChecker = new clsPermissionChecker();
-            return _permissionChecker.HasPermission("711"); //RechtenCode: "Ontgrendel computer?"
+            return _permissionChecker.HasPermission(permissionCode);
         }
 
-        private void ExecuteExceptions(object? obj)
+        private void OnUpdateTitlePersonReceived(clsLoginModel model)
         {
-            _DialogService.ShowDialog(new ucExceptions(), "Overzicht Exceptions");
-        }
-
-        private bool CanExecuteLogs(object? obj)
-        {
-            clsPermissionChecker _permissionChecker = new clsPermissionChecker();
-            return _permissionChecker.HasPermission("711");
-        }
-
-        private void ExecuteLogs(object? obj)
-        {
-            _DialogService.ShowDialog(new ucButtonLogging(), "Overzicht Button Logging");
-        }
-
-        private bool CanExecuteUnLockUser(object? obj)
-        {
-            clsPermissionChecker _permissionChecker = new clsPermissionChecker();
-            return _permissionChecker.HasPermission("712");
-        }
-
-        private void ExecuteUnLockUser(object? obj)
-        {
-            _DialogService.ShowDialog(new ucUnlockUser(),"Ontgrendel Gebruiker");
-        }
-
-        private bool CanExecuteBackup(object? obj)
-        { 
-            if (CanBackup)
-            {
-                clsPermissionChecker _permissionChecker = new clsPermissionChecker();
-                return _permissionChecker.HasPermission("710");
-            }
-            else
-            {
-                return false;
-            }
+            LoginModel = clsLoginModel.Instance;
         }
 
         private async void ExecuteBackup(object? obj)
         {
             try
             {
-                CanBackup= false;
+                CanBackup = false;
                 // Wacht asynchroon op het resultaat van de GetAll() methode
                 MijnBackupCollectie = await MijnBackupService.CreateBackup();
 
 
-                string link ="https://homemanager.knoopsr.be/" + MijnBackupCollectie[0].Path;      
+                string link = "https://homemanager.knoopsr.be/" + MijnBackupCollectie[0].Path;
 
 
                 clsMailModel mailModel = new clsMailModel
@@ -133,7 +108,7 @@ namespace HomeManager.ViewModel
                     MailToName = clsLoginModel.Instance.VoorNaam,
                     MailToEmail = "johndoe@example.com",
                     Subject = "Backup Gemaakt",
-                    Body = "Backup is gemaakt:\n" + Environment.NewLine + "<a href='"+link+"'>Download Backup</a>"
+                    Body = "Backup is gemaakt:\n" + Environment.NewLine + "<a href='" + link + "'>Download Backup</a>"
                 };
 
                 bool emailVerzonden = await clsMail.SendEmail(mailModel);
@@ -141,7 +116,8 @@ namespace HomeManager.ViewModel
                 if (emailVerzonden)
                 {
                     MessageBox.Show("E-mail succesvol verzonden naar " + mailModel.MailToEmail);
-                } else
+                }
+                else
                 {
                     MessageBox.Show("Er is een fout opgetreden tijdens het verzenden van de e-mail.");
                 }
@@ -158,22 +134,12 @@ namespace HomeManager.ViewModel
             }
         }
 
-        private bool CanExecuteAfmelden(object? obj)
-        {
-            return true;
-        }
-
-        private void ExecuteAfmelden(object? obj)
-        {
-            OpenLoginWindow(obj);
-        }
-
         private void OpenLoginWindow(object? obj)
         {
 
             winLogin _winLogin = new winLogin();
             _winLogin.WindowStartupLocation = WindowStartupLocation.CenterScreen;
-           _winLogin.txtWachtwoord.Password = "";
+            _winLogin.txtWachtwoord.Password = "";
             _winLogin.Show();
 
             foreach (Window window in Application.Current.Windows)
@@ -184,11 +150,44 @@ namespace HomeManager.ViewModel
                 }
             }
         }
+        #endregion
 
-        private void OnUpdateTitlePersonReceived(clsLoginModel model)
+        #region COMMANDS
+        private bool CanExecuteExceptionsMail(object? obj) => HasPermission("711");
+        private bool CanExecuteExceptions(object? obj) => HasPermission("711");
+        private bool CanExecuteLogs(object? obj) => HasPermission("711");
+        private bool CanExecuteUnLockUser(object? obj) => HasPermission("712");
+        private bool CanExecuteAfmelden(object? obj) => true;
+        private bool CanExecuteBackup(object? obj)
         {
-            LoginModel = clsLoginModel.Instance;
-
+            if (CanBackup) return HasPermission("710");
+            else return false;
         }
+
+        private void ExecuteExceptionsMail(object? obj)
+        {
+            _DialogService.ShowDialog(new ucExceptionsMail(), "Exception emails beheren");
+        }
+
+        private void ExecuteExceptions(object? obj)
+        {
+            _DialogService.ShowDialog(new ucExceptions(), "Overzicht Exceptions");
+        }
+
+        private void ExecuteLogs(object? obj)
+        {
+            _DialogService.ShowDialog(new ucButtonLogging(), "Overzicht Button Logging");
+        }
+
+        private void ExecuteUnLockUser(object? obj)
+        {
+            _DialogService.ShowDialog(new ucUnlockUser(),"Ontgrendel Gebruiker");
+        }
+
+        private void ExecuteAfmelden(object? obj)
+        {
+            OpenLoginWindow(obj);
+        }
+        #endregion
     }
 }
