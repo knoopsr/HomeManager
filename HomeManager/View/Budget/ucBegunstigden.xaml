@@ -83,8 +83,11 @@
                         Width="150"
                         Margin="5"
                         HorizontalAlignment="Right"
-                        Text="{Binding FilterTekst, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                    <Button Command="{Binding cmdFilter}" Cursor="Hand">
+                        Text="{Binding FilterText, UpdateSourceTrigger=PropertyChanged}" />
+                    <Button
+                        Command="{Binding ClearSearchCommand}"
+                        CommandParameter="{Binding}"
+                        Cursor="Hand">
                         <Button.Template>
                             <ControlTemplate>
                                 <Border Background="{StaticResource myBackground}">
@@ -108,7 +111,7 @@
                     Grid.Row="2"
                     Grid.RowSpan="5"
                     Grid.Column="1"
-                    Width="150"
+                    Width="175"
                     Margin="5"
                     HorizontalAlignment="Left"
                     Foreground="#024f87"

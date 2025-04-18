@@ -16,6 +16,8 @@ using HomeManager.Messages;
 using HomeManager.Services;
 using HomeManager.View;
 using HomeManager.Model.Security;
+using static HomeManager.ViewModel.clsPersonenViewModel;
+using HomeManager.Model.Personen;
 
 
 
@@ -121,14 +123,16 @@ namespace HomeManager.ViewModel
                         MessageBox.Show(MijnSelectedItem.ErrorBoodschap, "Error?");
                     }
                 }
+
             }
         }
-
 
         private void LoadData()
         {
             
             MijnCollectie = MijnService.GetAll();
+            
+            //collectie voor de filter
             GefilterdeCollectie = new ObservableCollection<clsDomicilieringModel>(MijnCollectie);
 
         }
@@ -150,7 +154,11 @@ namespace HomeManager.ViewModel
             cmdEditFrequentie = new clsCustomCommand(EditFrequentie, CanExecute_EditFrequentie);
             cmdEditBegunstigden = new clsCustomCommand(EditBegunstigde, CanExecute_EditBegunstigde);
             cmdEditCategorie = new clsCustomCommand(EditCategorie, CanExecute_EditCategorie);
-            cmdFilter = new clsCustomCommand(Execute_FilterCommand, CanExecute_FilterCommand);
+            
+            //de searchcommand
+            SearchCommand = new RelayCommand(FilterDomiciliering);
+            //de clear SearchCommand
+            ClearSearchCommand = new RelayCommand(ClearSearch);
 
             clsMessenger.Default.Register<clsUpdateListMessages>(this, OnUpdateListMessageReceived);
 
@@ -339,20 +347,51 @@ namespace HomeManager.ViewModel
 
         #region Filter_Domciliering
 
-        private string _filterTekst;
+        private string _filterText;
 
-        public string FilterTekst
+        public string FilterText
         {
             get
             {
-                return _filterTekst;
+                return _filterText;
             }
             set
             {
-                _filterTekst = value;
-                OnPropertyChanged(nameof(FilterTekst));
+                _filterText = value;
+                OnPropertyChanged();
+                FilterDomiciliering();
             }
         }
+
+        //RelayCommand toevoegen voor de RelayCommand filters
+        public class RelayCommand : ICommand
+        {
+            private readonly Action _execute;
+            private readonly Func<bool> _canExecute;
+            private Action<object> executeBold;
+
+            public RelayCommand(Action execute, Func<bool> canExecute = null)
+            {
+                _execute = execute ?? throw new ArgumentNullException(nameof(execute));
+                _canExecute = canExecute;
+            }
+
+            public RelayCommand(Action<object> executeBold)
+            {
+                this.executeBold = executeBold;
+            }
+
+            public bool CanExecute(object parameter) => _canExecute == null || _canExecute();
+
+            public void Execute(object parameter) => _execute();
+
+            public event EventHandler CanExecuteChanged
+            {
+                add => CommandManager.RequerySuggested += value;
+                remove => CommandManager.RequerySuggested -= value;
+            }
+        }
+
 
         private ObservableCollection<clsDomicilieringModel> _gefilterdeCollectie;
 
@@ -369,34 +408,43 @@ namespace HomeManager.ViewModel
             }
         }
 
-        private bool CanExecute_FilterCommand(object obj)
-        {
-            return true;
-        }
+        //ICommand voor mijn filters
+        public ICommand SearchCommand { get; private set; }
+        public ICommand ClearSearchCommand { get; private set; }
 
-        private void Execute_FilterCommand (object obj)
+        // Methode voor filter uit te voeren
+        private void FilterDomiciliering()
         {
-            if (string.IsNullOrWhiteSpace(FilterTekst))
+            if (string.IsNullOrWhiteSpace(FilterText))
             {
-                // Als er geen filtertekst is, toon alles
+                //niet in de zoekbalk
                 GefilterdeCollectie = new ObservableCollection<clsDomicilieringModel>(MijnCollectie);
             }
             else
             {
-                // Filter de collectie op basis van FilterTekst
                 var GefilterdeItems = MijnCollectie
                     .Where(item =>
 
-                        (item.Begunstigde.IndexOf(FilterTekst, StringComparison.OrdinalIgnoreCase) >= 0) ||
-                        (item.BudgetCategorie.IndexOf(FilterTekst, StringComparison.OrdinalIgnoreCase) >= 0) ||
-                        (item.Onderwerp.IndexOf(FilterTekst, StringComparison.OrdinalIgnoreCase) >= 0)
-                        )
-                    .ToList();
+                       (item.Begunstigde.IndexOf(FilterText, StringComparison.OrdinalIgnoreCase) >= 0) ||
+                       (item.BudgetCategorie.IndexOf(FilterText, StringComparison.OrdinalIgnoreCase) >= 0) ||
+                       (item.Onderwerp.IndexOf(FilterText, StringComparison.OrdinalIgnoreCase) >= 0)
+                       )
+                      .ToList();
 
-                //update de gefilterde collectie
                 GefilterdeCollectie = new ObservableCollection<clsDomicilieringModel>(GefilterdeItems);
             }
         }
+
+        
+
+        //Methode voor de zoekbalk te clearen
+        private void ClearSearch()
+        {
+            FilterText = string.Empty;
+            FilterDomiciliering();
+         
+        }
+
         #endregion
 
     }
