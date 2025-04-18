@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using HomeManager.Model.Mail;
 using Microsoft.CodeAnalysis.Emit;
+using System.Diagnostics;
 
 namespace HomeManager.Mail
 {
@@ -82,13 +83,13 @@ namespace HomeManager.Mail
                 else
                 {
                     
-                    Console.WriteLine("Fouten bij het versturen van de e-mail: " + string.Join(", ", result.ErrorMessages));
+                    Debug.WriteLine("Fouten bij het versturen van de e-mail: " + string.Join(", ", result.ErrorMessages));
                     return false;
                 }
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Er is een fout opgetreden bij het versturen van de e-mail: " + ex.Message);
+                Debug.WriteLine("Er is een fout opgetreden bij het versturen van de e-mail: " + ex.Message);
                 return false;
             }
         }

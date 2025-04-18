@@ -1,9 +1,11 @@
 using HomeManager.Common;
 using HomeManager.DataService.Homepage;
+using HomeManager.DataService.Personen;
 using HomeManager.Helpers;
 using HomeManager.Mail;
 using HomeManager.Model.Homepage;
 using HomeManager.Model.Mail;
+using HomeManager.Model.Personen;
 using HomeManager.Model.Security;
 using HomeManager.Services;
 using HomeManager.View;
@@ -20,6 +22,8 @@ namespace HomeManager.ViewModel
     {
         #region FIELDS
         clsBackupDataService MijnBackupService;
+        clsEmailAdressenDataService MijnEmailAdressenService;
+
         private clsLoginModel _loginModel;
         private bool CanBackup = true;
         private clsDialogService _DialogService;
@@ -64,6 +68,7 @@ namespace HomeManager.ViewModel
         {
             _DialogService = new clsDialogService();
             MijnBackupService = new clsBackupDataService();
+            MijnEmailAdressenService = new clsEmailAdressenDataService();
             clsMessenger.Default.Register<clsLoginModel>(this, OnUpdateTitlePersonReceived);
 
             cmdAfmelden = new clsCustomCommand(ExecuteAfmelden, CanExecuteAfmelden);
@@ -95,32 +100,50 @@ namespace HomeManager.ViewModel
         {
             try
             {
-                CanBackup = false;
+                CanBackup= false;
                 // Wacht asynchroon op het resultaat van de GetAll() methode
                 MijnBackupCollectie = await MijnBackupService.CreateBackup();
 
 
-                string link = "https://homemanager.knoopsr.be/" + MijnBackupCollectie[0].Path;
+                string link ="https://homemanager.knoopsr.be/" + MijnBackupCollectie[0].Path;      
 
+               ObservableCollection<clsEmailAdressenModel> _emailAdressen =  MijnEmailAdressenService.GetByPersoonID(clsLoginModel.Instance.PersoonID);
 
-                clsMailModel mailModel = new clsMailModel
+                if (_emailAdressen.Count == 0)
                 {
-                    MailToName = clsLoginModel.Instance.VoorNaam,
-                    MailToEmail = "johndoe@example.com",
-                    Subject = "Backup Gemaakt",
-                    Body = "Backup is gemaakt:\n" + Environment.NewLine + "<a href='" + link + "'>Download Backup</a>"
-                };
-
-                bool emailVerzonden = await clsMail.SendEmail(mailModel);
-
-                if (emailVerzonden)
-                {
-                    MessageBox.Show("E-mail succesvol verzonden naar " + mailModel.MailToEmail);
+                    MessageBox.Show("Geen e-mailadressen gevonden voor deze gebruiker." + Environment.NewLine + "Backup is gemaakt: " + link);
+                    return;
                 }
-                else
+
+                List<string> _error = new List<string>();
+
+      
+                foreach (clsEmailAdressenModel email in _emailAdressen)
                 {
-                    MessageBox.Show("Er is een fout opgetreden tijdens het verzenden van de e-mail.");
+                    clsMailModel mailModel = new clsMailModel
+                    {
+                        MailToName = clsLoginModel.Instance.VoorNaam,
+                        MailToEmail = email.Emailadres,
+                        MailFromEmail = "NoReplyBackup@HomeManager.be",
+
+                        Subject = "Backup Gemaakt",
+                        Body = "Backup is gemaakt:\n" + Environment.NewLine + "<a href='" + link + "'>Download Backup</a>"
+                    };
+
+                    bool emailVerzonden = await clsMail.SendEmail(mailModel);
+
+                    if (emailVerzonden)
+                    {
+                        _error.Add("E-mail verzonden naar: " + email.Emailadres);
+                    }
+                    else
+                    {
+                        _error.Add("E-mail niet verzonden naar: " + email.Emailadres);
+                    }
                 }
+
+                string errorMessage = string.Join(Environment.NewLine, _error);
+                MessageBox.Show(errorMessage, "Backup E-mail Status", MessageBoxButton.OK, MessageBoxImage.Information);
 
             }
             catch (Exception ex)
