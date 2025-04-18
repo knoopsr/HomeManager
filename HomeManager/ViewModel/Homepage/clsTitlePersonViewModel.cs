@@ -27,6 +27,7 @@ namespace HomeManager.ViewModel
         public ICommand cmdBackup { get; set; }
         public ICommand cmdUnLockUser { get; set; }
         public ICommand cmdLogs { get; set; }
+        public ICommand cmdProfiel { get; set; }
 
         // Public property die toegankelijk is voor binding
         public clsLoginModel LoginModel
@@ -68,8 +69,24 @@ namespace HomeManager.ViewModel
             cmdBackup = new clsCustomCommand(ExecuteBackup, CanExecuteBackup);
             cmdUnLockUser = new clsCustomCommand(ExecuteUnLockUser, CanExecuteUnLockUser);
             cmdLogs = new clsCustomCommand(ExecuteLogs, CanExecuteLogs);
+            cmdProfiel = new clsCustomCommand(ExecuteProfiel, CanExecuteProfiel);
         }
+        //Voor het openen van MijnProfiel
+        private void ExecuteProfiel(object? obj)
+        {
+            var profielWindow = new wndMijnProfiel
+            {
+                DataContext = new clsProfielViewModel(),
+                Owner = Application.Current.MainWindow,  
+                WindowStartupLocation = WindowStartupLocation.CenterOwner //  dit centreert op je HomeManager window
+            };
 
+            profielWindow.ShowDialog();
+        }
+        private bool CanExecuteProfiel(object? obj)
+        {
+            return true; 
+        }
         private bool CanExecuteLogs(object? obj)
         {
             clsPermissionChecker _permissionChecker = new clsPermissionChecker();

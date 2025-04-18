@@ -34,7 +34,7 @@
                         Command="{Binding cmdAfmelden}"
                         CommandParameter="{Binding PlacementTarget, RelativeSource={RelativeSource AncestorType=ContextMenu}}"
                         Header="Afmelden" />
-                    <MenuItem Header="Mijn Info" />
+                    <MenuItem Command="{Binding cmdProfiel}" Header="Mijn Info" />
                     <MenuItem
                         Command="{Binding cmdUnLockUser}"
                         CommandParameter="{Binding}"

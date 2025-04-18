@@ -92,6 +92,17 @@
             <V:ucOverzicht />
         </DataTemplate>
 
+        <DataTemplate DataType="{x:Type VM:clsProfielViewModel}">
+            <V:wndMijnProfiel />
+        </DataTemplate>
+
+        <!--  Voor het kunnen rechtsklikken op de vensters  -->
+        <ContextMenu x:Key="FavorieteVensterContextMenu" DataContext="{Binding FavorieteVensterViewModel, Source={StaticResource VML}}">
+            <MenuItem
+                Command="{Binding cmdSave}"
+                CommandParameter="{Binding PlacementTarget.Content, RelativeSource={RelativeSource AncestorType=ContextMenu}}"
+                Header=" Voeg toe aan favorieten" />
+        </ContextMenu>
     </Window.Resources>
 
 
@@ -113,7 +124,8 @@
             Width="120"
             Margin="0,0,10,0"
             HorizontalAlignment="Right"
-            VerticalAlignment="Center" />
+            VerticalAlignment="Center"
+            DataContext="{Binding Source={StaticResource VML}, Path=TitlePersonViewModel}" />
 
         <!--  test  -->
         <Image
@@ -172,36 +184,43 @@
                                 Command="{Binding NavCommand}"
                                 CommandParameter="clsPersoonViewModel"
                                 Content="Persoon"
+                                ContextMenu="{StaticResource FavorieteVensterContextMenu}"
                                 Style="{StaticResource myMenuPersoon}" />
                             <Button
                                 Command="{Binding NavCommand}"
                                 CommandParameter="clsEmailTypeViewModel"
                                 Content="EmailType"
+                                ContextMenu="{StaticResource FavorieteVensterContextMenu}"
                                 Style="{StaticResource myMenuTandwiel}" />
                             <Button
                                 Command="{Binding NavCommand}"
                                 CommandParameter="clsTelefoonTypeViewModel"
                                 Content="TelefoonType"
+                                ContextMenu="{StaticResource FavorieteVensterContextMenu}"
                                 Style="{StaticResource myMenuTandwiel}" />
                             <Button
                                 Command="{Binding NavCommand}"
                                 CommandParameter="clsLandViewModel"
                                 Content="Land"
+                                ContextMenu="{StaticResource FavorieteVensterContextMenu}"
                                 Style="{StaticResource myMenuTandwiel}" />
                             <Button
                                 Command="{Binding NavCommand}"
                                 CommandParameter="clsProvincieViewModel"
                                 Content="Provincie"
+                                ContextMenu="{StaticResource FavorieteVensterContextMenu}"
                                 Style="{StaticResource myMenuTandwiel}" />
                             <Button
                                 Command="{Binding NavCommand}"
                                 CommandParameter="clsGemeenteViewModel"
                                 Content="Gemeente"
+                                ContextMenu="{StaticResource FavorieteVensterContextMenu}"
                                 Style="{StaticResource myMenuTandwiel}" />
                             <Button
                                 Command="{Binding NavCommand}"
                                 CommandParameter="clsFunctieViewModel"
                                 Content="Functies"
+                                ContextMenu="{StaticResource FavorieteVensterContextMenu}"
                                 Style="{StaticResource myMenuTandwiel}" />
                         </StackPanel>
                     </Expander>
@@ -210,6 +229,7 @@
                         Command="{Binding NavCommand}"
                         CommandParameter="clsDagboekViewModel"
                         Content="Dagboek"
+                        ContextMenu="{StaticResource FavorieteVensterContextMenu}"
                         Style="{StaticResource myExpanderDagboek}" />
 
                     <Expander IsExpanded="{Binding IsBudgetExpanderMenu, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource myHamburgerBudget}">
@@ -218,40 +238,59 @@
                                 Command="{Binding NavCommand}"
                                 CommandParameter="clsOverzichtViewModel"
                                 Content="Overzicht"
+                                ContextMenu="{StaticResource FavorieteVensterContextMenu}"
                                 Style="{StaticResource myMenuTandwiel}" />
                             <Button
                                 Command="{Binding NavCommand}"
                                 CommandParameter="clsTransactieViewModel"
                                 Content="Transacties"
+                                ContextMenu="{StaticResource FavorieteVensterContextMenu}"
                                 Style="{StaticResource myMenuTandwiel}" />
                             <Button
                                 Command="{Binding NavCommand}"
                                 CommandParameter="clsDomicilieringViewModel"
                                 Content="Domiciliëring"
+                                ContextMenu="{StaticResource FavorieteVensterContextMenu}"
                                 Style="{StaticResource myMenuTandwiel}" />
                             <Button
                                 Command="{Binding NavCommand}"
                                 CommandParameter="clsBegunstigdenViewModel"
                                 Content="Begunstigden"
+                                ContextMenu="{StaticResource FavorieteVensterContextMenu}"
                                 Style="{StaticResource myMenuTandwiel}" />
                             <Button
                                 Command="{Binding NavCommand}"
                                 CommandParameter="clsFrequentieViewModel"
                                 Content="Frequentie"
+                                ContextMenu="{StaticResource FavorieteVensterContextMenu}"
                                 Style="{StaticResource myMenuTandwiel}" />
                             <Button
                                 Command="{Binding NavCommand}"
                                 CommandParameter="clsCategorieViewModel"
                                 Content="Categorie"
+                                ContextMenu="{StaticResource FavorieteVensterContextMenu}"
                                 Style="{StaticResource myMenuTandwiel}" />
 
                             <Button Content="Domiciliëring" Style="{StaticResource myMenuTandwiel}" />
                             <Button Content="Begunstigden" Style="{StaticResource myMenuTandwiel}" />
                             <Button Content="Frequentie" Style="{StaticResource myMenuTandwiel}" />
                             <Button
+                                Content="Domiciliëring"
+                                ContextMenu="{StaticResource FavorieteVensterContextMenu}"
+                                Style="{StaticResource myMenuTandwiel}" />
+                            <Button
+                                Content="Begunstigden"
+                                ContextMenu="{StaticResource FavorieteVensterContextMenu}"
+                                Style="{StaticResource myMenuTandwiel}" />
+                            <Button
+                                Content="Frequentie"
+                                ContextMenu="{StaticResource FavorieteVensterContextMenu}"
+                                Style="{StaticResource myMenuTandwiel}" />
+                            <Button
                                 Command="{Binding NavCommand}"
                                 CommandParameter="clsCategorieViewModel"
                                 Content="Budget Categorie"
+                                ContextMenu="{StaticResource FavorieteVensterContextMenu}"
                                 Style="{StaticResource myMenuTandwiel}" />
                         </StackPanel>
                     </Expander>
@@ -264,16 +303,19 @@
                                 Command="{Binding NavCommand}"
                                 CommandParameter="clsCollectiesVM"
                                 Content="Todo Collectie"
+                                ContextMenu="{StaticResource FavorieteVensterContextMenu}"
                                 Style="{StaticResource myMenuTandwiel}" />
                             <Button
                                 Command="{Binding NavCommand}"
                                 CommandParameter="clsCategorieënVM"
                                 Content="Todo Categoriën"
+                                ContextMenu="{StaticResource FavorieteVensterContextMenu}"
                                 Style="{StaticResource myMenuTandwiel}" />
                             <Button
                                 Command="{Binding NavCommand}"
                                 CommandParameter="clsKleurenVM"
                                 Content="Todo Kleuren"
+                                ContextMenu="{StaticResource FavorieteVensterContextMenu}"
                                 Style="{StaticResource myMenuTandwiel}" />
 
                         </StackPanel>
@@ -286,28 +328,35 @@
                                 Command="{Binding NavCommand}"
                                 CommandParameter="clsAccountViewModel"
                                 Content="Account beheren"
+                                ContextMenu="{StaticResource FavorieteVensterContextMenu}"
                                 Style="{StaticResource myMenuTandwiel}" />
                             <Button
                                 Command="{Binding NavCommand}"
                                 CommandParameter="clsCredentialManagementViewModel"
                                 Content="Wachtwoorden"
+                                ContextMenu="{StaticResource FavorieteVensterContextMenu}"
                                 Style="{StaticResource myMenuTandwiel}" />
                             <Button
                                 Command="{Binding NavCommand}"
                                 CommandParameter="clsCredentialGroupViewModel"
                                 Content="Wachtwoordengroep"
+                                ContextMenu="{StaticResource FavorieteVensterContextMenu}"
                                 Style="{StaticResource myMenuTandwiel}" />
                             <Button
                                 Command="{Binding NavCommand}"
                                 CommandParameter="clsRechtenViewModel"
                                 Content="Rollen"
+                                ContextMenu="{StaticResource FavorieteVensterContextMenu}"
                                 Style="{StaticResource myMenuTandwiel}" />
                         </StackPanel>
                     </Expander>
 
                     <Expander IsExpanded="{Binding IsStickyNotesExpanderMenu, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource myHamburgerStickyNotes}">
                         <StackPanel x:Name="stckStickynotes">
-                            <Button Content="Sticky notes colors" Style="{StaticResource myMenuStickyNoteColor}" />
+                            <Button
+                                Content="Sticky notes colors"
+                                ContextMenu="{StaticResource FavorieteVensterContextMenu}"
+                                Style="{StaticResource myMenuStickyNoteColor}" />
                         </StackPanel>
 
                     </Expander>
@@ -338,6 +387,45 @@
 
         <!--#endregion-->
 
+        <Grid Grid.Row="1" Grid.Column="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+
+            </Grid.RowDefinitions>
+            <V:ucFavorieteApplicatie
+                Grid.Row="0"
+                Grid.Column="0"
+                Margin="5"
+                Background="Transparent" />
+            <V:ucSnelkoppeling
+                Grid.Row="0"
+                Grid.Column="1"
+                Margin="5"
+                Background="Transparent" />
+            <V:ucFavorieteVenster
+                Grid.Row="1"
+                Grid.Column="0"
+                Margin="5"
+                Background="Transparent"
+                DataContext="{Binding FavorietVensterVM}" />
+            <V:ucFotoCarousel
+                Grid.Row="1"
+                Grid.Column="1"
+                Margin="5"
+                Background="Transparent" />
+            <V:ucWeer
+                Grid.Row="0"
+                Grid.RowSpan="2"
+                Grid.Column="2"
+                Margin="5" />
+
+        </Grid>
         <ContentControl
             Grid.Row="1"
             Grid.Column="1"

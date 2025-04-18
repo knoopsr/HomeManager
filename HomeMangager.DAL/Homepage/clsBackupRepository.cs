@@ -17,7 +17,7 @@ namespace HomeManager.DAL.Homepage
             _mijnCollectie = new ObservableCollection<clsBackupModel>();
 
             // Maak de verbinding
-            using (SqlConnection connection = new SqlConnection(Properties.Connection.Default.ConnectionDB))
+            using (SqlConnection connection = new SqlConnection(Connection.Default.ConnectionDB))
             {
                 await connection.OpenAsync();
 

@@ -1,6 +1,7 @@
 using HomeManager.Model.Personen;
 using HomeManager.ViewModel;
 using HomeManager.ViewModel.Personen;
+using HomeManager.ViewModel.Homepage;
 using HomeManager.ViewModel.Logging;
 using HomeManager.ViewModel.Security;
 using System;
@@ -219,8 +220,52 @@ namespace HomeManager.ViewModel
         public clsCategorieënVM CategorieënViewModel => new clsCategorieënVM();
         public clsKleurenVM KleurenViewModel => new clsKleurenVM();
         #endregion
+        #region Homepage
+        public clsFavorieteApplicatieViewModel FavorieteApplicatieViewModel
+        {
+            get
+            {
+                return new clsFavorieteApplicatieViewModel();
+            }
+        }
+        public clsSnelkoppelingViewModel SnelkoppelingViewModel
+        {
+            get
+            {
+                return new clsSnelkoppelingViewModel();
+            }
+        }
+        public clsFavorieteVensterViewModel FavorieteVensterViewModel
+        {
+            get
+            {
+                return new clsFavorieteVensterViewModel();
+            }
+        }
+        public clsFotoCarouselViewModel FotoCarouselViewModel
+        {
+            get
+            {
+                return new clsFotoCarouselViewModel();
+            }
+        }
+        public clsWeerViewModel WeerViewModel
+        {
+            get
+            {
+                return new clsWeerViewModel();
+            }
+        }
+        public clsProfielViewModel ProfielViewModel
+        {
+            get
+            {
+                return new clsProfielViewModel();
+            }
+        }
 
-       public clsButtonLoggingViewModel ButtonLoggingViewModel
+        #endregion
+        public clsButtonLoggingViewModel ButtonLoggingViewModel
         {
             get
             {

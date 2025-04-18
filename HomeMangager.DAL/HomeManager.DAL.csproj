@@ -8,6 +8,7 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.Data.SqlClient" Version="5.2.2" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
     <PackageReference Include="System.Configuration.ConfigurationManager" Version="8.0.0" />
   </ItemGroup>
 
@@ -17,6 +18,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="Connection.Designer.cs">
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Connection.settings</DependentUpon>
+    </Compile>
     <Compile Update="Properties\Connection.Designer.cs">
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <AutoGen>True</AutoGen>
@@ -29,6 +35,10 @@
     </Compile>
   </ItemGroup>
 	<ItemGroup>
+		<None Update="Connection.settings">
+		  <Generator>SettingsSingleFileGenerator</Generator>
+		  <LastGenOutput>Connection.Designer.cs</LastGenOutput>
+		</None>
 		<None Update="Properties\Connection.settings">
 			<Generator>SettingsSingleFileGenerator</Generator>
 			<LastGenOutput>Connection.Designer.cs</LastGenOutput>
@@ -38,7 +48,6 @@
 
   <ItemGroup>
     <Folder Include="Dagboek\" />
-    <Folder Include="Homepage\" />
     <Folder Include="StickyNotes\" />
     <Folder Include="Todo\" />
   </ItemGroup>
