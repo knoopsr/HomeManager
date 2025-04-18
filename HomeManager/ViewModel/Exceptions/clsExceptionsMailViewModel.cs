@@ -27,8 +27,7 @@ namespace HomeManager.ViewModel.Exceptions
     public class clsExceptionsMailViewModel : clsCommonModelPropertiesBase
     {
         #region FIELDS
-        clsEmailAdressenDataService EmailDataService;
-        
+        private static clsEmailAdressenDataService EmailDataService;
         private static clsMailService MailService;
         private static ObservableCollection<clsEmailAdressenModel> _currentUserMailCollection;
         private static ObservableCollection<clsEmailAdressenModel> _mailCollectionDevTeam;
@@ -69,7 +68,7 @@ namespace HomeManager.ViewModel.Exceptions
         /// Populates our ObservableCollections with the mailModels.
         /// </summary>
         /// <returns></returns>
-        private void LoadData()
+        private static void LoadData()
         {
             if (clsLoginModel.Instance != null)
             {
@@ -83,6 +82,8 @@ namespace HomeManager.ViewModel.Exceptions
 
         public static void SendExceptionToMailAddresses(clsExceptionsModel ex)
         {
+            LoadData();
+
             if (!CurrentUserMailCollection.IsNullOrEmpty()
                 && !MailCollectionDevTeam.IsNullOrEmpty())
             {
