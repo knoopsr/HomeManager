@@ -18,6 +18,10 @@ using System.Reflection.Metadata;
 using HomeManager.Model.Budget;
 using System.Windows.Media;
 
+
+
+
+
 namespace HomeManager.ViewModel
 {
     public class clsPersoonViewModel : clsCommonModelPropertiesBase
@@ -192,8 +196,8 @@ namespace HomeManager.ViewModel
             }
 
             if (File.Exists(_OpenFileDialog.FileName))
-            {
-                MijnSelectedItem.Foto = DocumentContent(_OpenFileDialog.FileName);
+            {    
+                MijnSelectedItem.Foto = ResizeImage(_OpenFileDialog.FileName);
                 MijnSelectedItem.IsDirty = true;
             }
         }
@@ -245,7 +249,7 @@ namespace HomeManager.ViewModel
                 {
                     foreach (var file in files)
                     {
-                        MijnSelectedItem.Foto = File.ReadAllBytes(file);
+                        MijnSelectedItem.Foto = ResizeImage(file);
                         MijnSelectedItem.IsDirty = true;
 
                     }
@@ -384,6 +388,34 @@ namespace HomeManager.ViewModel
         {
             return true;
         }
+
+        private byte[] ResizeImage(string imagePath)
+        {
+            var bitmapImage = new BitmapImage();
+            int maxWidth = 150; // maximale breedte in pixels
+            int maxHeight = 150; // maximale hoogte in pixels
+
+            bitmapImage.BeginInit();
+            bitmapImage.UriSource = new Uri(imagePath);
+            bitmapImage.DecodePixelWidth = maxWidth; // behoudt verhouding automatisch
+            bitmapImage.CacheOption = BitmapCacheOption.OnLoad;
+            bitmapImage.EndInit();
+            bitmapImage.Freeze(); // belangrijk voor thread safety
+
+            var encoder = new PngBitmapEncoder(); // of JpegBitmapEncoder als je dat liever hebt
+            encoder.Frames.Add(BitmapFrame.Create(bitmapImage));
+
+            using (var ms = new MemoryStream())
+            {
+                encoder.Save(ms);
+                return ms.ToArray();
+            }
+        }
+
+
+
+
+
     }
 }
 
