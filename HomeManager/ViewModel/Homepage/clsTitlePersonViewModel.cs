@@ -148,7 +148,7 @@ namespace HomeManager.ViewModel
                     {
                         MailToName = clsLoginModel.Instance.VoorNaam,
                         MailToEmail = email.Emailadres,
-                        MailFromEmail = "NoReplyBackup@HomeManeger.be",
+                        MailFromEmail = "NoReplyBackup@HomeManager.be",
 
                         Subject = "Backup Gemaakt",
                         Body = "Backup is gemaakt:\n" + Environment.NewLine + "<a href='" + link + "'>Download Backup</a>"
