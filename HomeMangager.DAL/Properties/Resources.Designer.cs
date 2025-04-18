@@ -241,6 +241,15 @@ namespace HomeManager.DAL.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to D_StickyNotes.
+        /// </summary>
+        internal static string D_StickyNotes {
+            get {
+                return ResourceManager.GetString("D_StickyNotes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to D_TelefoonNummers.
         /// </summary>
         internal static string D_TelefoonNummers {
@@ -385,6 +394,15 @@ namespace HomeManager.DAL.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to I_ExceptionLog.
+        /// </summary>
+        internal static string I_ExceptionLog {
+            get {
+                return ResourceManager.GetString("I_ExceptionLog", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to I_Frequentie.
         /// </summary>
         internal static string I_Frequentie {
@@ -453,6 +471,15 @@ namespace HomeManager.DAL.Properties {
         internal static string I_Rollen {
             get {
                 return ResourceManager.GetString("I_Rollen", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to I_StickyNotes.
+        /// </summary>
+        internal static string I_StickyNotes {
+            get {
+                return ResourceManager.GetString("I_StickyNotes", resourceCulture);
             }
         }
         
@@ -682,6 +709,51 @@ namespace HomeManager.DAL.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to S_ExceptionsByAccountID.
+        /// </summary>
+        internal static string S_ExceptionsByAccountID {
+            get {
+                return ResourceManager.GetString("S_ExceptionsByAccountID", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to S_ExceptionsByDate.
+        /// </summary>
+        internal static string S_ExceptionsByDate {
+            get {
+                return ResourceManager.GetString("S_ExceptionsByDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to S_ExceptionsByExceptionName.
+        /// </summary>
+        internal static string S_ExceptionsByExceptionName {
+            get {
+                return ResourceManager.GetString("S_ExceptionsByExceptionName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to S_ExceptionsByTargetSite.
+        /// </summary>
+        internal static string S_ExceptionsByTargetSite {
+            get {
+                return ResourceManager.GetString("S_ExceptionsByTargetSite", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to S_ExceptionsFirst1000.
+        /// </summary>
+        internal static string S_ExceptionsFirst1000 {
+            get {
+                return ResourceManager.GetString("S_ExceptionsFirst1000", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to S_Frequentie.
         /// </summary>
         internal static string S_Frequentie {
@@ -795,6 +867,24 @@ namespace HomeManager.DAL.Properties {
         internal static string S_Rollen {
             get {
                 return ResourceManager.GetString("S_Rollen", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to S_StickyNotes.
+        /// </summary>
+        internal static string S_StickyNotes {
+            get {
+                return ResourceManager.GetString("S_StickyNotes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to S_StickyNotesByID.
+        /// </summary>
+        internal static string S_StickyNotesByID {
+            get {
+                return ResourceManager.GetString("S_StickyNotesByID", resourceCulture);
             }
         }
         
@@ -1011,6 +1101,15 @@ namespace HomeManager.DAL.Properties {
         internal static string U_Rollen {
             get {
                 return ResourceManager.GetString("U_Rollen", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to U_StickyNotes.
+        /// </summary>
+        internal static string U_StickyNotes {
+            get {
+                return ResourceManager.GetString("U_StickyNotes", resourceCulture);
             }
         }
         

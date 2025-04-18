@@ -201,6 +201,7 @@ namespace HomeManager.Model.StickyNotes
         }
         #endregion
 
+        #region METHODS
         public override string ToString()
         {
             return $"{Title}, {Content}";
@@ -249,5 +250,6 @@ namespace HomeManager.Model.StickyNotes
                 }
             }
         }
+        #endregion
     }
 }

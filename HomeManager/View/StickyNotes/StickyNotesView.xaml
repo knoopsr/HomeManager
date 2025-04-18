@@ -230,7 +230,8 @@
                                     Padding="5"
                                     Helpers:clsRichTextBoxHelper.RtfText="{Binding Content, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                     AcceptsReturn="True"
-                                    AcceptsTab="True" />
+                                    AcceptsTab="True"
+                                    Style="{StaticResource StickyNoteRichTextBox}" />
                                 <StackPanel
                                     Grid.Row="1"
                                     Grid.Column="0"

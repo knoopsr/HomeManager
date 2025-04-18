@@ -7,6 +7,7 @@ using HomeManager.Model.Mail;
 using HomeManager.Model.Security;
 using HomeManager.Services;
 using HomeManager.View;
+using HomeManager.View.Exceptions;
 using HomeManager.View.Security;
 using HomeManager.View.StickyNotes;
 using System.Collections.ObjectModel;
@@ -29,6 +30,7 @@ namespace HomeManager.ViewModel
         public ICommand cmdBackup { get; set; }
         public ICommand cmdUnLockUser { get; set; }
         public ICommand cmdLogs { get; set; }
+        public ICommand cmdExceptions { get; set; }
 
         // Public property die toegankelijk is voor binding
         public clsLoginModel LoginModel
@@ -44,8 +46,6 @@ namespace HomeManager.ViewModel
             }
         }
 
-
-
         private ObservableCollection<clsBackupModel> _mijnBackupCollectie;
         public ObservableCollection<clsBackupModel> MijnBackupCollectie
         {
@@ -57,9 +57,6 @@ namespace HomeManager.ViewModel
             }
         }
 
-
-
-
         public clsTitlePersonViewModel()
         {
             _DialogService = new clsDialogService();
@@ -70,6 +67,18 @@ namespace HomeManager.ViewModel
             cmdBackup = new clsCustomCommand(ExecuteBackup, CanExecuteBackup);
             cmdUnLockUser = new clsCustomCommand(ExecuteUnLockUser, CanExecuteUnLockUser);
             cmdLogs = new clsCustomCommand(ExecuteLogs, CanExecuteLogs);
+            cmdExceptions = new clsCustomCommand(ExecuteExceptions, CanExecuteExceptions);
+        }
+
+        private bool CanExecuteExceptions(object? obj)
+        {
+            clsPermissionChecker _permissionChecker = new clsPermissionChecker();
+            return _permissionChecker.HasPermission("711"); //RechtenCode: "Ontgrendel computer?"
+        }
+
+        private void ExecuteExceptions(object? obj)
+        {
+            _DialogService.ShowDialog(new ucExceptions(), "Overzicht Exceptions");
         }
 
         private bool CanExecuteLogs(object? obj)

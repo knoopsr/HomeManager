@@ -450,4 +450,37 @@
   <data name="D_BudgetBijlage" xml:space="preserve">
     <value>D_BudgetBijlage</value>
   </data>
+  <data name="S_StickyNotes" xml:space="preserve">
+    <value>S_StickyNotes</value>
+  </data>
+  <data name="S_StickyNotesByID" xml:space="preserve">
+    <value>S_StickyNotesByID</value>
+  </data>
+  <data name="U_StickyNotes" xml:space="preserve">
+    <value>U_StickyNotes</value>
+  </data>
+  <data name="I_StickyNotes" xml:space="preserve">
+    <value>I_StickyNotes</value>
+  </data>
+  <data name="D_StickyNotes" xml:space="preserve">
+    <value>D_StickyNotes</value>
+  </data>
+  <data name="S_ExceptionsByTargetSite" xml:space="preserve">
+    <value>S_ExceptionsByTargetSite</value>
+  </data>
+  <data name="S_ExceptionsByDate" xml:space="preserve">
+    <value>S_ExceptionsByDate</value>
+  </data>
+  <data name="S_ExceptionsByExceptionName" xml:space="preserve">
+    <value>S_ExceptionsByExceptionName</value>
+  </data>
+  <data name="S_ExceptionsByAccountID" xml:space="preserve">
+    <value>S_ExceptionsByAccountID</value>
+  </data>
+  <data name="S_ExceptionsFirst1000" xml:space="preserve">
+    <value>S_ExceptionsFirst1000</value>
+  </data>
+  <data name="I_ExceptionLog" xml:space="preserve">
+    <value>I_ExceptionLog</value>
+  </data>
 </root>
