@@ -1,3 +1,4 @@
+using DocumentFormat.OpenXml.Office2013.Drawing.Chart;
 using HomeManager.Common;
 using HomeManager.DataService.Personen;
 using HomeManager.Helpers;
@@ -31,9 +32,11 @@ namespace HomeManager.ViewModel.Personen
         public ICommand cmdShowBijlage { get; set; }
         public ICommand cmdDeleteBijlage { get; set; }
         public ICommand cmdDropBijlage { get; set; }
-
-
         public ICommand SubmitCommand { get; private set; }
+
+
+        private bool isSendMail = false;
+
 
         private ObservableCollection<clsEmailAdressenModel> _mijnVerzenderEmailAdres;
         public ObservableCollection<clsEmailAdressenModel> MijnVerzenderEmailAdres
@@ -253,7 +256,7 @@ namespace HomeManager.ViewModel.Personen
 
         private bool CanExecuteSubmit()
         {
-            return true; 
+            return !isSendMail; 
         }
 
         private async void ExecuteSubmit()
@@ -279,19 +282,38 @@ namespace HomeManager.ViewModel.Personen
                 return;
             }
 
+
+            isSendMail = true;
+
+
+
             clsMailModel mailModel = new clsMailModel
             {
                 MailFromEmail = MijnSelectedItem.ToString(), // Zorg ervoor dat je hier het juiste e-mailadres gebruikt
                 MailToEmail = Ontvanger,
                 Subject = Onderwerp,
-                Body = Bericht
+                Body = Bericht,
+                Attachments = MijnCollectieBijlage.Select(b => new clsAttachmentModel
+                {
+                    FileName = b.BijlageNaam,
+                    ContentType = clsMimeHelper.GetMimeType(b.BijlageNaam),
+                    FileData = b.Bijlage
+                }).ToList()
+
+
             };
 
             bool emailVerzonden = await clsMail.SendEmail(mailModel);
 
-            if (!emailVerzonden)
+            isSendMail = false;
+
+            if (emailVerzonden)
             {
-                MessageBox.Show("Er is een fout opgetreden bij het versturen van de e-mail.");
+                MessageBox.Show("De mail is verzonden.", "Verzonden", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+            else
+            {
+                MessageBox.Show("Er is een fout opgetreden bij het versturen van de e-mail.", "Fout", MessageBoxButton.OK, MessageBoxImage.Error);
             }
 
         }

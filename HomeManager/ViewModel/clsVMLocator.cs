@@ -11,7 +11,8 @@ using System.Threading.Tasks;
 
 using HomeManager.Model.Budget;
 using HomeManager.Model.Todo;
-using HomeManager.ViewModel;
+using HomeManager.ViewModel.Exceptions;
+using HomeManager.ViewModel.StickyNotes;
 
 
 
@@ -220,13 +221,15 @@ namespace HomeManager.ViewModel
         public clsKleurenVM KleurenViewModel => new clsKleurenVM();
         #endregion
 
-       public clsButtonLoggingViewModel ButtonLoggingViewModel
+        public clsButtonLoggingViewModel ButtonLoggingViewModel
         {
             get
             {
                 return new clsButtonLoggingViewModel();
             }
         }
+
+        public clsExceptionsViewModel ExceptionsViewModel { get => new clsExceptionsViewModel(); } 
 
         public clsUnLockViewModel UnLockViewModel
         {
@@ -235,7 +238,6 @@ namespace HomeManager.ViewModel
                 return new clsUnLockViewModel();
             }
         }
-
 
         private static clsCategorieViewModel _categorieViewModel = new clsCategorieViewModel();
         public clsCategorieViewModel CategorieViewModel
@@ -282,7 +284,6 @@ namespace HomeManager.ViewModel
             }
         }
         
-        
         public clsOverzichtViewModel OverzichtViewModel
         {
             get
@@ -290,5 +291,8 @@ namespace HomeManager.ViewModel
                 return new clsOverzichtViewModel();
             }
         }
+
+        private static readonly clsStickyNotesViewModel _stickyNotesViewModel = new clsStickyNotesViewModel();
+        public clsStickyNotesViewModel StickyNotesViewModel { get => _stickyNotesViewModel; }
     }
 }

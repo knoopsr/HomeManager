@@ -1,5 +1,53 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
+    <!--#region  APP-->
+
+    <Style TargetType="TextBlock">
+        <Setter Property="Foreground" Value="#024f87" />
+    </Style>
+
+    <Style TargetType="ListView">
+        <Setter Property="Foreground" Value="#024f87" />
+    </Style>
+
+    <Style TargetType="ListBox">
+        <Setter Property="Foreground" Value="#024f87" />
+    </Style>
+
+    <Style TargetType="Label">
+        <Setter Property="Foreground" Value="#024f87" />
+    </Style>
+
+    <Style TargetType="TextBox">
+        <Setter Property="Foreground" Value="#024f87" />
+        <Setter Property="Validation.ErrorTemplate" Value="{DynamicResource ErrorToolTipTemplate}" />
+        <Style.Triggers>
+            <Trigger Property="Validation.HasError" Value="true">
+                <Setter Property="ToolTip" Value="{Binding RelativeSource={RelativeSource Self}, Path=(Validation.Errors)[0].ErrorContent}" />
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style TargetType="DatePicker">
+        <Setter Property="Foreground" Value="#024f87" />
+    </Style>
+
+    <Style TargetType="ComboBox">
+        <Setter Property="Foreground" Value="#024f87" />
+    </Style>
+
+    <Style TargetType="Button">
+        <Setter Property="Foreground" Value="#024f87" />
+    </Style>
+
+    <Style TargetType="DataGridCell">
+        <Setter Property="Foreground" Value="#024f87" />
+    </Style>
+
+    <!--#endregion-->
+
+    <!--#region Personen-->
+
     <Style x:Key="AddPersonImage" TargetType="ContentControl">
         <Setter Property="Cursor" Value="Hand" />
         <Setter Property="Height" Value="10" />
@@ -131,7 +179,6 @@
             </Trigger>
         </Style.Triggers>
     </Style>
-
 
     <Style x:Key="DeleteEmail" TargetType="ContentControl">
         <Setter Property="Margin" Value="3,0,3,0" />
@@ -334,7 +381,6 @@
         </Style.Triggers>
     </Style>
 
-
     <Style x:Key="DeletePersoon" TargetType="ContentControl">
         <Setter Property="Margin" Value="5" />
         <Setter Property="Cursor" Value="Hand" />
@@ -410,10 +456,6 @@
         </Style.Triggers>
     </Style>
 
-
-
-
-
     <Style x:Key="AddImagePersoon" TargetType="ContentControl">
         <Setter Property="Margin" Value="5" />
         <Setter Property="Cursor" Value="Hand" />
@@ -483,11 +525,6 @@
             </Trigger>
         </Style.Triggers>
     </Style>
-
-
-
-
-
 
     <Style x:Key="CancelImage" TargetType="ContentControl">
         <Setter Property="Margin" Value="5" />
@@ -597,7 +634,6 @@
         </Setter>
     </Style>
 
-
     <Style x:Key="OpenUCButton" TargetType="ContentControl">
         <Setter Property="Cursor" Value="Hand" />
         <Setter Property="Margin" Value="0,0,0,0" />
@@ -670,7 +706,6 @@
         </Setter>
     </Style>
 
-
     <Style x:Key="Deletefile" TargetType="ContentControl">
         <Setter Property="Cursor" Value="Hand" />
         <Setter Property="Height" Value="31" />
@@ -697,7 +732,6 @@
             </Setter.Value>
         </Setter>
     </Style>
-
 
     <Style x:Key="myRibbonButton" TargetType="RibbonButton">
         <Setter Property="Width" Value="25" />
@@ -731,7 +765,17 @@
         </Style.Triggers>
     </Style>
 
-    <!--  dagboektogglebutton  -->
+    <!--  Thomas personen style  -->
+    <Style x:Key="TitleBarText" TargetType="TextBlock">
+        <Setter Property="Margin" Value="10,0,0,0" />
+        <Setter Property="VerticalAlignment" Value="Center" />
+        <Setter Property="FontSize" Value="20" />
+        <Setter Property="Foreground" Value="White" />
+    </Style>
+    <!--#endregion-->
+
+    <!--#region  Dagboek-->
+
     <Style x:Key="myToggleButton" TargetType="RibbonToggleButton">
         <Setter Property="Width" Value="25" />
         <Setter Property="Height" Value="25" />
@@ -770,9 +814,6 @@
         </Style.Triggers>
     </Style>
 
-
-
-
     <Style x:Key="Excel" TargetType="ContentControl">
         <Setter Property="Cursor" Value="Hand" />
         <Setter Property="Height" Value="31" />
@@ -800,64 +841,6 @@
         </Setter>
     </Style>
 
-    <!--  TEXTBLOCK  -->
-
-    <Style TargetType="TextBlock">
-        <Setter Property="Foreground" Value="#024f87" />
-    </Style>
-
-    <!--  LISTVIEW  -->
-
-    <Style TargetType="ListView">
-        <Setter Property="Foreground" Value="#024f87" />
-    </Style>
-
-    <!--  LISTBOX  -->
-    <Style TargetType="ListBox">
-        <Setter Property="Foreground" Value="#024f87" />
-    </Style>
-
-    <!--  LABEL  -->
-    <Style TargetType="Label">
-        <Setter Property="Foreground" Value="#024f87" />
-    </Style>
-
-    <!--  TEXTBOX  -->
-    <Style TargetType="TextBox">
-        <Setter Property="Foreground" Value="#024f87" />
-        <Setter Property="Validation.ErrorTemplate" Value="{DynamicResource ErrorToolTipTemplate}" />
-        <Style.Triggers>
-            <Trigger Property="Validation.HasError" Value="true">
-                <Setter Property="ToolTip" Value="{Binding RelativeSource={RelativeSource Self}, Path=(Validation.Errors)[0].ErrorContent}" />
-            </Trigger>
-        </Style.Triggers>
-    </Style>
-
-    <!--  DATEPICKER  -->
-    <Style TargetType="DatePicker">
-        <Setter Property="Foreground" Value="#024f87" />
-    </Style>
-
-    <!--  COMBOBOX  -->
-    <Style TargetType="ComboBox">
-        <Setter Property="Foreground" Value="#024f87" />
-    </Style>
-
-    <!--  BUTTON  -->
-    <Style TargetType="Button">
-        <Setter Property="Foreground" Value="#024f87" />
-    </Style>
-
-    <!--  GRIDCOLUMN  -->
-    <Style TargetType="DataGridCell">
-        <Setter Property="Foreground" Value="#024f87" />
-    </Style>
-
-
-
-
-
-    <!--  dagboekkleurbutton werkt nog niet  -->
     <Style x:Key="myFontColorButton" TargetType="Button">
         <Setter Property="Margin" Value="1" />
         <Setter Property="Width" Value="15" />
@@ -879,12 +862,306 @@
         </Style.Triggers>
     </Style>
 
-    <!--  Thomas personen style  -->
-    <Style x:Key="TitleBarText" TargetType="TextBlock">
-        <Setter Property="Margin" Value="10,0,0,0" />
-        <Setter Property="VerticalAlignment" Value="Center" />
-        <Setter Property="FontSize" Value="20" />
-        <Setter Property="Foreground" Value="White" />
+    <!--#endregion-->
+
+    <!--#region STICKY NOTES STYLES-->
+
+    <Style x:Key="StickyNoteBorder" TargetType="Border">
+        <Setter Property="Margin" Value="2.5" />
+        <Setter Property="CornerRadius" Value="5" />
+        <Setter Property="Padding" Value="2.5" />
+        <Setter Property="BorderBrush" Value="{DynamicResource iconBrush}" />
+        <Setter Property="Background" Value="{DynamicResource gradientBrush}" />
+        <Setter Property="BorderThickness" Value="0.50" />
+        <Setter Property="VerticalAlignment" Value="Stretch" />
+        <Setter Property="HorizontalAlignment" Value="Stretch" />
     </Style>
 
+    <Style x:Key="StickyNoteTextBox" TargetType="TextBox">
+        <Setter Property="Margin" Value="5" />
+        <Setter Property="HorizontalAlignment" Value="Stretch" />
+        <Setter Property="VerticalAlignment" Value="Stretch" />
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="Foreground" Value="Black" />
+        <Setter Property="FontSize" Value="16" />
+        <Setter Property="BorderThickness" Value="0" />
+    </Style>
+
+    <Style x:Key="StickyNoteLabel" TargetType="Label">
+        <Setter Property="Margin" Value="5" />
+        <Setter Property="HorizontalAlignment" Value="Stretch" />
+        <Setter Property="VerticalAlignment" Value="Stretch" />
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="Foreground" Value="Black" />
+        <Setter Property="BorderThickness" Value="0" />
+    </Style>
+
+    <Style x:Key="StickyNoteStackpanel" TargetType="StackPanel">
+        <Setter Property="HorizontalAlignment" Value="Center" />
+        <Setter Property="VerticalAlignment" Value="Center" />
+        <Setter Property="Background" Value="Transparent" />
+    </Style>
+
+    <Style x:Key="StickyNoteDatePicker" TargetType="DatePicker">
+        <Setter Property="HorizontalAlignment" Value="Center" />
+        <Setter Property="VerticalAlignment" Value="Center" />
+        <Setter Property="VerticalContentAlignment" Value="Stretch" />
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="BorderThickness" Value="0" />
+    </Style>
+
+    <Style x:Key="StickyNoteRichTextBox" TargetType="RichTextBox">
+        <Setter Property="Margin" Value="2.5" />
+        <Setter Property="Background" Value="GhostWhite" />
+        <Setter Property="BorderThickness" Value="0" />
+    </Style>
+
+    <Style x:Key="StickyNoteComboBox" TargetType="ComboBox">
+        <Setter Property="Width" Value="50" />
+        <Setter Property="Background" Value="#FF2D2D30" />
+        <Setter Property="Foreground" Value="White" />
+        <Setter Property="HorizontalContentAlignment" Value="Center" />
+        <Setter Property="VerticalAlignment" Value="Center" />
+        <Setter Property="BorderBrush" Value="#FF3F3F46" />
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="Padding" Value="5,2" />
+    </Style>
+
+    <Style x:Key="StickyNoteComboBoxItem" TargetType="ComboBoxItem">
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="Foreground" Value="Transparent" />
+        <Setter Property="Padding" Value="5" />
+        <Setter Property="HorizontalContentAlignment" Value="Center" />
+        <Setter Property="VerticalContentAlignment" Value="Center" />
+        <Style.Triggers>
+            <Trigger Property="IsHighlighted" Value="True">
+                <Setter Property="Background" Value="#FF007ACC" />
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style x:Key="StickyNoteButton" TargetType="Button">
+        <Setter Property="Margin" Value="10,0,10,0" />
+        <Setter Property="Background" Value="{DynamicResource backgroundBrush}" />
+        <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="Width" Value="35" />
+        <Setter Property="RenderTransformOrigin" Value="0,0" />
+        <Setter Property="RenderTransform">
+            <Setter.Value>
+                <TranslateTransform x:Name="translateTransform" X="0" Y="0" />
+            </Setter.Value>
+        </Setter>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border
+                        Background="{TemplateBinding Background}"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="{TemplateBinding BorderThickness}"
+                        CornerRadius="5">
+                        <ContentPresenter
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            TextElement.Foreground="{TemplateBinding Foreground}" />
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="{DynamicResource iconBrush}" />
+                <Setter Property="Foreground" Value="{DynamicResource backgroundBrush}" />
+                <Trigger.EnterActions>
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <!--  Move button slightly to the right  -->
+                            <DoubleAnimation
+                                Storyboard.TargetProperty="RenderTransform.(TranslateTransform.Y)"
+                                To="3"
+                                Duration="0:0:0.2" />
+                        </Storyboard>
+                    </BeginStoryboard>
+                </Trigger.EnterActions>
+                <Trigger.ExitActions>
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <!--  Move button back to original position  -->
+                            <DoubleAnimation
+                                Storyboard.TargetProperty="RenderTransform.(TranslateTransform.Y)"
+                                To="0"
+                                Duration="0:0:0.2" />
+                        </Storyboard>
+                    </BeginStoryboard>
+                </Trigger.ExitActions>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style x:Key="StickyNoteRichTextboxButton" TargetType="Button">
+        <Setter Property="Margin" Value="10,0,10,2.5" />
+        <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="Width" Value="35" />
+        <Setter Property="RenderTransformOrigin" Value="0,0" />
+        <Setter Property="RenderTransform">
+            <Setter.Value>
+                <TranslateTransform X="0" Y="0" />
+            </Setter.Value>
+        </Setter>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border
+                        Padding="2.5"
+                        Background="{TemplateBinding Background}"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="{TemplateBinding BorderThickness}"
+                        CornerRadius="5">
+                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="{DynamicResource iconBrush}" />
+                <Trigger.EnterActions>
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <DoubleAnimation
+                                Storyboard.TargetProperty="RenderTransform.(TranslateTransform.Y)"
+                                To="-3"
+                                Duration="0:0:0.2" />
+                        </Storyboard>
+                    </BeginStoryboard>
+                </Trigger.EnterActions>
+                <Trigger.ExitActions>
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <DoubleAnimation
+                                Storyboard.TargetProperty="RenderTransform.(TranslateTransform.Y)"
+                                To="0"
+                                Duration="0:0:0.2" />
+                        </Storyboard>
+                    </BeginStoryboard>
+                </Trigger.ExitActions>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style x:Key="StickyNoteExitButton" TargetType="Button">
+        <Setter Property="Margin" Value="10,0,10,0" />
+        <Setter Property="Background" Value="{DynamicResource backgroundBrush}" />
+        <Setter Property="Foreground" Value="Black" />
+        <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="Width" Value="35" />
+        <Setter Property="RenderTransform">
+            <Setter.Value>
+                <TranslateTransform x:Name="translateTransform" X="0" />
+            </Setter.Value>
+        </Setter>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border
+                        Background="{TemplateBinding Background}"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="{TemplateBinding BorderThickness}"
+                        CornerRadius="5">
+                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="{DynamicResource iconBrush}" />
+                <Trigger.EnterActions>
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <!--  Move button slightly to the right  -->
+                            <DoubleAnimation
+                                Storyboard.TargetProperty="RenderTransform.(TranslateTransform.X)"
+                                To="3"
+                                Duration="0:0:0.2" />
+                        </Storyboard>
+                    </BeginStoryboard>
+                </Trigger.EnterActions>
+                <Trigger.ExitActions>
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <!--  Move button back to original position  -->
+                            <DoubleAnimation
+                                Storyboard.TargetProperty="RenderTransform.(TranslateTransform.X)"
+                                To="0"
+                                Duration="0:0:0.2" />
+                        </Storyboard>
+                    </BeginStoryboard>
+                </Trigger.ExitActions>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style x:Key="StickyNoteListView" TargetType="ListView">
+        <Setter Property="HorizontalContentAlignment" Value="Center" />
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="BorderThickness" Value="0" />
+    </Style>
+
+    <Style x:Key="StickyNoteListViewItem" TargetType="ListViewItem">
+        <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+        <Setter Property="Padding" Value="0,10,0,10" />
+        <Setter Property="BorderBrush" Value="Transparent" />
+        <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="Padding" Value="5" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ListViewItem">
+                    <Border
+                        Padding="{TemplateBinding Padding}"
+                        HorizontalAlignment="Stretch"
+                        Background="{TemplateBinding Background}"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="{TemplateBinding BorderThickness}">
+                        <ContentPresenter
+                            Width="{Binding Width}"
+                            Height="{Binding Height}"
+                            HorizontalAlignment="Stretch" />
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Style.Triggers>
+            <Trigger Property="IsSelected" Value="True">
+                <Setter Property="Background" Value="Transparent" />
+            </Trigger>
+            <Trigger Property="IsSelected" Value="False">
+                <Setter Property="Background" Value="LightSlateGray" />
+                <Setter Property="Opacity" Value="0.25" />
+                <Trigger.EnterActions>
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <DoubleAnimation
+                                Storyboard.TargetProperty="Opacity"
+                                From="1"
+                                To="0.25"
+                                Duration="0:0:0.3" />
+                        </Storyboard>
+                    </BeginStoryboard>
+                </Trigger.EnterActions>
+                <Trigger.ExitActions>
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <DoubleAnimation
+                                Storyboard.TargetProperty="Opacity"
+                                From="0.25"
+                                To="1"
+                                Duration="0:0:0.3" />
+                        </Storyboard>
+                    </BeginStoryboard>
+                </Trigger.ExitActions>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <!--#endregion-->
 </ResourceDictionary>

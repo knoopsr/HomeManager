@@ -1,5 +1,6 @@
 ﻿using FluentEmail.Core;
 using FluentEmail.Smtp;
+using FluentEmail.Core.Interfaces; // <- nodig voor ISender
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Net.Mail;
@@ -7,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using HomeManager.Model.Mail;
 using Microsoft.CodeAnalysis.Emit;
+using System.Diagnostics;
 
 namespace HomeManager.Mail
 {
@@ -47,12 +49,14 @@ namespace HomeManager.Mail
 
                 Email.DefaultSender = sender;
 
-                // **Maak de e-mail aan**
                 var email = Email
                     .From(MailModel.MailFromEmail)
                     .To(MailModel.MailToEmail, MailModel.MailToName)
                     .Subject(MailModel.Subject)
                     .Body(htmlBody.ToString(), isHtml: true);
+
+
+
 
                 // **Bijlagen toevoegen vóór het verzenden**
                 if (MailModel.Attachments != null && MailModel.Attachments.Count > 0)
@@ -65,9 +69,9 @@ namespace HomeManager.Mail
                             ContentType = attachment.ContentType,
                             Filename = attachment.FileName
                         });
-
                     }
                 }
+
 
                 // **Verstuur de e-mail**
                 var result = await email.SendAsync();
@@ -78,13 +82,14 @@ namespace HomeManager.Mail
                 }
                 else
                 {
-                    Console.WriteLine("Fouten bij het versturen van de e-mail: " + string.Join(", ", result.ErrorMessages));
+                    
+                    Debug.WriteLine("Fouten bij het versturen van de e-mail: " + string.Join(", ", result.ErrorMessages));
                     return false;
                 }
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Er is een fout opgetreden bij het versturen van de e-mail: " + ex.Message);
+                Debug.WriteLine("Er is een fout opgetreden bij het versturen van de e-mail: " + ex.Message);
                 return false;
             }
         }

@@ -52,7 +52,7 @@ namespace HomeManager.ViewModel
                 {
                     if (_MijnSelectedItem != null && _MijnSelectedItem.IsDirty)
                     {
-                        if (MessageBox.Show("Wil je " + _MijnSelectedItem + "Opslaan?", "Opslaan",
+                        if (MessageBox.Show("Wil je " + _MijnSelectedItem + " Opslaan?", " Opslaan",
                             MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
                         {
                             OpslaanCommando();
@@ -229,7 +229,7 @@ namespace HomeManager.ViewModel
         }
         private void Execute_DeleteCommand(object obj)
         {
-            if (MessageBox.Show("wil je " + MijnSelectedItem + "verwijderen?", "Vewijderen?", MessageBoxButton.YesNo,
+            if (MessageBox.Show("wil je " + MijnSelectedItem + " verwijderen?", "Vewijderen?", MessageBoxButton.YesNo,
                 MessageBoxImage.Question) == MessageBoxResult.Yes)
             {
                 if (MijnSelectedItem != null)

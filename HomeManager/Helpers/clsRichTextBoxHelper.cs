@@ -16,54 +16,29 @@ namespace HomeManager.Helpers
                 typeof(clsRichTextBoxHelper),
                 new FrameworkPropertyMetadata(string.Empty, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault, OnRtfTextChanged));
 
-        public static string GetRtfText(DependencyObject obj)
-        {
-            return (string)obj.GetValue(RtfTextProperty);
-        }
+        public static string GetRtfText(DependencyObject obj) => 
+            (string)obj.GetValue(RtfTextProperty);
 
         public static void SetRtfText(DependencyObject obj, string value)
         {
+            if (obj is RichTextBox rtb)
+            {
+                rtb.TextChanged -= Rtb_TextChanged; // Avoid duplicate
+                rtb.TextChanged += Rtb_TextChanged;
+            }
             obj.SetValue(RtfTextProperty, value);
         }
-
-        //private static void OnRtfTextChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
-        //{
-        //    if (d is RichTextBox rtb && e.NewValue is string newRtf)
-        //    {
-        //        // 🔹 Voorkom oneindige lus door alleen te laden als de waarde echt verandert
-        //        if (GetCurrentRtfText(rtb) != newRtf)
-        //        {
-        //            var textRange = new TextRange(rtb.Document.ContentStart, rtb.Document.ContentEnd);
-
-        //            // 🔹 Eerst inhoud wissen om refresh te forceren
-        //            rtb.Document.Blocks.Clear();
-
-        //            using (var stream = new MemoryStream(Encoding.Default.GetBytes(newRtf))) // 🔹 Gebruik ASCII encoding
-        //            {
-        //                try
-        //                {
-        //                    textRange.Load(stream, DataFormats.Rtf);
-        //                }
-        //                catch
-        //                {
-        //                    // Als laden mislukt, leeg document instellen
-        //                    rtb.Document.Blocks.Clear();
-        //                }
-        //            }
-        //        }
-        //    }
-        //}
 
         private static void OnRtfTextChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             if (d is RichTextBox rtb && e.NewValue is string newRtf)
             {
-                // Voorkom oneindige lus door alleen te laden als de waarde echt verandert
+                // Only update if changed to avoid infinite loop
                 if (GetCurrentRtfText(rtb) != newRtf)
                 {
+                    rtb.TextChanged -= Rtb_TextChanged; // Prevent recursive call
                     var textRange = new TextRange(rtb.Document.ContentStart, rtb.Document.ContentEnd);
 
-                    // Eerst inhoud wissen om refresh te forceren
                     rtb.Document.Blocks.Clear();
 
                     using (var stream = new MemoryStream(Encoding.Default.GetBytes(newRtf)))
@@ -74,11 +49,21 @@ namespace HomeManager.Helpers
                         }
                         catch
                         {
-                            // Als laden mislukt, leeg document instellen
-                            rtb.Document.Blocks.Clear();
+                            rtb.Document.Blocks.Clear(); // fallback on error
                         }
                     }
+
+                    rtb.TextChanged += Rtb_TextChanged; // Re-attach
                 }
+            }
+        }
+
+        private static void Rtb_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (sender is RichTextBox rtb)
+            {
+                var currentRtf = GetCurrentRtfText(rtb);
+                SetRtfText(rtb, currentRtf);
             }
         }
 
@@ -127,15 +112,8 @@ namespace HomeManager.Helpers
             var textRange = new TextRange(rtb.Document.ContentStart, rtb.Document.ContentEnd);
             using (var stream = new MemoryStream())
             {
-                try
-                {
-                    textRange.Save(stream, DataFormats.Rtf);
-                    return Encoding.Default.GetString(stream.ToArray()); // 🔹 Gebruik ASCII encoding
-                }
-                catch
-                {
-                    return string.Empty;
-                }
+                textRange.Save(stream, DataFormats.Rtf);
+                return Encoding.Default.GetString(stream.ToArray());
             }
         }
     }  

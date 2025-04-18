@@ -21,7 +21,6 @@
             <AdornedElementPlaceholder Name="customAdorner">
                 <Border BorderBrush="#DC000C" BorderThickness="1.3" />
             </AdornedElementPlaceholder>
-
         </DockPanel>
     </ControlTemplate>
 </ResourceDictionary>
