@@ -145,7 +145,23 @@
                         Margin="5"
                         Command="{Binding cmdEmptyInkomstenComboboxen}"
                         CommandParameter="{Binding}"
-                        Style="{StaticResource Deletefile}" />
+                        Style="{StaticResource Deletefile}">
+                        <Button.Template>
+                            <ControlTemplate>
+                                <Border Background="{StaticResource myBackground}">
+
+                                    <Path
+                                        Width="20"
+                                        Height="20"
+                                        Margin="5,0,0,0"
+                                        Data="{StaticResource myFilterButton}"
+                                        Fill="{StaticResource myTitleBar}"
+                                        Stretch="Fill" />
+
+                                </Border>
+                            </ControlTemplate>
+                        </Button.Template>
+                    </Button>
                 </StackPanel>
 
                 <!--  Resultaat Inkomsten  -->
@@ -256,7 +272,23 @@
                         Margin="5"
                         Command="{Binding cmdEmptyUitgavenComboboxen}"
                         CommandParameter="{Binding}"
-                        Style="{StaticResource Deletefile}" />
+                        Style="{StaticResource Deletefile}">
+                        <Button.Template>
+                            <ControlTemplate>
+                                <Border Background="{StaticResource myBackground}">
+
+                                    <Path
+                                        Width="20"
+                                        Height="20"
+                                        Margin="5,0,0,0"
+                                        Data="{StaticResource myFilterButton}"
+                                        Fill="{StaticResource myTitleBar}"
+                                        Stretch="Fill" />
+
+                                </Border>
+                            </ControlTemplate>
+                        </Button.Template>
+                    </Button>
                 </StackPanel>
 
 
@@ -296,12 +328,12 @@
                     IsReadOnly="True"
                     ItemsSource="{Binding GefilterdeUitgaven}">
                     <DataGrid.Columns>
-                        <DataGridTextColumn Binding="{Binding Jaar}" Header="Jaar" />
+
                         <DataGridTextColumn Binding="{Binding Maand}" Header="Maand" />
                         <DataGridTextColumn Binding="{Binding BudgetCategorie}" Header="Categorie" />
                         <DataGridTextColumn Binding="{Binding Begunstigde}" Header="Begunstigde" />
                         <DataGridTextColumn Binding="{Binding Bedrag, StringFormat=N2}" Header="Bedrag" />
-                        <DataGridTextColumn Binding="{Binding Onderwerp}" Header="Onderwerp" />
+
                     </DataGrid.Columns>
                     <DataGrid.Resources>
                         <Style TargetType="ScrollViewer">

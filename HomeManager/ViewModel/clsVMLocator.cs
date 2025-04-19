@@ -281,7 +281,7 @@ namespace HomeManager.ViewModel
         }
 
         private static clsTransactieViewModel _transactieViewModel = new clsTransactieViewModel();
-        public clsTransactieViewModel TransactieViewModel
+        public static clsTransactieViewModel TransactieViewModel
         {
             get
             {
