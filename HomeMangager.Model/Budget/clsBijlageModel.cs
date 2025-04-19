@@ -18,6 +18,21 @@ namespace HomeManager.Model.Budget
             }
         }
 
+        private bool _isDeleted;
+        public bool IsDeleted
+        {
+            get
+            {
+                return _isDeleted;
+            }
+            set
+            {
+                _isDeleted = value;
+                OnPropertyChanged();
+            }
+        }
+
+
         public override string ToString()
         {
             return BijlageNaam;

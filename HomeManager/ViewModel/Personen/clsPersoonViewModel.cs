@@ -16,6 +16,11 @@ using System.Windows.Media.Imaging;
 using HomeManager.Messages;
 using System.Reflection.Metadata;
 using HomeManager.Model.Budget;
+using System.Windows.Media;
+
+
+
+
 
 namespace HomeManager.ViewModel
 {
@@ -177,7 +182,7 @@ namespace HomeManager.ViewModel
         //    clsMessenger.Default.Unregister(this);
         //}
 
-        private void Execute_UploadPicture_Command(object? obj)
+        private async void Execute_UploadPicture_Command(object? obj)
         {
             Microsoft.Win32.OpenFileDialog _OpenFileDialog = new Microsoft.Win32.OpenFileDialog();
             string myFileName = string.Empty;
@@ -191,8 +196,8 @@ namespace HomeManager.ViewModel
             }
 
             if (File.Exists(_OpenFileDialog.FileName))
-            {
-                MijnSelectedItem.Foto = DocumentContent(_OpenFileDialog.FileName);
+            {    
+                MijnSelectedItem.Foto = ResizeImage(_OpenFileDialog.FileName);
                 MijnSelectedItem.IsDirty = true;
             }
         }
@@ -222,6 +227,7 @@ namespace HomeManager.ViewModel
             return image;
         }
 
+
         private bool CanExecute_UploadPicture_Command(object? obj)
         {
             return true;
@@ -243,7 +249,7 @@ namespace HomeManager.ViewModel
                 {
                     foreach (var file in files)
                     {
-                        MijnSelectedItem.Foto = File.ReadAllBytes(file);
+                        MijnSelectedItem.Foto = ResizeImage(file);
                         MijnSelectedItem.IsDirty = true;
 
                     }
@@ -252,11 +258,6 @@ namespace HomeManager.ViewModel
                 }
             }
         }
-
-
-
-
-        
 
         private void Execute_Save_Command(object? obj)
         {
@@ -387,6 +388,34 @@ namespace HomeManager.ViewModel
         {
             return true;
         }
+
+        private byte[] ResizeImage(string imagePath)
+        {
+            var bitmapImage = new BitmapImage();
+            int maxWidth = 150; // maximale breedte in pixels
+            int maxHeight = 150; // maximale hoogte in pixels
+
+            bitmapImage.BeginInit();
+            bitmapImage.UriSource = new Uri(imagePath);
+            bitmapImage.DecodePixelWidth = maxWidth; // behoudt verhouding automatisch
+            bitmapImage.CacheOption = BitmapCacheOption.OnLoad;
+            bitmapImage.EndInit();
+            bitmapImage.Freeze(); // belangrijk voor thread safety
+
+            var encoder = new PngBitmapEncoder(); // of JpegBitmapEncoder als je dat liever hebt
+            encoder.Frames.Add(BitmapFrame.Create(bitmapImage));
+
+            using (var ms = new MemoryStream())
+            {
+                encoder.Save(ms);
+                return ms.ToArray();
+            }
+        }
+
+
+
+
+
     }
 }
 

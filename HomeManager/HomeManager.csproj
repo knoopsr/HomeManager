@@ -6,15 +6,24 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <UseWPF>true</UseWPF>
+    <ApplicationIcon>HomeManagerIcon.ico</ApplicationIcon>
   </PropertyGroup>
 
   <ItemGroup>
     <None Remove="Images\Background.jpg" />
+    <None Remove="Images\HomeManagerIcon.ico" />
     <None Remove="Images\person1.jpg" />
   </ItemGroup>
 
   <ItemGroup>
+    <Content Include="HomeManagerIcon.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Resource Include="Images\Background.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\HomeManagerIcon.ico">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Images\person1.jpg">
@@ -25,14 +34,16 @@
   <ItemGroup>
     <Folder Include="Utilities\" />
     <Folder Include="ViewModel\Dagboek\" />
-    <Folder Include="ViewModel\Budget\" />
     <Folder Include="ViewModel\Homepage\" />
     <Folder Include="ViewModel\StickyNotes\" />
+    <Folder Include="ViewModel\Security\" />
+    <Folder Include="ViewModel\Personen\" />
     <Folder Include="ViewModel\Todo\" />
     <Folder Include="View\Dagboek\" />
     <Folder Include="View\Homepage\" />
     <Folder Include="View\StickyNotes\" />
-    <Folder Include="View\Todo\" />
+    <Folder Include="View\Security\" />
+   <Folder Include="View\Todo\" />
   </ItemGroup>
 
   <ItemGroup>

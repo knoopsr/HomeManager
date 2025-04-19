@@ -1,4 +1,8 @@
-﻿using System;
+﻿using HomeManager.DataService.Exceptions;
+using HomeManager.Model.Exceptions;
+using HomeManager.Model.Security;
+using HomeManager.Services;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -26,7 +30,14 @@ namespace HomeManager.Behaviors
 
         public void Execute(object parameter)
         {
-            _execute((T)parameter);
+            try
+            {
+                _execute((T)parameter);
+            }
+            catch(Exception ex)
+            {
+                clsExceptionService.InsertException(ex);
+            }
         }
 
         public event EventHandler CanExecuteChanged

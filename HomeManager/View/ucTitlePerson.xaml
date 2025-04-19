@@ -15,19 +15,14 @@
             <ColumnDefinition Width="50" />
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
-
-
-
         <Ellipse
             Width="49"
             Height="49"
             HorizontalAlignment="Center"
             VerticalAlignment="Center">
-
             <Ellipse.Fill>
                 <ImageBrush ImageSource="{Binding LoginModel.Foto, TargetNullValue={x:Null}}" Stretch="UniformToFill" />
             </Ellipse.Fill>
-
             <Ellipse.ContextMenu>
                 <ContextMenu>
                     <MenuItem
@@ -47,11 +42,16 @@
                         Command="{Binding cmdLogs}"
                         CommandParameter="{Binding}"
                         Header="Logs raadplegen" />
-                    <MenuItem Header="Exceptions raadplegen" />
-                    <MenuItem Header="Exception emails beheren" />
+                    <MenuItem
+                        Command="{Binding cmdExceptions}"
+                        CommandParameter="{Binding}"
+                        Header="Exceptions raadplegen" />
+                    <MenuItem
+                        Command="{Binding cmdExceptionsMail}"
+                        CommandParameter="{Binding}"
+                        Header="Exception emails beheren" />
                 </ContextMenu>
             </Ellipse.ContextMenu>
-
         </Ellipse>
         <Border
             Grid.Column="0"
@@ -61,7 +61,6 @@
             BorderThickness="1"
             ClipToBounds="True"
             CornerRadius="25" />
-
         <StackPanel
             Grid.Column="1"
             Margin="3,0,0,0"
@@ -80,7 +79,5 @@
                 Foreground="White"
                 Text="{Binding LoginModel.RolName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
         </StackPanel>
-
-
     </Grid>
 </UserControl>

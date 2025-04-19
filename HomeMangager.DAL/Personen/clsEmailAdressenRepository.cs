@@ -37,6 +37,27 @@ namespace HomeManager.DAL.Personen
             throw new NotImplementedException();
         }
 
+        public ObservableCollection<clsEmailAdressenModel> GetAllByRechtenCode(int rechtenCode)
+        {
+            SqlDataReader MijnDataReader = clsDAL.GetData(Properties.Resources.S_EmailAdressenByRechtenCode,
+                clsDAL.Parameter("RechtenCode", rechtenCode));
+            MijnCollectie = new ObservableCollection<clsEmailAdressenModel>();
+            while (MijnDataReader.Read())
+            {
+                clsEmailAdressenModel x = new clsEmailAdressenModel()
+                {
+                    EmailAdresID = (int)MijnDataReader["EmailAdresID"],
+                    Emailadres = MijnDataReader["Emailadres"].ToString(),
+                    PersoonID = (int)MijnDataReader["PersoonID"],
+                    EmailTypeID = (int)MijnDataReader["EmailTypeID"],
+                    ControlField = MijnDataReader["ControlField"]
+                };
+                MijnCollectie.Add(x);
+            }
+            MijnDataReader.Close();
+            return MijnCollectie;
+        }
+
         public ObservableCollection<clsEmailAdressenModel> GetAll()
         {
             GenerateCollection();
@@ -74,23 +95,11 @@ namespace HomeManager.DAL.Personen
 
         public ObservableCollection<clsEmailAdressenModel> GetByPersoonID(int id)
         {
-            SqlDataReader MijnDataReader = clsDAL.GetData(Properties.Resources.S_EmailAdressenByID,
-                clsDAL.Parameter("PersoonID", id));
-            MijnCollectie = new ObservableCollection<clsEmailAdressenModel>();
-            while (MijnDataReader.Read())
+            if (MijnCollectie == null)
             {
-                clsEmailAdressenModel x = new clsEmailAdressenModel()
-                {
-                    EmailAdresID = (int)MijnDataReader["EmailAdresID"],
-                    Emailadres = MijnDataReader["Emailadres"].ToString(),
-                    PersoonID = (int)MijnDataReader["PersoonID"],
-                    EmailTypeID = (int)MijnDataReader["EmailTypeID"],
-                    ControlField = MijnDataReader["ControlField"]
-                };
-                MijnCollectie.Add(x);
+                GenerateCollection();
             }
-            MijnDataReader.Close();
-            return MijnCollectie;
+            return new ObservableCollection<clsEmailAdressenModel>(MijnCollectie.Where(emailadress => emailadress.PersoonID == id));
         }
 
         public clsEmailAdressenModel GetFirst()
@@ -155,7 +164,6 @@ namespace HomeManager.DAL.Personen
             }
             MijnDataReader.Close();
             return MijnCollectie;
-
         }
     }
 }

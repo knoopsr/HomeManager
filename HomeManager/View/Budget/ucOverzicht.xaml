@@ -51,22 +51,9 @@
                         Foreground="White"
                         Text="Budget Overzicht" />
                 </StackPanel>
-                <Button
-                    Margin="5,0,6,10"
-                    HorizontalAlignment="Right"
-                    VerticalAlignment="Center"
-                    Background="#024f87"
-                    BorderBrush="Transparent"
-                    BorderThickness="0"
-                    Command="{Binding cmdClose}"
-                    CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=Window}}">
-                    <Path
-                        Width="20"
-                        Height="20"
-                        Data="{StaticResource myCloseButton}"
-                        Fill="White"
-                        Stretch="Fill" />
-                </Button>
+
+                <uc:ucWerkBalk HorizontalAlignment="Right" VerticalAlignment="Top" />
+
             </Grid>
         </Border>
 
@@ -99,18 +86,13 @@
                     Grid.Column="1"
                     HorizontalAlignment="Right"
                     Orientation="Horizontal">
-                    <ToggleButton
-                        x:Name="ToonToekomstigeToggle"
-                        Width="108"
-                        Margin="20"
-                        HorizontalAlignment="Center"
-                        Content="Toggle" />
                     <Button
-                        Width="30"
-                        Height="30"
+                        Width="50"
+                        Height="50"
                         Margin="5"
                         HorizontalAlignment="Right"
                         Command="{Binding cmdExportToExcel}"
+                        CommandParameter="{Binding}"
                         Style="{StaticResource Excel}" />
 
                 </StackPanel>
@@ -162,7 +144,24 @@
                     <Button
                         Margin="5"
                         Command="{Binding cmdEmptyInkomstenComboboxen}"
-                        Style="{StaticResource Deletefile}" />
+                        CommandParameter="{Binding}"
+                        Style="{StaticResource Deletefile}">
+                        <Button.Template>
+                            <ControlTemplate>
+                                <Border Background="{StaticResource myBackground}">
+
+                                    <Path
+                                        Width="20"
+                                        Height="20"
+                                        Margin="5,0,0,0"
+                                        Data="{StaticResource myFilterButton}"
+                                        Fill="{StaticResource myTitleBar}"
+                                        Stretch="Fill" />
+
+                                </Border>
+                            </ControlTemplate>
+                        </Button.Template>
+                    </Button>
                 </StackPanel>
 
                 <!--  Resultaat Inkomsten  -->
@@ -195,18 +194,17 @@
                     Grid.Column="2"
                     Height="200"
                     AutoGenerateColumns="False"
-                    BorderBrush="LightGreen"
+                    BorderBrush="Green"
                     BorderThickness="4"
                     ColumnWidth="*"
                     IsReadOnly="True"
                     ItemsSource="{Binding GefilterdeInkomsten}">
                     <DataGrid.Columns>
-                        <DataGridTextColumn Binding="{Binding Jaar}" Header="Jaar" />
                         <DataGridTextColumn Binding="{Binding Maand}" Header="Maand" />
                         <DataGridTextColumn Binding="{Binding BudgetCategorie}" Header="Categorie" />
                         <DataGridTextColumn Binding="{Binding Begunstigde}" Header="Begunstigde" />
                         <DataGridTextColumn Binding="{Binding Bedrag, StringFormat=N2}" Header="Bedrag" />
-                        <DataGridTextColumn Binding="{Binding Onderwerp}" Header="Onderwerp" />
+
                     </DataGrid.Columns>
                     <DataGrid.Resources>
                         <Style TargetType="ScrollViewer">
@@ -214,7 +212,19 @@
                             <Setter Property="VerticalScrollBarVisibility" Value="Auto" />
                         </Style>
                     </DataGrid.Resources>
+                    <DataGrid.CellStyle>
+                        <Style TargetType="DataGridCell">
+                            <Style.Triggers>
+                                <Trigger Property="IsSelected" Value="True">
+                                    <Setter Property="Background" Value="LightBlue" />
+                                    <Setter Property="Foreground" Value="Black" />
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </DataGrid.CellStyle>
                 </DataGrid>
+
+
 
                 <!--  Selectie  -->
                 <StackPanel
@@ -261,7 +271,24 @@
                     <Button
                         Margin="5"
                         Command="{Binding cmdEmptyUitgavenComboboxen}"
-                        Style="{StaticResource Deletefile}" />
+                        CommandParameter="{Binding}"
+                        Style="{StaticResource Deletefile}">
+                        <Button.Template>
+                            <ControlTemplate>
+                                <Border Background="{StaticResource myBackground}">
+
+                                    <Path
+                                        Width="20"
+                                        Height="20"
+                                        Margin="5,0,0,0"
+                                        Data="{StaticResource myFilterButton}"
+                                        Fill="{StaticResource myTitleBar}"
+                                        Stretch="Fill" />
+
+                                </Border>
+                            </ControlTemplate>
+                        </Button.Template>
+                    </Button>
                 </StackPanel>
 
 
@@ -295,19 +322,35 @@
                     Height="200"
                     Margin="5"
                     AutoGenerateColumns="False"
-                    BorderBrush="Red"
+                    BorderBrush="IndianRed"
                     BorderThickness="4"
                     ColumnWidth="*"
                     IsReadOnly="True"
                     ItemsSource="{Binding GefilterdeUitgaven}">
                     <DataGrid.Columns>
-                        <DataGridTextColumn Binding="{Binding Jaar}" Header="Jaar" />
+
                         <DataGridTextColumn Binding="{Binding Maand}" Header="Maand" />
                         <DataGridTextColumn Binding="{Binding BudgetCategorie}" Header="Categorie" />
                         <DataGridTextColumn Binding="{Binding Begunstigde}" Header="Begunstigde" />
                         <DataGridTextColumn Binding="{Binding Bedrag, StringFormat=N2}" Header="Bedrag" />
-                        <DataGridTextColumn Binding="{Binding Onderwerp}" Header="Onderwerp" />
+
                     </DataGrid.Columns>
+                    <DataGrid.Resources>
+                        <Style TargetType="ScrollViewer">
+                            <Setter Property="HorizontalScrollBarVisibility" Value="Auto" />
+                            <Setter Property="VerticalScrollBarVisibility" Value="Auto" />
+                        </Style>
+                    </DataGrid.Resources>
+                    <DataGrid.CellStyle>
+                        <Style TargetType="DataGridCell">
+                            <Style.Triggers>
+                                <Trigger Property="IsSelected" Value="True">
+                                    <Setter Property="Background" Value="LightBlue" />
+                                    <Setter Property="Foreground" Value="Black" />
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </DataGrid.CellStyle>
                 </DataGrid>
 
 

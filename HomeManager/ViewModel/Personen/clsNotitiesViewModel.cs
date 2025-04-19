@@ -192,7 +192,7 @@ namespace HomeManager.ViewModel
 
 
 
-        //Test Notities
+        //Layout Notities
         private void ToggleBold(RichTextBox richTextBox)
         {
             if (richTextBox != null && !richTextBox.Selection.IsEmpty)

@@ -1,10 +1,10 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFramework>net8.0</TargetFramework>
-    <ImplicitUsings>enable</ImplicitUsings>
-    <Nullable>enable</Nullable>
-  </PropertyGroup>
+	<PropertyGroup>
+		<TargetFramework>net8.0</TargetFramework>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+	</PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.Data.SqlClient" Version="5.2.2" />
@@ -12,10 +12,10 @@
     <PackageReference Include="System.Configuration.ConfigurationManager" Version="8.0.0" />
   </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\HomeMangager.Common\HomeManager.Common.csproj" />
-    <ProjectReference Include="..\HomeMangager.Model\HomeManager.Model.csproj" />
-  </ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\HomeMangager.Common\HomeManager.Common.csproj" />
+		<ProjectReference Include="..\HomeMangager.Model\HomeManager.Model.csproj" />
+	</ItemGroup>
 
   <ItemGroup>
     <Compile Update="Connection.Designer.cs">
@@ -49,19 +49,15 @@
   <ItemGroup>
     <Folder Include="Dagboek\" />
     <Folder Include="StickyNotes\" />
+    <Folder Include="Homepage\" />
     <Folder Include="Todo\" />
   </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\HomeMangager.Common\HomeManager.Common.csproj" />
-    <ProjectReference Include="..\HomeMangager.Model\HomeManager.Model.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <EmbeddedResource Update="Properties\Resources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-  </ItemGroup>
+	<ItemGroup>
+		<EmbeddedResource Update="Properties\Resources.resx">
+			<Generator>ResXFileCodeGenerator</Generator>
+			<LastGenOutput>Resources.Designer.cs</LastGenOutput>
+		</EmbeddedResource>
+	</ItemGroup>
 
 </Project>

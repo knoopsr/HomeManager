@@ -134,7 +134,13 @@ namespace HomeManager.ViewModel
             cmdNew = new clsCustomCommand(Execute_NewCommand, CanExecute_NewCommand);
             cmdCancel = new clsCustomCommand(Execute_CancelCommand, CanExecute_CancelCommand);
             cmdClose = new clsCustomCommand(Execute_CloseCommand, CanExecute_CloseCommand);
-            cmdFilter = new clsCustomCommand(Execute_FilterCommand, CanExecute_FilterCommand);
+
+            //de searchcommand
+            SearchCommand = new RelayCommand(FilterCategorie);
+            //de clear SearchCommand
+            ClearSearchCommand = new RelayCommand(ClearSearch);
+
+
             clsMessenger.Default.Register<clsCategorieModel>(this, OnCategorieReceived);
 
 
@@ -284,20 +290,51 @@ namespace HomeManager.ViewModel
 
         #region Filter_Categorie
 
-        private string _filterTekst;
+        private string _filterText;
 
-        public string FilterTekst
+        public string FilterText
         {
             get
             {
-                return _filterTekst;
+                return _filterText;
             }
             set
             {
-                _filterTekst = value;
-                OnPropertyChanged(nameof(FilterTekst));
+                _filterText = value;
+                OnPropertyChanged();
+                FilterCategorie();
             }
         }
+
+        //RelayCommand toevoegen voor de RelayCommand filters
+        public class RelayCommand : ICommand
+        {
+            private readonly Action _execute;
+            private readonly Func<bool> _canExecute;
+            private Action<object> executeBold;
+
+            public RelayCommand(Action execute, Func<bool> canExecute = null)
+            {
+                _execute = execute ?? throw new ArgumentNullException(nameof(execute));
+                _canExecute = canExecute;
+            }
+
+            public RelayCommand(Action<object> executeBold)
+            {
+                this.executeBold = executeBold;
+            }
+
+            public bool CanExecute(object parameter) => _canExecute == null || _canExecute();
+
+            public void Execute(object parameter) => _execute();
+
+            public event EventHandler CanExecuteChanged
+            {
+                add => CommandManager.RequerySuggested += value;
+                remove => CommandManager.RequerySuggested -= value;
+            }
+        }
+
 
         private ObservableCollection<clsCategorieModel> _gefilterdeCollectie;
 
@@ -314,33 +351,42 @@ namespace HomeManager.ViewModel
             }
         }
 
-        private bool CanExecute_FilterCommand(object obj)
-        {
-            return true;
-        }
+        //ICommand voor mijn filters
+        public ICommand SearchCommand { get; private set; }
+        public ICommand ClearSearchCommand { get; private set; }
 
-        private void Execute_FilterCommand(object obj)
+        // Methode voor filter uit te voeren
+        private void FilterCategorie()
         {
-            if (string.IsNullOrWhiteSpace(FilterTekst))
+            if (string.IsNullOrWhiteSpace(FilterText))
             {
-                // Als er geen filtertekst is, toon alles
+                //niet in de zoekbalk
                 GefilterdeCollectie = new ObservableCollection<clsCategorieModel>(MijnCollectie);
             }
             else
             {
-                // Filter de collectie op basis van FilterTekst
                 var GefilterdeItems = MijnCollectie
                     .Where(item =>
 
-                        
-                        (item.BudgetCategorie.IndexOf(FilterTekst, StringComparison.OrdinalIgnoreCase) >= 0)                        
-                        )
-                    .ToList();
+                       (item.BudgetCategorie.IndexOf(FilterText, StringComparison.OrdinalIgnoreCase) >= 0)
+                       )
+                      .ToList();
 
-                //update de gefilterde collectie
                 GefilterdeCollectie = new ObservableCollection<clsCategorieModel>(GefilterdeItems);
             }
         }
+
+
+
+        //Methode voor de zoekbalk te clearen
+        private void ClearSearch()
+        {
+            FilterText = string.Empty;
+            FilterCategorie();
+
+        }
+
+        
         #endregion
     }
 }

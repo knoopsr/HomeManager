@@ -1,0 +1,249 @@
+﻿<UserControl
+    x:Class="HomeManager.View.ucTodoPopup"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:HomeManager.View"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:uc="clr-namespace:HomeManager.View"
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    Background="{StaticResource myBackground}"
+    mc:Ignorable="d">
+    <Grid DataContext="{Binding Source={StaticResource VML}, Path=TodoPopupViewModel}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Border
+            Grid.Row="0"
+            Background="{StaticResource myTitleBar}"
+            BorderBrush="LightBlue"
+            BorderThickness="1">
+            <Grid>
+                <StackPanel
+                    Margin="10,0,0,0"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Center"
+                    Orientation="Horizontal">
+                    <Path
+                        Width="20"
+                        Height="20"
+                        Data="{StaticResource myPathSetting}"
+                        Fill="White"
+                        Stretch="Fill" />
+                    <TextBlock
+                        Margin="10,0,0,0"
+                        VerticalAlignment="Center"
+                        FontSize="20"
+                        Foreground="White"
+                        Text="Todo's" />
+                </StackPanel>
+                <uc:ucWerkBalk HorizontalAlignment="Right" VerticalAlignment="top" />
+            </Grid>
+        </Border>
+
+        <Border
+            Grid.Row="1"
+            Grid.Column="0"
+            Margin="3"
+            BorderBrush="Black"
+            BorderThickness="1"
+            CornerRadius="5">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="100" />
+                    <ColumnDefinition Width="100" />
+                    <ColumnDefinition Width="150" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="25" />
+                    <RowDefinition Height="80" />
+                    <RowDefinition Height="25" />
+                    <RowDefinition Height="25" />
+                    <RowDefinition Height="25" />
+                    <RowDefinition Height="25" />
+                    <RowDefinition Height="25" />
+                    <RowDefinition Height="25" />
+                    <RowDefinition Height="100" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+
+                <ListBox
+                    Name="ToDoPopupListView"
+                    Grid.Row="1"
+                    Grid.RowSpan="9"
+                    Grid.Column="1"
+                    DisplayMemberPath="Onderwerp"
+                    ItemsSource="{Binding MijnCollectie}"
+                    SelectedIndex="{Binding MijnSelectedItem.MijnSelectedIndex, Mode=TwoWay}"
+                    SelectedItem="{Binding MijnSelectedItem, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+
+
+                <Label
+                    Grid.Row="1"
+                    Grid.Column="2"
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Top"
+                    Content="Onderwerp"
+                    FontSize="12" />
+                <TextBox
+                    Name="Onderwerptxtb"
+                    Grid.Row="1"
+                    Grid.Column="3"
+                    Height="20"
+                    VerticalAlignment="Center"
+                    Text="{Binding MijnSelectedItem.Onderwerp, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" />
+
+                <Label
+                    Grid.Row="2"
+                    Grid.Column="2"
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Top"
+                    Content="Detail"
+                    FontSize="12" />
+                <TextBox
+                    Grid.Row="2"
+                    Grid.Column="3"
+                    Height="80"
+                    VerticalAlignment="Center"
+                    Text="{Binding MijnSelectedItem.Detail, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" />
+
+
+
+                <Label
+                    Grid.Row="3"
+                    Grid.Column="2"
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Top"
+                    Content="Gebruiker"
+                    FontSize="12" />
+
+                <StackPanel
+                    Grid.Row="3"
+                    Grid.Column="3"
+                    Orientation="Horizontal">
+                    <ComboBox
+                        Width="125"
+                        Height="20"
+                        Margin="0,0,4,0"
+                        VerticalAlignment="Center"
+                        ItemsSource="{Binding MijnCollectieGebruikers}"
+                        SelectedValue="{Binding MijnSelectedGebruiker.AccountID}"
+                        SelectedValuePath="PersoonID" />
+                    <Button Command="{Binding OpenAccountCommand}" Style="{StaticResource OpenUCButton}" />
+                </StackPanel>
+
+
+                <Label
+                    Grid.Row="4"
+                    Grid.Column="2"
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Top"
+                    Content="Belangrijk?"
+                    FontSize="12" />
+                <CheckBox
+                    Grid.Row="4"
+                    Grid.Column="3"
+                    Height="20"
+                    VerticalAlignment="Center"
+                    IsChecked="{Binding MijnSelectedItem.Belangrijk, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+
+                <Label
+                    Grid.Row="5"
+                    Grid.Column="2"
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Top"
+                    Content="Todo Collectie"
+                    FontSize="12" />
+
+                <StackPanel
+                    Grid.Row="5"
+                    Grid.Column="3"
+                    Orientation="Horizontal">
+                    <ComboBox
+                        Name="TodoCollectiesComboBox"
+                        Width="125"
+                        Height="20"
+                        Margin="0,0,4,0"
+                        VerticalAlignment="Center"
+                        DataContext="{Binding Source={StaticResource VML}, Path=CollectiesViewModel}"
+                        ItemsSource="{Binding MijnCollectie}"
+                        SelectedValue="{Binding DataContext.MijnSelectedItem.TodoCollectieID, RelativeSource={RelativeSource AncestorType=UserControl}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
+                        SelectedValuePath="ToDoCollectieID"
+                        DisplayMemberPath="ToDoCollectie" />
+    
+                    <Button Command="{Binding OpenCollectiesCommand}" Style="{StaticResource OpenUCButton}" />
+
+                </StackPanel>
+
+                <Label
+                    Grid.Row="6"
+                    Grid.Column="2"
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Top"
+                    Content="Todo Categorie"
+                    FontSize="12" />
+                <ComboBox
+                    Name="TodoCategorieComboBox"
+                    Grid.Row="6"
+                    Grid.Column="3"
+                    Height="20"
+                    VerticalAlignment="Center"
+                    DataContext="{Binding Source={StaticResource VML}, Path=CategorieënViewModel}"
+                    ItemsSource="{Binding MijnCollectie}"
+                    SelectedValue="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Grid}}, Path=DataContext.MijnSelectedItem.TodoCategorieID, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
+                    SelectedValuePath="ToDoCategorieID" />
+                <Label
+                    Grid.Row="7"
+                    Grid.Column="2"
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Top"
+                    Content="Todo Color"
+                    FontSize="12" />
+                <ComboBox
+                    Name="TodoColorCombobox"
+                    Grid.Row="7"
+                    Grid.Column="3"
+                    Height="20"
+                    VerticalAlignment="Center"
+                    DataContext="{Binding Source={StaticResource VML}, Path=KleurenViewModel}"
+                    DisplayMemberPath="ToDoColor"
+                    ItemsSource="{Binding MijnCollectie}"
+                    SelectedValue="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Grid}}, Path=DataContext.MijnSelectedItem.TodoColorID, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
+                    SelectedValuePath="ToDoColorID" />
+
+                <Label
+                    Grid.Row="8"
+                    Grid.Column="2"
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Top"
+                    Content="Is klaar?"
+                    FontSize="12" />
+                <CheckBox
+                    Grid.Row="8"
+                    Grid.Column="3"
+                    Height="20"
+                    VerticalAlignment="Center"
+                    IsChecked="{Binding MijnSelectedItem.IsKlaar, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+
+
+
+
+
+
+
+
+
+
+            </Grid>
+
+
+
+        </Border>
+
+    </Grid>
+</UserControl>

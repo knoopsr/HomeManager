@@ -737,30 +737,30 @@ namespace HomeManager.Helpers
 
 		public void IncreaseTextIndentation(IEnumerable<Paragraph> paragraphs)
 		{
-            foreach (Paragraph paragraph in paragraphs)
-            {
-                paragraph.TextIndent += 20;
-            }
+			foreach (Paragraph paragraph in paragraphs)
+			{
+				paragraph.TextIndent += 20;
+			}
 
-            MyTextIndentation += 20;
-        }
+			MyTextIndentation += 20;
+		}
 
 		public void DecreaseTextIndentation(IEnumerable<Paragraph> paragraphs)
 		{
-            if (MyTextIndentation == 0) return;
+			if (MyTextIndentation == 0) return;
 
-            foreach (Paragraph paragraph in paragraphs)
-            {
-                if (paragraph.TextIndent >= 20)
-                {
-                    paragraph.TextIndent -= 20;
-                }
-            }
+			foreach (Paragraph paragraph in paragraphs)
+			{
+				if (paragraph.TextIndent >= 20)
+				{
+					paragraph.TextIndent -= 20;
+				}
+			}
 
-            MyTextIndentation -= 20;
-        }
+			MyTextIndentation -= 20;
+		}
 
 		#endregion
 
-        }
+		}
 }

@@ -7,7 +7,9 @@
     xmlns:VM="clr-namespace:HomeManager.ViewModel"
     xmlns:local="clr-namespace:HomeManager"
     StartupUri="View/Security/winLogin.xaml">
-    <!--  StartupUri="MainWindow.xaml">  -->
+    <!--StartupUri="MainWindow.xaml">--> 
+    
+    
 
     <Application.Resources>
 
@@ -16,8 +18,6 @@
             Aangezien ze in de app file staan zijn de key's van de resources over heel het project aanspreekbaar
         -->
 
-
-
         <ResourceDictionary>
 
             <VM:clsVMLocator x:Key="VML" />
@@ -25,18 +25,13 @@
             <Helpers:clsFocusExtension x:Key="FocusExtension" />
             <Helpers:clsMouseEventArgsToPointConverter x:Key="clsMouseEventArgsToPointConverter" />
 
-
-
-
-
-
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="\Resources\ErrorTemplateDictionary.xaml" />
-                <ResourceDictionary Source="\Resources\StaticStyleDictionary.xaml" />
                 <ResourceDictionary Source="\Resources\BrushesDictionary.xaml" />
                 <ResourceDictionary Source="\Resources\GeometryDrawingDictionary.xaml" />
                 <ResourceDictionary Source="\Resources\StyleHamburgerMenu.xaml" />
                 <ResourceDictionary Source="\Resources\StylesDictionary.xaml" />
+                <ResourceDictionary Source="\Resources\StaticStyleDictionary.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
 
