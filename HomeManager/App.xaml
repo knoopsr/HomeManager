@@ -7,9 +7,9 @@
     xmlns:VM="clr-namespace:HomeManager.ViewModel"
     xmlns:local="clr-namespace:HomeManager"
     StartupUri="View/Security/winLogin.xaml">
-    <!--StartupUri="MainWindow.xaml">--> 
-    
-    
+    <!--  StartupUri="MainWindow.xaml">  -->
+
+
 
     <Application.Resources>
 
