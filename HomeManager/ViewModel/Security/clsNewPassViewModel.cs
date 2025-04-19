@@ -69,13 +69,13 @@ namespace HomeManager.ViewModel
 
         private void Execute_Annuleer_Command(object? obj)
         {
-          ConfirmPass = string.Empty;
+            ConfirmPass = string.Empty;
             NewPass = string.Empty;
         }
 
         private bool CanExecute_Opslaan_Command(object? obj)
         {
-            if (NewPass != null && ConfirmPass != null && NewPass == ConfirmPass)
+            if (NewPass != string.Empty && ConfirmPass != string.Empty && NewPass == ConfirmPass)
             {
                 return true;
             }
