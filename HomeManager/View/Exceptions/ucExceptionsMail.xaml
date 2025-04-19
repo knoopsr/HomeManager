@@ -28,8 +28,8 @@
                     Orientation="Horizontal">
                     <Path
                         Width="20"
-                        Height="20"
-                        Data="{StaticResource myPathSetting}"
+                        Height="16"
+                        Data="{StaticResource myExceptionsMail}"
                         Fill="White"
                         Stretch="Fill" />
                     <TextBlock
@@ -37,8 +37,9 @@
                         VerticalAlignment="Center"
                         FontSize="20"
                         Foreground="White"
-                        Text="Overzicht Exception Emails" />
+                        Text="Overzicht Exceptions" />
                 </StackPanel>
+                <uc:ucWerkBalk HorizontalAlignment="Right" VerticalAlignment="top" />
             </Grid>
         </Border>
         <Border
@@ -56,13 +57,16 @@
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*" />
-                    <RowDefinition Height="350" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="40" />
+                    <RowDefinition Height="10" />
+                    <RowDefinition Height="300" />
                     <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
                 <StackPanel
-                    Grid.Row="0"
+                    Grid.Row="1"
                     Grid.Column="1"
-                    Margin="10,5,10,0"
+                    Margin="10"
                     VerticalAlignment="Center"
                     Orientation="Horizontal">
                     <Button
@@ -74,7 +78,8 @@
                         Style="{StaticResource Excel}" />
                 </StackPanel>
                 <DataGrid
-                    Grid.Row="1"
+                    Grid.Row="2"
+                    Grid.RowSpan="5"
                     Grid.Column="1"
                     MaxHeight="300"
                     Margin="10,0,10,10"

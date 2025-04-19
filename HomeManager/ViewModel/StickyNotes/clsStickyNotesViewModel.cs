@@ -44,11 +44,6 @@ namespace HomeManager.ViewModel.StickyNotes
         private bool _isFocusedAfterNew = false;
         private bool _newStatus = false; //Fix convention
 
-        private int PersoonID
-        {
-            get { return clsLoginModel.Instance.AccountID; }
-        }
-
         public ICommand CreateNoteCommand { get; set; }
         public ICommand RemoveNoteCommand { get; set; }
         public ICommand HandleImageCommand { get; set; }
@@ -57,6 +52,8 @@ namespace HomeManager.ViewModel.StickyNotes
         #endregion
 
         #region PROPERTIES
+        public int CurrentUserID { get => clsLoginModel.Instance.PersoonID; }
+
         /// <summary>
         /// Fix width gimmick
         /// </summary>
@@ -122,6 +119,7 @@ namespace HomeManager.ViewModel.StickyNotes
         public clsStickyNotesViewModel()
         {
             _myService = new clsStickyNotesDataService();
+            clsMessenger.Default.Register<clsLoginModel>(this, OnUpdateLoginModel);
 
             CreateNoteCommand = new clsCustomCommand(Execute_CreateNoteCommand, CanExecute_CreateNoteCommand);
             RemoveNoteCommand = new clsCustomCommand(Execute_RemoveNoteCommand, CanExecute_RemoveNoteCommand);
@@ -130,11 +128,23 @@ namespace HomeManager.ViewModel.StickyNotes
             ItemReceivedCommand = new clsStickyNotesReceivedCommand(this);
 
             LoadData();
-            MySelectedItem = _myService.GetFirst();
+            MySelectedItem = _myService.GetFirstByUserID(CurrentUserID);
         }
         #endregion
 
         #region METHODS
+        public void LoadData()
+        {
+            MyCollection = _myService.GetAllByUserID(CurrentUserID);
+        }
+
+
+        void OnUpdateLoginModel(clsLoginModel model)
+        {
+            LoadData();
+            MySelectedItem = _myService.GetFirstByUserID(CurrentUserID);
+        }
+
         private async void SaveCommand(object? parameter = null)
         {
             foreach (clsStickyNotesModel item in MyCollection)
@@ -142,7 +152,7 @@ namespace HomeManager.ViewModel.StickyNotes
                 for (int i = 0; i < MyCollection.Count; i++)
                 {
                     MyCollection[i].Position = i;
-                    item.UserID = PersoonID;
+                    item.UserID = CurrentUserID;
                 }
 
                 if (!_newStatus)
@@ -185,12 +195,7 @@ namespace HomeManager.ViewModel.StickyNotes
             // Update the previous item tracker
             _previousSelectedItem = MySelectedItem;
         }
-
-        private void LoadData()
-        {
-            MyCollection = _myService.GetAll();
-        }
-
+        
         #region IMAGEHANDLER
         private void UploadImage()
         {
@@ -252,7 +257,7 @@ namespace HomeManager.ViewModel.StickyNotes
                 ThumbnailName = string.Empty,
                 Date = DateTime.Now,
                 SelectedBrush = "titleBrush",
-                UserID = PersoonID
+                UserID = CurrentUserID
             };
 
             if (MyCollection.IsNullOrEmpty()) newItem.Position = 0;
