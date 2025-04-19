@@ -10,12 +10,14 @@ using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using DocumentFormat.OpenXml.Wordprocessing;
 using HomeManager.DataService.Logging;
 using HomeManager.Model.Logging;
 using HomeManager.Model.Security;
 using HomeManager.View.Personen;
 using HomeManager.View.StickyNotes;
+using System.Windows.Forms;
+using System.Drawing;
+using HomeManager.Services;
 
 namespace HomeManager
 {
@@ -36,29 +38,16 @@ namespace HomeManager
             InitializeComponent();
 
             // Register the LocationChanged event to update the sticky note position
-            this.LocationChanged += MainWindow_LocationChanged;
+            this.LocationChanged += Window_LocationChanged;
         }
 
-        /// <summary>
-        /// Updates the overlayWindow position
-        /// </summary>
-        private void UpdateOverlayPosition(Window overlayWindow, Window ownerWindow)
-        {
-            // Sets the width and the height
-            overlayWindow.Width = ownerWindow.Width * 0.40f;
-            overlayWindow.Height = ownerWindow.Height;
-
-            // Positions the overlayWindow to the right of the ownerWindow
-            overlayWindow.Left = ownerWindow.Left + ownerWindow.Width - overlayWindow.Width;
-            overlayWindow.Top = ownerWindow.Top;
-        }
-
+        #region METHODS
         private void Show_StickyNotes(object sender, RoutedEventArgs e)
         {
             if (stickyNotesView == null || !stickyNotesView.IsVisible)
             {
                 stickyNotesView = new StickyNotesView();
-                UpdateOverlayPosition(stickyNotesView, this);
+                clsWindowService.HandleWindowOverlay(stickyNotesView, this);
                 stickyNotesView.Show();
 
                 clsButtonLoggingDataService MijnLoggingService = new clsButtonLoggingDataService();
@@ -70,23 +59,28 @@ namespace HomeManager
                 });
             }
         }
+        #endregion
 
-        private void MainWindow_LocationChanged(object sender, EventArgs e)
+        #region EVENTS
+        private void Window_LocationChanged(object sender, EventArgs e)
         {
-            if (this == null) stickyNotesView.Close();
-
-            if (stickyNotesView != null)
-            {
-                UpdateOverlayPosition(stickyNotesView, this);
-            }
+            clsWindowService.HandleWindowOverlay(stickyNotesView, this);
         }
 
         private void Window_SizeChanged(object sender, SizeChangedEventArgs e)
         {
-            if (stickyNotesView != null)
-            {
-                UpdateOverlayPosition(stickyNotesView, this);
-            }
+            clsWindowService.HandleWindowOverlay(stickyNotesView, this);
         }
+
+        private void Window_StateChanged(object sender, EventArgs e)
+        {
+            clsWindowService.HandleWindowOverlay(stickyNotesView, this);
+        }
+
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            stickyNotesView.Close();
+        }
+        #endregion
     }
 }

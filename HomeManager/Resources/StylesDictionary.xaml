@@ -1103,10 +1103,12 @@
     </Style>
 
     <Style x:Key="StickyNoteButton" TargetType="Button">
-        <Setter Property="Margin" Value="10,0,10,0" />
+        <Setter Property="Margin" Value="2.5" />
         <Setter Property="Background" Value="{DynamicResource backgroundBrush}" />
-        <Setter Property="BorderThickness" Value="0" />
-        <Setter Property="Width" Value="35" />
+        <Setter Property="BorderBrush" Value="{DynamicResource iconBrush}" />
+        <Setter Property="BorderThickness" Value="2.5" />
+        <Setter Property="Width" Value="75" />
+        <Setter Property="Height" Value="30" />
         <Setter Property="RenderTransformOrigin" Value="0,0" />
         <Setter Property="RenderTransform">
             <Setter.Value>
@@ -1124,6 +1126,7 @@
                         <ContentPresenter
                             HorizontalAlignment="Center"
                             VerticalAlignment="Center"
+                            TextElement.FontWeight="Bold"
                             TextElement.Foreground="{TemplateBinding Foreground}" />
                     </Border>
                 </ControlTemplate>
@@ -1131,8 +1134,7 @@
         </Setter>
         <Style.Triggers>
             <Trigger Property="IsMouseOver" Value="True">
-                <Setter Property="Background" Value="{DynamicResource iconBrush}" />
-                <Setter Property="Foreground" Value="{DynamicResource backgroundBrush}" />
+                <Setter Property="Background" Value="{DynamicResource gradientBrush}" />
                 <Trigger.EnterActions>
                     <BeginStoryboard>
                         <Storyboard>
@@ -1158,6 +1160,64 @@
             </Trigger>
         </Style.Triggers>
     </Style>
+
+    <Style x:Key="StickyNoteExitButton" TargetType="Button">
+        <Setter Property="Margin" Value="10,0,10,0" />
+        <Setter Property="Background" Value="{DynamicResource backgroundBrush}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource iconBrush}" />
+        <Setter Property="BorderThickness" Value="2.5" />
+        <Setter Property="Width" Value="35" />
+        <Setter Property="RenderTransform">
+            <Setter.Value>
+                <TranslateTransform x:Name="translateTransform" X="0" />
+            </Setter.Value>
+        </Setter>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border
+                        Background="{TemplateBinding Background}"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="{TemplateBinding BorderThickness}"
+                        CornerRadius="5">
+                        <ContentPresenter
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            TextElement.FontWeight="Bold"
+                            TextElement.Foreground="{TemplateBinding Foreground}" />
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="{DynamicResource gradientBrush}" />
+                <Trigger.EnterActions>
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <!--  Move button slightly to the right  -->
+                            <DoubleAnimation
+                                Storyboard.TargetProperty="RenderTransform.(TranslateTransform.X)"
+                                To="3"
+                                Duration="0:0:0.2" />
+                        </Storyboard>
+                    </BeginStoryboard>
+                </Trigger.EnterActions>
+                <Trigger.ExitActions>
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <!--  Move button back to original position  -->
+                            <DoubleAnimation
+                                Storyboard.TargetProperty="RenderTransform.(TranslateTransform.X)"
+                                To="0"
+                                Duration="0:0:0.2" />
+                        </Storyboard>
+                    </BeginStoryboard>
+                </Trigger.ExitActions>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
 
     <Style x:Key="StickyNoteRichTextboxButton" TargetType="Button">
         <Setter Property="Margin" Value="10,0,10,2.5" />
@@ -1201,59 +1261,6 @@
                         <Storyboard>
                             <DoubleAnimation
                                 Storyboard.TargetProperty="RenderTransform.(TranslateTransform.Y)"
-                                To="0"
-                                Duration="0:0:0.2" />
-                        </Storyboard>
-                    </BeginStoryboard>
-                </Trigger.ExitActions>
-            </Trigger>
-        </Style.Triggers>
-    </Style>
-
-    <Style x:Key="StickyNoteExitButton" TargetType="Button">
-        <Setter Property="Margin" Value="10,0,10,0" />
-        <Setter Property="Background" Value="{DynamicResource backgroundBrush}" />
-        <Setter Property="Foreground" Value="Black" />
-        <Setter Property="BorderThickness" Value="0" />
-        <Setter Property="Width" Value="35" />
-        <Setter Property="RenderTransform">
-            <Setter.Value>
-                <TranslateTransform x:Name="translateTransform" X="0" />
-            </Setter.Value>
-        </Setter>
-        <Setter Property="Template">
-            <Setter.Value>
-                <ControlTemplate TargetType="Button">
-                    <Border
-                        Background="{TemplateBinding Background}"
-                        BorderBrush="{TemplateBinding BorderBrush}"
-                        BorderThickness="{TemplateBinding BorderThickness}"
-                        CornerRadius="5">
-                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
-                    </Border>
-                </ControlTemplate>
-            </Setter.Value>
-        </Setter>
-        <Style.Triggers>
-            <Trigger Property="IsMouseOver" Value="True">
-                <Setter Property="Background" Value="{DynamicResource iconBrush}" />
-                <Trigger.EnterActions>
-                    <BeginStoryboard>
-                        <Storyboard>
-                            <!--  Move button slightly to the right  -->
-                            <DoubleAnimation
-                                Storyboard.TargetProperty="RenderTransform.(TranslateTransform.X)"
-                                To="3"
-                                Duration="0:0:0.2" />
-                        </Storyboard>
-                    </BeginStoryboard>
-                </Trigger.EnterActions>
-                <Trigger.ExitActions>
-                    <BeginStoryboard>
-                        <Storyboard>
-                            <!--  Move button back to original position  -->
-                            <DoubleAnimation
-                                Storyboard.TargetProperty="RenderTransform.(TranslateTransform.X)"
                                 To="0"
                                 Duration="0:0:0.2" />
                         </Storyboard>
