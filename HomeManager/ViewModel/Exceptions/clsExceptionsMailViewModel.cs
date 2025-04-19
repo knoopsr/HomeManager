@@ -70,8 +70,17 @@ namespace HomeManager.ViewModel.Exceptions
         /// <returns></returns>
         private static void LoadData()
         {
+            EmailDataService = new clsEmailAdressenDataService();
+            if (clsLoginModel.Instance == null)
+            {
+                MessageBox.Show("clsLoginModel.Instance is null");
+                return;
+            }
+
+
             if (clsLoginModel.Instance != null)
             {
+          
                 CurrentUserMailCollection = EmailDataService.GetByPersoonID(clsLoginModel.Instance.PersoonID);
             }
             else MessageBox.Show("No CurrentUserMailCollection was found by the EmailDataService.");
@@ -82,6 +91,7 @@ namespace HomeManager.ViewModel.Exceptions
 
         public static void SendExceptionToMailAddresses(clsExceptionsModel ex)
         {
+            MailService = new clsMailService();
             LoadData();
 
             if (!CurrentUserMailCollection.IsNullOrEmpty()
