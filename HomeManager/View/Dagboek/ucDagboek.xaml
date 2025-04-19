@@ -13,11 +13,12 @@
     d:DesignWidth="800"
     mc:Ignorable="d">
 
-    <DockPanel DataContext="{Binding Source={StaticResource VML}, Path=DagboekViewModel}">
+    <DockPanel DataContext="{Binding Source={StaticResource VML}, Path=DagboekViewModel}" Background="{StaticResource myBackground}">
         <Border
+            Height="50"
             Background="{StaticResource myTitleBar}"
             BorderBrush="LightBlue"
-            BorderThickness="2"
+            BorderThickness="1"
             DockPanel.Dock="Top">
 
             <StackPanel
