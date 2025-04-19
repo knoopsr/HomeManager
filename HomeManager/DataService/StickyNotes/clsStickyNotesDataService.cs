@@ -21,6 +21,16 @@ namespace HomeManager.DataService.StickyNotes
             return myRepo.Find();
         }
 
+        public ObservableCollection<clsStickyNotesModel> GetAllByUserID(int userID)
+        {
+            return myRepo.GetAllByUserID(userID);
+        }
+
+        public clsStickyNotesModel GetFirstByUserID(int userID)
+        {
+            return myRepo.GetFirstByUserID(userID);
+        }
+
         public ObservableCollection<clsStickyNotesModel> GetAll()
         {
             return myRepo.GetAll();

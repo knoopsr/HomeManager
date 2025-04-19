@@ -29,7 +29,7 @@
                     <Path
                         Width="20"
                         Height="20"
-                        Data="{StaticResource myPathSetting}"
+                        Data="{StaticResource myExceptions}"
                         Fill="White"
                         Stretch="Fill" />
                     <TextBlock

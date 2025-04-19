@@ -1,4 +1,6 @@
-﻿using HomeManager.Model.StickyNotes;
+﻿using HomeManager.Model.Personen;
+using HomeManager.Model.Security;
+using HomeManager.Model.StickyNotes;
 using Microsoft.Data.SqlClient;
 using System;
 using System.Collections.Generic;
@@ -51,25 +53,6 @@ namespace HomeManager.DAL.StickyNotes
             MijnDataReader.Close();
         }
 
-        public clsStickyNotesModel GetByID(int id)
-        {
-            if (StickyNotesCollection == null)
-            {
-                GenerateCollection();
-            }
-
-            return StickyNotesCollection.Where(note => note.StickyNoteID == id).FirstOrDefault();
-        }
-
-        public clsStickyNotesModel GetByUserID(int id)
-        {
-            if (StickyNotesCollection == null)
-            {
-                GenerateCollection();
-            }
-            return StickyNotesCollection.Where(note => note.UserID == id).FirstOrDefault();
-        }
-
         public clsStickyNotesModel GetFirst()
         {
             if (StickyNotesCollection == null)
@@ -78,6 +61,7 @@ namespace HomeManager.DAL.StickyNotes
             }
             return StickyNotesCollection.FirstOrDefault();
         }
+
 
         public bool Insert(clsStickyNotesModel entity)
         {
@@ -137,6 +121,11 @@ namespace HomeManager.DAL.StickyNotes
             return OK;
         }
 
+        /// <summary>
+        /// First or default.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public clsStickyNotesModel GetById(int id)
         {
             if (StickyNotesCollection == null)
@@ -144,6 +133,42 @@ namespace HomeManager.DAL.StickyNotes
                 GenerateCollection();
             }
             return StickyNotesCollection.Where(stickyNote => stickyNote.StickyNoteID == id).FirstOrDefault();
+        }
+
+        public ObservableCollection<clsStickyNotesModel> GetAllByUserID(int userID)
+        {
+            SqlDataReader MijnDataReader = clsDAL.GetData(Properties.Resources.S_StickyNotesByID,
+                clsDAL.Parameter("PersoonID", clsLoginModel.Instance.PersoonID));
+
+            StickyNotesCollection = new ObservableCollection<clsStickyNotesModel>();
+
+            while (MijnDataReader.Read())
+            {
+                clsStickyNotesModel item = new clsStickyNotesModel()
+                {
+                    StickyNoteID = (int)MijnDataReader[0],
+                    UserID = (int)MijnDataReader[1],
+                    Title = MijnDataReader["Title"].ToString(),
+                    Content = MijnDataReader["Note"].ToString(),
+                    Thumbnail = MijnDataReader["Thumbnail"] != DBNull.Value ? (byte[])MijnDataReader["Thumbnail"] : null,
+                    ThumbnailName = MijnDataReader["ThumbnailName"].ToString(),
+                    Date = (DateTime)MijnDataReader["SelectedDate"],
+                    SelectedBrush = MijnDataReader["SelectedBrush"].ToString(),
+                    ControlField = MijnDataReader["ControlField"]
+                };
+                StickyNotesCollection.Add(item);
+            }
+            MijnDataReader.Close();
+            return StickyNotesCollection;
+        }
+
+        public clsStickyNotesModel GetFirstByUserID(int userID)
+        {
+            if (StickyNotesCollection == null)
+            {
+                GetAllByUserID(userID);
+            }
+            return StickyNotesCollection.FirstOrDefault();
         }
     }
 }
