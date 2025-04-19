@@ -226,8 +226,8 @@
                                     Style="{StaticResource myRibbonButton}" />
 
                                 <Label
-                                    Grid.Column="1"
                                     Grid.Row="1"
+                                    Grid.Column="1"
                                     Padding="1"
                                     Content="Find Email Asress" />
 
