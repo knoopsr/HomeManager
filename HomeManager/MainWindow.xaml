@@ -71,6 +71,9 @@
         <DataTemplate DataType="{x:Type VM:clsPersonenViewModel}">
             <V:ucPersonen />
         </DataTemplate>
+        <DataTemplate DataType="{x:Type VM:clsCategorieViewModel}">
+            <V:ucCategorie />
+        </DataTemplate>
         <DataTemplate DataType="{x:Type VM:clsCollectiesVM}">
             <V:ucCollecties />
         </DataTemplate>
