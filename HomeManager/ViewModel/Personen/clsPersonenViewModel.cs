@@ -430,24 +430,24 @@ namespace HomeManager.ViewModel
         {
             if (obj == null)
             {
-                clsEmailAdressenModel sendemail = new clsEmailAdressenModel()
+                clsEmailVerzendenModel sendemail = new clsEmailVerzendenModel()
                 {
                     PersoonID = MijnSelectedItem.PersoonID,
-                    EmailAdresID = 0,
-                    Emailadres = string.Empty,
-                    EmailTypeID = 0
+                    Ontvanger = SelectedEmailAdres.Emailadres
                 };
-                clsMessenger.Default.Send<clsEmailAdressenModel>(sendemail);
+                clsMessenger.Default.Send<clsEmailVerzendenModel>(sendemail);
             }
             else
             {
                 if (MijnSelectedItem != null)
                 {
-                    if (obj is clsEmailAdressenModel)
+                    clsEmailVerzendenModel sendemail = new clsEmailVerzendenModel()
                     {
-                        clsEmailAdressenModel sendemail = obj as clsEmailAdressenModel;
-                        clsMessenger.Default.Send<clsEmailAdressenModel>(sendemail);
-                    }
+                        PersoonID = MijnSelectedItem.PersoonID,
+                        Ontvanger = SelectedEmailAdres.Emailadres
+                    };
+                    clsMessenger.Default.Send<clsEmailVerzendenModel>(sendemail);
+                    
                 }
             }
             _DialogService.ShowDialog(new ucEmailVerzenden(), "Email Verzenden");

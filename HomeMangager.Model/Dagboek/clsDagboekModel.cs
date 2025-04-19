@@ -15,6 +15,8 @@ namespace HomeManager.Model.Dagboek
 
 		public string? MyRTFString { get; set; }
 
+		public byte[]? MyFlowDocument { get; set; }
+
 		private string _DagboekContentString;
 
 		public string DagboekContentString

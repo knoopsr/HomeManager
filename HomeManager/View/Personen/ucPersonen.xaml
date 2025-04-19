@@ -62,21 +62,6 @@
                         <RowDefinition Height="20" />
                         <RowDefinition Height="*" />
                     </Grid.RowDefinitions>
-                    <!--<StackPanel
-                        Margin="2"
-                        HorizontalAlignment="Left"
-                        Orientation="Horizontal">
-                        <TextBox
-                            x:Name="txtSearchbar"
-                            Width="200"
-                            Height="20" />
-                        <Button
-                            x:Name="btnSearch"
-                            Width="15"
-                            Height="15"
-                            Margin="5,0,0,0"
-                            Style="{StaticResource FilterImage}" />
-                    </StackPanel>-->
                     <StackPanel
                         Margin="2"
                         HorizontalAlignment="Left"
@@ -108,7 +93,7 @@
                     <ListView
                         Name="UserListView"
                         Grid.RowSpan="7"
-                        Margin="2,20,2,5"
+                        Margin="2,20,0,5"
                         ItemsSource="{Binding FilteredCollectie}"
                         ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                         ScrollViewer.VerticalScrollBarVisibility="Auto"
@@ -121,44 +106,47 @@
                         <ListView.ItemTemplate>
                             <DataTemplate>
                                 <Border
-                                    Width="90"
-                                    Margin="5"
+                                    Width="100"
+                                    Height="110"
+                                    Margin="3"
                                     Padding="2"
                                     Background="LightGray"
                                     BorderBrush="Gray"
                                     BorderThickness="1"
                                     CornerRadius="8">
-                                    <Grid>
+                                    <Grid x:Name="brdPersoon">
                                         <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="*" />
-                                            <ColumnDefinition Width="*" />
+                                            <ColumnDefinition Width="auto" />
                                             <ColumnDefinition Width="*" />
                                         </Grid.ColumnDefinitions>
-                                        <Grid.RowDefinitions>
-                                            <RowDefinition Height="*" />
-                                            <RowDefinition Height="*" />
-                                        </Grid.RowDefinitions>
                                         <Border
                                             Grid.Column="0"
-                                            Width="30"
-                                            Height="64"
-                                            Margin="1,0,0,0"
-                                            BorderBrush="Gray"
-                                            BorderThickness="1">
-                                            <Border.Effect>
-                                                <DropShadowEffect
-                                                    BlurRadius="10"
-                                                    Opacity="0.5"
-                                                    ShadowDepth="5"
-                                                    Color="Black" />
-                                            </Border.Effect>
-                                            <Border.Background>
-                                                <ImageBrush ImageSource="{Binding Foto, TargetNullValue='https://p92.com/binaries/content/gallery/p92website/technologies/c-sharp-overview.png'}" Stretch="UniformToFill" />
-                                            </Border.Background>
+                                            Width="55"
+                                            Height="108"
+                                            Margin="-2,-10,0,-11"
+                                            BorderBrush="Yellow"
+                                            BorderThickness="0.5"
+                                            CornerRadius="7">
+                                            <Border
+                                                Width="45"
+                                                Height="90"
+                                                Margin="1,0,5,5"
+                                                BorderThickness="2">
+                                                <Border.Effect>
+                                                    <DropShadowEffect
+                                                        BlurRadius="15"
+                                                        Opacity="5"
+                                                        ShadowDepth="4"
+                                                        Color="Black" />
+                                                </Border.Effect>
+                                                <Border.Background>
+                                                    <ImageBrush ImageSource="{Binding Foto, TargetNullValue='https://miro.medium.com/v2/resize:fit:1400/1*w0u2TZpEp3WfKMrlL5jTSw.png'}" Stretch="Uniform" />
+                                                </Border.Background>
+                                            </Border>
                                         </Border>
+
                                         <StackPanel
                                             Grid.Column="1"
-                                            Grid.ColumnSpan="2"
                                             HorizontalAlignment="Left"
                                             VerticalAlignment="Bottom"
                                             Orientation="Vertical">
@@ -175,8 +163,9 @@
                                             <TextBlock FontSize="8" Text="{Binding Geboortedatum}" />
                                         </StackPanel>
                                         <StackPanel
-                                            Grid.Column="2"
-                                            HorizontalAlignment="Center"
+                                            Grid.Column="1"
+                                            Margin="0,0,0,0"
+                                            HorizontalAlignment="Right"
                                             VerticalAlignment="Top"
                                             Orientation="Horizontal">
                                             <Button

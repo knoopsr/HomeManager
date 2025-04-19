@@ -51,7 +51,7 @@
             CornerRadius="5">
             <Grid>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="120" />
                     <ColumnDefinition Width="auto" />
                     <ColumnDefinition Width="auto" />
                     <ColumnDefinition Width="200" />
@@ -75,7 +75,7 @@
                     Grid.Row="2"
                     Grid.RowSpan="7"
                     Grid.Column="1"
-                    Width="250"
+                    Width="150"
                     ItemsSource="{Binding MijnCollectie}"
                     SelectedItem="{Binding MijnSelectedItem, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 

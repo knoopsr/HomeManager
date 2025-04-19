@@ -28,6 +28,10 @@ namespace HomeManager.ViewModel
     {
         clsOverzichtDataService MijnService;
 
+        public ICommand cmdDelete { get; set; }
+        public ICommand cmdNew { get; set; }
+        public ICommand cmdCancel { get; set; }
+        public ICommand cmdSave { get; set; }
         public ICommand cmdClose { get; set; }
         public ICommand cmdEmptyInkomstenComboboxen { get; set; }
         public ICommand cmdEmptyUitgavenComboboxen { get; set; }
@@ -391,6 +395,10 @@ namespace HomeManager.ViewModel
         {
             MijnService = new clsOverzichtDataService();
 
+            cmdSave = new clsCustomCommand(Execute_SaveCommand, CanExecute_SaveCommand);
+            cmdDelete = new clsCustomCommand(Execute_DeleteCommand, CanExecute_DeleteCommand);
+            cmdNew = new clsCustomCommand(Execute_NewCommand, CanExecute_NewCommand);
+            cmdCancel = new clsCustomCommand(Execute_CancelCommand, CanExecute_CancelCommand);
             cmdClose = new clsCustomCommand(Execute_CloseCommand, CanExecute_CloseCommand);
             cmdEmptyInkomstenComboboxen = new clsCustomCommand(Execute_EmptyInkomstenComboboxenCommand, CanExecute_EmptyInkomstenComboboxenCommand);
             cmdEmptyUitgavenComboboxen = new clsCustomCommand(Execute_EmptyUitgavenComboboxenCommand, CanExecute_EmptyUitgavenComboboxenCommand);
@@ -419,15 +427,65 @@ namespace HomeManager.ViewModel
 
         }
 
+        private bool CanExecute_CancelCommand(object obj)
+        {
+            return true;
+        }
+
+        private void Execute_CancelCommand(object obj)
+        {
+            GeselecteerdInkomstenJaar = DateTime.Now.Year;
+            GeselecteerdeInkomstenMaand = null;
+            GeselecteerdeInkomstenCategorie = null;
+            GeselecteerdeInkomstenBegunstigde = null;
+            GeselecteerdUitgavenJaar = DateTime.Now.Year;
+            GeselecteerdeUitgavenMaand = null;
+            GeselecteerdeUitgavenCategorie = null;
+            GeselecteerdeUitgavenBegunstigde = null;
+
+        }
+
+        private bool CanExecute_NewCommand(object obj)
+        {
+            return false;
+        }
+
+        private void Execute_NewCommand(object obj)
+        {
+            throw new NotImplementedException();
+        }
+
+
+        private bool CanExecute_DeleteCommand(object obj)
+        {
+            return false;
+        }
+
+        private void Execute_DeleteCommand(object obj)
+        {
+            throw new NotImplementedException();
+        }
+
+
         private bool CanExecute_EmptyInkomstenComboboxenCommand(object obj)
         {
             return true;
         }
 
+        private bool CanExecute_SaveCommand(object obj)
+        {
+            return false;
+        }
+
+        private void Execute_SaveCommand(object obj)
+        {
+            throw new NotImplementedException();
+        }
+
         private void Execute_EmptyInkomstenComboboxenCommand(object obj)
         {
             // Reset selectie
-            GeselecteerdInkomstenJaar = BeschikbareInkomstenJaren.Max();
+            GeselecteerdInkomstenJaar = DateTime.Now.Year ;
             GeselecteerdeInkomstenMaand = null;
             GeselecteerdeInkomstenCategorie = null;
             GeselecteerdeInkomstenBegunstigde = null;
@@ -441,7 +499,7 @@ namespace HomeManager.ViewModel
         private void Execute_EmptyUitgavenComboboxenCommand(object obj)
         {
             // Reset selectie
-            GeselecteerdUitgavenJaar = BeschikbareUitgavenJaren.Max();
+            GeselecteerdUitgavenJaar = DateTime.Now.Year;
             GeselecteerdeUitgavenMaand = null;
             GeselecteerdeUitgavenCategorie = null;
             GeselecteerdeUitgavenBegunstigde = null;

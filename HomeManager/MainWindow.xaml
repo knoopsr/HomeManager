@@ -9,15 +9,16 @@
     xmlns:local="clr-namespace:HomeManager"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     x:Name="MainWIN"
-    Title="MainWindow"
-    Width="1000"
+    Title="Home Manager"
+    Width="1250"
     Height="900"
     Background="{StaticResource myTitleBar}"
+    LocationChanged="MainWindow_LocationChanged"
+    SizeChanged="Window_SizeChanged"
     mc:Ignorable="d">
     <Window.DataContext>
         <VM:clsHomeVM />
     </Window.DataContext>
-
 
     <Window.Resources>
         <DataTemplate DataType="{x:Type VM:clsPersoonViewModel}">
@@ -49,9 +50,6 @@
         </DataTemplate>
         <DataTemplate DataType="{x:Type VM:clsTelefoonNummersViewModel}">
             <V:ucTelefoonNummers />
-        </DataTemplate>
-        <DataTemplate DataType="{x:Type VM:clsNotitiesViewModel}">
-            <V:ucNotities />
         </DataTemplate>
 
         <DataTemplate DataType="{x:Type VM:clsDagboekViewModel}">
@@ -124,8 +122,6 @@
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
 
-
-
         <V:ucTitlePerson
             Grid.ColumnSpan="2"
             Width="120"
@@ -140,12 +136,7 @@
             Source="/Images/background.jpg"
             Stretch="Fill" />
 
-
-
-
-
         <!--#region  HamburgerMenu-->
-
         <Border
             x:Name="HamburgerMenu"
             Grid.Row="1"
@@ -176,8 +167,6 @@
                 </Grid.RowDefinitions>
 
                 <Path Style="{StaticResource myHomeButtonMenu}" />
-
-
 
                 <StackPanel
                     Grid.Row="1"
@@ -234,11 +223,6 @@
                         <StackPanel x:Name="stckBudget">
                             <Button
                                 Command="{Binding NavCommand}"
-                                CommandParameter="clsOverzichtViewModel"
-                                Content="Overzicht"
-                                Style="{StaticResource myMenuTandwiel}" />
-                            <Button
-                                Command="{Binding NavCommand}"
                                 CommandParameter="clsTransactieViewModel"
                                 Content="Transacties"
                                 Style="{StaticResource myMenuTandwiel}" />
@@ -261,15 +245,6 @@
                                 Command="{Binding NavCommand}"
                                 CommandParameter="clsCategorieViewModel"
                                 Content="Categorie"
-                                Style="{StaticResource myMenuTandwiel}" />
-
-                            <Button Content="Domiciliëring" Style="{StaticResource myMenuTandwiel}" />
-                            <Button Content="Begunstigden" Style="{StaticResource myMenuTandwiel}" />
-                            <Button Content="Frequentie" Style="{StaticResource myMenuTandwiel}" />
-                            <Button
-                                Command="{Binding NavCommand}"
-                                CommandParameter="clsCategorieViewModel"
-                                Content="Budget Categorie"
                                 Style="{StaticResource myMenuTandwiel}" />
                         </StackPanel>
                     </Expander>
@@ -321,17 +296,11 @@
                         </StackPanel>
                     </Expander>
 
-                    <Expander IsExpanded="{Binding IsStickyNotesExpanderMenu, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource myHamburgerStickyNotes}">
-                        <StackPanel x:Name="stckStickynotes">
-                            <Button Content="Sticky notes colors" Style="{StaticResource myMenuStickyNoteColor}" />
-                        </StackPanel>
-
-                    </Expander>
-
+                    <Button
+                        Click="Show_StickyNotes"
+                        Content="Sticky Notes"
+                        Style="{StaticResource myExpanderStickyNotes}" />
                 </StackPanel>
-
-
-
 
                 <Button
                     Grid.Row="2"
@@ -358,6 +327,5 @@
             Grid.Row="1"
             Grid.Column="1"
             Content="{Binding CurrentViewModel}" />
-
     </Grid>
 </Window>

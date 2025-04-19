@@ -288,7 +288,7 @@ namespace HomeManager.ViewModel
         private void Execute_SaveCommand(object obj)
         {
             OpslaanCommando();
-
+            
         }
 
         #endregion

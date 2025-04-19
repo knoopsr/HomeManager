@@ -14,7 +14,8 @@ using HomeManager.ViewModel.Todo;
 
 using HomeManager.Model.Budget;
 using HomeManager.Model.Todo;
-using HomeManager.ViewModel;
+using HomeManager.ViewModel.Exceptions;
+using HomeManager.ViewModel.StickyNotes;
 
 
 
@@ -24,7 +25,6 @@ namespace HomeManager.ViewModel
     {
         #region Personen
         private static clsPersoonViewModel _persoonViewModel = new clsPersoonViewModel();
-
         public clsPersoonViewModel PersoonViewModel
         {
             get
@@ -32,6 +32,7 @@ namespace HomeManager.ViewModel
                 return _persoonViewModel;
             }
         }
+
         public clsFunctieViewModel FunctieViewModel
         {
             get
@@ -139,7 +140,7 @@ namespace HomeManager.ViewModel
             }
         }
 
-#endregion
+        #endregion
 
         #region DagBoek
         //private static clsDagboekViewModel _dagboekViewModel = new clsDagboekViewModel();
@@ -216,6 +217,7 @@ namespace HomeManager.ViewModel
 
         #endregion
         #region TODO
+
         private static readonly clsCollectiesVM _collectiesViewModel = new clsCollectiesVM();
         public clsCollectiesVM CollectiesViewModel
         {
@@ -225,21 +227,14 @@ namespace HomeManager.ViewModel
             }
         }
 
-        public clsCategorieënVM CategorieënViewModel
-        {
-            get
-            {
-                return new clsCategorieënVM();
-            }
-        }
+        public clsCategorieënVM CategorieënViewModel => new clsCategorieënVM();
+        public clsKleurenVM KleurenViewModel => new clsKleurenVM();
+        #endregion
 
-        public clsKleurenVM KleurenViewModel
-        {
-            get
-            {
-                return new clsKleurenVM();
-            }
-        }
+
+
+
+
 
         public clsTodoVM ToDoViewModel
         {
@@ -276,11 +271,23 @@ namespace HomeManager.ViewModel
         }
 
         #endregion
+
+        public clsExceptionsViewModel ExceptionsViewModel { get => new clsExceptionsViewModel(); } 
+
+
         public clsUnLockViewModel UnLockViewModel
         {
             get
             {
                 return new clsUnLockViewModel();
+            }
+        }
+        private static clsCategorieViewModel _categorieViewModel = new clsCategorieViewModel();
+        public clsCategorieViewModel CategorieViewModel
+        {
+            get
+            {
+                return _categorieViewModel; 
             }
         }
 
@@ -320,14 +327,15 @@ namespace HomeManager.ViewModel
             }
         }
         
-        private static clsOverzichtViewModel _overzichtViewModel = new clsOverzichtViewModel();
         public clsOverzichtViewModel OverzichtViewModel
         {
             get
             {
-                return _overzichtViewModel;
+                return new clsOverzichtViewModel();
             }
         }
-        
+
+        private static readonly clsStickyNotesViewModel _stickyNotesViewModel = new clsStickyNotesViewModel();
+        public clsStickyNotesViewModel StickyNotesViewModel { get => _stickyNotesViewModel; }
     }
 }
