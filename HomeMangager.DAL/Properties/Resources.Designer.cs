@@ -268,6 +268,60 @@ namespace HomeManager.DAL.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to D_ToDoBijlage.
+        /// </summary>
+        internal static string D_ToDoBijlage {
+            get {
+                return ResourceManager.GetString("D_ToDoBijlage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to D_ToDoCategorieën.
+        /// </summary>
+        internal static string D_ToDoCategorieën {
+            get {
+                return ResourceManager.GetString("D_ToDoCategorieën", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to D_TodoCollecties.
+        /// </summary>
+        internal static string D_ToDoCollecties {
+            get {
+                return ResourceManager.GetString("D_ToDoCollecties", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to D_ToDoDetails.
+        /// </summary>
+        internal static string D_ToDoDetails {
+            get {
+                return ResourceManager.GetString("D_ToDoDetails", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to D_ToDoKLeuren.
+        /// </summary>
+        internal static string D_ToDoKLeuren {
+            get {
+                return ResourceManager.GetString("D_ToDoKLeuren", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to D_ToDoPopup.
+        /// </summary>
+        internal static string D_ToDoPopup {
+            get {
+                return ResourceManager.GetString("D_ToDoPopup", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to D_Wachtwoord.
         /// </summary>
         internal static string D_Wachtwoord {
@@ -498,6 +552,60 @@ namespace HomeManager.DAL.Properties {
         internal static string I_TelefoonType {
             get {
                 return ResourceManager.GetString("I_TelefoonType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to I_ToDoBijlage.
+        /// </summary>
+        internal static string I_ToDoBijlage {
+            get {
+                return ResourceManager.GetString("I_ToDoBijlage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to I_ToDoCategorieën.
+        /// </summary>
+        internal static string I_ToDoCategorieën {
+            get {
+                return ResourceManager.GetString("I_ToDoCategorieën", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to I_ToDoCollecties.
+        /// </summary>
+        internal static string I_ToDoCollecties {
+            get {
+                return ResourceManager.GetString("I_ToDoCollecties", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to I_ToDoDetails.
+        /// </summary>
+        internal static string I_ToDoDetails {
+            get {
+                return ResourceManager.GetString("I_ToDoDetails", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to I_ToDoKLeuren.
+        /// </summary>
+        internal static string I_ToDoKLeuren {
+            get {
+                return ResourceManager.GetString("I_ToDoKLeuren", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to I_ToDoPopup.
+        /// </summary>
+        internal static string I_ToDoPopup {
+            get {
+                return ResourceManager.GetString("I_ToDoPopup", resourceCulture);
             }
         }
         
@@ -925,6 +1033,60 @@ namespace HomeManager.DAL.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to S_ToDoBijlage.
+        /// </summary>
+        internal static string S_ToDoBijlage {
+            get {
+                return ResourceManager.GetString("S_ToDoBijlage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to S_ToDoCategorieën.
+        /// </summary>
+        internal static string S_ToDoCategorieën {
+            get {
+                return ResourceManager.GetString("S_ToDoCategorieën", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to S_ToDoCollecties.
+        /// </summary>
+        internal static string S_ToDoCollecties {
+            get {
+                return ResourceManager.GetString("S_ToDoCollecties", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to S_ToDoDetails.
+        /// </summary>
+        internal static string S_ToDoDetails {
+            get {
+                return ResourceManager.GetString("S_ToDoDetails", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to S_ToDoKLeuren.
+        /// </summary>
+        internal static string S_ToDoKLeuren {
+            get {
+                return ResourceManager.GetString("S_ToDoKLeuren", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to S_ToDoPopup.
+        /// </summary>
+        internal static string S_ToDoPopup {
+            get {
+                return ResourceManager.GetString("S_ToDoPopup", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to S_Wachtwoord.
         /// </summary>
         internal static string S_Wachtwoord {
@@ -1141,11 +1303,66 @@ namespace HomeManager.DAL.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to U_ToDoBijlage.
+        /// </summary>
+        internal static string U_ToDoBijlage {
+            get {
+                return ResourceManager.GetString("U_ToDoBijlage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to U_ToDoCategorieën.
+        /// </summary>
+        internal static string U_ToDoCategorieën {
+            get {
+                return ResourceManager.GetString("U_ToDoCategorieën", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to U_ToDoCollecties.
+        /// </summary>
+        internal static string U_ToDoCollecties {
+            get {
+                return ResourceManager.GetString("U_ToDoCollecties", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to U_ToDoDetails.
+        /// </summary>
+        internal static string U_ToDoDetails {
+            get {
+                return ResourceManager.GetString("U_ToDoDetails", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to U_ToDoKLeuren.
+        /// </summary>
+        internal static string U_ToDoKLeuren {
+            get {
+                return ResourceManager.GetString("U_ToDoKLeuren", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to U_ToDoPopup.
+        /// </summary>
+        internal static string U_ToDoPopup {
+            get {
+                return ResourceManager.GetString("U_ToDoPopup", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to U_UpdateDomicilieringMetTransacties.
         /// </summary>
         internal static string U_UpdateDomicilieringMetTransacties {
             get {
                 return ResourceManager.GetString("U_UpdateDomicilieringMetTransacties", resourceCulture);
+
             }
         }
         

@@ -71,8 +71,17 @@
         <DataTemplate DataType="{x:Type VM:clsPersonenViewModel}">
             <V:ucPersonen />
         </DataTemplate>
-        <DataTemplate DataType="{x:Type VM:clsCategorieViewModel}">
-            <V:ucCategorie />
+        <DataTemplate DataType="{x:Type VM:clsCollectiesVM}">
+            <V:ucCollecties />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type VM:clsCategorieënVM}">
+            <V:ucCategorieën />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type VM:clsKleurenVM}">
+            <V:ucKleuren />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type VM:clsTodoVM}">
+            <V:ucTodo />
         </DataTemplate>
         <DataTemplate DataType="{x:Type VM:clsFrequentieViewModel}">
             <V:ucFrequentie />
@@ -234,7 +243,6 @@
                     <Expander IsExpanded="{Binding IsTodoExpanderMenu, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource myHamburgerTodo}">
 
                         <StackPanel x:Name="stckTodo">
-
                             <Button
                                 Command="{Binding NavCommand}"
                                 CommandParameter="clsCollectiesVM"
@@ -250,7 +258,6 @@
                                 CommandParameter="clsKleurenVM"
                                 Content="Todo Kleuren"
                                 Style="{StaticResource myMenuTandwiel}" />
-
                         </StackPanel>
 
                     </Expander>

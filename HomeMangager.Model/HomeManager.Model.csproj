@@ -9,6 +9,7 @@
   <ItemGroup>
     <Folder Include="Homepage\" />
     <Folder Include="Dagboek\" />
+    <Folder Include="Personen\" />
     <Folder Include="Todo\" />
     <Folder Include="Security\" />
   </ItemGroup>

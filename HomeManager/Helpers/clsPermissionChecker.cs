@@ -72,6 +72,12 @@ namespace HomeManager.Helpers
             { "clsCredentialGroupViewModel", "200" },
             { "clsAccountViewModel", "200" },
 
+            { "clsCategorieënVM", "500" },
+            { "clsCollectiesVM", "500" },
+            { "clsKleurenVM", "500" },
+            { "clsTodoVM", "500" },
+
+            {"clsDagboekViewModel", "300" },
             { "clsFrequentieViewModel", "440" },
             { "clsDomicilieringViewModel", "420" },
             { "clsCategorieViewModel", "450" },
@@ -83,7 +89,6 @@ namespace HomeManager.Helpers
 
 
 
-            {"clsDagboekViewModel", "300" },
 
 
             {"clsUnLockViewModel","711"},

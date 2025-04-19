@@ -37,10 +37,10 @@
                     <TextBlock Style="{StaticResource TitleBarText}" Text="Persoon" />
 
                 </StackPanel>
-                <uc:ucWerkBalk
+                <!--<uc:ucWerkBalk
                     HorizontalAlignment="Right"
                     VerticalAlignment="top"
-                    Loaded="ucWerkBalk_Loaded" />
+                    Loaded="ucWerkBalk_Loaded" />-->
 
             </Grid>
 
@@ -78,6 +78,16 @@
                             Command="{Binding ClearSearchCommand}"
                             Style="{StaticResource FilterImage}" />
                     </StackPanel>
+
+                    <ScrollViewer Grid.Row="1">
+
+                        <!--<UniformGrid
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Top"
+                            Columns="4">
+                        </UniformGrid>-->
+
+                    </ScrollViewer>
 
 
                     <ListView

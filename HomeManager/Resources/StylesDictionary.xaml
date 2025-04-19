@@ -104,7 +104,102 @@
         </Style.Triggers>
     </Style>
 
+    <Style x:Key="DeleteTodoImage" TargetType="ContentControl">
+        <Setter Property="Cursor" Value="Hand" />
+        <Setter Property="Height" Value="10" />
+        <Setter Property="Width" Value="10" />
+        <Setter Property="Margin" Value="2,0,2,0" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ContentControl">
+                    <Border Background="{StaticResource myBackground}">
+                        <Path
+                            Data="{StaticResource myDeleteButton}"
+                            Fill="Gray"
+                            Stretch="Fill" />
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="PaperclipTodoImage" TargetType="ContentControl">
+        <Setter Property="Cursor" Value="Hand" />
+        <Setter Property="Height" Value="10" />
+        <Setter Property="Width" Value="10" />
+        <Setter Property="Margin" Value="2,0,2,0" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ContentControl">
+                    <Border Background="{StaticResource myBackground}">
+                        <Path
+                            Data="{StaticResource myPaperclipButton}"
+                            Fill="Gray"
+                            Stretch="Fill" />
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="BelangrijkButton" TargetType="ContentControl">
+        <Setter Property="Cursor" Value="Hand" />
+        <Setter Property="Height" Value="10" />
+        <Setter Property="Width" Value="10" />
+        <Setter Property="Margin" Value="2,0,2,0" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ContentControl">
+                    <Border Background="Transparent">
+                        <Path
+                            Data="{StaticResource myBelangrijkButton}"
+                            Fill="{TemplateBinding Background}"
+                            Stretch="Fill" />
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="RefreshButton" TargetType="ContentControl">
+        <Setter Property="Cursor" Value="Hand" />
+        <Setter Property="Height" Value="10" />
+        <Setter Property="Width" Value="10" />
+        <Setter Property="Margin" Value="2,0,2,0" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ContentControl">
+                    <Border Background="Transparent">
+                        <Path
+                            Data="{StaticResource myRefreshButton}"
+                            Fill="LightSteelBlue"
+                            Stretch="Fill" />
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
     <Style x:Key="EditPersonImage" TargetType="ContentControl">
+        <Setter Property="Cursor" Value="Hand" />
+        <Setter Property="Height" Value="10" />
+        <Setter Property="Width" Value="10" />
+        <Setter Property="Margin" Value="2,0,2,0" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ContentControl">
+                    <Border Background="{StaticResource myBackground}">
+                        <Path
+                            Data="{StaticResource myEditButton}"
+                            Fill="Gray"
+                            Stretch="Fill" />
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="EditTodoImage" TargetType="ContentControl">
         <Setter Property="Cursor" Value="Hand" />
         <Setter Property="Height" Value="10" />
         <Setter Property="Width" Value="10" />
@@ -651,28 +746,18 @@
         </Setter>
     </Style>
 
-    <Style x:Key="Showfile" TargetType="ContentControl">
+    <Style x:Key="EyeButton" TargetType="ContentControl">
         <Setter Property="Cursor" Value="Hand" />
-        <Setter Property="Height" Value="31" />
-        <Setter Property="Width" Value="31" />
-
+        <Setter Property="Margin" Value="0,0,0,0" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="ContentControl">
-                    <Border
-                        Width="30"
-                        Height="30"
-                        Background="{StaticResource myBackground}"
-                        BorderBrush="{StaticResource myTitleBar}"
-                        BorderThickness="1"
-                        CornerRadius="15">
-                        <Path
-                            Width="15"
-                            Height="15"
-                            Data="{StaticResource myShowfile}"
-                            Fill="{StaticResource myTitleBar}"
-                            Stretch="Fill" />
-                    </Border>
+                    <Path
+                        Width="15"
+                        Height="15"
+                        Data="{StaticResource myEyeButton}"
+                        Fill="{StaticResource myTitleBar}"
+                        Stretch="Fill" />
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
@@ -683,24 +768,32 @@
         <Setter Property="Height" Value="31" />
         <Setter Property="Width" Value="31" />
         <Setter Property="Margin" Value="20,0,0,0" />
-
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="ContentControl">
-                    <Border
-                        Width="30"
-                        Height="30"
-                        Background="{StaticResource myBackground}"
-                        BorderBrush="{StaticResource myTitleBar}"
-                        BorderThickness="1"
-                        CornerRadius="15">
-                        <Path
-                            Width="15"
-                            Height="15"
-                            Data="{StaticResource myUploadButton}"
-                            Fill="{StaticResource myTitleBar}"
-                            Stretch="Fill" />
-                    </Border>
+                    <Path
+                        Width="15"
+                        Height="15"
+                        Data="{StaticResource myEyeButton}"
+                        Fill="{StaticResource myTitleBar}"
+                        Stretch="Fill" />
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="UploadButton" TargetType="ContentControl">
+        <Setter Property="Cursor" Value="Hand" />
+        <Setter Property="Margin" Value="0,0,0,0" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ContentControl">
+                    <Path
+                        Width="15"
+                        Height="15"
+                        Data="{StaticResource myUploadButton}"
+                        Fill="{StaticResource myTitleBar}"
+                        Stretch="Fill" />
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
@@ -708,26 +801,33 @@
 
     <Style x:Key="Deletefile" TargetType="ContentControl">
         <Setter Property="Cursor" Value="Hand" />
-        <Setter Property="Height" Value="31" />
-        <Setter Property="Width" Value="31" />
+        <Setter Property="Margin" Value="0,0,0,0" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="ContentControl">
-                    <Border
-                        Width="30"
-                        Height="30"
-                        Background="{StaticResource myBackground}"
-                        BorderBrush="{StaticResource myTitleBar}"
-                        BorderThickness="1"
-                        CornerRadius="15">
+                    <Path
+                        Width="15"
+                        Height="15"
+                        Data="{StaticResource myUploadButton}"
+                        Fill="{StaticResource myTitleBar}"
+                        Stretch="Fill" />
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
 
-                        <Path
-                            Width="15"
-                            Height="15"
-                            Data="{StaticResource myDeleteButton}"
-                            Fill="{StaticResource myTitleBar}"
-                            Stretch="Fill" />
-                    </Border>
+    <Style x:Key="AddButton" TargetType="ContentControl">
+        <Setter Property="Cursor" Value="Hand" />
+        <Setter Property="Margin" Value="0,0,0,0" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ContentControl">
+                    <Path
+                        Width="15"
+                        Height="15"
+                        Data="{StaticResource myAddButton}"
+                        Fill="{StaticResource myTitleBar}"
+                        Stretch="Fill" />
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
@@ -840,6 +940,7 @@
             </Setter.Value>
         </Setter>
     </Style>
+
 
     <Style x:Key="myFontColorButton" TargetType="Button">
         <Setter Property="Margin" Value="1" />
