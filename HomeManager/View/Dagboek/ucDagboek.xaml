@@ -13,11 +13,12 @@
     d:DesignWidth="800"
     mc:Ignorable="d">
 
-    <DockPanel DataContext="{Binding Source={StaticResource VML}, Path=DagboekViewModel}">
+    <DockPanel Background="{StaticResource myBackground}" DataContext="{Binding Source={StaticResource VML}, Path=DagboekViewModel}">
         <Border
+            Height="50"
             Background="{StaticResource myTitleBar}"
             BorderBrush="LightBlue"
-            BorderThickness="2"
+            BorderThickness="1"
             DockPanel.Dock="Top">
 
             <StackPanel
@@ -106,7 +107,7 @@
                                     Command="{Binding cmdClose}"
                                     CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=Window}}"
                                     Content="{StaticResource myCloseButton}"
-                                    Style="{StaticResource myRibbonButton}" />      
+                                    Style="{StaticResource myRibbonButton}" />
 
                                 <Label Grid.Row="1" Grid.Column="4">close dagboek</Label>
 
@@ -198,27 +199,44 @@
                         <RibbonGroup>
                             <Grid>
                                 <Grid.RowDefinitions>
-                                    <RowDefinition Height="*"/>
-                                    <RowDefinition Height="auto"/>
+                                    <RowDefinition Height="*" />
+                                    <RowDefinition Height="auto" />
                                 </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
 
                                 <RibbonButton
                                     Command="{Binding cmdFindHyperlinks}"
                                     CommandParameter="{Binding ElementName=MyRTB}"
                                     Content="{StaticResource HyperlinkIcon}"
-                                    Style="{StaticResource myRibbonButton}"/>
+                                    Style="{StaticResource myRibbonButton}" />
 
                                 <Label
-                                    Padding="1"
                                     Grid.Row="1"
-                                    Content="Search Hyperlinks"/>
+                                    Padding="1"
+                                    Content="Search Hyperlinks" />
+
+                                <RibbonButton
+                                    Grid.Column="1"
+                                    Command="{Binding cmdFindEmails}"
+                                    CommandParameter="{Binding ElementName=MyRTB}"
+                                    Content="{StaticResource mySendEmail}"
+                                    Style="{StaticResource myRibbonButton}" />
+
+                                <Label
+                                    Grid.Column="1"
+                                    Grid.Row="1"
+                                    Padding="1"
+                                    Content="Find Email Asress" />
 
                             </Grid>
-                            
-                            
+
+
                         </RibbonGroup>
                     </RibbonTab>
-                    <RibbonTab >
+                    <RibbonTab>
                         <RibbonTab.Header>
                             <TextBlock>
                                 <Run FontWeight="Bold" Text="Text Format" />
@@ -571,9 +589,9 @@
                         Height="150"
                         Command="{Binding cmdTest}"
                         CommandParameter="{Binding ElementName=MyRTB}"
-                        Visibility="Visible"
-                        Content="test" />
-                    
+                        Content="test"
+                        Visibility="Visible" />
+
 
                 </Grid>
 
