@@ -163,7 +163,6 @@ namespace HomeManager.ViewModel
         }
 
 
-        public ObservableCollection<clsRechtenCatogorieModel> RechtenCategorieën { get; set; }
 
         public clsRechtenViewModel()
         {

@@ -115,6 +115,7 @@ namespace HomeManager.ViewModel
                 {
                     _objHome = obj;
                     clsMessenger.Default.Send<clsLoginModel>(_loginModel);
+                   
                     _dialogService.ShowNewPassWordView();
                 }
                 else

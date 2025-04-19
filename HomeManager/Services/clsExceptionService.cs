@@ -20,6 +20,8 @@ namespace HomeManager.Services
         /// Inserts the exception into the database and also mails it to the current user & dev team.
         /// </summary>
         /// <param name="ex"></param>
+        /// 
+        private static clsExceptionsModel _oldException;
         public static void InsertException(Exception ex)
         {
             clsExceptionsModel exception = new clsExceptionsModel()
@@ -34,6 +36,11 @@ namespace HomeManager.Services
                 StackTrace = ex.StackTrace ?? "Unknown StackTrace",
                 DotNetAssembly = ex.GetType().Assembly.FullName ?? "Unknown Assembly"
             };
+            if (_oldException == exception)
+            {
+                return;
+            }
+            _oldException =  exception;           
 
             ExceptionsDataService.Insert(exception);
             clsExceptionsMailViewModel.SendExceptionToMailAddresses(exception);

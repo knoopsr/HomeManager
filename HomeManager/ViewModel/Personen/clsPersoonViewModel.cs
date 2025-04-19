@@ -381,7 +381,7 @@ namespace HomeManager.ViewModel
                 clsHomeVM vm = (clsHomeVM)HomeWindow.DataContext;
                 vm.CurrentViewModel = null;
             }
-            clsMessenger.Default.Send<clsUpdateListMessages>(new clsUpdateListMessages());
+           clsMessenger.Default.Send<clsUpdateListMessages>(new clsUpdateListMessages());
         }
 
         private bool CanExecute_Close_Command(object? obj)

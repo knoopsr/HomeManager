@@ -90,6 +90,7 @@ namespace HomeManager.ViewModel
                 Owner = Application.Current.MainWindow,  
                 WindowStartupLocation = WindowStartupLocation.CenterOwner //  dit centreert op je HomeManager window
             };
+            profielWindow.Topmost = true;
 
             profielWindow.ShowDialog();
         }

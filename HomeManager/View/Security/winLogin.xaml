@@ -34,11 +34,13 @@
                     Height="20"
                     Data="{StaticResource myPathSetting}"
                     Fill="{StaticResource myWerkBalk}"
-                    Stretch="Fill" />
-                <Label
-                    Margin="5,0,0,0"
-                    Content="Inloggen"
-                    Foreground="{StaticResource myWerkBalk}" />
+                    Stretch="Fill" />    
+                <TextBlock
+                        Margin="10,0,0,0"
+                        VerticalAlignment="Center"
+                        FontSize="20"
+                        Foreground="White"
+                        Text="Inloggen" />
 
             </StackPanel>
         </Border>
