@@ -66,48 +66,64 @@ namespace HomeManager.Behaviors
         {
             if (sender is RichTextBox rtb)
             {
-                // ✅ Get the clicked point
+                // Get the clicked point
                 Point clickPosition = e.GetPosition(rtb);
 
-                // ✅ Perform a hit test to find the image under the clicked position
+                // Perform a hit test to find the image under the clicked position
                 HitTestResult result = VisualTreeHelper.HitTest(rtb, clickPosition);
 
                 if (result != null && result.VisualHit is Image image)
                 {
-                    // ✅ Image was clicked! Apply the resize handle
+                    // Image was clicked! Apply the resize handle
                     AttachResizeHandle(image);
                     e.Handled = true; // Mark the event as handled
                     return;
                 }
 
-                // 🔍 Get the TextPointer at clicked point
+                // Get the TextPointer at clicked point
                 TextPointer pointer = rtb.GetPositionFromPoint(clickPosition, true);
                 if (pointer != null)
                 {
-                    // 🧠 Walk up logical tree to find a Hyperlink
+                    // Walk up logical tree to find a Hyperlink
                     var parent = pointer.Parent;
                     while (parent != null && !(parent is Hyperlink))
                     {
                         parent = LogicalTreeHelper.GetParent(parent);
                     }
 
-                    if (parent is Hyperlink hyperlink && hyperlink.NavigateUri != null)
+                    if (parent is Hyperlink hyperlink)
                     {
-                        System.Diagnostics.Process.Start(new ProcessStartInfo(hyperlink.NavigateUri.AbsoluteUri)
+                        // If it's a URL link (NavigateUri), open it
+                        if (hyperlink.NavigateUri != null)
                         {
-                            UseShellExecute = true
-                        });
-                        e.Handled = true;
-                        return;
+                            Process.Start(new ProcessStartInfo(hyperlink.NavigateUri.AbsoluteUri)
+                            {
+                                UseShellExecute = true
+                            });
+                            e.Handled = true;
+                            return;
+                        }
+
+                        // If it's a command hyperlink, execute the command
+                        if (hyperlink.Command != null && hyperlink.Command.CanExecute(hyperlink.CommandParameter))
+                        {
+                            hyperlink.Command.Execute(hyperlink.CommandParameter);
+                            e.Handled = true;
+                            return;
+                        }
                     }
+
+                    //if (parent is Hyperlink hyperlink && hyperlink.NavigateUri != null)
+                    //{
+                    //    System.Diagnostics.Process.Start(new ProcessStartInfo(hyperlink.NavigateUri.AbsoluteUri)
+                    //    {
+                    //        UseShellExecute = true
+                    //    });
+                    //    e.Handled = true;
+                    //    return;
+                    //}
                 }
             }
-        }
-
-
-        private void CreateThumb()
-        {
-
         }
 
 
