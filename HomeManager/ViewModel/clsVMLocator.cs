@@ -229,15 +229,17 @@ namespace HomeManager.ViewModel
         public clsKleurenVM KleurenViewModel => new clsKleurenVM();
         #endregion
 
+
         #region Todo
 
-        public clsTodoVM ToDoViewModel
+        public clsTodoVM ToDoViewModel   
         {
             get
             {
                 return new clsTodoVM();
             }
         }
+
 
         private static readonly clsTodoPopupVM _todoPopupViewModel = new clsTodoPopupVM();
         public clsTodoPopupVM TodoPopupViewModel
@@ -267,7 +269,11 @@ namespace HomeManager.ViewModel
 
         #endregion
 
-        public clsExceptionsViewModel ExceptionsViewModel { get => new clsExceptionsViewModel(); } 
+        #region EXCEPTIONS
+        public clsExceptionsViewModel ExceptionsViewModel { get => new clsExceptionsViewModel(); }
+        public clsExceptionsMailViewModel ExceptionsMailViewModel { get => new clsExceptionsMailViewModel(); }
+        #endregion
+
 
 
         public clsUnLockViewModel UnLockViewModel
@@ -314,7 +320,7 @@ namespace HomeManager.ViewModel
         }
 
         private static clsTransactieViewModel _transactieViewModel = new clsTransactieViewModel();
-        public clsTransactieViewModel TransactieViewModel
+        public static clsTransactieViewModel TransactieViewModel
         {
             get
             {
@@ -330,8 +336,11 @@ namespace HomeManager.ViewModel
             }
         }
 
+        #region STICKY NOTES
         private static readonly clsStickyNotesViewModel _stickyNotesViewModel = new clsStickyNotesViewModel();
         public clsStickyNotesViewModel StickyNotesViewModel { get => _stickyNotesViewModel; }
+        #endregion
+
         public clsButtonLoggingViewModel ButtonLoggingViewModel
         {
             get
@@ -339,5 +348,6 @@ namespace HomeManager.ViewModel
                 return new clsButtonLoggingViewModel();
             }
         }
+
     }
 }

@@ -46,7 +46,10 @@
                         Command="{Binding cmdExceptions}"
                         CommandParameter="{Binding}"
                         Header="Exceptions raadplegen" />
-                    <MenuItem Header="Exception emails beheren" />
+                    <MenuItem
+                        Command="{Binding cmdExceptionsMail}"
+                        CommandParameter="{Binding}"
+                        Header="Exception emails beheren" />
                 </ContextMenu>
             </Ellipse.ContextMenu>
         </Ellipse>

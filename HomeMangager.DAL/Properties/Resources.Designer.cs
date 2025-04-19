@@ -799,6 +799,15 @@ namespace HomeManager.DAL.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to S_EmailAdressenByRechtenCode.
+        /// </summary>
+        internal static string S_EmailAdressenByRechtenCode {
+            get {
+                return ResourceManager.GetString("S_EmailAdressenByRechtenCode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to S_EmailAdressenByRolName.
         /// </summary>
         internal static string S_EmailAdressenByRolName {

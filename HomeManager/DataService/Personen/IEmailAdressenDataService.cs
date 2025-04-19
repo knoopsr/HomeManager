@@ -13,5 +13,6 @@ namespace HomeManager.DataService.Personen
     {
         ObservableCollection<clsEmailAdressenModel> GetByPersoonID(int id);
         ObservableCollection<clsEmailAdressenModel> GetAllbyRollName(string rolName);
+        public ObservableCollection<clsEmailAdressenModel> GetAllByRechtenCode(int rechtenCode);
     }
 }
