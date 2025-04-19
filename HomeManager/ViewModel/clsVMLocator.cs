@@ -9,11 +9,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using HomeManager.Model.Todo;
-using HomeManager.ViewModel;
 using HomeManager.ViewModel.Todo;
-
 using HomeManager.Model.Budget;
-using HomeManager.Model.Todo;
 using HomeManager.ViewModel.Exceptions;
 using HomeManager.ViewModel.StickyNotes;
 
@@ -216,6 +213,7 @@ namespace HomeManager.ViewModel
         }
 
         #endregion
+
         #region TODO
 
         private static readonly clsCollectiesVM _collectiesViewModel = new clsCollectiesVM();
@@ -231,10 +229,7 @@ namespace HomeManager.ViewModel
         public clsKleurenVM KleurenViewModel => new clsKleurenVM();
         #endregion
 
-
-
-
-
+        #region Todo
 
         public clsTodoVM ToDoViewModel
         {
@@ -337,5 +332,12 @@ namespace HomeManager.ViewModel
 
         private static readonly clsStickyNotesViewModel _stickyNotesViewModel = new clsStickyNotesViewModel();
         public clsStickyNotesViewModel StickyNotesViewModel { get => _stickyNotesViewModel; }
+        public clsButtonLoggingViewModel ButtonLoggingViewModel
+        {
+            get
+            {
+                return new clsButtonLoggingViewModel();
+            }
+        }
     }
 }

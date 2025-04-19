@@ -83,15 +83,6 @@
         <DataTemplate DataType="{x:Type VM:clsTodoVM}">
             <V:ucTodo />
         </DataTemplate>
-
-        <!--<Storyboard x:Key="HideMenu">
-            <DoubleAnimation
-                Storyboard.TargetName="HamburgerMenu"
-                Storyboard.TargetProperty="Width"
-                From="200"
-                To="0"
-                Duration="0:0:0.3" />
-        </Storyboard>-->
         <DataTemplate DataType="{x:Type VM:clsFrequentieViewModel}">
             <V:ucFrequentie />
         </DataTemplate>
