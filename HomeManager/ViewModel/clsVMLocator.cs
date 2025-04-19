@@ -221,6 +221,7 @@ namespace HomeManager.ViewModel
         public clsKleurenVM KleurenViewModel => new clsKleurenVM();
         #endregion
 
+        #region LOGGING
         public clsButtonLoggingViewModel ButtonLoggingViewModel
         {
             get
@@ -228,8 +229,12 @@ namespace HomeManager.ViewModel
                 return new clsButtonLoggingViewModel();
             }
         }
+        #endregion
 
-        public clsExceptionsViewModel ExceptionsViewModel { get => new clsExceptionsViewModel(); } 
+        #region EXCEPTIONS
+        public clsExceptionsViewModel ExceptionsViewModel { get => new clsExceptionsViewModel(); }
+        public clsExceptionsMailViewModel ExceptionsMailViewModel { get => new clsExceptionsMailViewModel(); }
+        #endregion
 
         public clsUnLockViewModel UnLockViewModel
         {
@@ -292,7 +297,9 @@ namespace HomeManager.ViewModel
             }
         }
 
+        #region STICKY NOTES
         private static readonly clsStickyNotesViewModel _stickyNotesViewModel = new clsStickyNotesViewModel();
         public clsStickyNotesViewModel StickyNotesViewModel { get => _stickyNotesViewModel; }
+        #endregion
     }
 }

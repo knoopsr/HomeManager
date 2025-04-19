@@ -68,6 +68,8 @@ namespace HomeManager
 
         private void MainWindow_LocationChanged(object sender, EventArgs e)
         {
+            if (this == null) stickyNotesView.Close();
+
             if (stickyNotesView != null)
             {
                 UpdateOverlayPosition(stickyNotesView, this);

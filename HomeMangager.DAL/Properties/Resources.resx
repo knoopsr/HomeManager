@@ -483,4 +483,7 @@
   <data name="I_ExceptionLog" xml:space="preserve">
     <value>I_ExceptionLog</value>
   </data>
+  <data name="S_EmailAdressenByRechtenCode" xml:space="preserve">
+    <value>S_EmailAdressenByRechtenCode</value>
+  </data>
 </root>
