@@ -1,9 +1,11 @@
-using HomeManager.Common;
+﻿using HomeManager.Common;
 using HomeManager.DataService.Logging;
 using HomeManager.Helpers;
 using HomeManager.Model.Logging;
 using HomeManager.Model.Personen;
 using HomeManager.Model.Security;
+using HomeManager.ViewModel.Homepage;
+using System.Diagnostics;
 using HomeManager.View.StickyNotes;
 using System.Windows;
 using System.Windows.Input;
@@ -16,6 +18,7 @@ namespace HomeManager.ViewModel
         public ICommand cmdMenu { get; }
         public ICommand cmdCloseAplication { get; }
         clsButtonLoggingDataService MijnLoggingService;
+        public clsFavorieteVensterViewModel FavorietVensterVM { get; set; }
         private static StickyNotesView stickyNotesView;
 
         private clsBindableBase _currentViewModel;
@@ -121,16 +124,25 @@ namespace HomeManager.ViewModel
 
 
         public clsRelayCommand<string> NavCommand { get; private set; }
-
+       
         public clsHomeVM()
         {
             NavCommand = new clsRelayCommand<string>(OnNav);
             cmdMenu = new clsCustomCommand(Execute_cmdMenu_Command, CanExecute_cmdMenu_Command);
             cmdCloseAplication = new clsCustomCommand(Execute_cmdCloseAplication_Command, CanExecute_cmdCloseAplication_Command);
-
+            
             MijnLoggingService = new clsButtonLoggingDataService();
 
             clsMessenger.Default.Register<clsPersoonModel>(this, OnNewPersonenReceive);
+
+            
+
+            FavorietVensterVM = new clsFavorieteVensterViewModel
+            {
+                OpenViewModelAction = vm => CurrentViewModel = vm
+            };
+
+
         }
 
         private void Execute_cmdCloseAplication_Command(object? obj)

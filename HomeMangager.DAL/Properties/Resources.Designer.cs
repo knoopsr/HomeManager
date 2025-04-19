@@ -169,6 +169,24 @@ namespace HomeManager.DAL.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to D_FavorieteApplicatie.
+        /// </summary>
+        internal static string D_FavorieteApplicatie {
+            get {
+                return ResourceManager.GetString("D_FavorieteApplicatie", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to D_FavorietVenster.
+        /// </summary>
+        internal static string D_FavorietVenster {
+            get {
+                return ResourceManager.GetString("D_FavorietVenster", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to D_Frequentie.
         /// </summary>
         internal static string D_Frequentie {
@@ -240,6 +258,15 @@ namespace HomeManager.DAL.Properties {
             }
         }
         
+        /// <summary>
+        ///   Looks up a localized string similar to D_Snelkoppeling.
+        /// </summary>
+        internal static string D_Snelkoppeling {
+            get {
+                return ResourceManager.GetString("D_Snelkoppeling", resourceCulture);
+            }
+        }
+
         /// <summary>
         ///   Looks up a localized string similar to D_StickyNotes.
         /// </summary>
@@ -448,6 +475,32 @@ namespace HomeManager.DAL.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to I_FavorieteApplicatie.
+        /// </summary>
+        internal static string I_FavorieteApplicatie {
+            get {
+                return ResourceManager.GetString("I_FavorieteApplicatie", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to I_FavorietVenster.
+        /// </summary>
+        internal static string I_FavorietVenster {
+            get {
+                return ResourceManager.GetString("I_FavorietVenster", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to I_FotoCarousel.
+        /// </summary>
+        internal static string I_FotoCarousel {
+            get {
+                return ResourceManager.GetString("I_FotoCarousel", resourceCulture);
+            }
+        }
+        /// <summary>
         ///   Looks up a localized string similar to I_ExceptionLog.
         /// </summary>
         internal static string I_ExceptionLog {
@@ -528,6 +581,15 @@ namespace HomeManager.DAL.Properties {
             }
         }
         
+        /// <summary>
+        ///   Looks up a localized string similar to I_Snelkoppeling.
+        /// </summary>
+        internal static string I_Snelkoppeling {
+            get {
+                return ResourceManager.GetString("I_Snelkoppeling", resourceCulture);
+            }
+        }
+
         /// <summary>
         ///   Looks up a localized string similar to I_StickyNotes.
         /// </summary>
@@ -624,6 +686,15 @@ namespace HomeManager.DAL.Properties {
         internal static string I_WachtWoordenGroep {
             get {
                 return ResourceManager.GetString("I_WachtWoordenGroep", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to I_WeerVoorkeur.
+        /// </summary>
+        internal static string I_WeerVoorkeur {
+            get {
+                return ResourceManager.GetString("I_WeerVoorkeur", resourceCulture);
             }
         }
         
@@ -826,6 +897,15 @@ namespace HomeManager.DAL.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to S_FavorieteApplicatie.
+        /// </summary>
+        internal static string S_FavorieteApplicatie {
+            get {
+                return ResourceManager.GetString("S_FavorieteApplicatie", resourceCulture);
+            }
+        }
+
+        /// <summary>
         ///   Looks up a localized string similar to S_ExceptionsByAccountID.
         /// </summary>
         internal static string S_ExceptionsByAccountID {
@@ -835,6 +915,15 @@ namespace HomeManager.DAL.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to S_FavorietVenster.
+        /// </summary>
+        internal static string S_FavorietVenster {
+            get {
+                return ResourceManager.GetString("S_FavorietVenster", resourceCulture);
+            }
+        }
+
+        /// <summary>
         ///   Looks up a localized string similar to S_ExceptionsByDate.
         /// </summary>
         internal static string S_ExceptionsByDate {
@@ -843,6 +932,15 @@ namespace HomeManager.DAL.Properties {
             }
         }
         
+        /// <summary>
+        ///   Looks up a localized string similar to S_FotoCarousel.
+        /// </summary>
+        internal static string S_FotoCarousel {
+            get {
+                return ResourceManager.GetString("S_FotoCarousel", resourceCulture);
+            }
+        }
+
         /// <summary>
         ///   Looks up a localized string similar to S_ExceptionsByExceptionName.
         /// </summary>
@@ -988,6 +1086,15 @@ namespace HomeManager.DAL.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to S_Snelkoppelingen.
+        /// </summary>
+        internal static string S_Snelkoppelingen {
+            get {
+                return ResourceManager.GetString("S_Snelkoppelingen", resourceCulture);
+            }
+        }
+
+        /// <summary>
         ///   Looks up a localized string similar to S_StickyNotes.
         /// </summary>
         internal static string S_StickyNotes {
@@ -1101,6 +1208,15 @@ namespace HomeManager.DAL.Properties {
         internal static string S_WachtWoordenGroep {
             get {
                 return ResourceManager.GetString("S_WachtWoordenGroep", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to S_WeerVoorKeur.
+        /// </summary>
+        internal static string S_WeerVoorkeur {
+            get {
+                return ResourceManager.GetString("S_WeerVoorkeur", resourceCulture);
             }
         }
         

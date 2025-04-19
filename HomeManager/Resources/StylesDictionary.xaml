@@ -1005,6 +1005,40 @@
         <Setter Property="HorizontalAlignment" Value="Stretch" />
     </Style>
 
+
+    <!--  Homepage styles Michaël  -->
+    <Style x:Key="HomepageListView" TargetType="ListView">
+        <Setter Property="Background" Value="#99024f87" />
+        <Setter Property="Foreground" Value="#FFD4E7F5" />
+        <Setter Property="BorderBrush" Value="White" />
+        <Setter Property="FontFamily" Value="Segoe UI" />
+        <Setter Property="FontSize" Value="18" />
+        <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Auto" />
+        <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto" />
+    </Style>
+    <Style x:Key="HomepageListViewColumn" TargetType="GridViewColumnHeader">
+        <Setter Property="BorderBrush" Value="DarkBlue" />
+        <Setter Property="Foreground" Value="White" />
+        <Setter Property="Background" Value="LightBlue" />
+    </Style>
+    <Style x:Key="HomepageListViewItems" TargetType="ListViewItem">
+        <Setter Property="HorizontalContentAlignment" Value="Center" />
+        <Setter Property="VerticalContentAlignment" Value="Center" />
+    </Style>
+    <Style x:Key="HomepageTextBlock" TargetType="TextBlock">
+        <Setter Property="FontFamily" Value="Ariel" />
+        <Setter Property="FontSize" Value="18" />
+        <Setter Property="Foreground" Value="DarkBlue" />
+    </Style>
+    <Style x:Key="HomepageTextBlockTitel" TargetType="TextBlock">
+        <Setter Property="Margin" Value="5" />
+        <Setter Property="HorizontalAlignment" Value="Center" />
+        <Setter Property="FontFamily" Value="Ariel" />
+        <Setter Property="FontSize" Value="26" />
+        <Setter Property="FontWeight" Value="Bold" />
+        <Setter Property="Foreground" Value="DarkBlue" />
+    </Style>
+
     <Style x:Key="StickyNoteTextBox" TargetType="TextBox">
         <Setter Property="Margin" Value="5" />
         <Setter Property="HorizontalAlignment" Value="Stretch" />
@@ -1292,4 +1326,5 @@
     </Style>
 
     <!--#endregion-->
+
 </ResourceDictionary>
