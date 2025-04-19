@@ -98,10 +98,6 @@ namespace HomeManager.ViewModel
         {
             return true; 
         }
-        private bool CanExecuteLogs(object? obj)
-        {
-            return true;
-        }
         #endregion
 
         #region METHODS
