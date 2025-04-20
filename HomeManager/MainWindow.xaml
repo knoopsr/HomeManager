@@ -13,8 +13,10 @@
     Width="1250"
     Height="900"
     Background="{StaticResource myTitleBar}"
-    LocationChanged="MainWindow_LocationChanged"
+    Closing="Window_Closing"
+    LocationChanged="Window_LocationChanged"
     SizeChanged="Window_SizeChanged"
+    StateChanged="Window_StateChanged"
     mc:Ignorable="d">
     <Window.DataContext>
         <VM:clsHomeVM />
