@@ -99,20 +99,7 @@ namespace HomeManager.ViewModel
                 }
             }
         }
-
-        private bool _IsFocused = false;
-        public bool IsFocused
-        {
-            get
-            {
-                return _IsFocused;
-            }
-            set
-            {
-                _IsFocused = value;
-                OnPropertyChanged();
-            }
-        }
+            
         private void LoadData()
         {
             MijnCollectie = MijnService.GetAll();
@@ -160,21 +147,6 @@ namespace HomeManager.ViewModel
         {
             return NewStatus;
         }
-
-        private bool _IsFocusedAfterNew = false;
-        public bool IsFocusedAfterNew
-        {
-            get
-            {
-                return _IsFocusedAfterNew;
-            }
-            set
-            {
-                _IsFocusedAfterNew = value;
-                OnPropertyChanged();
-            }
-        }
-
 
 
         private void Execute_CancelCommand(object obj)
