@@ -90,7 +90,7 @@ namespace HomeManager.Model.Budget
                     case nameof(Begunstigde):
                         if (string.IsNullOrWhiteSpace(_begunstigde))
                         {
-                            error = "Budget Frequentie is een verplicht veld.";
+                            error = "Begunstigde is verplicht";
                             if (ErrorList.Contains(nameof(Begunstigde)) == false)
                             {
                                 ErrorList.Add(nameof(Begunstigde));
@@ -98,7 +98,7 @@ namespace HomeManager.Model.Budget
                         }
                         else if (_begunstigde.Length > 50)
                         {
-                            error = "De voorgestelde categorie is te lang!!!";
+                            error = "De voorgestelde Begunstigde is te lang!!!";
                             if (ErrorList.Contains(nameof(Begunstigde)) == false)
                             {
                                 ErrorList.Add(nameof(Begunstigde));

@@ -373,22 +373,18 @@
                     Grid.RowSpan="2"
                     Grid.Column="5"
                     Grid.ColumnSpan="5"
-                    Margin="15,0,0,150"
                     HorizontalAlignment="Left"
                     Orientation="Vertical">
 
                     <Button
-                        Margin="5"
                         Command="{Binding cmdUploadBijlage}"
                         CommandParameter="{Binding}"
                         Style="{StaticResource UploadPersoonButton}" />
                     <Button
-                        Margin="5"
                         Command="{Binding cmdShowBijlage}"
                         CommandParameter="{Binding}"
                         Style="{StaticResource Showfile}" />
                     <Button
-                        Margin="5"
                         Command="{Binding cmdDeleteBijlage}"
                         CommandParameter="{Binding}"
                         Style="{StaticResource Deletefile}" />

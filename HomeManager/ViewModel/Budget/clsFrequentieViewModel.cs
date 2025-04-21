@@ -218,7 +218,7 @@ namespace HomeManager.ViewModel
             {
                 FrequentieID = 0,
                 Frequentie = string.Empty,
-                AantalDagen = 0
+                AantalDagen = null
             };
 
             MijnSelectedItem = ItemToInsert;
