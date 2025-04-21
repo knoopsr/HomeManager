@@ -15,11 +15,6 @@ using System.Data.SqlTypes;
 using HomeManager.Messages;
 using HomeManager.Services;
 using HomeManager.View;
-using HomeManager.Model.Security;
-using static HomeManager.ViewModel.clsPersonenViewModel;
-using HomeManager.Model.Personen;
-
-
 
 namespace HomeManager.ViewModel
 {
@@ -27,6 +22,7 @@ namespace HomeManager.ViewModel
     {
 
         clsDomicilieringDataService MijnService;
+        private clsPermissionChecker _permissionChecker = new();
 
         private clsDialogService _DialogService;
 
@@ -216,7 +212,11 @@ namespace HomeManager.ViewModel
         }
         private bool CanExecute_NewCommand(object obj)
         {
-            return !NewStatus;
+            if (_permissionChecker.HasPermission("421"))
+            {
+                return !NewStatus;
+            }
+            return false;
         }
 
         private void Execute_NewCommand(object obj)
@@ -244,19 +244,22 @@ namespace HomeManager.ViewModel
         }
         private bool CanExecute_DeleteCommand(object obj)
         {
-            if (MijnSelectedItem != null)
-
+            if (_permissionChecker.HasPermission("423"))
             {
-                if (NewStatus)
+                if (MijnSelectedItem != null)
+                {
+                    if (NewStatus)
+                    {
+                        return false;
+                    }
+                    return true;
+                }
+                else
                 {
                     return false;
                 }
-                return true;
             }
-            else
-            {
-                return false;
-            }
+            return false;
         }
 
         private void Execute_DeleteCommand(object obj)
@@ -281,16 +284,20 @@ namespace HomeManager.ViewModel
 
         private bool CanExecute_SaveCommand(object obj)
         {
-            if (MijnSelectedItem != null &&
-            MijnSelectedItem.Error == null &&
-            MijnSelectedItem.IsDirty == true)
+            if (_permissionChecker.HasPermission("422"))
             {
-                return true;
+                if (MijnSelectedItem != null &&
+                    MijnSelectedItem.Error == null &&
+                    MijnSelectedItem.IsDirty == true)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
             }
-            else
-            {
-                return false;
-            }
+            return false;
         }
 
         private void Execute_SaveCommand(object obj)
@@ -311,7 +318,7 @@ namespace HomeManager.ViewModel
 
         private bool CanExecute_EditFrequentie(object obj)
         {
-            return true;
+            return _permissionChecker.HasPermission("424");
         }
 
         private void EditFrequentie(object obj)
@@ -323,7 +330,7 @@ namespace HomeManager.ViewModel
 
         private bool CanExecute_EditBegunstigde(object obj)
         {
-            return true;
+            return _permissionChecker.HasPermission("425");
         }
 
         private void EditBegunstigde(object obj)
@@ -334,7 +341,7 @@ namespace HomeManager.ViewModel
 
         private bool CanExecute_EditCategorie(object obj)
         {
-            return true;
+            return _permissionChecker.HasPermission("426");
         }
 
         private void EditCategorie(object obj)

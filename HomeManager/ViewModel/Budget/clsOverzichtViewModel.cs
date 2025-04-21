@@ -27,6 +27,7 @@ namespace HomeManager.ViewModel
     public class clsOverzichtViewModel : clsCommonModelPropertiesBase
     {
         clsOverzichtDataService MijnService;
+        private clsPermissionChecker _permissionChecker = new();
 
         public ICommand cmdDelete { get; set; }
         public ICommand cmdNew { get; set; }
@@ -618,7 +619,7 @@ namespace HomeManager.ViewModel
 
         private bool CanExecute_ExportToExcelCommand(object obj)
         {
-            return true;
+            return _permissionChecker.HasPermission("401");
         }
 
         private void Execute_ExportToExcelCommand(object obj)

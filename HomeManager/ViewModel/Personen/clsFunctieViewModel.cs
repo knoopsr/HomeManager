@@ -103,7 +103,7 @@ namespace HomeManager.ViewModel
             }
         }
 
-    
+
         private void LoadData()
         {
             MijnCollectie = MijnService.GetAll();
@@ -152,21 +152,6 @@ namespace HomeManager.ViewModel
             return NewStatus;
         }
 
-        private bool _IsFocusedAfterNew = false;
-        public bool IsFocusedAfterNew
-        {
-            get
-            {
-                return _IsFocusedAfterNew;
-            }
-            set
-            {
-                _IsFocusedAfterNew = value;
-                OnPropertyChanged();
-            }
-        }
-
-
 
         private void Execute_CancelCommand(object obj)
         {
@@ -189,7 +174,7 @@ namespace HomeManager.ViewModel
             {
                 return !NewStatus;
             }
-        return false;
+            return false;
         }
 
         private void Execute_NewCommand(object obj)
