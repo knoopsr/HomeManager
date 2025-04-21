@@ -24,25 +24,29 @@ namespace HomeManager.ViewModel
         private clsDialogService _DialogService;
 
         private bool NewStatus = false;
-        
+
         public ICommand cmdDelete { get; set; }
         public ICommand cmdNew { get; set; }
         public ICommand cmdSave { get; set; }
         public ICommand cmdCancel { get; set; }
         public ICommand cmdClose { get; set; }
+        public ICommand cmdNewEmailAdressen { get; set; }
         public ICommand cmdEditEmailAdressen { get; set; }
         public ICommand cmdEditPersoon { get; set; }
         public ICommand cmdEditNotities { get; set; }
+        public ICommand cmdNewTelefoonNummers { get; set; }
         public ICommand cmdEditTelefoonNummers { get; set; }
         public ICommand cmdDeleteEmailAdressen { get; set; }
         public ICommand cmdDeletePersoon { get; set; }
+        public ICommand cmdNewAdres { get; set; }
         public ICommand cmdDeleteAdres { get; set; }
         public ICommand cmdDeleteTelefoonNummer { get; set; }
         public ICommand cmdEditAdres { get; set; }
+        public ICommand cmdNewNotities { get; set; }
         public ICommand cmdDeleteNotitie { get; set; }
         public ICommand cmdSendEmail { get; set; }
 
-        
+
 
 
 
@@ -222,13 +226,18 @@ namespace HomeManager.ViewModel
             cmdClose = new clsCustomCommand(Execute_Close_Command, CanExecute_Close_Command);
 
             //Messages
-            cmdEditEmailAdressen = new clsRelayCommand<object>(Edit_EmailAdressen);
-            cmdEditAdres = new clsRelayCommand<object>(Edit_Adressen);
-            cmdEditPersoon = new clsRelayCommand<object>(Edit_Persoon);
-            cmdEditNotities = new clsRelayCommand<object>(Edit_Notities);
-            cmdEditTelefoonNummers = new clsRelayCommand<object>(Edit_TelefoonNummers);
+            cmdNewEmailAdressen = new clsCustomCommand(New_EmailAdressen, CanNewEmailAdressen);
+            cmdEditEmailAdressen = new clsCustomCommand(Edit_EmailAdressen, CanEditEmailAdressen);
+            cmdNewAdres = new clsCustomCommand(New_Adres, CanNewAdres);
+            cmdEditAdres = new clsCustomCommand(Edit_Adressen, CanEditAdres);
+            cmdEditPersoon = new clsCustomCommand(Edit_Persoon, CanEditPersoon);
 
-            cmdSendEmail = new clsRelayCommand<object>(Edit_SendEmail);
+            cmdNewNotities = new clsCustomCommand(New_Notities, CanNewNotities);
+            cmdEditNotities = new clsCustomCommand(Edit_Notities, CanEditNotities);
+            cmdNewTelefoonNummers = new clsCustomCommand(New_TelefoonNummers, CanNewTelefoonNummers);
+            cmdEditTelefoonNummers = new clsCustomCommand(Edit_TelefoonNummers, CanEditTelefoonNummers);
+
+            cmdSendEmail = new clsCustomCommand(Edit_SendEmail, CanSendEmail);
 
             cmdDeleteEmailAdressen = new clsCustomCommand(Delete_EmailAdres, CanExecute_Delete_EmailAdres);
             cmdDeletePersoon = new clsCustomCommand(Delete_Persoon, CanExecute_Delete_Persoon);
@@ -249,6 +258,86 @@ namespace HomeManager.ViewModel
             MijnSelectedItem = MijnService.GetFirst();
         }
 
+        private bool CanEditNotities(object? obj)
+        {
+            clsPermissionChecker permissionChecker = new();
+            return permissionChecker.HasPermission("115");
+        }
+
+        private void New_Notities(object? obj)
+        {
+            OpenNotities(obj);
+        }
+
+        private bool CanNewNotities(object? obj)
+        {
+            clsPermissionChecker permissionChecker = new();
+            return permissionChecker.HasPermission("114");
+
+        }
+
+        private bool CanEditTelefoonNummers(object? obj)
+        {
+            clsPermissionChecker permissionChecker = new();
+            return permissionChecker.HasPermission("112");
+        }
+
+        private bool CanNewTelefoonNummers(object? obj)
+        {
+            clsPermissionChecker permissionChecker = new();
+            return permissionChecker.HasPermission("111");
+        }
+
+        private void New_TelefoonNummers(object? obj)
+        {
+            OpenTelefoonNummer(obj);
+        }
+
+        private bool CanEditAdres(object? obj)
+        {
+            clsPermissionChecker permissionChecker = new();
+            return permissionChecker.HasPermission("109");
+        }
+
+        private bool CanNewAdres(object? obj)
+        {
+            clsPermissionChecker permissionChecker = new();
+            return permissionChecker.HasPermission("108");
+        }
+
+        private void New_Adres(object? obj)
+        {
+            OpenAdres(obj);
+        }
+
+        private bool CanSendEmail(object arg)
+        {
+            clsPermissionChecker permissionChecker = new();
+            return permissionChecker.HasPermission("107");
+        }
+
+        private bool CanNewEmailAdressen(object arg)
+        {
+            clsPermissionChecker permissionChecker = new();
+            return permissionChecker.HasPermission("104");
+        }
+
+        private void New_EmailAdressen(object obj)
+        {
+            OpenEmailAdressen(obj);
+        }
+
+        private bool CanEditEmailAdressen(object arg)
+        {
+            clsPermissionChecker permissionChecker = new();
+            return permissionChecker.HasPermission("105");
+        }
+
+        private bool CanEditPersoon(object arg)
+        {
+            clsPermissionChecker permissionChecker = new();
+            return permissionChecker.HasPermission("102");
+        }
 
         private void LoadData()
         {
@@ -304,87 +393,112 @@ namespace HomeManager.ViewModel
 
         private void Edit_TelefoonNummers(object? obj)
         {
-            if (obj == null)
+            OpenTelefoonNummer(obj);
+        }
+
+        private void OpenTelefoonNummer(object? obj)
+        {
+            if (obj != null)
             {
-                clsTelefoonNummersModel telefoonnummer = new clsTelefoonNummersModel()
+                if (obj is clsPersoonModel)
                 {
-                    PersoonID = MijnSelectedItem.PersoonID,
-                    TelefoonNummerID = 0,
-                    TelefoonTypeID = 0,
-                    TelefoonNummer = string.Empty
-                };
-                clsMessenger.Default.Send<clsTelefoonNummersModel>(telefoonnummer);
-            }
-            else
-            {
-                if (MijnSelectedItem != null)
-                {
-                    if (obj is clsTelefoonNummersModel)
+                    clsTelefoonNummersModel telefoonnummer = new clsTelefoonNummersModel()
                     {
-                        clsTelefoonNummersModel telefoonnummer = obj as clsTelefoonNummersModel;
-                        clsMessenger.Default.Send<clsTelefoonNummersModel>(telefoonnummer);
+                        PersoonID = MijnSelectedItem.PersoonID,
+                        TelefoonNummerID = 0,
+                        TelefoonTypeID = 0,
+                        TelefoonNummer = string.Empty
+                    };
+                    clsMessenger.Default.Send<clsTelefoonNummersModel>(telefoonnummer);
+                }
+                else
+                {
+                    if (MijnSelectedItem != null)
+                    {
+                        if (obj is clsTelefoonNummersModel)
+                        {
+                            clsTelefoonNummersModel telefoonnummer = obj as clsTelefoonNummersModel;
+                            clsMessenger.Default.Send<clsTelefoonNummersModel>(telefoonnummer);
+                        }
                     }
                 }
+                _DialogService.ShowDialog(new ucTelefoonNummers(), "TelefoonNummers");
             }
-            _DialogService.ShowDialog(new ucTelefoonNummers(), "TelefoonNummers");
         }
 
         private void Edit_Notities(object? obj)
         {
-            if (obj == null)
+            OpenNotities(obj);
+        }
+
+        private void OpenNotities(object? obj)
+        {
+            if (obj != null)
             {
-                clsNotitiesModel notities = new clsNotitiesModel()
+                if (obj is clsPersoonModel)
                 {
-                    PersoonID = MijnSelectedItem.PersoonID,
-                    NotitieID = 0,
-                    Onderwerp = string.Empty,
-                    Notitie = string.Empty,
-                };
-                clsMessenger.Default.Send<clsNotitiesModel>(notities);
-            }
-            else
-            {
-                if (MijnSelectedItem != null)
-                {
-                    if (obj is clsNotitiesModel)
+                    clsNotitiesModel notities = new clsNotitiesModel()
                     {
-                        clsNotitiesModel notities = obj as clsNotitiesModel;
-                        clsMessenger.Default.Send<clsNotitiesModel>(notities);
+                        PersoonID = MijnSelectedItem.PersoonID,
+                        NotitieID = 0,
+                        Onderwerp = string.Empty,
+                        Notitie = string.Empty,
+                    };
+                    clsMessenger.Default.Send<clsNotitiesModel>(notities);
+                }
+                else
+                {
+                    if (MijnSelectedItem != null)
+                    {
+                        if (obj is clsNotitiesModel)
+                        {
+                            clsNotitiesModel notities = obj as clsNotitiesModel;
+                            clsMessenger.Default.Send<clsNotitiesModel>(notities);
+                        }
                     }
                 }
+                _DialogService.ShowDialog(new ucNotities(), "Notities");
             }
-            _DialogService.ShowDialog(new ucNotities(), "Notities");
         }
 
         private void Edit_Adressen(object? obj)
         {
-            if (obj == null)
-            {
-                clsAdressenModel adres = new clsAdressenModel()
-                {
-                    PersoonID = MijnSelectedItem.PersoonID,
-                    AdresID = 0,
-                    GemeenteID = 0,
-                    FunctieID = 0,
-                    Straat = string.Empty,
-                    Nummer = string.Empty,
-                };
-                clsMessenger.Default.Send<clsAdressenModel>(adres);
-            }
-            else
-            {
-                if (MijnSelectedItem != null)
-                {
-                    if (obj is clsAdressenModel)
-                    {
-                        clsAdressenModel adres = obj as clsAdressenModel;
-                        clsMessenger.Default.Send<clsAdressenModel>(adres);
-                    }
-                }
-            }
-            _DialogService.ShowDialog(new ucAdressen(), "Adressen");
+            OpenAdres(obj);
         }
 
+        private void OpenAdres(object? obj)
+        {
+            if (obj != null)
+            {
+
+
+                if (obj is clsPersoonModel)
+                {
+                    clsAdressenModel adres = new clsAdressenModel()
+                    {
+                        PersoonID = MijnSelectedItem.PersoonID,
+                        AdresID = 0,
+                        GemeenteID = 0,
+                        FunctieID = 0,
+                        Straat = string.Empty,
+                        Nummer = string.Empty,
+                    };
+                    clsMessenger.Default.Send<clsAdressenModel>(adres);
+                }
+                else
+                {
+                    if (MijnSelectedItem != null)
+                    {
+                        if (obj is clsAdressenModel)
+                        {
+                            clsAdressenModel adres = obj as clsAdressenModel;
+                            clsMessenger.Default.Send<clsAdressenModel>(adres);
+                        }
+                    }
+                }
+                _DialogService.ShowDialog(new ucAdressen(), "Adressen");
+            }
+        }
 
         private void Edit_Persoon(object? obj)
         {
@@ -400,31 +514,38 @@ namespace HomeManager.ViewModel
 
         private void Edit_EmailAdressen(object? obj)
         {
-            if (obj == null)
-            {
-                clsEmailAdressenModel email = new clsEmailAdressenModel()
-                {
-                    PersoonID = MijnSelectedItem.PersoonID,
-                    EmailAdresID = 0,
-                    Emailadres = string.Empty,
-                    EmailTypeID = 0
-                };
-                clsMessenger.Default.Send<clsEmailAdressenModel>(email);
-            }
-            else
-            {
-                if (MijnSelectedItem != null)
-                {
-                    if (obj is clsEmailAdressenModel)
-                    {
-                        clsEmailAdressenModel email = obj as clsEmailAdressenModel;
-                        clsMessenger.Default.Send<clsEmailAdressenModel>(email);
-                    }
-                }
-            }
-            _DialogService.ShowDialog(new ucEmailAdressen(), "EmailAdressen");
+            OpenEmailAdressen(obj);
         }
 
+        private void OpenEmailAdressen(object? obj)
+        {
+            if (obj != null)
+            {
+                if (obj is clsPersoonModel)
+                {
+                    clsEmailAdressenModel email = new clsEmailAdressenModel()
+                    {
+                        PersoonID = MijnSelectedItem.PersoonID,
+                        EmailAdresID = 0,
+                        Emailadres = string.Empty,
+                        EmailTypeID = 0
+                    };
+                    clsMessenger.Default.Send<clsEmailAdressenModel>(email);
+                }
+                else
+                {
+                    if (MijnSelectedItem != null)
+                    {
+                        if (obj is clsEmailAdressenModel)
+                        {
+                            clsEmailAdressenModel email = obj as clsEmailAdressenModel;
+                            clsMessenger.Default.Send<clsEmailAdressenModel>(email);
+                        }
+                    }
+                }
+                _DialogService.ShowDialog(new ucEmailAdressen(), "EmailAdressen");
+            }
+        }
 
         private void Edit_SendEmail(object obj)
         {
@@ -447,7 +568,7 @@ namespace HomeManager.ViewModel
                         Ontvanger = SelectedEmailAdres.Emailadres
                     };
                     clsMessenger.Default.Send<clsEmailVerzendenModel>(sendemail);
-                    
+
                 }
             }
             _DialogService.ShowDialog(new ucEmailVerzenden(), "Email Verzenden");
@@ -481,7 +602,8 @@ namespace HomeManager.ViewModel
 
         private bool CanExecute_New_Command(object? obj)
         {
-            return !NewStatus;
+            clsPermissionChecker permissionChecker = new();
+            return permissionChecker.HasPermission("101");
         }
 
         private void Execute_Cancel_Command(object? obj)
@@ -585,7 +707,8 @@ namespace HomeManager.ViewModel
         }
         private bool CanExecute_Delete_Adres(object? obj)
         {
-            return obj is clsAdressenModel;
+            clsPermissionChecker permissionChecker = new();
+            return permissionChecker.HasPermission("110");
         }
 
 
@@ -615,30 +738,36 @@ namespace HomeManager.ViewModel
 
         private bool CanExecute_Delete_EmailAdres(object? obj)
         {
-            return obj is clsEmailAdressenModel;
+            clsPermissionChecker permissionChecker = new();
+            return permissionChecker.HasPermission("106");
         }
 
 
 
         private void Delete_Persoon(object? obj)
         {
-        if (MessageBox.Show("Wil je " + MijnSelectedItem + " verwijderen?", "Vewijderen?", MessageBoxButton.YesNo,
-            MessageBoxImage.Question) == MessageBoxResult.Yes) if (MijnSelectedItem != null)
-            {
-                if (MijnService.Delete(MijnSelectedItem))
+            if (MessageBox.Show("Wil je " + MijnSelectedItem + " verwijderen?", "Vewijderen?", MessageBoxButton.YesNo,
+                MessageBoxImage.Question) == MessageBoxResult.Yes) if (MijnSelectedItem != null)
                 {
-                    MijnSelectedItem.MijnSelectedIndex = 0;
-                    NewStatus = false;
-                    LoadData();
+                    if (MijnService.Delete(MijnSelectedItem))
+                    {
+                        MijnSelectedItem.MijnSelectedIndex = 0;
+                        NewStatus = false;
+                        LoadData();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Error?", MijnSelectedItem.ErrorBoodschap);
+                    }
                 }
-                else
-                {
-                    MessageBox.Show("Error?", MijnSelectedItem.ErrorBoodschap);
-                }
-            }
         }
         private bool CanExecute_Delete_Persoon(object? obj)
         {
+            clsPermissionChecker permissionChecker = new();
+            if (!permissionChecker.HasPermission("103"))
+            {
+                return false;
+            }
             if (MijnSelectedItem != null)
             {
                 if (NewStatus)
@@ -679,12 +808,14 @@ namespace HomeManager.ViewModel
         }
         private bool CanExecute_Delete_TelefoonNummer(object? obj)
         {
-            return obj is clsTelefoonNummersModel;
+            clsPermissionChecker permissionChecker = new();
+            return permissionChecker.HasPermission("113");
         }
 
         private bool CanExecute_Delete_Notitie(object? obj)
         {
-            return obj is clsNotitiesModel;
+            clsPermissionChecker permissionChecker = new();
+            return permissionChecker.HasPermission("116");
         }
 
         private void Delete_Notitie(object? obj)
@@ -798,7 +929,7 @@ namespace HomeManager.ViewModel
         private void ClearSearch()
         {
             SearchText = string.Empty;
-            FilterUsers(); 
+            FilterUsers();
         }
     }
 }
