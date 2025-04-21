@@ -51,7 +51,7 @@ namespace HomeManager.View.StickyNotes
         /// <param name="e">The event arguments.</param>
         private void CloseOverlay(object sender, RoutedEventArgs e)
         {
-            Close();
+            if (this != null) Close();
         }
 
         /// <summary>
