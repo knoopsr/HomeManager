@@ -107,7 +107,7 @@ namespace HomeManager
         /// </summary>
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            stickyNotesView.Close();
+            if (stickyNotesView != null) stickyNotesView.Close();
         }
         #endregion
     }
