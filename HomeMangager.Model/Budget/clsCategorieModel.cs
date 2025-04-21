@@ -68,7 +68,7 @@ namespace HomeManager.Model.Budget
                     case nameof(BudgetCategorie):
                         if (string.IsNullOrWhiteSpace(_budgetCategorie))
                         {
-                            error = "Budget Categorie is een verplicht veld.";
+                            error = "Categorie is verplicht";
                             if (ErrorList.Contains(nameof(BudgetCategorie)) == false)
                             {
                                 ErrorList.Add(nameof(BudgetCategorie));

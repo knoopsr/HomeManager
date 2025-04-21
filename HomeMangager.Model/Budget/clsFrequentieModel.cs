@@ -46,8 +46,8 @@ namespace HomeManager.Model.Budget
             }
         }
 
-        private int _aantalDagen;
-        public int  AantalDagen
+        private int? _aantalDagen;
+        public int? AantalDagen
         {
             get
             {
@@ -57,7 +57,7 @@ namespace HomeManager.Model.Budget
             {
                 if ( _aantalDagen != value)
                 {
-                    if (_aantalDagen != null)
+                    if (_aantalDagen != value)
                     {
                         //IsDirty = true;
                     }
@@ -83,37 +83,39 @@ namespace HomeManager.Model.Budget
                 switch (columnName)
                 {
 
-
-
-
-                    case nameof(Frequentie):
+                    case "Frequentie":
                         if (string.IsNullOrWhiteSpace(_frequentie))
                         {
-                            error = "Budget Frequentie is een verplicht veld.";
-                            if (ErrorList.Contains(nameof(Frequentie)) == false)
+                            error = "Frequentie is verplicht";
+                            if (ErrorList.Contains("Frequentie") == false)
                             {
                                 ErrorList.Add(nameof(Frequentie));
                             }
                         }
-
-
-
-
-                        else if (_frequentie.Length > 50)
-                        {
-                            error = "De voorgestelde categorie is te lang!!!";
-                            if (ErrorList.Contains(nameof(Frequentie)) == false)
-                            {
-                                ErrorList.Add(nameof(Frequentie));
-
-                            }
-                        }
-
                         else
                         {
-                            if (ErrorList.Contains(nameof(Frequentie)))
+                            if (ErrorList.Contains("Frequentie"))
                             {
-                                ErrorList.Remove(nameof(Frequentie));
+                                ErrorList.Remove("Frequentie");
+                            }
+                        }
+                        return error;
+
+                    case "AantalDagen":
+
+                        if (!_aantalDagen.HasValue || _aantalDagen <= 0)
+                        {
+                            error = "Bedrag kan niet leeg of 0 zijn";
+                            if (ErrorList.Contains("AantalDagen") == false)
+                            {
+                                ErrorList.Add("AantalDagen");
+                            }
+                        }
+                        else
+                        {
+                            if (ErrorList.Contains("AantalDagen"))
+                            {
+                                ErrorList.Remove("AantalDagen");
                             }
                         }
                         return error;
