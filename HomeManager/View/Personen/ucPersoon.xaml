@@ -70,7 +70,7 @@
                     <RowDefinition Height="30" />
                     <RowDefinition Height="30" />
                     <RowDefinition Height="50" />
-                    <RowDefinition Height="30" />
+                    <RowDefinition Height="35" />
                     <RowDefinition Height="30" />
                     <RowDefinition Height="4*" />
                     <RowDefinition Height="*" />
@@ -82,6 +82,7 @@
                     Grid.Column="1"
                     Width="250"
                     MaxHeight="500"
+                    VerticalAlignment="Top"
                     ItemsSource="{Binding MijnCollectie}"
                     SelectedItem="{Binding MijnSelectedItem, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
                     <ListBox.ItemContainerStyle>

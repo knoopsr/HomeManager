@@ -34,9 +34,7 @@
                         Data="{StaticResource myPathSetting}"
                         Fill="White"
                         Stretch="Fill" />
-                    <TextBlock
-                        Style="{StaticResource TitleBarText}"
-                        Text="EmailType" />
+                    <TextBlock Style="{StaticResource TitleBarText}" Text="EmailType" />
 
                 </StackPanel>
                 <uc:ucWerkBalk HorizontalAlignment="Right" VerticalAlignment="Top" />

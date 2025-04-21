@@ -452,6 +452,7 @@
                                 HorizontalAlignment="Right"
                                 VerticalAlignment="Center"
                                 Command="{Binding cmdNewNotities}"
+                                CommandParameter="{Binding MijnSelectedItem}"
                                 Style="{StaticResource AddImage}" />
                         </Grid>
                     </Border>
