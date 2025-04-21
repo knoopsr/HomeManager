@@ -1,38 +1,32 @@
 ﻿using HomeManager.Model.Security;
-using HomeManager.ViewModel;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace HomeManager.Helpers
 {
     public class clsPermissionChecker
-    {        
+    {
         public bool HasPermission(string code)
-        {           
+        {
             string rechtenCodes = clsLoginModel.Instance.RechtenCodes;
             if (string.IsNullOrEmpty(rechtenCodes))
             {
                 return false;
-            }  
+            }
             var rechtenLijst = rechtenCodes.Split('|');
             return rechtenLijst.Contains(code);
         }
 
         public bool PermissionViewmodel(string viewModel)
-        {            
+        {
             if (_destinationToPermissionMap.TryGetValue(viewModel, out string requiredPermission))
-            {               
+            {
                 string rechtenCodes = clsLoginModel.Instance.RechtenCodes;
                 if (string.IsNullOrEmpty(rechtenCodes))
                 {
-                    return false; 
-                }               
+                    return false;
+                }
                 var rechtenLijst = rechtenCodes.Split('|');
                 return rechtenLijst.Contains(requiredPermission);
-            }            
+            }
             return false;
         }
 
@@ -46,8 +40,8 @@ namespace HomeManager.Helpers
             {"clsGemeenteViewModel" , "170" },
             {"clsFunctieViewModel","180" },
             {"clsEmailTypeViewModel","130" },
-            {"clsTelefoonTypeViewModel","140" },       
-   
+            {"clsTelefoonTypeViewModel","140" },
+
 
 
 
@@ -62,13 +56,17 @@ namespace HomeManager.Helpers
             { "clsTodoVM", "500" },
 
             {"clsDagboekViewModel", "300" },
-            { "clsFrequentieViewModel", "440" },
-            { "clsDomicilieringViewModel", "420" },
-            { "clsCategorieViewModel", "450" },
-            { "clsBegunstigdenViewModel", "430" },
+
+            { "clsOverzichtViewModel", "400" },
             { "clsTransactieViewModel", "410" },
-            { "clsOverzichtViewModel", "410" },
-           
+            { "clsDomicilieringViewModel", "420" },
+            { "clsBegunstigdenViewModel", "430" },
+            { "clsFrequentieViewModel", "440" },
+            { "clsCategorieViewModel", "450" },
+
+
+
+
 
 
 
