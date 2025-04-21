@@ -12,6 +12,10 @@ using System.Windows.Input;
 
 namespace HomeManager.ViewModel.Exceptions
 {
+    /// <summary>
+    /// ViewModel class for managing exceptions
+    /// Provides functionalities to filter, save, delete, export, and manage exceptions data.
+    /// </summary>
     public class clsExceptionsViewModel : clsCommonModelPropertiesBase
     {
         #region FIELDS
@@ -144,6 +148,9 @@ namespace HomeManager.ViewModel.Exceptions
         #endregion
 
         #region CONSTRUCTOR
+        /// <summary>
+        /// Initializes the ViewModel and sets up commands and data loading.
+        /// </summary>
         public clsExceptionsViewModel()
         {
             MijnService = new clsExceptionsDataService();
@@ -160,6 +167,9 @@ namespace HomeManager.ViewModel.Exceptions
         #endregion
 
         #region METHODS
+        /// <summary>
+        /// Loads data into the collections, filtering unique values for accounts, exceptions, and target sites.
+        /// </summary>
         private void LoadData()
         {
             MijnCollectie = MijnService.GetAll();
@@ -202,6 +212,9 @@ namespace HomeManager.ViewModel.Exceptions
             SelectedTargetSites = uniekeTargetSitesOptie;
         }
 
+        /// <summary>
+        /// Filters the exceptions collection based on selected criteria: account, exception, target site, and date range.
+        /// </summary>
         private void FilterData()
         {
             if (MijnCollectie == null || !MijnCollectie.Any()) return;
@@ -268,7 +281,9 @@ namespace HomeManager.ViewModel.Exceptions
         private bool CanExecute_Save_Command(object? obj) => false;
         private bool CanExecute_Delete_Command(object? obj) => false;
 
-
+        /// <summary>
+        /// Executes the export command, saving filtered data to an Excel file.
+        /// </summary>
         private void Execute_Export_Command(object? obj)
         {
             if (MijnGefilterdeCollectie == null || !MijnGefilterdeCollectie.Any())

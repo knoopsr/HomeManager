@@ -8,12 +8,17 @@ using System.Windows;
 
 namespace HomeManager.Services
 {
+    /// <summary>
+    /// Provides utility methods for managing and positioning overlay windows relative to another window.
+    /// </summary>
     public static class clsWindowService
     {
         /// <summary>
         /// Positions the overlay window relative to the owner window, aligning it to the right
         /// with a specific size ratio and padding. Automatically adjusts for normal, minimized,
         /// and maximized states of the owner window.
+        /// 
+        /// <para><b>Note:</b> This method does not manage window stacking (Z-index). If needed, bring the overlay to front manually.</para>
         /// </summary>
         /// <remarks>
         /// <para><b>Positioning Formula:</b></para>

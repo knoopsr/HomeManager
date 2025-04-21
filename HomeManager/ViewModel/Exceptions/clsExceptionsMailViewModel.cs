@@ -24,6 +24,10 @@ using Microsoft.Win32;
 
 namespace HomeManager.ViewModel.Exceptions
 {
+    /// <summary>
+    /// ViewModel for handling exception email operations, such as sending exception data to email addresses,
+    /// exporting the exception data to Excel, and managing email-related actions for a specific user and development team.
+    /// </summary>
     public class clsExceptionsMailViewModel : clsCommonModelPropertiesBase
     {
         #region FIELDS
@@ -41,13 +45,26 @@ namespace HomeManager.ViewModel.Exceptions
         public ICommand cmdClose { get; set; }
         public ICommand cmdExport { get; set; }
 
+        /// <summary>
+        /// ObservableCollection for storing the current user's email addresses.
+        /// </summary>
         public static ObservableCollection<clsEmailAdressenModel> CurrentUserMailCollection { get; set; }
+
+        /// <summary>
+        /// ObservableCollection for storing the development team's email addresses.
+        /// </summary>
         public static ObservableCollection<clsEmailAdressenModel> MailCollectionDevTeam { get; set; }
 
+        /// <summary>
+        /// Bindable property for the development team's email addresses collection.
+        /// </summary>
         public ObservableCollection<clsEmailAdressenModel> BindableMailCollectionDevTeam { get => MailCollectionDevTeam; }
         #endregion
 
         #region CONSTRUCTOR
+        /// <summary>
+        /// Initializes the ViewModel, loads data, and sets up commands.
+        /// </summary>
         public clsExceptionsMailViewModel()
         {
             EmailDataService = new clsEmailAdressenDataService();
@@ -65,9 +82,11 @@ namespace HomeManager.ViewModel.Exceptions
 
         #region METHODS
         /// <summary>
-        /// Populates our ObservableCollections with the mailModels.
+        /// Loads email data for the current user and development team into the respective collections.
         /// </summary>
-        /// <returns></returns>
+        /// <remarks>
+        /// Calls the EmailDataService to fetch the email addresses for the current user and development team.
+        /// </remarks>
         private static void LoadData()
         {
             EmailDataService = new clsEmailAdressenDataService();
@@ -89,6 +108,13 @@ namespace HomeManager.ViewModel.Exceptions
             if (MailCollectionDevTeam == null) MessageBox.Show("No MailCollectionDevTeam was found by the EmailDataService.");
         }
 
+        /// <summary>
+        /// Sends exception details to the email addresses of the current user and the development team.
+        /// </summary>
+        /// <param name="ex">The exception model containing exception details to be sent.</param>
+        /// <remarks>
+        /// Sends the exception data to both the current user’s email addresses and the development team's email addresses.
+        /// </remarks>
         public static void SendExceptionToMailAddresses(clsExceptionsModel ex)
         {
             MailService = new clsMailService();
@@ -133,6 +159,9 @@ namespace HomeManager.ViewModel.Exceptions
             }
         }
 
+        /// <summary>
+        /// Executes the "Export" command, allowing the user to export email data to an Excel file.
+        /// </summary>
         private void Execute_Export_Command(object? obj)
         {
             if (MailCollectionDevTeam == null || !MailCollectionDevTeam.Any())

@@ -31,11 +31,13 @@ using Microsoft.Win32;
 
 namespace HomeManager.ViewModel.StickyNotes
 {
+    /// <summary>
+    /// ViewModel for managing Sticky Notes.
+    /// Handles note creation, selection, image management, and persistence.
+    /// </summary>
     public class clsStickyNotesViewModel : clsCommonModelPropertiesBase
     {
         #region FIELDS
-        public clsRTBLayout MyRTBLayout { get; set; }
-
         private clsStickyNotesDataService _myService;
         private ObservableCollection<clsStickyNotesModel> _myCollection;
         private clsStickyNotesModel _mySelectedItem;
@@ -52,11 +54,11 @@ namespace HomeManager.ViewModel.StickyNotes
         #endregion
 
         #region PROPERTIES
+        public clsRTBLayout MyRTBLayout { get; set; }
+
+        /// <summary>Returns <c>clsLoginModel.Instance.PersoonID;</c></summary>
         public int CurrentUserID { get => clsLoginModel.Instance.PersoonID; }
 
-        /// <summary>
-        /// Fix width gimmick
-        /// </summary>
         public ObservableCollection<clsStickyNotesModel> MyCollection
         {
             get
@@ -67,16 +69,21 @@ namespace HomeManager.ViewModel.StickyNotes
             {
                 _myCollection = value;
 
-                // Initialize the size of each item in the collection
+                // Dit is echt een lelijke quick fix
+                // Om de initiele grootte van elke item in de collectie te zetten
                 foreach (var item in _myCollection)
                 {
-                    item.Width = 450 * 0.5f; // Set the initial width
-                    item.Height = 350 * 0.5f; // Set the initial height
+                    item.Width = 450 * 0.5f;
+                    item.Height = 350 * 0.5f;
                 }
                 OnPropertyChanged();
             }
         }
 
+        /// <summary>
+        /// Gets or sets the currently selected sticky note.
+        /// Triggers size adjustment and property change notification: <c>IncreaseSelectedNoteSize();</c>
+        /// </summary>
         public clsStickyNotesModel MySelectedItem
         {
             get { return _mySelectedItem; }
@@ -116,6 +123,9 @@ namespace HomeManager.ViewModel.StickyNotes
         #endregion
 
         #region CONSTRUCTOR
+        /// <summary>
+        /// Initializes the Sticky Notes ViewModel and loads data.
+        /// </summary>
         public clsStickyNotesViewModel()
         {
             _myService = new clsStickyNotesDataService();
@@ -133,18 +143,26 @@ namespace HomeManager.ViewModel.StickyNotes
         #endregion
 
         #region METHODS
+        /// <summary>
+        /// Loads sticky notes for the current user.
+        /// </summary>
         public void LoadData()
         {
             MyCollection = _myService.GetAllByUserID(CurrentUserID);
         }
 
-
+        /// <summary>
+        /// Triggered when login model updates. Reloads data.
+        /// </summary>
         void OnUpdateLoginModel(clsLoginModel model)
         {
             LoadData();
             MySelectedItem = _myService.GetFirstByUserID(CurrentUserID);
         }
 
+        /// <summary>
+        /// Saves all notes in the collection to the database.
+        /// </summary>
         private async void SaveCommand(object? parameter = null)
         {
             foreach (clsStickyNotesModel item in MyCollection)
@@ -176,6 +194,9 @@ namespace HomeManager.ViewModel.StickyNotes
             }
         }
 
+        /// <summary>
+        /// Enlarges the newly selected note and resets the previous.
+        /// </summary>
         private void IncreaseSelectedNoteSize()
         {
             if (_previousSelectedItem != null)
@@ -195,8 +216,10 @@ namespace HomeManager.ViewModel.StickyNotes
             // Update the previous item tracker
             _previousSelectedItem = MySelectedItem;
         }
-        
-        #region IMAGEHANDLER
+
+        /// <summary>
+        /// Opens a dialog to upload an image and sets it as a note thumbnail.
+        /// </summary>
         private void UploadImage()
         {
             Microsoft.Win32.OpenFileDialog openFileDialog = new Microsoft.Win32.OpenFileDialog();
@@ -212,6 +235,9 @@ namespace HomeManager.ViewModel.StickyNotes
             }
         }
 
+        /// <summary>
+        /// Saves and opens the thumbnail image in the default viewer.
+        /// </summary>
         private void ViewImage()
         {
             try
@@ -231,10 +257,41 @@ namespace HomeManager.ViewModel.StickyNotes
             }
         }
         #endregion
-        #endregion
 
         #region COMMANDS
-        private bool CanExecute_CreateNoteCommand(object obj) { return true; }
+        private bool CanExecute_HandleImageCommand(object obj) => true;
+        private bool CanExecute_CreateNoteCommand(object obj) => true;
+        private bool CanExecute_SaveNotesCommand(object obj) => true;
+        private bool CanExecute_RemoveNoteCommand(object obj) => true;
+
+        private void Execute_HandleImageCommand(object obj)
+        {
+            // If Thumbnail doesn't exist, upload a picture immediately.
+            if (MySelectedItem.Thumbnail == null)
+            {
+                UploadImage();
+                return;
+            }
+
+            // Ask the user what they want to do.
+            MessageBoxResult result = MessageBox.Show(
+                $"Do you want to upload a new thumbnail?\n\n" +
+                "\"Yes\" - Upload a new thumbnail.\n" +
+                "\"No\" - View your current thumbnail.\n" +
+                "\"Cancel\" - Close this message box.",
+                "Image Options", MessageBoxButton.YesNoCancel, MessageBoxImage.Question);
+
+            if (result == MessageBoxResult.Yes)
+            {
+                UploadImage();
+            }
+            else if (result == MessageBoxResult.No)
+            {
+                ViewImage();
+            }
+            else return;
+        }
+        
         private void Execute_CreateNoteCommand(object obj)
         {
             clsStickyNotesModel newItem = new clsStickyNotesModel()
@@ -280,7 +337,11 @@ namespace HomeManager.ViewModel.StickyNotes
             }
         }
 
-        private bool CanExecute_RemoveNoteCommand(object obj) { return true; }
+        private void Execute_SaveNotesCommand(object obj)
+        {
+            SaveCommand();
+        }
+
         private void Execute_RemoveNoteCommand(object obj)
         {
             if (MySelectedItem != null)
@@ -289,7 +350,7 @@ namespace HomeManager.ViewModel.StickyNotes
                 {
                     if (_myService.Delete(MySelectedItem))
                     {
-                        _newStatus = false;   
+                        _newStatus = false;
                         LoadData();
                     }
                     else
@@ -304,52 +365,6 @@ namespace HomeManager.ViewModel.StickyNotes
             }
         }
 
-        private bool CanExecute_HandleImageCommand(object obj) { return true; }
-        private void Execute_HandleImageCommand(object obj)
-        {
-            // If Thumbnail doesn't exist, upload a picture immediately.
-            if (MySelectedItem.Thumbnail == null)
-            {
-                UploadImage();
-                return;
-            }
-
-            // Ask the user what they want to do.
-            MessageBoxResult result = MessageBox.Show(
-                $"Do you want to upload a new thumbnail?\n\n" +
-                "\"Yes\" - Upload a new thumbnail.\n" +
-                "\"No\" - View your current thumbnail.\n" +
-                "\"Cancel\" - Close this message box.",
-                "Image Options", MessageBoxButton.YesNoCancel, MessageBoxImage.Question);
-
-            if (result == MessageBoxResult.Yes)
-            {
-                UploadImage();
-            }
-            else if (result == MessageBoxResult.No)
-            {
-                ViewImage();
-            }
-            else return;
-        }
-
-        private bool CanExecute_SaveNotesCommand(object obj)
-        {
-            //if (MySelectedItem != null &&
-            //    MySelectedItem.Error == null &&
-            //    MySelectedItem.IsDirty == true)
-            //{
-                return true;
-            //}
-            //else
-            //{
-            //    return false;
-            //}
-        }
-        private void Execute_SaveNotesCommand(object obj)
-        {
-            SaveCommand();
-        }
         #endregion
     }
 }

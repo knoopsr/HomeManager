@@ -12,16 +12,32 @@ using HomeManager.ViewModel.Exceptions;
 
 namespace HomeManager.Services
 {
+    /// <summary>
+    /// Service for handling exceptions. This class inserts exception details into the database
+    /// and sends exception information via email to the current user and the development team.
+    /// </summary>
     public static class clsExceptionService
     {
+        /// <summary>
+        /// Data service for inserting exception data into the database.
+        /// </summary>
         private static readonly clsExceptionsDataService ExceptionsDataService = new clsExceptionsDataService();
 
         /// <summary>
-        /// Inserts the exception into the database and also mails it to the current user & dev team.
+        /// Stores the last exception to prevent duplicate logging of the same exception.
         /// </summary>
-        /// <param name="ex"></param>
-        /// 
         private static clsExceptionsModel _oldException;
+
+        /// <summary>
+        /// Inserts the given exception into the database and emails the exception details
+        /// to the current user and the development team.
+        /// </summary>
+        /// <param name="ex">The exception to be inserted into the database and emailed.</param>
+        /// <remarks>
+        /// The method creates a <see cref="clsExceptionsModel"/> with relevant details from the exception
+        /// and ensures that duplicate exceptions are not logged repeatedly by comparing the current exception
+        /// to the previous one.
+        /// </remarks>
         public static void InsertException(Exception ex)
         {
             clsExceptionsModel exception = new clsExceptionsModel()

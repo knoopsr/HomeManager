@@ -12,23 +12,34 @@ using System.Threading.Tasks;
 
 namespace HomeManager.DAL.StickyNotes
 {
+    /// <summary>
+    /// Repository class for accessing and manipulating sticky note data in the database.
+    /// Handles CRUD operations and retrieval of sticky notes by user or ID.
+    /// </summary>
     public class clsStickyNotesRepository : IStickyNotesRepository
     {
         private ObservableCollection<clsStickyNotesModel> StickyNotesCollection;
 
-        public clsStickyNotesRepository() { }
-
+        /// <summary>
+        /// Not implemented: used for fetching a single sticky note based on a condition.
+        /// </summary>
         public clsStickyNotesModel Find()
         {
             throw new NotImplementedException();
         }
 
+        /// <summary>
+        /// Retrieves all sticky notes from the database.
+        /// </summary>
         public ObservableCollection<clsStickyNotesModel> GetAll()
         {
             GenerateCollection();
             return StickyNotesCollection;
         }
 
+        /// <summary>
+        /// Loads sticky notes from the database into the collection.
+        /// </summary>
         private void GenerateCollection()
         {
             SqlDataReader MijnDataReader = clsDAL.GetData(Properties.Resources.S_StickyNotes);
@@ -53,6 +64,10 @@ namespace HomeManager.DAL.StickyNotes
             MijnDataReader.Close();
         }
 
+        /// <summary>
+        /// Retrieves the first sticky note from the collection.
+        /// </summary>
+        /// <returns>The first <see cref="clsStickyNotesModel"/> or null if the collection is empty.</returns>
         public clsStickyNotesModel GetFirst()
         {
             if (StickyNotesCollection == null)
@@ -62,7 +77,11 @@ namespace HomeManager.DAL.StickyNotes
             return StickyNotesCollection.FirstOrDefault();
         }
 
-
+        /// <summary>
+        /// Inserts a new sticky note into the database.
+        /// </summary>
+        /// <param name="entity">The sticky note model to insert.</param>
+        /// <returns>True if successful, false otherwise.</returns>
         public bool Insert(clsStickyNotesModel entity)
         {
             (DataTable DT, bool OK, string Boodschap) =
@@ -84,6 +103,11 @@ namespace HomeManager.DAL.StickyNotes
             return OK;
         }
 
+        /// <summary>
+        /// Updates an existing sticky note in the database.
+        /// </summary>
+        /// <param name="entity">The sticky note model to update.</param>
+        /// <returns>True if successful, false otherwise.</returns>
         public bool Update(clsStickyNotesModel entity)
         {
             (DataTable DT, bool OK, string Boodschap) =
@@ -107,6 +131,11 @@ namespace HomeManager.DAL.StickyNotes
             return OK;
         }
 
+        /// <summary>
+        /// Deletes a sticky note from the database.
+        /// </summary>
+        /// <param name="entity">The sticky note model to delete.</param>
+        /// <returns>True if successful, false otherwise.</returns>
         public bool Delete(clsStickyNotesModel entity)
         {
             (DataTable DT, bool OK, string Boodschap) =
@@ -122,10 +151,10 @@ namespace HomeManager.DAL.StickyNotes
         }
 
         /// <summary>
-        /// First or default.
+        /// Gets a sticky note by its ID.
         /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
+        /// <param name="id">The ID of the sticky note.</param>
+        /// <returns>The corresponding <see cref="clsStickyNotesModel"/> or null.</returns>
         public clsStickyNotesModel GetById(int id)
         {
             if (StickyNotesCollection == null)
@@ -135,6 +164,11 @@ namespace HomeManager.DAL.StickyNotes
             return StickyNotesCollection.Where(stickyNote => stickyNote.StickyNoteID == id).FirstOrDefault();
         }
 
+        /// <summary>
+        /// Retrieves all sticky notes for a specific user.
+        /// </summary>
+        /// <param name="userID">The ID of the user.</param>
+        /// <returns>An <see cref="ObservableCollection{clsStickyNotesModel}"/> for the user.</returns>
         public ObservableCollection<clsStickyNotesModel> GetAllByUserID(int userID)
         {
             SqlDataReader MijnDataReader = clsDAL.GetData(Properties.Resources.S_StickyNotesByID,
@@ -162,6 +196,11 @@ namespace HomeManager.DAL.StickyNotes
             return StickyNotesCollection;
         }
 
+        /// <summary>
+        /// Retrieves the first sticky note for a specific user.
+        /// </summary>
+        /// <param name="userID">The ID of the user.</param>
+        /// <returns>The first <see cref="clsStickyNotesModel"/> or null.</returns>
         public clsStickyNotesModel GetFirstByUserID(int userID)
         {
             if (StickyNotesCollection == null)
