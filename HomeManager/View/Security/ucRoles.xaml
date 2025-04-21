@@ -57,24 +57,21 @@
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="100" />
-                    <ColumnDefinition Width="60" />
                     <ColumnDefinition Width="200" />
+                    <ColumnDefinition Width="60" />
+                    <ColumnDefinition Width="300" />
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*" />
-                    <RowDefinition Height="25" />
-                    <RowDefinition Height="25" />
                     <RowDefinition Height="30" />
-                    <RowDefinition Height="30" />
-                    <RowDefinition Height="150" />
+                    <RowDefinition Height="10*" />
                     <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
 
                 <ListBox
                     Grid.Row="1"
-                    Grid.RowSpan="5"
+                    Grid.RowSpan="2"
                     Grid.Column="1"
                     DisplayMemberPath="RolName"
                     ItemsSource="{Binding MijnRollenCollectie}"
@@ -106,10 +103,7 @@
                     Content="Rechten"
                     FontSize="12" />
 
-                <ScrollViewer
-                    Grid.Row="2"
-                    Grid.RowSpan="4"
-                    Grid.Column="3">
+                <ScrollViewer Grid.Row="2" Grid.Column="3">
                     <TreeView ItemsSource="{Binding MijnRechtenCatogorieCollectie}">
                         <TreeView.ItemTemplate>
                             <HierarchicalDataTemplate ItemsSource="{Binding Rechten}">

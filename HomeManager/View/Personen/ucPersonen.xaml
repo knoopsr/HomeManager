@@ -172,8 +172,8 @@
                                                 Width="10"
                                                 Height="10"
                                                 Margin="0,0,0,0"
-                                                Command="{Binding cmdNew}"
-                                                CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}"
+                                                Command="{Binding PersonenViewModel.cmdNew, Source={StaticResource VML}}"
+                                                CommandParameter="{Binding}"
                                                 DataContext="{Binding Source={StaticResource VML}, Path=PersonenViewModel}"
                                                 Style="{StaticResource AddImagePersoon}"
                                                 ToolTip="New" />
@@ -190,7 +190,7 @@
                                                 Height="10"
                                                 Margin="0,0,0,0"
                                                 Command="{Binding DataContext.cmdDeletePersoon, RelativeSource={RelativeSource AncestorType=ListBox}}"
-                                                CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}"
+                                                CommandParameter="{Binding}"
                                                 Style="{StaticResource DeletePersonImage}"
                                                 ToolTip="Delete" />
                                         </StackPanel>
@@ -239,7 +239,8 @@
                                 Margin="0,0,5,0"
                                 HorizontalAlignment="Right"
                                 VerticalAlignment="Center"
-                                Command="{Binding cmdEditEmailAdressen}"
+                                Command="{Binding cmdNewEmailAdressen}"
+                                CommandParameter="{Binding MijnSelectedItem}"
                                 Style="{StaticResource AddImage}" />
                         </Grid>
                     </Border>
@@ -315,7 +316,8 @@
                                 Margin="0,0,5,0"
                                 HorizontalAlignment="Right"
                                 VerticalAlignment="Center"
-                                Command="{Binding cmdEditAdres}"
+                                Command="{Binding cmdNewAdres}"
+                                CommandParameter="{Binding MijnSelectedItem}"
                                 Style="{StaticResource AddImage}" />
                         </Grid>
                     </Border>
@@ -382,7 +384,8 @@
                                 Margin="0,0,5,0"
                                 HorizontalAlignment="Right"
                                 VerticalAlignment="Center"
-                                Command="{Binding cmdEditTelefoonNummers}"
+                                Command="{Binding cmdNewTelefoonNummers}"
+                                CommandParameter="{Binding MijnSelectedItem}"
                                 Style="{StaticResource AddImage}" />
                         </Grid>
                     </Border>
@@ -448,7 +451,7 @@
                                 Margin="0,0,5,0"
                                 HorizontalAlignment="Right"
                                 VerticalAlignment="Center"
-                                Command="{Binding cmdEditNotities}"
+                                Command="{Binding cmdNewNotities}"
                                 Style="{StaticResource AddImage}" />
                         </Grid>
                     </Border>

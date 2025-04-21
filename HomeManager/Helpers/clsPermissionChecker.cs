@@ -11,10 +11,8 @@ namespace HomeManager.Helpers
     public class clsPermissionChecker
     {        
         public bool HasPermission(string code)
-        {
-           
+        {           
             string rechtenCodes = clsLoginModel.Instance.RechtenCodes;
-
             if (string.IsNullOrEmpty(rechtenCodes))
             {
                 return false;
@@ -24,45 +22,31 @@ namespace HomeManager.Helpers
         }
 
         public bool PermissionViewmodel(string viewModel)
-        {
-            
+        {            
             if (_destinationToPermissionMap.TryGetValue(viewModel, out string requiredPermission))
-            {
-               
+            {               
                 string rechtenCodes = clsLoginModel.Instance.RechtenCodes;
-
                 if (string.IsNullOrEmpty(rechtenCodes))
                 {
                     return false; 
-                }
-               
+                }               
                 var rechtenLijst = rechtenCodes.Split('|');
-
                 return rechtenLijst.Contains(requiredPermission);
-            }
-            
+            }            
             return false;
         }
 
 
-
-
-
-
         private readonly Dictionary<string, string> _destinationToPermissionMap = new Dictionary<string, string>
         {
-            {"clsPersoonViewModel", "100" },
-            {"clsProvincieViewModel", "100" },
-            {"clsLandViewModel" , "100" },
-            {"clsGemeenteViewModel" , "100" },
-            {"clsFunctieViewModel","100" },
-            {"clsEmailTypeViewModel","100" },
-            {"clsEmailAdressenViewModel","100" },
             {"clsPersonenViewModel","100" },
-            {"clsAdressenViewModel","100" },
-            {"clsTelefoonNummersViewModel","100" },
-            {"clsTelefoonTypeViewModel","100" },
-            {"clsNotitiesViewModel","100" },
+            {"clsPersoonViewModel", "120" },
+            {"clsProvincieViewModel", "160" },
+            {"clsLandViewModel" , "150" },
+            {"clsGemeenteViewModel" , "170" },
+            {"clsFunctieViewModel","180" },
+            {"clsEmailTypeViewModel","130" },
+            {"clsTelefoonTypeViewModel","140" },       
    
 
 
