@@ -193,7 +193,12 @@ namespace HomeManager.ViewModel
 
         private bool CanExecute_NewCommand(object obj)
         {
-            return !NewStatus;
+            clsPermissionChecker permissionChecker = new();
+            if (permissionChecker.HasPermission("131"))
+            {
+                return !NewStatus;
+            }
+            return false;
         }
 
         private void Execute_NewCommand(object obj)
@@ -215,18 +220,23 @@ namespace HomeManager.ViewModel
 
         private bool CanExecute_DeleteCommand(object obj)
         {
-            if (MijnSelectedItem != null)
+            clsPermissionChecker permissionChecker = new();
+            if (permissionChecker.HasPermission("133"))
             {
-                if (NewStatus)
+                if (MijnSelectedItem != null)
+                {
+                    if (NewStatus)
+                    {
+                        return false;
+                    }
+                    return true;
+                }
+                else
                 {
                     return false;
                 }
-                return true;
             }
-            else
-            {
-                return false;
-            }
+            return false;
         }
         private void Execute_DeleteCommand(object obj)
         {
@@ -250,16 +260,23 @@ namespace HomeManager.ViewModel
 
         private bool CanExecute_SaveCommand(object obj)
         {
-            if (MijnSelectedItem != null
+            clsPermissionChecker permissionChecker = new();
+            if (permissionChecker.HasPermission("132"))
+            {
+
+
+                if (MijnSelectedItem != null
                 && MijnSelectedItem.Error == null
                 && MijnSelectedItem.IsDirty == true)
-            {
-                return true;
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
             }
-            else
-            {
-                return false;
-            }
+            return false;
         }
         private void Execute_SaveCommand(object obj)
         {
