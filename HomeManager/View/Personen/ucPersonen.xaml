@@ -67,7 +67,7 @@
                         HorizontalAlignment="Left"
                         Orientation="Horizontal">
                         <TextBox
-                            x:Name="txtSearchbar"
+                            x:Name="tbSearchbar"
                             Width="200"
                             Height="20"
                             Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}" />
@@ -81,7 +81,7 @@
 
 
                     <ListView
-                        Name="UserListView"
+                        Name="lstListView"
                         Grid.RowSpan="7"
                         Margin="2,20,0,5"
                         ItemsSource="{Binding FilteredCollectie}"
@@ -166,7 +166,7 @@
                                                 CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}"
                                                 DataContext="{Binding Source={StaticResource VML}, Path=PersonenViewModel}"
                                                 Style="{StaticResource AddImagePersoon}"
-                                                ToolTip="New" />
+                                                ToolTip="Voeg een nieuw persoon toe" />
                                             <Button
                                                 Width="10"
                                                 Height="10"
@@ -174,7 +174,7 @@
                                                 Command="{Binding PersonenViewModel.cmdEditPersoon, Source={StaticResource VML}}"
                                                 CommandParameter="{Binding}"
                                                 Style="{StaticResource EditPersoon}"
-                                                ToolTip="Aanpassen" />
+                                                ToolTip="Pas persoon aan" />
                                             <Button
                                                 Width="10"
                                                 Height="10"
@@ -182,7 +182,7 @@
                                                 Command="{Binding DataContext.cmdDeletePersoon, RelativeSource={RelativeSource AncestorType=ListBox}}"
                                                 CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}"
                                                 Style="{StaticResource DeletePersonImage}"
-                                                ToolTip="Delete" />
+                                                ToolTip="Verwijder persoon" />
                                         </StackPanel>
                                     </Grid>
                                 </Border>
@@ -230,11 +230,12 @@
                                 HorizontalAlignment="Right"
                                 VerticalAlignment="Center"
                                 Command="{Binding cmdEditEmailAdressen}"
-                                Style="{StaticResource AddImage}" />
+                                Style="{StaticResource AddImage}"
+                                ToolTip="Voeg een emailadres toe" />
                         </Grid>
                     </Border>
                     <ListBox
-                        Name="EmailAdressenListView"
+                        Name="lstEmailAdressenListView"
                         Grid.Row="1"
                         Grid.Column="1"
                         Width="200"
@@ -265,19 +266,22 @@
                                             Command="{Binding DataContext.cmdEditEmailAdressen, RelativeSource={RelativeSource AncestorType=ListBox}}"
                                             CommandParameter="{Binding}"
                                             Content="Edit"
-                                            Style="{StaticResource EditEmail}" />
+                                            Style="{StaticResource EditEmail}"
+                                            ToolTip="Pas het emailadres aan" />
 
                                         <!--  Delete-knop  -->
                                         <Button
                                             Command="{Binding DataContext.cmdDeleteEmailAdressen, RelativeSource={RelativeSource AncestorType=ListBox}}"
                                             CommandParameter="{Binding}"
-                                            Style="{StaticResource DeleteEmail}" />
+                                            Style="{StaticResource DeleteEmail}"
+                                            ToolTip="Verwijder het emailadres" />
                                         <!--  Send-knop  -->
                                         <Button
                                             Command="{Binding DataContext.cmdSendEmail, RelativeSource={RelativeSource AncestorType=ListBox}}"
                                             CommandParameter="{Binding}"
                                             Content="Send Email"
-                                            Style="{StaticResource SendEmail}" />
+                                            Style="{StaticResource SendEmail}"
+                                            ToolTip="Verstuur een email" />
                                     </StackPanel>
                                 </Grid>
                             </DataTemplate>
@@ -306,7 +310,8 @@
                                 HorizontalAlignment="Right"
                                 VerticalAlignment="Center"
                                 Command="{Binding cmdEditAdres}"
-                                Style="{StaticResource AddImage}" />
+                                Style="{StaticResource AddImage}"
+                                ToolTip="Voeg een adres toe" />
                         </Grid>
                     </Border>
                     <ListBox
@@ -339,13 +344,15 @@
                                             Command="{Binding DataContext.cmdEditAdres, RelativeSource={RelativeSource AncestorType=ListBox}}"
                                             CommandParameter="{Binding}"
                                             Content="Edit"
-                                            Style="{StaticResource EditEmail}" />
+                                            Style="{StaticResource EditEmail}"
+                                            ToolTip="Pas het adres aan" />
 
                                         <!--  Delete-knop  -->
                                         <Button
                                             Command="{Binding DataContext.cmdDeleteAdres, RelativeSource={RelativeSource AncestorType=ListBox}}"
                                             CommandParameter="{Binding}"
-                                            Style="{StaticResource DeleteAdres}" />
+                                            Style="{StaticResource DeleteAdres}"
+                                            ToolTip="Verwijder het adres" />
                                     </StackPanel>
                                 </Grid>
                             </DataTemplate>
@@ -373,7 +380,8 @@
                                 HorizontalAlignment="Right"
                                 VerticalAlignment="Center"
                                 Command="{Binding cmdEditTelefoonNummers}"
-                                Style="{StaticResource AddImage}" />
+                                Style="{StaticResource AddImage}"
+                                ToolTip="Voeg een telefoonnummer toe" />
                         </Grid>
                     </Border>
                     <ListBox
@@ -406,13 +414,15 @@
                                             Command="{Binding DataContext.cmdEditTelefoonNummers, RelativeSource={RelativeSource AncestorType=ListBox}}"
                                             CommandParameter="{Binding}"
                                             Content="Edit"
-                                            Style="{StaticResource EditEmail}" />
+                                            Style="{StaticResource EditEmail}"
+                                            ToolTip="Pas het telefoonnummer aan" />
 
                                         <!--  Delete-knop  -->
                                         <Button
                                             Command="{Binding DataContext.cmdDeleteTelefoonNummer, RelativeSource={RelativeSource AncestorType=ListBox}}"
                                             CommandParameter="{Binding}"
-                                            Style="{StaticResource DeleteAdres}" />
+                                            Style="{StaticResource DeleteAdres}"
+                                            ToolTip="Verwijder het telefoonnummer" />
                                     </StackPanel>
                                 </Grid>
                             </DataTemplate>
@@ -439,7 +449,8 @@
                                 HorizontalAlignment="Right"
                                 VerticalAlignment="Center"
                                 Command="{Binding cmdEditNotities}"
-                                Style="{StaticResource AddImage}" />
+                                Style="{StaticResource AddImage}"
+                                ToolTip="Voeg een notitie toe" />
                         </Grid>
                     </Border>
                     <ListBox
@@ -470,13 +481,15 @@
                                             Command="{Binding DataContext.cmdEditNotities, RelativeSource={RelativeSource AncestorType=ListBox}}"
                                             CommandParameter="{Binding}"
                                             Content="Edit"
-                                            Style="{StaticResource EditEmail}" />
+                                            Style="{StaticResource EditEmail}"
+                                            ToolTip="Pas de notitie aan" />
 
                                         <!--  Delete-knop  -->
                                         <Button
                                             Command="{Binding DataContext.cmdDeleteNotitie, RelativeSource={RelativeSource AncestorType=ListBox}}"
                                             CommandParameter="{Binding}"
-                                            Style="{StaticResource DeleteAdres}" />
+                                            Style="{StaticResource DeleteAdres}"
+                                            ToolTip="Verwijder de notitie" />
                                     </StackPanel>
                                 </Grid>
                             </DataTemplate>

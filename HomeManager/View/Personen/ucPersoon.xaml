@@ -71,17 +71,16 @@
                     <RowDefinition Height="auto" />
                     <RowDefinition Height="auto" />
                     <RowDefinition Height="auto" />
-                    <RowDefinition Height="auto" />
-                    <RowDefinition Height="auto" />
                     <RowDefinition Height="*" />
                     <RowDefinition Height="50" />
                 </Grid.RowDefinitions>
                 <ListBox
-                    Name="UserListView"
+                    Name="lstListView"
                     Grid.Row="2"
-                    Grid.RowSpan="7"
+                    Grid.RowSpan="5"
                     Grid.Column="1"
                     Width="250"
+                    MaxHeight="750"
                     ItemsSource="{Binding MijnCollectie}"
                     SelectedItem="{Binding MijnSelectedItem, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
                     <ListBox.ItemContainerStyle>
@@ -241,18 +240,17 @@
                     <Button
                         x:Name="btnUploadPicture"
                         Command="{Binding cmdUploadPicture}"
-                        Style="{StaticResource UploadPersoonButton}" />
+                        Style="{StaticResource UploadPersoonButton}"
+                        ToolTip="Voeg profielfoto toe" />
                 </StackPanel>
 
 
                 <TextBlock
-                    x:Name="txtGeboorteDatum"
                     Grid.Row="5"
                     Grid.Column="2"
                     Margin="8"
                     Text="Geboortedatum"
                     TextAlignment="Right" />
-
 
                 <DatePicker
                     Name="dpGeboorteDatum"
@@ -265,14 +263,13 @@
 
 
                 <TextBlock
-                    x:Name="txtBenJeGebruiker"
                     Grid.Row="6"
                     Grid.Column="2"
                     Margin="4"
-                    Text="Ben jij een gebruiker"
+                    Text="Ben jij een gebruiker?"
                     TextAlignment="Right" />
                 <CheckBox
-                    x:Name="isGebruiker"
+                    x:Name="cbIsGebruiker"
                     Grid.Row="6"
                     Grid.Column="3"
                     Margin="5"

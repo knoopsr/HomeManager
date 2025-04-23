@@ -36,9 +36,7 @@
                         Data="{StaticResource myPathSetting}"
                         Fill="White"
                         Stretch="Fill" />
-                    <TextBlock
-                        Style="{StaticResource TitleBarText}"
-                        Text="Provincies" />
+                    <TextBlock Style="{StaticResource TitleBarText}" Text="Provincies" />
 
                 </StackPanel>
                 <uc:ucWerkBalk HorizontalAlignment="Right" VerticalAlignment="Top" />
@@ -65,25 +63,20 @@
                     <RowDefinition Height="auto" />
                     <RowDefinition Height="auto" />
                     <RowDefinition Height="auto" />
-                    <RowDefinition Height="auto" />
-                    <RowDefinition Height="auto" />
-                    <RowDefinition Height="auto" />
-                    <RowDefinition Height="auto" />
                     <RowDefinition Height="*" />
                     <RowDefinition Height="50" />
                 </Grid.RowDefinitions>
 
                 <ListBox
-                    Name="UserListView"
+                    Name="lstListView"
                     Grid.Row="2"
-                    Grid.RowSpan="7"
+                    Grid.RowSpan="3"
                     Grid.Column="1"
                     Width="250"
                     ItemsSource="{Binding MijnCollectie}"
                     SelectedItem="{Binding MijnSelectedItem, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 
                 <TextBlock
-                    x:Name="Provincie"
                     Grid.Row="2"
                     Grid.Column="2"
                     Margin="5"
@@ -98,7 +91,6 @@
                     TextWrapping="Wrap" />
 
                 <TextBlock
-                    x:Name="Land"
                     Grid.Row="3"
                     Grid.Column="2"
                     Margin="5"

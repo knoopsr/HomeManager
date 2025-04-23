@@ -1,4 +1,5 @@
-﻿using HomeManager.Common;
+﻿using FluentEmail.Core;
+using HomeManager.Common;
 using HomeManager.DataService.Personen;
 using HomeManager.Helpers;
 using HomeManager.Messages;
@@ -388,15 +389,35 @@ namespace HomeManager.ViewModel
 
         private void Edit_Persoon(object? obj)
         {
-
-            if (obj is clsPersoonModel)
+            if (obj == null)
             {
-                clsPersoonModel p = obj as clsPersoonModel;
-                clsMessenger.Default.Send<clsPersoonModel>(p);
-
-                _DialogService.ShowDialog(new ucPersoon(), "Persoon");
+                // Maak een nieuw persoon object aan met de huidige geselecteerde persoon ID
+                clsPersoonModel persoon = new clsPersoonModel()
+                {
+                    PersoonID = MijnSelectedItem.PersoonID,
+                    Naam = string.Empty,
+                    Voornaam = string.Empty,
+                    Geboortedatum = DateOnly.FromDateTime(DateTime.Now),
+                    IsApplicationUser = null,
+                    Foto = null
+                };
+                clsMessenger.Default.Send<clsPersoonModel>(persoon);
             }
-        }
+            else
+            {
+                if (MijnSelectedItem != null)
+                {
+                    if (obj is clsPersoonModel)
+                    {
+                        // Stuur het geselecteerde persoon object naar de messenger
+                        clsPersoonModel persoon = obj as clsPersoonModel;
+                        clsMessenger.Default.Send<clsPersoonModel>(persoon);
+                    }
+                }
+            }
+
+            _DialogService.ShowDialog(new ucPersoon(), "Persoon");
+        }       
 
         private void Edit_EmailAdressen(object? obj)
         {
@@ -465,8 +486,6 @@ namespace HomeManager.ViewModel
 
         private void Execute_New_Command(object? obj)
         {
-            //clsMessenger.Default.Send<clsNewPersoonMessage>(new clsNewPersoonMessage());
-
             clsPersoonModel p = new clsPersoonModel
             {
                 PersoonID = 0,

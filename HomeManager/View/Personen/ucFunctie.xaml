@@ -34,9 +34,7 @@
                         Data="{StaticResource myPathPeople}"
                         Fill="White"
                         Stretch="Fill" />
-                    <TextBlock
-                        Style="{StaticResource TitleBarText}"
-                        Text="Functie" />
+                    <TextBlock Style="{StaticResource TitleBarText}" Text="Functie" />
 
                 </StackPanel>
                 <uc:ucWerkBalk HorizontalAlignment="Right" VerticalAlignment="Top" />
@@ -71,7 +69,7 @@
                     <RowDefinition Height="50" />
                 </Grid.RowDefinitions>
                 <ListBox
-                    Name="UserListView"
+                    Name="lstListView"
                     Grid.Row="2"
                     Grid.RowSpan="7"
                     Grid.Column="1"
@@ -80,7 +78,6 @@
                     SelectedItem="{Binding MijnSelectedItem, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 
                 <TextBlock
-                    x:Name="Functie"
                     Grid.Row="2"
                     Grid.Column="2"
                     Margin="5"
@@ -95,7 +92,6 @@
                     TextWrapping="Wrap" />
 
                 <TextBlock
-                    x:Name="Omschrijving"
                     Grid.Row="3"
                     Grid.Column="2"
                     Margin="5"

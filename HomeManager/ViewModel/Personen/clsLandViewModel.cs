@@ -293,10 +293,11 @@ namespace HomeManager.ViewModel
             return true;
         }
 
-        private bool CanExecute_SelectionChangedCommand(object obj)
-        {
-            return true;
-        }
+        //DIT MAG WEG DENK IK
+        //private bool CanExecute_SelectionChangedCommand(object obj)
+        //{
+        //    return true;
+        //}
     }
 }
 

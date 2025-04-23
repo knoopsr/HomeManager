@@ -34,9 +34,7 @@
                         Data="{StaticResource myPathSetting}"
                         Fill="White"
                         Stretch="Fill" />
-                    <TextBlock
-                        Style="{StaticResource TitleBarText}"
-                        Text="EmailType" />
+                    <TextBlock Style="{StaticResource TitleBarText}" Text="EmailType" />
 
                 </StackPanel>
                 <uc:ucWerkBalk HorizontalAlignment="Right" VerticalAlignment="Top" />
@@ -71,7 +69,7 @@
                 </Grid.RowDefinitions>
 
                 <ListBox
-                    Name="UserListView"
+                    Name="lstListView"
                     Grid.Row="2"
                     Grid.RowSpan="7"
                     Grid.Column="1"
@@ -80,7 +78,6 @@
                     SelectedItem="{Binding MijnSelectedItem, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 
                 <TextBlock
-                    x:Name="EmailType"
                     Grid.Row="2"
                     Grid.Column="2"
                     Margin="5"
@@ -94,7 +91,6 @@
                     Text="{Binding MijnSelectedItem.EmailType, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnValidationError=true, ValidatesOnExceptions=True}" />
 
                 <TextBlock
-                    x:Name="Omschrijving"
                     Grid.Row="3"
                     Grid.Column="2"
                     Margin="5"
