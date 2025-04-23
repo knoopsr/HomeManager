@@ -290,7 +290,7 @@ namespace HomeManager.Model.Budget
                     case "VanDatum":
                     if (_vanDatum == DateOnly.MinValue)
                         {
-                            error = "Van Datum is verplicht om in te vullen";
+                            error = "Van Datum is verplicht";
                             if (ErrorList.Contains("VanDatum") == false)
                             {
                                 ErrorList.Add("VanDatum");
@@ -308,7 +308,7 @@ namespace HomeManager.Model.Budget
                     case "TotDatum":
                     if (_totDatum == DateOnly.MinValue)
                         {
-                            error = "Tot Datum is verplicht om in te vullen";
+                            error = "Tot Datum is verplicht";
                             if (ErrorList.Contains("TotDatum") == false)
                             {
                                 ErrorList.Add("TotDatum");
@@ -327,7 +327,7 @@ namespace HomeManager.Model.Budget
                         if (_onderwerp.Length > 100)
                         {
                          
-                            error = "Your text is to long!!!";
+                            error = "Tekst is langer dan 100 karakters";
                             if (ErrorList.Contains("Onderwerp") == false)
                             {
                                 ErrorList.Add("Onderwerp");
@@ -345,7 +345,7 @@ namespace HomeManager.Model.Budget
                     case "FrequentieID":
                         if (_frequentieID <= 0)
                         {
-                            error = "Frequentie is een verplicht veld.";
+                            error = "Frequentie is verplicht";
                             if (ErrorList.Contains("Frequentie") == false)
 
                             {
@@ -364,7 +364,7 @@ namespace HomeManager.Model.Budget
                     case "BegunstigdeID":
                         if (_begunstigdeID <= 0)
                         {
-                            error = "Begunstigde is een verplicht veld.";
+                            error = "Begunstigde is verplicht";
                             if (ErrorList.Contains("Begunstigde") == false)
 
                             {
@@ -383,7 +383,7 @@ namespace HomeManager.Model.Budget
                     case "BudgetCategorieID":
                         if (_budgetCategorieID <= 0)
                         {
-                            error = "Begunstigde is een verplicht veld.";
+                            error = "Categorie is verplicht";
                             if (ErrorList.Contains("BudgetCategorieID") == false)
 
                             {

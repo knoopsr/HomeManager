@@ -285,7 +285,7 @@ namespace HomeManager.Model.Budget
                     case "Datum":
                         if (_datum == DateOnly.MinValue)
                         {
-                            error = "Van Datum is verplicht om in te vullen";
+                            error = "Van Datum is verplicht";
                             if (ErrorList.Contains("Datum") == false)
                             {
                                 ErrorList.Add("Datum");
@@ -306,7 +306,7 @@ namespace HomeManager.Model.Budget
                         if (_onderwerp.Length > 100)
                         {
 
-                            error = "Your text is to long!!!";
+                            error = "Tekst is langer dan 100 karakters";
                             if (ErrorList.Contains("Onderwerp") == false)
                             {
                                 ErrorList.Add("Onderwerp");
@@ -326,7 +326,7 @@ namespace HomeManager.Model.Budget
                     case "BegunstigdeID":
                         if (_begunstigdeID <= 0)
                         {
-                            error = "Begunstigde is een verplicht veld.";
+                            error = "Begunstigde is verplicht";
                             if (ErrorList.Contains("Begunstigde") == false)
 
                             {
@@ -345,7 +345,7 @@ namespace HomeManager.Model.Budget
                     case "BudgetCategorieID":
                         if (_budgetCategorieID <= 0)
                         {
-                            error = "Begunstigde is een verplicht veld.";
+                            error = "Categorie is verplicht";
                             if (ErrorList.Contains("BudgetCategorieID") == false)
 
                             {
