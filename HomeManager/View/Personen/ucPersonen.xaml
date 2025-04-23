@@ -232,7 +232,7 @@
                                 Margin="5,0,0,0"
                                 HorizontalAlignment="Left"
                                 Foreground="White"
-                                Text="Email adressen" />
+                                Text="Email addressen" />
                             <Button
                                 Width="10"
                                 Height="10"
@@ -309,7 +309,7 @@
                                 Margin="5,0,0,0"
                                 HorizontalAlignment="Left"
                                 Foreground="White"
-                                Text="Adressen" />
+                                Text="Addressen" />
                             <Button
                                 Width="10"
                                 Height="10"
@@ -377,7 +377,7 @@
                                 Margin="5,0,0,0"
                                 HorizontalAlignment="Left"
                                 Foreground="White"
-                                Text="Telefonnummers" />
+                                Text="Telefoonnummers" />
                             <Button
                                 Width="10"
                                 Height="10"
