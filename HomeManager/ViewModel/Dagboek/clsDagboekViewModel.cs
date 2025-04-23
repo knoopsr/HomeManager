@@ -16,6 +16,11 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Reflection;
 using Microsoft.IdentityModel.Tokens;
+using System.Diagnostics;
+using System.Text.RegularExpressions;
+using HomeManager.Model.Personen;
+using HomeManager.DataService.Personen;
+using HomeManager.Services;
 
 namespace HomeManager.ViewModel
 {
@@ -44,6 +49,10 @@ namespace HomeManager.ViewModel
             }
         }
 
+        public ObservableCollection<clsEmailAdressenModel> mijnEmailAdressen { get; }
+
+       
+
         private clsDagboekModel _mySelectedItem;
 
         public clsDagboekModel MySelectedItem
@@ -64,6 +73,8 @@ namespace HomeManager.ViewModel
         }
 
         public clsDagboekDataService MyService { get; set; }
+        public clsEmailAdressenDataService EmailService { get; set; }
+        private clsDialogService _DialogService;
 
         private void GenerateCollection()
         {
@@ -89,6 +100,7 @@ namespace HomeManager.ViewModel
             UpdateRichTextBoxCommand = new clsCustomCommand(UpdateRichTextBox, CanExecute_UpdateRTB);
             cmdDecreaseTextSize = new clsCustomCommand(DecreaseTextSize, CanDecreaseTextSize);
             cmdIncreaseTextSize = new clsCustomCommand(IncreaseTextSize, CanIncreaseTextSize);
+            cmdPrint = new clsRelayCommand(PrintMyFlowDocument);
 
             //relaycommands for the layout
             cmdSetFontWeight = new clsRelayCommand(SetFontWeight);
@@ -109,6 +121,10 @@ namespace HomeManager.ViewModel
             cmdCreateNumbering = new clsRelayCommand(CreateNumbering);
             cmdIncreaseTextIndent = new clsRelayCommand(IncreaseTextIndent);
             cmdDecreaseTextIndent = new clsRelayCommand(DecreaseTextIndent);
+            cmdFindHyperlinks = new clsRelayCommand(FindHyperlinks);
+            cmdFindEmails = new clsRelayCommand(FindEmailLinksWithCommand);
+            cmdOpenEmails = new clsRelayCommand(SendEmails);
+
 
             //AplicationCommands
             cmdCut = ApplicationCommands.Cut;
@@ -120,6 +136,11 @@ namespace HomeManager.ViewModel
 
             MyRTBLayout = new clsRTBLayout();
             MyService = new clsDagboekDataService();
+            
+            //email gedeelte met personen
+            EmailService = new clsEmailAdressenDataService();
+            mijnEmailAdressen = EmailService.GetAll();
+            _DialogService = new clsDialogService();
             GenerateCollection();
 
             //validatie
@@ -145,6 +166,419 @@ namespace HomeManager.ViewModel
                 
             }
 
+        }
+
+        private void SendEmails(object? obj)
+        {
+            if (obj.ToString == null)
+            {
+                MessageBox.Show("ongeldig emailadress");
+                return;
+            }
+            clsEmailVerzendenModel sendEmail = new clsEmailVerzendenModel()
+            {
+                PersoonID = this.PersoonID,
+                Ontvanger = obj.ToString(),
+            };
+            clsMessenger.Default.Send<clsEmailVerzendenModel>(sendEmail);
+
+            _DialogService.ShowDialog(new HomeManager.View.Personen.ucEmailVerzenden(), "email verzenden");
+        }
+
+        private void FindHyperlinks(object? obj)
+        {
+            if (obj is RichTextBox rtb)
+            {
+                FlowDocument document = rtb.Document;
+                
+                foreach (var block in document.Blocks.ToList()) // Make a copy since we might replace blocks
+                {
+                    if (block is Paragraph paragraph)
+                    {
+                        var inlines = paragraph.Inlines.ToList(); // Again, work on a copy
+                        paragraph.Inlines.Clear();
+
+                        foreach (var inline in inlines)
+                        {
+                            if (inline is Run run && !(run.Parent is Hyperlink))
+                            {
+                                string text = run.Text;
+                                var regex = new Regex(@"https:\/\/[^\s]+");
+                                int lastIndex = 0;
+
+                                foreach (Match match in regex.Matches(text))
+                                {
+                                    // Add text before the match
+                                    if (match.Index > lastIndex)
+                                    {
+                                        string before = text.Substring(lastIndex, match.Index - lastIndex);
+                                        paragraph.Inlines.Add(new Run(before));
+                                    }
+
+                                    // Add hyperlink
+                                    string url = match.Value;
+                                    var link = new Hyperlink(new Run(url))
+                                    {
+                                        NavigateUri = new Uri(url),
+                                        Cursor = Cursors.Hand
+                                    };
+                                    link.RequestNavigate += (s, e) =>
+                                    {
+                                        System.Diagnostics.Process.Start(new ProcessStartInfo(e.Uri.AbsoluteUri)
+                                        {
+                                            UseShellExecute = true
+                                        });
+                                        e.Handled = true;
+                                    };
+                                    paragraph.Inlines.Add(link);
+
+                                    lastIndex = match.Index + match.Length;
+                                }
+
+                                // Add remaining text
+                                if (lastIndex < text.Length)
+                                {
+                                    string after = text.Substring(lastIndex);
+                                    paragraph.Inlines.Add(new Run(after));
+                                }
+                            }
+                            else
+                            {
+                                paragraph.Inlines.Add(inline); // Keep non-Run inlines untouched
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        private void FindEmailLinksWithCommand(object? obj)
+        {
+            if (obj is RichTextBox rtb)
+            {
+                FlowDocument document = rtb.Document;
+                bool isValidEmail = false;
+
+                foreach (var block in document.Blocks.ToList())
+                {
+                    if (block is Paragraph paragraph)
+                    {
+                        var inlines = paragraph.Inlines.ToList();
+                        paragraph.Inlines.Clear();
+
+                        foreach (var inline in inlines)
+                        {
+                            if (inline is Run run && !(run.Parent is Hyperlink))
+                            {
+                                string text = run.Text;
+                                var regex = new Regex(@"\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}\b", RegexOptions.IgnoreCase);
+                                int lastIndex = 0;
+
+                                foreach (Match match in regex.Matches(text))
+                                {
+                                    // Add text before match
+                                    if (match.Index > lastIndex)
+                                    {
+                                        string before = text.Substring(lastIndex, match.Index - lastIndex);
+                                        paragraph.Inlines.Add(new Run(before));
+                                    }
+
+                                    // Create hyperlink with command binding
+                                    string email = match.Value;
+
+                                    isValidEmail = mijnEmailAdressen.Any(x => x.Emailadres == email);
+
+                                    if (isValidEmail == true)
+                                    {
+                                        var link = new Hyperlink(new Run(email))
+                                        {
+                                            //test
+                                            Command = new clsRelayCommand(_newCommand => SendEmails(email)), //this is not the right command
+                                            Cursor = Cursors.Hand
+                                        };
+
+                                        paragraph.Inlines.Add(link);
+
+                                        lastIndex = match.Index + match.Length;
+                                    }
+                                }
+
+                                // Add remaining text
+                                if (lastIndex < text.Length)
+                                {
+                                    string after = text.Substring(lastIndex);
+                                    paragraph.Inlines.Add(new Run(after));
+                                }
+                            }
+                            else
+                            {
+                                paragraph.Inlines.Add(inline); // Keep other inlines
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+
+       
+
+        private bool CanExecute_Test(object? obj)
+        {
+            return true;
+        }
+
+        private void Execute_Test(object? obj)
+        {
+            StringBuilder sb = new StringBuilder();
+            foreach (clsEmailAdressenModel item in mijnEmailAdressen)
+            {
+                sb.AppendLine(item.Emailadres.ToString());
+            }
+
+            MessageBox.Show(sb.ToString());
+
+            SendEmails("Brammer@Email.com");
+
+        }
+
+
+        //converting to rtb
+        public string ConvertRichTextBoxToRtf(RichTextBox richTextBox)
+        {
+            if (richTextBox == null) throw new ArgumentNullException(nameof(richTextBox));
+
+            using (var memoryStream = new System.IO.MemoryStream())
+            {
+                var range = new TextRange(richTextBox.Document.ContentStart, richTextBox.Document.ContentEnd);
+                range.Save(memoryStream, DataFormats.Rtf);
+                return System.Text.Encoding.UTF8.GetString(memoryStream.ToArray());
+            }
+        }
+
+        //converting to byte[]
+        private byte[] ConvertRichTextBoxToByteArray(RichTextBox richTextBox)
+        {
+            using (var stream = new System.IO.MemoryStream())
+            {
+                TextRange textRange = new TextRange(richTextBox.Document.ContentStart, richTextBox.Document.ContentEnd);
+                textRange.Save(stream, DataFormats.XamlPackage);
+                return stream.ToArray();
+            }
+        }
+
+
+        /*Commands zijn onderverdeeld in 3 regions
+         * -Fields
+         * -CanExecutes
+         * -Actions
+         */
+        #region Commands
+        #region CommandFields
+        public ICommand cmdDelete { get; set; }
+        public ICommand cmdNew { get; set; }
+        public ICommand cmdSave { get; set; }
+        public ICommand cmdCancel { get; set; }
+        public ICommand cmdClose { get; set; }
+        public ICommand cmdTest { get; set; }
+        public ICommand UpdateRichTextBoxCommand { get; }
+        public ICommand cmdIncreaseTextSize {  get; set; }
+        public ICommand cmdDecreaseTextSize { get; set; }
+        public ICommand cmdPrint {  get; set; }
+
+        //relaycommands
+        public ICommand cmdSetFontWeight {  get; set; }
+        public ICommand cmdSetUnderline { get; set; }
+        public ICommand cmdToggleItalic { get; set; }
+        public ICommand cmdToggleStrikeTrough { get; set; }
+        
+        public ICommand cmdSetForegroundToText { get; set; }
+        public ICommand cmdSetBackgroundToText { get; set; }
+        public ICommand cmdSetFondFamily { get; set; }
+        public ICommand cmdSetFondSize { get; set; }
+        public ICommand cmdSetSuperScript { get; set; }
+        public ICommand cmdSetSubScript { get; set; }
+        public ICommand cmdSetTextAlignmentLeft { get; set; }
+        public ICommand cmdSetTextAlignmentRight { get; set; }
+        public ICommand cmdSetTextAlignmentCenter { get; set; }
+        public ICommand cmdSetTextAlignmentJustify { get; set; }
+        public ICommand cmdCreateBullets { get; set; }
+        public ICommand cmdCreateNumbering { get; set; }
+        public ICommand cmdIncreaseTextIndent { get; set; }
+        public ICommand cmdDecreaseTextIndent { get; set; }
+        public ICommand cmdFindHyperlinks { get; set; }
+        public ICommand cmdFindEmails { get; set; }
+        public ICommand cmdOpenEmails { get; set; }
+
+        //aplicationCommands
+        public ICommand cmdCut { get; set; }
+        public ICommand cmdCopy { get; set; }
+        public ICommand CmdPaste { get; set; }
+        public ICommand cmdUndo { get; set; }
+        public ICommand cmdRedo { get; set; }
+       
+        #endregion
+
+
+
+        #region Command CanExecutes
+        private bool CanExecute_UpdateRTB(object? obj)
+        {
+            return true;
+        }
+
+        private bool CanExecute_Close_Command(object? obj)
+        {
+            return true;
+        }
+
+        private bool CanExecute_Cancel_Command(object? obj)
+        {
+            throw new NotImplementedException();
+        }
+
+        private bool CanExecute_New_Command(object? obj)
+        {
+            return true;
+        }
+
+        private bool CanExecute_Delete_Command(object? obj)
+        {
+            return true;
+        }
+
+        private bool CanExecute_Save_Command(object? obj)
+        {
+            //if (isNew || MySelectedItem.IsDirty)
+            //{
+            //    return true;
+            //}
+            //return false;
+
+            return true;
+        }
+        #endregion
+
+        #region Command Actions
+        private void UpdateRichTextBox(object? obj)
+        {
+            var richTextBox = obj as RichTextBox;
+
+            if (MySelectedItem != null && richTextBox != null)
+            {
+                string rtfString = MySelectedItem.MyRTFString;
+                if (!string.IsNullOrEmpty(rtfString))
+                {
+                    using (var stream = new System.IO.MemoryStream(System.Text.Encoding.UTF8.GetBytes(rtfString)))
+                    {
+                        richTextBox.Selection.Load(stream, DataFormats.Rtf);
+                    }
+                }
+            }
+        }
+
+        private void Execute_Close_Command(object? obj)
+        {
+            MainWindow HomeWindow = obj as MainWindow;
+            if (HomeWindow != null)
+            {
+
+                clsHomeVM vm = (clsHomeVM)HomeWindow.DataContext;
+                vm.CurrentViewModel = null;
+            }
+        }
+
+        private void Execute_Cancel_Command(object? obj)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void Execute_New_Command(object? obj)
+        {
+            safetySave();
+
+            var _obj = new clsDagboekModel()
+            {
+                PersoonID = this.PersoonID,
+                DateCreated = DateTime.Now,
+                DagboekContentString = string.Empty
+            };
+            MijnCollectie.Add(_obj);
+            MySelectedItem = _obj;
+
+            isNew = true;
+        }
+
+        private void Execute_Delete_Command(object? obj)
+        {
+            if (MessageBox.Show("wil je deze entry verwijderen?", "ok", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+            {
+                MyService.Delete(MySelectedItem);
+                MijnCollectie.Remove(MySelectedItem);
+                if (MijnCollectie.Count == 0)
+                {
+                    var _obj = new clsDagboekModel()
+                    {
+                        PersoonID = this.PersoonID,
+                        DateCreated = DateTime.Now,
+                        DagboekContentString = "Er zijn nog geen files opgeslagen"
+                    };
+                    MijnCollectie.Add(_obj);
+                    MySelectedItem = _obj;
+
+                    isNew = true;
+                    isEmptyCollection = false;
+                }
+                MySelectedItem = MijnCollectie.FirstOrDefault();
+            }
+        }
+
+        private void Execute_Save_Command(object? obj)
+        {
+            RichTextBox richTextBox = obj as RichTextBox;
+            if (richTextBox != null)
+            {
+                MySelectedItem.MyFlowDocument = ConvertRichTextBoxToByteArray(richTextBox);
+                //MessageBox.Show(MySelectedItem.MyRTFString.ToString());
+
+                if (isNew)
+                {
+                    if (!MyService.Insert(MySelectedItem))
+                    {
+                        MessageBox.Show(MySelectedItem.ErrorBoodschap);
+                    }
+                    isNew = false;
+                }
+                else
+                {
+                    if(!MyService.Update(MySelectedItem))
+                    {
+                        MessageBox.Show(MySelectedItem.ErrorBoodschap);
+                    }
+                }
+
+                MySelectedItem.IsDirty = false;
+
+            }
+            else
+            {
+                MessageBox.Show("casting error -> rtb isn't correct");
+            }
+        }
+
+        private void PrintMyFlowDocument(object? obj)
+        {
+            if (obj is RichTextBox rtb)
+            {
+                FlowDocument document = rtb.Document;
+
+                PrintDialog printDialog = new PrintDialog();
+
+                if (printDialog.ShowDialog() == true)
+                {
+                    printDialog.PrintDocument(((IDocumentPaginatorSource)document).DocumentPaginator, "Print");
+                }
+            }
         }
 
         private void DecreaseTextIndent(object? obj)
@@ -375,223 +809,6 @@ namespace HomeManager.ViewModel
             TextRange range = rtb.Selection;
 
             MyRTBLayout.SetFontWeight(MyRTBLayout.GetFontWeight(range), range);
-        }
-
-        private bool CanExecute_Test(object? obj)
-        {
-            return true;
-        }
-
-        private void Execute_Test(object? obj)
-        {
-            MessageBox.Show(MyRTBLayout.SelectedTextColor.ColorName);
-        }
-
-
-        //testing
-        public string ConvertRichTextBoxToRtf(RichTextBox richTextBox)
-        {
-            if (richTextBox == null) throw new ArgumentNullException(nameof(richTextBox));
-
-            using (var memoryStream = new System.IO.MemoryStream())
-            {
-                var range = new TextRange(richTextBox.Document.ContentStart, richTextBox.Document.ContentEnd);
-                range.Save(memoryStream, DataFormats.Rtf);
-                return System.Text.Encoding.UTF8.GetString(memoryStream.ToArray());
-            }
-        }
-
-
-        /*Commands zijn onderverdeeld in 3 regions
-         * -Fields
-         * -CanExecutes
-         * -Actions
-         */
-        #region Commands
-        #region CommandFields
-        public ICommand cmdDelete { get; set; }
-        public ICommand cmdNew { get; set; }
-        public ICommand cmdSave { get; set; }
-        public ICommand cmdCancel { get; set; }
-        public ICommand cmdClose { get; set; }
-        public ICommand cmdTest { get; set; }
-        public ICommand UpdateRichTextBoxCommand { get; }
-        public ICommand cmdIncreaseTextSize {  get; set; }
-        public ICommand cmdDecreaseTextSize { get; set; }
-
-        //relaycommands
-        public ICommand cmdSetFontWeight {  get; set; }
-        public ICommand cmdSetUnderline { get; set; }
-        public ICommand cmdToggleItalic { get; set; }
-        public ICommand cmdToggleStrikeTrough { get; set; }
-        
-        public ICommand cmdSetForegroundToText { get; set; }
-        public ICommand cmdSetBackgroundToText { get; set; }
-        public ICommand cmdSetFondFamily { get; set; }
-        public ICommand cmdSetFondSize { get; set; }
-        public ICommand cmdSetSuperScript { get; set; }
-        public ICommand cmdSetSubScript { get; set; }
-        public ICommand cmdSetTextAlignmentLeft { get; set; }
-        public ICommand cmdSetTextAlignmentRight { get; set; }
-        public ICommand cmdSetTextAlignmentCenter { get; set; }
-        public ICommand cmdSetTextAlignmentJustify { get; set; }
-        public ICommand cmdCreateBullets { get; set; }
-        public ICommand cmdCreateNumbering { get; set; }
-        public ICommand cmdIncreaseTextIndent { get; set; }
-        public ICommand cmdDecreaseTextIndent { get; set; }
-
-        //aplicationCommands
-        public ICommand cmdCut { get; set; }
-        public ICommand cmdCopy { get; set; }
-        public ICommand CmdPaste { get; set; }
-        public ICommand cmdUndo { get; set; }
-        public ICommand cmdRedo { get; set; }
-       
-        #endregion
-
-
-
-        #region Command CanExecutes
-        private bool CanExecute_UpdateRTB(object? obj)
-        {
-            return true;
-        }
-
-        private bool CanExecute_Close_Command(object? obj)
-        {
-            throw new NotImplementedException();
-        }
-
-        private bool CanExecute_Cancel_Command(object? obj)
-        {
-            throw new NotImplementedException();
-        }
-
-        private bool CanExecute_New_Command(object? obj)
-        {
-            return true;
-        }
-
-        private bool CanExecute_Delete_Command(object? obj)
-        {
-            return true;
-        }
-
-        private bool CanExecute_Save_Command(object? obj)
-        {
-            //if (isNew || MySelectedItem.IsDirty)
-            //{
-            //    return true;
-            //}
-            //return false;
-
-            return true;
-        }
-        #endregion
-
-        #region Command Actions
-        private void UpdateRichTextBox(object? obj)
-        {
-            var richTextBox = obj as RichTextBox;
-
-            if (MySelectedItem != null && richTextBox != null)
-            {
-                string rtfString = MySelectedItem.MyRTFString;
-                if (!string.IsNullOrEmpty(rtfString))
-                {
-                    using (var stream = new System.IO.MemoryStream(System.Text.Encoding.UTF8.GetBytes(rtfString)))
-                    {
-                        richTextBox.Selection.Load(stream, DataFormats.Rtf);
-                    }
-                }
-            }
-        }
-
-        private void Execute_Close_Command(object? obj)
-        {
-            throw new NotImplementedException();
-        }
-
-        private void Execute_Cancel_Command(object? obj)
-        {
-            throw new NotImplementedException();
-        }
-
-        private void Execute_New_Command(object? obj)
-        {
-            safetySave();
-
-            var _obj = new clsDagboekModel()
-            {
-                PersoonID = this.PersoonID,
-                DateCreated = DateTime.Now,
-                DagboekContentString = string.Empty
-            };
-            MijnCollectie.Add(_obj);
-            MySelectedItem = _obj;
-
-            isNew = true;
-        }
-
-        private void Execute_Delete_Command(object? obj)
-        {
-            if (MessageBox.Show("wil je deze entry verwijderen?", "ok", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
-            {
-                MyService.Delete(MySelectedItem);
-                MijnCollectie.Remove(MySelectedItem);
-                if (MijnCollectie.Count == 0)
-                {
-                    var _obj = new clsDagboekModel()
-                    {
-                        PersoonID = this.PersoonID,
-                        DateCreated = DateTime.Now,
-                        DagboekContentString = "Er zijn nog geen files opgeslagen"
-                    };
-                    MijnCollectie.Add(_obj);
-                    MySelectedItem = _obj;
-
-                    isNew = true;
-                    isEmptyCollection = false;
-                }
-                MySelectedItem = MijnCollectie.FirstOrDefault();
-            }
-        }
-
-        private void Execute_Save_Command(object? obj)
-        {
-            RichTextBox richTextBox = obj as RichTextBox;
-            if (richTextBox != null)
-            {
-                MySelectedItem.MyRTFString = ConvertRichTextBoxToRtf(richTextBox);
-                MessageBox.Show(MySelectedItem.MyRTFString.ToString());
-
-                if (isNew)
-                {
-                    if (!MyService.Insert(MySelectedItem))
-                    {
-                        MessageBox.Show(MySelectedItem.ErrorBoodschap);
-                    }
-                    isNew = false;
-                }
-                else
-                {
-                    if(!MyService.Update(MySelectedItem))
-                    {
-                        MessageBox.Show(MySelectedItem.ErrorBoodschap);
-                    }
-                }
-
-                MySelectedItem.IsDirty = false;
-
-            }
-            else
-            {
-                MessageBox.Show("casting error -> rtb isn't correct");
-            }
-
-
-
-            
         }
         #endregion
         #endregion

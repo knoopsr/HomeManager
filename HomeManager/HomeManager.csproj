@@ -36,15 +36,19 @@
     <Folder Include="ViewModel\Dagboek\" />
     <Folder Include="ViewModel\Homepage\" />
     <Folder Include="ViewModel\StickyNotes\" />
+    <Folder Include="ViewModel\Security\" />
+    <Folder Include="ViewModel\Personen\" />
     <Folder Include="ViewModel\Todo\" />
     <Folder Include="View\Dagboek\" />
     <Folder Include="View\Homepage\" />
     <Folder Include="View\StickyNotes\" />
-    <Folder Include="View\Todo\" />
+    <Folder Include="View\Security\" />
+   <Folder Include="View\Todo\" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="ClosedXML" Version="0.104.2" />
+    <PackageReference Include="Microsoft-WindowsAPICodePack-Shell" Version="1.1.5" />
     <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.135" />
     <ProjectReference Include="..\HomeManager.Mail\HomeManager.Mail.csproj" />
     <ProjectReference Include="..\HomeMangager.Common\HomeManager.Common.csproj" />

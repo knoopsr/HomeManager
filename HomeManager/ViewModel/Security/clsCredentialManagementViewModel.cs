@@ -170,8 +170,10 @@ namespace HomeManager.ViewModel
             {
                 _filterTekst = value;
                 OnPropertyChanged(nameof(FilterTekst));
+                LaadFilter();
             }
         }
+
         private ObservableCollection<clsCredentialManagementModel> _gefilterdeCollectie;
         public ObservableCollection<clsCredentialManagementModel> GefilterdeCollectie
         {
@@ -208,7 +210,7 @@ namespace HomeManager.ViewModel
 
         private void Execute_Filter_Command(object? obj)
         {
-            LaadFilter();
+            FilterTekst = string.Empty;
 
         }
 

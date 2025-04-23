@@ -13,11 +13,12 @@
     d:DesignWidth="800"
     mc:Ignorable="d">
 
-    <DockPanel DataContext="{Binding Source={StaticResource VML}, Path=DagboekViewModel}">
+    <DockPanel Background="{StaticResource myBackground}" DataContext="{Binding Source={StaticResource VML}, Path=DagboekViewModel}">
         <Border
+            Height="50"
             Background="{StaticResource myTitleBar}"
             BorderBrush="LightBlue"
-            BorderThickness="2"
+            BorderThickness="1"
             DockPanel.Dock="Top">
 
             <StackPanel
@@ -45,7 +46,7 @@
             CornerRadius="5">
             <DockPanel LastChildFill="True">
                 <Ribbon DockPanel.Dock="Top">
-                    <RibbonTab IsEnabled="True">
+                    <RibbonTab IsEnabled="True" IsSelected="True">
                         <RibbonTab.Header>
                             <TextBlock>
                                 <Run FontWeight="Bold" Text="Options" />
@@ -55,6 +56,8 @@
                         <RibbonGroup Header="Options">
                             <Grid>
                                 <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="*" />
                                     <ColumnDefinition Width="*" />
                                     <ColumnDefinition Width="*" />
                                     <ColumnDefinition Width="*" />
@@ -89,6 +92,24 @@
                                     Style="{StaticResource myRibbonButton}" />
 
                                 <Label Grid.Row="1" Grid.Column="2">Delete File</Label>
+
+                                <RibbonButton
+                                    Grid.Column="3"
+                                    Command="{Binding cmdPrint}"
+                                    CommandParameter="{Binding ElementName=MyRTB}"
+                                    Content="{StaticResource Printer}"
+                                    Style="{StaticResource myRibbonButton}" />
+
+                                <Label Grid.Row="1" Grid.Column="3">Print File</Label>
+
+                                <RibbonButton
+                                    Grid.Column="4"
+                                    Command="{Binding cmdClose}"
+                                    CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=Window}}"
+                                    Content="{StaticResource myCloseButton}"
+                                    Style="{StaticResource myRibbonButton}" />
+
+                                <Label Grid.Row="1" Grid.Column="4">close dagboek</Label>
 
                             </Grid>
                         </RibbonGroup>
@@ -175,9 +196,47 @@
                         </RibbonGroup>
 
 
-                        <RibbonGroup />
+                        <RibbonGroup>
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*" />
+                                    <RowDefinition Height="auto" />
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+
+                                <RibbonButton
+                                    Command="{Binding cmdFindHyperlinks}"
+                                    CommandParameter="{Binding ElementName=MyRTB}"
+                                    Content="{StaticResource HyperlinkIcon}"
+                                    Style="{StaticResource myRibbonButton}" />
+
+                                <Label
+                                    Grid.Row="1"
+                                    Padding="1"
+                                    Content="Search Hyperlinks" />
+
+                                <RibbonButton
+                                    Grid.Column="1"
+                                    Command="{Binding cmdFindEmails}"
+                                    CommandParameter="{Binding ElementName=MyRTB}"
+                                    Content="{StaticResource mySendEmail}"
+                                    Style="{StaticResource myRibbonButton}" />
+
+                                <Label
+                                    Grid.Column="1"
+                                    Grid.Row="1"
+                                    Padding="1"
+                                    Content="Find Email Asress" />
+
+                            </Grid>
+
+
+                        </RibbonGroup>
                     </RibbonTab>
-                    <RibbonTab IsSelected="True">
+                    <RibbonTab>
                         <RibbonTab.Header>
                             <TextBlock>
                                 <Run FontWeight="Bold" Text="Text Format" />
@@ -267,30 +326,35 @@
                                         <ComboBox.ItemTemplate>
                                             <DataTemplate>
                                                 <StackPanel Orientation="Horizontal">
-                                                    <TextBlock VerticalAlignment="Center" Text="{Binding ColorName}" Foreground="{Binding MyBrush}" />
+                                                    <TextBlock
+                                                        VerticalAlignment="Center"
+                                                        Foreground="{Binding MyBrush}"
+                                                        Text="{Binding ColorName}" />
                                                 </StackPanel>
                                             </DataTemplate>
                                         </ComboBox.ItemTemplate>
                                     </ComboBox>
-                                    
+
                                 </StackPanel>
                                 <StackPanel Grid.Row="1" Orientation="Horizontal">
                                     <RibbonButton
                                         Command="{Binding cmdSetBackgroundToText}"
                                         CommandParameter="{Binding ElementName=MyRTB}"
                                         Content="{StaticResource PaintBucked}"
-                                        Style="{StaticResource myRibbonButton}"
-                                        />
-                                    <ComboBox 
+                                        Style="{StaticResource myRibbonButton}" />
+                                    <ComboBox
                                         Width="150"
                                         Margin="2"
-                                        ItemsSource="{Binding MyRTBLayout.ColorsCollection}" 
+                                        ItemsSource="{Binding MyRTBLayout.ColorsCollection}"
                                         SelectedItem="{Binding MyRTBLayout.SelectedTextBackgroundColor, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
 
                                         <ComboBox.ItemTemplate>
                                             <DataTemplate>
                                                 <StackPanel Orientation="Horizontal">
-                                                    <TextBlock VerticalAlignment="Center" Text="{Binding ColorName}" Foreground="{Binding MyBrush}" />
+                                                    <TextBlock
+                                                        VerticalAlignment="Center"
+                                                        Foreground="{Binding MyBrush}"
+                                                        Text="{Binding ColorName}" />
                                                 </StackPanel>
                                             </DataTemplate>
                                         </ComboBox.ItemTemplate>
@@ -328,7 +392,7 @@
                                     SelectedItem="{Binding MyRTBLayout.SelectedFond, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
 
                                     <ComboBox.ItemContainerStyle>
-                                        
+
                                         <Style TargetType="ComboBoxItem">
                                             <Setter Property="FontFamily" Value="{Binding}" />
                                         </Style>
@@ -341,7 +405,12 @@
                                     </i:Interaction.Triggers>
                                 </ComboBox>
 
-                                <Label FontSize="8" VerticalAlignment="Center" Grid.Row="1">Letter Grootte</Label>
+                                <Label
+                                    Grid.Row="1"
+                                    VerticalAlignment="Center"
+                                    FontSize="8">
+                                    Letter Grootte
+                                </Label>
 
                                 <ComboBox
                                     x:Name="cboMyFondSizes"
@@ -443,17 +512,17 @@
                                 <RibbonButton
                                     Grid.Row="1"
                                     Grid.Column="0"
-                                    Content="{StaticResource InspringenIncrease}"
-                                    Style="{StaticResource myRibbonButton}"
                                     Command="{Binding cmdIncreaseTextIndent}"
-                                    CommandParameter="{Binding ElementName=MyRTB}"/>
+                                    CommandParameter="{Binding ElementName=MyRTB}"
+                                    Content="{StaticResource InspringenIncrease}"
+                                    Style="{StaticResource myRibbonButton}" />
                                 <RibbonButton
                                     Grid.Row="1"
                                     Grid.Column="1"
-                                    Content="{StaticResource InspringenDecrease}"
-                                    Style="{StaticResource myRibbonButton}" 
                                     Command="{Binding cmdDecreaseTextIndent}"
-                                    CommandParameter="{Binding ElementName=MyRTB}"/>
+                                    CommandParameter="{Binding ElementName=MyRTB}"
+                                    Content="{StaticResource InspringenDecrease}"
+                                    Style="{StaticResource myRibbonButton}" />
                                 <RibbonToggleButton
                                     Grid.Row="1"
                                     Grid.Column="2"
@@ -507,8 +576,8 @@
                         x:Name="MyRTB"
                         Grid.Column="1"
                         Margin="2"
-                        AcceptsTab="True"
-                        AcceptsReturn="True">
+                        AcceptsReturn="True"
+                        AcceptsTab="True">
 
                         <i:Interaction.Behaviors>
                             <behaviors:clsRichTextBoxSelectionBehavior Layout="{Binding MyRTBLayout}" />
@@ -519,7 +588,10 @@
                         Width="20"
                         Height="150"
                         Command="{Binding cmdTest}"
-                        Content="test" />
+                        CommandParameter="{Binding ElementName=MyRTB}"
+                        Content="test"
+                        Visibility="Visible" />
+
 
                 </Grid>
 

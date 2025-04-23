@@ -1,6 +1,9 @@
-﻿using HomeManager.DataService.Logging;
+﻿using HomeManager.DataService.Exceptions;
+using HomeManager.DataService.Logging;
+using HomeManager.Model.Exceptions;
 using HomeManager.Model.Logging;
 using HomeManager.Model.Security;
+using HomeManager.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,7 +17,6 @@ namespace HomeManager.Helpers
 {
     public class clsCustomCommand : ICommand
     {
-
         clsButtonLoggingDataService MijnLoggingService;
 
         private Action<object?> _execute;
@@ -36,33 +38,36 @@ namespace HomeManager.Helpers
 
         public void Execute(object? parameter)
         {
-            _execute(parameter);
-
-
-            //Hier word geen logging gedaan.
-            //Er is geen CommandParameter meegestuurd.
-            if (parameter == null)
+            try
             {
-                MessageBox.Show("Geen Logging. Er word geen gebruik gemaakt van CommandParameter in de xamll.");
-                return;
-            }
-  
+                _execute(parameter);
 
-
-            if (_execute is Delegate del)
-            {
-                string targetName = del.Target?.GetType().Name ?? "null";
-                string methodName = del.Method.Name;
-
-        
-                MijnLoggingService.Insert(new clsButtonLoggingModel()
+                //Hier word geen logging gedaan.
+                //Er is geen CommandParameter meegestuurd.
+                if (parameter == null)
                 {
-                    AccountId = clsLoginModel.Instance.AccountID,
-                    ActionName = methodName,
-                    ActionTarget = targetName
-                });
-            }       
+                    MessageBox.Show("Geen Logging. Er word geen gebruik gemaakt van CommandParameter in de Xaml.");
+                    return;
+                }
 
+                if (_execute is Delegate del)
+                {
+                    string targetName = del.Target?.GetType().Name ?? "null";
+                    string methodName = del.Method.Name;
+
+
+                    MijnLoggingService.Insert(new clsButtonLoggingModel()
+                    {
+                        AccountId = clsLoginModel.Instance.AccountID,
+                        ActionName = methodName,
+                        ActionTarget = targetName
+                    });
+                }
+            }
+            catch(Exception ex)
+            {
+                clsExceptionService.InsertException(ex);
+            }
         }
 
         public event EventHandler? CanExecuteChanged
@@ -75,9 +80,6 @@ namespace HomeManager.Helpers
             {
                 CommandManager.RequerySuggested -= value;
             }
-
         }
-
     }
-
 }

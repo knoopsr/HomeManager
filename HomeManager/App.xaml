@@ -9,6 +9,8 @@
     StartupUri="View/Security/winLogin.xaml">
     <!--  StartupUri="MainWindow.xaml">  -->
 
+
+
     <Application.Resources>
 
         <!--
@@ -16,19 +18,12 @@
             Aangezien ze in de app file staan zijn de key's van de resources over heel het project aanspreekbaar
         -->
 
-
-
         <ResourceDictionary>
 
             <VM:clsVMLocator x:Key="VML" />
             <Helpers:clsIntVisibilityConverter x:Key="VisibilityConvertor" />
             <Helpers:clsFocusExtension x:Key="FocusExtension" />
             <Helpers:clsMouseEventArgsToPointConverter x:Key="clsMouseEventArgsToPointConverter" />
-
-
-
-
-
 
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="\Resources\ErrorTemplateDictionary.xaml" />

@@ -1,0 +1,328 @@
+﻿<Window
+    x:Class="HomeManager.View.wndMijnProfiel"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:Werkbalk="clr-namespace:HomeManager.View"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:HomeManager.View"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:vm="clr-namespace:HomeManager.ViewModel"
+    Title="wndMijnProfiel"
+    Width="821"
+    Height="843"
+    AllowsTransparency="True"
+    Background="Transparent"
+    WindowStyle="None"
+    mc:Ignorable="d">
+
+    <Grid DataContext="{Binding Source={StaticResource VML}, Path=ProfielViewModel}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="80" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+        </Grid.RowDefinitions>
+
+        <!--  TitleBar  -->
+        <Grid
+            Grid.Row="0"
+            Grid.ColumnSpan="3"
+            Margin="0,0,0,5"
+            Background="{StaticResource myTitleBar}">
+            <Border BorderBrush="DarkCyan" BorderThickness="2" />
+            <TextBlock
+                Margin="50,0,0,0"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Center"
+                FontSize="24"
+                Foreground="White"
+                Text="Mijn Profiel" />
+
+            <Path
+                Margin="10,0,10,0"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Center"
+                Data="{StaticResource myPathPeople}"
+                Fill="White"
+                Stroke="White" />
+
+            <Werkbalk:ucWerkBalk
+                Margin="0,0,10,0"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Top"
+                Background="Transparent" />
+        </Grid>
+
+
+        <!--  Personalia  -->
+        <Grid Grid.Row="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="120" />
+
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Border
+                Grid.Row="0"
+                Grid.RowSpan="2"
+                Grid.ColumnSpan="2"
+                Background="White"
+                BorderBrush="DarkCyan"
+                BorderThickness="2"
+                CornerRadius="6,6,6,6" />
+            <Border
+                Grid.Row="0"
+                Grid.RowSpan="1"
+                Grid.ColumnSpan="2"
+                Height="32"
+                VerticalAlignment="Top"
+                Background="{StaticResource myTitleBar}"
+                BorderBrush="DarkCyan"
+                BorderThickness="2"
+                CornerRadius="6,6,0,0" />
+            <TextBlock
+                Grid.Row="0"
+                Grid.ColumnSpan="2"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                FontFamily="segoe ui light"
+                FontSize="18"
+                Foreground="White"
+                Text="Personalia" />
+            <StackPanel
+                Grid.Row="1"
+                Grid.Column="0"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Center"
+                Orientation="Vertical">
+                <TextBlock
+                    HorizontalAlignment="Right"
+                    FontFamily="segoe ui light"
+                    FontSize="18"
+                    Foreground="SteelBlue"
+                    Text="Voornaam: " />
+                <TextBlock
+                    HorizontalAlignment="Right"
+                    FontFamily="segoe ui light"
+                    FontSize="18"
+                    Foreground="SteelBlue"
+                    Text="Naam: " />
+                <TextBlock
+                    HorizontalAlignment="Right"
+                    FontFamily="segoe ui light"
+                    FontSize="18"
+                    Foreground="SteelBlue"
+                    Text="Geboortedatum: " />
+            </StackPanel>
+            <StackPanel
+                Grid.Row="1"
+                Grid.Column="1"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Center"
+                Orientation="Vertical">
+                <TextBlock
+                    Width="150"
+                    FontFamily="segoe ui light"
+                    FontSize="18"
+                    Text="{Binding Persoon.Voornaam}" />
+                <TextBlock
+                    Width="150"
+                    FontFamily="segoe ui light"
+                    FontSize="18"
+                    Text="{Binding Persoon.Naam}" />
+                <TextBlock
+                    Width="150"
+                    FontFamily="segoe ui light"
+                    FontSize="18"
+                    Text="{Binding Persoon.Geboortedatum, StringFormat={}{0:dd/MM/yyyy}}" />
+            </StackPanel>
+        </Grid>
+        <!--  Profielfoto  -->
+        <Ellipse
+            Grid.Row="1"
+            Grid.Column="0"
+            Width="150"
+            Height="148"
+            Margin="100,0,0,0"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Center"
+            Stroke="White">
+            <Ellipse.Fill>
+                <ImageBrush ImageSource="{Binding Persoon.Foto}" />
+            </Ellipse.Fill>
+        </Ellipse>
+        <!--  Emailadressen  -->
+        <Grid Grid.Row="2">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+            </Grid.RowDefinitions>
+            <Border
+                Grid.Row="0"
+                Height="32"
+                Margin="0,5,0,0"
+                VerticalAlignment="Top"
+                Background="{StaticResource myTitleBar}"
+                BorderBrush="DarkCyan"
+                BorderThickness="2"
+                CornerRadius="6,6,0,0">
+                <TextBlock
+                    HorizontalAlignment="Center"
+                    FontFamily="segoe ui light"
+                    FontSize="18"
+                    Foreground="White"
+                    Text="Emailadressen" />
+            </Border>
+
+            <DataGrid
+                Grid.Row="2"
+                Height="auto"
+                AutoGenerateColumns="False"
+                HeadersVisibility="Column"
+                IsReadOnly="True"
+                ItemsSource="{Binding Emailadressen}">
+                <DataGrid.Columns>
+                    <DataGridTextColumn
+                        Width="*"
+                        Binding="{Binding Emailadres}"
+                        Header="Email" />
+                </DataGrid.Columns>
+            </DataGrid>
+
+        </Grid>
+
+
+        <Grid Grid.Row="3">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+            </Grid.RowDefinitions>
+            <Border
+                Grid.Row="0"
+                Height="32"
+                Margin="0,5,0,0"
+                VerticalAlignment="Top"
+                Background="{StaticResource myTitleBar}"
+                BorderBrush="DarkCyan"
+                BorderThickness="2"
+                CornerRadius="6,6,0,0">
+                <TextBlock
+                    HorizontalAlignment="Center"
+                    FontFamily="segoe ui light"
+                    FontSize="18"
+                    Foreground="White"
+                    Text="Adressen" />
+            </Border>
+            <DataGrid
+                Grid.Row="3"
+                Height="auto"
+                AutoGenerateColumns="False"
+                HeadersVisibility="Column"
+                IsReadOnly="True"
+                ItemsSource="{Binding Adressen}">
+                <DataGrid.Columns>
+                    <DataGridTextColumn
+                        Width="*"
+                        Binding="{Binding Gemeente}"
+                        Header="Gemeente" />
+                    <DataGridTextColumn
+                        Width="*"
+                        Binding="{Binding PostCode}"
+                        Header="PostCode" />
+                </DataGrid.Columns>
+            </DataGrid>
+        </Grid>
+
+        <!--  Telefoonnummers  -->
+        <Grid Grid.Row="4">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+            </Grid.RowDefinitions>
+            <Border
+                Grid.Row="0"
+                Height="32"
+                Margin="0,5,0,0"
+                VerticalAlignment="Top"
+                Background="{StaticResource myTitleBar}"
+                BorderBrush="DarkCyan"
+                BorderThickness="2"
+                CornerRadius="6,6,0,0">
+                <TextBlock
+                    HorizontalAlignment="Center"
+                    FontFamily="segoe ui light"
+                    FontSize="18"
+                    Foreground="White"
+                    Text="Telefoonnummers" />
+            </Border>
+            <DataGrid
+                Grid.Row="4"
+                Height="auto"
+                AutoGenerateColumns="False"
+                HeadersVisibility="Column"
+                IsReadOnly="True"
+                ItemsSource="{Binding Telefoonnummers}">
+                <DataGrid.Columns>
+                    <DataGridTextColumn
+                        Width="*"
+                        Binding="{Binding TelefoonNummer}"
+                        Header="Telefoonnummer" />
+                    <DataGridTextColumn
+                        Width="*"
+                        Binding="{Binding TelefoonType}"
+                        Header="Telefoonnummer type" />
+                </DataGrid.Columns>
+            </DataGrid>
+        </Grid>
+
+        <!--  Notities  -->
+        <Grid Grid.Row="5">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+            </Grid.RowDefinitions>
+            <Border
+                Grid.Row="0"
+                Height="32"
+                Margin="0,5,0,0"
+                VerticalAlignment="Top"
+                Background="{StaticResource myTitleBar}"
+                BorderBrush="DarkCyan"
+                BorderThickness="2"
+                CornerRadius="6,6,0,0">
+                <TextBlock
+                    HorizontalAlignment="Center"
+                    FontFamily="segoe ui light"
+                    FontSize="18"
+                    Foreground="White"
+                    Text="Notities" />
+            </Border>
+            <DataGrid
+                Grid.Row="5"
+                Height="auto"
+                AutoGenerateColumns="False"
+                HeadersVisibility="Column"
+                IsReadOnly="True"
+                ItemsSource="{Binding Notities}">
+                <DataGrid.Columns>
+                    <DataGridTextColumn
+                        Width="*"
+                        Binding="{Binding Onderwerp}"
+                        Header="Onderwerp" />
+                    <DataGridTextColumn
+                        Width="2*"
+                        Binding="{Binding Notitie}"
+                        Header="Notitie" />
+                </DataGrid.Columns>
+            </DataGrid>
+        </Grid>
+
+
+
+    </Grid>
+</Window>

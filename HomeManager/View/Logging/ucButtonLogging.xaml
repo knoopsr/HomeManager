@@ -36,7 +36,7 @@
                         Margin="10,0,0,0"
                         VerticalAlignment="Center"
                         FontSize="20"
-                        Foreground="White"
+                        Foreground="{StaticResource myWerkBalk}"
                         Text="Overzicht Logging Buttons" />
                 </StackPanel>
                 <uc:ucWerkBalk HorizontalAlignment="Right" VerticalAlignment="top" />
@@ -82,13 +82,13 @@
                         Width="200"
                         Margin="5,0,0,0"
                         ItemsSource="{Binding MijnActies}"
-                        SelectedItem="{Binding SelectedActies, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" />
+                        SelectedItem="{Binding SelectedActies, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 
                     <ComboBox
                         Width="200"
                         Margin="5,0,0,0"
                         ItemsSource="{Binding MijnActieTargets}"
-                        SelectedItem="{Binding SelectedActieTargets, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" />
+                        SelectedItem="{Binding SelectedActieTargets, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                 </StackPanel>
 
                 <StackPanel
@@ -113,13 +113,12 @@
 
 
                     <Button
-                        Margin="10,0,0,0"
                         Width="30"
                         Height="30"
-                       
-                        Style="{StaticResource Excel}"
+                        Margin="10,0,0,0"
+                        Command="{Binding cmdExport}"
                         CommandParameter="{Binding}"
-                        Command="{Binding cmdExport}" />
+                        Style="{StaticResource Excel}" />
                 </StackPanel>
 
 

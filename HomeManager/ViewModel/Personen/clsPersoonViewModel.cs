@@ -1,22 +1,14 @@
 ﻿using HomeManager.Common;
-using HomeManager.Helpers;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Input;
-using System.Windows;
 using HomeManager.DataService.Personen;
-using HomeManager.Model.Personen;
-using System.IO;
-using System.Windows.Media.Imaging;
+using HomeManager.Helpers;
 using HomeManager.Messages;
-using System.Reflection.Metadata;
-using HomeManager.Model.Budget;
-using System.Windows.Media;
+using HomeManager.Model.Personen;
+using System.Collections.ObjectModel;
+using System.IO;
+using System.Windows;
+using System.Windows.Input;
+using System.Windows.Media.Imaging;
+
 
 namespace HomeManager.ViewModel
 {
@@ -193,7 +185,7 @@ namespace HomeManager.ViewModel
 
             if (File.Exists(_OpenFileDialog.FileName))
             {
-                MijnSelectedItem.Foto = DocumentContent(_OpenFileDialog.FileName);
+                MijnSelectedItem.Foto = ResizeImage(_OpenFileDialog.FileName);
                 MijnSelectedItem.IsDirty = true;
             }
         }
@@ -245,7 +237,7 @@ namespace HomeManager.ViewModel
                 {
                     foreach (var file in files)
                     {
-                        MijnSelectedItem.Foto = File.ReadAllBytes(file);
+                        MijnSelectedItem.Foto = ResizeImage(file);
                         MijnSelectedItem.IsDirty = true;
 
                     }
@@ -262,16 +254,22 @@ namespace HomeManager.ViewModel
 
         private bool CanExecute_Save_Command(object? obj)
         {
-            if (MijnSelectedItem != null &&
-                MijnSelectedItem.Error == null &&
-                MijnSelectedItem.IsDirty == true)
+            clsPermissionChecker permissionChecker = new();
+            if (permissionChecker.HasPermission("122"))
             {
-                return true;
+                if (MijnSelectedItem != null &&
+                       MijnSelectedItem.Error == null &&
+                       MijnSelectedItem.IsDirty == true)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
             }
-            else
-            {
-                return false;
-            }
+            return false;
+
         }
 
         private void Execute_Delete_Command(object? obj)
@@ -298,18 +296,23 @@ namespace HomeManager.ViewModel
 
         private bool CanExecute_Delete_Command(object? obj)
         {
-            if (MijnSelectedItem != null)
+            clsPermissionChecker permissionChecker = new();
+            if (permissionChecker.HasPermission("123"))
             {
-                if (NewStatus)
+                if (MijnSelectedItem != null)
+                {
+                    if (NewStatus)
+                    {
+                        return false;
+                    }
+                    return true;
+                }
+                else
                 {
                     return false;
                 }
-                return true;
             }
-            else
-            {
-                return false;
-            }
+            return false;
         }
 
         private void CreateNewStatus()
@@ -336,7 +339,13 @@ namespace HomeManager.ViewModel
 
         private bool CanExecute_New_Command(object? obj)
         {
-            return !NewStatus;
+            clsPermissionChecker permissionChecker = new();
+            if (permissionChecker.HasPermission("121"))
+            {
+                return !NewStatus;
+            }
+            return false;
+
         }
 
         private void Execute_Cancel_Command(object? obj)
@@ -384,6 +393,34 @@ namespace HomeManager.ViewModel
         {
             return true;
         }
+
+        private byte[] ResizeImage(string imagePath)
+        {
+            var bitmapImage = new BitmapImage();
+            int maxWidth = 150; // maximale breedte in pixels
+            int maxHeight = 150; // maximale hoogte in pixels
+
+            bitmapImage.BeginInit();
+            bitmapImage.UriSource = new Uri(imagePath);
+            bitmapImage.DecodePixelWidth = maxWidth; // behoudt verhouding automatisch
+            bitmapImage.CacheOption = BitmapCacheOption.OnLoad;
+            bitmapImage.EndInit();
+            bitmapImage.Freeze(); // belangrijk voor thread safety
+
+            var encoder = new PngBitmapEncoder(); // of JpegBitmapEncoder als je dat liever hebt
+            encoder.Frames.Add(BitmapFrame.Create(bitmapImage));
+
+            using (var ms = new MemoryStream())
+            {
+                encoder.Save(ms);
+                return ms.ToArray();
+            }
+        }
+
+
+
+
+
     }
 }
 

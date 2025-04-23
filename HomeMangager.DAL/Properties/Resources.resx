@@ -189,6 +189,78 @@
   <data name="U_Login" xml:space="preserve">
     <value>U_Login</value>
   </data>
+  <data name="D_ToDoCategorieën" xml:space="preserve">
+    <value>D_ToDoCategorieën</value>
+  </data>
+  <data name="S_ToDoCategorieën" xml:space="preserve">
+    <value>S_ToDoCategorieën</value>
+  </data>
+  <data name="I_ToDoCategorieën" xml:space="preserve">
+    <value>I_ToDoCategorieën</value>
+  </data>
+  <data name="U_ToDoCategorieën" xml:space="preserve">
+    <value>U_ToDoCategorieën</value>
+  </data>
+  <data name="D_ToDoCollecties" xml:space="preserve">
+    <value>D_TodoCollecties</value>
+  </data>
+  <data name="S_ToDoCollecties" xml:space="preserve">
+    <value>S_ToDoCollecties</value>
+  </data>
+  <data name="I_ToDoCollecties" xml:space="preserve">
+    <value>I_ToDoCollecties</value>
+  </data>
+  <data name="U_ToDoCollecties" xml:space="preserve">
+    <value>U_ToDoCollecties</value>
+  </data>
+  <data name="D_ToDoKLeuren" xml:space="preserve">
+    <value>D_ToDoKLeuren</value>
+  </data>
+  <data name="I_ToDoKLeuren" xml:space="preserve">
+    <value>I_ToDoKLeuren</value>
+  </data>
+  <data name="S_ToDoKLeuren" xml:space="preserve">
+    <value>S_ToDoKLeuren</value>
+  </data>
+  <data name="U_ToDoKLeuren" xml:space="preserve">
+    <value>U_ToDoKLeuren</value>
+  </data>
+  <data name="D_ToDoPopup" xml:space="preserve">
+    <value>D_ToDoPopup</value>
+  </data>
+  <data name="S_ToDoPopup" xml:space="preserve">
+    <value>S_ToDoPopup</value>
+  </data>
+  <data name="I_ToDoPopup" xml:space="preserve">
+    <value>I_ToDoPopup</value>
+  </data>
+  <data name="U_ToDoPopup" xml:space="preserve">
+    <value>U_ToDoPopup</value>
+  </data>
+  <data name="D_ToDoBijlage" xml:space="preserve">
+    <value>D_ToDoBijlage</value>
+  </data>
+  <data name="S_ToDoBijlage" xml:space="preserve">
+    <value>S_ToDoBijlage</value>
+  </data>
+  <data name="I_ToDoBijlage" xml:space="preserve">
+    <value>I_ToDoBijlage</value>
+  </data>
+  <data name="U_ToDoBijlage" xml:space="preserve">
+    <value>U_ToDoBijlage</value>
+  </data>
+  <data name="D_ToDoDetails" xml:space="preserve">
+    <value>D_ToDoDetails</value>
+  </data>
+  <data name="I_ToDoDetails" xml:space="preserve">
+    <value>I_ToDoDetails</value>
+  </data>
+  <data name="U_ToDoDetails" xml:space="preserve">
+    <value>U_ToDoDetails</value>
+  </data>
+  <data name="S_ToDoDetails" xml:space="preserve">
+    <value>S_ToDoDetails</value>
+  </data>
   <data name="BackupHomeManagerDB" xml:space="preserve">
     <value>BackupHomeManagerDB</value>
   </data>
@@ -435,6 +507,45 @@
   <data name="D_EmailAdressen" xml:space="preserve">
     <value>D_EmailAdressen</value>
   </data>
+  <data name="D_FavorieteApplicatie" xml:space="preserve">
+    <value>D_FavorieteApplicatie</value>
+  </data>
+  <data name="S_FavorieteApplicatie" xml:space="preserve">
+    <value>S_FavorieteApplicatie</value>
+  </data>
+  <data name="I_FavorieteApplicatie" xml:space="preserve">
+    <value>I_FavorieteApplicatie</value>
+  </data>
+  <data name="D_Snelkoppeling" xml:space="preserve">
+    <value>D_Snelkoppeling</value>
+  </data>
+  <data name="I_Snelkoppeling" xml:space="preserve">
+    <value>I_Snelkoppeling</value>
+  </data>
+  <data name="S_Snelkoppelingen" xml:space="preserve">
+    <value>S_Snelkoppelingen</value>
+  </data>
+  <data name="D_FavorietVenster" xml:space="preserve">
+    <value>D_FavorietVenster</value>
+  </data>
+  <data name="S_FavorietVenster" xml:space="preserve">
+    <value>S_FavorietVenster</value>
+  </data>
+  <data name="I_FavorietVenster" xml:space="preserve">
+    <value>I_FavorietVenster</value>
+  </data>
+  <data name="I_FotoCarousel" xml:space="preserve">
+    <value>I_FotoCarousel</value>
+  </data>
+  <data name="S_FotoCarousel" xml:space="preserve">
+    <value>S_FotoCarousel</value>
+  </data>
+  <data name="S_WeerVoorkeur" xml:space="preserve">
+    <value>S_WeerVoorKeur</value>
+  </data>
+  <data name="I_WeerVoorkeur" xml:space="preserve">
+    <value>I_WeerVoorkeur</value>
+  </data>
   <data name="D_DomicilieringMetTransacties" xml:space="preserve">
     <value>D_DomicilieringMetTransacties</value>
   </data>
@@ -449,5 +560,41 @@
   </data>
   <data name="D_BudgetBijlage" xml:space="preserve">
     <value>D_BudgetBijlage</value>
+  </data>
+  <data name="S_StickyNotes" xml:space="preserve">
+    <value>S_StickyNotes</value>
+  </data>
+  <data name="S_StickyNotesByID" xml:space="preserve">
+    <value>S_StickyNotesByID</value>
+  </data>
+  <data name="U_StickyNotes" xml:space="preserve">
+    <value>U_StickyNotes</value>
+  </data>
+  <data name="I_StickyNotes" xml:space="preserve">
+    <value>I_StickyNotes</value>
+  </data>
+  <data name="D_StickyNotes" xml:space="preserve">
+    <value>D_StickyNotes</value>
+  </data>
+  <data name="S_ExceptionsByTargetSite" xml:space="preserve">
+    <value>S_ExceptionsByTargetSite</value>
+  </data>
+  <data name="S_ExceptionsByDate" xml:space="preserve">
+    <value>S_ExceptionsByDate</value>
+  </data>
+  <data name="S_ExceptionsByExceptionName" xml:space="preserve">
+    <value>S_ExceptionsByExceptionName</value>
+  </data>
+  <data name="S_ExceptionsByAccountID" xml:space="preserve">
+    <value>S_ExceptionsByAccountID</value>
+  </data>
+  <data name="S_ExceptionsFirst1000" xml:space="preserve">
+    <value>S_ExceptionsFirst1000</value>
+  </data>
+  <data name="I_ExceptionLog" xml:space="preserve">
+    <value>I_ExceptionLog</value>
+  </data>
+  <data name="S_EmailAdressenByRechtenCode" xml:space="preserve">
+    <value>S_EmailAdressenByRechtenCode</value>
   </data>
 </root>

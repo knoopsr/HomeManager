@@ -103,35 +103,7 @@ namespace HomeManager.ViewModel
                 }
             }
         }
-
-        private bool _IsFocused = false;
-        public bool IsFocused
-        {
-            get
-            {
-                return _IsFocused;
-            }
-            set
-            {
-                _IsFocused = value;
-                OnPropertyChanged();
-            }
-        }
-
-        private bool _IsFocusedAfterNew = false;
-        public bool IsFocusedAfterNew
-        {
-            get
-            {
-                return _IsFocusedAfterNew;
-            }
-            set
-            {
-                _IsFocusedAfterNew = value;
-                OnPropertyChanged();
-            }
-        }
-
+        
         public clsGemeenteViewModel()
         {
             MijnService = new clsGemeenteDataService();
@@ -148,7 +120,12 @@ namespace HomeManager.ViewModel
 
         private bool CanExecute_NewCommand(object? obj)
         {
-            return !NewStatus;
+            clsPermissionChecker permissionChecker = new();
+            if (permissionChecker.HasPermission("171"))
+            {
+                return !NewStatus;
+            }
+            return false;
         }
 
         private void Execute_NewCommand(object? obj)
@@ -170,18 +147,23 @@ namespace HomeManager.ViewModel
 
         private bool CanExecute_DeleteCommand(object obj)
         {
-            if (MijnSelectedItem != null)
+            clsPermissionChecker permissionChecker = new();
+            if (permissionChecker.HasPermission("173"))
             {
-                if (NewStatus)
+                if (MijnSelectedItem != null)
+                {
+                    if (NewStatus)
+                    {
+                        return false;
+                    }
+                    return true;
+                }
+                else
                 {
                     return false;
                 }
-                return true;
             }
-            else
-            {
-                return false;
-            }
+            return false;
         }
         private void Execute_DeleteCommand(object obj)
         {
@@ -251,14 +233,19 @@ namespace HomeManager.ViewModel
 
         private bool CanExecute_SaveCommand(object obj)
         {
-            if (MijnSelectedItem != null && MijnSelectedItem.Error == null && MijnSelectedItem.IsDirty == true)
+            clsPermissionChecker permissionChecker = new();
+            if (permissionChecker.HasPermission("172"))
             {
-                return true;
+                if (MijnSelectedItem != null && MijnSelectedItem.Error == null && MijnSelectedItem.IsDirty == true)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
             }
-            else
-            {
-                return false;
-            }
+            return false;
         }
 
         private void Execute_SaveCommand(object obj)

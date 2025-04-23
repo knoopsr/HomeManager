@@ -36,5 +36,10 @@ namespace HomeManager.View
         {
 
         }
+
+        private void ucPersonItem_Loaded(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

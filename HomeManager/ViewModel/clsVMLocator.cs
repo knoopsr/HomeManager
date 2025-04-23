@@ -1,6 +1,7 @@
 using HomeManager.Model.Personen;
 using HomeManager.ViewModel;
 using HomeManager.ViewModel.Personen;
+using HomeManager.ViewModel.Homepage;
 using HomeManager.ViewModel.Logging;
 using HomeManager.ViewModel.Security;
 using System;
@@ -8,10 +9,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
-using HomeManager.Model.Budget;
 using HomeManager.Model.Todo;
-using HomeManager.ViewModel;
+using HomeManager.ViewModel.Todo;
+using HomeManager.Model.Budget;
+using HomeManager.ViewModel.Exceptions;
+using HomeManager.ViewModel.StickyNotes;
 
 
 
@@ -21,7 +23,6 @@ namespace HomeManager.ViewModel
     {
         #region Personen
         private static clsPersoonViewModel _persoonViewModel = new clsPersoonViewModel();
-
         public clsPersoonViewModel PersoonViewModel
         {
             get
@@ -29,6 +30,7 @@ namespace HomeManager.ViewModel
                 return _persoonViewModel;
             }
         }
+
         public clsFunctieViewModel FunctieViewModel
         {
             get
@@ -136,7 +138,7 @@ namespace HomeManager.ViewModel
             }
         }
 
-#endregion
+        #endregion
 
         #region DagBoek
         //private static clsDagboekViewModel _dagboekViewModel = new clsDagboekViewModel();
@@ -211,22 +213,116 @@ namespace HomeManager.ViewModel
             }
         }
 
-
         #endregion
 
         #region TODO
-        public clsCollectiesVM CollectiesViewModel => new clsCollectiesVM();
-        public clsCategorieënVM CategorieënViewModel => new clsCategorieënVM();
-        public clsKleurenVM KleurenViewModel => new clsKleurenVM();
-        #endregion
 
-       public clsButtonLoggingViewModel ButtonLoggingViewModel
+        private static readonly clsCollectiesVM _collectiesViewModel = new clsCollectiesVM();
+        public clsCollectiesVM CollectiesViewModel
         {
             get
             {
-                return new clsButtonLoggingViewModel();
+                return _collectiesViewModel;
             }
         }
+
+        public clsCategorieënVM CategorieënViewModel => new clsCategorieënVM();
+        public clsKleurenVM KleurenViewModel => new clsKleurenVM();
+        #endregion
+        #region Homepage
+        public clsFavorieteApplicatieViewModel FavorieteApplicatieViewModel
+        {
+            get
+            {
+                return new clsFavorieteApplicatieViewModel();
+            }
+        }
+        public clsSnelkoppelingViewModel SnelkoppelingViewModel
+        {
+            get
+            {
+                return new clsSnelkoppelingViewModel();
+            }
+        }
+        public clsFavorieteVensterViewModel FavorieteVensterViewModel
+        {
+            get
+            {
+                return new clsFavorieteVensterViewModel();
+            }
+        }
+        public clsFotoCarouselViewModel FotoCarouselViewModel
+        {
+            get
+            {
+                return new clsFotoCarouselViewModel();
+            }
+        }
+        public clsWeerViewModel WeerViewModel
+        {
+            get
+            {
+                return new clsWeerViewModel();
+            }
+        }
+        public clsProfielViewModel ProfielViewModel
+        {
+            get
+            {
+                return new clsProfielViewModel();
+            }
+        }
+
+
+        #endregion
+
+
+
+        #region Todo
+
+        public clsTodoVM ToDoViewModel   
+        {
+            get
+            {
+                return new clsTodoVM();
+            }
+        }
+
+
+        private static readonly clsTodoPopupVM _todoPopupViewModel = new clsTodoPopupVM();
+        public clsTodoPopupVM TodoPopupViewModel
+        {
+            get
+            {
+                return _todoPopupViewModel;
+            }
+        }
+
+        private static readonly clsTodoDetailsVM _todoDetailsViewModel = new clsTodoDetailsVM(0);
+        public clsTodoDetailsVM TodoDetailsViewModel
+        {
+            get
+            {
+                return _todoDetailsViewModel;
+            }
+        }
+
+        public clsTodoBijlageVM TodoBijlageViewModel
+        {
+            get
+            {
+                return new clsTodoBijlageVM();
+            }
+        }
+
+        #endregion
+
+        #region EXCEPTIONS
+        public clsExceptionsViewModel ExceptionsViewModel { get => new clsExceptionsViewModel(); }
+        public clsExceptionsMailViewModel ExceptionsMailViewModel { get => new clsExceptionsMailViewModel(); }
+        #endregion
+
+
 
         public clsUnLockViewModel UnLockViewModel
         {
@@ -235,8 +331,6 @@ namespace HomeManager.ViewModel
                 return new clsUnLockViewModel();
             }
         }
-
-
         private static clsCategorieViewModel _categorieViewModel = new clsCategorieViewModel();
         public clsCategorieViewModel CategorieViewModel
         {
@@ -274,14 +368,13 @@ namespace HomeManager.ViewModel
         }
 
         private static clsTransactieViewModel _transactieViewModel = new clsTransactieViewModel();
-        public clsTransactieViewModel TransactieViewModel
+        public static clsTransactieViewModel TransactieViewModel
         {
             get
             {
                 return _transactieViewModel;
             }
         }
-        
         
         public clsOverzichtViewModel OverzichtViewModel
         {
@@ -290,5 +383,19 @@ namespace HomeManager.ViewModel
                 return new clsOverzichtViewModel();
             }
         }
+
+        #region STICKY NOTES
+        private static readonly clsStickyNotesViewModel _stickyNotesViewModel = new clsStickyNotesViewModel();
+        public clsStickyNotesViewModel StickyNotesViewModel { get => _stickyNotesViewModel; }
+        #endregion
+
+        public clsButtonLoggingViewModel ButtonLoggingViewModel
+        {
+            get
+            {
+                return new clsButtonLoggingViewModel();
+            }
+        }
+
     }
 }
