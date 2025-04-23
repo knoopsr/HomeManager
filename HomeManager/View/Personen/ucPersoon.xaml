@@ -73,18 +73,12 @@
                     <RowDefinition Height="auto" />
                     <RowDefinition Height="*" />
                     <RowDefinition Height="30" />
-                    <RowDefinition Height="30" />
-                    <RowDefinition Height="30" />
-                    <RowDefinition Height="50" />
-                    <RowDefinition Height="35" />
-                    <RowDefinition Height="30" />
-                    <RowDefinition Height="4*" />
-                    <RowDefinition Height="*" />
+
                 </Grid.RowDefinitions>
                 <ListBox
                     Name="lstListView"
-                    Grid.Row="2"
-                    Grid.RowSpan="5"
+                    Grid.Row="1"
+                    Grid.RowSpan="6"
                     Grid.Column="1"
                     Width="250"
                     MaxHeight="750"
@@ -264,7 +258,7 @@
                     Grid.Row="5"
                     Grid.Column="3"
                     Margin="5"
-                    SelectedDate="{Binding MijnSelectedItem.Geboortedatum, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, Converter={StaticResource DateOnlyToDateTimeConverter}}"
+                    SelectedDate="{Binding MijnSelectedItem.Geboortedatum, Mode=TwoWay, Converter={StaticResource DateOnlyToDateTimeConverter}}"
                     SelectedDateFormat="Short" />
 
 
@@ -280,7 +274,7 @@
                     Grid.Row="6"
                     Grid.Column="3"
                     Margin="5"
-                    IsChecked="{Binding MijnSelectedItem.IsApplicationUser, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnValidationError=true, ValidatesOnExceptions=True}" />
+                    IsChecked="{Binding MijnSelectedItem.IsApplicationUser, Mode=TwoWay}" />
             </Grid>
         </Border>
     </Grid>
