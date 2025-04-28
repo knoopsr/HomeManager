@@ -11,7 +11,7 @@ namespace HomeManager.DAL
 
 
 
-        private static string _myConnenctionString = Properties.Connection.Default.ConnectionDB.ToString();
+        private static string _myConnenctionString = Connection.Default.ConnectionDB.ToString();
 
         public static string MyConnenctionString
         {
