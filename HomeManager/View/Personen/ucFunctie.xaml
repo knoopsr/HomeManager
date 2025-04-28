@@ -50,9 +50,9 @@
             BorderBrush="Black"
             BorderThickness="1"
             CornerRadius="5">
-            <Grid>
+            <Grid HorizontalAlignment="Center">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="120" />
                     <ColumnDefinition Width="auto" />
                     <ColumnDefinition Width="auto" />
                     <ColumnDefinition Width="200" />

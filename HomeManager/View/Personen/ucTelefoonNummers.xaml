@@ -59,13 +59,13 @@
             BorderBrush="Black"
             BorderThickness="1"
             CornerRadius="5">
-            <Grid>
+            <Grid HorizontalAlignment="Center">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="100" />
+                    <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="auto" />
                     <ColumnDefinition Width="auto" />
                     <ColumnDefinition Width="150" />
-                    <ColumnDefinition Width="250" />
+                    <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="35" />
@@ -74,15 +74,6 @@
                     <RowDefinition Height="*" />
                     <RowDefinition Height="50" />
                 </Grid.RowDefinitions>
-
-                <!--<ListBox
-                    Name="UserListView"
-                    Grid.Row="2"
-                    Grid.RowSpan="7"
-                    Grid.Column="1"
-                    Width="250"
-                    ItemsSource="{Binding MijnCollectie}"
-                    SelectedItem="{Binding MijnSelectedItem, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />-->
 
                 <TextBlock
                     x:Name="tbNaam"

@@ -36,9 +36,7 @@
                         Data="{StaticResource myPathSetting}"
                         Fill="White"
                         Stretch="Fill" />
-                    <TextBlock
-                        Style="{StaticResource TitleBarText}"
-                        Text="Provincies" />
+                    <TextBlock Style="{StaticResource TitleBarText}" Text="Provincies" />
 
                 </StackPanel>
                 <uc:ucWerkBalk HorizontalAlignment="Right" VerticalAlignment="Top" />
@@ -52,7 +50,7 @@
             BorderBrush="Black"
             BorderThickness="1"
             CornerRadius="5">
-            <Grid>
+            <Grid HorizontalAlignment="Center">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="120" />
                     <ColumnDefinition Width="auto" />

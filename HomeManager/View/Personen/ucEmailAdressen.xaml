@@ -39,9 +39,7 @@
                         Data="{StaticResource myPathSetting}"
                         Fill="White"
                         Stretch="Fill" />
-                    <TextBlock
-                        Style="{StaticResource TitleBarText}"
-                        Text="Emailadressen" />
+                    <TextBlock Style="{StaticResource TitleBarText}" Text="Emailadressen" />
                 </StackPanel>
                 <uc:ucWerkBalk
                     Grid.Column="1"
@@ -56,7 +54,7 @@
             BorderBrush="Black"
             BorderThickness="1"
             CornerRadius="5">
-            <Grid>
+            <Grid HorizontalAlignment="Center">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="120" />
                     <ColumnDefinition Width="auto" />
@@ -108,7 +106,7 @@
                     DataContext="{Binding Source={StaticResource VML}, Path=EmailTypeViewModel}"
                     DisplayMemberPath="EmailTypeDisplayName"
                     ItemsSource="{Binding MijnCollectie}"
-                    SelectedValue="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Grid}}, Path=DataContext.MijnSelectedItem.EmailTypeID, Mode=TwoWay,  UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
+                    SelectedValue="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Grid}}, Path=DataContext.MijnSelectedItem.EmailTypeID, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
                     SelectedValuePath="EmailTypeID" />
             </Grid>
         </Border>
