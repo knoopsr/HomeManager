@@ -76,7 +76,7 @@
                     <RowDefinition Height="*" />
                     <RowDefinition Height="50" />
                 </Grid.RowDefinitions>
-                
+
                 <TextBlock
                     x:Name="tbNaam"
                     Grid.Row="0"

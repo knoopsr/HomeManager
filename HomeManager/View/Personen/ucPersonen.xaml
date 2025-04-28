@@ -37,10 +37,10 @@
                     <TextBlock Style="{StaticResource TitleBarText}" Text="Persoon" />
 
                 </StackPanel>
-                <!--<uc:ucWerkBalk
+                <uc:ucWerkBalk
                     HorizontalAlignment="Right"
                     VerticalAlignment="top"
-                    Loaded="ucWerkBalk_Loaded" />-->
+                    Loaded="ucWerkBalk_Loaded" />
 
             </Grid>
 
