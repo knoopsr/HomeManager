@@ -65,24 +65,23 @@
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="*" />
-                    <RowDefinition Height="30" />
-                    <RowDefinition Height="30" />
-                    <RowDefinition Height="30" />
-                    <RowDefinition Height="50" />
                     <RowDefinition Height="35" />
-                    <RowDefinition Height="30" />
-                    <RowDefinition Height="4*" />
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
                     <RowDefinition Height="*" />
+                    <RowDefinition Height="30" />
+
                 </Grid.RowDefinitions>
                 <ListBox
-                    Name="UserListView"
+                    Name="lstListView"
                     Grid.Row="1"
-                    Grid.RowSpan="7"
+                    Grid.RowSpan="6"
                     Grid.Column="1"
                     Width="250"
-                    MaxHeight="500"
-                    VerticalAlignment="Top"
+                    MaxHeight="750"
                     ItemsSource="{Binding MijnCollectie}"
                     SelectedItem="{Binding MijnSelectedItem, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
                     <ListBox.ItemContainerStyle>
@@ -242,42 +241,40 @@
                     <Button
                         x:Name="btnUploadPicture"
                         Command="{Binding cmdUploadPicture}"
-                        Style="{StaticResource UploadPersoonButton}" />
+                        Style="{StaticResource UploadPersoonButton}"
+                        ToolTip="Voeg profielfoto toe" />
                 </StackPanel>
 
 
                 <TextBlock
-                    x:Name="txtGeboorteDatum"
                     Grid.Row="5"
                     Grid.Column="2"
                     Margin="8"
                     Text="Geboortedatum"
                     TextAlignment="Right" />
 
-
                 <DatePicker
                     Name="dpGeboorteDatum"
                     Grid.Row="5"
                     Grid.Column="3"
                     Margin="5"
-                    SelectedDate="{Binding MijnSelectedItem.Geboortedatum, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, Converter={StaticResource DateOnlyToDateTimeConverter}}"
+                    SelectedDate="{Binding MijnSelectedItem.Geboortedatum, Mode=TwoWay, Converter={StaticResource DateOnlyToDateTimeConverter}}"
                     SelectedDateFormat="Short" />
 
 
 
                 <TextBlock
-                    x:Name="txtBenJeGebruiker"
                     Grid.Row="6"
                     Grid.Column="2"
                     Margin="4"
-                    Text="Ben jij een gebruiker"
+                    Text="Ben jij een gebruiker?"
                     TextAlignment="Right" />
                 <CheckBox
-                    x:Name="isGebruiker"
+                    x:Name="cbIsGebruiker"
                     Grid.Row="6"
                     Grid.Column="3"
                     Margin="5"
-                    IsChecked="{Binding MijnSelectedItem.IsApplicationUser, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnValidationError=true, ValidatesOnExceptions=True}" />
+                    IsChecked="{Binding MijnSelectedItem.IsApplicationUser, Mode=TwoWay}" />
             </Grid>
         </Border>
     </Grid>
