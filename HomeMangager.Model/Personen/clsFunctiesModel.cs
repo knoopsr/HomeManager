@@ -77,7 +77,15 @@ namespace HomeManager.Model.Personen
         {
             get
             {
-                return Functie + Omschrijving;
+                return Functie + " " + Omschrijving;
+            }
+        }
+
+        public string FunctieName
+        {
+            get
+            {
+                return Functie;
             }
         }
 

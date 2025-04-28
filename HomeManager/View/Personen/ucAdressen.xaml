@@ -76,15 +76,7 @@
                     <RowDefinition Height="*" />
                     <RowDefinition Height="50" />
                 </Grid.RowDefinitions>
-
-                <!--<ListBox
-                    Name="UserListView"
-                    Grid.Row="2"
-                    Grid.RowSpan="7"
-                    Grid.Column="1"
-                    Width="250"
-                    ItemsSource="{Binding MijnCollectie}"
-                    SelectedItem="{Binding MijnSelectedItem, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />-->
+                
                 <TextBlock
                     x:Name="tbNaam"
                     Grid.Row="0"
@@ -149,7 +141,7 @@
                     Grid.Column="3"
                     Margin="5"
                     DataContext="{Binding Source={StaticResource VML}, Path=FunctieViewModel}"
-                    DisplayMemberPath="FunctieDisplayName"
+                    DisplayMemberPath="FunctieName"
                     ItemsSource="{Binding MijnCollectie}"
                     SelectedValue="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Grid}}, Path=DataContext.MijnSelectedItem.FunctieID, Mode=TwoWay}"
                     SelectedValuePath="FunctieID" />

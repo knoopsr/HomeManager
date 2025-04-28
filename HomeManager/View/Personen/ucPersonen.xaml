@@ -106,7 +106,7 @@
                         <ListView.ItemTemplate>
                             <DataTemplate>
                                 <Border
-                                    Width="100"
+                                    Width="120"
                                     Height="110"
                                     Margin="3"
                                     Padding="2"

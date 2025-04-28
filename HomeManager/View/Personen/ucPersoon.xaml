@@ -260,7 +260,7 @@
                     Grid.Row="5"
                     Grid.Column="3"
                     Margin="5"
-                    SelectedDate="{Binding MijnSelectedItem.Geboortedatum, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, Converter={StaticResource DateOnlyToDateTimeConverter}}"
+                    SelectedDate="{Binding MijnSelectedItem.Geboortedatum, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource DateOnlyToDateTimeConverter}}"
                     SelectedDateFormat="Short" />
 
 
@@ -277,7 +277,7 @@
                     Grid.Row="6"
                     Grid.Column="3"
                     Margin="5"
-                    IsChecked="{Binding MijnSelectedItem.IsApplicationUser, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnValidationError=true, ValidatesOnExceptions=True}" />
+                    IsChecked="{Binding MijnSelectedItem.IsApplicationUser, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnValidationError=true, ValidatesOnExceptions=True}" />
             </Grid>
         </Border>
     </Grid>

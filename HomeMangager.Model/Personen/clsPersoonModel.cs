@@ -150,7 +150,7 @@ namespace HomeManager.Model.Personen
                     case nameof(Naam):
                         if (string.IsNullOrWhiteSpace(Naam))
                         {
-                            error = "Naam is een verplicht veld.";
+                            error = "De Naam is een verplicht veld.";
                             if (ErrorList.Contains("Naam") == false)
                             {
                                 ErrorList.Add("Naam");
@@ -158,7 +158,7 @@ namespace HomeManager.Model.Personen
                         }
                         else if (Naam.Length > 50)
                         {
-                            error = "Your text is to long!!!";
+                            error = "De text Naam is te lang!";
                             if (ErrorList.Contains("Naam") == false)
                             {
                                 ErrorList.Add("Naam");
@@ -176,7 +176,7 @@ namespace HomeManager.Model.Personen
                     case nameof(Voornaam):
                         if (string.IsNullOrWhiteSpace(Voornaam))
                         {
-                            error = "Voornaam is een verplicht veld.";
+                            error = "De Voornaam is een verplicht veld.";
                             if (ErrorList.Contains("Voornaam") == false)
                             {
                                 ErrorList.Add("Voornaam");
@@ -184,7 +184,7 @@ namespace HomeManager.Model.Personen
                         }
                         else if (Voornaam.Length > 50)
                         {
-                            error = "Voornaam text is to long!!!";
+                            error = "De text Voornaam is te lang!";
                             if (ErrorList.Contains("Voornaam") == false)
                             {
                                 ErrorList.Add("Voornaam");
@@ -234,8 +234,6 @@ namespace HomeManager.Model.Personen
                             }
                         }
                         return error;
-
-
 
                     default:
                         error = null;
