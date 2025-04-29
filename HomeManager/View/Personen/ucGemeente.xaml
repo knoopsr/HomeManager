@@ -70,7 +70,7 @@
                     <RowDefinition Height="50" />
                 </Grid.RowDefinitions>
                 <ListBox
-                    Name="UserListView"
+                    Name="lstListView"
                     Grid.Row="2"
                     Grid.RowSpan="7"
                     Grid.Column="1"
@@ -78,7 +78,6 @@
                     ItemsSource="{Binding MijnCollectie}"
                     SelectedItem="{Binding MijnSelectedItem, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                 <TextBlock
-                    x:Name="Gemeente"
                     Grid.Row="2"
                     Grid.Column="2"
                     Margin="5"
@@ -92,7 +91,6 @@
                     Text="{Binding MijnSelectedItem.Gemeente, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnValidationError=true, ValidatesOnExceptions=True}" />
 
                 <TextBlock
-                    x:Name="PostCode"
                     Grid.Row="3"
                     Grid.Column="2"
                     Margin="5"
@@ -106,7 +104,6 @@
                     Text="{Binding MijnSelectedItem.PostCode, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnValidationError=true, ValidatesOnExceptions=True}" />
 
                 <TextBlock
-                    x:Name="Provincie"
                     Grid.Row="4"
                     Grid.Column="2"
                     Margin="5"

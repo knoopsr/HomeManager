@@ -84,7 +84,6 @@
                     Text="{Binding MijnSelectedPersoonItem, Mode=OneWay}" />
 
                 <TextBlock
-                    x:Name="Straat"
                     Grid.Row="2"
                     Grid.Column="2"
                     Margin="5"
@@ -98,7 +97,6 @@
                     Text="{Binding MijnSelectedItem.Straat, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnValidationError=true, ValidatesOnExceptions=True}" />
 
                 <TextBlock
-                    x:Name="Nummer"
                     Grid.Row="4"
                     Grid.Column="2"
                     Margin="5"
@@ -112,7 +110,6 @@
                     Text="{Binding MijnSelectedItem.Nummer, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnValidationError=true, ValidatesOnExceptions=True}" />
 
                 <TextBlock
-                    x:Name="Gemeente"
                     Grid.Row="5"
                     Grid.Column="2"
                     Margin="5"
@@ -129,7 +126,6 @@
                     SelectedValue="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Grid}}, Path=DataContext.MijnSelectedItem.GemeenteID, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
                     SelectedValuePath="GemeenteID" />
                 <TextBlock
-                    x:Name="Functie"
                     Grid.Row="6"
                     Grid.Column="2"
                     Margin="5"
