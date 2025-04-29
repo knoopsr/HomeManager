@@ -65,16 +65,13 @@
                     <RowDefinition Height="auto" />
                     <RowDefinition Height="auto" />
                     <RowDefinition Height="auto" />
-                    <RowDefinition Height="auto" />
-                    <RowDefinition Height="auto" />
-                    <RowDefinition Height="auto" />
                     <RowDefinition Height="*" />
                     <RowDefinition Height="50" />
                 </Grid.RowDefinitions>
                 <ListBox
-                    Name="UserListView"
+                    Name="lstListView"
                     Grid.Row="2"
-                    Grid.RowSpan="7"
+                    Grid.RowSpan="4"
                     Grid.Column="1"
                     Width="250"
                     ItemsSource="{Binding MijnCollectie}"
@@ -177,7 +174,6 @@
                 </ListBox>
 
                 <TextBlock
-                    x:Name="Land"
                     Grid.Row="2"
                     Grid.Column="2"
                     Text="Land"
@@ -190,7 +186,6 @@
                     Text="{Binding MijnSelectedItem.Land, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnValidationError=true, ValidatesOnExceptions=True}" />
 
                 <TextBlock
-                    x:Name="LandCode"
                     Grid.Row="3"
                     Grid.Column="2"
                     Text="Landcode"
@@ -203,7 +198,6 @@
                     Text="{Binding MijnSelectedItem.LandCode, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnValidationError=true, ValidatesOnExceptions=True}" />
 
                 <TextBlock
-                    x:Name="Vlag"
                     Grid.Row="4"
                     Grid.RowSpan="5"
                     Grid.Column="2"
@@ -228,6 +222,7 @@
                     </Border>
                 </StackPanel>
                 <Button
+                    x:Name="btnUploadPicture"
                     Grid.Row="4"
                     Grid.Column="3"
                     Margin="50,0,0,0"

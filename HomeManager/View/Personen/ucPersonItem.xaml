@@ -38,12 +38,6 @@
                 <Border.Background>
                     <ImageBrush ImageSource="{Binding MijnSelectedItem.Foto, TargetNullValue={x:Null}}" Stretch="UniformToFill" />
                 </Border.Background>
-
-                <!--<Border.Background>
-                -->
-                <!--<ImageBrush ImageSource="\Images\person1.jpg" Stretch="UniformToFill" />-->
-                <!--
-                </Border.Background>-->
             </Border>
 
             <StackPanel
@@ -71,13 +65,7 @@
                 HorizontalAlignment="Right"
                 VerticalAlignment="Top"
                 Orientation="Horizontal">
-                <!--<Button
-                    Command="{Binding cmdNew}"
-                    CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}"
-                    Style="{StaticResource AddPersonImage}"
-                    ToolTip="Add"/>
-                <Button Style="{StaticResource EditPersonImage}" ToolTip="Edit" />
-                <Button Style="{StaticResource DeletePersonImage}" ToolTip="Delete" />-->
+              
 
                 <uc:ucWerkBalk
                     HorizontalAlignment="Right"

@@ -74,13 +74,11 @@
                 </Grid.RowDefinitions>
 
                 <TextBlock
-                    x:Name="tbNaam"
                     Grid.Row="0"
                     Grid.Column="3"
                     Text="{Binding MijnSelectedPersoonItem, Mode=OneWay}" />
 
                 <TextBlock
-                    x:Name="Telefoonnummer"
                     Grid.Row="2"
                     Grid.Column="2"
                     Margin="5"
@@ -95,7 +93,6 @@
                     TextWrapping="Wrap" />
 
                 <TextBlock
-                    x:Name="TelefoonType"
                     Grid.Row="3"
                     Grid.Column="2"
                     Margin="5"

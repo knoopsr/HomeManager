@@ -130,37 +130,6 @@ namespace HomeManager.ViewModel
                     }
                 }
             }
-
-
-            //if (MijnSelectedItem != null)
-            //{
-            //    if (NewStatus)
-            //    {
-            //        if (MijnService.Insert(MijnSelectedItem))
-            //        {
-            //            MijnSelectedItem.IsDirty = false;
-            //            NewStatus = false;
-            //            LoadData();
-            //        }
-            //        else
-            //        {
-            //            MessageBox.Show(MijnSelectedItem.ErrorBoodschap, "Opslaan mislukt");
-            //        }
-            //    }
-            //    else
-            //    {
-            //        if (MijnService.Update(MijnSelectedItem))
-            //        {
-            //            MijnSelectedItem.IsDirty = false;
-            //            NewStatus = false;
-            //            LoadData();
-            //        }
-            //        else
-            //        {
-            //            MessageBox.Show(MijnSelectedItem.ErrorBoodschap, "Opslaan mislukt");
-            //        }
-            //    }
-            //}
         }
 
 
@@ -176,7 +145,7 @@ namespace HomeManager.ViewModel
             cmdClose = new clsCustomCommand(Execute_CloseCommand, CanExecute_CloseCommand);
             cmdCancel = new clsCustomCommand(Execute_CancelCommand, CanExecute_CancelCommand);
 
-            //test
+            //LAYOUT
             BoldCommand = new RelayCommando<RichTextBox>(ToggleBold);
             ItalicCommand = new RelayCommando<RichTextBox>(ToggleItalic);
             BulletCommand = new RelayCommando<RichTextBox>(AddBullets);
@@ -187,7 +156,6 @@ namespace HomeManager.ViewModel
 
             LoadData();
             MijnSelectedItem = MijnService.GetFirst();
-            //MijnSelectedItem.MijnSelectedIndex = 0;
         }
 
 
@@ -306,11 +274,9 @@ namespace HomeManager.ViewModel
                 NotitieID = 0,
                 PersoonID = 0,
                 Onderwerp = string.Empty,
-                Notitie = string.Empty,
-                //Datum = DateTime.Now
+                Notitie = string.Empty
             };
             MijnSelectedItem = ItemToInsert;
-            //MijnSelectedItem = ItemToInsert;
 
             MijnSelectedItem.MyVisibility = (int)Visibility.Hidden;
             NewStatus = true;

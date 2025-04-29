@@ -87,14 +87,6 @@ namespace HomeManager.ViewModel.Personen
         }
         public clsEmailVerzendenViewModel()
         {
-            //VerzendenService = new clsEmailAdressenDataService();
-
-            //MijnVerzenderEmailAdres = VerzendenService.GetByPersoonID(clsLoginModel.Instance.PersoonID);
-
-            //// Initialiseer het commando
-            //SubmitCommand = new RelayCommand(ExecuteSubmit, CanExecuteSubmit);
-            ////Messenger
-            //clsMessenger.Default.Register<clsEmailVerzendenModel>(this, OnUpdateListMessageReceived);
             VerzendenService = new clsEmailAdressenDataService();
             MijnVerzenderEmailAdres = new ObservableCollection<clsEmailAdressenModel>();
 
@@ -261,21 +253,6 @@ namespace HomeManager.ViewModel.Personen
 
         private async void ExecuteSubmit()
         {
-            //// Hier haal je de gegevens op en verzend je de e-mail
-            //clsMailModel mailModel = new clsMailModel
-            //{
-            //    MailFromEmail = MijnSelectedItem.PersoonID.ToString(),
-            //    MailToEmail = Ontvanger,
-            //    Subject = Onderwerp,
-            //    Body = Bericht
-            //};
-
-            //bool emailVerzonden = await clsMail.SendEmail(mailModel);
-
-            //if (!emailVerzonden)
-            //{
-            //    MessageBox.Show("Er is een fout opgetreden bij het versturen van de e-mail.");
-            //}
             if (MijnSelectedItem == null)
             {
                 MessageBox.Show("Selecteer een verzender.");
