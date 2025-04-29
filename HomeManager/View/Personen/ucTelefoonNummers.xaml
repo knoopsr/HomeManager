@@ -9,7 +9,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:uc="clr-namespace:HomeManager.View"
     d:DesignHeight="200"
-    d:DesignWidth="450"
+    d:DesignWidth="750"
     Background="{StaticResource myBackground}"
     mc:Ignorable="d">
     <Grid DataContext="{Binding Source={StaticResource VML}, Path=TelefoonNummersViewModel}">
@@ -59,11 +59,11 @@
             CornerRadius="5">
             <Grid HorizontalAlignment="Center">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="15" />
                     <ColumnDefinition Width="auto" />
                     <ColumnDefinition Width="auto" />
                     <ColumnDefinition Width="150" />
-                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="250" />
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="35" />
