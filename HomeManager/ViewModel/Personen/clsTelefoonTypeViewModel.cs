@@ -129,7 +129,7 @@ namespace HomeManager.ViewModel
             {
                 if (MijnSelectedItem != null && MijnSelectedItem.Error == null && MijnSelectedItem.IsDirty == true)
                 {
-                    if (MessageBox.Show(MijnSelectedItem.ToString().ToUpper() + "is nog niet opgeslagen, wil je opslaan ?", "Opslaan of sluiten?",
+                    if (MessageBox.Show(MijnSelectedItem.ToString().ToUpper() + "  is nog niet opgeslagen, wil je opslaan ?", "Opslaan of sluiten?",
                         MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
                     {
                         OpslaanCommando();

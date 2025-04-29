@@ -56,7 +56,7 @@
             BorderBrush="Black"
             BorderThickness="1"
             CornerRadius="5">
-            <Grid>
+            <Grid HorizontalAlignment="Center">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="200" />
                     <ColumnDefinition Width="auto" />
@@ -137,7 +137,7 @@
                     Grid.Column="3"
                     Margin="5"
                     DataContext="{Binding Source={StaticResource VML}, Path=FunctieViewModel}"
-                    DisplayMemberPath="FunctieDisplayName"
+                    DisplayMemberPath="FunctieName"
                     ItemsSource="{Binding MijnCollectie}"
                     SelectedValue="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Grid}}, Path=DataContext.MijnSelectedItem.FunctieID, Mode=TwoWay}"
                     SelectedValuePath="FunctieID" />

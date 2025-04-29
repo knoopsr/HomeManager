@@ -72,6 +72,14 @@ namespace HomeManager.Model.Personen
             return Functie + " (" + Omschrijving + ")";
         }
 
+        public string FunctieName
+        {
+            get
+            {
+                return Functie;
+            }
+        }
+
 
 
         public string this[string columnName]

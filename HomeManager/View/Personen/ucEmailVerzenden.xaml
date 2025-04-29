@@ -120,8 +120,9 @@
                     Grid.Column="3"
                     Height="250"
                     Margin="5"
+                    AcceptsReturn="True"
                     Text="{Binding Bericht, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-
+              
                 <Button
                     x:Name="btnSubmit"
                     Grid.Row="6"

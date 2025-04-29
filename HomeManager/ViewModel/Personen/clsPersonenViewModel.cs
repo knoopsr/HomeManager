@@ -533,12 +533,12 @@ namespace HomeManager.ViewModel
             _DialogService.ShowDialog(new ucPersoon(), "Persoon");
         }       
 
-        private void Edit_EmailAdressen(object? obj)
+        private void Edit_EmailAdressen(object obj)
         {
             OpenEmailAdressen(obj);
         }
 
-        private void OpenEmailAdressen(object? obj)
+        private void OpenEmailAdressen(object obj)
         {
             if (obj != null)
             {
@@ -570,18 +570,22 @@ namespace HomeManager.ViewModel
 
         private void Edit_SendEmail(object obj)
         {
-            if (obj == null)
+            if (obj != null)
             {
-                clsEmailVerzendenModel sendemail = new clsEmailVerzendenModel()
+                if (obj is clsEmailAdressenModel)
                 {
-                    PersoonID = MijnSelectedItem.PersoonID,
-                    Ontvanger = SelectedEmailAdres.Emailadres
-                };
-                clsMessenger.Default.Send<clsEmailVerzendenModel>(sendemail);
+                    clsEmailAdressenModel email = obj as clsEmailAdressenModel;
+                    clsEmailVerzendenModel sendemail = new clsEmailVerzendenModel()
+                    {
+                        PersoonID = MijnSelectedItem.PersoonID,
+                        Ontvanger = email.Emailadres
+                    };
+                    clsMessenger.Default.Send<clsEmailVerzendenModel>(sendemail);
+                }
             }
             else
             {
-                if (MijnSelectedItem != null)
+                if (SelectedEmailAdres != null)
                 {
                     clsEmailVerzendenModel sendemail = new clsEmailVerzendenModel()
                     {
@@ -589,7 +593,6 @@ namespace HomeManager.ViewModel
                         Ontvanger = SelectedEmailAdres.Emailadres
                     };
                     clsMessenger.Default.Send<clsEmailVerzendenModel>(sendemail);
-
                 }
             }
             _DialogService.ShowDialog(new ucEmailVerzenden(), "Email Verzenden");
