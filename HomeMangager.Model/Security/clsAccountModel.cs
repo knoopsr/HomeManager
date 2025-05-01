@@ -209,5 +209,30 @@ namespace HomeManager.Model.Security
         }
 
 
+        private string _rolNaam;
+        public string RolNaam
+        {
+            get { return _rolNaam; }
+            set
+            {
+                _rolNaam = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private byte[] _foto;
+        public byte[] Foto
+        {
+            get
+            {
+                return _foto;
+            }
+            set
+            {
+                _foto = value;
+                OnPropertyChanged();
+            }
+        }
+
     }
 }
