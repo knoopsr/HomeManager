@@ -350,9 +350,9 @@ namespace HomeManager.ViewModel
 
         private void OnUpdateListMessageReceived(clsUpdateListMessages obj)
         {
-            //refresh
+            // Refresh de gegevens
             LoadData();
-            _DialogService.CloseDialog();
+            _DialogService.CloseDialog(); // Sluit het dialoogvenster als dat nodig is
         }
 
         private void OpslaanCommando()
