@@ -84,6 +84,7 @@ namespace HomeManager.ViewModel
             }
         }
 
+
         private void OpslaanCommando()
         {
             if (MijnSelectedItem != null)
@@ -97,6 +98,7 @@ namespace HomeManager.ViewModel
                         MijnSelectedItem.MyVisibility = (int)Visibility.Visible;
                         NewStatus = false;
                         LoadData();
+                        clsMessenger.Default.Send(new clsUpdateListMessages()); // Bericht verzenden
                     }
                     else
                     {
@@ -111,6 +113,7 @@ namespace HomeManager.ViewModel
                         MijnSelectedItem.MijnSelectedIndex = 0;
                         NewStatus = false;
                         LoadData();
+                        clsMessenger.Default.Send(new clsUpdateListMessages()); // Bericht verzenden
                     }
                     else
                     {
@@ -220,18 +223,16 @@ namespace HomeManager.ViewModel
             {
                 if (MijnSelectedItem != null && MijnSelectedItem.Error == null && MijnSelectedItem.IsDirty == true)
                 {
-                    if (MessageBox.Show(MijnSelectedItem.ToString().ToUpper() + "is nog niet opgeslagen, wil je opslaan ?", "Opslaan of sluiten?",
+                    if (MessageBox.Show(MijnSelectedItem.ToString().ToUpper() + " is nog niet opgeslagen, wil je opslaan?", "Opslaan of sluiten?",
                         MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
                     {
                         OpslaanCommando();
-                        clsHomeVM vm2 = (clsHomeVM)HomeWindow.DataContext;
-                        vm2.CurrentViewModel = null;
                     }
                 }
                 clsHomeVM vm = (clsHomeVM)HomeWindow.DataContext;
                 vm.CurrentViewModel = null;
             }
-            clsMessenger.Default.Send<clsUpdateListMessages>(new clsUpdateListMessages());
+            clsMessenger.Default.Send(new clsUpdateListMessages()); // Bericht verzenden
         }
 
         private bool CanExecute_CancelCommand(object obj)
