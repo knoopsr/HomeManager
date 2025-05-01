@@ -36,7 +36,9 @@ namespace HomeManager.DAL.Security
                     IsNew = (bool)MijnDataReader["IsNew"],
                     IsLock = (bool)MijnDataReader["IsLock"],
                     CountFailLogins = (int)MijnDataReader["CountFailLogins"],
-                    ControlField = MijnDataReader["ControlField"]
+                    ControlField = MijnDataReader["ControlField"],
+                    Foto = MijnDataReader["Foto"] != DBNull.Value ? (byte[])MijnDataReader["Foto"] : null, // Controle op DBNull voordat je het cast
+                    RolNaam = (string)MijnDataReader["RolName"]
                 };
 
                 _mijnCollectie.Add(m);

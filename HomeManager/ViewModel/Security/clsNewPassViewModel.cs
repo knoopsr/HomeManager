@@ -100,6 +100,8 @@ namespace HomeManager.ViewModel
 
         private void OnUpdateNewPassReceived(clsLoginModel model)
         {
+            ConfirmPass = string.Empty;
+            NewPass = string.Empty;
             _loginModel = model;
         }
     }
