@@ -362,7 +362,7 @@
                 <RowDefinition Height="*" />
 
             </Grid.RowDefinitions>
-            <V:ucFavorieteApplicatie
+            <V:ucFavorieteApplicatie1
                 Grid.Row="0"
                 Grid.Column="0"
                 Margin="5"

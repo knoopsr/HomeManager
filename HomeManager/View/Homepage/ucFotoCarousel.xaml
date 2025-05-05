@@ -11,7 +11,7 @@
     <Grid DataContext="{Binding Source={StaticResource VML}, Path=FotoCarouselViewModel}">
         <Grid.RowDefinitions>
             <RowDefinition Height="auto" />
-            <RowDefinition Height="250" />
+            <RowDefinition Height="*" />
             <RowDefinition Height="auto" />
         </Grid.RowDefinitions>
         <TextBlock
