@@ -94,9 +94,6 @@ namespace HomeManager.Model.Personen
             }
         }
 
-
-
-
         private DateTime _createdOn;
         public DateTime CreatedOn
         {
