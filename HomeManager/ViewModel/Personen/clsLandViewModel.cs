@@ -178,16 +178,21 @@ namespace HomeManager.ViewModel
 
         private bool CanExecute_Save_Command(object? obj)
         {
-            if (MijnSelectedItem != null &&
+            clsPermissionChecker permissionChecker = new();
+            if (permissionChecker.HasPermission("152"))
+            {
+                if (MijnSelectedItem != null &&
                 MijnSelectedItem.Error == null &&
                 MijnSelectedItem.IsDirty == true)
-            {
-                return true;
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
             }
-            else
-            {
-                return false;
-            }
+            return false;
         }
 
         private void Execute_Delete_Command(object? obj)
@@ -214,18 +219,23 @@ namespace HomeManager.ViewModel
 
         private bool CanExecute_Delete_Command(object? obj)
         {
-            if (MijnSelectedItem != null)
+            clsPermissionChecker permissionChecker = new();
+            if (permissionChecker.HasPermission("153"))
             {
-                if (NewStatus)
+                if (MijnSelectedItem != null)
+                {
+                    if (NewStatus)
+                    {
+                        return false;
+                    }
+                    return true;
+                }
+                else
                 {
                     return false;
                 }
-                return true;
             }
-            else
-            {
-                return false;
-            }
+            return false;
         }
 
         private void Execute_New_Command(object? obj)
@@ -245,7 +255,12 @@ namespace HomeManager.ViewModel
 
         private bool CanExecute_New_Command(object? obj)
         {
-            return !NewStatus;
+            clsPermissionChecker permissionChecker = new();
+            if (permissionChecker.HasPermission("151"))
+            {
+                return !NewStatus;
+            }
+            return false;
         }
 
         private void Execute_Cancel_Command(object? obj)
@@ -293,10 +308,11 @@ namespace HomeManager.ViewModel
             return true;
         }
 
-        private bool CanExecute_SelectionChangedCommand(object obj)
-        {
-            return true;
-        }
+        //DIT MAG WEG DENK IK
+        //private bool CanExecute_SelectionChangedCommand(object obj)
+        //{
+        //    return true;
+        //}
     }
 }
 

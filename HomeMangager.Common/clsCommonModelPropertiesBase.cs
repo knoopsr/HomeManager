@@ -14,10 +14,8 @@ namespace HomeManager.Common
             get { return _isDirty; }
             set
             {
-
                 _isDirty = value;
                 OnPropertyChanged();
-
             }
         }
 
@@ -65,24 +63,24 @@ namespace HomeManager.Common
             }
         }
 
-        private bool _IsFocused = false;
+        private bool _isFocused = false;
         public bool IsFocused
         {
-            get { return _IsFocused; }
+            get { return _isFocused; }
             set
             {
-                _IsFocused = value;
+                _isFocused = value;
                 OnPropertyChanged();
             }
         }
 
-        private bool _IsFocusedAfterNew = false;
+        private bool _isFocusedAfterNew = false;
         public bool IsFocusedAfterNew
         {
-            get { return _IsFocusedAfterNew; }
+            get { return _isFocusedAfterNew; }
             set
             {
-                _IsFocusedAfterNew = value;
+                _isFocusedAfterNew = value;
                 OnPropertyChanged();
             }
         }

@@ -22,9 +22,7 @@ namespace HomeManager.ViewModel
     {
         clsTransactieDataService MijnService;
         clsBijlageDataService BijlageService;
-
-
-
+        private clsPermissionChecker _permissionChecker = new();
         private clsDialogService _DialogService;
 
 
@@ -306,7 +304,11 @@ namespace HomeManager.ViewModel
         }
         private bool CanExecute_NewCommand(object obj)
         {
-            return !NewStatus;
+            if (_permissionChecker.HasPermission("411"))
+            {
+                return !NewStatus;
+            }
+            return false;
         }
 
         private void Execute_NewCommand(object obj)
@@ -333,19 +335,22 @@ namespace HomeManager.ViewModel
         }
         private bool CanExecute_DeleteCommand(object obj)
         {
-            if (MijnSelectedItem != null)
-
+            if (_permissionChecker.HasPermission("413"))
             {
-                if (NewStatus)
+                if (MijnSelectedItem != null)
+                {
+                    if (NewStatus)
+                    {
+                        return false;
+                    }
+                    return true;
+                }
+                else
                 {
                     return false;
                 }
-                return true;
             }
-            else
-            {
-                return false;
-            }
+            return false;
         }
 
         private void Execute_DeleteCommand(object obj)
@@ -370,16 +375,20 @@ namespace HomeManager.ViewModel
 
         private bool CanExecute_SaveCommand(object obj)
         {
-            if (MijnSelectedItem != null &&
-            MijnSelectedItem.Error == null &&
-            MijnSelectedItem.IsDirty == true)
+            if (_permissionChecker.HasPermission("412"))
             {
-                return true;
+                if (MijnSelectedItem != null &&
+                MijnSelectedItem.Error == null &&
+                MijnSelectedItem.IsDirty == true)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
             }
-            else
-            {
-                return false;
-            }
+            return false;
         }
 
         private void Execute_SaveCommand(object obj)
@@ -403,19 +412,17 @@ namespace HomeManager.ViewModel
 
         private bool CanExecute_EditBegunstigde(object obj)
         {
-            return true;
+            return _permissionChecker.HasPermission("414");
         }
 
         private void EditBegunstigde(object obj)
         {
             _DialogService.ShowDialog(new ucBegunstigden(), "Begunstigde");
-
         }
-
 
         private bool CanExecute_EditCategorie(object obj)
         {
-            return true;
+            return _permissionChecker.HasPermission("415");
         }
 
         private void EditCategorie(object obj)

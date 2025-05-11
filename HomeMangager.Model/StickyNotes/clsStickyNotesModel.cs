@@ -6,6 +6,10 @@ using System.Drawing;
 
 namespace HomeManager.Model.StickyNotes
 {
+    /// <summary>
+    /// Represents a sticky note, including its content, appearance, and metadata.
+    /// Implements validation and change tracking.
+    /// </summary>
     public class clsStickyNotesModel : clsCommonModelPropertiesBase, IDataErrorInfo
     {
         #region FIELDS
@@ -20,6 +24,10 @@ namespace HomeManager.Model.StickyNotes
         private int _position;
         private double _width = 225; // Default smaller size
         private double _height = 175;
+
+        /// <summary>
+        /// A predefined collection of available brushes for sticky note styling.
+        /// </summary>
         private static readonly ObservableCollection<string> _brushCollection = new()
         {
             "titleBrush",
@@ -36,15 +44,9 @@ namespace HomeManager.Model.StickyNotes
         #endregion
 
         #region PROPERTIES
-        /*
-         * Width + Heigth zijn VIEW-gebonden componenten en horen normaal niet thuis in de model.
-         * Ze staan omwille van de manier waarop WPF ListViewItems worden gerenderd / weergegeven.
-         * Indien je dit doet op de "perfecte" MVVM manier,
-         * met een Trigger / DataTrigger op de style die dan <Trigger Property="IsSelected" value="False"> de with en height veranderd
-         * dan wordt de note weergegeven in de helft van de grootte bij he initializeren van de app. Een bug dus lijkt me.
-         * Los daarvan worden ook alle background ingekort waardoor je de mooie DarkSlateGray Background met Opacity niet tegoei kan weergeven.
-        */
-
+        /// <summary>
+        /// Gets or sets the note's position index in a collection.
+        /// </summary>
         public int Position
         {
             get => _position;
@@ -58,6 +60,9 @@ namespace HomeManager.Model.StickyNotes
             }
         }
 
+        /// <summary>
+        /// Gets or sets the note's width.
+        /// </summary>
         public double Width
         {
             get => _width;
@@ -71,6 +76,9 @@ namespace HomeManager.Model.StickyNotes
             }
         }
 
+        /// <summary>
+        /// Gets or sets the note's height.
+        /// </summary>
         public double Height
         {
             get => _height;
@@ -84,6 +92,9 @@ namespace HomeManager.Model.StickyNotes
             }
         }
 
+        /// <summary>
+        /// Gets or sets the selected brush (style) for this note.
+        /// </summary>
         public string SelectedBrush
         {
             get => _selectedBrush;
@@ -97,6 +108,9 @@ namespace HomeManager.Model.StickyNotes
             }
         }
 
+        /// <summary>
+        /// Gets or sets the creation or last modification date of the note.
+        /// </summary>
         public DateTime Date
         {
             get => _date;
@@ -107,6 +121,9 @@ namespace HomeManager.Model.StickyNotes
             }
         }
 
+        /// <summary>
+        /// Gets or sets the ID of the user who owns the note.
+        /// </summary>
         public int UserID
         {
             get => _userID;
@@ -117,6 +134,9 @@ namespace HomeManager.Model.StickyNotes
             }
         }
 
+        /// <summary>
+        /// Gets or sets the unique identifier of the sticky note.
+        /// </summary>
         public int StickyNoteID
         {
             get => _stickyNoteID;
@@ -127,6 +147,9 @@ namespace HomeManager.Model.StickyNotes
             }
         }
 
+        /// <summary>
+        /// Gets or sets the title of the sticky note.
+        /// </summary>
         public string Title
         {
             get => _title;
@@ -144,6 +167,9 @@ namespace HomeManager.Model.StickyNotes
             }
         }
 
+        /// <summary>
+        /// Gets or sets the main (RichTextBox) text content of the note.
+        /// </summary>
         public string Content
         {
             get => _content;
@@ -161,6 +187,9 @@ namespace HomeManager.Model.StickyNotes
             }
         }
 
+        /// <summary>
+        /// Gets or sets the file name of the associated thumbnail image.
+        /// </summary>
         public string ThumbnailName
         {
             get => _thumbnailName;
@@ -178,6 +207,9 @@ namespace HomeManager.Model.StickyNotes
             }
         }
 
+        /// <summary>
+        /// Gets or sets the image thumbnail as a byte array.
+        /// </summary>
         public byte[] Thumbnail
         {
             get => _thumbnail;
@@ -195,6 +227,9 @@ namespace HomeManager.Model.StickyNotes
             }
         }
 
+        /// <summary>
+        /// Gets the available brush styles for note appearance customization.
+        /// </summary>
         public ObservableCollection<string> BrushCollection
         {
             get => _brushCollection;
@@ -202,11 +237,18 @@ namespace HomeManager.Model.StickyNotes
         #endregion
 
         #region METHODS
+        /// <summary>
+        /// Returns a string representation of the note with its title and content.
+        /// </summary>
         public override string ToString()
         {
             return $"{Title}, {Content}";
         }
 
+        /// <summary>
+        /// Provides property-level validation errors based on the column name.
+        /// </summary>
+        /// <param name="columnName">The name of the property to validate.</param>
         public string this[string columnName]
         {
             get

@@ -135,11 +135,11 @@ namespace HomeManager.ViewModel
 
             clsMessenger.Default.Register<clsPersoonModel>(this, OnNewPersonenReceive);
 
-            
+
 
             FavorietVensterVM = new clsFavorieteVensterViewModel
             {
-                OpenViewModelAction = vm => CurrentViewModel = vm
+                OpenVensterAction = OnNav // GEWOON DE BESTAANDE OnNav gebruiken
             };
 
 

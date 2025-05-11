@@ -136,7 +136,7 @@ namespace HomeManager.ViewModel
             ClearSearchCommand = new RelayCommand(ClearSearch);
 
 
-            clsMessenger.Default.Register<clsBegunstigdenModel>(this, OnBegunstigdenReceived);
+            clsMessenger.Default.Register<clsBegunstigdenModel>(this, OnBegunstigdenReceived );
 
             LoadData();
             MijnSelectedItem = MijnService.GetFirst();

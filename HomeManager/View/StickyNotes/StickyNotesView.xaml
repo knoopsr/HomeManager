@@ -65,9 +65,6 @@
 
         <!--  Create and remove buttons  -->
         <Button
-            Width="75"
-            Height="30"
-            Margin="2.5"
             HorizontalAlignment="Left"
             Command="{Binding CreateNoteCommand}"
             CommandParameter="{Binding}"
@@ -141,6 +138,7 @@
                                 HorizontalAlignment="Left"
                                 VerticalAlignment="Center"
                                 Background="Transparent"
+                                BorderBrush="Transparent"
                                 Command="{Binding Source={StaticResource VML}, Path=StickyNotesViewModel.HandleImageCommand}"
                                 CommandParameter="{Binding}"
                                 Style="{StaticResource StickyNoteButton}"
@@ -282,7 +280,7 @@
             Margin="2.5"
             HorizontalAlignment="Left"
             Click="CloseOverlay"
-            Content="&lt; Exit"
+            Content="⬅️ Exit"
             Style="{StaticResource StickyNoteExitButton}" />
     </Grid>
 </Window>

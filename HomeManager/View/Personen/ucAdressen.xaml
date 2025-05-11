@@ -56,7 +56,7 @@
             BorderBrush="Black"
             BorderThickness="1"
             CornerRadius="5">
-            <Grid>
+            <Grid HorizontalAlignment="Center">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="200" />
                     <ColumnDefinition Width="auto" />
@@ -77,14 +77,6 @@
                     <RowDefinition Height="50" />
                 </Grid.RowDefinitions>
 
-                <!--<ListBox
-                    Name="UserListView"
-                    Grid.Row="2"
-                    Grid.RowSpan="7"
-                    Grid.Column="1"
-                    Width="250"
-                    ItemsSource="{Binding MijnCollectie}"
-                    SelectedItem="{Binding MijnSelectedItem, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />-->
                 <TextBlock
                     x:Name="tbNaam"
                     Grid.Row="0"
@@ -92,7 +84,6 @@
                     Text="{Binding MijnSelectedPersoonItem, Mode=OneWay}" />
 
                 <TextBlock
-                    x:Name="Straat"
                     Grid.Row="2"
                     Grid.Column="2"
                     Margin="5"
@@ -106,7 +97,6 @@
                     Text="{Binding MijnSelectedItem.Straat, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnValidationError=true, ValidatesOnExceptions=True}" />
 
                 <TextBlock
-                    x:Name="Nummer"
                     Grid.Row="4"
                     Grid.Column="2"
                     Margin="5"
@@ -120,7 +110,6 @@
                     Text="{Binding MijnSelectedItem.Nummer, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnValidationError=true, ValidatesOnExceptions=True}" />
 
                 <TextBlock
-                    x:Name="Gemeente"
                     Grid.Row="5"
                     Grid.Column="2"
                     Margin="5"
@@ -137,7 +126,6 @@
                     SelectedValue="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Grid}}, Path=DataContext.MijnSelectedItem.GemeenteID, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
                     SelectedValuePath="GemeenteID" />
                 <TextBlock
-                    x:Name="Functie"
                     Grid.Row="6"
                     Grid.Column="2"
                     Margin="5"
@@ -149,7 +137,7 @@
                     Grid.Column="3"
                     Margin="5"
                     DataContext="{Binding Source={StaticResource VML}, Path=FunctieViewModel}"
-                    DisplayMemberPath="FunctieDisplayName"
+                    DisplayMemberPath="FunctieName"
                     ItemsSource="{Binding MijnCollectie}"
                     SelectedValue="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Grid}}, Path=DataContext.MijnSelectedItem.FunctieID, Mode=TwoWay}"
                     SelectedValuePath="FunctieID" />

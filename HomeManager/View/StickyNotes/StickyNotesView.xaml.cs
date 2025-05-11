@@ -20,12 +20,23 @@ using HomeManager.Model.StickyNotes;
 namespace HomeManager.View.StickyNotes
 {
     /// <summary>
-    /// Interaction logic for StickyNotesView.xaml
+    /// Interaction logic for the StickyNotesView. This window allows users to manage and drag sticky notes within the application.
     /// </summary>
     public partial class StickyNotesView : Window
     {
+        /// <summary>
+        /// The main window of the application.
+        /// </summary>
         MainWindow _mainWindow;
+
+        /// <summary>
+        /// The starting point for mouse drag operations.
+        /// </summary>
         private Point _startPoint;
+
+        /// <summary>
+        /// The item being dragged in the list.
+        /// </summary>
         private object _draggedItem;
 
         public StickyNotesView()
@@ -33,16 +44,21 @@ namespace HomeManager.View.StickyNotes
             InitializeComponent();
         }
 
+        /// <summary>
+        /// Closes the overlay window when invoked.
+        /// </summary>
+        /// <param name="sender">The sender of the event.</param>
+        /// <param name="e">The event arguments.</param>
         private void CloseOverlay(object sender, RoutedEventArgs e)
         {
-            Close();
+            if (this != null) Close();
         }
 
         /// <summary>
-        /// Dragging over the ITEM CONTAINER, seems to do nothing special
+        /// Handles the drag-over event for the item container. This method sets the drag effect to "Move" during a drag operation.
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
+        /// <param name="sender">The sender of the event.</param>
+        /// <param name="e">The drag event arguments.</param>
         private void ListViewItem_DragOver(object sender, DragEventArgs e)
         {
             e.Effects = DragDropEffects.Move;
@@ -50,10 +66,11 @@ namespace HomeManager.View.StickyNotes
         }
 
         /// <summary>
-        /// Dropping into the listView
+        /// Handles the drop event when an item is dropped into the <see cref="StickyNotesListView"/>. The method reorders the sticky notes
+        /// and updates their positions accordingly.
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
+        /// <param name="sender">The sender of the event.</param>
+        /// <param name="e">The drag event arguments.</param>
         private void StickyNotesListView_Drop(object sender, DragEventArgs e)
         {
             if (_draggedItem == null) return;
@@ -71,6 +88,7 @@ namespace HomeManager.View.StickyNotes
             {
                 collection.Move(oldIndex, newIndex);
 
+                // Update the position property for each item after the move
                 for (int i = 0; i < collection.Count; i++)
                 {
                     collection[i].Position = i;
@@ -81,10 +99,11 @@ namespace HomeManager.View.StickyNotes
         }
 
         /// <summary>
-        /// Move the listViewItem
+        /// Handles the mouse move event for list view items. It detects whether the user has moved the mouse far enough to start a drag operation.
+        /// If the drag threshold is met, the drag operation is initiated.
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
+        /// <param name="sender">The sender of the event.</param>
+        /// <param name="e">The mouse event arguments.</param>
         private void ListViewItem_MouseMove(object sender, MouseEventArgs e)
         {
             if (e.LeftButton == MouseButtonState.Pressed)
@@ -111,10 +130,10 @@ namespace HomeManager.View.StickyNotes
         }
 
         /// <summary>
-        /// Important to make the usercontrol "usable"
+        /// Captures the starting point of a mouse click, which is used to determine if the user has moved the mouse far enough to begin a drag operation.
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
+        /// <param name="sender">The sender of the event.</param>
+        /// <param name="e">The mouse button event arguments.</param>
         private void ListViewItem_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             _startPoint = e.GetPosition(StickyNotesListView); // Capture mouse position relative to ListView 

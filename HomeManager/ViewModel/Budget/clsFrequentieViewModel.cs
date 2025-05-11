@@ -21,7 +21,7 @@ namespace HomeManager.ViewModel
 {
     public class clsFrequentieViewModel : clsCommonModelPropertiesBase
     {
-        
+        private clsPermissionChecker _permissionChecker = new();
         clsFrequentieDataService MijnService;
 
         
@@ -205,7 +205,11 @@ namespace HomeManager.ViewModel
         }
         private bool CanExecute_NewCommand(object obj)
         {
-            return !NewStatus;
+            if (_permissionChecker.HasPermission("441"))
+            {
+                return !NewStatus;
+            }
+            return false;
         }
 
         private void Execute_NewCommand(object obj)
@@ -214,7 +218,7 @@ namespace HomeManager.ViewModel
             {
                 FrequentieID = 0,
                 Frequentie = string.Empty,
-                AantalDagen = 0
+                AantalDagen = null
             };
 
             MijnSelectedItem = ItemToInsert;
@@ -227,19 +231,22 @@ namespace HomeManager.ViewModel
         }
         private bool CanExecute_DeleteCommand(object obj)
         {
-            if (MijnSelectedItem != null)
-
+            if (_permissionChecker.HasPermission("443"))
             {
-                if (NewStatus)
+                if (MijnSelectedItem != null)
+                {
+                    if (NewStatus)
+                    {
+                        return false;
+                    }
+                    return true;
+                }
+                else
                 {
                     return false;
                 }
-                return true;
             }
-            else
-            {
-                return false;
-            }
+            return false;
         }
 
         private void Execute_DeleteCommand(object obj)
@@ -266,16 +273,20 @@ namespace HomeManager.ViewModel
 
         private bool CanExecute_SaveCommand(object obj)
         {
-            if (MijnSelectedItem != null &&
-            MijnSelectedItem.Error == null &&
-            MijnSelectedItem.IsDirty == true)
+            if (_permissionChecker.HasPermission("442"))
             {
-                return true;
+                if (MijnSelectedItem != null &&
+                MijnSelectedItem.Error == null &&
+                MijnSelectedItem.IsDirty == true)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
             }
-            else
-            {
-                return false;
-            }
+            return false;
         }
 
         private void Execute_SaveCommand(object obj)
