@@ -168,6 +168,7 @@ namespace HomeManager.ViewModel
 
         }
 
+       
         private void SendEmails(object? obj)
         {
             if (obj.ToString == null)
