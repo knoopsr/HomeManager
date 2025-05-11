@@ -186,17 +186,86 @@ namespace HomeManager.ViewModel
             _DialogService.ShowDialog(new HomeManager.View.Personen.ucEmailVerzenden(), "email verzenden");
         }
 
+        //deze verwijderd layout
+        //private void FindHyperlinks(object? obj)
+        //{
+        //    if (obj is RichTextBox rtb)
+        //    {
+        //        FlowDocument document = rtb.Document;
+
+        //        foreach (var block in document.Blocks.ToList()) // Make a copy since we might replace blocks
+        //        {
+        //            if (block is Paragraph paragraph)
+        //            {
+        //                var inlines = paragraph.Inlines.ToList(); // Again, work on a copy
+        //                paragraph.Inlines.Clear();
+
+        //                foreach (var inline in inlines)
+        //                {
+        //                    if (inline is Run run && !(run.Parent is Hyperlink))
+        //                    {
+        //                        string text = run.Text;
+        //                        var regex = new Regex(@"https:\/\/[^\s]+");
+        //                        int lastIndex = 0;
+
+        //                        foreach (Match match in regex.Matches(text))
+        //                        {
+        //                            // Add text before the match
+        //                            if (match.Index > lastIndex)
+        //                            {
+        //                                string before = text.Substring(lastIndex, match.Index - lastIndex);
+        //                                paragraph.Inlines.Add(new Run(before));
+        //                            }
+
+        //                            // Add hyperlink
+        //                            string url = match.Value;
+        //                            var link = new Hyperlink(new Run(url))
+        //                            {
+        //                                NavigateUri = new Uri(url),
+        //                                Cursor = Cursors.Hand
+        //                            };
+        //                            link.RequestNavigate += (s, e) =>
+        //                            {
+        //                                System.Diagnostics.Process.Start(new ProcessStartInfo(e.Uri.AbsoluteUri)
+        //                                {
+        //                                    UseShellExecute = true
+        //                                });
+        //                                e.Handled = true;
+        //                            };
+        //                            paragraph.Inlines.Add(link);
+
+        //                            lastIndex = match.Index + match.Length;
+        //                        }
+
+        //                        // Add remaining text
+        //                        if (lastIndex < text.Length)
+        //                        {
+        //                            string after = text.Substring(lastIndex);
+        //                            paragraph.Inlines.Add(new Run(after));
+        //                        }
+        //                    }
+        //                    else
+        //                    {
+        //                        paragraph.Inlines.Add(inline); // Keep non-Run inlines untouched
+        //                    }
+        //                }
+        //            }
+        //        }
+        //    }
+        //}
+
         private void FindHyperlinks(object? obj)
         {
             if (obj is RichTextBox rtb)
             {
                 FlowDocument document = rtb.Document;
-                
-                foreach (var block in document.Blocks.ToList()) // Make a copy since we might replace blocks
+                var regex = new Regex(@"https:\/\/[^\s]+");
+
+                foreach (var block in document.Blocks.ToList())
                 {
                     if (block is Paragraph paragraph)
                     {
-                        var inlines = paragraph.Inlines.ToList(); // Again, work on a copy
+                        var inlines = paragraph.Inlines.ToList();
                         paragraph.Inlines.Clear();
 
                         foreach (var inline in inlines)
@@ -204,31 +273,27 @@ namespace HomeManager.ViewModel
                             if (inline is Run run && !(run.Parent is Hyperlink))
                             {
                                 string text = run.Text;
-                                var regex = new Regex(@"https:\/\/[^\s]+");
                                 int lastIndex = 0;
 
                                 foreach (Match match in regex.Matches(text))
                                 {
-                                    // Add text before the match
+                                    // Text before match
                                     if (match.Index > lastIndex)
                                     {
                                         string before = text.Substring(lastIndex, match.Index - lastIndex);
-                                        paragraph.Inlines.Add(new Run(before));
+                                        paragraph.Inlines.Add(CloneRunWithText(run, before));
                                     }
 
-                                    // Add hyperlink
+                                    // Matched hyperlink
                                     string url = match.Value;
-                                    var link = new Hyperlink(new Run(url))
+                                    var link = new Hyperlink(CloneRunWithText(run, url))
                                     {
                                         NavigateUri = new Uri(url),
                                         Cursor = Cursors.Hand
                                     };
                                     link.RequestNavigate += (s, e) =>
                                     {
-                                        System.Diagnostics.Process.Start(new ProcessStartInfo(e.Uri.AbsoluteUri)
-                                        {
-                                            UseShellExecute = true
-                                        });
+                                        Process.Start(new ProcessStartInfo(e.Uri.AbsoluteUri) { UseShellExecute = true });
                                         e.Handled = true;
                                     };
                                     paragraph.Inlines.Add(link);
@@ -236,16 +301,16 @@ namespace HomeManager.ViewModel
                                     lastIndex = match.Index + match.Length;
                                 }
 
-                                // Add remaining text
+                                // Remaining text
                                 if (lastIndex < text.Length)
                                 {
                                     string after = text.Substring(lastIndex);
-                                    paragraph.Inlines.Add(new Run(after));
+                                    paragraph.Inlines.Add(CloneRunWithText(run, after));
                                 }
                             }
                             else
                             {
-                                paragraph.Inlines.Add(inline); // Keep non-Run inlines untouched
+                                paragraph.Inlines.Add(inline); // Preserve other inlines as-is
                             }
                         }
                     }
@@ -253,12 +318,97 @@ namespace HomeManager.ViewModel
             }
         }
 
+        private Run CloneRunWithText(Run original, string newText)
+        {
+            var newRun = new Run(newText)
+            {
+                FontWeight = original.FontWeight,
+                FontStyle = original.FontStyle,
+                FontFamily = original.FontFamily,
+                FontSize = original.FontSize,
+                Foreground = original.Foreground,
+                Background = original.Background,
+                TextDecorations = original.TextDecorations?.Clone()
+            };
+
+            return newRun;
+        }
+
+
+        //deze verwijderd layout
+        //private void FindEmailLinksWithCommand(object? obj)
+        //{
+        //    if (obj is RichTextBox rtb)
+        //    {
+        //        FlowDocument document = rtb.Document;
+        //        bool isValidEmail = false;
+
+        //        foreach (var block in document.Blocks.ToList())
+        //        {
+        //            if (block is Paragraph paragraph)
+        //            {
+        //                var inlines = paragraph.Inlines.ToList();
+        //                paragraph.Inlines.Clear();
+
+        //                foreach (var inline in inlines)
+        //                {
+        //                    if (inline is Run run && !(run.Parent is Hyperlink))
+        //                    {
+        //                        string text = run.Text;
+        //                        var regex = new Regex(@"\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}\b", RegexOptions.IgnoreCase);
+        //                        int lastIndex = 0;
+
+        //                        foreach (Match match in regex.Matches(text))
+        //                        {
+        //                            // Add text before match
+        //                            if (match.Index > lastIndex)
+        //                            {
+        //                                string before = text.Substring(lastIndex, match.Index - lastIndex);
+        //                                paragraph.Inlines.Add(new Run(before));
+        //                            }
+
+        //                            // Create hyperlink with command binding
+        //                            string email = match.Value;
+
+        //                            isValidEmail = mijnEmailAdressen.Any(x => x.Emailadres == email);
+
+        //                            if (isValidEmail == true)
+        //                            {
+        //                                var link = new Hyperlink(new Run(email))
+        //                                {
+        //                                    //test
+        //                                    Command = new clsRelayCommand(_newCommand => SendEmails(email)), //this is not the right command
+        //                                    Cursor = Cursors.Hand
+        //                                };
+
+        //                                paragraph.Inlines.Add(link);
+
+        //                                lastIndex = match.Index + match.Length;
+        //                            }
+        //                        }
+
+        //                        // Add remaining text
+        //                        if (lastIndex < text.Length)
+        //                        {
+        //                            string after = text.Substring(lastIndex);
+        //                            paragraph.Inlines.Add(new Run(after));
+        //                        }
+        //                    }
+        //                    else
+        //                    {
+        //                        paragraph.Inlines.Add(inline); // Keep other inlines
+        //                    }
+        //                }
+        //            }
+        //        }
+        //    }
+        //}
+
         private void FindEmailLinksWithCommand(object? obj)
         {
             if (obj is RichTextBox rtb)
             {
                 FlowDocument document = rtb.Document;
-                bool isValidEmail = false;
 
                 foreach (var block in document.Blocks.ToList())
                 {
@@ -277,43 +427,40 @@ namespace HomeManager.ViewModel
 
                                 foreach (Match match in regex.Matches(text))
                                 {
+                                    string email = match.Value;
+                                    bool isValidEmail = mijnEmailAdressen.Any(x => x.Emailadres == email);
+
+                                    if (!isValidEmail)
+                                        continue;
+
                                     // Add text before match
                                     if (match.Index > lastIndex)
                                     {
                                         string before = text.Substring(lastIndex, match.Index - lastIndex);
-                                        paragraph.Inlines.Add(new Run(before));
+                                        paragraph.Inlines.Add(CloneRunWithText(run, before));
                                     }
 
-                                    // Create hyperlink with command binding
-                                    string email = match.Value;
-
-                                    isValidEmail = mijnEmailAdressen.Any(x => x.Emailadres == email);
-
-                                    if (isValidEmail == true)
+                                    // Add email hyperlink with command
+                                    var link = new Hyperlink(CloneRunWithText(run, email))
                                     {
-                                        var link = new Hyperlink(new Run(email))
-                                        {
-                                            //test
-                                            Command = new clsRelayCommand(_newCommand => SendEmails(email)), //this is not the right command
-                                            Cursor = Cursors.Hand
-                                        };
+                                        Cursor = Cursors.Hand,
+                                        Command = new clsRelayCommand(_ => SendEmails(email))
+                                    };
 
-                                        paragraph.Inlines.Add(link);
-
-                                        lastIndex = match.Index + match.Length;
-                                    }
+                                    paragraph.Inlines.Add(link);
+                                    lastIndex = match.Index + match.Length;
                                 }
 
-                                // Add remaining text
+                                // Add remaining text after last match
                                 if (lastIndex < text.Length)
                                 {
                                     string after = text.Substring(lastIndex);
-                                    paragraph.Inlines.Add(new Run(after));
+                                    paragraph.Inlines.Add(CloneRunWithText(run, after));
                                 }
                             }
                             else
                             {
-                                paragraph.Inlines.Add(inline); // Keep other inlines
+                                paragraph.Inlines.Add(inline); // Preserve non-Run inlines
                             }
                         }
                     }
@@ -322,7 +469,6 @@ namespace HomeManager.ViewModel
         }
 
 
-       
 
         private bool CanExecute_Test(object? obj)
         {
