@@ -31,12 +31,15 @@ namespace HomeManager.Behaviors
         {
             base.OnAttached();
             AssociatedObject.SelectionChanged += OnSelectionChanged;
+            AssociatedObject.Loaded += OnLoaded; 
+            
         }
 
         protected override void OnDetaching()
         {
             base.OnDetaching();
             AssociatedObject.SelectionChanged -= OnSelectionChanged;
+            AssociatedObject.Loaded -= OnLoaded;
         }
 
         private void OnSelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -62,6 +65,11 @@ namespace HomeManager.Behaviors
                     }
                 }
             }
+        }
+
+        private void OnLoaded(object sender, RoutedEventArgs e)
+        {
+            OnSelectionChanged(sender, null);
         }
     }
 }
