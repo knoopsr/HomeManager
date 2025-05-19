@@ -26,12 +26,15 @@ namespace HomeManager.ViewModel.Homepage
         public ObservableCollection<clsFotoCarouselModel> FotoCollectie { get; set; } = new ObservableCollection<clsFotoCarouselModel>();
 
         public ICommand cmdSave { get; }
+        public ICommand ToonFotoFullScreen { get; set; }
 
         public clsFotoCarouselViewModel()
         {
             _dataService = new clsFotoCarouselDataService();
+            
 
             cmdSave = new clsCustomCommand(Execute_SaveCommand, CanExecute_SaveCommand);
+            ToonFotoFullScreen = new clsCustomCommand(Execute_ToonFotoFullScreen, o => CurrentPhoto != null);
 
             _photoTimer = new DispatcherTimer
             {
@@ -39,7 +42,9 @@ namespace HomeManager.ViewModel.Homepage
             };
             _photoTimer.Tick += OnTimerTick;
 
-            LoadPhotos(); 
+            LoadPhotos();
+            if (System.ComponentModel.DesignerProperties.GetIsInDesignMode(new System.Windows.DependencyObject()))
+                return;
         }
 
         private string _selectedFolder;
@@ -64,7 +69,29 @@ namespace HomeManager.ViewModel.Homepage
             }
         }
 
+        private void Execute_ToonFotoFullScreen(object parameter)
+        {
+            if (CurrentPhoto == null || string.IsNullOrWhiteSpace(CurrentPhoto.FolderPath))
+                return;
 
+            var fullscreenWindow = new System.Windows.Window
+            {
+                WindowStyle = System.Windows.WindowStyle.None,
+                WindowState = System.Windows.WindowState.Maximized,
+                ResizeMode = System.Windows.ResizeMode.NoResize,
+                Background = System.Windows.Media.Brushes.Black,
+                Topmost = true,
+                Content = new System.Windows.Controls.Image
+                {
+                    Source = new System.Windows.Media.Imaging.BitmapImage(new Uri(CurrentPhoto.FolderPath)),
+                    Stretch = System.Windows.Media.Stretch.Uniform,
+                    Cursor = System.Windows.Input.Cursors.Hand
+                }
+            };
+
+            fullscreenWindow.MouseDown += (s, e) => fullscreenWindow.Close();
+            fullscreenWindow.ShowDialog();
+        }
         private void Execute_SaveCommand(object parameter)
         {
             var dialog = new CommonOpenFileDialog
