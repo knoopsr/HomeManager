@@ -99,7 +99,10 @@
                     Height="250"
                     Margin="5"
                     helpers:clsRichTextBoxHelper.BindBack="True"
-                    helpers:clsRichTextBoxHelper.RtfText="{Binding MijnSelectedItem.Notitie, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnValidationError=true, ValidatesOnExceptions=True}" />
+                    helpers:clsRichTextBoxHelper.RtfText="{Binding MijnSelectedItem.Notitie, 
+                    Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, 
+                    ValidatesOnDataErrors=True, NotifyOnValidationError=true, 
+                    ValidatesOnExceptions=True}" />
 
                 <!--  Werkbalk  -->
                 <StackPanel
