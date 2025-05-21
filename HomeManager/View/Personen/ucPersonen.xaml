@@ -240,6 +240,7 @@
                                 HorizontalAlignment="Right"
                                 VerticalAlignment="Center"
                                 Command="{Binding cmdNewEmailAdressen}"
+                                CommandParameter="{Binding}"
                                 Style="{StaticResource AddImage}"
                                 ToolTip="Voeg een emailadres toe" />
                         </Grid>
@@ -250,9 +251,8 @@
                         Grid.Column="1"
                         Width="200"
                         ItemsSource="{Binding EmailAdressenCollectie}"
-                        SelectedItem="{Binding SelectedEmailAdres, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                        >
-                        <!--SelectionChanged="EmailAdressenListView_SelectionChanged"-->
+                        SelectedItem="{Binding SelectedEmailAdres, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                        <!--  SelectionChanged="EmailAdressenListView_SelectionChanged"  -->
                         <ListBox.ItemTemplate>
                             <DataTemplate>
                                 <Grid HorizontalAlignment="Stretch">
@@ -321,6 +321,7 @@
                                 HorizontalAlignment="Right"
                                 VerticalAlignment="Center"
                                 Command="{Binding cmdNewAdres}"
+                                CommandParameter="{Binding}"
                                 Style="{StaticResource AddImage}"
                                 ToolTip="Voeg een adres toe" />
                         </Grid>
@@ -391,6 +392,7 @@
                                 HorizontalAlignment="Right"
                                 VerticalAlignment="Center"
                                 Command="{Binding cmdNewTelefoonNummers}"
+                                CommandParameter="{Binding}"
                                 Style="{StaticResource AddImage}"
                                 ToolTip="Voeg een telefoonnummer toe" />
                         </Grid>

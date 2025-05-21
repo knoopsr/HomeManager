@@ -29,6 +29,8 @@ namespace HomeManager.DAL.Personen
             {
                 entity.ErrorBoodschap = Boodschap;
             }
+
+            MijnCollectie.Remove(entity);
             return OK;
         }
 
@@ -95,11 +97,23 @@ namespace HomeManager.DAL.Personen
 
         public ObservableCollection<clsEmailAdressenModel> GetByPersoonID(int id)
         {
-            if (MijnCollectie == null)
+            SqlDataReader MijnDataReader = clsDAL.GetData(Properties.Resources.S_EmailAdressenByID,
+                            clsDAL.Parameter("PersoonID", id));
+            MijnCollectie = new ObservableCollection<clsEmailAdressenModel>();
+            while (MijnDataReader.Read())
             {
-                GenerateCollection();
+                clsEmailAdressenModel x = new clsEmailAdressenModel()
+                {
+                    EmailAdresID = (int)MijnDataReader["EmailAdresID"],
+                    Emailadres = MijnDataReader["Emailadres"].ToString(),
+                    PersoonID = (int)MijnDataReader["PersoonID"],
+                    EmailTypeID = (int)MijnDataReader["EmailTypeID"],
+                    ControlField = MijnDataReader["ControlField"]
+                };
+                MijnCollectie.Add(x);
             }
-            return new ObservableCollection<clsEmailAdressenModel>(MijnCollectie.Where(emailadress => emailadress.PersoonID == id));
+            MijnDataReader.Close();
+            return MijnCollectie;
         }
 
         public clsEmailAdressenModel GetFirst()
