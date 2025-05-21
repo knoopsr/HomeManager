@@ -99,11 +99,11 @@
                     Text="TelefoonType"
                     TextAlignment="Right" />
                 <ComboBox
-                    x:Name="cboTelefoonType"
-                    Grid.Row="3"
-                    Grid.Column="3"
-                    Margin="5"
-                    DataContext="{Binding Source={StaticResource VML}, Path=TelefoonTypeViewModel}"
+    x:Name="cboTelefoonType"
+    Grid.Row="3"
+    Grid.Column="3"
+    Margin="5"
+    DataContext="{Binding Source={StaticResource VML}, Path=TelefoonTypeViewModel}"
                     DisplayMemberPath="TelefoonTypeDisplayName"
                     ItemsSource="{Binding MijnCollectie}"
                     SelectedValue="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Grid}}, Path=DataContext.MijnSelectedItem.TelefoonTypeID, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
