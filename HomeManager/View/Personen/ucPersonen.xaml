@@ -459,7 +459,7 @@
                                 HorizontalAlignment="Right"
                                 VerticalAlignment="Center"
                                 Command="{Binding cmdEditNotities}"
-                                CommandParameter="{Binding}"
+                                
                                 Style="{StaticResource AddImage}" />
                         </Grid>
                     </Border>
