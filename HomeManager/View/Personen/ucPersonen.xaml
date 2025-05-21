@@ -239,7 +239,7 @@
                                 Margin="0,0,5,0"
                                 HorizontalAlignment="Right"
                                 VerticalAlignment="Center"
-                                Command="{Binding cmdEditEmailAdressen}"
+                                Command="{Binding cmdNewEmailAdressen}"
                                 Style="{StaticResource AddImage}"
                                 ToolTip="Voeg een emailadres toe" />
                         </Grid>
@@ -251,7 +251,8 @@
                         Width="200"
                         ItemsSource="{Binding EmailAdressenCollectie}"
                         SelectedItem="{Binding SelectedEmailAdres, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                        SelectionChanged="EmailAdressenListView_SelectionChanged">
+                        >
+                        <!--SelectionChanged="EmailAdressenListView_SelectionChanged"-->
                         <ListBox.ItemTemplate>
                             <DataTemplate>
                                 <Grid HorizontalAlignment="Stretch">
@@ -283,8 +284,8 @@
                                         <Button
                                             Command="{Binding DataContext.cmdDeleteEmailAdressen, RelativeSource={RelativeSource AncestorType=ListBox}}"
                                             CommandParameter="{Binding}"
-                                            Style="{StaticResource DeleteEmail}"
-                                            ToolTip="Verwijder het emailadres" />
+                                            Style="{StaticResource DeleteAdres}"
+                                            ToolTip="Verwijder de notitie" />
                                         <!--  Send-knop  -->
                                         <Button
                                             Command="{Binding DataContext.cmdSendEmail, RelativeSource={RelativeSource AncestorType=ListBox}}"
@@ -319,7 +320,7 @@
                                 Margin="0,0,5,0"
                                 HorizontalAlignment="Right"
                                 VerticalAlignment="Center"
-                                Command="{Binding cmdEditAdres}"
+                                Command="{Binding cmdNewAdres}"
                                 Style="{StaticResource AddImage}"
                                 ToolTip="Voeg een adres toe" />
                         </Grid>
@@ -389,7 +390,7 @@
                                 Margin="0,0,5,0"
                                 HorizontalAlignment="Right"
                                 VerticalAlignment="Center"
-                                Command="{Binding cmdEditTelefoonNummers}"
+                                Command="{Binding cmdNewTelefoonNummers}"
                                 Style="{StaticResource AddImage}"
                                 ToolTip="Voeg een telefoonnummer toe" />
                         </Grid>
@@ -458,7 +459,7 @@
                                 Margin="0,0,5,0"
                                 HorizontalAlignment="Right"
                                 VerticalAlignment="Center"
-                                Command="{Binding cmdEditNotities}"
+                                Command="{Binding cmdNewNotities}"
                                 CommandParameter="{Binding}"
                                 Style="{StaticResource AddImage}" />
                         </Grid>
