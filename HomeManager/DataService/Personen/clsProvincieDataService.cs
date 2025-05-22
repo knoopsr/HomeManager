@@ -45,7 +45,7 @@ namespace HomeManager.DataService.Personen
 
         public bool Update(clsProvincieModel entity)
         {
-            return Repo.Insert(entity);
+            return Repo.Update(entity);
         }
     }
 }

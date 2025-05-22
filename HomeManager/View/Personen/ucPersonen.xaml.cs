@@ -32,14 +32,14 @@ namespace HomeManager.View
             
         }
 
-        private void EmailAdressenListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
+        //private void EmailAdressenListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        //{
 
-        }
+        //}
 
-        private void ucPersonItem_Loaded(object sender, RoutedEventArgs e)
-        {
+        //private void ucPersonItem_Loaded(object sender, RoutedEventArgs e)
+        //{
 
-        }
+        //}
     }
 }

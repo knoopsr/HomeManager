@@ -54,6 +54,14 @@ namespace HomeManager.Model.Personen
             }
             set
             {
+                if (_landID != value)
+                {
+                    if (_landID != 0)
+                    {
+                        IsDirty = true;
+                    }
+                    
+                }
                 _landID = value;
                 OnPropertyChanged();
             }
@@ -79,6 +87,7 @@ namespace HomeManager.Model.Personen
                 OnPropertyChanged();
             }
         }
+
 
         public override string ToString()
         {
@@ -151,6 +160,5 @@ namespace HomeManager.Model.Personen
                 }
             }
         }
-
     }
 }

@@ -57,5 +57,12 @@ namespace HomeManager.DataService.Personen
         {
             return Repo.Update(entity);
         }
+
+        public async Task<ObservableCollection<clsPersoonModel>> GetAllAsync()
+        {
+            // Simuleer een lange operatie
+            await Task.Delay(1000);
+            return new ObservableCollection<clsPersoonModel>(/* je data hier */);
+        }
     }
 }

@@ -77,6 +77,14 @@ namespace HomeManager.Model.Personen
             }
             set
             {
+                if (_provincieID != value)
+                {
+                    if (_provincieID != 0)
+                    {
+                        IsDirty = true;
+                    }
+
+                }
                 _provincieID = value;
                 OnPropertyChanged();
             }

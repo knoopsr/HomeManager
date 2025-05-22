@@ -69,6 +69,14 @@ namespace HomeManager.Model.Personen
             }
             set
             {
+                if (_emailTypeID != value)
+                {
+                    if (_emailTypeID != 0)
+                    {
+                        IsDirty = true;
+                    }
+
+                }
                 _emailTypeID = value;
                 OnPropertyChanged();
             }

@@ -49,6 +49,14 @@ namespace HomeManager.Model.Personen
             }
             set
             {
+                if (_telefoonTypeID != value)
+                {
+                    if (_telefoonTypeID != 0)
+                    {
+                        IsDirty = true;
+                    }
+
+                }
                 _telefoonTypeID = value;
                 OnPropertyChanged();
             }
