@@ -88,7 +88,9 @@ namespace HomeManager.ViewModel.Security
         public ICommand cmdCancel { get; set; }
         public ICommand cmdClose { get; set; }
         public ICommand cmdUnLockUser { get; set; }
+        #endregion
 
+        #region Command Methods
 
         /// <summary>
         /// Bepaalt of de Save-command mag worden uitgevoerd.
