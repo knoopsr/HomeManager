@@ -412,6 +412,7 @@ namespace HomeManager.ViewModel
             }
         }
 
+        //Trigger voor het veranderen van de gebruiker in de popup.
         private clsAccountModel _MijnSelectedGebruiker;
         public clsAccountModel MijnSelectedGebruiker
         {
@@ -422,7 +423,10 @@ namespace HomeManager.ViewModel
             set
             {
                 _MijnSelectedGebruiker = value;
-                //_MijnSelectedGebruiker = MijnserviceGebruikers.GetById(clsLoginModel.Instance.AccountID);
+                if (value != null)
+                {
+                    MijnSelectedItem.GebruikerID = value.AccountID;
+                }
                 OnPropertyChanged();
             }
         }

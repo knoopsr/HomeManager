@@ -133,8 +133,7 @@
                         Margin="0,0,4,0"
                         VerticalAlignment="Center"
                         ItemsSource="{Binding MijnCollectieGebruikers}"
-                        SelectedValue="{Binding MijnSelectedGebruiker.AccountID, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                        SelectedValuePath="AccountID" />
+                        SelectedItem="{Binding MijnSelectedGebruiker, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />     
                     <Button Command="{Binding OpenAccountCommand}" Style="{StaticResource OpenUCButton}" />
                 </StackPanel>
 
