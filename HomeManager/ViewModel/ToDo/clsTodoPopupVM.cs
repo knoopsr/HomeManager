@@ -304,7 +304,8 @@ namespace HomeManager.ViewModel
                 Onderwerp = string.Empty,
                 Detail = string.Empty,
                 //GebruikerID = 0, // Of een standaardwaarde als dat nodig is
-                GebruikerID = clsLoginModel.Instance.AccountID,
+                //GebruikerID = clsLoginModel.Instance.AccountID,
+                GebruikerID = MijnSelectedGebruiker?.AccountID ?? clsLoginModel.Instance.AccountID, // Gebruik de geselecteerde gebruiker of de ingelogde gebruiker als fallback
                 Belangrijk = false,
                 TodoCollectieID = MijnSelectedCollectieItem?.ToDoCollectieID, // Of een standaardwaarde als dat nodig is
                 TodoCategorieID = null, // Of een standaardwaarde als dat nodig is
@@ -420,7 +421,8 @@ namespace HomeManager.ViewModel
             }
             set
             {
-                _MijnSelectedGebruiker = MijnserviceGebruikers.GetById(clsLoginModel.Instance.AccountID);
+                _MijnSelectedGebruiker = value;
+                //_MijnSelectedGebruiker = MijnserviceGebruikers.GetById(clsLoginModel.Instance.AccountID);
                 OnPropertyChanged();
             }
         }
