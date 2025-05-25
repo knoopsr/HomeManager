@@ -6,6 +6,7 @@ using HomeManager.Model.Security;
 using HomeManager.Model.Todo;
 //using HomeManager.Model.ToDo;
 using HomeManager.View;
+using HomeManager.Mail;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -15,6 +16,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
+using HomeManager.Model.Mail;
 
 namespace HomeManager.ViewModel
 {
@@ -32,6 +34,10 @@ namespace HomeManager.ViewModel
         public ICommand cmdSave { get; set; }
         public ICommand OpenCollectiesCommand { get; }
         public ICommand OpenAccountCommand { get; }
+        public ICommand SubmitEmailCommand { get; set; }
+
+        private bool isSendMail = false;
+
 
         public clsTodoPopupVM()
         {
@@ -44,10 +50,12 @@ namespace HomeManager.ViewModel
             cmdNew = new clsCustomCommand(Execute_NewCommand, CanExecute_NewCommand);
             cmdCancel = new clsCustomCommand(Execute_CancelCommand, CanExecute_CancelCommand);
             cmdClose = new clsCustomCommand(Execute_CloseCommand, CanExecute_CloseCommand);
+            SubmitEmailCommand = new clsCustomCommand(Execute_SubmitEmail, CanExecute_SubmitEmail);
 
             //clsMessenger.Default.Register<clsTodoPopupM>(this, OnCollectiesReceived);
             OpenCollectiesCommand = new clsRelayCommand<object>(OpenCollecties);
             OpenAccountCommand = new clsRelayCommand<object>(OpenAccount);
+            
 
 
             LoadData();
@@ -377,12 +385,15 @@ namespace HomeManager.ViewModel
         private void Execute_SaveCommand(object obj)
         {
             OpslaanCommando();
+
+            // Controleer of de gegevens succesvol zijn opgeslagen
+            if (MijnSelectedItem != null && !MijnSelectedItem.IsDirty)
+            {
+                // Verstuur de e-mail
+                Execute_SubmitEmail();
+            }
         }
 
-        //private void OnCollectiesReceived(clsTodoPopupM obj)
-        //{
-        //    _MijnSelectedItem = obj;
-        //}
 
         private int _gebruikerID;
         public int GebruikerID
@@ -430,6 +441,61 @@ namespace HomeManager.ViewModel
                 OnPropertyChanged();
             }
         }
+
+        private bool CanExecute_SubmitEmail()
+        {
+            return !isSendMail;
+        }
+
+        //Code komt van  clsEmailVerzendenViewModel -> Thomas
+        //PaperCut.exe runnen  -> http://localhost:5000/ 
+        private async void Execute_SubmitEmail()
+        {
+            if (MijnSelectedItem == null || MijnSelectedGebruiker == null)
+            {
+                MessageBox.Show("Selecteer een gebruiker en vul de benodigde velden in.", "Fout", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
+            isSendMail = true;
+
+            // Controleer of MijnSelectedGebruiker.Login geldig is
+            if (string.IsNullOrWhiteSpace(MijnSelectedGebruiker.Login))
+            {
+                MessageBox.Show("Het e-mailadres van de gebruiker is ongeldig.", "Fout", MessageBoxButton.OK, MessageBoxImage.Error);
+                isSendMail = false;
+                return;
+            }
+
+            // Stel het e-mailadres van de ontvanger samen
+            string ontvangerEmail = $"{MijnSelectedGebruiker.Login}@gmail.com";
+
+            // Maak het mailmodel aan
+            clsMailModel mailModel = new clsMailModel
+            {
+                MailFromEmail = "noreply@homemanager.com", // Gebruik een standaard afzender
+                MailToEmail = ontvangerEmail,
+                Subject = MijnSelectedItem.Onderwerp,
+                Body = MijnSelectedItem.Detail
+            };
+
+            // Verstuur de e-mail
+            bool emailVerzonden = await clsMail.SendEmail(mailModel);
+
+            isSendMail = false;
+
+            // Toon een melding op basis van het resultaat
+            if (emailVerzonden)
+            {
+                MessageBox.Show("De mail is verzonden.", "Verzonden", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+            else
+            {
+                MessageBox.Show("Er is een fout opgetreden bij het versturen van de e-mail.", "Fout", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+
 
         private ObservableCollection<clsCollectiesM> _MijnCollectieCollecties;
         public ObservableCollection<clsCollectiesM> MijnCollectieCollecties

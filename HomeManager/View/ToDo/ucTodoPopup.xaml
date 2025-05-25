@@ -106,6 +106,7 @@
                     Content="Detail"
                     FontSize="12" />
                 <TextBox
+                    Name="Detailtxtb"
                     Grid.Row="2"
                     Grid.Column="3"
                     Height="80"

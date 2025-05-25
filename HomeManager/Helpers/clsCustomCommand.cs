@@ -21,6 +21,8 @@ namespace HomeManager.Helpers
 
         private Action<object?> _execute;
         private Predicate<object?> _canExecute;
+        private Action execute_SubmitEmail;
+        private Func<bool> canExecute_SubmitEmail;
 
         public clsCustomCommand(Action<object?> execute, Predicate<object?> canExecute)
         {
@@ -28,6 +30,12 @@ namespace HomeManager.Helpers
             this._canExecute = canExecute;
 
             MijnLoggingService = new clsButtonLoggingDataService();
+        }
+
+        public clsCustomCommand(Action execute_SubmitEmail, Func<bool> canExecute_SubmitEmail)
+        {
+            this.execute_SubmitEmail = execute_SubmitEmail;
+            this.canExecute_SubmitEmail = canExecute_SubmitEmail;
         }
 
         public bool CanExecute(object? parameter)
