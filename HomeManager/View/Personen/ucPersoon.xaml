@@ -194,10 +194,7 @@
                     Grid.Row="1"
                     Grid.Column="3"
                     Margin="5"
-                    Text="{Binding MijnSelectedItem.Naam, 
-                    Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, 
-                    ValidatesOnDataErrors=True, NotifyOnValidationError=true, 
-                    ValidatesOnExceptions=True}" />
+                    Text="{Binding MijnSelectedItem.Naam, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnValidationError=true, ValidatesOnExceptions=True}" />
 
                 <TextBlock
                     x:Name="Voornaam"
