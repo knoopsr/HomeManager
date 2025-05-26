@@ -14,6 +14,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Data;
 using System.Windows.Input;
 
 namespace HomeManager.ViewModel
@@ -54,6 +55,30 @@ namespace HomeManager.ViewModel
             MijnSelectedItem = MijnService.GetFirst() ?? new clsTodoPopupM();
 
             clsMessenger.Default.Register<clsCollectiesM>(this, OnCollectiesReceived);
+            // Initialize filtering
+            FilteredMijnCollectie = CollectionViewSource.GetDefaultView(MijnCollectie);
+            FilteredMijnCollectie.Filter = FilterBySelectedCollectie;
+        }
+
+        private ICollectionView _filteredMijnCollectie;
+        public ICollectionView FilteredMijnCollectie
+        {
+            get { return _filteredMijnCollectie; }
+            set
+            {
+                _filteredMijnCollectie = value;
+                OnPropertyChanged(nameof(FilteredMijnCollectie));
+            }
+        }
+
+        private bool FilterBySelectedCollectie(object item)
+        {
+            if (item is clsTodoPopupM todoItem)
+            {
+                return MijnSelectedCollectieItem != null &&
+                       todoItem.TodoCollectieID == MijnSelectedCollectieItem.ToDoCollectieID;
+            }
+            return false;
         }
 
         private void OnCollectiesReceived(clsCollectiesM obj)
@@ -296,7 +321,7 @@ namespace HomeManager.ViewModel
             return !NewStatus;
         }
 
-        private void Execute_NewCommand(object obj)
+        public void Execute_NewCommand(object obj)
         {
             clsTodoPopupM ItemToInsert = new clsTodoPopupM()
             {
@@ -312,6 +337,7 @@ namespace HomeManager.ViewModel
                 IsKlaar = false,
                 Volgorde = null // Of een standaardwaarde als dat nodig is
             };
+            ItemToInsert.IsDirty = true;
 
             MijnSelectedItem = ItemToInsert;
 
@@ -442,14 +468,14 @@ namespace HomeManager.ViewModel
         private clsCollectiesM _MijnSelectedCollectieItem;
         public clsCollectiesM MijnSelectedCollectieItem
         {
-            get
-            {
-                return _MijnSelectedCollectieItem;
-            }
+            get { return _MijnSelectedCollectieItem; }
             set
             {
                 _MijnSelectedCollectieItem = value;
                 OnPropertyChanged(nameof(MijnSelectedCollectieItem));
+
+                // Refresh the filter when the selected collection changes
+                FilteredMijnCollectie?.Refresh();
             }
         }
     }

@@ -95,6 +95,7 @@
                         Command="{Binding cmdUploadFile}"
                         DragEnter="Button_DragEnter"
                         Drop="Button_Drop"
+                        CommandParameter="{Binding}"
                         Style="{StaticResource UploadButton}" />
                     <Button
                         x:Name="ViewFilebtn"
@@ -104,6 +105,7 @@
                         Margin="0,0,0,0"
                         HorizontalAlignment="Left"
                         Style="{StaticResource EyeButton}"
+                        CommandParameter="{Binding}"
                         Command="{Binding cmdViewFile}"/>
                 </StackPanel>
 
