@@ -548,28 +548,26 @@ namespace HomeManager.ViewModel
 
         private void Edit_Persoon(object? obj)
         {
-            //OpenPersoon(obj);
-
-                if (obj != null)
+            if (obj != null)
+            {
+                if (obj is clsPersoonModel)
+                {
+                    clsPersoonModel persoon = obj as clsPersoonModel;
+                    clsMessenger.Default.Send<clsPersoonModel>(persoon);
+                }
+            }
+            else
+            {
+                if (MijnSelectedItem != null)
                 {
                     if (obj is clsPersoonModel)
                     {
+                        // Stuur het geselecteerde persoon object naar de messenger
                         clsPersoonModel persoon = obj as clsPersoonModel;
                         clsMessenger.Default.Send<clsPersoonModel>(persoon);
                     }
                 }
-                else
-                {
-                    if (MijnSelectedItem != null)
-                    {
-                        if (obj is clsPersoonModel)
-                        {
-                            // Stuur het geselecteerde persoon object naar de messenger
-                            clsPersoonModel persoon = obj as clsPersoonModel;
-                            clsMessenger.Default.Send<clsPersoonModel>(persoon);
-                        }
-                    }
-                }
+            }
 
             _DialogService.ShowDialog(new ucPersoon(), "Persoon");
             
