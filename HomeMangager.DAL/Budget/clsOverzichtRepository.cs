@@ -47,8 +47,9 @@ namespace HomeManager.DAL.Budget
                     Begunstigde = MijnDataReader["Begunstigde"].ToString(),
                     BudgetCategorie = MijnDataReader["BudgetCategorie"].ToString(),
                     Bedrag = MijnDataReader["Bedrag"] as decimal? ?? 0,
-                    Onderwerp = MijnDataReader["Onderwerp"].ToString()
-                    
+                    Onderwerp = MijnDataReader["Onderwerp"].ToString(),
+                    IsUitgevoerd = MijnDataReader["IsUitgevoerd"] as bool? ?? false
+
                 };
                 MijnInkomsten.Add(m);
             }
@@ -78,7 +79,8 @@ namespace HomeManager.DAL.Budget
                     Begunstigde = MijnDataReader["Begunstigde"].ToString(),
                     BudgetCategorie = MijnDataReader["BudgetCategorie"].ToString(),
                     Bedrag = MijnDataReader["Bedrag"] as decimal? ?? 0,
-                    Onderwerp = MijnDataReader["Onderwerp"].ToString()
+                    Onderwerp = MijnDataReader["Onderwerp"].ToString(),
+                    IsUitgevoerd = MijnDataReader["IsUitgevoerd"] as bool? ?? false
 
                 };
                 MijnUitgaven.Add(m);

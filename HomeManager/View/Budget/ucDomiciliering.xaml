@@ -125,7 +125,7 @@
                     Grid.Row="2"
                     Grid.RowSpan="9"
                     Grid.Column="1"
-                    Width="225"
+                    Width="230"
                     Margin="5"
                     ItemsSource="{Binding GefilterdeCollectie}"
                     SelectedItem="{Binding MijnSelectedItem, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
