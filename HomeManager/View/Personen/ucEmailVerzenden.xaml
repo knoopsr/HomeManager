@@ -41,6 +41,7 @@
                         Stretch="Fill" />
                     <TextBlock Style="{StaticResource TitleBarText}" Text="Email samenstellen" />
                 </StackPanel>
+                <uc:ucWerkBalk HorizontalAlignment="Right" VerticalAlignment="Top" />
             </Grid>
         </Border>
         <Border
