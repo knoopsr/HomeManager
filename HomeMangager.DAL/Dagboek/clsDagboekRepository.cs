@@ -14,7 +14,7 @@ namespace HomeManager.DAL.Dagboek
         private ObservableCollection<clsDagboekModel> mijnCollectie;
 
 
-        private void GenerateCollection(int persoonID)
+        private void GenerateCollection(string persoonID)
         {
             mijnCollectie = new ObservableCollection<clsDagboekModel>();
 
@@ -41,7 +41,7 @@ namespace HomeManager.DAL.Dagboek
                     clsDagboekModel obj = new clsDagboekModel()
                     {
                         DagboekId = (int)row[0],
-                        PersoonID = (int)row[1],
+                        PersoonID = (string)row[1],
                         DateCreated = (DateTime)row[2],
                         MyFlowDocument = row[3] != DBNull.Value ? (byte[])row[3] : new byte[0],
                         ControlField = row[4] as object
@@ -71,7 +71,7 @@ namespace HomeManager.DAL.Dagboek
 
 
         //omwile van performance en privacy halen we alleen de content van de user binnen 
-        public ObservableCollection<clsDagboekModel> GetAllByPersoonID(int PersoonID)
+        public ObservableCollection<clsDagboekModel> GetAllByPersoonID(string PersoonID)
         {
             GenerateCollection(PersoonID);
             return mijnCollectie;
@@ -128,6 +128,7 @@ namespace HomeManager.DAL.Dagboek
         {
             throw new NotImplementedException();
         }
+
         #endregion
 
     }
