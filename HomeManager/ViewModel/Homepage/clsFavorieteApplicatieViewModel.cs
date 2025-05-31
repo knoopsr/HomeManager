@@ -64,11 +64,14 @@ namespace HomeManager.ViewModel.Homepage
 
             foreach (var app in applicaties)
             {
-                FavorieteApplicaties.Add(app);
+                if (File.Exists(app.ApplicationPath)) 
+                {
+                    FavorieteApplicaties.Add(app);
+                }
             }
         }
 
-        
+
         private void Execute_SaveCommand(object parameter)
         {
             var dialog = new Microsoft.Win32.OpenFileDialog

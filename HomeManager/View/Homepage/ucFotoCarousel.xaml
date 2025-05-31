@@ -11,7 +11,7 @@
     <Grid DataContext="{Binding Source={StaticResource VML}, Path=FotoCarouselViewModel}">
         <Grid.RowDefinitions>
             <RowDefinition Height="auto" />
-            <RowDefinition Height="250" />
+            <RowDefinition Height="*" />
             <RowDefinition Height="auto" />
         </Grid.RowDefinitions>
         <TextBlock
@@ -20,8 +20,16 @@
             Text="Foto Carrousel" />
         <Image
             Grid.Row="1"
+            Cursor="Hand"
             Source="{Binding CurrentPhoto.FolderPath}"
-            Stretch="Uniform" />
+            Stretch="Uniform">
+            <Image.InputBindings>
+                <MouseBinding
+                    Command="{Binding ToonFotoFullScreen}"
+                    CommandParameter="{Binding}"
+                    Gesture="LeftClick" />
+            </Image.InputBindings>
+        </Image>
 
         <StackPanel
             Grid.Row="2"

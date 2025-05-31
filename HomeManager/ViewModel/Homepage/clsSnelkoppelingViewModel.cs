@@ -67,7 +67,18 @@ namespace HomeManager.ViewModel.Homepage
 
             foreach (var item in data)
             {
-                Snelkoppelingen.Add(item);
+                bool bestaat = item.Type == "Bestand"
+                    ? File.Exists(item.Pad)
+                    : Directory.Exists(item.Pad);
+
+                if (bestaat)
+                {
+                    Snelkoppelingen.Add(item);
+                }
+                else
+                {
+                    Debug.WriteLine($" Pad niet gevonden: {item.Pad}");
+                }
             }
         }
 

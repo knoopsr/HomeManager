@@ -13,7 +13,7 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto" />
-            <RowDefinition Height="250" />
+            <RowDefinition Height="*" />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
@@ -40,7 +40,7 @@
             </ListView.Resources>
             <ListView.View>
                 <GridView>
-                    <GridViewColumn Width="250" Header="Venster">
+                    <GridViewColumn Width="335" Header="Venster">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
                                 <TextBlock Style="{StaticResource HomepageTextBlock}" Text="{Binding VensterNaam}" />
