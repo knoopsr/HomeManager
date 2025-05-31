@@ -110,7 +110,7 @@
                     Grid.Row="2"
                     Grid.RowSpan="5"
                     Grid.Column="1"
-                    Width="175"
+                    Width="200"
                     Margin="5,2,0,2"
                     HorizontalAlignment="Left"
                     Foreground="#024f87"
