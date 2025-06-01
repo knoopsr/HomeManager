@@ -488,77 +488,23 @@ namespace HomeManager.ViewModel
         //PaperCut.exe runnen  -> http://localhost:5000/ 
         private async void Execute_SubmitEmail()
         {
-            try
+            //bij het saven faalt hij hier
+            if (MijnSelectedGebruiker.Login != string.Empty)
             {
-                // Voeg fallback toe voor MijnSelectedGebruiker
-                //if (MijnSelectedGebruiker == null)
-                //{
-                //    MijnSelectedGebruiker = MijnCollectieGebruikers?.FirstOrDefault() ?? new clsAccountModel
-                //    {
-                //        AccountID = clsLoginModel.Instance.AccountID,
-                //        Login = "default@homemanager.com"
-                //    };
-                //}
-                //if (MijnSelectedItem == null || MijnSelectedGebruiker == null)
-                // Fallback voor als MijnSelectedGebruiker null is
-                var gebruikerVoorEmail = MijnSelectedGebruiker ??
-                    MijnCollectieGebruikers?.FirstOrDefault(g => g.AccountID == (MijnSelectedItem?.GebruikerID ?? 0));
-
-                if (gebruikerVoorEmail == null)
-                {
-                    MessageBox.Show("Selecteer een gebruiker...", "Fout");
-                    return;
-                }
-
-                //if (MijnSelectedGebruiker == null)
-                //{
-                //    MessageBox.Show("Selecteer een gebruiker en vul de benodigde velden in.", "Fout", MessageBoxButton.OK, MessageBoxImage.Error);
-                //    return;
-                //}
-
                 isSendMail = true;
-
-                if (string.IsNullOrWhiteSpace(MijnSelectedGebruiker.Login))
-                {
-                    MessageBox.Show("Het e-mailadres van de gebruiker is ongeldig.", "Fout", MessageBoxButton.OK, MessageBoxImage.Error);
-                    isSendMail = false;
-                    return;
-                }
-
-                string ontvangerEmail = $"{MijnSelectedGebruiker.Login}@gmail.com";
-                Debug.WriteLine($"Probeer email te versturen naar: {ontvangerEmail}");
 
                 var mailModel = new clsMailModel
                 {
                     MailFromEmail = "noreply@homemanager.com",
-                    MailToEmail = ontvangerEmail,
+                    MailToEmail = $"{MijnSelectedGebruiker.Login}@homemanager.com",
                     MailToName = MijnSelectedGebruiker.Login,
                     Subject = MijnSelectedItem.Onderwerp,
                     Body = MijnSelectedItem.Detail
                 };
-
-                Debug.WriteLine("Email model aangemaakt, probeer te versturen...");
                 bool emailVerzonden = await clsMail.SendEmail(mailModel);
-                Debug.WriteLine($"Email verzend resultaat: {emailVerzonden}");
-
-                if (emailVerzonden)
-                {
-                    MessageBox.Show("De mail is verzonden.", "Verzonden", MessageBoxButton.OK, MessageBoxImage.Information);
-                }
-                else
-                {
-                    MessageBox.Show("Er is een fout opgetreden bij het versturen van de e-mail.", "Fout", MessageBoxButton.OK, MessageBoxImage.Error);
-                }
+                MessageBox.Show(emailVerzonden.ToString());
             }
-            catch (Exception ex)
-            {
-                Debug.WriteLine($"Exception in Execute_SubmitEmail: {ex}");
-                MessageBox.Show($"Er is een fout opgetreden: {ex.Message}", "Fout", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
-            finally
-            {
-                isSendMail = false;
-            }
+            isSendMail = false;
         }
 
         private ObservableCollection<clsCollectiesM> _MijnCollectieCollecties;
