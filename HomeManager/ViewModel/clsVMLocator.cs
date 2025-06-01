@@ -1,21 +1,10 @@
-using HomeManager.Model.Personen;
-using HomeManager.ViewModel;
 using HomeManager.ViewModel.Personen;
 using HomeManager.ViewModel.Homepage;
 using HomeManager.ViewModel.Logging;
 using HomeManager.ViewModel.Security;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using HomeManager.Model.Todo;
 using HomeManager.ViewModel.Todo;
-using HomeManager.Model.Budget;
 using HomeManager.ViewModel.Exceptions;
 using HomeManager.ViewModel.StickyNotes;
-
-
 
 namespace HomeManager.ViewModel
 {
@@ -127,7 +116,7 @@ namespace HomeManager.ViewModel
                 //return new clsNotitiesViewModel();
             }
         }
-      
+
         private static clsEmailVerzendenViewModel _EmailVerzenden = new clsEmailVerzendenViewModel();
         public clsEmailVerzendenViewModel EmailVerzendenViewModel
         {
@@ -215,20 +204,6 @@ namespace HomeManager.ViewModel
 
         #endregion
 
-        #region TODO
-
-        private static readonly clsCollectiesVM _collectiesViewModel = new clsCollectiesVM();
-        public clsCollectiesVM CollectiesViewModel
-        {
-            get
-            {
-                return _collectiesViewModel;
-            }
-        }
-
-        public clsCategorieënVM CategorieënViewModel => new clsCategorieënVM();
-        public clsKleurenVM KleurenViewModel => new clsKleurenVM();
-        #endregion
         #region Homepage
         public clsFavorieteApplicatieViewModel FavorieteApplicatieViewModel
         {
@@ -276,11 +251,20 @@ namespace HomeManager.ViewModel
 
         #endregion
 
-
-
         #region Todo
 
-        public clsTodoVM ToDoViewModel   
+        private static readonly clsCollectiesVM _collectiesViewModel = new clsCollectiesVM();
+        public clsCollectiesVM CollectiesViewModel
+        {
+            get
+            {
+                return _collectiesViewModel;
+            }
+        }
+
+        public clsCategorieënVM CategorieënViewModel => new clsCategorieënVM();
+        public clsKleurenVM KleurenViewModel => new clsKleurenVM();
+        public clsTodoVM ToDoViewModel
         {
             get
             {
@@ -317,13 +301,20 @@ namespace HomeManager.ViewModel
 
         #endregion
 
-        #region EXCEPTIONS
+        #region EXCEPTIONS + LOGGING
         public clsExceptionsViewModel ExceptionsViewModel { get => new clsExceptionsViewModel(); }
         public clsExceptionsMailViewModel ExceptionsMailViewModel { get => new clsExceptionsMailViewModel(); }
+
+        public clsButtonLoggingViewModel ButtonLoggingViewModel
+        {
+            get
+            {
+                return new clsButtonLoggingViewModel();
+            }
+        }
         #endregion
 
-
-
+        #region Budget
         public clsUnLockViewModel UnLockViewModel
         {
             get
@@ -336,7 +327,7 @@ namespace HomeManager.ViewModel
         {
             get
             {
-                return _categorieViewModel; 
+                return _categorieViewModel;
             }
         }
 
@@ -375,7 +366,7 @@ namespace HomeManager.ViewModel
                 return _transactieViewModel;
             }
         }
-        
+
         public clsOverzichtViewModel OverzichtViewModel
         {
             get
@@ -383,19 +374,11 @@ namespace HomeManager.ViewModel
                 return new clsOverzichtViewModel();
             }
         }
+        #endregion
 
         #region STICKY NOTES
         private static readonly clsStickyNotesViewModel _stickyNotesViewModel = new clsStickyNotesViewModel();
         public clsStickyNotesViewModel StickyNotesViewModel { get => _stickyNotesViewModel; }
         #endregion
-
-        public clsButtonLoggingViewModel ButtonLoggingViewModel
-        {
-            get
-            {
-                return new clsButtonLoggingViewModel();
-            }
-        }
-
     }
 }

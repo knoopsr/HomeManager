@@ -5,15 +5,10 @@ using HomeManager.Helpers;
 using HomeManager.Mail;
 using HomeManager.Messages;
 using HomeManager.Model.Mail;
-using HomeManager.Model.Personen;
 using HomeManager.Model.Security;
 using HomeManager.Services.Security;
-using HomeManager.View;
-using System.Collections.ObjectModel;
-using System.Configuration;
 using System.Windows;
 using System.Windows.Input;
-using System.Xml;
 
 namespace HomeManager.ViewModel
 {

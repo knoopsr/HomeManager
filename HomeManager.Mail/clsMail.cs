@@ -1,28 +1,31 @@
 ﻿using FluentEmail.Core;
 using FluentEmail.Smtp;
-using FluentEmail.Core.Interfaces; // <- nodig voor ISender
-using Microsoft.Extensions.DependencyInjection;
-using System;
+using System.Diagnostics;
 using System.Net.Mail;
 using System.Text;
-using System.Threading.Tasks;
 using HomeManager.Model.Mail;
-using Microsoft.CodeAnalysis.Emit;
-using System.Diagnostics;
+using Attachment = FluentEmail.Core.Models.Attachment;
 
 namespace HomeManager.Mail
 {
+    /// <summary>
+    /// Klasse voor het verzenden van e-mails via SMTP.
+    /// </summary>
     public class clsMail
     {
+        #region Public Methods
+
         /// <summary>
-        /// Verstuur een e-mail
+        /// Verstuurt een e-mail met de opgegeven gegevens in het mailmodel.
         /// </summary>
-        /// <param name="MailModel">Het model met e-mailinformatie</param>
-        /// <returns>Geeft `true` terug als de e-mail succesvol is verzonden, anders `false`</returns>
+        /// <param name="MailModel">Het e-mailmodel met verzendgegevens en inhoud.</param>
+        /// <returns><c>true</c> als de e-mail succesvol werd verzonden; anders <c>false</c>.</returns>
         public static async Task<bool> SendEmail(clsMailModel MailModel)
         {
             try
             {
+                #region Configure Sender
+
                 var sender = new SmtpSender(() => new SmtpClient("localhost")
                 {
                     EnableSsl = false,
@@ -30,24 +33,28 @@ namespace HomeManager.Mail
                     Port = 25
                 });
 
-                StringBuilder htmlBody = new StringBuilder();
-                htmlBody.AppendLine("<html>");
-                htmlBody.AppendLine("<head>");
-                htmlBody.AppendLine("<title>HomeManager</title>");
-                htmlBody.AppendLine("</head>");
-                htmlBody.AppendLine("<body style='background-color: #d3d3d3; font-family: Arial, sans-serif; color: #00223e; padding: 20px;'>");
-                htmlBody.AppendLine("  <div style='background-color: #024f87; padding: 20px; border-radius: 8px; max-width: 600px; margin: auto;'>");
-                htmlBody.AppendLine("    <h1 style='color: LightGray;'>HomeManager</h1>");
-                htmlBody.AppendLine("    <p style='color: LightGray; font-size: 14px;'>Hi " + MailModel.MailToName + ",</p>");
-                htmlBody.AppendLine("    <p style='color: LightGray; font-size: 14px;'>" + MailModel.Body + "</p>");
-                htmlBody.AppendLine("  </div>");
-                htmlBody.AppendLine("  <div style='color: Gray; font-size: 12px; text-align: center; margin-top: 20px;'>");
-                htmlBody.AppendLine("    <p>Thank you for using HomeManager!</p>");
-                htmlBody.AppendLine("  </div>");
-                htmlBody.AppendLine("</body>");
-                htmlBody.AppendLine("</html>");
-
                 Email.DefaultSender = sender;
+
+                #endregion
+
+                #region Opbouw HTML-body
+
+                var htmlBody = new StringBuilder();
+                htmlBody.AppendLine("<html>");
+                htmlBody.AppendLine("<head><title>HomeManager</title></head>");
+                htmlBody.AppendLine("<body style='background-color: #d3d3d3; font-family: Arial, sans-serif; color: #00223e; padding: 20px;'>");
+                htmlBody.AppendLine("<div style='background-color: #024f87; padding: 20px; border-radius: 8px; max-width: 600px; margin: auto;'>");
+                htmlBody.AppendLine($"<h1 style='color: LightGray;'>HomeManager</h1>");
+                htmlBody.AppendLine($"<p style='color: LightGray; font-size: 14px;'>Hi {MailModel.MailToName},</p>");
+                htmlBody.AppendLine($"<p style='color: LightGray; font-size: 14px;'>{MailModel.Body}</p>");
+                htmlBody.AppendLine("</div>");
+                htmlBody.AppendLine("<div style='color: Gray; font-size: 12px; text-align: center; margin-top: 20px;'>");
+                htmlBody.AppendLine("<p>Thank you for using HomeManager!</p>");
+                htmlBody.AppendLine("</div></body></html>");
+
+                #endregion
+
+                #region Samenstellen e-mail
 
                 var email = Email
                     .From(MailModel.MailFromEmail)
@@ -55,44 +62,39 @@ namespace HomeManager.Mail
                     .Subject(MailModel.Subject)
                     .Body(htmlBody.ToString(), isHtml: true);
 
-
-
-
-                // **Bijlagen toevoegen vóór het verzenden**
                 if (MailModel.Attachments != null && MailModel.Attachments.Count > 0)
                 {
                     foreach (var attachment in MailModel.Attachments)
                     {
-                        email.Attach(new FluentEmail.Core.Models.Attachment
+                        email.Attach(new Attachment
                         {
-                            Data = new MemoryStream(attachment.FileData),  // Zet byte[] om naar een MemoryStream
+                            Data = new MemoryStream(attachment.FileData),
                             ContentType = attachment.ContentType,
                             Filename = attachment.FileName
                         });
                     }
                 }
 
+                #endregion
 
-                // **Verstuur de e-mail**
+                #region Verzenden
+
                 var result = await email.SendAsync();
+                if (!result.Successful)
+                {
+                    Debug.WriteLine("Fout bij verzenden: " + string.Join(", ", result.ErrorMessages));
+                }
+                return result.Successful;
 
-                if (result.Successful)
-                {
-                    return true;
-                }
-                else
-                {
-                    
-                    Debug.WriteLine("Fouten bij het versturen van de e-mail: " + string.Join(", ", result.ErrorMessages));
-                    return false;
-                }
+                #endregion
             }
             catch (Exception ex)
             {
-                Debug.WriteLine("Er is een fout opgetreden bij het versturen van de e-mail: " + ex.Message);
+                Debug.WriteLine("Exception bij e-mailverzending: " + ex.Message);
                 return false;
             }
         }
 
+        #endregion
     }
 }

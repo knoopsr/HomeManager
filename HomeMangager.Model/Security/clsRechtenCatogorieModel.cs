@@ -1,29 +1,26 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using HomeManager.Common;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using HomeManager.Common;
 
 namespace HomeManager.Model.Security
 {
     public class clsRechtenCatogorieModel : clsCommonModelPropertiesBase, IDataErrorInfo
     {
-        public string Error => null;
-
+        #region Constructor
 
         public clsRechtenCatogorieModel()
         {
             Rechten = new ObservableCollection<clsRechtenModel>();
         }
 
+        #endregion
+
+        #region Properties
 
         private int _rechtenCatogorieID;
         public int RechtenCatogorieID
         {
-            get { return _rechtenCatogorieID; }
+            get => _rechtenCatogorieID;
             set
             {
                 _rechtenCatogorieID = value;
@@ -34,7 +31,7 @@ namespace HomeManager.Model.Security
         private string _catogorieNaam;
         public string CatogorieNaam
         {
-            get { return _catogorieNaam; }
+            get => _catogorieNaam;
             set
             {
                 _catogorieNaam = value;
@@ -45,44 +42,63 @@ namespace HomeManager.Model.Security
         private ObservableCollection<clsRechtenModel> _rechten;
         public ObservableCollection<clsRechtenModel> Rechten
         {
-            get { return _rechten; }
+            get => _rechten;
             set
             {
-           
-
                 _rechten = value;
                 OnPropertyChanged();
             }
         }
 
-
-
         private bool? _isChecked;
         public bool? IsChecked
         {
-            get { return _isChecked; }
+            get => _isChecked;
             set
             {
-
-
-
                 _isChecked = value;
                 OnPropertyChanged();
-
 
                 if (_isChecked.HasValue)
                 {
                     foreach (var item in Rechten)
-                    {
                         item.IsChecked = _isChecked.Value;
-                    }
                 }
-
             }
         }
 
+        #endregion
 
+        #region IDataErrorInfo
 
-        public string this[string columnName] => throw new NotImplementedException();
+        public string Error => null;
+
+        public string this[string columnName]
+        {
+            get
+            {
+                string error = null;
+
+                switch (columnName)
+                {
+                    case nameof(CatogorieNaam):
+                        if (string.IsNullOrWhiteSpace(CatogorieNaam))
+                        {
+                            error = "Naam is verplicht.";
+                            if (!ErrorList.Contains(nameof(CatogorieNaam)))
+                                ErrorList.Add(nameof(CatogorieNaam));
+                        }
+                        else
+                        {
+                            ErrorList.Remove(nameof(CatogorieNaam));
+                        }
+                        break;
+                }
+
+                return error;
+            }
+        }
+
+        #endregion
     }
 }

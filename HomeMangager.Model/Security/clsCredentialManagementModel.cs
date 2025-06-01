@@ -3,172 +3,142 @@ using System.ComponentModel;
 
 namespace HomeManager.Model.Security
 {
+    /// <summary>
+    /// Model voor beheer van opgeslagen logins en wachtwoorden.
+    /// </summary>
     public class clsCredentialManagementModel : clsCommonModelPropertiesBase, IDataErrorInfo
     {
+        #region IDataErrorInfo implementatie
+
         public string this[string columnName]
         {
             get
             {
                 string error = string.Empty;
+
                 switch (columnName)
                 {
                     case nameof(WachtwoordNaam):
                         if (string.IsNullOrWhiteSpace(WachtwoordNaam))
                         {
                             error = "WachtwoordNaam is verplicht veld.";
-                            if (ErrorList.Contains(nameof(WachtwoordNaam)) == false)
-                            {
-                                ErrorList.Add(nameof(WachtwoordNaam));
-                            }
+                            AddError(nameof(WachtwoordNaam));
                         }
                         else if (WachtwoordNaam.Length > 50)
                         {
                             error = "WachtwoordNaam mag niet langer zijn dan 50 karakters.";
-                            if (ErrorList.Contains(nameof(WachtwoordNaam)) == false)
-                            {
-                                ErrorList.Add(nameof(WachtwoordNaam));
-                            }
+                            AddError(nameof(WachtwoordNaam));
                         }
                         else
                         {
-                            if (ErrorList.Contains(nameof(WachtwoordNaam)))
-                            {
-                                ErrorList.Remove(nameof(WachtwoordNaam));
-                            }
+                            RemoveError(nameof(WachtwoordNaam));
                         }
-                        return error;
+                        break;
 
                     case nameof(WachtwoordOmschrijving):
-                    if (WachtwoordOmschrijving.Length > 1000)
+                        if (!string.IsNullOrEmpty(WachtwoordOmschrijving) && WachtwoordOmschrijving.Length > 1000)
                         {
                             error = "WachtwoordOmschrijving mag niet langer zijn dan 1000 karakters.";
-                            if (ErrorList.Contains(nameof(WachtwoordOmschrijving)) == false)
-                            {
-                                ErrorList.Add(nameof(WachtwoordOmschrijving));
-                            }
+                            AddError(nameof(WachtwoordOmschrijving));
                         }
                         else
                         {
-                            if (ErrorList.Contains(nameof(WachtwoordOmschrijving)))
-                            {
-                                ErrorList.Remove(nameof(WachtwoordOmschrijving));
-                            }
+                            RemoveError(nameof(WachtwoordOmschrijving));
                         }
-                        return error;
-
+                        break;
 
                     case nameof(Login):
                         if (string.IsNullOrWhiteSpace(Login))
                         {
                             error = "Login is verplicht veld.";
-                            if (ErrorList.Contains(nameof(Login)) == false)
-                            {
-                                ErrorList.Add(nameof(Login));
-                            }
+                            AddError(nameof(Login));
                         }
                         else if (Login.Length > 50)
                         {
                             error = "Login mag niet langer zijn dan 50 karakters.";
-                            if (ErrorList.Contains(nameof(Login)) == false)
-                            {
-                                ErrorList.Add(nameof(Login));
-                            }
+                            AddError(nameof(Login));
                         }
                         else
                         {
-                            if (ErrorList.Contains(nameof(Login)))
-                            {
-                                ErrorList.Remove(nameof(Login));
-                            }
+                            RemoveError(nameof(Login));
                         }
-                        return error;
-
+                        break;
 
                     case nameof(Wachtwoord):
                         if (string.IsNullOrWhiteSpace(Wachtwoord))
                         {
                             error = "Wachtwoord is verplicht veld.";
-                            if (ErrorList.Contains(nameof(Wachtwoord)) == false)
-                            {
-                                ErrorList.Add(nameof(Wachtwoord));
-                            }
+                            AddError(nameof(Wachtwoord));
                         }
                         else if (Wachtwoord.Length > 50)
                         {
                             error = "Wachtwoord mag niet langer zijn dan 50 karakters.";
-                            if (ErrorList.Contains(nameof(Wachtwoord)) == false)
-                            {
-                                ErrorList.Add(nameof(Wachtwoord));
-                            }
+                            AddError(nameof(Wachtwoord));
                         }
                         else
                         {
-                            if (ErrorList.Contains(nameof(Wachtwoord)))
-                            {
-                                ErrorList.Remove(nameof(Wachtwoord));
-                            }
+                            RemoveError(nameof(Wachtwoord));
                         }
-                        return error;
-
-
-
-
-                    default:
-                        error = null;
-                        return error;
+                        break;
                 }
 
+                return error;
             }
         }
 
-        private int _wacchtwoordID;
+        public string Error => null;
+
+        private void AddError(string name)
+        {
+            if (!ErrorList.Contains(name)) ErrorList.Add(name);
+        }
+
+        private void RemoveError(string name)
+        {
+            if (ErrorList.Contains(name)) ErrorList.Remove(name);
+        }
+
+        #endregion
+
+        #region Properties
+
+        private int _wachtwoordID;
+        /// <summary>
+        /// Unieke ID van het wachtwoordrecord.
+        /// </summary>
         public int WachtwoordID
         {
-            get { return _wacchtwoordID; }
+            get => _wachtwoordID;
             set
             {
-
-                _wacchtwoordID = value;
+                _wachtwoordID = value;
                 OnPropertyChanged();
-
             }
         }
 
         private int _wachtwoordGroepID;
+        /// <summary>
+        /// ID van de groep waartoe het wachtwoord behoort.
+        /// </summary>
         public int WachtwoordGroepID
         {
-            get { return _wachtwoordGroepID; }
+            get => _wachtwoordGroepID;
             set
             {
-                if (_wachtwoordGroepID != value)
-                {
-                    if (_wachtwoordGroepID != 0)
-                    {
-                        IsDirty = true;
-                    }
-                }
+                if (_wachtwoordGroepID != value && _wachtwoordGroepID != 0)
+                    IsDirty = true;
                 _wachtwoordGroepID = value;
                 OnPropertyChanged();
             }
         }
 
-
-        private int _wachtwoordGroep;
-        public int WachtwoordGroep
-        {
-            get { return _wachtwoordGroep; }
-            set
-            {
-       
-                _wachtwoordGroep = value;
-                OnPropertyChanged();
-            }
-        }
-
         private string _wachtwoordGroepNaam;
+        /// <summary>
+        /// Naam van de wachtwoordgroep.
+        /// </summary>
         public string WachtwoordGroepNaam
         {
-            get { return _wachtwoordGroepNaam; }
+            get => _wachtwoordGroepNaam;
             set
             {
                 _wachtwoordGroepNaam = value;
@@ -176,86 +146,70 @@ namespace HomeManager.Model.Security
             }
         }
 
-
-
-
-
-
         private string _wachtwoordNaam;
+        /// <summary>
+        /// Naam/titel van de login.
+        /// </summary>
         public string WachtwoordNaam
         {
-            get { return _wachtwoordNaam; }
+            get => _wachtwoordNaam;
             set
             {
-                if (_wachtwoordNaam != value)
-                {
-                    if (_wachtwoordNaam != null)
-                    {
-                        IsDirty = true;
-                    }
-                }
+                if (_wachtwoordNaam != value && _wachtwoordNaam != null)
+                    IsDirty = true;
                 _wachtwoordNaam = value;
                 OnPropertyChanged();
             }
         }
 
         private string _wachtwoordOmschrijving;
+        /// <summary>
+        /// Beschrijving of toelichting bij de login.
+        /// </summary>
         public string WachtwoordOmschrijving
         {
-            get { return _wachtwoordOmschrijving; }
+            get => _wachtwoordOmschrijving;
             set
             {
-                if (_wachtwoordOmschrijving != value)
-                {
-                    if (_wachtwoordOmschrijving != null)
-                    {
-                        IsDirty = true;
-                    }
-                }
+                if (_wachtwoordOmschrijving != value && _wachtwoordOmschrijving != null)
+                    IsDirty = true;
                 _wachtwoordOmschrijving = value;
                 OnPropertyChanged();
             }
         }
 
-        private string _wachtwoord;
-        public string Wachtwoord
-        {
-            get { return _wachtwoord; }
-            set
-            {
-                if (_wachtwoord != value)
-                {
-                    if (_wachtwoord != null)
-                    {
-                        IsDirty = true;
-                    }
-                }
-                _wachtwoord = value;
-                OnPropertyChanged();
-            }
-        }
-
         private string _login;
+        /// <summary>
+        /// Gebruikersnaam van de login.
+        /// </summary>
         public string Login
         {
-            get { return _login; }
+            get => _login;
             set
             {
-                if (_login != value)
-                {
-                    if (_login != null)
-                    {
-                        IsDirty = true;
-                    }
-                }
+                if (_login != value && _login != null)
+                    IsDirty = true;
                 _login = value;
                 OnPropertyChanged();
             }
         }
 
+        private string _wachtwoord;
+        /// <summary>
+        /// Het wachtwoord van de login.
+        /// </summary>
+        public string Wachtwoord
+        {
+            get => _wachtwoord;
+            set
+            {
+                if (_wachtwoord != value && _wachtwoord != null)
+                    IsDirty = true;
+                _wachtwoord = value;
+                OnPropertyChanged();
+            }
+        }
 
-
-
-
+        #endregion
     }
 }

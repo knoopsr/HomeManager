@@ -1,20 +1,22 @@
 ﻿using HomeManager.ViewModel;
-using System;
 using System.Collections.Concurrent;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace HomeManager.Helpers
 {
+    /// <summary>
+    /// Een eenvoudige Messenger-implementatie voor communicatie tussen ViewModels zonder directe referenties.
+    /// Ondersteunt context-gebaseerde berichtverzending en registratie.
+    /// </summary>
     public class clsMessenger
     {
         private static readonly object CreationLock = new object();
-        private static readonly ConcurrentDictionary<MessengerKey, Object> Dictionary = new ConcurrentDictionary<MessengerKey, Object>();
+        private static readonly ConcurrentDictionary<MessengerKey, object> Dictionary = new();
 
         private static clsMessenger _instance;
 
+        /// <summary>
+        /// Singleton-instantie van de Messenger.
+        /// </summary>
         public static clsMessenger Default
         {
             get
@@ -33,48 +35,76 @@ namespace HomeManager.Helpers
             }
         }
 
-        private clsMessenger()
-        {
-        }
-        public void Register<T>(Object recipient, Action<T> action)
+        /// <summary>
+        /// Private constructor om singleton te forceren.
+        /// </summary>
+        private clsMessenger() { }
+
+        /// <summary>
+        /// Registreert een ontvanger voor een berichttype zonder context.
+        /// </summary>
+        /// <typeparam name="T">Het berichttype.</typeparam>
+        /// <param name="recipient">De ontvanger.</param>
+        /// <param name="action">De actie die uitgevoerd wordt bij ontvangst van het bericht.</param>
+        public void Register<T>(object recipient, Action<T> action)
         {
             Register(recipient, action, null);
         }
 
-        public void Register<T>(Object recipient, Action<T> action, object context)
+        /// <summary>
+        /// Registreert een ontvanger voor een berichttype met optionele context.
+        /// </summary>
+        /// <typeparam name="T">Het berichttype.</typeparam>
+        /// <param name="recipient">De ontvanger.</param>
+        /// <param name="action">De uit te voeren actie bij ontvangst van het bericht.</param>
+        /// <param name="context">Een optionele context om te filteren op zendingen.</param>
+        public void Register<T>(object recipient, Action<T> action, object context)
         {
             var key = new MessengerKey(recipient, context);
             Dictionary.TryAdd(key, action);
         }
 
-        public void Unregister(Object recipient)
+        /// <summary>
+        /// Verwijdert alle registratie van een ontvanger zonder context.
+        /// </summary>
+        /// <param name="recipient">De ontvanger die uit de lijst moet worden verwijderd.</param>
+        public void Unregister(object recipient)
         {
             Unregister(recipient, null);
         }
 
-        public void Unregister(Object recipient, object context)
+        /// <summary>
+        /// Verwijdert alle registratie van een ontvanger met de opgegeven context.
+        /// </summary>
+        /// <param name="recipient">De ontvanger.</param>
+        /// <param name="context">De context (indien van toepassing).</param>
+        public void Unregister(object recipient, object context)
         {
-            object action;
             var key = new MessengerKey(recipient, context);
-            Dictionary.TryRemove(key, out action);
+            Dictionary.TryRemove(key, out _);
         }
 
+        /// <summary>
+        /// Stuurt een bericht naar alle geregistreerde ontvangers zonder contextfilter.
+        /// </summary>
+        /// <typeparam name="T">Het berichttype.</typeparam>
+        /// <param name="message">Het te verzenden bericht.</param>
         public void Send<T>(T message)
         {
             Send(message, null);
         }
 
+        /// <summary>
+        /// Stuurt een bericht naar alle geregistreerde ontvangers met een specifieke context.
+        /// </summary>
+        /// <typeparam name="T">Het berichttype.</typeparam>
+        /// <param name="message">Het te verzenden bericht.</param>
+        /// <param name="context">De context om de ontvangers te filteren.</param>
         public void Send<T>(T message, object context)
         {
-            IEnumerable<KeyValuePair<MessengerKey, Object>> result;
-            if (context == null)
-            {
-                result = from r in Dictionary where r.Key.Context == null select r;
-            }
-            else
-            {
-                result = from r in Dictionary where r.Key.Context != null && r.Key.Context.Equals(context) select r;
-            }
+            IEnumerable<KeyValuePair<MessengerKey, object>> result = context == null
+                ? Dictionary.Where(r => r.Key.Context == null)
+                : Dictionary.Where(r => r.Key.Context != null && r.Key.Context.Equals(context));
 
             foreach (var action in result.Select(r => r.Value).OfType<Action<T>>())
             {
@@ -82,17 +112,23 @@ namespace HomeManager.Helpers
             }
         }
 
+        /// <summary>
+        /// Niet-geïmplementeerde helper (mogelijk voor specifieke login-messaging).
+        /// </summary>
         internal void Register<T>(clsLogin clsLogin, string v, object newPassWord)
         {
             throw new NotImplementedException();
         }
 
+        /// <summary>
+        /// Interne sleutelstructuur voor identificatie van registraties met context.
+        /// </summary>
         protected class MessengerKey
         {
-            public Object Recipient { get; private set; }
-            public Object Context { get; private set; }
+            public object Recipient { get; private set; }
+            public object Context { get; private set; }
 
-            public MessengerKey(Object recipient, Object context)
+            public MessengerKey(object recipient, object context)
             {
                 Recipient = recipient;
                 Context = context;
@@ -103,27 +139,18 @@ namespace HomeManager.Helpers
                 return Equals(Recipient, other.Recipient) && Equals(Context, other.Context);
             }
 
-            public override bool Equals(Object obj)
+            public override bool Equals(object obj)
             {
-                if (ReferenceEquals(null, obj)) return false;
-                if (ReferenceEquals(this, obj)) return true;
-                if (obj.GetType() != GetType()) return false;
-                return Equals((MessengerKey)obj);
+                return obj is MessengerKey other && Equals(other);
             }
 
             public override int GetHashCode()
             {
                 unchecked
                 {
-                    return ((Recipient != null ? Recipient.GetHashCode() : 0) * 397) ^ (Context != null ? Context.GetHashCode() : 0);
+                    return ((Recipient?.GetHashCode() ?? 0) * 397) ^ (Context?.GetHashCode() ?? 0);
                 }
             }
         }
-
-
-
-
     }
-
-
 }
