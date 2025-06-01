@@ -488,8 +488,10 @@ namespace HomeManager.ViewModel
         //PaperCut.exe runnen  -> http://localhost:5000/ 
         private async void Execute_SubmitEmail()
         {
+            bool bestaatGebruiker = MijnSelectedGebruiker != null && MijnSelectedGebruiker.Login != null && MijnSelectedGebruiker.Login != string.Empty;
             //bij het saven faalt hij hier
-            if (MijnSelectedGebruiker.Login != string.Empty)
+            // bestaatGebruiker == false -> fixen
+            if (bestaatGebruiker)
             {
                 isSendMail = true;
 
