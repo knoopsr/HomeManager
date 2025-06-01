@@ -27,10 +27,40 @@
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="50" />
+            <RowDefinition Height="50" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
-        <StackPanel Grid.Row="0" Grid.Column="0">
+        <Border
+            Grid.Row="0"
+            Grid.ColumnSpan="3"
+            Background="{StaticResource myTitleBar}"
+            BorderBrush="LightBlue"
+            BorderThickness="1">
+            <Grid>
+                <StackPanel
+                    Margin="10,0,0,0"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Center"
+                    Orientation="Horizontal">
+                    <Path
+                        Width="20"
+                        Height="20"
+                        Data="{StaticResource myTodo}"
+                        Fill="White"
+                        Stretch="Fill" />
+                    <TextBlock
+                        Margin="10"
+                        VerticalAlignment="Center"
+                        FontSize="20"
+                        Foreground="White"
+                        Text="To Do" />
+                </StackPanel>
+                <uc:ucWerkBalk HorizontalAlignment="Right" VerticalAlignment="Top" />
+            </Grid>
+        </Border>
+
+        <StackPanel Grid.Row="1" Grid.Column="0">
             <Button
                 Name="OpenTodoCollecties"
                 Width="30"
@@ -41,7 +71,7 @@
                 Style="{StaticResource AddButton}"
                 ToolTip="Collectie toevoegen" />
         </StackPanel>
-        <StackPanel Grid.Row="0" Grid.Column="1">
+        <StackPanel Grid.Row="1" Grid.Column="1">
             <Button
                 Name="OpenTodoPopupViewbtn"
                 Width="30"
@@ -52,39 +82,37 @@
                 Style="{StaticResource AddButton}"
                 ToolTip="Todo toevoegen" />
         </StackPanel>
-        <StackPanel Grid.Row="0" Grid.Column="2">
+        <StackPanel Grid.Row="1" Grid.Column="2" Orientation="Horizontal" HorizontalAlignment="Right">
+            <Button
+                x:Name="RefreshButton"
+                Width="20"
+                Height="20"
+                Margin="0,20,5,0"
+                Command="{Binding RefreshCommand}"
+                Style="{StaticResource RefreshButton}"
+                ToolTip="Vernieuw de gegevens" />
             <Button
                 Name="OpenTodoDetails"
                 Width="30"
                 Height="30"
                 Margin="0,20,0,0"
-                HorizontalAlignment="Right"
-                Command="{Binding OpenTodoDetailsCommand}" CommandParameter="{Binding MijnCollectieTodoPopup}" Content="Open Todo Details"
+                Command="{Binding OpenTodoDetailsCommand}"
+                CommandParameter="{Binding MijnCollectieTodoPopup}"
+                Content="Open Todo Details"
                 Style="{StaticResource AddButton}"
                 ToolTip="Todo detail toevoegen" />
-        </StackPanel>
-        <StackPanel Grid.Row="0" Grid.Column="2">
-            <Button
-                Name="RefreshButton"
-                Width="20"
-                Height="20"
-                Margin="0,20,40,0"
-                HorizontalAlignment="Right"
-                Command="{Binding RefreshCommand}"
-                Style="{StaticResource RefreshButton}"
-                ToolTip="Vernieuw de gegevens" />
         </StackPanel>
         <ListBox
             BorderBrush="Transparent"
             Name="ToDoCollectiesOpvullingListView"
-            Grid.Row="1"
+            Grid.Row="2"
             Grid.Column="0"
             ItemsSource="{Binding Source={StaticResource VML}, Path=CollectiesViewModel.MijnCollectie, UpdateSourceTrigger=PropertyChanged}"
             SelectedItem="{Binding MijnSelectedCollectieItem, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 
         <ListView
             Name="ToDoItemOpvulling"
-            Grid.Row="1"
+            Grid.Row="2"
             Grid.Column="1"
             HorizontalAlignment="Stretch"
             VerticalAlignment="Stretch"
@@ -192,7 +220,7 @@
             </ListView.ItemTemplate>
         </ListView>
 
-        <Expander Grid.Column="1" Grid.Row="1" Header="Afgehandelde Todo Items" ExpandDirection="Up" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center" Background="LightSteelBlue">
+        <Expander Grid.Column="1" Grid.Row="2" Header="Afgehandelde Todo Items" ExpandDirection="Up" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center" Background="LightSteelBlue">
             <Expander.Style>
                 <Style TargetType="Expander">
                     <Setter Property="Height" Value="30"/>
@@ -311,7 +339,7 @@
 
         <ListView
             Name="ToDoDetailsOpvulling"
-            Grid.Row="1"
+            Grid.Row="2"
             Grid.Column="2"
             HorizontalAlignment="Stretch"
             VerticalAlignment="Stretch"

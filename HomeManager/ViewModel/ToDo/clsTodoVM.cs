@@ -21,6 +21,7 @@ namespace HomeManager.ViewModel
         clsTodoDetailsDataService MijnServiceTodoDetails;
         clsCollectiesVM CollectiesVM;
         public ICommand RefreshCommand { get; }
+        public ICommand cmdClose { get; set; }
 
         public clsTodoVM()
         {
@@ -51,10 +52,30 @@ namespace HomeManager.ViewModel
             IsKlaarCommand = new clsRelayCommand<object>(param => OnIsKlaarClicked(param as clsTodoPopupM));
             IsKlaarTodoDetailCommand = new clsRelayCommand<object>(param => OnIsKlaarTodoDetailClicked(param as clsTodoDetailsM));
 
+            cmdClose = new clsCustomCommand(Execute_CloseCommand, CanExecute_CloseCommand);
+
             RefreshCommand = new clsRelayCommand<object>(param => RefreshData());
 
             // Registreer om berichten te ontvangen
             //clsMessenger.Default.Register<clsCollectieAangemaaktMessage>(this, OnCollectieAangemaakt);
+        }
+
+        private bool CanExecute_CloseCommand(object obj)
+        {
+            return true;
+        }
+
+        private void Execute_CloseCommand(object obj)
+        {
+            MainWindow HomeWindow = obj as MainWindow;
+            if (HomeWindow != null)
+            {
+
+                clsHomeVM vm = (clsHomeVM)HomeWindow.DataContext;
+                vm.CurrentViewModel = null;
+            }
+
+
         }
 
         private void RefreshData()
