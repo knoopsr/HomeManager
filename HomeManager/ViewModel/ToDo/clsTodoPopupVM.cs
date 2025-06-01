@@ -17,6 +17,10 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using HomeManager.Model.Mail;
+using System.Diagnostics;
+using HomeManager.DataService.Personen;
+using HomeManager.Model.Personen;
+using HomeManager.Model.Budget;
 
 namespace HomeManager.ViewModel
 {
@@ -34,9 +38,34 @@ namespace HomeManager.ViewModel
         public ICommand cmdSave { get; set; }
         public ICommand OpenCollectiesCommand { get; }
         public ICommand OpenAccountCommand { get; }
-        public ICommand SubmitEmailCommand { get; set; }
+        //public ICommand SubmitEmailCommand { get; set; }
 
         private bool isSendMail = false;
+        // **Fix: Declareer VerzendenService**
+        private clsEmailAdressenDataService VerzendenService;
+
+        private ObservableCollection<clsEmailAdressenModel> _MijnVerzenderEmailAdres;
+        public ObservableCollection<clsEmailAdressenModel> MijnVerzenderEmailAdres
+        {
+            get { return _MijnVerzenderEmailAdres; }
+            set
+            {
+                _MijnVerzenderEmailAdres = value;
+                OnPropertyChanged();
+            }
+        }
+
+        // **Fix: Declareer Ontvanger**
+        private string _ontvanger;
+        public string Ontvanger
+        {
+            get { return _ontvanger; }
+            set
+            {
+                _ontvanger = value;
+                OnPropertyChanged();
+            }
+        }
 
 
         public clsTodoPopupVM()
@@ -50,7 +79,7 @@ namespace HomeManager.ViewModel
             cmdNew = new clsCustomCommand(Execute_NewCommand, CanExecute_NewCommand);
             cmdCancel = new clsCustomCommand(Execute_CancelCommand, CanExecute_CancelCommand);
             cmdClose = new clsCustomCommand(Execute_CloseCommand, CanExecute_CloseCommand);
-            SubmitEmailCommand = new clsCustomCommand(Execute_SubmitEmail, CanExecute_SubmitEmail);
+            //SubmitEmailCommand = new clsCustomCommand(Execute_SubmitEmail, CanExecute_SubmitEmail);
 
             //clsMessenger.Default.Register<clsTodoPopupM>(this, OnCollectiesReceived);
             OpenCollectiesCommand = new clsRelayCommand<object>(OpenCollecties);
@@ -60,8 +89,26 @@ namespace HomeManager.ViewModel
 
             LoadData();
             MijnSelectedItem = MijnService.GetFirst() ?? new clsTodoPopupM();
+            VerzendenService = new clsEmailAdressenDataService();
+            MijnVerzenderEmailAdres = new ObservableCollection<clsEmailAdressenModel>();
+            if (MijnVerzenderEmailAdres.Count > 0)
+            {
+                MijnSelectedItem = MijnVerzenderEmailAdres[0];
+            }
 
             clsMessenger.Default.Register<clsCollectiesM>(this, OnCollectiesReceived);
+            clsMessenger.Default.Register<clsTodoPopupM>(this, OnUpdateListMessageReceived);
+        }
+
+
+
+        private void OnUpdateListMessageReceived(clsTodoPopupM obj)
+        {
+            //int GebruikerId = obj.GebruikerID;
+            //Ontvanger = GebruikerId;
+            int ontvanger = GebruikerID;
+            MijnVerzenderEmailAdres = VerzendenService.GetByPersoonID(clsLoginModel.Instance.PersoonID);
+            cmdSave = new clsCustomCommand(Execute_SaveCommand, CanExecute_SaveCommand);
         }
 
         private void OnCollectiesReceived(clsCollectiesM obj)
@@ -110,13 +157,6 @@ namespace HomeManager.ViewModel
             accountWindow.ShowDialog();
         }
 
-        // Implement INotifyPropertyChanged interface
-        //public event PropertyChangedEventHandler PropertyChanged;
-        //protected void OnPropertyChanged(string propertyName)
-        //{
-        //    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        //}
-
         private ObservableCollection<clsTodoPopupM> _MijnCollectie;
         public ObservableCollection<clsTodoPopupM> MijnCollectie
         {
@@ -150,52 +190,17 @@ namespace HomeManager.ViewModel
                             OpslaanCommando();
                             LoadData();
                         }
-
+                    }
+                    // Koppel de juiste gebruiker aan MijnSelectedGebruiker
+                    if (value.GebruikerID > 0 && MijnCollectieGebruikers != null)
+                    {
+                        MijnSelectedGebruiker = MijnCollectieGebruikers.FirstOrDefault(g => g.AccountID == value.GebruikerID);
                     }
                 }
                 _MijnSelectedItem = value;
                 OnPropertyChanged();
             }
         }
-
-        //private void OpslaanCommando()
-        //{
-        //    if (MijnSelectedItem != null)
-        //    {
-        //        if (NewStatus)
-        //        {
-        //            if (MijnService.Insert(MijnSelectedItem))
-        //            {
-        //                MijnSelectedItem.IsDirty = false;
-        //                MijnSelectedItem.MijnSelectedIndex = 0;
-        //                MijnSelectedItem.MyVisibility = (int)Visibility.Visible;
-        //                NewStatus = false;
-        //                LoadData();
-        //            }
-        //            else
-        //            {
-        //                MessageBox.Show(MijnSelectedItem.ErrorBoodschap, "Error?");
-        //            }
-        //        }
-
-        //        else
-        //        {
-        //            if (MijnService.Update(MijnSelectedItem))
-        //            {
-
-
-        //                MijnSelectedItem.IsDirty = false;
-        //                MijnSelectedItem.MijnSelectedIndex = 0;
-        //                NewStatus = false;
-        //                LoadData();
-        //            }
-        //            else
-        //            {
-        //                MessageBox.Show(MijnSelectedItem.ErrorBoodschap, "Error?");
-        //            }
-        //        }
-        //    }
-        //}
 
         private void OpslaanCommando()
         {
@@ -244,7 +249,6 @@ namespace HomeManager.ViewModel
                 }
             }
         }
-
 
         private void LoadData()
         {
@@ -321,6 +325,7 @@ namespace HomeManager.ViewModel
                 IsKlaar = false,
                 Volgorde = null // Of een standaardwaarde als dat nodig is
             };
+            MijnSelectedGebruiker = MijnCollectieGebruikers?.FirstOrDefault(g => g.AccountID == ItemToInsert.GebruikerID);
 
             MijnSelectedItem = ItemToInsert;
 
@@ -328,8 +333,6 @@ namespace HomeManager.ViewModel
             NewStatus = true;
             IsFocusedAfterNew = true;
         }
-
-
 
         private bool CanExecute_DeleteCommand(object obj)
         {
@@ -382,16 +385,20 @@ namespace HomeManager.ViewModel
             }
         }
 
+        private bool _sendEmailOnSave = true;
+        public bool SendEmailOnSave
+        {
+            get { return _sendEmailOnSave; }
+            set { _sendEmailOnSave = value; OnPropertyChanged(); }
+        }
+
         private void Execute_SaveCommand(object obj)
         {
-            OpslaanCommando();
+            // Forceer binding update van ComboBox (indien nodig)
+            FocusManager.SetFocusedElement(FocusManager.GetFocusScope(Application.Current.MainWindow), null);
 
-            // Controleer of de gegevens succesvol zijn opgeslagen
-            if (MijnSelectedItem != null && !MijnSelectedItem.IsDirty)
-            {
-                // Verstuur de e-mail
-                Execute_SubmitEmail();
-            }
+            OpslaanCommando();
+            Execute_SubmitEmail();
         }
 
 
@@ -424,6 +431,7 @@ namespace HomeManager.ViewModel
         }
 
         //Trigger voor het veranderen van de gebruiker in de popup.
+        //Debug OK
         private clsAccountModel _MijnSelectedGebruiker;
         public clsAccountModel MijnSelectedGebruiker
         {
@@ -434,10 +442,12 @@ namespace HomeManager.ViewModel
             set
             {
                 _MijnSelectedGebruiker = value;
-                if (value != null)
+
+                if (value != null && MijnSelectedItem != null)
                 {
                     MijnSelectedItem.GebruikerID = value.AccountID;
                 }
+
                 OnPropertyChanged();
             }
         }
@@ -447,55 +457,83 @@ namespace HomeManager.ViewModel
             return !isSendMail;
         }
 
+        //Gebruiker pakt em niet mee!! in deze method
         //Code komt van  clsEmailVerzendenViewModel -> Thomas
         //PaperCut.exe runnen  -> http://localhost:5000/ 
         private async void Execute_SubmitEmail()
         {
-            if (MijnSelectedItem == null || MijnSelectedGebruiker == null)
+            try
             {
-                MessageBox.Show("Selecteer een gebruiker en vul de benodigde velden in.", "Fout", MessageBoxButton.OK, MessageBoxImage.Error);
-                return;
+                // Voeg fallback toe voor MijnSelectedGebruiker
+                //if (MijnSelectedGebruiker == null)
+                //{
+                //    MijnSelectedGebruiker = MijnCollectieGebruikers?.FirstOrDefault() ?? new clsAccountModel
+                //    {
+                //        AccountID = clsLoginModel.Instance.AccountID,
+                //        Login = "default@homemanager.com"
+                //    };
+                //}
+                //if (MijnSelectedItem == null || MijnSelectedGebruiker == null)
+                // Fallback voor als MijnSelectedGebruiker null is
+                var gebruikerVoorEmail = MijnSelectedGebruiker ??
+                    MijnCollectieGebruikers?.FirstOrDefault(g => g.AccountID == (MijnSelectedItem?.GebruikerID ?? 0));
+
+                if (gebruikerVoorEmail == null)
+                {
+                    MessageBox.Show("Selecteer een gebruiker...", "Fout");
+                    return;
+                }
+
+                //if (MijnSelectedGebruiker == null)
+                //{
+                //    MessageBox.Show("Selecteer een gebruiker en vul de benodigde velden in.", "Fout", MessageBoxButton.OK, MessageBoxImage.Error);
+                //    return;
+                //}
+
+                isSendMail = true;
+
+                if (string.IsNullOrWhiteSpace(MijnSelectedGebruiker.Login))
+                {
+                    MessageBox.Show("Het e-mailadres van de gebruiker is ongeldig.", "Fout", MessageBoxButton.OK, MessageBoxImage.Error);
+                    isSendMail = false;
+                    return;
+                }
+
+                string ontvangerEmail = $"{MijnSelectedGebruiker.Login}@gmail.com";
+                Debug.WriteLine($"Probeer email te versturen naar: {ontvangerEmail}");
+
+                var mailModel = new clsMailModel
+                {
+                    MailFromEmail = "noreply@homemanager.com",
+                    MailToEmail = ontvangerEmail,
+                    MailToName = MijnSelectedGebruiker.Login,
+                    Subject = MijnSelectedItem.Onderwerp,
+                    Body = MijnSelectedItem.Detail
+                };
+
+                Debug.WriteLine("Email model aangemaakt, probeer te versturen...");
+                bool emailVerzonden = await clsMail.SendEmail(mailModel);
+                Debug.WriteLine($"Email verzend resultaat: {emailVerzonden}");
+
+                if (emailVerzonden)
+                {
+                    MessageBox.Show("De mail is verzonden.", "Verzonden", MessageBoxButton.OK, MessageBoxImage.Information);
+                }
+                else
+                {
+                    MessageBox.Show("Er is een fout opgetreden bij het versturen van de e-mail.", "Fout", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
             }
-
-            isSendMail = true;
-
-            // Controleer of MijnSelectedGebruiker.Login geldig is
-            if (string.IsNullOrWhiteSpace(MijnSelectedGebruiker.Login))
+            catch (Exception ex)
             {
-                MessageBox.Show("Het e-mailadres van de gebruiker is ongeldig.", "Fout", MessageBoxButton.OK, MessageBoxImage.Error);
+                Debug.WriteLine($"Exception in Execute_SubmitEmail: {ex}");
+                MessageBox.Show($"Er is een fout opgetreden: {ex.Message}", "Fout", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            finally
+            {
                 isSendMail = false;
-                return;
-            }
-
-            // Stel het e-mailadres van de ontvanger samen
-            string ontvangerEmail = $"{MijnSelectedGebruiker.Login}@gmail.com";
-
-            // Maak het mailmodel aan
-            clsMailModel mailModel = new clsMailModel
-            {
-                MailFromEmail = "noreply@homemanager.com", // Gebruik een standaard afzender
-                MailToEmail = ontvangerEmail,
-                Subject = MijnSelectedItem.Onderwerp,
-                Body = MijnSelectedItem.Detail
-            };
-
-            // Verstuur de e-mail
-            bool emailVerzonden = await clsMail.SendEmail(mailModel);
-
-            isSendMail = false;
-
-            // Toon een melding op basis van het resultaat
-            if (emailVerzonden)
-            {
-                MessageBox.Show("De mail is verzonden.", "Verzonden", MessageBoxButton.OK, MessageBoxImage.Information);
-            }
-            else
-            {
-                MessageBox.Show("Er is een fout opgetreden bij het versturen van de e-mail.", "Fout", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
-
-
 
         private ObservableCollection<clsCollectiesM> _MijnCollectieCollecties;
         public ObservableCollection<clsCollectiesM> MijnCollectieCollecties
