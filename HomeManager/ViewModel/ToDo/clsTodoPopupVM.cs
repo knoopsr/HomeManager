@@ -85,8 +85,6 @@ namespace HomeManager.ViewModel
             //clsMessenger.Default.Register<clsTodoPopupM>(this, OnCollectiesReceived);
             OpenCollectiesCommand = new clsRelayCommand<object>(OpenCollecties);
             OpenAccountCommand = new clsRelayCommand<object>(OpenAccount);
-            
-
 
             LoadData();
             MijnSelectedItem = MijnService.GetFirst() ?? new clsTodoPopupM();
@@ -99,6 +97,10 @@ namespace HomeManager.ViewModel
 
             clsMessenger.Default.Register<clsCollectiesM>(this, OnCollectiesReceived);
             clsMessenger.Default.Register<clsTodoPopupM>(this, OnUpdateListMessageReceived);
+
+            // Initialize filtering
+            FilteredMijnCollectie = CollectionViewSource.GetDefaultView(MijnCollectie);
+            FilteredMijnCollectie.Filter = FilterBySelectedCollectie;
         }
 
 
@@ -110,9 +112,7 @@ namespace HomeManager.ViewModel
             int ontvanger = GebruikerID;
             MijnVerzenderEmailAdres = VerzendenService.GetByPersoonID(clsLoginModel.Instance.PersoonID);
             cmdSave = new clsCustomCommand(Execute_SaveCommand, CanExecute_SaveCommand);
-            // Initialize filtering
-            FilteredMijnCollectie = CollectionViewSource.GetDefaultView(MijnCollectie);
-            FilteredMijnCollectie.Filter = FilterBySelectedCollectie;
+            
         }
 
         private ICollectionView _filteredMijnCollectie;

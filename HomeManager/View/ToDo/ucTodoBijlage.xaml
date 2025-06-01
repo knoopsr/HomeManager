@@ -96,8 +96,8 @@
                         Drop="Button_Drop"
                         Style="{StaticResource UploadButton}"
                         ToolTip="Upload File" 
-                        CommandParameter="{Binding}"
-                        Style="{StaticResource UploadButton}" />
+                        CommandParameter="{Binding}" />
+               
                     <Button
                         x:Name="ViewFilebtn"
                         Width="30"
@@ -108,7 +108,7 @@
                         Style="{StaticResource EyeButton}"
                         ToolTip="File bekijken" 
                         CommandParameter="{Binding}"
-                        Command="{Binding cmdViewFile}"/>
+                        />
                 </StackPanel>
 
                 <Label
