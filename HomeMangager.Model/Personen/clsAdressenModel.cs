@@ -48,6 +48,14 @@ namespace HomeManager.Model.Personen
             }
             set
             {
+                if (_gemeenteID != value)
+                {
+                    if (_gemeenteID != 0)
+                    {
+                        IsDirty = true;
+                    }
+
+                }
                 _gemeenteID = value;
                 OnPropertyChanged();
             }
@@ -62,6 +70,14 @@ namespace HomeManager.Model.Personen
             }
             set
             {
+                if (_functieID != value)
+                {
+                    if (_functieID != 0)
+                    {
+                        IsDirty = true;
+                    }
+
+                }
                 _functieID = value;
                 OnPropertyChanged();
             }

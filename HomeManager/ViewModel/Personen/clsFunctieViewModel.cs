@@ -216,7 +216,7 @@ namespace HomeManager.ViewModel
         }
         private void Execute_DeleteCommand(object obj)
         {
-            if (MessageBox.Show("wil je " + MijnSelectedItem + "verwijderen?", "Vewijderen?", MessageBoxButton.YesNo,
+            if (MessageBox.Show("wil je " + MijnSelectedItem + " verwijderen?", "Vewijderen?", MessageBoxButton.YesNo,
                 MessageBoxImage.Question) == MessageBoxResult.Yes)
             {
                 if (MijnSelectedItem != null)

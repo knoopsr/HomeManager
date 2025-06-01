@@ -267,7 +267,17 @@ namespace HomeManager.ViewModel
 
         private void New_Notities(object? obj)
         {
-            OpenNotities(obj);
+            //OpenNotities(obj);
+
+            clsNotitiesModel notities = new clsNotitiesModel()
+            {
+                PersoonID = MijnSelectedItem.PersoonID,
+                NotitieID = 0,
+                Onderwerp = string.Empty,
+                Notitie = string.Empty,
+            };
+            clsMessenger.Default.Send<clsNotitiesModel>(notities);
+            _DialogService.ShowDialog(new ucNotities(), "Notities");
         }
 
         private bool CanNewNotities(object? obj)
@@ -291,8 +301,20 @@ namespace HomeManager.ViewModel
 
         private void New_TelefoonNummers(object? obj)
         {
-            OpenTelefoonNummer(obj);
-        }
+            //OpenTelefoonNummer(obj);
+
+            clsTelefoonNummersModel telefoonnummer = new clsTelefoonNummersModel()
+            {
+                PersoonID = MijnSelectedItem.PersoonID,
+                TelefoonNummerID = 0,
+                TelefoonTypeID = 0,
+                TelefoonNummer = string.Empty
+            };
+            clsMessenger.Default.Send<clsTelefoonNummersModel>(telefoonnummer);
+            _DialogService.ShowDialog(new ucTelefoonNummers(), "TelefoonNummers");
+        }    
+            
+        
 
         private bool CanEditAdres(object? obj)
         {
@@ -306,9 +328,35 @@ namespace HomeManager.ViewModel
             return permissionChecker.HasPermission("108");
         }
 
-        private void New_Adres(object? obj)
+        private void New_Adres(object obj)
         {
-            OpenAdres(obj);
+            //OpenAdres(obj);
+
+            clsAdressenModel adres = new clsAdressenModel()
+            {
+                PersoonID = MijnSelectedItem.PersoonID,
+                AdresID = 0,
+                GemeenteID = 0,
+                FunctieID = 0,
+                Straat = string.Empty,
+                Nummer = string.Empty,
+            };
+            clsMessenger.Default.Send<clsAdressenModel>(adres);
+            _DialogService.ShowDialog(new ucAdressen(), "Adressen");         
+        }
+        private void New_EmailAdressen(object obj)
+        {
+            //OpenEmailAdressen(obj);
+
+            clsEmailAdressenModel email = new clsEmailAdressenModel()
+            {
+                PersoonID = MijnSelectedItem.PersoonID,
+                EmailAdresID = 0,
+                Emailadres = string.Empty,
+                EmailTypeID = 0
+            };
+            clsMessenger.Default.Send<clsEmailAdressenModel>(email);
+            _DialogService.ShowDialog(new ucEmailAdressen(), "EmailAdressen");
         }
 
         private bool CanSendEmail(object arg)
@@ -323,10 +371,7 @@ namespace HomeManager.ViewModel
             return permissionChecker.HasPermission("104");
         }
 
-        private void New_EmailAdressen(object obj)
-        {
-            OpenEmailAdressen(obj);
-        }
+
 
         private bool CanEditEmailAdressen(object arg)
         {
@@ -503,19 +548,13 @@ namespace HomeManager.ViewModel
 
         private void Edit_Persoon(object? obj)
         {
-            if (obj == null)
+            if (obj != null)
             {
-                // Maak een nieuw persoon object aan met de huidige geselecteerde persoon ID
-                clsPersoonModel persoon = new clsPersoonModel()
+                if (obj is clsPersoonModel)
                 {
-                    PersoonID = MijnSelectedItem.PersoonID,
-                    Naam = string.Empty,
-                    Voornaam = string.Empty,
-                    Geboortedatum = DateOnly.FromDateTime(DateTime.Now),
-                    IsApplicationUser = null,
-                    Foto = null
-                };
-                clsMessenger.Default.Send<clsPersoonModel>(persoon);
+                    clsPersoonModel persoon = obj as clsPersoonModel;
+                    clsMessenger.Default.Send<clsPersoonModel>(persoon);
+                }
             }
             else
             {
@@ -531,7 +570,9 @@ namespace HomeManager.ViewModel
             }
 
             _DialogService.ShowDialog(new ucPersoon(), "Persoon");
-        }       
+            
+        }
+
 
         private void Edit_EmailAdressen(object obj)
         {
@@ -738,7 +779,7 @@ namespace HomeManager.ViewModel
         {
             if (obj is clsEmailAdressenModel selectedEmail)
             {
-                if (MessageBox.Show($"Wil je het e-mailadres '{selectedEmail.Emailadres}' verwijderen?",
+                if (MessageBox.Show($"Wil je het e-mailadres '{selectedEmail}' verwijderen?",
                     "Verwijderen?", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
                 {
                     if (MijnServiceEmailAdressen.Delete(selectedEmail))

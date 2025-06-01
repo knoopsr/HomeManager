@@ -19,7 +19,7 @@ namespace HomeManager.DataService.Dagboek
             return myRepo.Delete(entity);
         }
 
-        public ObservableCollection<clsDagboekModel> GetAllByPersoonID(int persoonID)
+        public ObservableCollection<clsDagboekModel> GetAllByPersoonID(string persoonID)
         {
             return myRepo.GetAllByPersoonID( persoonID );
         }

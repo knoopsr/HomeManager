@@ -26,9 +26,14 @@ namespace HomeManager.ViewModel
 {
     public class clsDagboekViewModel : clsCommonModelPropertiesBase
     {
-        private int PersoonID
+        private int AccountID
         {
             get { return clsLoginModel.Instance.AccountID; }
+        }
+
+        private string PersoonID
+        {
+            get { return Convert.ToString(AccountID); }
         }
 
         public clsRTBLayout MyRTBLayout { get; set; }
@@ -178,7 +183,7 @@ namespace HomeManager.ViewModel
             }
             clsEmailVerzendenModel sendEmail = new clsEmailVerzendenModel()
             {
-                PersoonID = this.PersoonID,
+                PersoonID = this.AccountID,
                 Ontvanger = obj.ToString(),
             };
             clsMessenger.Default.Send<clsEmailVerzendenModel>(sendEmail);

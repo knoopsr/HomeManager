@@ -35,6 +35,8 @@ namespace HomeManager.ViewModel
             }
         }
 
+
+
         private bool _isMenuVisible = true;
         public bool IsMenuVisible
         {

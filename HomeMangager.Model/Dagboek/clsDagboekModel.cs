@@ -11,13 +11,13 @@ namespace HomeManager.Model.Dagboek
 	{
 		public int DagboekId { get; set; }
 
-		public int PersoonID { get; set; }
+		public string PersoonID { get; set; }
 
-		public string? MyRTFString { get; set; }
+		public string? MyRTFString { get; set; } //wordt niet meer gebruikt
 
 		public byte[]? MyFlowDocument { get; set; }
 
-		private string _DagboekContentString;
+		private string _DagboekContentString; //wordt niet meer gebruikt
 
 		public string DagboekContentString
 		{
@@ -34,7 +34,7 @@ namespace HomeManager.Model.Dagboek
 				_DagboekContentString = value;
 				OnPropertyChanged();
 			}
-		}
+		} //wordt niet meer gebruikt
 
 
 		public DateTime DateCreated { get; set; }
