@@ -56,7 +56,7 @@
                         Foreground="White"
                         Text="To Do" />
                 </StackPanel>
-                <uc:ucWerkBalk HorizontalAlignment="Right" VerticalAlignment="Top" />
+                <uc:ucWerkBalkTodo HorizontalAlignment="Right" VerticalAlignment="Top" />
             </Grid>
         </Border>
 
