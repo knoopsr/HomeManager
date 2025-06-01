@@ -11,6 +11,6 @@ namespace HomeManager.DataService.Dagboek
 {
     public interface IDagboekDataService : IDataService<clsDagboekModel>
     {
-        ObservableCollection<clsDagboekModel> GetAllByPersoonID(int persoonID);
+        ObservableCollection<clsDagboekModel> GetAllByPersoonID(string persoonID);
     }
 }

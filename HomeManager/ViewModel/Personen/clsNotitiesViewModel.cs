@@ -108,6 +108,7 @@ namespace HomeManager.ViewModel
                         MijnSelectedItem.MyVisibility = (int)Visibility.Visible;
                         NewStatus = false;
                         LoadData();
+                        clsMessenger.Default.Send(new clsUpdateListMessages()); // Bericht verzenden
                     }
                     else
                     {
@@ -123,6 +124,7 @@ namespace HomeManager.ViewModel
                         MijnSelectedItem.MijnSelectedIndex = 0;
                         NewStatus = false;
                         LoadData();
+                        clsMessenger.Default.Send(new clsUpdateListMessages()); // Bericht verzenden
                     }
                     else
                     {

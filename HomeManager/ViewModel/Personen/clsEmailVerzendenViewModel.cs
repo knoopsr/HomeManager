@@ -34,6 +34,12 @@ namespace HomeManager.ViewModel.Personen
         public ICommand cmdDropBijlage { get; set; }
         public ICommand SubmitCommand { get; private set; }
 
+        public ICommand cmdDelete { get; set; }
+        public ICommand cmdNew { get; set; }
+        public ICommand cmdCancel { get; set; }
+        public ICommand cmdClose { get; set; }
+        public ICommand cmdSave { get; set; }
+
 
         private bool isSendMail = false;
 
@@ -90,6 +96,12 @@ namespace HomeManager.ViewModel.Personen
             VerzendenService = new clsEmailAdressenDataService();
             MijnVerzenderEmailAdres = new ObservableCollection<clsEmailAdressenModel>();
 
+            cmdNew = new clsCustomCommand(Execute_NewCommand, CanExecute_NewCommand);
+            cmdDelete = new clsCustomCommand(Execute_DeleteCommand, CanExecute_DeleteCommand);
+            cmdSave = new clsCustomCommand(Execute_SaveCommand, CanExecute_SaveCommand);
+            cmdClose = new clsCustomCommand(Execute_CloseCommand, CanExecute_CloseCommand);
+            cmdCancel = new clsCustomCommand(Execute_CancelCommand, CanExecute_CancelCommand);
+
             // Initialiseer MijnSelectedItem met het eerste item in de lijst, als deze niet leeg is
             if (MijnVerzenderEmailAdres.Count > 0)
             {
@@ -101,6 +113,72 @@ namespace HomeManager.ViewModel.Personen
             //Messenger
             clsMessenger.Default.Register<clsEmailVerzendenModel>(this, OnUpdateListMessageReceived);
 
+        }
+
+        private bool CanExecute_CancelCommand(object? obj)
+        {
+            return false;
+        }
+
+        private void Execute_CancelCommand(object? obj)
+        {
+            throw new NotImplementedException();
+        }
+
+        private bool CanExecute_CloseCommand(object? obj)
+        {
+            return true;
+        }
+
+        private void Execute_CloseCommand(object? obj)
+        {
+            MainWindow HomeWindow = obj as MainWindow;
+            if (HomeWindow != null)
+            {
+                if (MijnSelectedItem != null && MijnSelectedItem.Error == null && MijnSelectedItem.IsDirty == true)
+                {
+                    if (MessageBox.Show(MijnSelectedItem.ToString().ToUpper() + "is nog niet opgeslagen, wil je opslaan ?", "Opslaan of sluiten?",
+                        MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+                    {
+                        clsHomeVM vm2 = (clsHomeVM)HomeWindow.DataContext;
+                        vm2.CurrentViewModel = null;
+                    }
+                }
+                clsHomeVM vm = (clsHomeVM)HomeWindow.DataContext;
+                vm.CurrentViewModel = null;
+            }
+
+            clsMessenger.Default.Send<clsUpdateListMessages>(new clsUpdateListMessages());
+        }
+
+        private bool CanExecute_SaveCommand(object? obj)
+        {
+            return false;
+        }
+
+        private void Execute_SaveCommand(object? obj)
+        {
+            throw new NotImplementedException();
+        }
+
+        private bool CanExecute_DeleteCommand(object? obj)
+        {
+            return false;
+        }
+
+        private void Execute_DeleteCommand(object? obj)
+        {
+            throw new NotImplementedException();
+        }
+
+        private bool CanExecute_NewCommand(object? obj)
+        {
+            return false;
+        }
+
+        private void Execute_NewCommand(object? obj)
+        {
+            throw new NotImplementedException();
         }
 
         private void OnUpdateListMessageReceived(clsEmailVerzendenModel obj)

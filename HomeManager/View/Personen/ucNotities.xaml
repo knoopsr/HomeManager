@@ -103,37 +103,42 @@
 
                 <!--  Werkbalk  -->
                 <StackPanel
-                    Grid.Row="4"
-                    Grid.Column="1"
+                    Grid.Row="3"
+                    Grid.Column="2"
                     Margin="5"
-                    Orientation="Horizontal">
+                    HorizontalAlignment="Left"
+                    Orientation="Vertical">
                     <Button
                         x:Name="btnBold"
                         Command="{Binding BoldCommand}"
                         CommandParameter="{Binding ElementName=rtbNotities}"
                         Content="B"
-                        FontWeight="Bold" />
+                        Style="{StaticResource myBoldButton}" />
                     <Button
                         x:Name="btnItalic"
                         Command="{Binding ItalicCommand}"
                         CommandParameter="{Binding ElementName=rtbNotities}"
                         Content="I"
-                        FontStyle="Italic" />
+                        FontStyle="Italic"
+                        Style="{StaticResource ItalicIcon}" />
                     <Button
                         x:Name="btnUnderline"
                         Command="{Binding UnderlineCommand}"
                         CommandParameter="{Binding ElementName=rtbNotities}"
-                        Content="U" />
+                        Content="U"
+                        Style="{StaticResource btnUnderline}" />
                     <Button
                         x:Name="btnBullet"
                         Command="{Binding BulletCommand}"
                         CommandParameter="{Binding ElementName=rtbNotities}"
-                        Content="•" />
+                        Content="•"
+                        Style="{StaticResource myBulletButton}" />
                     <Button
                         x:Name="btnNumbered"
                         Command="{Binding NumberedCommand}"
                         CommandParameter="{Binding ElementName=rtbNotities}"
-                        Content="1." />
+                        Content="1."
+                        Style="{StaticResource myNumberedButton}" />
                 </StackPanel>
             </Grid>
         </Border>

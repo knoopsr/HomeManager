@@ -43,7 +43,7 @@ namespace HomeManager.Helpers
 		#region Bold
 		private FontWeight _myFontWeight = FontWeights.Regular;
 
-		public FontWeight MyFontWeight
+		public FontWeight MyFontWeight //dit lezen we uit om te kijken of iets bold is of niet
 		{
 			get { return _myFontWeight; }
 			set
@@ -54,7 +54,7 @@ namespace HomeManager.Helpers
 			}
 		}
 
-		public bool IsBold
+		public bool IsBold //dit is gebind om togglebutton style aan/uit te zetten
 		{
 			get
 			{
@@ -69,7 +69,7 @@ namespace HomeManager.Helpers
 			}
 		}
 
-		public FontWeight GetFontWeight(TextRange range)
+		public FontWeight GetFontWeight(TextRange range) //functie om selectie layout uit te lezen
 		{
 			var propertyValue = range.GetPropertyValue(TextElement.FontWeightProperty);
 
@@ -86,7 +86,6 @@ namespace HomeManager.Helpers
 
 		}
 
-		//this is for the command
 		public void SetFontWeight(FontWeight fontWeight, TextRange range)
 		{
 			if (fontWeight == FontWeights.Regular)

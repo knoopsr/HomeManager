@@ -95,7 +95,9 @@
                         DragEnter="Button_DragEnter"
                         Drop="Button_Drop"
                         Style="{StaticResource UploadButton}"
-                        ToolTip="Upload File" />
+                        ToolTip="Upload File" 
+                        CommandParameter="{Binding}"
+                        Style="{StaticResource UploadButton}" />
                     <Button
                         x:Name="ViewFilebtn"
                         Width="30"
@@ -104,7 +106,9 @@
                         HorizontalAlignment="Left"
                         Command="{Binding cmdViewFile}"
                         Style="{StaticResource EyeButton}"
-                        ToolTip="File bekijken" />
+                        ToolTip="File bekijken" 
+                        CommandParameter="{Binding}"
+                        Command="{Binding cmdViewFile}"/>
                 </StackPanel>
 
                 <Label

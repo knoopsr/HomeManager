@@ -11,6 +11,6 @@ namespace HomeManager.DAL.Dagboek
 {
     public interface IDagboekRepository : IRepository<clsDagboekModel>
     {
-        ObservableCollection<clsDagboekModel> GetAllByPersoonID(int persoonID);
+        ObservableCollection<clsDagboekModel> GetAllByPersoonID(string persoonID);
     }
 }

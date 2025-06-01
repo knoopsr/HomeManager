@@ -53,7 +53,7 @@
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="100" />
+                    <ColumnDefinition Width="200" />
                     <ColumnDefinition Width="100" />
                     <ColumnDefinition Width="150" />
                     <ColumnDefinition Width="*" />
@@ -78,9 +78,10 @@
                     Grid.RowSpan="9"
                     Grid.Column="1"
                     DisplayMemberPath="Onderwerp"
-                    ItemsSource="{Binding MijnCollectie}"
+                    ItemsSource="{Binding FilteredMijnCollectie}"
                     SelectedIndex="{Binding MijnSelectedItem.MijnSelectedIndex, Mode=TwoWay}"
                     SelectedItem="{Binding MijnSelectedItem, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+
 
 
                 <Label

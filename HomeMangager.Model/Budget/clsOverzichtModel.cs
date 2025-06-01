@@ -100,6 +100,21 @@ namespace HomeManager.Model.Budget
             }
         }
 
+        private bool _isUitgevoerd;
+
+        public bool IsUitgevoerd
+        {
+            get { return _isUitgevoerd; }
+            set
+            {
+                if (_isUitgevoerd != value)
+                {
+                    _isUitgevoerd = value;
+                    OnPropertyChanged(nameof(IsUitgevoerd));
+                }
+            }
+        }
+
         public event PropertyChangedEventHandler PropertyChanged;
 
         protected virtual void OnPropertyChanged(string propertyName = null)
