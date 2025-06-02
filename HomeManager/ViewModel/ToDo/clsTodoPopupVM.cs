@@ -488,9 +488,16 @@ namespace HomeManager.ViewModel
         //PaperCut.exe runnen  -> http://localhost:5000/ 
         private async void Execute_SubmitEmail()
         {
-            bool bestaatGebruiker = MijnSelectedGebruiker != null && MijnSelectedGebruiker.Login != null && MijnSelectedGebruiker.Login != string.Empty;
-            //bij het saven faalt hij hier
-            // bestaatGebruiker == false -> fixen
+            // Fallback: selecteer de gebruiker van het todo-item als MijnSelectedGebruiker null is
+            if (MijnSelectedGebruiker == null && MijnSelectedItem != null && MijnCollectieGebruikers != null)
+            {
+                MijnSelectedGebruiker = MijnCollectieGebruikers
+                    .FirstOrDefault(g => g.AccountID == MijnSelectedItem.GebruikerID);
+            }
+
+            bool bestaatGebruiker = MijnSelectedGebruiker != null
+                && !string.IsNullOrWhiteSpace(MijnSelectedGebruiker.Login);
+
             if (bestaatGebruiker)
             {
                 isSendMail = true;
@@ -508,6 +515,7 @@ namespace HomeManager.ViewModel
             }
             isSendMail = false;
         }
+
 
         private ObservableCollection<clsCollectiesM> _MijnCollectieCollecties;
         public ObservableCollection<clsCollectiesM> MijnCollectieCollecties
