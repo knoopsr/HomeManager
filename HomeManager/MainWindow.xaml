@@ -232,7 +232,6 @@
                         Command="{Binding NavCommand}"
                         CommandParameter="clsDagboekViewModel"
                         Content="Dagboek"
-                        ContextMenu="{StaticResource FavorieteVensterContextMenu}"
                         Style="{StaticResource myExpanderDagboek}" />
 
                     <Expander IsExpanded="{Binding IsBudgetExpanderMenu, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource myHamburgerBudget}">
@@ -368,7 +367,7 @@
                 Margin="5"
                 Background="Transparent" />
             <V:ucSnelkoppeling
-                Grid.Row="0"
+                Grid.Row="1"
                 Grid.Column="1"
                 Margin="5"
                 Background="Transparent" />
@@ -379,7 +378,7 @@
                 Background="Transparent"
                 DataContext="{Binding FavorietVensterVM}" />
             <V:ucFotoCarousel
-                Grid.Row="1"
+                Grid.Row="0"
                 Grid.Column="1"
                 Margin="5"
                 Background="Transparent" />

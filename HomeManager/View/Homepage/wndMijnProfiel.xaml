@@ -47,12 +47,10 @@
                 Data="{StaticResource myPathPeople}"
                 Fill="White"
                 Stroke="White" />
-
             <Werkbalk:ucWerkBalk
                 Margin="0,0,10,0"
                 HorizontalAlignment="Right"
                 VerticalAlignment="Top"
-                
                 Background="Transparent" />
         </Grid>
 
@@ -322,8 +320,5 @@
                 </DataGrid.Columns>
             </DataGrid>
         </Grid>
-
-
-
     </Grid>
 </Window>
