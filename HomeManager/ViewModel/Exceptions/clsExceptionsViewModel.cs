@@ -277,7 +277,7 @@ namespace HomeManager.ViewModel.Exceptions
         private bool CanExecute_Export_Command(object? obj) => true;
         private bool CanExecute_Close_Command(object? obj) => true;
         private bool CanExecute_Cancel_Command(object? obj) => true;
-        private bool CanExecute_New_Command(object? obj) => false;
+        private bool CanExecute_New_Command(object? obj) => true;
         private bool CanExecute_Save_Command(object? obj) => false;
         private bool CanExecute_Delete_Command(object? obj) => false;
 
@@ -369,8 +369,7 @@ namespace HomeManager.ViewModel.Exceptions
             SelectedTargetSites = "-- Alle TargetSites --";
         }
 
-
-        private void Execute_New_Command(object? obj) { throw new NotImplementedException(); }
+        private void Execute_New_Command(object? obj) { throw new Exception("This is an example exception thrown with: Execute_New_Command@HomeManager.ViewModel.Exceptions.clsExceptionsViewModel"); }
 
         private void Execute_Delete_Command(object? obj) { throw new NotImplementedException(); }
 

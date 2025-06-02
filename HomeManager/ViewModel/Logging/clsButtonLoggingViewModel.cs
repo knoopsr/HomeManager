@@ -1,20 +1,26 @@
 ﻿using ClosedXML.Excel;
-using DocumentFormat.OpenXml.Wordprocessing;
 using HomeManager.Common;
 using HomeManager.DataService.Logging;
 using HomeManager.Helpers;
 using HomeManager.Model.Logging;
 using HomeManager.Model.Security;
 using Microsoft.Win32;
+using System;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Windows;
 using System.Windows.Input;
 
 namespace HomeManager.ViewModel.Logging
 {
+    /// <summary>
+    /// ViewModel voor het beheren, filteren en exporteren van knoplogging.
+    /// </summary>
     public class clsButtonLoggingViewModel : clsCommonModelPropertiesBase
     {
-        clsButtonLoggingDataService MijnService;
+        private readonly clsButtonLoggingDataService MijnService;
+
+        #region Commands
 
         public ICommand cmdDelete { get; set; }
         public ICommand cmdNew { get; set; }
@@ -23,132 +29,58 @@ namespace HomeManager.ViewModel.Logging
         public ICommand cmdClose { get; set; }
         public ICommand cmdExport { get; set; }
 
+        #endregion
 
-        private ObservableCollection<clsButtonLoggingModel> _mijnCollectie;
-        public ObservableCollection<clsButtonLoggingModel> MijnCollectie
-        {
-            get { return _mijnCollectie; }
-            set
-            {
-                _mijnCollectie = value;
-                OnPropertyChanged();
-            }
-        }
+        #region Properties - Collecties
 
-        private ObservableCollection<clsButtonLoggingModel> _mijnGefilterdeCollectie;
-        public ObservableCollection<clsButtonLoggingModel> MijnGefilterdeCollectie
-        {
-            get { return _mijnGefilterdeCollectie; }
-            set
-            {
-                _mijnGefilterdeCollectie = value;
-                OnPropertyChanged();
-            }
-        }
+        public ObservableCollection<clsButtonLoggingModel> MijnCollectie { get; set; }
+        public ObservableCollection<clsButtonLoggingModel> MijnGefilterdeCollectie { get; set; }
+        public ObservableCollection<clsAccountModel> MijnAccounten { get; set; }
+        public ObservableCollection<string> MijnActies { get; set; }
+        public ObservableCollection<string> MijnActieTargets { get; set; }
 
-        private ObservableCollection<clsAccountModel> _mijnAccounten;
-        public ObservableCollection<clsAccountModel> MijnAccounten
-        {
-            get { return _mijnAccounten; }
-            set
-            {
-                _mijnAccounten = value;
-                OnPropertyChanged();
-            }
-        }
+        #endregion
 
+        #region Properties - Filters
 
         private clsAccountModel _selectedAccount;
         public clsAccountModel SelectedAccount
         {
             get => _selectedAccount;
-            set
-            {
-                _selectedAccount = value;
-                OnPropertyChanged();
-                FilterData();
-            }
-        }
-
-
-        private ObservableCollection<string> _mijnActies;
-        public ObservableCollection<string> MijnActies
-        {
-            get { return _mijnActies; }
-            set
-            {
-                _mijnActies = value;
-                OnPropertyChanged();
-            }
+            set { _selectedAccount = value; OnPropertyChanged(); FilterData(); }
         }
 
         private string _selectedActies;
         public string SelectedActies
         {
             get => _selectedActies;
-            set
-            {
-                _selectedActies = value;
-                OnPropertyChanged();
-                FilterData();
-            }
-        }
-
-        private ObservableCollection<string> _mijnActieTargets;
-        public ObservableCollection<string> MijnActieTargets
-        {
-            get { return _mijnActieTargets; }
-            set
-            {
-                _mijnActieTargets = value;
-                OnPropertyChanged();
-            }
+            set { _selectedActies = value; OnPropertyChanged(); FilterData(); }
         }
 
         private string _selectedActieTargets;
         public string SelectedActieTargets
         {
             get => _selectedActieTargets;
-            set
-            {
-                _selectedActieTargets = value;
-                OnPropertyChanged();
-                FilterData();
-            }
+            set { _selectedActieTargets = value; OnPropertyChanged(); FilterData(); }
         }
 
         private DateTime? _startDate;
         public DateTime? StartDate
         {
             get => _startDate;
-            set
-            {
-                _startDate = value;
-                OnPropertyChanged();
-                FilterData(); 
-            }
+            set { _startDate = value; OnPropertyChanged(); FilterData(); }
         }
 
         private DateTime? _endDate;
         public DateTime? EndDate
         {
             get => _endDate;
-            set
-            {
-                _endDate = value;
-                OnPropertyChanged();
-                FilterData();
-            }
+            set { _endDate = value; OnPropertyChanged(); FilterData(); }
         }
 
+        #endregion
 
-
-
-
-
-
-
-
+        #region Constructor
 
         public clsButtonLoggingViewModel()
         {
@@ -164,236 +96,141 @@ namespace HomeManager.ViewModel.Logging
             LoadData();
         }
 
+        #endregion
 
-
-private void Execute_Export_Command(object? obj)
-    {
-        if (MijnGefilterdeCollectie == null || !MijnGefilterdeCollectie.Any())
-        {
-            MessageBox.Show("Geen gegevens om te exporteren!", "Exporteren", MessageBoxButton.OK, MessageBoxImage.Warning);
-            return;
-        }
-
-        // Laat de gebruiker een bestandslocatie kiezen
-        SaveFileDialog saveFileDialog = new SaveFileDialog
-        {
-            Filter = "Excel bestanden (*.xlsx)|*.xlsx",
-            Title = "Exporteer naar Excel",
-            FileName = "Export.xlsx"
-        };
-
-        if (saveFileDialog.ShowDialog() != true)
-            return;
-
-        try
-        {
-            using (var workbook = new XLWorkbook())
-            {
-                var worksheet = workbook.Worksheets.Add("Logging Data");
-
-                // Kolomheaders toevoegen
-                worksheet.Cell(1, 1).Value = "Account";
-                worksheet.Cell(1, 2).Value = "Action";
-                worksheet.Cell(1, 3).Value = "Target";
-                worksheet.Cell(1, 4).Value = "Datum Tijd";
-
-                // Data invullen
-                int row = 2;
-                foreach (var item in MijnGefilterdeCollectie)
-                {
-                    worksheet.Cell(row, 1).Value = item.AccountName;
-                    worksheet.Cell(row, 2).Value = item.ActionName;
-                    worksheet.Cell(row, 3).Value = item.ActionTarget;
-                    worksheet.Cell(row, 4).Value = item.LogTime.ToString("yyyy-MM-dd HH:mm:ss");
-                    row++;
-                }
-
-                // Autofit kolommen
-                worksheet.Columns().AdjustToContents();
-
-                // Bestand opslaan
-                workbook.SaveAs(saveFileDialog.FileName);
-
-                MessageBox.Show("Export succesvol!", "Exporteren", MessageBoxButton.OK, MessageBoxImage.Information);
-            }
-        }
-        catch (Exception ex)
-        {
-            MessageBox.Show($"Er is een fout opgetreden: {ex.Message}", "Fout", MessageBoxButton.OK, MessageBoxImage.Error);
-        }
-    }
-
-
-    private bool CanExecute_Export_Command(object? obj)
-        {return true; 
-        }
+        #region Data Load & Filter
 
         private void LoadData()
         {
             MijnCollectie = MijnService.GetAll();
 
-           
             var uniekeAccounts = MijnCollectie
                 .Select(x => new clsAccountModel { AccountID = x.AccountId, AccountName = x.AccountName })
-                .DistinctBy(x => x.AccountID) // Alleen unieke AccountID's
-                .ToList();
+                .DistinctBy(x => x.AccountID).ToList();
 
-            var uniekeActies = MijnCollectie
-                .Select(x => x.ActionName)
-                .Distinct()
-                .OrderBy(x => x) // Sorteer alfabetisch
-                .ToList();
+            var uniekeActies = MijnCollectie.Select(x => x.ActionName).Distinct().OrderBy(x => x).ToList();
+            var uniekeTargets = MijnCollectie.Select(x => x.ActionTarget).Distinct().OrderBy(x => x).ToList();
 
-            var uniekeActieTargets = MijnCollectie
-                .Select(x => x.ActionTarget)
-                .Distinct()
-                .OrderBy(x => x) // Sorteer alfabetisch
-                .ToList();
+            uniekeActies.Insert(0, "-- Alle Acties --");
+            uniekeTargets.Insert(0, "-- Alle ActieTargets --");
+            uniekeAccounts.Insert(0, new clsAccountModel { AccountID = 0, AccountName = "-- Alle Accounts --" });
 
-            var uniekeActiesOptie = new string ("-- Alle Acties --");
-            uniekeActies.Insert(0, uniekeActiesOptie);
-            var uniekeActieTargetsOptie = new string("-- Alle ActieTargets --");       
-            uniekeActieTargets.Insert(0, uniekeActieTargetsOptie);
-
-            var alleAccountsOptie = new clsAccountModel { AccountID = 0, AccountName = "-- Alle Accounts --" };
-            uniekeAccounts.Insert(0, alleAccountsOptie);
-
-            // Koppel de lijst aan de ObservableCollection
             MijnAccounten = new ObservableCollection<clsAccountModel>(uniekeAccounts);
             MijnActies = new ObservableCollection<string>(uniekeActies);
-            MijnActieTargets = new ObservableCollection<string>(uniekeActieTargets);
+            MijnActieTargets = new ObservableCollection<string>(uniekeTargets);
 
-
-            // ❗ Standaard "-- Alle Accounts --" selecteren
-            SelectedAccount = alleAccountsOptie;
-            SelectedActies = uniekeActiesOptie;
-            SelectedActieTargets = uniekeActieTargetsOptie;
+            SelectedAccount = MijnAccounten[0];
+            SelectedActies = MijnActies[0];
+            SelectedActieTargets = MijnActieTargets[0];
         }
-
-
 
         private void FilterData()
         {
-            if (MijnCollectie == null || !MijnCollectie.Any())
-                return;
+            if (MijnCollectie == null || !MijnCollectie.Any()) return;
 
-            var gefilterdeCollectie = MijnCollectie.ToList();
+            var gefilterd = MijnCollectie.ToList();
 
-            // Filter op AccountID (indien niet "-- Alle Accounts --")
-            if (SelectedAccount != null && SelectedAccount.AccountID != 0)
-            {
-                gefilterdeCollectie = gefilterdeCollectie
-                    .Where(x => x.AccountId == SelectedAccount.AccountID)
-                    .ToList();
-            }
+            if (SelectedAccount?.AccountID > 0)
+                gefilterd = gefilterd.Where(x => x.AccountId == SelectedAccount.AccountID).ToList();
 
-            // Filter op Actie (indien niet "-- Alle Acties --")
             if (!string.IsNullOrEmpty(SelectedActies) && SelectedActies != "-- Alle Acties --")
-            {
-                gefilterdeCollectie = gefilterdeCollectie
-                    .Where(x => x.ActionName == SelectedActies)
-                    .ToList();
-            }
+                gefilterd = gefilterd.Where(x => x.ActionName == SelectedActies).ToList();
 
-            // Filter op ActieTarget (indien niet "-- Alle ActieTargets --")
             if (!string.IsNullOrEmpty(SelectedActieTargets) && SelectedActieTargets != "-- Alle ActieTargets --")
-            {
-                gefilterdeCollectie = gefilterdeCollectie
-                    .Where(x => x.ActionTarget == SelectedActieTargets)
-                    .ToList();
-            }
+                gefilterd = gefilterd.Where(x => x.ActionTarget == SelectedActieTargets).ToList();
 
-            // Filter op StartDate en EndDate
-            if (StartDate.HasValue && EndDate.HasValue)
-            {
-                // Beide datums ingevuld -> filter tussen deze datums
-                gefilterdeCollectie = gefilterdeCollectie
-                    .Where(x => x.LogTime >= StartDate.Value && x.LogTime <= EndDate.Value)
-                    .ToList();
-            }
-            else if (StartDate.HasValue)
-            {
-                // Alleen StartDate ingevuld -> toon vanaf deze datum
-                gefilterdeCollectie = gefilterdeCollectie
-                    .Where(x => x.LogTime >= StartDate.Value)
-                    .ToList();
-            }
-            else if (EndDate.HasValue)
-            {
-                // Alleen EndDate ingevuld -> toon tot deze datum
-                gefilterdeCollectie = gefilterdeCollectie
-                    .Where(x => x.LogTime <= EndDate.Value)
-                    .ToList();
-            }
+            if (StartDate.HasValue)
+                gefilterd = gefilterd.Where(x => x.LogTime >= StartDate.Value).ToList();
 
-            // Update de gefilterde collectie
-            MijnGefilterdeCollectie = new ObservableCollection<clsButtonLoggingModel>(gefilterdeCollectie);
+            if (EndDate.HasValue)
+                gefilterd = gefilterd.Where(x => x.LogTime <= EndDate.Value).ToList();
+
+            MijnGefilterdeCollectie = new ObservableCollection<clsButtonLoggingModel>(gefilterd);
         }
 
+        #endregion
 
+        #region Export
 
+        private bool CanExecute_Export_Command(object? obj) => true;
 
-
-        #region Command Methods
-
-        private bool CanExecute_Close_Command(object? obj)
+        private void Execute_Export_Command(object? obj)
         {
-            return true;
+            if (MijnGefilterdeCollectie == null || !MijnGefilterdeCollectie.Any())
+            {
+                MessageBox.Show("Geen gegevens om te exporteren!", "Exporteren", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
+            SaveFileDialog dlg = new SaveFileDialog
+            {
+                Filter = "Excel bestanden (*.xlsx)|*.xlsx",
+                Title = "Exporteer naar Excel",
+                FileName = "Export.xlsx"
+            };
+
+            if (dlg.ShowDialog() != true) return;
+
+            try
+            {
+                using var wb = new XLWorkbook();
+                var ws = wb.Worksheets.Add("Logging Data");
+
+                ws.Cell(1, 1).Value = "Account";
+                ws.Cell(1, 2).Value = "Action";
+                ws.Cell(1, 3).Value = "Target";
+                ws.Cell(1, 4).Value = "Datum Tijd";
+
+                int row = 2;
+                foreach (var item in MijnGefilterdeCollectie)
+                {
+                    ws.Cell(row, 1).Value = item.AccountName;
+                    ws.Cell(row, 2).Value = item.ActionName;
+                    ws.Cell(row, 3).Value = item.ActionTarget;
+                    ws.Cell(row, 4).Value = item.LogTime.ToString("yyyy-MM-dd HH:mm:ss");
+                    row++;
+                }
+
+                ws.Columns().AdjustToContents();
+                wb.SaveAs(dlg.FileName);
+
+                MessageBox.Show("Export succesvol!", "Exporteren", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Er is een fout opgetreden: {ex.Message}", "Fout", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
 
+        #endregion
+
+        #region Command Handlers
+
+        private bool CanExecute_Close_Command(object? obj) => true;
         private void Execute_Close_Command(object? obj)
         {
             if (obj is Window window)
-            {
                 window.Close();
-            }
         }
 
-
-        private bool CanExecute_Cancel_Command(object? obj)
-        {
-            return true;
-        }
-
+        private bool CanExecute_Cancel_Command(object? obj) => true;
         private void Execute_Cancel_Command(object? obj)
         {
-            StartDate = null;  // Datumvelden resetten
+            StartDate = null;
             EndDate = null;
             SelectedActies = "-- Alle Acties --";
             SelectedAccount = MijnAccounten.FirstOrDefault(a => a.AccountID == 0);
             SelectedActieTargets = "-- Alle ActieTargets --";
         }
 
-        private bool CanExecute_New_Command(object? obj)
-        {
-            return false;
-        }
+        private bool CanExecute_New_Command(object? obj) => false;
+        private void Execute_New_Command(object? obj) => throw new NotImplementedException();
 
-        private void Execute_New_Command(object? obj)
-        {
-            throw new NotImplementedException();
-        }
+        private bool CanExecute_Delete_Command(object? obj) => false;
+        private void Execute_Delete_Command(object? obj) => throw new NotImplementedException();
 
-        private bool CanExecute_Delete_Command(object? obj)
-        {
-            return false;
-        }
-
-        private void Execute_Delete_Command(object? obj)
-        {
-            throw new NotImplementedException();
-        }
-
-        private bool CanExecute_Save_Command(object? obj)
-        {
-            return false;
-        }
-
-        private void Execute_Save_Command(object? obj)
-        {
-            throw new NotImplementedException();
-        }
-
+        private bool CanExecute_Save_Command(object? obj) => false;
+        private void Execute_Save_Command(object? obj) => throw new NotImplementedException();
 
         #endregion
     }

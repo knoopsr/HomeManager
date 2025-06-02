@@ -4,22 +4,26 @@ using HomeManager.Model.Exceptions;
 using HomeManager.Model.Mail;
 using HomeManager.Model.Personen;
 using HomeManager.Model.Security;
-using Microsoft.IdentityModel.Tokens;
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 
 namespace HomeManager.MailService
 {
+    /// <summary>
+    /// Verantwoordelijk voor het versturen van e-mails binnen HomeManager.
+    /// Ondersteunt zowel wachtwoordcommunicatie als exceptionmeldingen.
+    /// </summary>
     public class clsMailService
     {
+        /// <summary>
+        /// Stuurt een e-mail met nieuwe logingegevens naar alle gekoppelde e-mailadressen van een persoon.
+        /// </summary>
+        /// <param name="accountModel">Het account met de login- en wachtwoordinformatie.</param>
+        /// <param name="persoonModel">De persoon aan wie de e-mail gericht is.</param>
+        /// <returns>Een lijst van e-mailadressen waarnaar succesvol werd verzonden.</returns>
         public async Task<List<string>> SendNewPassToPerson(clsAccountModel accountModel, clsPersoonModel persoonModel)
         {
-            // Haal e-mailadressen op
             clsEmailAdressenDataService emailAdressenService = new clsEmailAdressenDataService();
             ObservableCollection<clsEmailAdressenModel> emailAdressen = emailAdressenService.GetByPersoonID(persoonModel.PersoonID);
 
@@ -40,7 +44,6 @@ namespace HomeManager.MailService
                 };
 
                 bool emailVerzonden = await clsMail.SendEmail(mailModel);
-
                 if (emailVerzonden)
                 {
                     verzondenEmails.Add(email.Emailadres);
@@ -50,6 +53,15 @@ namespace HomeManager.MailService
             return verzondenEmails;
         }
 
+        /// <summary>
+        /// Stuurt een exceptionmelding naar een opgegeven e-mailadres.
+        /// </summary>
+        /// <param name="emailModel">Het e-mailadresmodel waarnaar de melding moet worden verzonden.</param>
+        /// <param name="exception">De exceptiongegevens.</param>
+        /// <param name="isDetailed">
+        /// Indien <c>true</c>, wordt een uitgebreide e-mail verzonden (voor ontwikkelaars). 
+        /// Indien <c>false</c>, wordt een beknopte e-mail verzonden (voor eindgebruikers).
+        /// </param>
         public async void SendExceptionToMailAddress(clsEmailAdressenModel emailModel, clsExceptionsModel exception, bool isDetailed = false)
         {
             if (emailModel == null)
@@ -64,12 +76,12 @@ namespace HomeManager.MailService
             mailBody.AppendLine($"AccountName: {exception.AccountName}");
             mailBody.AppendLine($"ExceptionName: {exception.ExceptionName}");
 
-            if (!isDetailed) // Normal - User mail
+            if (!isDetailed) // User mail
             {
-                clsMailModel mailModel = new clsMailModel()
+                clsMailModel mailModel = new clsMailModel
                 {
                     MailToName = "Gebruiker",
-                    Subject = $"Unhandled exception caught, {DateTime.Now.ToString()}",
+                    Subject = $"Unhandled exception caught, {DateTime.Now}",
                     MailToEmail = emailModel.Emailadres,
                     MailFromEmail = "NoReply@HomeManager.be",
                     Body = mailBody.ToString()
@@ -78,10 +90,10 @@ namespace HomeManager.MailService
                 bool isSuccessful = await clsMail.SendEmail(mailModel);
                 if (!isSuccessful)
                 {
-                    MessageBox.Show($"SendExceptionToMailAddress unsuccesfully tried to send normal mail to {emailModel.Emailadres}");
+                    MessageBox.Show($"SendExceptionToMailAddress unsuccessfully tried to send normal mail to {emailModel.Emailadres}");
                 }
             }
-            else // Detailed - Developer mail
+            else // Developer mail
             {
                 mailBody.AppendLine($"Module: {exception.Module}");
                 mailBody.AppendLine($"Source: {exception.Source}");
@@ -91,10 +103,10 @@ namespace HomeManager.MailService
                 mailBody.AppendLine($"StackTrace: {exception.StackTrace}");
                 mailBody.AppendLine($"DotNetAssembly: {exception.DotNetAssembly}");
 
-                clsMailModel mailModel = new clsMailModel()
+                clsMailModel mailModel = new clsMailModel
                 {
                     MailToName = "Developer",
-                    Subject = $"Unhandled exception caught, {DateTime.Now.ToString()}",
+                    Subject = $"Unhandled exception caught, {DateTime.Now}",
                     MailToEmail = emailModel.Emailadres,
                     MailFromEmail = "NoReply@HomeManager.be",
                     Body = mailBody.ToString()
@@ -103,7 +115,7 @@ namespace HomeManager.MailService
                 bool isSuccessful = await clsMail.SendEmail(mailModel);
                 if (!isSuccessful)
                 {
-                    MessageBox.Show($"SendExceptionToMailAddress unsuccesfully tried to send detailed mail to {emailModel.Emailadres}");
+                    MessageBox.Show($"SendExceptionToMailAddress unsuccessfully tried to send detailed mail to {emailModel.Emailadres}");
                 }
             }
         }

@@ -3,21 +3,29 @@ using HomeManager.DataService.Personen;
 using HomeManager.DataService.Security;
 using HomeManager.MailService;
 using HomeManager.Helpers;
-using HomeManager.Mail;
 using HomeManager.Model.Personen;
 using HomeManager.Model.Security;
 using System.Collections.ObjectModel;
-using System.Security.Cryptography;
 using System.Windows;
 using System.Windows.Input;
 
 namespace HomeManager.ViewModel
 {
+    /// <summary>
+    /// ViewModel voor het beheren van gebruikersaccounts binnen HomeManager.
+    /// Ondersteunt CRUD-acties en het versturen van logingegevens via e-mail.
+    /// </summary>
     public class clsAccountViewModel : clsCommonModelPropertiesBase
     {
-        clsAccountDataService MijnService;
-        clsPersoonDataService MijnPersoonService;
+        #region Velden & Services
+
+        private readonly clsAccountDataService MijnService;
+        private readonly clsPersoonDataService MijnPersoonService;
         private bool NewStatus = false;
+
+        #endregion
+
+        #region Commands
 
         public ICommand cmdDelete { get; set; }
         public ICommand cmdNew { get; set; }
@@ -25,45 +33,33 @@ namespace HomeManager.ViewModel
         public ICommand cmdCancel { get; set; }
         public ICommand cmdClose { get; set; }
 
-        private ObservableCollection<clsAccountModel> _mijnCollectie;
-        public ObservableCollection<clsAccountModel> MijnCollectie
-        {
-            get { return _mijnCollectie; }
-            set
-            {
-                _mijnCollectie = value;
-                OnPropertyChanged();
-            }
-        }
+        #endregion
 
-        private ObservableCollection<clsPersoonModel> _mijnPersoonCollectie;
-        public ObservableCollection<clsPersoonModel> MijnPersoonCollectie
-        {
-            get { return _mijnPersoonCollectie; }
-            set
-            {
-                _mijnPersoonCollectie = value;
-                OnPropertyChanged();
-            }
-        }
+        #region ObservableCollections
 
+        public ObservableCollection<clsAccountModel> MijnCollectie { get; set; }
+        public ObservableCollection<clsPersoonModel> MijnPersoonCollectie { get; set; }
+
+        #endregion
+
+        #region SelectedItems
 
         private clsAccountModel _mijnSelectedItem;
+        /// <summary>
+        /// Het geselecteerde account in de lijst.
+        /// </summary>
         public clsAccountModel MijnSelectedItem
         {
-            get { return _mijnSelectedItem; }
+            get => _mijnSelectedItem;
             set
             {
-                if (value != null)
+                if (value != null && _mijnSelectedItem != null && _mijnSelectedItem.IsDirty)
                 {
-                    if (_mijnSelectedItem != null && _mijnSelectedItem.IsDirty)
+                    if (MessageBox.Show("Wilt je " + _mijnSelectedItem + " opslaan?", "Opslaan",
+                        MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
                     {
-                        if (MessageBox.Show("Wilt je " + _mijnSelectedItem + " opslaan?", "Opslaan",
-                            MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
-                        {
-                            OpslaanCommando();
-                            LoadData();
-                        }
+                        OpslaanCommando();
+                        LoadData();
                     }
                 }
                 _mijnSelectedItem = value;
@@ -72,9 +68,12 @@ namespace HomeManager.ViewModel
         }
 
         private clsPersoonModel _mijnSelectedPersoonItem;
+        /// <summary>
+        /// De geselecteerde persoon die aan een nieuw account gekoppeld wordt.
+        /// </summary>
         public clsPersoonModel MijnSelectedPersoonItem
         {
-            get { return _mijnSelectedPersoonItem; }
+            get => _mijnSelectedPersoonItem;
             set
             {
                 _mijnSelectedPersoonItem = value;
@@ -82,63 +81,9 @@ namespace HomeManager.ViewModel
             }
         }
 
+        #endregion
 
-        private void LoadData()
-        {
-            MijnCollectie = MijnService.GetAll();
-        }
-
-
-        private async void OpslaanCommando()
-        {
-
-            if (_mijnSelectedItem != null)
-            {
-                if (NewStatus)
-                {
-                    if (MijnService.Insert(_mijnSelectedItem))
-                    {
-                        MijnSelectedItem.IsDirty = false;
-                        MijnSelectedItem.MijnSelectedIndex = 0;
-                        MijnSelectedItem.MyVisibility = (int)Visibility.Visible;
-                        NewStatus = false;
-
-
-                        int id = _mijnSelectedPersoonItem.PersoonID;
-                        clsMailService mailService = new clsMailService();
-
-                        List<string> verzondenEmails = await mailService.SendNewPassToPerson(                    
-                            _mijnSelectedItem, 
-
-                            _mijnSelectedPersoonItem
-
-                        );
-
-                        MessageBox.Show("E-mail succesvol verzonden naar:\n" + string.Join(Environment.NewLine, verzondenEmails));
-
-                        LoadData();
-                    }
-                    else
-                    {
-                        MessageBox.Show(_mijnSelectedItem.ErrorBoodschap, "Error?");
-                    }
-                }
-                else
-                {
-                    if (MijnService.Update(_mijnSelectedItem))
-                    {
-                        MijnSelectedItem.IsDirty = false;
-                        MijnSelectedItem.MijnSelectedIndex = 0;
-                        NewStatus = false;
-                        LoadData();
-                    }
-                    else
-                    {
-                        MessageBox.Show(_mijnSelectedItem.ErrorBoodschap, "Error?");
-                    }
-                }
-            }
-        }
+        #region Constructor
 
         public clsAccountViewModel()
         {
@@ -152,87 +97,105 @@ namespace HomeManager.ViewModel
             cmdClose = new clsCustomCommand(Execute_Close_Command, CanExecute_Close_Command);
 
             LoadData();
-
             MijnSelectedItem = MijnService.GetFirst();
             MijnPersoonCollectie = MijnPersoonService.GetAllApplicationUser();
         }
 
-        private async void Execute_Save_Command(object? obj)
+        #endregion
+
+        #region Data Handling
+
+        /// <summary>
+        /// Laadt alle accounts uit de dataservice.
+        /// </summary>
+        private void LoadData()
         {
-            OpslaanCommando();
-            //MijnPersoonCollectie = MijnPersoonService.GetAllApplicationUser();
+            MijnCollectie = MijnService.GetAll();
         }
 
-        private bool CanExecute_Save_Command(object? obj)
+        /// <summary>
+        /// Voert de opslaglogica uit voor een nieuw of bestaand account.
+        /// </summary>
+        private async void OpslaanCommando()
         {
-            if (MijnSelectedItem != null &&
-                MijnSelectedItem.Error == null &&
-                MijnSelectedItem.IsDirty == true)
+            if (_mijnSelectedItem == null) return;
+
+            if (NewStatus)
             {
-                return true;
+                if (MijnService.Insert(_mijnSelectedItem))
+                {
+                    NewStatus = false;
+                    MijnSelectedItem.IsDirty = false;
+                    MijnSelectedItem.MyVisibility = (int)Visibility.Visible;
+
+                    var mailService = new clsMailService();
+                    var verzondenEmails = await mailService.SendNewPassToPerson(_mijnSelectedItem, _mijnSelectedPersoonItem);
+
+                    MessageBox.Show("E-mail succesvol verzonden naar:\n" + string.Join("\n", verzondenEmails));
+                    LoadData();
+                }
+                else
+                {
+                    MessageBox.Show(_mijnSelectedItem.ErrorBoodschap, "Error");
+                }
             }
             else
             {
-                return false;
+                if (MijnService.Update(_mijnSelectedItem))
+                {
+                    NewStatus = false;
+                    MijnSelectedItem.IsDirty = false;
+                    MijnSelectedItem.MyVisibility = (int)Visibility.Visible;
+                    LoadData();
+                }
+                else
+                {
+                    MessageBox.Show(_mijnSelectedItem.ErrorBoodschap, "Error");
+                }
             }
         }
+
+        #endregion
+
+        #region Command Logic
+
+        private void Execute_Save_Command(object? obj) => OpslaanCommando();
+        private bool CanExecute_Save_Command(object? obj) =>
+            MijnSelectedItem != null && MijnSelectedItem.IsDirty && MijnSelectedItem.Error == null;
 
         private void Execute_Delete_Command(object? obj)
         {
-            if (MessageBox.Show(
-                "Wil je " + MijnSelectedItem + " verwijderen?",
+            if (MijnSelectedItem != null && MessageBox.Show(
+                $"Wil je {MijnSelectedItem} verwijderen?",
                 "Verwijderen?",
                 MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
             {
-                if (MijnSelectedItem != null)
+                if (MijnService.Delete(MijnSelectedItem))
                 {
-                    if (MijnService.Delete(MijnSelectedItem))
-                    {
-                        NewStatus = false;
-                        LoadData();
-                    }
-                    else
-                    {
-                        MessageBox.Show("Error?", MijnSelectedItem.ErrorBoodschap);
-                    }
+                    NewStatus = false;
+                    LoadData();
+                }
+                else
+                {
+                    MessageBox.Show(MijnSelectedItem.ErrorBoodschap, "Error");
                 }
             }
         }
 
-        private bool CanExecute_Delete_Command(object? obj)
-        {
-            if (MijnSelectedItem != null)
-            {
-                if (NewStatus)
-                {
-                    return false;
-                }
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-        }
+        private bool CanExecute_Delete_Command(object? obj) =>
+            MijnSelectedItem != null && !NewStatus;
 
         private void Execute_New_Command(object? obj)
         {
-
-            // Stel dat PersoonId de identifier is voor personen in beide collecties.
-            var gefilterdePersoonCollectie = MijnPersoonCollectie
-                .Where(persoon => !MijnCollectie.Any(mijn => mijn.PersoonID == persoon.PersoonID))
+            var ongekoppeldePersonen = MijnPersoonCollectie
+                .Where(p => !MijnCollectie.Any(a => a.PersoonID == p.PersoonID))
                 .ToList();
+
             MijnPersoonCollectie.Clear();
-
-            foreach (var persoon in gefilterdePersoonCollectie)
-            {
-                MijnPersoonCollectie.Add(persoon);
-            }
-
+            ongekoppeldePersonen.ForEach(p => MijnPersoonCollectie.Add(p));
 
             PasswordGenerator generator = new PasswordGenerator();
-
-            clsAccountModel _itemToInsert = new clsAccountModel()
+            MijnSelectedItem = new clsAccountModel
             {
                 AccountID = 0,
                 RolID = 0,
@@ -242,26 +205,20 @@ namespace HomeManager.ViewModel
                 IsNew = true,
                 IsLock = false,
                 CountFailLogins = 0,
-
+                MyVisibility = (int)Visibility.Hidden
             };
-            MijnSelectedItem = _itemToInsert;
-            MijnSelectedItem.MyVisibility = (int)Visibility.Hidden;
+
             NewStatus = true;
             IsFocusedAfterNew = true;
         }
 
-        private bool CanExecute_New_Command(object? obj)
-        {
-            return !NewStatus;
-        }
+        private bool CanExecute_New_Command(object? obj) => !NewStatus;
 
         private void Execute_Cancel_Command(object? obj)
         {
-            //MijnPersoonCollectie = MijnPersoonService.GetAllApplicationUser();
             MijnSelectedItem = MijnService.GetFirst();
             if (MijnSelectedItem != null)
             {
-                MijnSelectedItem.MijnSelectedIndex = 0;
                 MijnSelectedItem.MyVisibility = (int)Visibility.Visible;
             }
             NewStatus = false;
@@ -269,41 +226,30 @@ namespace HomeManager.ViewModel
             IsFocused = true;
         }
 
-        private bool CanExecute_Cancel_Command(object? obj)
-        {
-            return NewStatus;
-        }
+        private bool CanExecute_Cancel_Command(object? obj) => NewStatus;
 
         private void Execute_Close_Command(object? obj)
         {
-            MainWindow HomeWindow = obj as MainWindow;
-            if (HomeWindow != null)
+            if (obj is MainWindow homeWindow)
             {
-                if (MijnSelectedItem != null && MijnSelectedItem.IsDirty == true && MijnSelectedItem.Error == null)
+                if (MijnSelectedItem != null && MijnSelectedItem.IsDirty && MijnSelectedItem.Error == null)
                 {
                     if (MessageBox.Show(
-                        MijnSelectedItem.ToString().ToUpper() + " is nog niet opgeslagen, wil je opslaan?",
+                        $"{MijnSelectedItem} is nog niet opgeslagen. Wil je opslaan?",
                         "Opslaan of sluiten?",
                         MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
                     {
                         OpslaanCommando();
-                        clsHomeVM vm2 = (clsHomeVM)HomeWindow.DataContext;
-                        vm2.CurrentViewModel = null;
                     }
                 }
-                clsHomeVM vm = (clsHomeVM)HomeWindow.DataContext;
-                vm.CurrentViewModel = null;
+
+                if (homeWindow.DataContext is clsHomeVM vm)
+                    vm.CurrentViewModel = null;
             }
         }
 
-        private bool CanExecute_Close_Command(object? obj)
-        {
-            return true;
-        }
+        private bool CanExecute_Close_Command(object? obj) => true;
 
-        private bool CanExecute_SelectionChangedCommand(object obj)
-        {
-            return true;
-        }
+        #endregion
     }
 }

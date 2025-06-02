@@ -140,7 +140,11 @@
                         Width="120"
                         ItemsSource="{Binding BeschikbareInkomstenBegunstigden}"
                         SelectedItem="{Binding GeselecteerdeInkomstenBegunstigde}" />
-
+                    <CheckBox
+                        x:Name="chkInkomstenFilter"
+                        Margin="5"
+                        Content="excl. Toekomstige"
+                        IsChecked="{Binding IsToekomstigeZichtbaar, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" />
                     <Button
                         Margin="5"
                         Command="{Binding cmdEmptyInkomstenComboboxen}"
@@ -268,6 +272,12 @@
                         Width="120"
                         ItemsSource="{Binding BeschikbareUitgavenBegunstigden}"
                         SelectedItem="{Binding GeselecteerdeUitgavenBegunstigde}" />
+                    <CheckBox
+                        x:Name="chkUitgavenFilter"
+                        Margin="5"
+                        Content="excl. Toekomstige"
+                        IsChecked="{Binding IsToekomstigeZichtbaar, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" />
+
                     <Button
                         Margin="5"
                         Command="{Binding cmdEmptyUitgavenComboboxen}"

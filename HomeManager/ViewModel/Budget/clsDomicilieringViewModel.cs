@@ -120,6 +120,8 @@ namespace HomeManager.ViewModel
                     }
                 }
 
+                clsMessenger.Default.Send<clsUpdateListMessages>(new clsUpdateListMessages());
+
             }
         }
 

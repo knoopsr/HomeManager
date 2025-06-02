@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
 using HomeManager.Common;
+using HomeManager.Model.Personen;
 
 namespace HomeManager.Model.Todo
 {
@@ -250,5 +251,10 @@ namespace HomeManager.Model.Todo
             }
         }
         public string Error => null;
+
+        public static implicit operator clsTodoPopupM(clsEmailAdressenModel v)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

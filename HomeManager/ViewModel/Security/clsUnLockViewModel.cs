@@ -3,62 +3,24 @@ using HomeManager.DataService.Security;
 using HomeManager.Helpers;
 using HomeManager.MailService;
 using HomeManager.Model.Security;
-using HomeManager.View.Personen;
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 
 namespace HomeManager.ViewModel.Security
 {
-   public class clsUnLockViewModel : clsCommonModelPropertiesBase
+    /// <summary>
+    /// ViewModel voor het beheren en unlocken van gelokte gebruikersaccounts.
+    /// </summary>
+    public class clsUnLockViewModel : clsCommonModelPropertiesBase
     {
-        clsLockedAccountDataService MijnService;
 
-        private bool _isDirtyLocal = false;
+        #region Constructor
 
-        private ObservableCollection<clsLockedAccountModel> _mijnCollectie;
-        public ObservableCollection<clsLockedAccountModel> MijnCollectie
-        {
-            get { return _mijnCollectie; }
-            set
-            {
-                _mijnCollectie = value;
-                OnPropertyChanged();
-            }
-        }
-
-
-        private ObservableCollection<clsLockedAccountModel> _selectedItem;
-        public ObservableCollection<clsLockedAccountModel> SelectedItem
-        {
-            get { return _selectedItem; }
-            set
-            {   
-
-                _selectedItem = value;
-                OnPropertyChanged();
-            }
-        }
-
-        public ICommand cmdDelete { get; set; }
-        public ICommand cmdNew { get; set; }
-        public ICommand cmdSave { get; set; }
-        public ICommand cmdCancel { get; set; }
-        public ICommand cmdClose { get; set; }
-
-        public ICommand cmdUnLockUser { get; set; }
-        private void LoadData()
-        {
-            MijnCollectie = MijnService.GetAll();
-            SelectedItem = new ObservableCollection<clsLockedAccountModel>();
-
-        }
+        /// <summary>
+        /// Constructor voor het initialiseren van commando’s en data.
+        /// </summary>
         public clsUnLockViewModel()
         {
             MijnService = new clsLockedAccountDataService();
@@ -71,26 +33,71 @@ namespace HomeManager.ViewModel.Security
             LoadData();
         }
 
+        #endregion
 
-        private void Execute_Close_Command(object? obj)
+        #region Fields
+
+        private clsLockedAccountDataService MijnService;
+        private bool _isDirtyLocal = false;
+
+        #endregion
+
+        #region Properties
+
+        /// <summary>
+        /// Bevat alle gelokte accounts.
+        /// </summary>
+        public ObservableCollection<clsLockedAccountModel> MijnCollectie
         {
-            // sluit het venster
-
-            if (obj is Window win)
+            get => _mijnCollectie;
+            set
             {
-                win.Close();
+                _mijnCollectie = value;
+                OnPropertyChanged();
             }
         }
+        private ObservableCollection<clsLockedAccountModel> _mijnCollectie;
 
-        private bool CanExecute_Close_Command(object? obj)
+        /// <summary>
+        /// De geselecteerde (gelokte) gebruikers om te ontgrendelen.
+        /// </summary>
+        public ObservableCollection<clsLockedAccountModel> SelectedItem
         {
-            return true;
+            get => _selectedItem;
+            set
+            {
+                _selectedItem = value;
+                OnPropertyChanged();
+            }
         }
+        private ObservableCollection<clsLockedAccountModel> _selectedItem;
 
-        private bool CanExecute_Cancel_Command(object? obj)
+        #endregion
+
+        #region Commands
+
+        public ICommand cmdDelete { get; set; }
+        public ICommand cmdNew { get; set; }
+        public ICommand cmdSave { get; set; }
+        public ICommand cmdCancel { get; set; }
+        public ICommand cmdClose { get; set; }
+        public ICommand cmdUnLockUser { get; set; }
+        #endregion
+
+        #region Command Methods
+
+        /// <summary>
+        /// Bepaalt of de Save-command mag worden uitgevoerd.
+        /// </summary>
+        private bool CanExecute_Save_Command(object? obj)
         {
+            _isDirtyLocal = SelectedItem.Any(item => item.IsDirty);
             return _isDirtyLocal;
         }
+        private bool CanExecute_Close_Command(object? obj) => true;
+        private bool CanExecute_Cancel_Command(object? obj) => _isDirtyLocal;
+        private bool CanExecute_Delete_Command(object? obj) => false;
+        private bool CanExecute_New_Command(object? obj) => false;
 
         private void Execute_Cancel_Command(object? obj)
         {
@@ -101,85 +108,39 @@ namespace HomeManager.ViewModel.Security
             }
             _isDirtyLocal = false;
         }
-
-        private bool CanExecute_New_Command(object? obj)
+        private void Execute_Close_Command(object? obj)
         {
-            return false;
+            if (obj is Window win)
+            {
+                win.Close();
+            }
         }
+        private void Execute_New_Command(object? obj) => throw new NotImplementedException();
+        private void Execute_Delete_Command(object? obj) => throw new NotImplementedException();
 
-        private void Execute_New_Command(object? obj)
-        {
-            throw new NotImplementedException();
-        }
-
-        private bool CanExecute_Delete_Command(object? obj)
-        {
-            return false;
-        }
-
-        private void Execute_Delete_Command(object? obj)
-        {
-            throw new NotImplementedException();
-        }
-
-        //private void Execute_Save_Command(object? obj)
-        //{
-        //    string accountIds = "";
-        //    foreach (var item in SelectedItem)
-        //    {
-        //        accountIds += item.Account.AccountID + "|";
-        //    }
-        //    accountIds = accountIds.Remove(accountIds.Length - 1);
-
-        //    clsLockedAccountModel model = new clsLockedAccountModel()
-        //    {
-        //        SelectedItems = accountIds
-        //    };
-
-
-        //    if (MijnService.UnLockUsers(model))
-        //    {
-        //        _isDirtyLocal = false;
-        //        LoadData();
-        //    }
-        //    else
-        //    {
-        //        MessageBox.Show(model.ErrorBoodschap, "Error?");
-        //    }
-
-        //}
-
+        /// <summary>
+        /// Ontgrendelt geselecteerde gebruikers en verzendt nieuwe wachtwoorden per e-mail.
+        /// </summary>
         private async void Execute_Save_Command(object? obj)
         {
-
-
-            // Maak een DataTable aan voor de TVP
             DataTable inputTable = new DataTable();
             inputTable.Columns.Add("AccountID", typeof(int));
             inputTable.Columns.Add("Wachtwoord", typeof(string));
 
             PasswordGenerator generator = new PasswordGenerator();
 
-            // Vul de DataTable met gegevens uit de geselecteerde items
-            foreach (var item in SelectedItem)
+            foreach (var item in SelectedItem.Where(i => i.IsSelected))
             {
-                // Controleer of het item is geselecteerd
-                if (item.IsSelected)
-                {
-                    // Genereer een nieuw wachtwoord
-                    item.Account.Wachtwoord = generator.GeneratePassword(8);
-
-                    inputTable.Rows.Add(item.Account.AccountID, item.Account.Wachtwoord);
-                }
+                item.Account.Wachtwoord = generator.GeneratePassword(8);
+                inputTable.Rows.Add(item.Account.AccountID, item.Account.Wachtwoord);
             }
 
-            // Maak een model en roep de repository aan
-            clsLockedAccountModel model = new clsLockedAccountModel
+            var model = new clsLockedAccountModel
             {
                 SelectedItemsList = new ObservableCollection<(int AccountID, string Wachtwoord)>(
                     inputTable.AsEnumerable().Select(row => (
-                        AccountID: row.Field<int>("AccountID"),
-                        Wachtwoord: row.Field<string>("Wachtwoord")
+                        row.Field<int>("AccountID"),
+                        row.Field<string>("Wachtwoord")
                     ))
                 )
             };
@@ -188,50 +149,41 @@ namespace HomeManager.ViewModel.Security
             {
                 _isDirtyLocal = false;
                 List<string> verzondenEmails = null;
-                foreach (var item in SelectedItem)
-                {
-                    if (item.IsSelected)
-                    {                    
-                        clsMailService mailService = new clsMailService();
-                        verzondenEmails = await mailService.SendNewPassToPerson(                
-                           item.Account,
-                           item.Persoon
-                       );
-                    }
-                }
 
+                foreach (var item in SelectedItem.Where(i => i.IsSelected))
+                {
+                    var mailService = new clsMailService();
+                    verzondenEmails = await mailService.SendNewPassToPerson(item.Account, item.Persoon);
+                }
 
                 if (verzondenEmails != null)
                 {
                     MessageBox.Show("E-mail succesvol verzonden naar:\n" + string.Join(Environment.NewLine, verzondenEmails));
-                }          
-
-
+                }
 
                 LoadData();
             }
             else
             {
-                MessageBox.Show(model.ErrorBoodschap, "Error?");
+                MessageBox.Show(model.ErrorBoodschap, "Error");
             }
         }
 
 
+        #endregion
 
+        #region Load
 
-
-        private bool CanExecute_Save_Command(object? obj)
-        {           
-            foreach (var item in SelectedItem)
-            {
-                if (item.IsDirty)
-                {
-                    _isDirtyLocal = true;
-                    return true;
-                }
-            }
-            _isDirtyLocal = false;
-            return false;
+        /// <summary>
+        /// Laadt alle gelokte accounts in het ViewModel.
+        /// </summary>
+        private void LoadData()
+        {
+            MijnCollectie = MijnService.GetAll();
+            SelectedItem = new ObservableCollection<clsLockedAccountModel>();
         }
+
+        #endregion
+
     }
 }

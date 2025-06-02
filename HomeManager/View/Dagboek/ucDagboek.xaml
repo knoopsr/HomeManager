@@ -13,7 +13,7 @@
     d:DesignWidth="800"
     mc:Ignorable="d">
 
-    <DockPanel Background="{StaticResource myBackground}" DataContext="{Binding Source={StaticResource VML}, Path=DagboekViewModel}">
+    <DockPanel x:Name="dckPanel" Background="{StaticResource myBackground}" DataContext="{Binding Source={StaticResource VML}, Path=DagboekViewModel}">
         <Border
             Height="50"
             Background="{StaticResource myTitleBar}"
@@ -216,7 +216,7 @@
                                 <Label
                                     Grid.Row="1"
                                     Padding="1"
-                                    Content="Search Hyperlinks" />
+                                    Content="Find Hyperlinks" />
 
                                 <RibbonButton
                                     Grid.Column="1"
@@ -226,10 +226,10 @@
                                     Style="{StaticResource myRibbonButton}" />
 
                                 <Label
-                                    Grid.Column="1"
                                     Grid.Row="1"
+                                    Grid.Column="1"
                                     Padding="1"
-                                    Content="Find Email Asress" />
+                                    Content="Find Emails" />
 
                             </Grid>
 
@@ -565,7 +565,7 @@
                         Margin="2"
                         Background="LightGray"
                         ItemsSource="{Binding MijnCollectie}"
-                        SelectedIndex="-1"
+                        
                         SelectedItem="{Binding MySelectedItem, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
                         <i:Interaction.Behaviors>
                             <behaviors:clsDagboekListboxSelectionChangedBehavior TargetRichTextBox="{Binding ElementName=MyRTB}" />
@@ -582,6 +582,8 @@
                         <i:Interaction.Behaviors>
                             <behaviors:clsRichTextBoxSelectionBehavior Layout="{Binding MyRTBLayout}" />
                         </i:Interaction.Behaviors>
+
+                        
                     </RichTextBox>
                     <Button
                         Grid.Column="2"
@@ -590,7 +592,7 @@
                         Command="{Binding cmdTest}"
                         CommandParameter="{Binding ElementName=MyRTB}"
                         Content="test"
-                        Visibility="Visible" />
+                        Visibility="Collapsed" />
 
 
                 </Grid>

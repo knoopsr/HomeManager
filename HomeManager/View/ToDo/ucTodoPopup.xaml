@@ -53,7 +53,7 @@
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="100" />
+                    <ColumnDefinition Width="200" />
                     <ColumnDefinition Width="100" />
                     <ColumnDefinition Width="150" />
                     <ColumnDefinition Width="*" />
@@ -78,9 +78,10 @@
                     Grid.RowSpan="9"
                     Grid.Column="1"
                     DisplayMemberPath="Onderwerp"
-                    ItemsSource="{Binding MijnCollectie}"
+                    ItemsSource="{Binding FilteredMijnCollectie}"
                     SelectedIndex="{Binding MijnSelectedItem.MijnSelectedIndex, Mode=TwoWay}"
                     SelectedItem="{Binding MijnSelectedItem, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+
 
 
                 <Label
@@ -106,6 +107,7 @@
                     Content="Detail"
                     FontSize="12" />
                 <TextBox
+                    Name="Detailtxtb"
                     Grid.Row="2"
                     Grid.Column="3"
                     Height="80"
@@ -127,13 +129,13 @@
                     Grid.Column="3"
                     Orientation="Horizontal">
                     <ComboBox
+                        Name="GebruikersCBO"
                         Width="125"
                         Height="20"
                         Margin="0,0,4,0"
                         VerticalAlignment="Center"
                         ItemsSource="{Binding MijnCollectieGebruikers}"
-                        SelectedValue="{Binding MijnSelectedGebruiker.AccountID}"
-                        SelectedValuePath="PersoonID" />
+                        SelectedItem="{Binding MijnSelectedGebruiker, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />     
                     <Button Command="{Binding OpenAccountCommand}" Style="{StaticResource OpenUCButton}" />
                 </StackPanel>
 
@@ -171,11 +173,11 @@
                         Margin="0,0,4,0"
                         VerticalAlignment="Center"
                         DataContext="{Binding Source={StaticResource VML}, Path=CollectiesViewModel}"
+                        DisplayMemberPath="ToDoCollectie"
                         ItemsSource="{Binding MijnCollectie}"
                         SelectedValue="{Binding DataContext.MijnSelectedItem.TodoCollectieID, RelativeSource={RelativeSource AncestorType=UserControl}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
-                        SelectedValuePath="ToDoCollectieID"
-                        DisplayMemberPath="ToDoCollectie" />
-    
+                        SelectedValuePath="ToDoCollectieID" />
+
                     <Button Command="{Binding OpenCollectiesCommand}" Style="{StaticResource OpenUCButton}" />
 
                 </StackPanel>

@@ -1,115 +1,141 @@
-﻿using HomeManager.Common;
-using HomeManager.Model.Security;
+﻿using HomeManager.Model.Security;
 using Microsoft.Data.SqlClient;
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace HomeManager.DAL.Security
 {
+    /// <summary>
+    /// Repository voor het beheren van wachtwoordgroepen in de beveiligingsmodule.
+    /// </summary>
     public class clsWachtWoordGroepRepository : IWachtWoordGroepRepository
     {
+        #region Velden
+
         private ObservableCollection<clsWachtWoordGroepModel> _mijnCollectie;
-        int nr = 0;
+        private int nr = 0;
 
+        #endregion
 
+        #region Constructor
+
+        /// <summary>
+        /// Lege constructor.
+        /// </summary>
+        public clsWachtWoordGroepRepository() { }
+
+        #endregion
+
+        #region Data-opbouw
+
+        /// <summary>
+        /// Laadt alle wachtwoordgroepen uit de database.
+        /// </summary>
         private void GenerateCollection()
         {
-            SqlDataReader MijnDataReader = clsDAL.GetData(Properties.Resources.S_WachtWoordenGroep);
+            SqlDataReader reader = clsDAL.GetData(Properties.Resources.S_WachtWoordenGroep);
             _mijnCollectie = new ObservableCollection<clsWachtWoordGroepModel>();
 
-            while (MijnDataReader.Read())
+            while (reader.Read())
             {
-                clsWachtWoordGroepModel m = new clsWachtWoordGroepModel()
+                var model = new clsWachtWoordGroepModel
                 {
-                    WachtwoordGroepID = (int)MijnDataReader["WachtwoordGroepID"],
-                    WachtwoordGroep = (string)MijnDataReader["WachtwoordGroep"],        
-                    ControlField = MijnDataReader["ControlField"]
+                    WachtwoordGroepID = (int)reader["WachtwoordGroepID"],
+                    WachtwoordGroep = (string)reader["WachtwoordGroep"],
+                    ControlField = reader["ControlField"]
                 };
 
-                _mijnCollectie.Add(m);
+                _mijnCollectie.Add(model);
             }
-            MijnDataReader.Close();
+
+            reader.Close();
         }
 
+        #endregion
 
+        #region CRUD-methodes
 
-        public bool Delete(clsWachtWoordGroepModel entity)
-        {
-            (DataTable DT, bool Ok, string Boodschap) =
-                clsDAL.ExecuteDataTable(Properties.Resources.D_WachtWoordenGroep,
-                clsDAL.Parameter("WachtwoordGroepID", entity.WachtwoordGroepID),
-                clsDAL.Parameter("ControlField", entity.ControlField),
-                clsDAL.Parameter("@Returnvalue", 0)
-                );
-            if (!Ok)
-            {
-                entity.ErrorBoodschap = Boodschap;
-            }
-            return Ok;
-        }
-
-        public clsWachtWoordGroepModel Find()
-        {
-            throw new NotImplementedException();
-        }
-
+        /// <inheritdoc/>
         public ObservableCollection<clsWachtWoordGroepModel> GetAll()
         {
             GenerateCollection();
             return _mijnCollectie;
         }
 
+        /// <inheritdoc/>
         public clsWachtWoordGroepModel GetById(int id)
         {
             if (_mijnCollectie == null)
-            {
                 GenerateCollection();
-            }
-            return _mijnCollectie.Where(x => x.WachtwoordGroepID == id).FirstOrDefault();
+
+            return _mijnCollectie.FirstOrDefault(x => x.WachtwoordGroepID == id);
         }
 
+        /// <inheritdoc/>
         public clsWachtWoordGroepModel GetFirst()
         {
             if (_mijnCollectie == null)
-            {
                 GenerateCollection();
-            }
+
             return _mijnCollectie.FirstOrDefault();
         }
 
+        /// <inheritdoc/>
         public bool Insert(clsWachtWoordGroepModel entity)
         {
-            (DataTable DT, bool Ok, string Boodschap) =
-                clsDAL.ExecuteDataTable(Properties.Resources.I_WachtWoordenGroep,
+            (DataTable dt, bool ok, string boodschap) = clsDAL.ExecuteDataTable(
+                Properties.Resources.I_WachtWoordenGroep,
                 clsDAL.Parameter("WachtwoordGroep", entity.WachtwoordGroep),
-                clsDAL.Parameter("@Returnvalue", 0)
-                );
-            if (!Ok)
-            {
-                entity.ErrorBoodschap = Boodschap;
-            }
-            return Ok;
+                clsDAL.Parameter("@Returnvalue", 0));
+
+            if (!ok)
+                entity.ErrorBoodschap = boodschap;
+
+            return ok;
         }
 
+        /// <inheritdoc/>
         public bool Update(clsWachtWoordGroepModel entity)
         {
-            (DataTable DT, bool Ok, string Boodschap) =
-                clsDAL.ExecuteDataTable(Properties.Resources.U_WachtWoordenGroep,
+            (DataTable dt, bool ok, string boodschap) = clsDAL.ExecuteDataTable(
+                Properties.Resources.U_WachtWoordenGroep,
                 clsDAL.Parameter("WachtwoordGroepID", entity.WachtwoordGroepID),
                 clsDAL.Parameter("WachtwoordGroep", entity.WachtwoordGroep),
                 clsDAL.Parameter("ControlField", entity.ControlField),
-                clsDAL.Parameter("@Returnvalue", 0)
-                );
-            if (!Ok)
-            {
-                entity.ErrorBoodschap = Boodschap;
-            }
-            return Ok;
+                clsDAL.Parameter("@Returnvalue", 0));
+
+            if (!ok)
+                entity.ErrorBoodschap = boodschap;
+
+            return ok;
         }
+
+        /// <inheritdoc/>
+        public bool Delete(clsWachtWoordGroepModel entity)
+        {
+            (DataTable dt, bool ok, string boodschap) = clsDAL.ExecuteDataTable(
+                Properties.Resources.D_WachtWoordenGroep,
+                clsDAL.Parameter("WachtwoordGroepID", entity.WachtwoordGroepID),
+                clsDAL.Parameter("ControlField", entity.ControlField),
+                clsDAL.Parameter("@Returnvalue", 0));
+
+            if (!ok)
+                entity.ErrorBoodschap = boodschap;
+
+            return ok;
+        }
+
+        #endregion
+
+        #region Niet geïmplementeerde methodes
+
+        /// <inheritdoc/>
+        public clsWachtWoordGroepModel Find()
+        {
+            throw new NotImplementedException();
+        }
+
+        #endregion
     }
 }

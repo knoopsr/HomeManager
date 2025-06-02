@@ -4,17 +4,20 @@ using System.Collections.ObjectModel;
 
 namespace HomeManager.Model.Security
 {
+    /// <summary>
+    /// Model voor geblokkeerde accounts, met gekoppelde persoon en selectieinformatie.
+    /// </summary>
     public class clsLockedAccountModel : clsCommonModelPropertiesBase
     {
-
+        #region Properties - Relaties
 
         private clsPersoonModel _persoon;
+        /// <summary>
+        /// De persoon gekoppeld aan het account.
+        /// </summary>
         public clsPersoonModel Persoon
         {
-            get
-            {
-                return _persoon;
-            }
+            get => _persoon;
             set
             {
                 _persoon = value;
@@ -22,14 +25,13 @@ namespace HomeManager.Model.Security
             }
         }
 
-
         private clsAccountModel _account;
+        /// <summary>
+        /// Het account dat geblokkeerd is.
+        /// </summary>
         public clsAccountModel Account
         {
-            get
-            {
-                return _account;
-            }
+            get => _account;
             set
             {
                 _account = value;
@@ -37,29 +39,38 @@ namespace HomeManager.Model.Security
             }
         }
 
+        #endregion
+
+        #region Properties - Selectie
+
         private bool _isSelected;
+        /// <summary>
+        /// Geeft aan of dit account geselecteerd is voor ontgrendeling.
+        /// </summary>
         public bool IsSelected
         {
-            get
-            {
-                return _isSelected;
-            }
+            get => _isSelected;
             set
             {
                 if (_isSelected != value)
-                {         
-                        IsDirty = true;            
-                }
+                    IsDirty = true;
+
                 _isSelected = value;
                 OnPropertyChanged();
             }
         }
 
-        // Nieuwe collectie om AccountID en Wachtwoord-paren op te slaan
+        #endregion
+
+        #region Properties - Selectie Lijst
+
         private ObservableCollection<(int AccountID, string Wachtwoord)> _selectedItemsList;
+        /// <summary>
+        /// Bevat een lijst van geselecteerde accounts met hun nieuwe wachtwoorden.
+        /// </summary>
         public ObservableCollection<(int AccountID, string Wachtwoord)> SelectedItemsList
         {
-            get => _selectedItemsList ??= new ObservableCollection<(int AccountID, string Wachtwoord)>();
+            get => _selectedItemsList ??= new ObservableCollection<(int, string)>();
             set
             {
                 _selectedItemsList = value;
@@ -67,8 +78,10 @@ namespace HomeManager.Model.Security
             }
         }
 
-        // Optioneel: Houdt een stringweergave bij van geselecteerde items
         private string _selectedItems;
+        /// <summary>
+        /// Optionele stringrepresentatie van de geselecteerde items.
+        /// </summary>
         public string SelectedItems
         {
             get => _selectedItems;
@@ -79,17 +92,26 @@ namespace HomeManager.Model.Security
             }
         }
 
-        // Hulpmethode om een item aan de lijst toe te voegen
+        #endregion
+
+        #region Methoden
+
+        /// <summary>
+        /// Voeg een item toe aan de lijst van te ontgrendelen accounts.
+        /// </summary>
         public void AddSelectedItem(int accountId, string wachtwoord)
         {
             SelectedItemsList.Add((accountId, wachtwoord));
         }
 
-        // Hulpmethode om de lijst te resetten
+        /// <summary>
+        /// Wis de lijst van geselecteerde items.
+        /// </summary>
         public void ClearSelectedItems()
         {
             SelectedItemsList.Clear();
         }
 
+        #endregion
     }
 }

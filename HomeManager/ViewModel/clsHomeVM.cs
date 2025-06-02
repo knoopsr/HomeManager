@@ -4,176 +4,118 @@ using HomeManager.Helpers;
 using HomeManager.Model.Logging;
 using HomeManager.Model.Personen;
 using HomeManager.Model.Security;
-using HomeManager.ViewModel.Homepage;
-using System.Diagnostics;
 using HomeManager.View.StickyNotes;
+using HomeManager.ViewModel.Homepage;
 using System.Windows;
 using System.Windows.Input;
 
 namespace HomeManager.ViewModel
 {
+    /// <summary>
+    /// ViewModel voor de hoofdstructuur van HomeManager. Beheert navigatie, expander-menu's, en logging.
+    /// </summary>
     public class clsHomeVM : clsBindableBase
     {
+        #region Services & Velden
 
-        public ICommand cmdMenu { get; }
-        public ICommand cmdCloseAplication { get; }
-        clsButtonLoggingDataService MijnLoggingService;
-        public clsFavorieteVensterViewModel FavorietVensterVM { get; set; }
+        private readonly clsButtonLoggingDataService MijnLoggingService;
         private static StickyNotesView stickyNotesView;
 
-        private clsBindableBase _currentViewModel;
-        public clsBindableBase CurrentViewModel
-        {
-            get
-            {
-                return _currentViewModel;
-            }
-            set
-            {
+        #endregion
 
-                SetProperty(ref _currentViewModel, value);
-            }
-        }
+        #region Constructor
 
-
-
-        private bool _isMenuVisible = true;
-        public bool IsMenuVisible
-        {
-            get
-            {
-                return _isMenuVisible;
-            }
-            set
-            {
-                _isMenuVisible = value;
-                OnPropertyChange();
-            }
-        }
-
-        private bool _isPersonenExpanderMenu = false;
-        public bool IsPersonenExpanderMenu
-        {
-            get
-            {
-                return _isPersonenExpanderMenu;
-            }
-            set
-            {
-                _isPersonenExpanderMenu = value;
-                OnPropertyChange();
-            }
-        }
-
-        private bool _isBudgetExpanderMenu = false;
-        public bool IsBudgetExpanderMenu
-        {
-            get
-            {
-                return _isBudgetExpanderMenu;
-            }
-            set
-            {
-                _isBudgetExpanderMenu = value;
-                OnPropertyChange();
-            }
-        }
-
-        private bool _isTodoExpanderMenu = false;
-        public bool IsTodoExpanderMenu
-        {
-            get
-            {
-                return _isTodoExpanderMenu;
-            }
-            set
-            {
-                _isTodoExpanderMenu = value;
-                OnPropertyChange();
-            }
-        }
-
-        private bool _isSecurityExpanderMenu = false;
-        public bool IsSecurityExpanderMenu
-        {
-            get
-            {
-                return _isSecurityExpanderMenu;
-            }
-            set
-            {
-                _isSecurityExpanderMenu = value;
-                OnPropertyChange();
-            }
-        }
-
-        private bool _isStickyNotesExpanderMenu = false;
-        public bool IsStickyNotesExpanderMenu
-        {
-            get
-            {
-                return _isStickyNotesExpanderMenu;
-            }
-            set
-            {
-                _isStickyNotesExpanderMenu = value;
-                OnPropertyChange();
-            }
-        }
-
-
-
-
-
-        public clsRelayCommand<string> NavCommand { get; private set; }
-       
         public clsHomeVM()
         {
             NavCommand = new clsRelayCommand<string>(OnNav);
             cmdMenu = new clsCustomCommand(Execute_cmdMenu_Command, CanExecute_cmdMenu_Command);
             cmdCloseAplication = new clsCustomCommand(Execute_cmdCloseAplication_Command, CanExecute_cmdCloseAplication_Command);
-            
+
             MijnLoggingService = new clsButtonLoggingDataService();
-
             clsMessenger.Default.Register<clsPersoonModel>(this, OnNewPersonenReceive);
-
-
 
             FavorietVensterVM = new clsFavorieteVensterViewModel
             {
-                OpenVensterAction = OnNav // GEWOON DE BESTAANDE OnNav gebruiken
+                OpenVensterAction = OnNav
             };
-
-
         }
 
-        private void Execute_cmdCloseAplication_Command(object? obj)
+        #endregion
+
+        #region Commands
+
+        public ICommand cmdMenu { get; }
+        public ICommand cmdCloseAplication { get; }
+        public clsRelayCommand<string> NavCommand { get; private set; }
+
+        #endregion
+
+        #region Navigatie & ViewModels
+
+        private clsBindableBase _currentViewModel;
+        /// <summary>
+        /// Huidig geladen ViewModel dat in de ContentControl weergegeven wordt.
+        /// </summary>
+        public clsBindableBase CurrentViewModel
         {
-            var result = MessageBox.Show("Wilt u de applicatie sluiten?", "Bevestiging", MessageBoxButton.YesNo, MessageBoxImage.Question);
-
-            if (result == MessageBoxResult.Yes)
-            {
-                Application.Current.Shutdown();
-            }
+            get => _currentViewModel;
+            set => SetProperty(ref _currentViewModel, value);
         }
 
-        private bool CanExecute_cmdCloseAplication_Command(object? obj)
+        /// <summary>
+        /// ViewModel dat de favorietenvensters beheert op de startpagina.
+        /// </summary>
+        public clsFavorieteVensterViewModel FavorietVensterVM { get; set; }
+
+        #endregion
+
+        #region UI-Properties (hamburgermenu + expanderstatus)
+
+        public bool IsMenuVisible
         {
-            return true;
+            get => _isMenuVisible;
+            set { _isMenuVisible = value; OnPropertyChange(); }
         }
+        private bool _isMenuVisible = true;
 
-        private void OnNewPersonenReceive(clsPersoonModel persoon)
+        public bool IsPersonenExpanderMenu
         {
-            if (persoon != null)
-            {
-                if (persoon.PersoonID == 0)
-                {
-                    OnNav("clsPersoonViewModel");
-                }
-            }
-
-
+            get => _isPersonenExpanderMenu;
+            set { _isPersonenExpanderMenu = value; OnPropertyChange(); }
         }
+        private bool _isPersonenExpanderMenu;
+
+        public bool IsBudgetExpanderMenu
+        {
+            get => _isBudgetExpanderMenu;
+            set { _isBudgetExpanderMenu = value; OnPropertyChange(); }
+        }
+        private bool _isBudgetExpanderMenu;
+
+        public bool IsTodoExpanderMenu
+        {
+            get => _isTodoExpanderMenu;
+            set { _isTodoExpanderMenu = value; OnPropertyChange(); }
+        }
+        private bool _isTodoExpanderMenu;
+
+        public bool IsSecurityExpanderMenu
+        {
+            get => _isSecurityExpanderMenu;
+            set { _isSecurityExpanderMenu = value; OnPropertyChange(); }
+        }
+        private bool _isSecurityExpanderMenu;
+
+        public bool IsStickyNotesExpanderMenu
+        {
+            get => _isStickyNotesExpanderMenu;
+            set { _isStickyNotesExpanderMenu = value; OnPropertyChange(); }
+        }
+        private bool _isStickyNotesExpanderMenu;
+
+        #endregion
+
+        #region Command Handlers
 
         private void Execute_cmdMenu_Command(object? obj)
         {
@@ -189,40 +131,62 @@ namespace HomeManager.ViewModel
             }
         }
 
-        private bool CanExecute_cmdMenu_Command(object? obj)
-        {
-            return true;
+        private bool CanExecute_cmdMenu_Command(object? obj) => true;
 
+        private void Execute_cmdCloseAplication_Command(object? obj)
+        {
+            var result = MessageBox.Show("Wilt u de applicatie sluiten?", "Bevestiging", MessageBoxButton.YesNo, MessageBoxImage.Question);
+            if (result == MessageBoxResult.Yes)
+                Application.Current.Shutdown();
         }
 
+        private bool CanExecute_cmdCloseAplication_Command(object? obj) => true;
+
+        #endregion
+
+        #region Navigatie Logica
+
+        /// <summary>
+        /// Verwerkt de navigatie naar een ander ViewModel obv string identifier.
+        /// </summary>
         private void OnNav(string destination)
         {
-            //Logging van de buttonklik
-            MijnLoggingService.Insert(new clsButtonLoggingModel()
+            // Logging
+            MijnLoggingService.Insert(new clsButtonLoggingModel
             {
                 AccountId = clsLoginModel.Instance.AccountID,
                 ActionName = "MenuKnop",
                 ActionTarget = destination
             });
 
+            // Controleer permissie
             clsPermissionChecker permissionChecker = new clsPermissionChecker();
-            if (permissionChecker.PermissionViewmodel(destination))
+            if (!permissionChecker.PermissionViewmodel(destination))
             {
-                var type = this.GetType();
-                var match = type.Assembly.GetTypes().FirstOrDefault(t => t.Name == destination);
-                if (match != null)
-                {
-                    Type t = Type.GetType(match.ToString(), true);
-                    var instance = Activator.CreateInstance(t) as clsBindableBase;
-                    CurrentViewModel = instance;
-                }
+                MessageBox.Show("U heeft geen toegang tot deze pagina.");
+                return;
             }
-            else
+
+            // Zoek het ViewModel type
+            var type = GetType().Assembly.GetTypes().FirstOrDefault(t => t.Name == destination);
+            if (type != null && Activator.CreateInstance(type) is clsBindableBase vmInstance)
             {
-                MessageBox.Show("U heeft geen toegang tot deze pagina");
+                CurrentViewModel = vmInstance;
             }
         }
+
+        #endregion
+
+        #region Messenger Event
+
+        private void OnNewPersonenReceive(clsPersoonModel persoon)
+        {
+            if (persoon != null && persoon.PersoonID == 0)
+            {
+                OnNav("clsPersoonViewModel");
+            }
+        }
+
+        #endregion
     }
 }
-
-

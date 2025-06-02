@@ -101,7 +101,10 @@ namespace HomeManager.ViewModel
             get => _geselecteerdInkomstenJaar;
             set
             {
+                if (value == _geselecteerdInkomstenJaar) return;
                 _geselecteerdInkomstenJaar = value;
+                GeselecteerdUitgavenJaar = value;
+
                 OnPropertyChanged();
                 PasInkomstenFilterToe();
                 BerekenTotaalInkomsten();
@@ -125,7 +128,10 @@ namespace HomeManager.ViewModel
             get => _geselecteerdUitgavenJaar;
             set
             {
+                if (value == _geselecteerdUitgavenJaar) return;
                 _geselecteerdUitgavenJaar = value;
+                GeselecteerdInkomstenJaar = value;
+
                 OnPropertyChanged();
                 PasUitgavenFilterToe();
                 BerekenTotaalUitgaven();
@@ -149,7 +155,10 @@ namespace HomeManager.ViewModel
             get => _geselecteerdeInkomstenMaand;
             set
             {
+                if (value == _geselecteerdeInkomstenMaand) return;
                 _geselecteerdeInkomstenMaand = value;
+                GeselecteerdeUitgavenMaand = value;
+
                 OnPropertyChanged();
                 PasInkomstenFilterToe();
                 BerekenTotaalInkomsten();
@@ -174,7 +183,10 @@ namespace HomeManager.ViewModel
             get => _geselecteerdeUitgavenMaand;
             set
             {
+                if (value == _geselecteerdeUitgavenMaand) return;
                 _geselecteerdeUitgavenMaand = value;
+                GeselecteerdeInkomstenMaand = value;
+
                 OnPropertyChanged();
                 PasUitgavenFilterToe();
                 BerekenTotaalUitgaven();
@@ -291,6 +303,25 @@ namespace HomeManager.ViewModel
             }
         }
 
+        private bool _isToekomstigeZichtbaar = false;
+
+        public bool IsToekomstigeZichtbaar
+        {
+            get => _isToekomstigeZichtbaar;
+            set
+            {   
+                
+                _isToekomstigeZichtbaar = value;
+                PasUitgavenFilterToe();
+                PasInkomstenFilterToe();
+                BerekenTotaalUitgaven();
+                BerekenTotaalInkomsten();
+                BerekenResultaat();
+
+                OnPropertyChanged();
+            }
+        }
+
         private decimal _TotaalInkomsten;
         public decimal TotaalInkomsten
         {
@@ -387,6 +418,7 @@ namespace HomeManager.ViewModel
             int huidigJaar = DateTime.Now.Year;
 
             GeselecteerdUitgavenJaar = huidigJaar;
+            GeselecteerdInkomstenJaar = huidigJaar;
 
         }
 
@@ -435,14 +467,8 @@ namespace HomeManager.ViewModel
 
         private void Execute_CancelCommand(object obj)
         {
-            GeselecteerdInkomstenJaar = DateTime.Now.Year;
-            GeselecteerdeInkomstenMaand = null;
-            GeselecteerdeInkomstenCategorie = null;
-            GeselecteerdeInkomstenBegunstigde = null;
-            GeselecteerdUitgavenJaar = DateTime.Now.Year;
-            GeselecteerdeUitgavenMaand = null;
-            GeselecteerdeUitgavenCategorie = null;
-            GeselecteerdeUitgavenBegunstigde = null;
+            Execute_EmptyInkomstenComboboxenCommand(obj);
+            Execute_EmptyUitgavenComboboxenCommand(obj);
 
         }
 
@@ -490,6 +516,7 @@ namespace HomeManager.ViewModel
             GeselecteerdeInkomstenMaand = null;
             GeselecteerdeInkomstenCategorie = null;
             GeselecteerdeInkomstenBegunstigde = null;
+            IsToekomstigeZichtbaar = false;
         }
         
         private bool CanExecute_EmptyUitgavenComboboxenCommand(object obj)
@@ -504,6 +531,7 @@ namespace HomeManager.ViewModel
             GeselecteerdeUitgavenMaand = null;
             GeselecteerdeUitgavenCategorie = null;
             GeselecteerdeUitgavenBegunstigde = null;
+            IsToekomstigeZichtbaar = false;
         }
 
         private void PasInkomstenFilterToe()
@@ -534,6 +562,12 @@ namespace HomeManager.ViewModel
                 gefilterd = gefilterd.Where(inkomen => inkomen.BudgetCategorie == GeselecteerdeInkomstenCategorie);
             }
 
+            // Filter op Toekomstige zichtbaarheid
+            if (IsToekomstigeZichtbaar)
+            {
+                gefilterd = gefilterd.Where(inkomen => inkomen.IsUitgevoerd);
+            }
+
             // Update de gefilterde lijst
             GefilterdeInkomsten = new ObservableCollection<clsOverzichtModel>(gefilterd);
         }
@@ -545,45 +579,46 @@ namespace HomeManager.ViewModel
             // Filter op Jaar
             if (GeselecteerdUitgavenJaar.HasValue)
             {
-                gefilterd = gefilterd.Where(inkomen => inkomen.Jaar == GeselecteerdUitgavenJaar.Value);
+                gefilterd = gefilterd.Where(uitgaven => uitgaven.Jaar == GeselecteerdUitgavenJaar.Value);
             }
 
             // Filter op Maand
             if (!string.IsNullOrEmpty(GeselecteerdeUitgavenMaand))
             {
-                gefilterd = gefilterd.Where(inkomen => inkomen.Maand == GeselecteerdeUitgavenMaand);
+                gefilterd = gefilterd.Where(uitgaven => uitgaven.Maand == GeselecteerdeUitgavenMaand);
             }
 
             // Filter op Begunstigde
             if (!string.IsNullOrEmpty(GeselecteerdeUitgavenBegunstigde))
             {
-                gefilterd = gefilterd.Where(inkomen => inkomen.Begunstigde == GeselecteerdeUitgavenBegunstigde);
+                gefilterd = gefilterd.Where(uitgaven => uitgaven.Begunstigde == GeselecteerdeUitgavenBegunstigde);
             }
 
             // Filter op Categorie
             if (!string.IsNullOrEmpty(GeselecteerdeUitgavenCategorie))
             {
-                gefilterd = gefilterd.Where(inkomen => inkomen.BudgetCategorie == GeselecteerdeUitgavenCategorie);
+                gefilterd = gefilterd.Where(uitgaven => uitgaven.BudgetCategorie == GeselecteerdeUitgavenCategorie);
+            }
+
+            // Filter op Toekomstige zichtbaarheid
+            if (IsToekomstigeZichtbaar)
+            {
+                gefilterd = gefilterd.Where(uitgaven => uitgaven.IsUitgevoerd);
             }
 
             // Update de gefilterde lijst
             GefilterdeUitgaven = new ObservableCollection<clsOverzichtModel>(gefilterd);
+
+            
         }
 
         private void BerekenTotaalInkomsten()
         {
             if (MijnInkomsten != null)
             {
-                // Filter de inkomstenlijst op basis van de geselecteerde filters
-                var gefilterdeInkomsten = MijnInkomsten.Where(inkomst =>
-                    (!GeselecteerdInkomstenJaar.HasValue || inkomst.Jaar == GeselecteerdInkomstenJaar) &&
-                    (string.IsNullOrEmpty(GeselecteerdeInkomstenMaand) || inkomst.Maand == GeselecteerdeInkomstenMaand) &&
-                    (string.IsNullOrEmpty(GeselecteerdeInkomstenCategorie) || inkomst.BudgetCategorie == GeselecteerdeInkomstenCategorie) &&
-                    (string.IsNullOrEmpty(GeselecteerdeInkomstenBegunstigde) || inkomst.Begunstigde == GeselecteerdeInkomstenBegunstigde)
-                );
-
+                
                 // Bereken het totaal van de gefilterde lijst
-                TotaalInkomsten = gefilterdeInkomsten.Sum(inkomst => inkomst.Bedrag);
+                TotaalInkomsten = GefilterdeInkomsten.Sum(inkomst => inkomst.Bedrag);
             }
             else
             {
@@ -595,16 +630,9 @@ namespace HomeManager.ViewModel
         {
             if (MijnUitgaven != null)
             {
-                // Filter de Uitgavenlijst op basis van de geselecteerde filters
-                var gefilterdeUitgaven = MijnUitgaven.Where(inkomst =>
-                    (!GeselecteerdUitgavenJaar.HasValue || inkomst.Jaar == GeselecteerdUitgavenJaar) &&
-                    (string.IsNullOrEmpty(GeselecteerdeUitgavenMaand) || inkomst.Maand == GeselecteerdeUitgavenMaand) &&
-                    (string.IsNullOrEmpty(GeselecteerdeUitgavenCategorie) || inkomst.BudgetCategorie == GeselecteerdeUitgavenCategorie) &&
-                    (string.IsNullOrEmpty(GeselecteerdeUitgavenBegunstigde) || inkomst.Begunstigde == GeselecteerdeUitgavenBegunstigde)
-                );
-
+                
                 // Bereken het totaal van de gefilterde lijst
-                TotaalUitgaven = gefilterdeUitgaven.Sum(inkomst => inkomst.Bedrag);
+                TotaalUitgaven = GefilterdeUitgaven.Sum(uitgaven => uitgaven.Bedrag);
             }
             else
             {

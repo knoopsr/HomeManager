@@ -112,6 +112,8 @@ namespace HomeManager.ViewModel
                         MessageBox.Show(MijnSelectedItem.ErrorBoodschap, "Error?");
                     }
                 }
+
+                clsMessenger.Default.Send<clsUpdateListMessages>(new clsUpdateListMessages());
             }
         }
 

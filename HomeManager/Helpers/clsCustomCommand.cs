@@ -1,52 +1,58 @@
-﻿using HomeManager.DataService.Exceptions;
-using HomeManager.DataService.Logging;
-using HomeManager.Model.Exceptions;
+﻿using HomeManager.DataService.Logging;
 using HomeManager.Model.Logging;
 using HomeManager.Model.Security;
 using HomeManager.Services;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 
 namespace HomeManager.Helpers
 {
+    /// <summary>
+    /// Een aangepaste ICommand-implementatie die logging uitvoert bij het uitvoeren van acties.
+    /// Logt automatisch welke methode werd aangeroepen en door wie, op basis van de delegate.
+    /// </summary>
     public class clsCustomCommand : ICommand
     {
-        clsButtonLoggingDataService MijnLoggingService;
+        private readonly clsButtonLoggingDataService MijnLoggingService;
 
-        private Action<object?> _execute;
-        private Predicate<object?> _canExecute;
+        private readonly Action<object?> _execute;
+        private readonly Predicate<object?> _canExecute;
 
+        /// <summary>
+        /// Initialiseert een nieuwe instantie van <see cref="clsCustomCommand"/>.
+        /// </summary>
+        /// <param name="execute">De uit te voeren actie.</param>
+        /// <param name="canExecute">De voorwaarde waaronder de actie mag worden uitgevoerd.</param>
         public clsCustomCommand(Action<object?> execute, Predicate<object?> canExecute)
         {
-            this._execute = execute;
-            this._canExecute = canExecute;
-
+            _execute = execute;
+            _canExecute = canExecute;
             MijnLoggingService = new clsButtonLoggingDataService();
         }
 
+        /// <summary>
+        /// Bepaalt of het commando kan worden uitgevoerd met de opgegeven parameter.
+        /// </summary>
+        /// <param name="parameter">De parameter die van invloed is op de uitvoerbaarheid.</param>
+        /// <returns><c>true</c> als het commando kan worden uitgevoerd; anders <c>false</c>.</returns>
         public bool CanExecute(object? parameter)
         {
-            bool b = _canExecute == null ? true : _canExecute(parameter);
-            return b;
+            return _canExecute == null || _canExecute(parameter);
         }
 
+        /// <summary>
+        /// Voert de bijhorende actie uit en logt de actie als een commandparameter aanwezig is.
+        /// </summary>
+        /// <param name="parameter">De parameter die wordt doorgegeven aan de actie.</param>
         public void Execute(object? parameter)
         {
             try
             {
                 _execute(parameter);
 
-                //Hier word geen logging gedaan.
-                //Er is geen CommandParameter meegestuurd.
                 if (parameter == null)
                 {
-                    MessageBox.Show("Geen Logging. Er word geen gebruik gemaakt van CommandParameter in de Xaml.");
+                    MessageBox.Show("Geen Logging. Er wordt geen gebruik gemaakt van CommandParameter in de XAML.");
                     return;
                 }
 
@@ -54,7 +60,6 @@ namespace HomeManager.Helpers
                 {
                     string targetName = del.Target?.GetType().Name ?? "null";
                     string methodName = del.Method.Name;
-
 
                     MijnLoggingService.Insert(new clsButtonLoggingModel()
                     {
@@ -64,22 +69,19 @@ namespace HomeManager.Helpers
                     });
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 clsExceptionService.InsertException(ex);
             }
         }
 
+        /// <summary>
+        /// Wordt aangeroepen wanneer de uitvoerbaarheid van het commando verandert.
+        /// </summary>
         public event EventHandler? CanExecuteChanged
         {
-            add
-            {
-                CommandManager.RequerySuggested += value;
-            }
-            remove
-            {
-                CommandManager.RequerySuggested -= value;
-            }
+            add { CommandManager.RequerySuggested += value; }
+            remove { CommandManager.RequerySuggested -= value; }
         }
     }
 }
