@@ -498,10 +498,15 @@ namespace HomeManager.ViewModel
                 var verzenderEmailAdressen = VerzendenService.GetByPersoonID(clsLoginModel.Instance.PersoonID);
                 string mailFromEmail = verzenderEmailAdressen?.FirstOrDefault()?.Emailadres ?? "noreply@homemanager.com";
 
+                // Haal het e-mailadres van de ontvanger op via de dataservice
+                var ontvangerEmailAdressen = VerzendenService.GetByPersoonID(MijnSelectedGebruiker.PersoonID);
+                string mailToEmail = ontvangerEmailAdressen?.FirstOrDefault()?.Emailadres
+                    ?? $"{MijnSelectedGebruiker.Login}@homemanager.com"; // fallback indien geen e-mailadres gevonden
+
                 var mailModel = new clsMailModel
                 {
                     MailFromEmail = mailFromEmail,
-                    MailToEmail = $"{MijnSelectedGebruiker.Login}@homemanager.com",
+                    MailToEmail = mailToEmail,
                     MailToName = MijnSelectedGebruiker.Login,
                     Subject = MijnSelectedItem.Onderwerp,
                     Body = MijnSelectedItem.Detail
