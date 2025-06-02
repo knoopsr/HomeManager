@@ -5,73 +5,34 @@ namespace HomeManager.Model.Security
 {
     public class clsRollenModel : clsCommonModelPropertiesBase, IDataErrorInfo
     {
-        public string this[string columnName]
-        {
-            get
-            {
-                string error = string.Empty;
-                switch (columnName)
-                {
-                    case nameof(RolName):
-                        if (string.IsNullOrWhiteSpace(RolName))
-                        {
-                            error = "RolName is verplicht veld.";
-                            if (ErrorList.Contains(nameof(RolName)) == false)
-                            {
-                                ErrorList.Add(nameof(RolName));
-                            }
-                        }
-                        else if (RolName.Length > 50)
-                        {
-                            error = "RolName mag niet langer zijn dan 50 karakters.";
-                            if (ErrorList.Contains(nameof(RolName)) == false)
-                            {
-                                ErrorList.Add(nameof(RolName));
-                            }
-                        }
-                        else
-                        {
-                            if (ErrorList.Contains(nameof(RolName)))
-                            {
-                                ErrorList.Remove(nameof(RolName));
-                            }
-                        }
-                        return error;
+        #region Constructor
 
-                    default:
-                        error = null;
-                        return error;
-                }
+        public clsRollenModel() { }
 
-            }
+        #endregion
 
-        }
+        #region Properties
 
         private int _rolID;
         public int RolID
         {
-            get { return _rolID; }
+            get => _rolID;
             set
             {
-
                 _rolID = value;
                 OnPropertyChanged();
-
             }
         }
 
         private string _rolName;
         public string RolName
         {
-            get { return _rolName; }
+            get => _rolName;
             set
             {
-                if (_rolName != value)
+                if (_rolName != value && _rolName != null)
                 {
-                    if (_rolName != null)
-                    {
-                        IsDirty = true;
-                    }
+                    IsDirty = true;
                 }
                 _rolName = value;
                 OnPropertyChanged();
@@ -81,30 +42,22 @@ namespace HomeManager.Model.Security
         private string _rechten;
         public string Rechten
         {
-            get { return _rechten; }
+            get => _rechten;
             set
             {
-                if (_rechten != value)
+                if (_rechten != value && _rechten != null)
                 {
-                    if (_rechten != null)
-                    {
-                        IsDirty = true;
-                    }
+                    IsDirty = true;
                 }
                 _rechten = value;
                 OnPropertyChanged();
             }
         }
 
-        public override string ToString()
-        {
-            return RolName;
-        }
-
         private bool _isTextBoxEnabled;
         public bool IsTextBoxEnabled
         {
-            get { return _isTextBoxEnabled; }
+            get => _isTextBoxEnabled;
             set
             {
                 _isTextBoxEnabled = value;
@@ -112,6 +65,53 @@ namespace HomeManager.Model.Security
             }
         }
 
+        #endregion
 
+        #region Overrides
+
+        public override string ToString()
+        {
+            return string.IsNullOrWhiteSpace(RolName) ? base.ToString() : RolName;
+        }
+
+        #endregion
+
+        #region IDataErrorInfo
+
+        public string Error => null;
+
+        public string this[string columnName]
+        {
+            get
+            {
+                string error = null;
+
+                switch (columnName)
+                {
+                    case nameof(RolName):
+                        if (string.IsNullOrWhiteSpace(RolName))
+                        {
+                            error = "RolName is verplicht veld.";
+                            if (!ErrorList.Contains(nameof(RolName)))
+                                ErrorList.Add(nameof(RolName));
+                        }
+                        else if (RolName.Length > 50)
+                        {
+                            error = "RolName mag niet langer zijn dan 50 karakters.";
+                            if (!ErrorList.Contains(nameof(RolName)))
+                                ErrorList.Add(nameof(RolName));
+                        }
+                        else
+                        {
+                            ErrorList.Remove(nameof(RolName));
+                        }
+                        break;
+                }
+
+                return error;
+            }
+        }
+
+        #endregion
     }
 }

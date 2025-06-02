@@ -1,117 +1,147 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace HomeManager.Common
+﻿namespace HomeManager.Common
 {
+    /// <summary>
+    /// Basisklasse voor models die ondersteuning bieden voor statusbewaking, foutmeldingen en UI-gerelateerde eigenschappen.
+    /// </summary>
     public class clsCommonModelPropertiesBase : clsObservable
     {
-        private bool _isDirty = false;
+        #region Status Eigenschappen
+
+        /// <summary>
+        /// Geeft aan of het object gewijzigd is sinds de laatste opslag of reset.
+        /// </summary>
         public bool IsDirty
         {
-            get { return _isDirty; }
+            get => _isDirty;
             set
             {
                 _isDirty = value;
                 OnPropertyChanged();
             }
         }
+        private bool _isDirty = false;
 
-        private int _mijnSelectedIndex;
+        /// <summary>
+        /// Index voor selectie in bijvoorbeeld een ComboBox.
+        /// </summary>
         public int MijnSelectedIndex
         {
-            get { return _mijnSelectedIndex; }
+            get => _mijnSelectedIndex;
             set
             {
                 _mijnSelectedIndex = value;
                 OnPropertyChanged();
             }
         }
+        private int _mijnSelectedIndex;
 
-        private int _myVisibility;
+        #endregion
+
+        #region Visibility
+
+        /// <summary>
+        /// Integer voor binding aan Visibility converters.
+        /// </summary>
         public int MyVisibility
         {
-            get { return _myVisibility; }
+            get => _myVisibility;
             set
             {
                 _myVisibility = value;
                 OnPropertyChanged();
             }
         }
+        private int _myVisibility;
 
-        private int _myVisibility_Contrary = 1;
+        /// <summary>
+        /// Tegengestelde waarde van visibility voor inverse bindings.
+        /// </summary>
         public int MyVisibility_Contrary
         {
-            get { return _myVisibility_Contrary; }
+            get => _myVisibility_Contrary;
             set
             {
                 _myVisibility_Contrary = value;
                 OnPropertyChanged();
             }
         }
+        private int _myVisibility_Contrary = 1;
 
-        private object _controlField;
-        public object ControlField
-        {
-            get { return _controlField; }
-            set
-            {
-                _controlField = value;
-                OnPropertyChanged();
-            }
-        }
+        #endregion
 
-        private bool _isFocused = false;
+        #region UI Focus
+
+        /// <summary>
+        /// Bepaalt of het element gefocust moet worden.
+        /// </summary>
         public bool IsFocused
         {
-            get { return _isFocused; }
+            get => _isFocused;
             set
             {
                 _isFocused = value;
                 OnPropertyChanged();
             }
         }
+        private bool _isFocused = false;
 
-        private bool _isFocusedAfterNew = false;
+        /// <summary>
+        /// Wordt gefocust direct na aanmaak van een nieuw item.
+        /// </summary>
         public bool IsFocusedAfterNew
         {
-            get { return _isFocusedAfterNew; }
+            get => _isFocusedAfterNew;
             set
             {
                 _isFocusedAfterNew = value;
                 OnPropertyChanged();
             }
         }
+        private bool _isFocusedAfterNew = false;
 
+        #endregion
 
-        public string ErrorBoodschap { get; set; }
+        #region Concurrency / Database
 
-        private List<string> _errorList = new List<string>();
-        public List<string> ErrorList
+        /// <summary>
+        /// Wordt gebruikt voor rowversion / concurrency controle.
+        /// </summary>
+        public object ControlField
         {
-            get { return _errorList; }
+            get => _controlField;
             set
             {
-                _errorList = value;
+                _controlField = value;
+                OnPropertyChanged();
             }
         }
+        private object _controlField;
 
-        public string Error
+        #endregion
+
+        #region Validatie en Foutmeldingen
+
+        /// <summary>
+        /// Boodschap die getoond kan worden bij foutafhandeling.
+        /// </summary>
+        public string ErrorBoodschap { get; set; }
+
+        /// <summary>
+        /// Lijst van validatiefouten of andere foutmeldingen.
+        /// </summary>
+        public List<string> ErrorList
         {
-            get
-            {
-                if (ErrorList.Count > 0)
-                {
-                    return "NOK";
-                }
-                else
-                {
-                    return null;
-                }
-            }
+            get => _errorList;
+            set => _errorList = value;
         }
-    }
+        private List<string> _errorList = new List<string>();
 
+        /// <summary>
+        /// Retourneert "NOK" indien er fouten zijn, anders null.
+        /// Wordt vaak gebruikt in bindings voor validatie.
+        /// </summary>
+        public string Error => ErrorList.Count > 0 ? "NOK" : null;
+
+        #endregion
+    }
 }

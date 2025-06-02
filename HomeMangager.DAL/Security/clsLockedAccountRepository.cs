@@ -6,89 +6,87 @@ using System.Data;
 
 namespace HomeManager.DAL.Security
 {
+    /// <summary>
+    /// Repository voor het beheren van geblokkeerde accounts in het systeem.
+    /// </summary>
     public class clsLockedAccountRepository : ILockedAccountRepository
     {
-        public clsLockedAccountRepository() { }
+        #region Velden
+
         private ObservableCollection<clsLockedAccountModel> _mijnCollectie;
+
+        #endregion
+
+        #region Constructor
+
+        public clsLockedAccountRepository() { }
+
+        #endregion
+
+        #region Private Methods
+
+        /// <summary>
+        /// Laadt de lijst van geblokkeerde accounts op uit de database.
+        /// </summary>
         private void GenerateCollection()
         {
-            SqlDataReader MijnDataReader = clsDAL.GetData(Properties.Resources.S_LockedUsers);
+            SqlDataReader reader = clsDAL.GetData(Properties.Resources.S_LockedUsers);
             _mijnCollectie = new ObservableCollection<clsLockedAccountModel>();
 
-            while (MijnDataReader.Read())
+            while (reader.Read())
             {
                 clsLockedAccountModel m = new clsLockedAccountModel()
                 {
                     Account = new clsAccountModel
                     {
-                        AccountID = (int)MijnDataReader["AccountID"],
-                        Login = MijnDataReader["Login"].ToString()
+                        AccountID = (int)reader["AccountID"],
+                        Login = reader["Login"].ToString()
                     },
                     Persoon = new clsPersoonModel
                     {
-                        PersoonID = (int)MijnDataReader["PersoonID"],
-                        Voornaam = MijnDataReader["Voornaam"].ToString(),
-                        Naam = MijnDataReader["Naam"].ToString(),
-                        Foto = MijnDataReader["Foto"] != DBNull.Value ? (byte[])MijnDataReader["Foto"] : null
+                        PersoonID = (int)reader["PersoonID"],
+                        Voornaam = reader["Voornaam"].ToString(),
+                        Naam = reader["Naam"].ToString(),
+                        Foto = reader["Foto"] != DBNull.Value ? (byte[])reader["Foto"] : null
                     }
                 };
 
                 _mijnCollectie.Add(m);
             }
-            MijnDataReader.Close();
-        }
-        public bool Delete(clsLockedAccountModel entity)
-        {
-            throw new NotImplementedException();
+            reader.Close();
         }
 
-        public clsLockedAccountModel Find()
-        {
-            throw new NotImplementedException();
-        }
+        #endregion
 
+        #region CRUD-implementaties (niet geïmplementeerd)
+
+        public bool Delete(clsLockedAccountModel entity) => throw new NotImplementedException();
+        public clsLockedAccountModel Find() => throw new NotImplementedException();
+        public clsLockedAccountModel GetById(int id) => throw new NotImplementedException();
+        public clsLockedAccountModel GetFirst() => throw new NotImplementedException();
+        public bool Insert(clsLockedAccountModel entity) => throw new NotImplementedException();
+        public bool Update(clsLockedAccountModel entity) => throw new NotImplementedException();
+
+        #endregion
+
+        #region Public Methods
+
+        /// <summary>
+        /// Geeft alle geblokkeerde accounts terug.
+        /// </summary>
         public ObservableCollection<clsLockedAccountModel> GetAll()
         {
             GenerateCollection();
             return _mijnCollectie;
-
         }
 
-        public clsLockedAccountModel GetById(int id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public clsLockedAccountModel GetFirst()
-        {
-            throw new NotImplementedException();
-        }
-
-        public bool Insert(clsLockedAccountModel entity)
-        {
-            throw new NotImplementedException();
-        }
-
-        public bool Update(clsLockedAccountModel entity)
-        {
-            throw new NotImplementedException();
-        }
-
+        /// <summary>
+        /// Ontgrendelt meerdere accounts op basis van een lijst met AccountID's en wachtwoorden.
+        /// </summary>
+        /// <param name="model">Het model met de geselecteerde gebruikers om te ontgrendelen.</param>
+        /// <returns>True als succesvol, anders false met foutmelding in model.ErrorBoodschap.</returns>
         public bool UnLockUsers(clsLockedAccountModel model)
         {
-            //(DataTable DT, bool Ok, string Boodschap) =
-            //     clsDAL.ExecuteDataTable(Properties.Resources.U_LockedUsers,
-            //     clsDAL.Parameter("AccountsIds", AccountsIds.SelectedItems),
-            //     clsDAL.Parameter("@Returnvalue", 0)
-            //     );
-            //if (!Ok)
-            //{
-            //    AccountsIds.Account.ErrorBoodschap = Boodschap;
-            //}
-            //return Ok;
-
-
-            // Voorbereiden van de DataTable
             DataTable inputTable = new DataTable();
             inputTable.Columns.Add("AccountID", typeof(int));
             inputTable.Columns.Add("Wachtwoord", typeof(string));
@@ -98,28 +96,24 @@ namespace HomeManager.DAL.Security
                 inputTable.Rows.Add(item.AccountID, item.Wachtwoord);
             }
 
-            // Maak de TVP-parameter
             SqlParameter tvpParam = new SqlParameter("@Accounts", SqlDbType.Structured)
             {
-                TypeName = "AccountIDTable", // Geef het TypeName mee
+                TypeName = "AccountIDTable",
                 Value = inputTable
             };
 
-            // Roep clsDAL.ExecuteDataTable aan met de TVP en andere parameters
-            (DataTable? DT, bool Ok, string Boodschap) = clsDAL.ExecuteDataTable(
+            (DataTable? _, bool Ok, string Boodschap) = clsDAL.ExecuteDataTable(
                 Properties.Resources.U_LockedUsers,
                 tvpParam,
-                clsDAL.Parameter("@ReturnValue", 0) // Andere parameters
+                clsDAL.Parameter("@ReturnValue", 0)
             );
 
             if (!Ok)
-            {
                 model.ErrorBoodschap = Boodschap;
-            }
 
             return Ok;
-
-
         }
+
+        #endregion
     }
 }

@@ -1,44 +1,42 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using HomeManager.Common;
-
+﻿using HomeManager.Common;
 
 namespace HomeManager.Model.Security
 {
+    /// <summary>
+    /// Singleton-model dat informatie bevat over de huidige ingelogde gebruiker.
+    /// </summary>
     public class clsLoginModel : clsCommonModelPropertiesBase
     {
+        #region Singleton
 
-
-
-        // Singleton instantie
         private static clsLoginModel? _instance;
 
-        // Private constructor om te voorkomen dat er andere instanties worden aangemaakt
+        /// <summary>
+        /// Private constructor om directe instantiatie te voorkomen.
+        /// </summary>
         private clsLoginModel() { }
 
-
-        // Publieke eigenschap om de enkele instantie op te halen
+        /// <summary>
+        /// Enige instantie van het Login-model (singleton pattern).
+        /// </summary>
         public static clsLoginModel Instance
         {
             get
             {
                 if (_instance == null)
-                {
                     _instance = new clsLoginModel();
-                }
                 return _instance;
             }
         }
 
+        #endregion
 
+        #region Properties - Accountgegevens
 
         private int _accountID;
         public int AccountID
         {
-            get { return _accountID; }
+            get => _accountID;
             set
             {
                 _accountID = value;
@@ -49,18 +47,22 @@ namespace HomeManager.Model.Security
         private int _persoonID;
         public int PersoonID
         {
-            get { return _persoonID; }
+            get => _persoonID;
             set
-            {           
+            {
                 _persoonID = value;
                 OnPropertyChanged();
             }
         }
 
+        #endregion
+
+        #region Properties - Naam en Rol
+
         private string _naam;
         public string Naam
         {
-            get { return _naam; }
+            get => _naam;
             set
             {
                 _naam = value;
@@ -71,17 +73,18 @@ namespace HomeManager.Model.Security
         private string _voorNaam;
         public string VoorNaam
         {
-            get { return _voorNaam; }
+            get => _voorNaam;
             set
             {
                 _voorNaam = value;
                 OnPropertyChanged();
             }
         }
+
         private int _rolID;
         public int RolID
         {
-            get { return _rolID; }
+            get => _rolID;
             set
             {
                 _rolID = value;
@@ -92,17 +95,22 @@ namespace HomeManager.Model.Security
         private string _rolName;
         public string RolName
         {
-            get { return _rolName; }
+            get => _rolName;
             set
             {
                 _rolName = value;
                 OnPropertyChanged();
             }
         }
+
+        #endregion
+
+        #region Properties - Status en rechten
+
         private int _countFailLogins;
         public int CountFailLogins
         {
-            get { return _countFailLogins; }
+            get => _countFailLogins;
             set
             {
                 _countFailLogins = value;
@@ -113,27 +121,29 @@ namespace HomeManager.Model.Security
         private bool _isNew;
         public bool IsNew
         {
-            get { return _isNew; }
+            get => _isNew;
             set
             {
                 _isNew = value;
                 OnPropertyChanged();
             }
         }
+
         private bool _isLock;
         public bool IsLock
         {
-            get { return _isLock; }
+            get => _isLock;
             set
             {
                 _isLock = value;
                 OnPropertyChanged();
             }
         }
+
         private string _rechtenCodes;
         public string RechtenCodes
         {
-            get { return _rechtenCodes; }
+            get => _rechtenCodes;
             set
             {
                 _rechtenCodes = value;
@@ -141,10 +151,14 @@ namespace HomeManager.Model.Security
             }
         }
 
+        #endregion
+
+        #region Properties - Overig
+
         private byte[]? _foto;
         public byte[]? Foto
         {
-            get { return _foto; }
+            get => _foto;
             set
             {
                 _foto = value;
@@ -155,12 +169,14 @@ namespace HomeManager.Model.Security
         private int _errorCode;
         public int ErrorCode
         {
-            get { return _errorCode; }
+            get => _errorCode;
             set
             {
                 _errorCode = value;
                 OnPropertyChanged();
             }
         }
+
+        #endregion
     }
 }

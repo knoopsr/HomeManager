@@ -1,82 +1,103 @@
 ﻿using HomeManager.Model.Security;
 using Microsoft.Data.SqlClient;
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace HomeManager.DAL.Security
 {
+    /// <summary>
+    /// Repository voor het ophalen van rechten categorieën uit de database.
+    /// </summary>
     public class clsRechtenCatogorieRepository : IRechtenCatogorieRepository
     {
-        public clsRechtenCatogorieRepository() { }
+        #region Velden
+
         private ObservableCollection<clsRechtenCatogorieModel> _mijnCollectie;
         int nr = 0;
 
+        #endregion
 
+        #region Constructor
 
+        /// <summary>
+        /// Maakt een nieuwe instantie van <see cref="clsRechtenCatogorieRepository"/>.
+        /// </summary>
+        public clsRechtenCatogorieRepository() { }
 
+        #endregion
+
+        #region Data-opbouw
+
+        /// <summary>
+        /// Laadt alle rechten categorieën uit de database en vult de interne collectie.
+        /// </summary>
         private void GenerateCollection()
         {
-            SqlDataReader MijnDataReader = clsDAL.GetData(Properties.Resources.S_RechtenCatogorie);
+            SqlDataReader reader = clsDAL.GetData(Properties.Resources.S_RechtenCatogorie);
             _mijnCollectie = new ObservableCollection<clsRechtenCatogorieModel>();
 
-            while (MijnDataReader.Read())
+            while (reader.Read())
             {
-
-
-
-                clsRechtenCatogorieModel m = new clsRechtenCatogorieModel()
+                var model = new clsRechtenCatogorieModel()
                 {
-                    RechtenCatogorieID = (int)MijnDataReader["RechtenCatogorieID"],
-                    CatogorieNaam = (string)MijnDataReader["CatogorieNaam"],
-                    Rechten = new ObservableCollection<clsRechtenModel>()
-                    {
-
-                    }
+                    RechtenCatogorieID = (int)reader["RechtenCatogorieID"],
+                    CatogorieNaam = (string)reader["CatogorieNaam"],
+                    Rechten = new ObservableCollection<clsRechtenModel>() // Leeg, rechten kunnen later gekoppeld worden
                 };
 
-                _mijnCollectie.Add(m);
+                _mijnCollectie.Add(model);
             }
-            MijnDataReader.Close();
+
+            reader.Close();
         }
 
-        public bool Delete(clsRechtenCatogorieModel entity)
-        {
-            throw new NotImplementedException();
-        }
+        #endregion
 
-        public clsRechtenCatogorieModel Find()
-        {
-            throw new NotImplementedException();
-        }
+        #region Repository-methodes
 
+        /// <inheritdoc/>
         public ObservableCollection<clsRechtenCatogorieModel> GetAll()
         {
             GenerateCollection();
             return _mijnCollectie;
         }
 
+        /// <inheritdoc/>
         public clsRechtenCatogorieModel GetById(int id)
         {
             throw new NotImplementedException();
         }
 
+        /// <inheritdoc/>
         public clsRechtenCatogorieModel GetFirst()
         {
             throw new NotImplementedException();
         }
 
+        /// <inheritdoc/>
+        public clsRechtenCatogorieModel Find()
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <inheritdoc/>
         public bool Insert(clsRechtenCatogorieModel entity)
         {
             throw new NotImplementedException();
         }
 
+        /// <inheritdoc/>
         public bool Update(clsRechtenCatogorieModel entity)
         {
             throw new NotImplementedException();
         }
+
+        /// <inheritdoc/>
+        public bool Delete(clsRechtenCatogorieModel entity)
+        {
+            throw new NotImplementedException();
+        }
+
+        #endregion
     }
 }

@@ -1,85 +1,120 @@
 ﻿using HomeManager.Model.Security;
 using Microsoft.Data.SqlClient;
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace HomeManager.DAL.Security
 {
+    /// <summary>
+    /// Repository voor het beheren van rechten (permissions).
+    /// </summary>
     public class clsRechtenRepository : IRechtenRepository
     {
-        public clsRechtenRepository() { }
-        private ObservableCollection<clsRechtenModel> _mijnCollectie;
-        int nr = 0;
+        #region Velden
 
+        private ObservableCollection<clsRechtenModel> _mijnCollectie;
+        private int nr = 0;
+
+        #endregion
+
+        #region Constructor
+
+        /// <summary>
+        /// Initialiseert een nieuwe instantie van <see cref="clsRechtenRepository"/>.
+        /// </summary>
+        public clsRechtenRepository() { }
+
+        #endregion
+
+        #region Data-opbouw
+
+        /// <summary>
+        /// Laadt alle rechten uit de database en vult de collectie.
+        /// </summary>
         private void GenerateCollection()
         {
-            SqlDataReader MijnDataReader = clsDAL.GetData(Properties.Resources.S_Rechten);
+            SqlDataReader reader = clsDAL.GetData(Properties.Resources.S_Rechten);
             _mijnCollectie = new ObservableCollection<clsRechtenModel>();
 
-            while (MijnDataReader.Read())
+            while (reader.Read())
             {
-                clsRechtenModel m = new clsRechtenModel()
+                var model = new clsRechtenModel()
                 {
-                    RechtenID = (int)MijnDataReader["RechtenID"],
-                    RechtenName = (string)MijnDataReader["RechtenName"],
-                    RechtenCode = (int)MijnDataReader["RechtenCode"],
-                    RechtenCatogorieID = (int)MijnDataReader["RechtenCatogorieID"]
+                    RechtenID = (int)reader["RechtenID"],
+                    RechtenName = (string)reader["RechtenName"],
+                    RechtenCode = (int)reader["RechtenCode"],
+                    RechtenCatogorieID = (int)reader["RechtenCatogorieID"]
                 };
 
-                _mijnCollectie.Add(m);
+                _mijnCollectie.Add(model);
             }
-            MijnDataReader.Close();
+
+            reader.Close();
         }
 
+        #endregion
 
+        #region Repository-methodes
 
-
-        public bool Delete(clsRechtenModel entity)
-        {
-            throw new NotImplementedException();
-        }
-
-        public clsRechtenModel Find()
-        {
-            throw new NotImplementedException();
-        }
-
+        /// <inheritdoc/>
         public ObservableCollection<clsRechtenModel> GetAll()
         {
             GenerateCollection();
             return _mijnCollectie;
         }
 
+        /// <inheritdoc/>
         public clsRechtenModel GetById(int id)
         {
-            return _mijnCollectie.Where(x => x.RechtenID == id).FirstOrDefault();
+            if (_mijnCollectie == null)
+                GenerateCollection();
+
+            return _mijnCollectie.FirstOrDefault(x => x.RechtenID == id);
         }
 
-
+        /// <summary>
+        /// Haalt het eerste recht op dat bij een specifieke categorie hoort.
+        /// </summary>
+        /// <param name="id">De categorie-ID.</param>
+        /// <returns>Het eerste bijhorende recht.</returns>
         public clsRechtenModel GetByCatogorieID(int id)
         {
-            return _mijnCollectie.Where(x => x.RechtenCatogorieID == id).FirstOrDefault();
+            if (_mijnCollectie == null)
+                GenerateCollection();
+
+            return _mijnCollectie.FirstOrDefault(x => x.RechtenCatogorieID == id);
         }
 
-
-
+        /// <inheritdoc/>
         public clsRechtenModel GetFirst()
         {
             throw new NotImplementedException();
         }
 
+        /// <inheritdoc/>
+        public clsRechtenModel Find()
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <inheritdoc/>
         public bool Insert(clsRechtenModel entity)
         {
             throw new NotImplementedException();
         }
 
+        /// <inheritdoc/>
         public bool Update(clsRechtenModel entity)
         {
             throw new NotImplementedException();
         }
+
+        /// <inheritdoc/>
+        public bool Delete(clsRechtenModel entity)
+        {
+            throw new NotImplementedException();
+        }
+
+        #endregion
     }
 }

@@ -1,22 +1,27 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Input;
+﻿using System.Collections.ObjectModel;
 using System.Windows;
+using System.Windows.Input;
 using HomeManager.Common;
 using HomeManager.Helpers;
 using HomeManager.Model.Security;
 using HomeManager.DataService.Security;
 
+
 namespace HomeManager.ViewModel
 {
+    /// <summary>
+    /// ViewModel voor het beheren van wachtwoordgroepen.
+    /// </summary>
     public class clsCredentialGroupViewModel : clsCommonModelPropertiesBase
     {
-        clsWachtwoordGroepDataService MijnService;
+        #region Fields
+
+        private clsWachtwoordGroepDataService MijnService;
         private bool NewStatus = false;
+
+        #endregion
+
+        #region Commands
 
         public ICommand cmdDelete { get; set; }
         public ICommand cmdNew { get; set; }
@@ -24,83 +29,49 @@ namespace HomeManager.ViewModel
         public ICommand cmdCancel { get; set; }
         public ICommand cmdClose { get; set; }
 
-        private ObservableCollection<clsWachtWoordGroepModel> _mijnCollectie;
+        #endregion
+
+        #region Properties
+
+        /// <summary>
+        /// Verzameling van alle wachtwoordgroepen.
+        /// </summary>
         public ObservableCollection<clsWachtWoordGroepModel> MijnCollectie
         {
-            get { return _mijnCollectie; }
-            set
-            {
-                _mijnCollectie = value;
-                OnPropertyChanged();
-            }
+            get => _mijnCollectie;
+            set { _mijnCollectie = value; OnPropertyChanged(); }
         }
+        private ObservableCollection<clsWachtWoordGroepModel> _mijnCollectie;
 
-
-        private clsWachtWoordGroepModel _mijnSelectedItem;
+        /// <summary>
+        /// Geselecteerde wachtwoordgroep.
+        /// </summary>
         public clsWachtWoordGroepModel MijnSelectedItem
         {
-            get { return _mijnSelectedItem; }
+            get => _mijnSelectedItem;
             set
             {
-                if (value != null)
+                if (value != null && _mijnSelectedItem?.IsDirty == true)
                 {
-                    if (_mijnSelectedItem != null && _mijnSelectedItem.IsDirty)
+                    if (MessageBox.Show("Wilt je " + _mijnSelectedItem + " opslaan?", "Opslaan", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
                     {
-                        if (MessageBox.Show("Wilt je " + _mijnSelectedItem + " opslaan?", "Opslaan",
-                            MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
-                        {
-                            OpslaanCommando();
-                            LoadData();
-                        }
+                        OpslaanCommando();
+                        LoadData();
                     }
                 }
                 _mijnSelectedItem = value;
                 OnPropertyChanged();
             }
         }
+        private clsWachtWoordGroepModel _mijnSelectedItem;
 
+        #endregion
 
-        private void LoadData()
-        {
-            MijnCollectie = MijnService.GetAll();
-        }
+        #region Constructor
 
-        private void OpslaanCommando()
-        {
-            if (_mijnSelectedItem != null)
-            {
-                if (NewStatus)
-                {
-                    if (MijnService.Insert(_mijnSelectedItem))
-                    {
-                        MijnSelectedItem.IsDirty = false;
-                        MijnSelectedItem.MijnSelectedIndex = 0;
-                        MijnSelectedItem.MyVisibility = (int)Visibility.Visible;
-                        NewStatus = false;
-                        LoadData();
-                    }
-                    else
-                    {
-                        MessageBox.Show(_mijnSelectedItem.ErrorBoodschap, "Error?");
-                    }
-                }
-                else
-                {
-                    if (MijnService.Update(_mijnSelectedItem))
-                    {
-                        MijnSelectedItem.IsDirty = false;
-                        MijnSelectedItem.MijnSelectedIndex = 0;
-                        NewStatus = false;
-                        LoadData();
-                    }
-                    else
-                    {
-                        MessageBox.Show(_mijnSelectedItem.ErrorBoodschap, "Error?");
-                    }
-                }
-            }
-        }
-
+        /// <summary>
+        /// Constructor. Initialiseert commands en laadt de gegevens.
+        /// </summary>
         public clsCredentialGroupViewModel()
         {
             MijnService = new clsWachtwoordGroepDataService();
@@ -112,85 +83,76 @@ namespace HomeManager.ViewModel
             cmdClose = new clsCustomCommand(Execute_Close_Command, CanExecute_Close_Command);
 
             LoadData();
-
             MijnSelectedItem = MijnService.GetFirst();
         }
 
-        private void Execute_Save_Command(object? obj)
+        #endregion
+
+        #region Data Methods
+
+        private void LoadData()
         {
-            OpslaanCommando();
+            MijnCollectie = MijnService.GetAll();
         }
 
-        private bool CanExecute_Save_Command(object? obj)
+        private void OpslaanCommando()
         {
-            if (MijnSelectedItem != null &&
-                MijnSelectedItem.Error == null &&
-                MijnSelectedItem.IsDirty == true)
+            if (MijnSelectedItem == null) return;
+
+            bool result = NewStatus ? MijnService.Insert(MijnSelectedItem) : MijnService.Update(MijnSelectedItem);
+            if (result)
             {
-                return true;
+                MijnSelectedItem.IsDirty = false;
+                MijnSelectedItem.MijnSelectedIndex = 0;
+                MijnSelectedItem.MyVisibility = (int)Visibility.Visible;
+                NewStatus = false;
+                LoadData();
             }
             else
             {
-                return false;
+                MessageBox.Show(MijnSelectedItem.ErrorBoodschap, "Error?");
             }
         }
+
+        #endregion
+
+        #region Command Methods
+
+        private void Execute_Save_Command(object? obj) => OpslaanCommando();
+
+        private bool CanExecute_Save_Command(object? obj) => MijnSelectedItem?.IsDirty == true && MijnSelectedItem.Error == null;
 
         private void Execute_Delete_Command(object? obj)
         {
-            if (MessageBox.Show(
-                "Wil je " + MijnSelectedItem + " verwijderen?",
-                "Verwijderen?",
-                MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+            if (MessageBox.Show($"Wil je {MijnSelectedItem} verwijderen?", "Verwijderen?", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
             {
-                if (MijnSelectedItem != null)
+                if (MijnService.Delete(MijnSelectedItem))
                 {
-                    if (MijnService.Delete(MijnSelectedItem))
-                    {
-                        NewStatus = false;
-                        LoadData();
-                    }
-                    else
-                    {
-                        MessageBox.Show("Error?", MijnSelectedItem.ErrorBoodschap);
-                    }
+                    NewStatus = false;
+                    LoadData();
+                }
+                else
+                {
+                    MessageBox.Show("Error?", MijnSelectedItem.ErrorBoodschap);
                 }
             }
         }
 
-        private bool CanExecute_Delete_Command(object? obj)
-        {
-            if (MijnSelectedItem != null)
-            {
-                if (NewStatus)
-                {
-                    return false;
-                }
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-        }
+        private bool CanExecute_Delete_Command(object? obj) => MijnSelectedItem != null && !NewStatus;
 
         private void Execute_New_Command(object? obj)
         {
-            clsWachtWoordGroepModel _itemToInsert = new clsWachtWoordGroepModel()
+            MijnSelectedItem = new clsWachtWoordGroepModel
             {
                 WachtwoordGroepID = 0,
-                WachtwoordGroep = string.Empty
-
+                WachtwoordGroep = string.Empty,
+                MyVisibility = (int)Visibility.Hidden
             };
-            MijnSelectedItem = _itemToInsert;
-            MijnSelectedItem.MyVisibility = (int)Visibility.Hidden;
             NewStatus = true;
             IsFocusedAfterNew = true;
         }
 
-        private bool CanExecute_New_Command(object? obj)
-        {
-            return !NewStatus;
-        }
+        private bool CanExecute_New_Command(object? obj) => !NewStatus;
 
         private void Execute_Cancel_Command(object? obj)
         {
@@ -205,42 +167,28 @@ namespace HomeManager.ViewModel
             IsFocused = true;
         }
 
-        private bool CanExecute_Cancel_Command(object? obj)
-        {
-            return NewStatus;
-        }
+        private bool CanExecute_Cancel_Command(object? obj) => NewStatus;
 
         private void Execute_Close_Command(object? obj)
         {
-            MainWindow HomeWindow = obj as MainWindow;
-            if (HomeWindow != null)
+            if (obj is MainWindow HomeWindow)
             {
-                if (MijnSelectedItem != null && MijnSelectedItem.IsDirty == true && MijnSelectedItem.Error == null)
+                if (MijnSelectedItem?.IsDirty == true && MijnSelectedItem.Error == null)
                 {
-                    if (MessageBox.Show(
-                        MijnSelectedItem.ToString().ToUpper() + " is nog niet opgeslagen, wil je opslaan?",
-                        "Opslaan of sluiten?",
-                        MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+                    if (MessageBox.Show($"{MijnSelectedItem.ToString().ToUpper()} is nog niet opgeslagen, wil je opslaan?", "Opslaan of sluiten?", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
                     {
                         OpslaanCommando();
-                        clsHomeVM vm2 = (clsHomeVM)HomeWindow.DataContext;
-                        vm2.CurrentViewModel = null;
+                        ((clsHomeVM)HomeWindow.DataContext).CurrentViewModel = null;
                     }
                 }
-                clsHomeVM vm = (clsHomeVM)HomeWindow.DataContext;
-                vm.CurrentViewModel = null;
+                ((clsHomeVM)HomeWindow.DataContext).CurrentViewModel = null;
             }
         }
 
-        private bool CanExecute_Close_Command(object? obj)
-        {
-            return true;
-        }
+        private bool CanExecute_Close_Command(object? obj) => true;
 
-        private bool CanExecute_SelectionChangedCommand(object obj)
-        {
-            return true;
-        }
+        private bool CanExecute_SelectionChangedCommand(object obj) => true;
 
+        #endregion
     }
 }
