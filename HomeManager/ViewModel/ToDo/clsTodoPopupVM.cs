@@ -511,7 +511,7 @@ namespace HomeManager.ViewModel
                     Body = MijnSelectedItem.Detail
                 };
                 bool emailVerzonden = await clsMail.SendEmail(mailModel);
-                MessageBox.Show(emailVerzonden.ToString());
+                MessageBox.Show("Email verzonden");
             }
             isSendMail = false;
         }
