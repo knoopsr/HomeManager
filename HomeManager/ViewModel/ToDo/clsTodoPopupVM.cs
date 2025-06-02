@@ -457,7 +457,6 @@ namespace HomeManager.ViewModel
         }
 
         //Trigger voor het veranderen van de gebruiker in de popup.
-        //Debug OK
         private clsAccountModel _MijnSelectedGebruiker;
         public clsAccountModel MijnSelectedGebruiker
         {
@@ -483,8 +482,6 @@ namespace HomeManager.ViewModel
             return !isSendMail;
         }
 
-        //Gebruiker pakt em niet mee!! in deze method
-        //Code komt van  clsEmailVerzendenViewModel -> Thomas
         //PaperCut.exe runnen  -> http://localhost:5000/ 
         private async void Execute_SubmitEmail()
         {
@@ -515,7 +512,6 @@ namespace HomeManager.ViewModel
             }
             isSendMail = false;
         }
-
 
         private ObservableCollection<clsCollectiesM> _MijnCollectieCollecties;
         public ObservableCollection<clsCollectiesM> MijnCollectieCollecties
