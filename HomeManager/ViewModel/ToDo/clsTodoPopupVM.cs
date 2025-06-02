@@ -499,9 +499,13 @@ namespace HomeManager.ViewModel
             {
                 isSendMail = true;
 
+                // Ophalen van het e-mailadres van de verzender via de dataservice
+                var verzenderEmailAdressen = VerzendenService.GetByPersoonID(clsLoginModel.Instance.PersoonID);
+                string mailFromEmail = verzenderEmailAdressen?.FirstOrDefault()?.Emailadres ?? "noreply@homemanager.com";
+
                 var mailModel = new clsMailModel
                 {
-                    MailFromEmail = "noreply@homemanager.com",
+                    MailFromEmail = mailFromEmail,
                     MailToEmail = $"{MijnSelectedGebruiker.Login}@homemanager.com",
                     MailToName = MijnSelectedGebruiker.Login,
                     Subject = MijnSelectedItem.Onderwerp,
@@ -512,6 +516,7 @@ namespace HomeManager.ViewModel
             }
             isSendMail = false;
         }
+
 
         private ObservableCollection<clsCollectiesM> _MijnCollectieCollecties;
         public ObservableCollection<clsCollectiesM> MijnCollectieCollecties
