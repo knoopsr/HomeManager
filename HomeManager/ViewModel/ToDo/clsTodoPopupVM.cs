@@ -477,11 +477,6 @@ namespace HomeManager.ViewModel
             }
         }
 
-        private bool CanExecute_SubmitEmail()
-        {
-            return !isSendMail;
-        }
-
         //PaperCut.exe runnen  -> http://localhost:5000/ 
         private async void Execute_SubmitEmail()
         {
