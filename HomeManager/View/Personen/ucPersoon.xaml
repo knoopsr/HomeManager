@@ -162,7 +162,7 @@
                                         BorderThickness="1"
                                         CornerRadius="30">
                                         <Border.Background>
-                                            <ImageBrush ImageSource="{Binding Foto, TargetNullValue='https://miro.medium.com/v2/resize:fit:1400/1*w0u2TZpEp3WfKMrlL5jTSw.png'}" Stretch="UniformToFill" />
+                                            <ImageBrush ImageSource="{Binding Foto, TargetNullValue='https://png.pngtree.com/png-clipart/20230823/original/pngtree-anonymous-user-unknown-faceless-vector-picture-image_8241754.png'}" Stretch="UniformToFill" />
                                         </Border.Background>
 
                                     </Border>
@@ -241,6 +241,7 @@
                     <Button
                         x:Name="btnUploadPicture"
                         Command="{Binding cmdUploadPicture}"
+                        CommandParameter="{Binding}"
                         Style="{StaticResource UploadPersoonButton}"
                         ToolTip="Voeg profielfoto toe" />
                 </StackPanel>

@@ -259,6 +259,8 @@ namespace HomeManager.ViewModel
             MijnSelectedItem = MijnService.GetFirst();
         }
 
+
+
         private bool CanEditNotities(object? obj)
         {
             clsPermissionChecker permissionChecker = new();
@@ -267,8 +269,6 @@ namespace HomeManager.ViewModel
 
         private void New_Notities(object? obj)
         {
-            //OpenNotities(obj);
-
             clsNotitiesModel notities = new clsNotitiesModel()
             {
                 PersoonID = MijnSelectedItem.PersoonID,
@@ -301,8 +301,6 @@ namespace HomeManager.ViewModel
 
         private void New_TelefoonNummers(object? obj)
         {
-            //OpenTelefoonNummer(obj);
-
             clsTelefoonNummersModel telefoonnummer = new clsTelefoonNummersModel()
             {
                 PersoonID = MijnSelectedItem.PersoonID,
@@ -330,8 +328,6 @@ namespace HomeManager.ViewModel
 
         private void New_Adres(object obj)
         {
-            //OpenAdres(obj);
-
             clsAdressenModel adres = new clsAdressenModel()
             {
                 PersoonID = MijnSelectedItem.PersoonID,
@@ -346,8 +342,6 @@ namespace HomeManager.ViewModel
         }
         private void New_EmailAdressen(object obj)
         {
-            //OpenEmailAdressen(obj);
-
             clsEmailAdressenModel email = new clsEmailAdressenModel()
             {
                 PersoonID = MijnSelectedItem.PersoonID,
