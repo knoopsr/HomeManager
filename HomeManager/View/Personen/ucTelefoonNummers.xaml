@@ -89,7 +89,11 @@
                     Grid.Row="2"
                     Grid.Column="3"
                     Margin="5"
-                    Text="{Binding MijnSelectedItem.TelefoonNummer, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnValidationError=true, ValidatesOnExceptions=True}"
+                    Text="{Binding MijnSelectedItem.TelefoonNummer,
+                    Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, 
+                    ValidatesOnDataErrors=True, 
+                    NotifyOnValidationError=True, 
+                    ValidatesOnExceptions=True}"
                     TextWrapping="Wrap" />
 
                 <TextBlock

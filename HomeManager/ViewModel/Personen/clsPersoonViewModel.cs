@@ -417,10 +417,6 @@ namespace HomeManager.ViewModel
             }
         }
 
-
-
-
-
     }
 }
 

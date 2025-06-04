@@ -79,15 +79,7 @@
                             Style="{StaticResource FilterImage}" />
                     </StackPanel>
 
-                    <ScrollViewer Grid.Row="1">
-
-                        <!--<UniformGrid
-                            HorizontalAlignment="Left"
-                            VerticalAlignment="Top"
-                            Columns="4">
-                        </UniformGrid>-->
-
-                    </ScrollViewer>
+                    <ScrollViewer Grid.Row="1" />
 
 
                     <ListView
@@ -140,7 +132,11 @@
                                                         Color="Black" />
                                                 </Border.Effect>
                                                 <Border.Background>
-                                                    <ImageBrush ImageSource="{Binding Foto, TargetNullValue='https://png.pngtree.com/png-clipart/20230823/original/pngtree-anonymous-user-unknown-faceless-vector-picture-image_8241754.png'}" Stretch="Uniform" />
+                                                    <ImageBrush
+                                                        AlignmentX="Center"
+                                                        AlignmentY="Center"
+                                                        ImageSource="{Binding Foto, TargetNullValue='https://png.pngtree.com/png-clipart/20230823/original/pngtree-anonymous-user-unknown-faceless-vector-picture-image_8241754.png'}"
+                                                        Stretch="UniformToFill" />
                                                 </Border.Background>
                                             </Border>
                                         </Border>
