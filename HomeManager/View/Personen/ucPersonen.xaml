@@ -140,7 +140,7 @@
                                                         Color="Black" />
                                                 </Border.Effect>
                                                 <Border.Background>
-                                                    <ImageBrush ImageSource="{Binding Foto, TargetNullValue='https://miro.medium.com/v2/resize:fit:1400/1*w0u2TZpEp3WfKMrlL5jTSw.png'}" Stretch="Uniform" />
+                                                    <ImageBrush ImageSource="{Binding Foto, TargetNullValue='https://png.pngtree.com/png-clipart/20230823/original/pngtree-anonymous-user-unknown-faceless-vector-picture-image_8241754.png'}" Stretch="Uniform" />
                                                 </Border.Background>
                                             </Border>
                                         </Border>
@@ -172,16 +172,15 @@
                                                 Width="10"
                                                 Height="10"
                                                 Margin="0,0,0,0"
-                                                Command="{Binding PersonenViewModel.cmdNew, Source={StaticResource VML}}"
+                                                Command="{Binding DataContext.cmdNew, RelativeSource={RelativeSource AncestorType=ListBox}}"
                                                 CommandParameter="{Binding}"
-                                                DataContext="{Binding Source={StaticResource VML}, Path=PersonenViewModel}"
                                                 Style="{StaticResource AddImagePersoon}"
                                                 ToolTip="Voeg een nieuw persoon toe" />
                                             <Button
                                                 Width="10"
                                                 Height="10"
                                                 Margin="0,0,0,0"
-                                                Command="{Binding PersonenViewModel.cmdEditPersoon, Source={StaticResource VML}}"
+                                                Command="{Binding DataContext.cmdEditPersoon, RelativeSource={RelativeSource AncestorType=ListBox}}"
                                                 CommandParameter="{Binding}"
                                                 Style="{StaticResource EditPersoon}"
                                                 ToolTip="Pas persoon aan" />
@@ -252,18 +251,16 @@
                         Width="200"
                         ItemsSource="{Binding EmailAdressenCollectie}"
                         SelectedItem="{Binding SelectedEmailAdres, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
-                        <!--  SelectionChanged="EmailAdressenListView_SelectionChanged"  -->
                         <ListBox.ItemTemplate>
                             <DataTemplate>
                                 <Grid HorizontalAlignment="Stretch">
                                     <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="140" />
-                                        <ColumnDefinition Width="45" />
+                                        <ColumnDefinition Width="130" />
+                                        <ColumnDefinition Width="55" />
                                     </Grid.ColumnDefinitions>
 
                                     <!--  E-mailadres  -->
                                     <TextBlock
-                                        Margin="2"
                                         VerticalAlignment="Center"
                                         FontSize="10"
                                         Text="{Binding}"

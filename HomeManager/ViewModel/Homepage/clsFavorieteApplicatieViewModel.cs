@@ -15,21 +15,30 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using System.Windows;
 
-
 namespace HomeManager.ViewModel.Homepage
 {
-    public  class clsFavorieteApplicatieViewModel : clsCommonModelPropertiesBase
+    /// <summary>
+    /// ViewModel voor het beheren van de favoriete applicaties van een gebruiker.
+    /// </summary>
+    public class clsFavorieteApplicatieViewModel : clsCommonModelPropertiesBase
     {
         private readonly clsFavorieteApplicatieDataService _dataService;
 
-        // Lijst met favoriete applicaties
+        /// <summary>
+        /// Lijst met de favoriete applicaties die zichtbaar zijn in de UI.
+        /// </summary>
         public ObservableCollection<clsFavorieteApplicatieModel> FavorieteApplicaties { get; set; }
 
-        // Commands
+        /// <summary>
+        /// Commands voor de verschillende acties in het UI.
+        /// </summary>
         public ICommand cmdSave { get; }
         public ICommand cmdDelete { get; }
         public ICommand cmdOpen { get; }
 
+        /// <summary>
+        /// Huidig geselecteerde applicatie (via UI-binding).
+        /// </summary>
         private clsFavorieteApplicatieModel _selectedApplication;
         public clsFavorieteApplicatieModel SelectedApplication
         {
@@ -41,21 +50,26 @@ namespace HomeManager.ViewModel.Homepage
             }
         }
 
-
+        /// <summary>
+        /// Constructor: initialisatie van commands en laden van applicaties.
+        /// </summary>
         public clsFavorieteApplicatieViewModel()
         {
             _dataService = new clsFavorieteApplicatieDataService();
             FavorieteApplicaties = new ObservableCollection<clsFavorieteApplicatieModel>();
 
-
+            // Initialiseer de commando's
             cmdSave = new clsCustomCommand(Execute_SaveCommand, CanExecute_SaveCommand);
             cmdDelete = new clsCustomCommand(Execute_DeleteCommand, CanExecute_DeleteCommand);
             cmdOpen = new clsCustomCommand(Execute_OpenCommand, CanExecute_OpenCommand);
 
+            // Laad bij opstarten de opgeslagen favoriete applicaties
             LoadFavorieteApplicaties();
         }
 
-        
+        /// <summary>
+        /// Laadt de favoriete applicaties van de huidige gebruiker, en filtert op enkel nog aanwezige programma's.
+        /// </summary>
         private void LoadFavorieteApplicaties()
         {
             FavorieteApplicaties.Clear();
@@ -64,11 +78,18 @@ namespace HomeManager.ViewModel.Homepage
 
             foreach (var app in applicaties)
             {
-                FavorieteApplicaties.Add(app);
+                // Controleer of het pad nog bestaat op deze computer
+                if (File.Exists(app.ApplicationPath))
+                {
+                    FavorieteApplicaties.Add(app);
+                }
             }
         }
 
-        
+        /// <summary>
+        /// Command voor het toevoegen van een nieuwe favoriete applicatie.
+        /// Opent dialoog voor selectie, slaat icoon op en voegt toe aan de database + ObservableCollection.
+        /// </summary>
         private void Execute_SaveCommand(object parameter)
         {
             var dialog = new Microsoft.Win32.OpenFileDialog
@@ -94,8 +115,8 @@ namespace HomeManager.ViewModel.Homepage
 
                 if (_dataService.Insert(newApplication))
                 {
-                    FavorieteApplicaties.Add(newApplication); // 
-                    clsMessenger.Default.Send("RefreshFavorieteApplicaties"); // 
+                    FavorieteApplicaties.Add(newApplication);
+                    clsMessenger.Default.Send("RefreshFavorieteApplicaties");
                 }
                 else
                 {
@@ -104,7 +125,9 @@ namespace HomeManager.ViewModel.Homepage
             }
         }
 
-
+        /// <summary>
+        /// Haalt het icoon op van de .exe en slaat deze op als PNG in de opgegeven map.
+        /// </summary>
         private string SaveApplicationIcon(string exePath, string saveDirectory)
         {
             try
@@ -135,6 +158,9 @@ namespace HomeManager.ViewModel.Homepage
 
         private bool CanExecute_SaveCommand(object parameter) => true;
 
+        /// <summary>
+        /// Command voor het verwijderen van een geselecteerde applicatie.
+        /// </summary>
         private void Execute_DeleteCommand(object parameter)
         {
             if (parameter is clsFavorieteApplicatieModel applicatie)
@@ -152,7 +178,9 @@ namespace HomeManager.ViewModel.Homepage
 
         private bool CanExecute_DeleteCommand(object parameter) => SelectedApplication != null;
 
-        
+        /// <summary>
+        /// Command voor het openen van de geselecteerde applicatie.
+        /// </summary>
         private void Execute_OpenCommand(object parameter)
         {
             if (parameter is clsFavorieteApplicatieModel applicatie && !string.IsNullOrEmpty(applicatie.ApplicationPath))
@@ -167,10 +195,9 @@ namespace HomeManager.ViewModel.Homepage
                 }
                 catch (Exception ex)
                 {
-                    System.Windows. MessageBox.Show($"Kan de applicatie niet openen: {ex.Message}", "Fout", MessageBoxButton.OK, MessageBoxImage.Error);
+                    System.Windows.MessageBox.Show($"Kan de applicatie niet openen: {ex.Message}", "Fout", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             }
-            
         }
 
         private bool CanExecute_OpenCommand(object parameter) => SelectedApplication != null;

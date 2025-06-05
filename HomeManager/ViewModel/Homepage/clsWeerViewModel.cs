@@ -4,32 +4,45 @@ using HomeManager.Helpers;
 using HomeManager.Model.Homepage;
 using HomeManager.Model.Security;
 using HomeManager.View;
-
 using System;
-using System.CodeDom;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Net.Http;
-using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
 using System.Windows.Input;
 
 namespace HomeManager.ViewModel.Homepage
 {
+    /// <summary>
+    /// ViewModel voor het ophalen en weergeven van weersvoorspellingen
+    /// via de OpenWeatherMap API. Biedt navigatie per dag en opslaan
+    /// van favoriete steden.
+    /// </summary>
     public class clsWeerViewModel : clsCommonModelPropertiesBase
     {
         private readonly clsWeerDataService _dataService;
+
+        /// <summary>
+        /// API-sleutel en basis-URL voor de OpenWeatherMap API.
+        /// </summary>
         private const string API_KEY = "00652d96a36a32d89cfda709699729b3";
         private const string BASE_URL = "https://api.openweathermap.org/data/2.5/forecast?q={0}&units=metric&appid={1}";
 
+        /// <summary>
+        /// Commands voor de UI.
+        /// </summary>
         public ICommand ZoekWeerCommand { get; }
         public ICommand OpslaanStadCommand { get; }
         public ICommand VolgendeDagCommand { get; }
         public ICommand VorigeDagCommand { get; }
 
+        /// <summary>
+        /// Constructor: initialiseert commands en laadt eventueel al
+        /// een eerder opgeslagen stad.
+        /// </summary>
         public clsWeerViewModel()
         {
             _dataService = new clsWeerDataService();
@@ -40,9 +53,11 @@ namespace HomeManager.ViewModel.Homepage
             VorigeDagCommand = new clsCustomCommand(GaNaarVorigeDag, KanNaarVorigeDag);
 
             LaadOpgeslagenStad();
-
         }
 
+        /// <summary>
+        /// De door de gebruiker gekozen stad.
+        /// </summary>
         private string _selectedCity;
         public string SelectedCity
         {
@@ -54,6 +69,9 @@ namespace HomeManager.ViewModel.Homepage
             }
         }
 
+        /// <summary>
+        /// Eventuele tekstuele samenvatting van het weer.
+        /// </summary>
         private string _currentWeather;
         public string CurrentWeather
         {
@@ -65,6 +83,9 @@ namespace HomeManager.ViewModel.Homepage
             }
         }
 
+        /// <summary>
+        /// Index van de huidige dag in de 5-daagse voorspelling.
+        /// </summary>
         private int _huidigeDagIndex = 0;
         public int HuidigeDagIndex
         {
@@ -77,6 +98,9 @@ namespace HomeManager.ViewModel.Homepage
             }
         }
 
+        /// <summary>
+        /// Alle voorspellingen, gestructureerd per tijdstip.
+        /// </summary>
         private ObservableCollection<clsWeerModel> _weatherForecast = new();
         public ObservableCollection<clsWeerModel> WeatherForecast
         {
@@ -89,6 +113,9 @@ namespace HomeManager.ViewModel.Homepage
             }
         }
 
+        /// <summary>
+        /// De voorspellingen voor de momenteel geselecteerde dag.
+        /// </summary>
         private ObservableCollection<clsWeerModel> _huidigeDagVoorspelling = new();
         public ObservableCollection<clsWeerModel> HuidigeDagVoorspelling
         {
@@ -100,9 +127,14 @@ namespace HomeManager.ViewModel.Homepage
             }
         }
 
+        /// <summary>
+        /// Interne structuur voor het ordenen van voorspellingen per dag.
+        /// </summary>
         private Dictionary<DateTime, List<clsWeerModel>> _dagVoorspellingen = new();
 
-
+        /// <summary>
+        /// Haalt de weerdata op bij de API en vult de ViewModel.
+        /// </summary>
         private async Task ZoekWeer()
         {
             if (string.IsNullOrEmpty(SelectedCity))
@@ -127,6 +159,7 @@ namespace HomeManager.ViewModel.Homepage
                     WeatherForecast.Clear();
                     _dagVoorspellingen.Clear();
 
+                    // Elke voorspelling van de JSON response verwerken
                     foreach (var forecast in weatherData.list)
                     {
                         DateTime datumTijd = DateTimeOffset.FromUnixTimeSeconds(forecast.dt).DateTime;
@@ -161,7 +194,10 @@ namespace HomeManager.ViewModel.Homepage
             }
         }
 
-            private void UpdateHuidigeDagVoorspelling()
+        /// <summary>
+        /// Actualiseert de ViewModel met de voorspellingen voor de huidige dag.
+        /// </summary>
+        private void UpdateHuidigeDagVoorspelling()
         {
             if (_dagVoorspellingen.Count == 0)
                 return;
@@ -180,13 +216,18 @@ namespace HomeManager.ViewModel.Homepage
         private bool KanNaarVolgendeDag(object parameter) => HuidigeDagIndex < _dagVoorspellingen.Count - 1;
         private bool KanNaarVorigeDag(object parameter) => HuidigeDagIndex > 0;
 
-        private void OpslaanStad(object parameter)
+        /// <summary>
+        /// Zoekt de weerdata voor de huidige stad en slaat deze op als favoriet.
+        /// </summary>
+        private async void OpslaanStad(object parameter)
         {
             if (string.IsNullOrWhiteSpace(SelectedCity))
             {
                 Debug.WriteLine(" Geen stad om op te slaan.");
                 return;
             }
+
+            await ZoekWeer();
 
             var opgeslagenData = _dataService.GetByAccountId(clsLoginModel.Instance.AccountID);
             if (opgeslagenData != null)
@@ -203,6 +244,10 @@ namespace HomeManager.ViewModel.Homepage
                 });
             }
         }
+
+        /// <summary>
+        /// Laadt een eerder opgeslagen stad en haalt direct de weerdata op.
+        /// </summary>
         private async void LaadOpgeslagenStad()
         {
             var opgeslagen = _dataService.GetByAccountId(clsLoginModel.Instance.AccountID);
@@ -210,7 +255,7 @@ namespace HomeManager.ViewModel.Homepage
             {
                 Debug.WriteLine($" Gemeente geladen: {opgeslagen.Gemeente}");
                 SelectedCity = opgeslagen.Gemeente;
-                await ZoekWeer(); 
+                await ZoekWeer();
             }
             else
             {
@@ -222,4 +267,3 @@ namespace HomeManager.ViewModel.Homepage
         private bool KanOpslaanStad(object parameter) => !string.IsNullOrWhiteSpace(SelectedCity);
     }
 }
-
