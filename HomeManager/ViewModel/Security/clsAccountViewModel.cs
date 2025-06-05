@@ -36,8 +36,16 @@ namespace HomeManager.ViewModel
         #endregion
 
         #region ObservableCollections
-
-        public ObservableCollection<clsAccountModel> MijnCollectie { get; set; }
+        private ObservableCollection<clsAccountModel> _mijncollectie;
+        public ObservableCollection<clsAccountModel> MijnCollectie
+        {
+            get => _mijncollectie;
+            set
+            {
+                _mijncollectie = value;
+                OnPropertyChanged();
+            }
+        }
         public ObservableCollection<clsPersoonModel> MijnPersoonCollectie { get; set; }
 
         #endregion

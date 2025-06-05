@@ -69,7 +69,16 @@ namespace HomeManager.ViewModel
         /// <summary>
         /// Verzameling van rollen.
         /// </summary>
-        public ObservableCollection<clsRollenModel> MijnRollenCollectie { get; set; }
+        private ObservableCollection<clsRollenModel> _mijnRollenCollectie;
+        public ObservableCollection<clsRollenModel> MijnRollenCollectie
+        {
+            get => _mijnRollenCollectie;
+            set
+            {
+                _mijnRollenCollectie = value;
+                OnPropertyChanged();
+            }
+        }
 
         /// <summary>
         /// De momenteel geselecteerde rol.
