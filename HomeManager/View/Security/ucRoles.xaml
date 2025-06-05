@@ -19,6 +19,8 @@
             <RowDefinition Height="50" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
+
+        <!--#region  Title BAR-->
         <Border
             Grid.Row="0"
             Background="{StaticResource myTitleBar}"
@@ -47,6 +49,8 @@
             </Grid>
         </Border>
 
+        <!--#endregion Title BAR-->
+
         <Border
             Grid.Row="1"
             Grid.Column="0"
@@ -55,6 +59,7 @@
             BorderThickness="1"
             CornerRadius="5">
             <Grid>
+                <!--#region Grid Settings-->
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="200" />
@@ -68,7 +73,9 @@
                     <RowDefinition Height="10*" />
                     <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
+                <!--#endregion-->
 
+                <!--#region Listbox-->
                 <ListBox
                     Grid.Row="1"
                     Grid.RowSpan="2"
@@ -76,6 +83,10 @@
                     DisplayMemberPath="RolName"
                     ItemsSource="{Binding MijnRollenCollectie}"
                     SelectedItem="{Binding MijnSelectedItem, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+
+                <!--#endregion-->
+
+                <!--  region Input Fields  -->
 
                 <Label
                     Grid.Row="1"
@@ -93,7 +104,9 @@
                     IsEnabled="{Binding MijnSelectedItem.IsTextBoxEnabled}"
                     Text="{Binding MijnSelectedItem.RolName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" />
 
+                <!--#endregion-->
 
+                <!--  region Treeview van de rollen  -->
 
                 <Label
                     Grid.Row="2"
@@ -102,7 +115,6 @@
                     VerticalAlignment="Top"
                     Content="Rechten"
                     FontSize="12" />
-
                 <ScrollViewer Grid.Row="2" Grid.Column="3">
                     <TreeView ItemsSource="{Binding MijnRechtenCatogorieCollectie}">
                         <TreeView.Resources>
@@ -110,7 +122,6 @@
                             <SolidColorBrush x:Key="{x:Static SystemColors.ControlBrushKey}" Color="Transparent" />
                             <SolidColorBrush x:Key="{x:Static SystemColors.HighlightTextBrushKey}" Color="Black" />
                         </TreeView.Resources>
-
                         <TreeView.ItemTemplate>
                             <HierarchicalDataTemplate ItemsSource="{Binding Rechten}">
                                 <StackPanel Orientation="Horizontal">
@@ -133,7 +144,6 @@
                                             </Style>
                                         </TextBlock.Style>
                                     </TextBlock>
-
                                 </StackPanel>
                                 <HierarchicalDataTemplate.ItemTemplate>
                                     <DataTemplate>
@@ -157,15 +167,14 @@
                                                     </Style>
                                                 </TextBlock.Style>
                                             </TextBlock>
-
                                         </StackPanel>
-
                                     </DataTemplate>
                                 </HierarchicalDataTemplate.ItemTemplate>
                             </HierarchicalDataTemplate>
                         </TreeView.ItemTemplate>
                     </TreeView>
                 </ScrollViewer>
+                <!--#endregion-->
             </Grid>
         </Border>
     </Grid>
