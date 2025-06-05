@@ -183,6 +183,8 @@ namespace HomeManager.ViewModel.Personen
 
         private void OnUpdateListMessageReceived(clsEmailVerzendenModel obj)
         {
+            Onderwerp = string.Empty;
+            Bericht = string.Empty;
             Ontvanger = obj.Ontvanger;
             MijnVerzenderEmailAdres = VerzendenService.GetByPersoonID(clsLoginModel.Instance.PersoonID);
             cmdUploadBijlage = new clsCustomCommand(Execute_UploadBijlage, CanExecute_UploadBijlage);
