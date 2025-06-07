@@ -1,16 +1,12 @@
 ﻿using HomeManager.Common;
 using HomeManager.DataService.ToDo;
 using HomeManager.Helpers;
-using HomeManager.Messages;
 using HomeManager.Model.Todo;
 using HomeManager.View;
 using HomeManager.ViewModel.Todo;
 using System.Collections.ObjectModel;
-using System.Globalization;
 using System.Windows;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Timers;
 
 namespace HomeManager.ViewModel
 {
@@ -40,18 +36,29 @@ namespace HomeManager.ViewModel
             OnAfgehandeldeTodoItems = new ObservableCollection<clsTodoPopupM>();
             IsCollectieItemSelected = false;
 
-            OpenTodoPopupCommand = new clsRelayCommand<object>(param => OpenTodoPopup());
-            OpenTodoCollectiesCommand = new clsRelayCommand<object>(param => OpenTodoCollecties());
-            OpenTodoDetailsCommand = new clsRelayCommand<object>(param => OpenTodoDetails(param));
-            OpenTodoBijlageCommand = new clsRelayCommand<object>(param => OpenTodoBijlage(param as clsTodoPopupM));
-            EditTodoCommand = new clsRelayCommand<object>(param => EditTodoItem(param as clsTodoPopupM));
-            DeleteTodoCommand = new clsRelayCommand<object>(param => DeleteTodoItem(param as clsTodoPopupM), param => CanDeleteTodoItem(param as clsTodoPopupM));
-            EditTodoDetailCommand = new clsRelayCommand<object>(param => EditTodoDetailItem(param as clsTodoDetailsM));
-            DeleteTodoDetailCommand = new clsRelayCommand<object>(param => DeleteTodoDetailItem(param as clsTodoDetailsM), param => CanDeleteTodoDetailItem(param as clsTodoDetailsM));
-            BelangrijkCommand = new clsRelayCommand<object>(param => OnBelangrijkClicked(param as clsTodoPopupM));
-            IsKlaarCommand = new clsRelayCommand<object>(param => OnIsKlaarClicked(param as clsTodoPopupM));
-            IsKlaarTodoDetailCommand = new clsRelayCommand<object>(param => OnIsKlaarTodoDetailClicked(param as clsTodoDetailsM));
+            // OpenTodoPopupCommand = new clsRelayCommand<object>(param => OpenTodoPopup());
+            //OpenTodoCollectiesCommand = new clsRelayCommand<object>(param => OpenTodoCollecties());
+            //OpenTodoDetailsCommand = new clsRelayCommand<object>(param => OpenTodoDetails(param));
+            //OpenTodoBijlageCommand = new clsRelayCommand<object>(param => OpenTodoBijlage(param as clsTodoPopupM));
+            //EditTodoCommand = new clsRelayCommand<object>(param => EditTodoItem(param as clsTodoPopupM));
+            //DeleteTodoCommand = new clsRelayCommand<object>(param => DeleteTodoItem(param as clsTodoPopupM), param => CanDeleteTodoItem(param as clsTodoPopupM));
+            //EditTodoDetailCommand = new clsRelayCommand<object>(param => EditTodoDetailItem(param as clsTodoDetailsM));
+            //DeleteTodoDetailCommand = new clsRelayCommand<object>(param => DeleteTodoDetailItem(param as clsTodoDetailsM), param => CanDeleteTodoDetailItem(param as clsTodoDetailsM));
+            //BelangrijkCommand = new clsRelayCommand<object>(param => OnBelangrijkClicked(param as clsTodoPopupM));
+            //IsKlaarCommand = new clsRelayCommand<object>(param => OnIsKlaarClicked(param as clsTodoPopupM));
+            //IsKlaarTodoDetailCommand = new clsRelayCommand<object>(param => OnIsKlaarTodoDetailClicked(param as clsTodoDetailsM));
 
+            OpenTodoPopupCommand = new clsCustomCommand(Execute_OpenTodoPopupCommand, CanExecute_OpenTodoPopupCommand);
+            OpenTodoCollectiesCommand = new clsCustomCommand(Execute_OpenTodoCollectiesCommand, CanExecute_OpenTodoCollectiesCommand);
+            OpenTodoDetailsCommand = new clsCustomCommand(Execute_OpenTodoDetailsCommand, CanExecute_OpenTodoDetailsCommand);
+            OpenTodoBijlageCommand = new clsCustomCommand(Execute_OpenTodoBijlageCommand, CanExecute_OpenTodoBijlageCommand);
+            EditTodoCommand = new clsCustomCommand(Execute_EditTodoCommand, CanExecute_EditTodoCommand);
+            DeleteTodoCommand = new clsCustomCommand(Execute_DeleteTodoCommand, CanExecute_DeleteTodoCommand);
+            EditTodoDetailCommand = new clsCustomCommand(Execute_EditTodoDetailCommand, CanExecute_EditTodoDetailCommand);
+            DeleteTodoDetailCommand = new clsCustomCommand(Execute_DeleteTodoDetailCommand, CanExecute_DeleteTodoDetailCommand);
+            BelangrijkCommand = new clsCustomCommand(Execute_BelangrijkCommand, CanExecute_BelangrijkCommand);
+            IsKlaarCommand = new clsCustomCommand(Execute_IsKlaarCommand, CanExecute_IsKlaarCommand);
+            IsKlaarTodoDetailCommand = new clsCustomCommand(Execute_IsKlaarTodoDetailCommand, CanExecute_IsKlaarTodoDetailCommand);
             cmdClose = new clsCustomCommand(Execute_CloseCommand, CanExecute_CloseCommand);
 
             RefreshCommand = new clsRelayCommand<object>(param => RefreshData());
@@ -208,8 +215,13 @@ namespace HomeManager.ViewModel
         }
 
         public ICommand OpenTodoPopupCommand { get; }
+        private bool CanExecute_OpenTodoPopupCommand(object? obj)
+        {
+            clsPermissionChecker permissionChecker = new();
+            return permissionChecker.HasPermission("552");
+        }
 
-        private void OpenTodoPopup()
+        private void Execute_OpenTodoPopupCommand(object? obj)
         {
             if (MijnSelectedCollectieItem == null)
             {
@@ -233,7 +245,12 @@ namespace HomeManager.ViewModel
         }
 
         public ICommand OpenTodoCollectiesCommand { get; }
-        private void OpenTodoCollecties()
+        private bool CanExecute_OpenTodoCollectiesCommand(object? obj)
+        {
+            clsPermissionChecker permissionChecker = new();
+            return permissionChecker.HasPermission("551");
+        }
+        private void Execute_OpenTodoCollectiesCommand(object? obj)
         {
             var collectiesWindow = new Window
             {
@@ -246,7 +263,12 @@ namespace HomeManager.ViewModel
         }
 
         public ICommand OpenTodoDetailsCommand { get; }
-        private void OpenTodoDetails(object parameter)
+        private bool CanExecute_OpenTodoDetailsCommand(object? obj)
+        {
+            clsPermissionChecker permissionChecker = new();
+            return permissionChecker.HasPermission("553");
+        }
+        private void Execute_OpenTodoDetailsCommand(object? obj)
         {
             if (MijnSelectedItemTodoPopup != null)
             {
@@ -272,123 +294,158 @@ namespace HomeManager.ViewModel
 
 
         public ICommand OpenTodoBijlageCommand { get; }
-        private void OpenTodoBijlage(clsTodoPopupM todoItem)
+        private bool CanExecute_OpenTodoBijlageCommand(object? obj)
         {
-            MijnSelectedItemTodoPopup = todoItem;
-            //// Controleer of er een item is geselecteerd
-            if (MijnSelectedItemTodoPopup == null)
+            clsPermissionChecker permissionChecker = new();
+            return permissionChecker.HasPermission("554");
+        }
+        private void Execute_OpenTodoBijlageCommand(object? obj)
+        {
+            if (obj != null && obj is clsTodoPopupM todoItem)
             {
-                MessageBox.Show("Selecteer eerst een Todo Item om een bijlage toe te voegen", "Fout", MessageBoxButton.OK, MessageBoxImage.Information);
-                return;
+                MijnSelectedItemTodoPopup = todoItem;
+                //// Controleer of er een item is geselecteerd
+                if (MijnSelectedItemTodoPopup == null)
+                {
+                    MessageBox.Show("Selecteer eerst een Todo Item om een bijlage toe te voegen", "Fout", MessageBoxButton.OK, MessageBoxImage.Information);
+                    return;
+                }
+
+                // Stel de TodoID in op de static Instance
+                clsTodoPopupM.Instance.TodoID = MijnSelectedItemTodoPopup.TodoID;
+
+                var todoBijlageVM = new clsTodoBijlageVM();
+
+                var todoBijlageWindow = new Window
+                {
+                    Content = new ucTodoBijlage(),
+                    Title = "Todo Bijlage",
+                    Width = 800,
+                    Height = 450,
+                    DataContext = todoBijlageVM // Stel de DataContext in op het ViewModel
+                };
+
+                todoBijlageWindow.ShowDialog();
             }
-
-            // Stel de TodoID in op de static Instance
-            clsTodoPopupM.Instance.TodoID = MijnSelectedItemTodoPopup.TodoID;
-
-            var todoBijlageVM = new clsTodoBijlageVM();
-
-            var todoBijlageWindow = new Window
-            {
-                Content = new ucTodoBijlage(),
-                Title = "Todo Bijlage",
-                Width = 800,
-                Height = 450,
-                DataContext = todoBijlageVM // Stel de DataContext in op het ViewModel
-            };
-
-            todoBijlageWindow.ShowDialog();
         }
 
         public ICommand EditTodoCommand { get; }
-        private void EditTodoItem(clsTodoPopupM todoItem)
+        private bool CanExecute_EditTodoCommand(object? obj)
         {
-            if (todoItem == null) return;
-
-            // Stel de MijnSelectedItemTodoPopup in op het geselecteerde item
-            MijnSelectedItemTodoPopup = todoItem;
-
-            var todoPopupWindow = new Window
+            clsPermissionChecker permissionChecker = new();
+            return permissionChecker.HasPermission("559");
+        }
+        private void Execute_EditTodoCommand(object? obj)
+        {
+            if (obj != null && obj is clsTodoPopupM todoItem)
             {
-                Content = new ucTodoPopup(todoItem), // Pas de constructor aan om het juiste todoItem te gebruiken
-                Title = "Edit Todo",
-                Width = 800,
-                Height = 450
-            };
+                // Stel de MijnSelectedItemTodoPopup in op het geselecteerde item
+                MijnSelectedItemTodoPopup = todoItem;
 
-            // Stel de DataContext van het venster in op de TodoPopupViewModel
-            todoPopupWindow.DataContext = TodoPopupViewModel;
+                var todoPopupWindow = new Window
+                {
+                    Content = new ucTodoPopup(todoItem), // Pas de constructor aan om het juiste todoItem te gebruiken
+                    Title = "Edit Todo",
+                    Width = 800,
+                    Height = 450
+                };
 
-            // Update de geselecteerde item in de TodoPopupViewModel
-            TodoPopupViewModel.MijnSelectedItem = todoItem;
+                // Stel de DataContext van het venster in op de TodoPopupViewModel
+                todoPopupWindow.DataContext = TodoPopupViewModel;
 
-            todoPopupWindow.ShowDialog();
+                // Update de geselecteerde item in de TodoPopupViewModel
+                TodoPopupViewModel.MijnSelectedItem = todoItem;
+
+                todoPopupWindow.ShowDialog();
+            }
         }
 
 
         public ICommand DeleteTodoCommand { get; }
-        private bool CanDeleteTodoItem(clsTodoPopupM todoItem)
+        private bool CanExecute_DeleteTodoCommand(object? obj)
         {
-            return todoItem != null;
-        }
-
-        private void DeleteTodoItem(clsTodoPopupM todoItem)
-        {
-            if (todoItem == null) return;
-
-            if (MessageBox.Show($"Wil je {todoItem.Onderwerp} verwijderen?", "Verwijderen?", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+            clsPermissionChecker permissionChecker = new();
+            if (permissionChecker.HasPermission("560"))
             {
-                if (MijnServiceTodoPopup.Delete(todoItem))
+                return obj != null;
+            }
+            return false;
+        }
+        private void Execute_DeleteTodoCommand(object? obj)
+        {
+            if (obj != null && obj is clsTodoPopupM todoItem)
+            {
+                if (MessageBox.Show($"Wil je {todoItem.Onderwerp} verwijderen?", "Verwijderen?", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
                 {
-                    MijnCollectieTodoPopup.Remove(todoItem);
-                }
-                else
-                {
-                    MessageBox.Show("Error?", todoItem.ErrorBoodschap);
+                    if (MijnServiceTodoPopup.Delete(todoItem))
+                    {
+                        MijnCollectieTodoPopup.Remove(todoItem);
+                    }
+                    else
+                    {
+                        MessageBox.Show("Error?", todoItem.ErrorBoodschap);
+                    }
                 }
             }
         }
 
+
+
+
         public ICommand EditTodoDetailCommand { get; }
-        private void EditTodoDetailItem(clsTodoDetailsM todoDetail)
+        private bool CanExecute_EditTodoDetailCommand(object? obj)
         {
-            if (todoDetail == null) return;
-
-            // Stel de MijnSelectedTodoDetail in op het geselecteerde detail
-            MijnSelectedTodoDetail = new ObservableCollection<clsTodoDetailsM> { todoDetail };
-
-            var todoDetailsWindow = new Window
+            clsPermissionChecker permissionChecker = new();
+            return permissionChecker.HasPermission("542");
+        }
+        private void Execute_EditTodoDetailCommand(object? obj)
+        {
+            if (obj != null && obj is clsTodoDetailsM todoDetail)
             {
-                Content = new ucTodoDetails(),
-                Title = "Edit Todo Detail",
-                Width = 800,
-                Height = 450
-            };
 
-            // Stel de DataContext van het venster in op de huidige ViewModel
-            todoDetailsWindow.DataContext = this;
+                // Stel de MijnSelectedTodoDetail in op het geselecteerde detail
+                MijnSelectedTodoDetail = new ObservableCollection<clsTodoDetailsM> { todoDetail };
 
-            todoDetailsWindow.ShowDialog();
+                var todoDetailsWindow = new Window
+                {
+                    Content = new ucTodoDetails(),
+                    Title = "Edit Todo Detail",
+                    Width = 800,
+                    Height = 450
+                };
+
+                // Stel de DataContext van het venster in op de huidige ViewModel
+                todoDetailsWindow.DataContext = this;
+
+                todoDetailsWindow.ShowDialog();
+            }
         }
 
         public ICommand DeleteTodoDetailCommand { get; }
-        private bool CanDeleteTodoDetailItem(clsTodoDetailsM todoDetail)
+        private bool CanExecute_DeleteTodoDetailCommand(object? obj)
         {
-            return todoDetail != null;
-        }
-
-        private void DeleteTodoDetailItem(clsTodoDetailsM todoDetail)
-        {
-            if (todoDetail == null) return;
-
-            if (MessageBox.Show($"Wil je {todoDetail.TodoDetail} verwijderen?", "Verwijderen?", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+            clsPermissionChecker permissionChecker = new();
+            if (permissionChecker.HasPermission("543"))
             {
-                if (MijnServiceTodoDetails.Delete(todoDetail))
+                return obj != null;
+            }
+            return false;
+        }
+        private void Execute_DeleteTodoDetailCommand(object? obj)
+        {
+            if (obj != null && obj is clsTodoDetailsM todoDetail)
+            {
+
+                if (MessageBox.Show($"Wil je {todoDetail.TodoDetail} verwijderen?", "Verwijderen?", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
                 {
-                    MijnTodoDetails.Remove(todoDetail);
-                }
-                else
-                {
-                    MessageBox.Show("Error?", todoDetail.ErrorBoodschap);
+                    if (MijnServiceTodoDetails.Delete(todoDetail))
+                    {
+                        MijnTodoDetails.Remove(todoDetail);
+                    }
+                    else
+                    {
+                        MessageBox.Show("Error?", todoDetail.ErrorBoodschap);
+                    }
                 }
             }
         }
@@ -465,75 +522,83 @@ namespace HomeManager.ViewModel
         }
 
         public ICommand BelangrijkCommand { get; }
+        private bool CanExecute_BelangrijkCommand(object? obj)
+        {
+            clsPermissionChecker permissionChecker = new();
+            return permissionChecker.HasPermission("556");
+        }
 
         // Methode die wordt uitgevoerd wanneer de knop wordt geklikt
-        private void OnBelangrijkClicked(clsTodoPopupM todoItem)
+        private void Execute_BelangrijkCommand(object? obj)
         {
-            if (todoItem == null)
+            if (obj != null && obj is clsTodoPopupM todoItem)
             {
-                MessageBox.Show("CommandParameter is null!", "Debug", MessageBoxButton.OK, MessageBoxImage.Warning);
-                return;
-            }
 
-            MijnSelectedItemTodoPopup = todoItem;
+                MijnSelectedItemTodoPopup = todoItem;
 
-            // Toggle de waarde van Belangrijk
-            MijnSelectedItemTodoPopup.Belangrijk = !MijnSelectedItemTodoPopup.Belangrijk;
+                // Toggle de waarde van Belangrijk
+                MijnSelectedItemTodoPopup.Belangrijk = !MijnSelectedItemTodoPopup.Belangrijk;
 
-            // Debug-melding om de nieuwe waarde te controleren
-            // TODO: Na het werkend krijgen van de kleur -> debuggers verwijderen
-            //MessageBox.Show($"Belangrijk is nu: {MijnSelectedItemTodoPopup.Belangrijk}", "Debug", MessageBoxButton.OK, MessageBoxImage.Information);
+                // Debug-melding om de nieuwe waarde te controleren
+                // TODO: Na het werkend krijgen van de kleur -> debuggers verwijderen
+                //MessageBox.Show($"Belangrijk is nu: {MijnSelectedItemTodoPopup.Belangrijk}", "Debug", MessageBoxButton.OK, MessageBoxImage.Information);
 
-            // Update de database
-            if (!MijnServiceTodoPopup.Update(MijnSelectedItemTodoPopup))
-            {
-                // Toon een foutmelding als de update mislukt
-                MessageBox.Show("Kon de waarde van Belangrijk niet bijwerken in de database.", "Fout", MessageBoxButton.OK, MessageBoxImage.Error);
+                // Update de database
+                if (!MijnServiceTodoPopup.Update(MijnSelectedItemTodoPopup))
+                {
+                    // Toon een foutmelding als de update mislukt
+                    MessageBox.Show("Kon de waarde van Belangrijk niet bijwerken in de database.", "Fout", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
             }
         }
 
         public ICommand IsKlaarCommand { get; }
-
-        private void OnIsKlaarClicked(clsTodoPopupM todoItem)
+        private bool CanExecute_IsKlaarCommand(object? obj)
         {
-            if (todoItem == null)
+            clsPermissionChecker permissionChecker = new();
+            return permissionChecker.HasPermission("555");
+        }
+        private void Execute_IsKlaarCommand(object? obj)
+        {
+            if (obj != null && obj is clsTodoPopupM todoItem)
             {
-                MessageBox.Show("Geen Todo-item geselecteerd!", "Fout", MessageBoxButton.OK, MessageBoxImage.Warning);
-                return;
-            }
 
-            // Verplaats het item tussen de lijsten op basis van de IsKlaar waarde
-            if (todoItem.IsKlaar)
-            {
-                OnAfgehandeldeTodoItems.Remove(todoItem);
-                AfgehandeldeTodoItems.Add(todoItem);
-            }
-            else
-            {
-                AfgehandeldeTodoItems.Remove(todoItem);
-                OnAfgehandeldeTodoItems.Add(todoItem);
-            }
+                // Verplaats het item tussen de lijsten op basis van de IsKlaar waarde
+                if (todoItem.IsKlaar)
+                {
+                    OnAfgehandeldeTodoItems.Remove(todoItem);
+                    AfgehandeldeTodoItems.Add(todoItem);
+                }
+                else
+                {
+                    AfgehandeldeTodoItems.Remove(todoItem);
+                    OnAfgehandeldeTodoItems.Add(todoItem);
+                }
 
-            // Update de database
-            if (!MijnServiceTodoPopup.Update(todoItem))
-            {
-                MessageBox.Show("Kon de waarde van IsKlaar niet bijwerken in de database.", "Fout", MessageBoxButton.OK, MessageBoxImage.Error);
+                // Update de database
+                if (!MijnServiceTodoPopup.Update(todoItem))
+                {
+                    MessageBox.Show("Kon de waarde van IsKlaar niet bijwerken in de database.", "Fout", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
             }
         }
         public ICommand IsKlaarTodoDetailCommand { get; }
-        private void OnIsKlaarTodoDetailClicked(clsTodoDetailsM todoDetailItem)
+        private bool CanExecute_IsKlaarTodoDetailCommand(object? obj)
         {
-            if (todoDetailItem == null)
+            clsPermissionChecker permissionChecker = new();
+            return permissionChecker.HasPermission("544");
+        }
+        private void Execute_IsKlaarTodoDetailCommand(object? obj)
+        {
+            if (obj != null && obj is clsTodoDetailsM todoDetailItem)
             {
-                MessageBox.Show("Geen Todo Detail-item geselecteerd!", "Fout", MessageBoxButton.OK, MessageBoxImage.Warning);
-                return;
-            }
 
-            // Update de database
-            if (!MijnServiceTodoDetails.Update(todoDetailItem))
-            {
-                // Toon een foutmelding als de update mislukt
-                MessageBox.Show("Kon de waarde van IsKlaar niet bijwerken in de database.", "Fout", MessageBoxButton.OK, MessageBoxImage.Error);
+                // Update de database
+                if (!MijnServiceTodoDetails.Update(todoDetailItem))
+                {
+                    // Toon een foutmelding als de update mislukt
+                    MessageBox.Show("Kon de waarde van IsKlaar niet bijwerken in de database.", "Fout", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
             }
         }
 

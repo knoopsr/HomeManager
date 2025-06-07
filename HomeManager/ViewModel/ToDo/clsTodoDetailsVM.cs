@@ -18,6 +18,7 @@ namespace HomeManager.ViewModel.Todo
 {
     public class clsTodoDetailsVM : clsCommonModelPropertiesBase
     {
+        private clsPermissionChecker _permissionChecker = new();
         clsTodoDetailsDataService MijnService;
 
         private bool NewStatus = false;
@@ -169,7 +170,11 @@ namespace HomeManager.ViewModel.Todo
 
         private bool CanExecute_NewCommand(object obj)
         {
-            return !NewStatus;
+            if (_permissionChecker.HasPermission("541"))
+            {
+                return !NewStatus;
+            }
+            return false;
         }
 
         private void Execute_NewCommand(object obj)
@@ -198,19 +203,22 @@ namespace HomeManager.ViewModel.Todo
 
         private bool CanExecute_DeleteCommand(object obj)
         {
-            if (MijnSelectedTodoDetail != null)
-
+            if (_permissionChecker.HasPermission("543"))
             {
-                if (NewStatus)
+                if (MijnSelectedTodoDetail != null)
+                {
+                    if (NewStatus)
+                    {
+                        return false;
+                    }
+                    return true;
+                }
+                else
                 {
                     return false;
                 }
-                return true;
             }
-            else
-            {
-                return false;
-            }
+            return false;
         }
 
         private void Execute_DeleteCommand(object obj)
@@ -234,9 +242,13 @@ namespace HomeManager.ViewModel.Todo
 
         private bool CanExecute_SaveCommand(object obj)
         {
-            return MijnSelectedTodoDetail != null &&
-                   MijnSelectedTodoDetail.Error == null &&
-                   MijnSelectedTodoDetail.IsDirty;
+            if (_permissionChecker.HasPermission("542"))
+            {
+                return MijnSelectedTodoDetail != null &&
+                       MijnSelectedTodoDetail.Error == null &&
+                       MijnSelectedTodoDetail.IsDirty;
+            }
+            return false;
         }
 
 

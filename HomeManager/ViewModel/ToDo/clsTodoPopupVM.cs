@@ -27,6 +27,7 @@ namespace HomeManager.ViewModel
 {
     public class clsTodoPopupVM : clsCommonModelPropertiesBase
     {
+        private clsPermissionChecker _permissionChecker = new();
         clsTodoPopupDataService MijnService;
         clsAccountDataService MijnserviceGebruikers;
         clsCollectiesDataService MijnServiceCollecties;
@@ -83,8 +84,11 @@ namespace HomeManager.ViewModel
             //SubmitEmailCommand = new clsCustomCommand(Execute_SubmitEmail, CanExecute_SubmitEmail);
 
             //clsMessenger.Default.Register<clsTodoPopupM>(this, OnCollectiesReceived);
-            OpenCollectiesCommand = new clsRelayCommand<object>(OpenCollecties);
-            OpenAccountCommand = new clsRelayCommand<object>(OpenAccount);
+            //OpenCollectiesCommand = new clsRelayCommand<object>(OpenCollecties);
+            //OpenAccountCommand = new clsRelayCommand<object>(OpenAccount);
+            OpenCollectiesCommand = new clsCustomCommand(Execute_OpenCollecties, CanExecute_OpenCollecties);
+            OpenAccountCommand = new clsCustomCommand(Execute_OpenAccount, CanExecute_OpenAccounts);
+       
 
             LoadData();
             MijnSelectedItem = MijnService.GetFirst() ?? new clsTodoPopupM();
@@ -102,8 +106,6 @@ namespace HomeManager.ViewModel
             FilteredMijnCollectie = CollectionViewSource.GetDefaultView(MijnCollectie);
             FilteredMijnCollectie.Filter = FilterBySelectedCollectie;
         }
-
-
 
         private void OnUpdateListMessageReceived(clsTodoPopupM obj)
         {
@@ -155,8 +157,12 @@ namespace HomeManager.ViewModel
                 OnPropertyChanged(nameof(MijnSelectedItem));
             }
         }
-
-        private void OpenCollecties(object parameter)
+        private bool CanExecute_OpenCollecties(object? obj)
+        {
+            clsPermissionChecker permissionChecker = new();
+            return permissionChecker.HasPermission("558");
+        }
+        private void Execute_OpenCollecties(object? obj)
         {
             // Logic to open ucCollecties.xaml
             var collectiesWindow = new Window
@@ -168,8 +174,12 @@ namespace HomeManager.ViewModel
             };
             collectiesWindow.ShowDialog();
         }
-
-        private void OpenAccount(object parameter)
+        private bool CanExecute_OpenAccounts(object? obj)
+        {
+            clsPermissionChecker permissionChecker = new();
+            return permissionChecker.HasPermission("557");
+        }
+        private void Execute_OpenAccount(object? obj)
         {
             // Logic to open ucAccount.xaml
             var accountWindow = new Window
@@ -330,7 +340,11 @@ namespace HomeManager.ViewModel
 
         private bool CanExecute_NewCommand(object obj)
         {
-            return !NewStatus;
+            if (_permissionChecker.HasPermission("561"))
+            {
+                return !NewStatus;
+            }
+            return false;
         }
 
         public void Execute_NewCommand(object obj)
@@ -362,19 +376,22 @@ namespace HomeManager.ViewModel
 
         private bool CanExecute_DeleteCommand(object obj)
         {
-            if (MijnSelectedItem != null)
-
+            if (_permissionChecker.HasPermission("560"))
             {
-                if (NewStatus)
+                if (MijnSelectedItem != null)
+                {
+                    if (NewStatus)
+                    {
+                        return false;
+                    }
+                    return true;
+                }
+                else
                 {
                     return false;
                 }
-                return true;
             }
-            else
-            {
-                return false;
-            }
+            return false;
         }
 
         private void Execute_DeleteCommand(object obj)
@@ -399,16 +416,20 @@ namespace HomeManager.ViewModel
 
         private bool CanExecute_SaveCommand(object obj)
         {
-            if (MijnSelectedItem != null &&
-            MijnSelectedItem.Error == null &&
-            MijnSelectedItem.IsDirty == true)
+            if (_permissionChecker.HasPermission("559"))
             {
-                return true;
+                if (MijnSelectedItem != null &&
+                MijnSelectedItem.Error == null &&
+                MijnSelectedItem.IsDirty == true)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
             }
-            else
-            {
-                return false;
-            }
+            return false;
         }
 
         private bool _sendEmailOnSave = true;

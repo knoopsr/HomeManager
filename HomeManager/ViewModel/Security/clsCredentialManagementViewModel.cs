@@ -14,7 +14,7 @@ namespace HomeManager.ViewModel
     public class clsCredentialManagementViewModel : clsCommonModelPropertiesBase
     {
         #region Fields
-
+        private clsPermissionChecker _permissionChecker = new();
         private clsCredentialManagementDataService MijnService;
         private clsWachtwoordGroepDataService MijnWachtwoordenGroepService;
         private bool NewStatus = false;
@@ -170,7 +170,23 @@ namespace HomeManager.ViewModel
 
         private void Execute_Save_Command(object? obj) => OpslaanCommando();
 
-        private bool CanExecute_Save_Command(object? obj) => MijnSelectedItem?.IsDirty == true && MijnSelectedItem.Error == null;
+        private bool CanExecute_Save_Command(object? obj)
+        {
+            if (_permissionChecker.HasPermission("222"))
+            {
+                if (MijnSelectedItem != null &&
+                MijnSelectedItem.Error == null &&
+                MijnSelectedItem.IsDirty == true)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            return false;
+        }
 
         private void OpslaanCommando()
         {
@@ -207,7 +223,25 @@ namespace HomeManager.ViewModel
             }
         }
 
-        private bool CanExecute_Delete_Command(object? obj) => MijnSelectedItem != null && !NewStatus;
+        private bool CanExecute_Delete_Command(object? obj)
+        {
+            if (_permissionChecker.HasPermission("223"))
+            {
+                if (MijnSelectedItem != null)
+                {
+                    if (NewStatus)
+                    {
+                        return false;
+                    }
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            return false;
+        }
 
         private void Execute_New_Command(object? obj)
         {
@@ -225,7 +259,14 @@ namespace HomeManager.ViewModel
             IsFocusedAfterNew = true;
         }
 
-        private bool CanExecute_New_Command(object? obj) => !NewStatus;
+        private bool CanExecute_New_Command(object? obj)
+        {
+            if (_permissionChecker.HasPermission("221"))
+            {
+                return !NewStatus;
+            }
+            return false;
+        }
 
         private void Execute_Cancel_Command(object? obj)
         {
