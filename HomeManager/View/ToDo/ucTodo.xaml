@@ -68,6 +68,7 @@
                 Margin="0,20,0,0"
                 HorizontalAlignment="Right"
                 Command="{Binding OpenTodoCollectiesCommand}"
+                CommandParameter="{Binding}"
                 Style="{StaticResource AddButton}"
                 ToolTip="Collectie toevoegen" />
         </StackPanel>
@@ -79,6 +80,7 @@
                 Margin="0,20,0,0"
                 HorizontalAlignment="Right"
                 Command="{Binding OpenTodoPopupCommand}"
+                CommandParameter="{Binding}"
                 Style="{StaticResource AddButton}"
                 ToolTip="Todo toevoegen" />
         </StackPanel>
@@ -89,6 +91,7 @@
                 Height="20"
                 Margin="0,20,5,0"
                 Command="{Binding RefreshCommand}"
+                CommandParameter="{Binding}"
                 Style="{StaticResource RefreshButton}"
                 ToolTip="Vernieuw de gegevens" />
             <Button

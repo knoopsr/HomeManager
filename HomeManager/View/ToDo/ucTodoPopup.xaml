@@ -136,7 +136,10 @@
                         VerticalAlignment="Center"
                         ItemsSource="{Binding MijnCollectieGebruikers}"
                         SelectedItem="{Binding MijnSelectedGebruiker, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />     
-                    <Button Command="{Binding OpenAccountCommand}" Style="{StaticResource OpenUCButton}" />
+                    <Button 
+                        Command="{Binding OpenAccountCommand}"
+                        CommandParameter="{Binding}"
+                        Style="{StaticResource OpenUCButton}" />
                 </StackPanel>
 
 
@@ -178,7 +181,10 @@
                         SelectedValue="{Binding DataContext.MijnSelectedItem.TodoCollectieID, RelativeSource={RelativeSource AncestorType=UserControl}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
                         SelectedValuePath="ToDoCollectieID" />
 
-                    <Button Command="{Binding OpenCollectiesCommand}" Style="{StaticResource OpenUCButton}" />
+                    <Button 
+                        Command="{Binding OpenCollectiesCommand}"
+                        CommandParameter="{Binding}"
+                        Style="{StaticResource OpenUCButton}" />
 
                 </StackPanel>
 
