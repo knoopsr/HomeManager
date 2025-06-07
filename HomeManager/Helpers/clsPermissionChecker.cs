@@ -66,9 +66,9 @@ namespace HomeManager.Helpers
             { "clsAccountViewModel", "230" },
 
             // Todo/Collectie beheer
-            { "clsCategorieënVM", "500" },
-            { "clsCollectiesVM", "500" },
-            { "clsKleurenVM", "500" },
+            { "clsCategorieënVM", "520" },
+            { "clsCollectiesVM", "510" },
+            { "clsKleurenVM", "530" },
             { "clsTodoVM", "500" },
 
             // Dagboek
