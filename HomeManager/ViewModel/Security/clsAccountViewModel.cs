@@ -18,7 +18,8 @@ namespace HomeManager.ViewModel
     public class clsAccountViewModel : clsCommonModelPropertiesBase
     {
         #region Velden & Services
-
+        
+        private clsPermissionChecker _permissionChecker = new();
         private readonly clsAccountDataService MijnService;
         private readonly clsPersoonDataService MijnPersoonService;
         private bool NewStatus = false;
@@ -168,8 +169,22 @@ namespace HomeManager.ViewModel
         #region Command Logic
 
         private void Execute_Save_Command(object? obj) => OpslaanCommando();
-        private bool CanExecute_Save_Command(object? obj) =>
-            MijnSelectedItem != null && MijnSelectedItem.IsDirty && MijnSelectedItem.Error == null;
+        private bool CanExecute_Save_Command(object? obj){
+            if (_permissionChecker.HasPermission("232"))
+            {
+                if (MijnSelectedItem != null &&
+                MijnSelectedItem.Error == null &&
+                MijnSelectedItem.IsDirty == true)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            return false;
+        }
 
         private void Execute_Delete_Command(object? obj)
         {
@@ -190,8 +205,25 @@ namespace HomeManager.ViewModel
             }
         }
 
-        private bool CanExecute_Delete_Command(object? obj) =>
-            MijnSelectedItem != null && !NewStatus;
+        private bool CanExecute_Delete_Command(object obj)
+        {
+            if (_permissionChecker.HasPermission("233"))
+            {
+                if (MijnSelectedItem != null)
+                {
+                    if (NewStatus)
+                    {
+                        return false;
+                    }
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            return false;
+        }
 
         private void Execute_New_Command(object? obj)
         {
@@ -220,7 +252,14 @@ namespace HomeManager.ViewModel
             IsFocusedAfterNew = true;
         }
 
-        private bool CanExecute_New_Command(object? obj) => !NewStatus;
+        private bool CanExecute_New_Command(object? obj)
+        {
+            if (_permissionChecker.HasPermission("231"))
+            {
+                return !NewStatus;
+            }
+            return false;
+        }
 
         private void Execute_Cancel_Command(object? obj)
         {
