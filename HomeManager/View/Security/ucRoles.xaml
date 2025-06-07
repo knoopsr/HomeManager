@@ -115,65 +115,66 @@
                     VerticalAlignment="Top"
                     Content="Rechten"
                     FontSize="12" />
-                <ScrollViewer Grid.Row="2" Grid.Column="3">
-                    <TreeView ItemsSource="{Binding MijnRechtenCatogorieCollectie}">
-                        <TreeView.Resources>
-                            <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="#FFDDEEFF" />
-                            <SolidColorBrush x:Key="{x:Static SystemColors.ControlBrushKey}" Color="Transparent" />
-                            <SolidColorBrush x:Key="{x:Static SystemColors.HighlightTextBrushKey}" Color="Black" />
-                        </TreeView.Resources>
-                        <TreeView.ItemTemplate>
-                            <HierarchicalDataTemplate ItemsSource="{Binding Rechten}">
-                                <StackPanel Orientation="Horizontal">
-                                    <CheckBox IsChecked="{Binding IsChecked}">
-                                        <i:Interaction.Triggers>
-                                            <i:EventTrigger EventName="Click">
-                                                <i:InvokeCommandAction Command="{Binding DataContext.cmdIsChecked, RelativeSource={RelativeSource AncestorType=TreeView}}" CommandParameter="{Binding}" />
-                                            </i:EventTrigger>
-                                        </i:Interaction.Triggers>
-                                    </CheckBox>
-                                    <TextBlock Text="{Binding CatogorieNaam}">
-                                        <TextBlock.Style>
-                                            <Style TargetType="TextBlock">
-                                                <Setter Property="Foreground" Value="Black" />
-                                                <Style.Triggers>
-                                                    <DataTrigger Binding="{Binding RelativeSource={RelativeSource AncestorType=TreeViewItem}, Path=IsSelected}" Value="True">
-                                                        <Setter Property="Foreground" Value="DarkBlue" />
-                                                    </DataTrigger>
-                                                </Style.Triggers>
-                                            </Style>
-                                        </TextBlock.Style>
-                                    </TextBlock>
-                                </StackPanel>
-                                <HierarchicalDataTemplate.ItemTemplate>
-                                    <DataTemplate>
-                                        <StackPanel Orientation="Horizontal">
-                                            <CheckBox IsChecked="{Binding IsChecked}">
-                                                <i:Interaction.Triggers>
-                                                    <i:EventTrigger EventName="Click">
-                                                        <i:InvokeCommandAction Command="{Binding DataContext.cmdIsChecked, RelativeSource={RelativeSource AncestorType=TreeView}}" CommandParameter="{Binding}" />
-                                                    </i:EventTrigger>
-                                                </i:Interaction.Triggers>
-                                            </CheckBox>
-                                            <TextBlock Text="{Binding RechtenName}">
-                                                <TextBlock.Style>
-                                                    <Style TargetType="TextBlock">
-                                                        <Setter Property="Foreground" Value="Black" />
-                                                        <Style.Triggers>
-                                                            <DataTrigger Binding="{Binding RelativeSource={RelativeSource AncestorType=TreeViewItem}, Path=IsSelected}" Value="True">
-                                                                <Setter Property="Foreground" Value="DarkBlue" />
-                                                            </DataTrigger>
-                                                        </Style.Triggers>
-                                                    </Style>
-                                                </TextBlock.Style>
-                                            </TextBlock>
-                                        </StackPanel>
-                                    </DataTemplate>
-                                </HierarchicalDataTemplate.ItemTemplate>
-                            </HierarchicalDataTemplate>
-                        </TreeView.ItemTemplate>
-                    </TreeView>
-                </ScrollViewer>
+                <TreeView
+                    Grid.Row="2"
+                    Grid.Column="3"
+                    ItemsSource="{Binding MijnRechtenCatogorieCollectie}">
+                    <TreeView.Resources>
+                        <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="#FFDDEEFF" />
+                        <SolidColorBrush x:Key="{x:Static SystemColors.ControlBrushKey}" Color="Transparent" />
+                        <SolidColorBrush x:Key="{x:Static SystemColors.HighlightTextBrushKey}" Color="Black" />
+                    </TreeView.Resources>
+                    <TreeView.ItemTemplate>
+                        <HierarchicalDataTemplate ItemsSource="{Binding Rechten}">
+                            <StackPanel Orientation="Horizontal">
+                                <CheckBox IsChecked="{Binding IsChecked}">
+                                    <i:Interaction.Triggers>
+                                        <i:EventTrigger EventName="Click">
+                                            <i:InvokeCommandAction Command="{Binding DataContext.cmdIsChecked, RelativeSource={RelativeSource AncestorType=TreeView}}" CommandParameter="{Binding}" />
+                                        </i:EventTrigger>
+                                    </i:Interaction.Triggers>
+                                </CheckBox>
+                                <TextBlock Text="{Binding CatogorieNaam}">
+                                    <TextBlock.Style>
+                                        <Style TargetType="TextBlock">
+                                            <Setter Property="Foreground" Value="Black" />
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding RelativeSource={RelativeSource AncestorType=TreeViewItem}, Path=IsSelected}" Value="True">
+                                                    <Setter Property="Foreground" Value="DarkBlue" />
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </TextBlock.Style>
+                                </TextBlock>
+                            </StackPanel>
+                            <HierarchicalDataTemplate.ItemTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Horizontal">
+                                        <CheckBox IsChecked="{Binding IsChecked}">
+                                            <i:Interaction.Triggers>
+                                                <i:EventTrigger EventName="Click">
+                                                    <i:InvokeCommandAction Command="{Binding DataContext.cmdIsChecked, RelativeSource={RelativeSource AncestorType=TreeView}}" CommandParameter="{Binding}" />
+                                                </i:EventTrigger>
+                                            </i:Interaction.Triggers>
+                                        </CheckBox>
+                                        <TextBlock Text="{Binding RechtenName}">
+                                            <TextBlock.Style>
+                                                <Style TargetType="TextBlock">
+                                                    <Setter Property="Foreground" Value="Black" />
+                                                    <Style.Triggers>
+                                                        <DataTrigger Binding="{Binding RelativeSource={RelativeSource AncestorType=TreeViewItem}, Path=IsSelected}" Value="True">
+                                                            <Setter Property="Foreground" Value="DarkBlue" />
+                                                        </DataTrigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </TextBlock.Style>
+                                        </TextBlock>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </HierarchicalDataTemplate.ItemTemplate>
+                        </HierarchicalDataTemplate>
+                    </TreeView.ItemTemplate>
+                </TreeView>
                 <!--#endregion-->
             </Grid>
         </Border>
