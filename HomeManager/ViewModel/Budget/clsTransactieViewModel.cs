@@ -606,26 +606,63 @@ namespace HomeManager.ViewModel
 
         private void Execute_Drop(object obj)
         {
+            //if (obj is DataObject dataObject && dataObject.GetDataPresent(DataFormats.FileDrop))
+            //{
+            //    var files = (string[])dataObject.GetData(DataFormats.FileDrop);
+            //    if (files.Length > 0)
+            //    {
+            //        foreach (var file in files)
+            //        {
+            //            string bijlageNaam = Path.GetFileName(file);
+            //            MijnCollectieBijlage.Add(new clsBijlageModel
+            //            {
+            //                IsNew = true,
+            //                BijlageNaam = bijlageNaam,
+            //                Bijlage = File.ReadAllBytes(file),
+            //                BudgetBijlageID = 0,
+            //                BudgetTransactionID = 0
+            //            });
+            //        }
+
+            //    }
+            //}
+
             if (obj is DataObject dataObject && dataObject.GetDataPresent(DataFormats.FileDrop))
             {
-                var files = (string[])dataObject.GetData(DataFormats.FileDrop);
-                if (files.Length > 0)
+                string[] bestanden = (string[])dataObject.GetData(DataFormats.FileDrop);
+                foreach (var bestand in bestanden)
                 {
-                    foreach (var file in files)
+                    string bestandsnaam = Path.GetFileName(bestand);
+                    
+                    // Controleer of er al een bijlage met dezelfde naam bestaat
+                    if (MijnTijdelijkeBijlage.Any(b => b.BijlageNaam.Equals(bestandsnaam, StringComparison.OrdinalIgnoreCase)))
                     {
-                        string bijlageNaam = Path.GetFileName(file);
-                        MijnCollectieBijlage.Add(new clsBijlageModel
-                        {
-                            IsNew = true,
-                            BijlageNaam = bijlageNaam,
-                            Bijlage = File.ReadAllBytes(file),
-                            BudgetBijlageID = 0,
-                            BudgetTransactionID = 0
-                        });
+                        // Toon een waarschuwing aan de gebruiker
+                        MessageBox.Show($"Er bestaat al een bijlage met de naam '{bestandsnaam}'.", "Duplicaat bijlage", MessageBoxButton.OK, MessageBoxImage.Warning);
+                        continue;
                     }
+                    
+                    // Lees Bytes in en voeg toe aan de lijst
+                    byte[] bestandBytes = File.ReadAllBytes(bestand);
 
+                    MijnTijdelijkeBijlage.Add(new clsBijlageModel
+                    {
+                         IsNew = true,
+                         BijlageNaam = bestandsnaam,
+                         Bijlage = File.ReadAllBytes(bestand),
+                         BudgetBijlageID = 0,
+                         BudgetTransactionID = 0
+                    });
+
+                    // Bestand tijdelijk opslaan
+                    string tempPad = Path.Combine(Path.GetTempPath(), bestandsnaam);
+                    File.WriteAllBytes(tempPad, bestandBytes);
+
+                    // Markeer het item als gewijzigd
+                    MijnSelectedItem.IsDirty = true;
                 }
             }
+            
         }
 
 
