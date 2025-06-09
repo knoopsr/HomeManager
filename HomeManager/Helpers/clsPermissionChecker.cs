@@ -61,14 +61,14 @@ namespace HomeManager.Helpers
 
             // Securitybeheer
             { "clsRechtenViewModel", "200" },
-            { "clsCredentialManagementViewModel", "200" },
-            { "clsCredentialGroupViewModel", "200" },
-            { "clsAccountViewModel", "200" },
+            { "clsCredentialManagementViewModel", "220" },
+            { "clsCredentialGroupViewModel", "210" },
+            { "clsAccountViewModel", "230" },
 
             // Todo/Collectie beheer
-            { "clsCategorieënVM", "500" },
-            { "clsCollectiesVM", "500" },
-            { "clsKleurenVM", "500" },
+            { "clsCategorieënVM", "520" },
+            { "clsCollectiesVM", "510" },
+            { "clsKleurenVM", "530" },
             { "clsTodoVM", "500" },
 
             // Dagboek

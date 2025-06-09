@@ -16,7 +16,7 @@ namespace HomeManager.ViewModel
         #region Fields
 
         private bool NewStatus = false;
-
+        private clsPermissionChecker _permissionChecker = new();
         private clsRechtenDataService MijnRechtenService;
         private clsRechtenCatogorieDataService MijnRechtenCatogorieService;
         private clsRollenDataService MijnRollenService;
@@ -69,7 +69,16 @@ namespace HomeManager.ViewModel
         /// <summary>
         /// Verzameling van rollen.
         /// </summary>
-        public ObservableCollection<clsRollenModel> MijnRollenCollectie { get; set; }
+        private ObservableCollection<clsRollenModel> _mijnRollenCollectie;
+        public ObservableCollection<clsRollenModel> MijnRollenCollectie
+        {
+            get => _mijnRollenCollectie;
+            set
+            {
+                _mijnRollenCollectie = value;
+                OnPropertyChanged();
+            }
+        }
 
         /// <summary>
         /// De momenteel geselecteerde rol.
@@ -200,7 +209,14 @@ namespace HomeManager.ViewModel
             IsFocusedAfterNew = true;
         }
 
-        private bool CanExecute_cmdNew_Command(object? obj) => !NewStatus;
+        private bool CanExecute_cmdNew_Command(object? obj)
+        {
+            if (_permissionChecker.HasPermission("201"))
+            {
+                return !NewStatus;
+            }
+            return false;
+        }
 
         private void Execute_cmdDelete_Command(object? obj)
         {
@@ -218,11 +234,43 @@ namespace HomeManager.ViewModel
             }
         }
 
-        private bool CanExecute_cmdDelete_Command(object? obj) => MijnSelectedItem != null && MijnSelectedItem.RolName != "Admin" && !NewStatus;
+        private bool CanExecute_cmdDelete_Command(object? obj)
+        {
+            if (_permissionChecker.HasPermission("203"))
+            {
+                if (MijnSelectedItem != null && MijnSelectedItem.RolName != "Admin" && !NewStatus)
+                {                 
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            return false;
+        }
+
+
 
         private void Execute_cmdSave_Command(object? obj) => OpslaanCommando();
 
-        private bool CanExecute_cmdSave_Command(object? obj) => MijnSelectedItem != null && MijnSelectedItem.Error == null && MijnSelectedItem.IsDirty;
+        private bool CanExecute_cmdSave_Command(object? obj)
+        {
+            if (_permissionChecker.HasPermission("202"))
+            {
+                if (MijnSelectedItem != null &&
+                MijnSelectedItem.Error == null &&
+                MijnSelectedItem.IsDirty == true)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            return false;
+        }
 
         private void OpslaanCommando()
         {

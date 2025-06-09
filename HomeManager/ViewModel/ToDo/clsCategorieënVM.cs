@@ -16,6 +16,7 @@ namespace HomeManager.ViewModel;
 public class clsCategorieënVM : clsCommonModelPropertiesBase
 {
     clsCategorieënDataService MijnService;
+    private clsPermissionChecker _permissionChecker = new();
 
     private bool NewStatus = false;
     public ICommand cmdDelete { get; set; }
@@ -173,7 +174,11 @@ public class clsCategorieënVM : clsCommonModelPropertiesBase
 
     private bool CanExecute_NewCommand(object obj)
     {
-        return !NewStatus;
+        if (_permissionChecker.HasPermission("521"))
+        {
+            return !NewStatus;
+        }
+        return false;
     }
 
     private void Execute_NewCommand(object obj)
@@ -194,19 +199,22 @@ public class clsCategorieënVM : clsCommonModelPropertiesBase
 
     private bool CanExecute_DeleteCommand(object obj)
     {
-        if (MijnSelectedItem != null)
-
+        if (_permissionChecker.HasPermission("523"))
         {
-            if (NewStatus)
+            if (MijnSelectedItem != null)
+            {
+                if (NewStatus)
+                {
+                    return false;
+                }
+                return true;
+            }
+            else
             {
                 return false;
             }
-            return true;
         }
-        else
-        {
-            return false;
-        }
+        return false;
     }
 
     private void Execute_DeleteCommand(object obj)
@@ -231,16 +239,20 @@ public class clsCategorieënVM : clsCommonModelPropertiesBase
 
     private bool CanExecute_SaveCommand(object obj)
     {
-        if (MijnSelectedItem != null &&
-        MijnSelectedItem.Error == null &&
-        MijnSelectedItem.IsDirty == true)
+        if (_permissionChecker.HasPermission("522"))
         {
-            return true;
+            if (MijnSelectedItem != null &&
+            MijnSelectedItem.Error == null &&
+            MijnSelectedItem.IsDirty == true)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
-        else
-        {
-            return false;
-        }
+        return false;
     }
 
     private void Execute_SaveCommand(object obj)
@@ -253,9 +265,5 @@ public class clsCategorieënVM : clsCommonModelPropertiesBase
     {
         _MijnSelectedItem = obj;
     }
-
-
-
-
 
 }
