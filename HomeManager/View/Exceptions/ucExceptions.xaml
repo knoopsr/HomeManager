@@ -122,7 +122,8 @@
                     AutoGenerateColumns="False"
                     ColumnWidth="*"
                     IsReadOnly="True"
-                    ItemsSource="{Binding MijnGefilterdeCollectie}">
+                    ItemsSource="{Binding MijnGefilterdeCollectie}"
+                    RowHeight="30">
                     <DataGrid.Columns>
                         <DataGridTextColumn
                             Width="auto"
@@ -153,9 +154,17 @@
                             Binding="{Binding InnerExceptionMessage}"
                             Header="InnerExceptionMessage" />
                         <DataGridTextColumn
-                            Width="auto"
+                            Width="100"
                             Binding="{Binding StackTrace}"
-                            Header="StackTrace" />
+                            Header="StackTrace">
+                            <DataGridTextColumn.ElementStyle>
+                                <Style TargetType="TextBlock">
+                                    <Setter Property="TextWrapping" Value="NoWrap" />
+                                    <Setter Property="TextTrimming" Value="CharacterEllipsis" />
+                                    <Setter Property="ToolTip" Value="{Binding StackTrace}" />
+                                </Style>
+                            </DataGridTextColumn.ElementStyle>
+                        </DataGridTextColumn>
                         <DataGridTextColumn
                             Width="auto"
                             Binding="{Binding DotNetAssembly}"
