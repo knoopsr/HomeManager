@@ -21,6 +21,7 @@ using System.Text.RegularExpressions;
 using HomeManager.Model.Personen;
 using HomeManager.DataService.Personen;
 using HomeManager.Services;
+using System.Windows.Documents.DocumentStructures;
 
 namespace HomeManager.ViewModel
 {
@@ -760,11 +761,40 @@ namespace HomeManager.ViewModel
             {
                 var selection = rtb.Selection;
                 var paragraph = selection.Start.Paragraph;
-                if (paragraph != null)
+
+                if (paragraph != null && paragraph.Parent is FlowDocument doc)
                 {
+                    //debug
+                    //StringBuilder sb = new StringBuilder();
+                    //DependencyObject? current = paragraph;
+
+                    //while (current != null)
+                    //{
+                    //    sb.AppendLine($"{current.GetType().Name}");
+
+                    //    // Stop if it's the FlowDocument
+                    //    if (current is FlowDocument)
+                    //        break;
+
+                    //    current = LogicalTreeHelper.GetParent(current);
+                    //}
+
+                    //MessageBox.Show(sb.ToString());
+
+                    // Clone the paragraph to avoid moving it
+                    var xaml = System.Windows.Markup.XamlWriter.Save(paragraph);
+                    var clone = (Paragraph)System.Windows.Markup.XamlReader.Parse(xaml);
+
                     var list = new List { MarkerStyle = TextMarkerStyle.Decimal };
-                    list.ListItems.Add(new ListItem(paragraph));
-                    rtb.Document.Blocks.Add(list);
+                    list.ListItems.Add(new ListItem(clone));
+
+                    // Insert the list before the original paragraph, then remove the paragraph
+                    doc.Blocks.InsertBefore(paragraph, list);
+                    doc.Blocks.Remove(paragraph);
+
+                    //set caret position inside the new bullet
+                    rtb.CaretPosition = clone.ContentStart;
+                    rtb.Focus(); // Optional: brings focus back if needed
                 }
             }
         }
@@ -776,11 +806,40 @@ namespace HomeManager.ViewModel
             {
                 var selection = rtb.Selection;
                 var paragraph = selection.Start.Paragraph;
-                if (paragraph != null)
+
+                if (paragraph != null && paragraph.Parent is FlowDocument doc)
                 {
+                    //debug
+                    //StringBuilder sb = new StringBuilder();
+                    //DependencyObject? current = paragraph;
+
+                    //while (current != null)
+                    //{
+                    //    sb.AppendLine($"{current.GetType().Name}");
+
+                    //    // Stop if it's the FlowDocument
+                    //    if (current is FlowDocument)
+                    //        break;
+
+                    //    current = LogicalTreeHelper.GetParent(current);
+                    //}
+
+                    //MessageBox.Show(sb.ToString());
+
+                    // Clone the paragraph to avoid moving it
+                    var xaml = System.Windows.Markup.XamlWriter.Save(paragraph);
+                    var clone = (Paragraph)System.Windows.Markup.XamlReader.Parse(xaml);
+
                     var list = new List { MarkerStyle = TextMarkerStyle.Box };
-                    list.ListItems.Add(new ListItem(paragraph));
-                    rtb.Document.Blocks.Add(list);
+                    list.ListItems.Add(new ListItem(clone));
+
+                    // Insert the list before the original paragraph, then remove the paragraph
+                    doc.Blocks.InsertBefore(paragraph, list);
+                    doc.Blocks.Remove(paragraph);
+
+                    //set caret position inside the new bullet
+                    rtb.CaretPosition = clone.ContentStart;
+                    rtb.Focus(); // Optional: brings focus back if needed
                 }
             }
         }
