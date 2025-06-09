@@ -647,7 +647,7 @@ namespace HomeManager.ViewModel
 
         private void Execute_New_Command(object? obj)
         {
-            safetySave();
+            //safetySave();
 
             var _obj = new clsDagboekModel()
             {
@@ -700,6 +700,8 @@ namespace HomeManager.ViewModel
                         MessageBox.Show(MySelectedItem.ErrorBoodschap);
                     }
                     isNew = false;
+                    GenerateCollection();
+                    MySelectedItem = MijnCollectie.FirstOrDefault();
                 }
                 else
                 {
